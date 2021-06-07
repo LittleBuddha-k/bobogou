@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper">
+    <sql id="medicineColumns">
+        id AS "id",
+        name AS "name",
+        function AS "function",
+        original_price AS "originalPrice",
+        discount_price AS "discountPrice",
+        picture AS "picture",
+        rebate AS "rebate",
+        label AS "label",
+        prescription_type AS "prescriptionType",
+        basic_unit AS "basicUnit",
+        brand AS "brand",
+        approval_number AS "approvalNumber",
+        place_of_origin AS "placeOfOrigin",
+        component AS "component",
+        create_by AS "createBy.id",
+        create_date AS "createDate",
+        update_by AS "updateBy.id",
+        update_date AS "updateDate",
+        remarks AS "remarks",
+        del_flag AS "delFlag"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+        SELECT
+        <include refid="medicineColumns"/>
+        FROM recruit_data_medicine a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+        SELECT
+        <include refid="medicineColumns"/>
+        FROM recruit_data_medicine a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                and a.name = #{name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+        SELECT
+        <include refid="medicineColumns"/>
+        FROM recruit_data_medicine a
+        <where>
+            a.del_flag = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                and a.name = #{name}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+        SELECT
+        <include refid="medicineColumns"/>
+        FROM recruit_data_medicine a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO recruit_data_medicine(
+            id,
+            name,
+            function,
+            original_price,
+            discount_price,
+            picture,
+            rebate,
+            label,
+            prescription_type,
+            basic_unit,
+            brand,
+            approval_number,
+            place_of_origin,
+            component,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            del_flag
+        )VALUES (
+            #{id},
+            #{name},
+            #{function},
+            #{originalPrice},
+            #{discountPrice},
+            #{picture},
+            #{rebate},
+            #{label},
+            #{prescriptionType},
+            #{basicUnit},
+            #{brand},
+            #{approvalNumber},
+            #{placeOfOrigin},
+            #{component},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE recruit_data_medicine SET
+            name = #{name},
+            function = #{function},
+            original_price = #{originalPrice},
+            discount_price = #{discountPrice},
+            picture = #{picture},
+            rebate = #{rebate},
+            label = #{label},
+            prescription_type = #{prescriptionType},
+            basic_unit = #{basicUnit},
+            brand = #{brand},
+            approval_number = #{approvalNumber},
+            place_of_origin = #{placeOfOrigin},
+            component = #{component},
+            create_by = #{createBy.id},
+            create_date = #{createDate},
+            update_by = #{updateBy.id},
+            update_date = #{updateDate},
+            remarks = #{remarks},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE recruit_data_medicine SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE recruit_data_medicine SET del_flag = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM recruit_data_medicine
+        WHERE id=#{id}
+    </delete>
+</mapper>

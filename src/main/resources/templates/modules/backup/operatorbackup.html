@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>用户管理</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap-theme.min.css">
+    <!-- 引入bootstrap-table样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <!--引入jquery-->
+    <script src="/recruit/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/recruit/bootstrap/js/bootstrap.min.js"></script>
+    <!-- bootstrap-table.min.js -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <!-- 引入中文语言包 -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/recruit/utils/util.js"></script>
+    <!--引入本html的js文件-->
+    <script type="text/javascript" src="/recruit/modules/system/operator.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/recruit/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/recruit/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/recruit/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<!--表格显示区域-->
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+        <!--查询-->
+        <form class="form-horizontal collapse" col-xs-12 col-sm-12 col-md-12 col-lg-12 id="operatorSearchForm">
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="username" class="col-sm-3 control-label">姓名</label>
+                <div class="col-sm-9">
+                    <input type="username" class="form-control" id="username" name="username"
+                           th:value="${operator.getUsername()}" placeholder="姓名">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="sex" class="col-sm-3 control-label">性别</label>
+                <div class="col-sm-9">
+                    <input type="sex" class="form-control" id="sex" name="sex" th:value="${operator.getSex()}"
+                           placeholder="性别">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="age" class="col-sm-3 control-label">年龄</label>
+                <div class="col-sm-9">
+                    <input type="age" class="form-control" id="age" name="age" th:value="${operator.getAge()}"
+                           placeholder="年龄">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="address" class="col-sm-3 control-label">地址</label>
+                <div class="col-sm-9">
+                    <input type="address" class="form-control" id="address" name="address"
+                           th:value="${operator.getAddress()}" placeholder="地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-default" th:id="search">查询</button>
+                    <button type="button" class="btn btn-default" th:id="reset">重置</button>
+                </div>
+            </div>
+        </form>
+        <!--左上角工具栏-->
+        <div id="toolbar">
+            <shiro:hasRole name="admin">
+                <button id="add" class="btn btn-primary" onclick="add()">
+                    <i class="glyphicon glyphicon-plus"></i> 新建
+                </button>
+            </shiro:hasRole>
+            <shiro:hasRole name="admin">
+                <button id="edit" class="btn btn-success" onclick="edit()">
+                    <i class="glyphicon glyphicon-edit"></i> 编辑
+                </button>
+            </shiro:hasRole>
+            <shiro:hasRole name="admin">
+                <button id="view" class="btn btn-default" onclick="view()">
+                    <i class="fa fa-search-plus"></i> 查看
+                </button>
+            </shiro:hasRole>
+            <shiro:hasRole name="admin">
+                <button id="remove" class="btn btn-danger" onclick="del()">
+                    <i class="glyphicon glyphicon-remove"></i> 删除
+                </button>
+            </shiro:hasRole>
+            <shiro:hasPermission name="admin">
+                <button id="btnImport" class="btn btn-info" onclick="importFile()">
+                    <i class="fa fa-folder-open-o"></i> 导入
+                </button>
+            </shiro:hasPermission>
+            <shiro:hasPermission name="admin">
+                <button id="export" class="btn btn-warning" onclick="exportFile()">
+                    <i class="fa fa-file-excel-o"></i> 导出
+                </button>
+            </shiro:hasPermission>
+        </div>
+        <!--搜索下拉搜寻表单按钮--隐藏状态-->
+        <div id="toolButton" class="collapse">
+            <button type="button" id="searchButton" class="btn btn-default" onclick="showSearchButton()">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+        </div>
+        <!--表格区域-->
+        <table id="operatorTable" style="white-space:nowrap"></table>
+    </div>
+</div>
+</body>
+</html>

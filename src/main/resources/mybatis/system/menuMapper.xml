@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.MenuMapper">
+    <sql id="menuColumns">
+        a.id AS "id",
+        a.parent_id AS "parent.id",
+        a.parent_ids AS "parentIds",
+        a.title AS "title",
+        a.href AS "href",
+        a.target AS "target",
+        a.icon AS "icon",
+        a.sort AS "sort",
+        a.is_show AS "isShow",
+        a.type AS "type",
+        a.permission AS "permission",
+        a.has_children AS "hasChildren",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <sql id="menuJoins">
+        LEFT JOIN recruit_role_menu b ON a.id = b.menu_id
+        LEFT JOIN recruit_system_role c ON b.role_id = c.id
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM recruit_system_menu a
+        WHERE id=#{id}
+    </select>
+
+    <select id="getRoleMenusByRole" parameterType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
+        SELECT
+            a.id AS "id",
+            a.role_id AS "role.id",
+            a.menu_id AS "menu.id"
+        FROM recruit_role_menu a
+        WHERE a.role_id=#{role.id}
+    </select>
+
+    <select id="getMenusByRole" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM recruit_system_menu a
+        <include refid="menuJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="role != null and role.id != null and role.id != ''">
+                and b.role_id = #{role.id}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY a.sort DESC
+            </when>
+            <otherwise>
+                ORDER BY a.sort DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByParentIdsLike" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+		SELECT
+			a.id AS "id",
+			a.parent_id AS "parent.id",
+			a.parent_ids AS "parentIds"
+		FROM recruit_system_menu a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.parent_ids LIKE #{parentIds}
+		ORDER BY a.sort
+	</select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM recruit_system_menu a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="title != null and title != ''">
+                and a.title = #{title}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY a.sort
+            </when>
+            <otherwise>
+                ORDER BY a.sort DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM recruit_system_menu a
+        <where>
+            a.del_flag = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="title != null and title != ''">
+                and a.title = #{title}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY a.sort
+            </when>
+            <otherwise>
+                ORDER BY a.sort DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+        SELECT
+        <include refid="menuColumns"/>
+        FROM recruit_system_menu a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+                ORDER BY a.sort
+            </when>
+            <otherwise>
+                ORDER BY a.sort
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO recruit_system_menu(
+            id,
+            parent_id,
+            parent_ids,
+            title,
+            href,
+            target,
+            icon,
+            sort,
+            is_show,
+            type,
+            permission,
+            has_children,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            del_flag
+        )VALUES (
+            #{id},
+            #{parent.id},
+            #{parentIds},
+            #{title},
+            #{href},
+            #{target},
+            #{icon},
+            #{sort},
+            #{isShow},
+            #{type},
+            #{permission},
+            #{hasChildren},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE recruit_system_menu SET
+            parent_id = #{parent.id},
+            parent_ids = #{parentIds},
+            title = #{title},
+            href = #{href},
+            target = #{target},
+            icon = #{icon},
+            sort = #{sort},
+            is_show = #{isShow},
+            type = #{type},
+            permission = #{permission},
+            has_children = #{hasChildren},
+            create_by = #{createBy.id},
+            create_date = #{createDate},
+            update_by = #{updateBy.id},
+            update_date = #{updateDate},
+            remarks = #{remarks},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE recruit_system_menu SET del_flag = 1
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE recruit_system_menu SET del_flag = 0
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateParentIds">
+		UPDATE recruit_system_menu SET
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM recruit_system_menu
+        WHERE id=#{id}
+    </delete>
+</mapper>

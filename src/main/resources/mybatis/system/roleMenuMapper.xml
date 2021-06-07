@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.RoleMenuMapper">
+    <sql id="roleColumns">
+        id AS "id",
+        role_id AS "role.id",
+        menu_id AS "menu.id"
+    </sql>
+
+    <sql id="roleJoins">
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
+        SELECT
+        <include refid="roleColumns"/>
+        FROM recruit_role_menu a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="getByRoleMenu" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
+        SELECT
+        <include refid="roleColumns"/>
+        FROM recruit_role_menu a
+        <where>
+            <if test="role != null and role.id != null and role.id != ''">
+                a.role_id=#{role.id}
+            </if>
+            <if test="menu != null and menu.id != null and menu.id != ''">
+                AND a.menu_id=#{menu.id}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO recruit_role_menu(
+            id,
+            role_id,
+            menu_id
+        )VALUES (
+            #{id},
+            #{role.id},
+            #{menu.id}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE recruit_role_menu SET
+            role_id = #{role.id},
+            menu_id = #{menu.id},
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM recruit_role_menu
+        <where>
+            <if test="role != null and role.id != null and role.id != ''">
+                role_id=#{role.id}
+            </if>
+            <if test="menu != null and menu.id != null and menu.id != ''">
+                AND menu_id=#{menu.id}
+            </if>
+        </where>
+    </delete>
+
+    <!--删除一切用户角色-->
+    <delete id="deleteOutByRole">
+        DELETE FROM recruit_role_menu
+        WHERE role_id = #{roleId}
+    </delete>
+</mapper>

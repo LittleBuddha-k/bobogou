@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>导入页面</title>
+    <!--引入jquery-->
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--引入本html的js文件-->
+    <script type="text/javascript" src="/bobogou/modules/common/import.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<!--表格显示区域-->
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+        <!--查询-->
+        <form style="margin: 10% 45%" id="fileForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="upload">选择文件</label>
+                <input type="file" id="upload" name="file">
+                <p class="help-block">请选择多大的文件</p>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

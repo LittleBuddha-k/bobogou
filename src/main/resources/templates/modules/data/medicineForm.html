@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>药品管理</title>
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="medicineForm">
+        <input type="hidden" name="id" th:value="${medicine.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">药名</label>
+                <div class="layui-input-inline">
+                    <input type="name" id="name" th:name="name" th:value="${medicine.getName()}"
+                           placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">功能</label>
+                <div class="layui-input-inline">
+                    <input type="function" id="function" th:name="function" th:value="${medicine.getFunction()}"
+                           placeholder="功能" lay-verify="required|function" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">原价</label>
+                <div class="layui-input-inline">
+                    <input type="originalPrice" id="originalPrice" th:name="originalPrice"
+                           th:value="${medicine.getOriginalPrice()}"
+                           placeholder="原价" lay-verify="required|originalPrice" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">折后价</label>
+                <div class="layui-input-inline">
+                    <input type="discountPrice" id="discountPrice" th:name="discountPrice"
+                           th:value="${medicine.getDiscountPrice()}"
+                           placeholder="折后价" lay-verify="required|discountPrice" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">图片</label>
+                <div class="layui-input-inline">
+                    <input type="picture" id="picture" th:name="picture" th:value="${medicine.getPicture()}"
+                           placeholder="图片" lay-verify="required|picture" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //保存方法
+    function save(parentIndex) {
+        $.ajax({
+            url: "/bobogou/data/medicine/save",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: $("#medicineForm").serialize(),    //参数值
+            type: "POST",   //请求方式
+            success: function (result) {
+                //假设这是iframe页
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+                parent.refresh();
+                rc.alert(result.msg)
+            },
+            error: function (result) {
+                rc.alert(result.msg)
+            }
+        });
+    }
+</script>
+</body>
+</html>

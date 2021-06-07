@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>角色管理</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap-theme.min.css">
+    <!-- 引入bootstrap-table样式 -->
+    <link href="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.css" rel="stylesheet">
+    <!--引入jquery-->
+    <script src="/recruit/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/recruit/bootstrap/js/bootstrap.min.js"></script>
+    <!-- bootstrap-table.min.js -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/bootstrap-table.min.js"></script>
+    <!-- 引入中文语言包 -->
+    <script src="https://cdn.bootcss.com/bootstrap-table/1.11.1/locale/bootstrap-table-zh-CN.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/recruit/utils/util.js"></script>
+    <!--引入本html的js文件-->
+    <script type="text/javascript" src="/recruit/modules/system/addRolePage.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/recruit/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/recruit/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/recruit/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<!--表格显示区域-->
+<div class="container col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+        <!--查询-->
+        <form class="form-horizontal collapse" col-xs-12 col-sm-12 col-md-12 col-lg-12 id="roleSearchForm">
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="name" class="col-sm-4 control-label">角色名称</label>
+                <div class="col-sm-8">
+                    <input type="name" class="form-control" id="name" name="role.name"
+                             placeholder="角色名称">
+                </div>
+            </div>
+            <div class="form-group col-xs-12 col-sm-12	col-md-4 col-lg-4">
+                <label for="englishName" class="col-sm-4 control-label">英文名称</label>
+                <div class="col-sm-8">
+                    <input type="englishName" class="form-control" id="englishName" name="englishName"
+                            placeholder="英文名称">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-default" th:id="search">查询</button>
+                    <button type="button" class="btn btn-default" th:id="reset">重置</button>
+                </div>
+            </div>
+        </form>
+        <!--搜索下拉搜寻表单按钮--隐藏状态-->
+        <div id="toolButton" class="collapse">
+            <button type="button" id="searchButton" class="btn btn-default" onclick="showSearchButton()">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+        </div>
+        <!--表格区域-->
+        <table id="roleTable" style="white-space:nowrap"></table>
+
+        <form id="hiddenForm" class="form-horizontal col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+            <input type="hidden" name="id" th:value="${operator.id}">
+            <input type="hidden" name="username" th:value="${operator.username}">
+            <input type="hidden" name="password" th:value="${operator.password}">
+            <input type="hidden" name="sex" th:value="${operator.sex}">
+            <input type="hidden" name="age" th:value="${operator.age}">
+            <input type="hidden" name="address" th:value="${operator.address}">
+            <input type="hidden" name="rolesId" th:value="${rolesId}" id="rolesId">
+        </form>
+    </div>
+</div>
+</body>
+</html>

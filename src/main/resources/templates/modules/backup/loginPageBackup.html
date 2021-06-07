@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap.min.css">
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="/recruit/bootstrap/css/bootstrap-theme.min.css">
+    <script src="/recruit/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="/recruit/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12" style="margin-top: 30%">
+        <form class="form-horizontal col-xs-12 col-sm-12 col-md-12 col-lg-12" id="login-form">
+            <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                    <label for="username" class="col-sm-3 control-label">用户名</label>
+                    <div class="col-sm-9">
+                        <input type="username" class="form-control" id="username" placeholder="请输入用户名" name="username">
+                    </div>
+                </div>
+            </div>
+            <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                    <label for="password" class="col-sm-3 control-label">密码</label>
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password">
+                    </div>
+                </div>
+            </div>
+            <div class="row col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                <div class="form-group col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                    <div class="col-sm-offset-6 col-xs-12 col-sm-12	col-md-12 col-lg-12">
+                        <button type="button" class="btn btn-default" id="login-button">登录</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="application/javascript">
+    $("#login-button").click(function () {
+        $.ajax({
+            url: "/recruit/system/login",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: $("#login-form").serialize(),    //参数值
+            type: "POST",   //请求方式
+            success: function (result) {
+                //请求成功时处理
+                if(200 == result.code){
+                    window.location.href = '/recruit/portal/list';
+                }else {
+                    alert(result.msg);
+                }
+            },
+            error: function () {
+                //请求出错处理
+                alert("请求出错");
+            }
+        })
+    })
+</script>
+</body>
+</html>

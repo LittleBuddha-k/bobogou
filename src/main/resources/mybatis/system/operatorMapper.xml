@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper">
+    <sql id="operatorColumns">
+        id AS "id",
+        username AS "username",
+        password AS "password",
+        salt AS "salt",
+        sex AS "sex",
+        age AS "age",
+        address AS "address",
+        phone AS "phone",
+        resume AS "resume.id",
+        create_by AS "createBy.id",
+        create_date AS "createDate",
+        update_by AS "updateBy.id",
+        update_date AS "updateDate",
+        remarks AS "remarks",
+        del_flag AS "delFlag"
+    </sql>
+
+    <sql id="operatorJoins">
+        LEFT JOIN recruit_operator_role b ON a.id=b.operator_id
+        LEFT JOIN recruit_system_role c ON b.role_id=c.id
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM recruit_system_operator
+        WHERE id=#{id}
+    </select>
+
+    <select id="getOperatorByName" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM recruit_system_operator
+        WHERE username=#{username}
+    </select>
+
+    <!--根据用户和角色查询是否有operator-role数据-->
+    <select id="getOperatorRole" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRole">
+        SELECT
+        id AS "id",
+        operator_id AS "operator.id",
+        role_id AS "role.id"
+        FROM recruit_operator_role a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="operator != null and operator.id != null and operator.id != ''">
+                and a.operator_id = #{operator.id}
+            </if>
+            <if test="role != null and role.id != null and role.id != ''">
+                and a.role_id = #{role.id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getRoleMenusByRole" parameterType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
+        SELECT
+            a.id AS "id",
+            a.role_id AS "role.id",
+            a.menu_id AS "menu.id"
+        FROM recruit_role_menu a
+        WHERE a.role_id=#{role.id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM recruit_system_operator a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="username != null and username != ''">
+                and a.username = #{username}
+            </if>
+            <if test="sex != null and sex != ''">
+                and a.sex = #{sex}
+            </if>
+            <if test="age != null and age != ''">
+                and a.age = #{age}
+            </if>
+            <if test="address != null and address != ''">
+                and a.address = #{address}
+            </if>
+            <if test="phone != null and address != ''">
+                and a.phone = #{phone}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM recruit_system_operator a
+        <where>
+            a.del_flag = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="username != null and username != ''">
+                and a.username = #{username}
+            </if>
+            <if test="sex != null and sex != ''">
+                and a.sex = #{sex}
+            </if>
+            <if test="age != null and age != ''">
+                and a.age = #{age}
+            </if>
+            <if test="address != null and address != ''">
+                and a.address = #{address}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM recruit_system_operator a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO recruit_system_operator(
+            id,
+            username,
+            password,
+            salt,
+            sex,
+            age,
+            address,
+            phone,
+            resume,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            del_flag
+        )VALUES (
+            #{id},
+            #{username},
+            #{password},
+            #{salt},
+            #{sex},
+            #{age},
+            #{address},
+            #{phone},
+            #{resume.id},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{delFlag}
+        )
+    </insert>
+
+    <insert id="insertOperatorRole">
+        INSERT INTO recruit_operator_role(
+            id,
+            operator_id,
+            role_id,
+            del_flag
+        )VALUES (
+            #{id},
+            #{operator.id},
+            #{role.id},
+            #{delFlag}
+       )
+    </insert>
+
+    <update id="update">
+        UPDATE recruit_system_operator SET
+            username = #{username},
+            password = #{password},
+            salt = #{salt},
+            sex = #{sex},
+            age = #{age},
+            address = #{address},
+            phone = #{phone},
+            resume = #{resume.id},
+            create_by = #{createBy.id},
+            create_date = #{createDate},
+            update_by = #{updateBy.id},
+            update_date = #{updateDate},
+            remarks = #{remarks},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateOperatorRole">
+        UPDATE recruit_operator_role SET
+            operator_id = #{operator.id},
+            role_id = #{role.id},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE recruit_system_operator SET del_flag = 1
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE recruit_system_operator SET del_flag = 0
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM recruit_system_operator
+        WHERE id=#{id}
+    </delete>
+
+    <delete id="deleteOperatorRole">
+        DELETE FROM recruit_operator_role
+        WHERE operator_id=#{operator.id}
+    </delete>
+</mapper>
