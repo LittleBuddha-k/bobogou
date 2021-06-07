@@ -33,25 +33,58 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '用户名',
-                    field: 'username'
+                    title: '用户电话',
+                    field: 'phone',
+                    sort: true
                 },
                 {
-                    title: '性别',
+                    title: '用户头像',
+                    field: 'header',
+                    sort: true
+                },
+                {
+                    title: '用户昵称',
+                    field: 'nickname',
+                    sort: true
+                },
+                {
+                    title: '用户性别',
                     field: 'sex',
                     sort: true
                 },
                 {
-                    title: '年龄',
-                    field: 'age'
+                    title: '会员等级',
+                    field: 'member',
+                    sort: true
                 },
                 {
-                    title: '住址',
-                    field: 'address'
+                    title: '积分',
+                    field: 'integral',
+                    sort: true
                 },
                 {
-                    title: '电话',
-                    field: 'phone',
+                    title: '健康豆',
+                    field: 'healthBeans',
+                    sort: true
+                },
+                {
+                    title: '收藏数量',
+                    field: 'collectNumber',
+                    sort: true
+                },
+                {
+                    title: '签到时间',
+                    field: 'signInTime',
+                    sort: true
+                },
+                {
+                    title: '消息接收状态',
+                    field: 'messageStatus',
+                    sort: true
+                },
+                {
+                    title: '是否同意用户协议',
+                    field: 'userAgreement',
                     sort: true
                 },
                 {
@@ -66,10 +99,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            username: $("#username").val(),
+            nickname: $("#nickname").val(),
             sex: $("#sex").val(),
-            age: $("#age").val(),
-            address: $("#address").val(),
             phone: $("#phone").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
@@ -80,10 +111,8 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('operatorTable', {
             where: {
-                username: $("#username").val(),
+                nickname: $("#nickname").val(),
                 sex: $("#sex").val(),
-                age: $("#age").val(),
-                address: $("#address").val(),
                 phone: $("#phone").val()
             }
         });

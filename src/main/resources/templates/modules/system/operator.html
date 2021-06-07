@@ -19,10 +19,10 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户姓名</label>
+                            <label class="layui-form-label">用户昵称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="username" th:value="${operator.getUsername()}"
-                                       th:id="username" autocomplete="off" class="layui-input">
+                                <input type="text" name="nickname" th:value="${operator.getNickname()}"
+                                       th:id="nickname" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -30,20 +30,6 @@
                             <div class="layui-input-inline">
                                 <input type="text" name="sex" th:value="${operator.getSex()}" autocomplete="off"
                                        th:id="sex" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">用户年龄</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="age" th:value="${operator.getAge()}" autocomplete="off"
-                                       th:id="age" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">用户住址</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="address" th:value="${operator.getAddress()}" autocomplete="off"
-                                       th:id="address" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">

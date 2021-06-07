@@ -16,17 +16,18 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
 
     private boolean isNewData = false;//此项数据是否为新数据
 
+    protected String isDeleted;       //0---正常  1---删除
+
     protected Operator createBy;
     protected Date createTime;
     protected Operator updateBy;
     protected Date updateTime;
 
     protected String remarks;
-    protected String isDeleted;       //0---正常  1---删除
 
     public DataEntity() {
         super();
-        this.delFlag = DEL_FLAG_NORMAL;
+        this.isDeleted = DEL_FLAG_NORMAL;
     }
 
     public DataEntity(String id) {
@@ -49,9 +50,9 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
         }
         Date now = new Date();
         this.createBy = entity;
-        this.createDate = now;
+        this.createTime = now;
         this.updateBy = entity;
-        this.updateDate = this.createDate;
+        this.updateTime = this.updateTime;
     }
 
     /**
@@ -61,7 +62,7 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
         Subject subject = SecurityUtils.getSubject();
         Operator entity = (Operator) subject.getPrincipal();
         this.updateBy = entity;
-        this.updateDate = new Date();
+        this.updateTime = new Date();
     }
 
     public Operator getCreateBy() {
@@ -73,11 +74,11 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     }
 
     public Date getCreateDate() {
-        return createDate;
+        return createTime;
     }
 
     public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+        this.createTime = createDate;
     }
 
     public Operator getUpdateBy() {
@@ -89,11 +90,11 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     }
 
     public Date getUpdateDate() {
-        return updateDate;
+        return updateTime;
     }
 
-    public void setUpdateDate(Date updateDate) {
-        updateDate = updateDate;
+    public void setUpdateDate(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getRemarks() {
@@ -105,10 +106,10 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     }
 
     public String getDelFlag() {
-        return delFlag;
+        return isDeleted;
     }
 
-    public void setDelFlag(String delFlag) {
-        this.delFlag = delFlag;
+    public void setDelFlag(String isDeleted) {
+        this.isDeleted = isDeleted;
     }
 }

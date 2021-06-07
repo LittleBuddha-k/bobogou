@@ -61,6 +61,7 @@ public class CustomerRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         OperatorService operatorService = (OperatorService) ApplicationContextUtils.getBean("operatorService");
         String principal = (String) authenticationToken.getPrincipal();
+        //用户注册不能同名
         Operator operator = operatorService.findOperatorByName(new Operator(principal));
 
         if (!ObjectUtils.isEmpty(operator)) {

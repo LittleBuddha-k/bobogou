@@ -31,7 +31,6 @@ public abstract class BaseEntity<E> implements Serializable {
 
     private String orderBy;
 
-    private String navSearch;//是否有导航栏的查询功能
 
     public BaseEntity() {
     }
@@ -94,13 +93,6 @@ public abstract class BaseEntity<E> implements Serializable {
         this.orderBy = orderBy;
     }
 
-    public String getNavSearch() {
-        return navSearch;
-    }
-
-    public void setNavSearch(String navSearch) {
-        this.navSearch = navSearch;
-    }
 
     /**
      * 插入之前执行方法，子类实现
