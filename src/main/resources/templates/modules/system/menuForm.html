@@ -54,15 +54,31 @@
             <div class="layui-inline">
                 <label class="layui-form-label">是否显示</label>
                 <div class="layui-input-inline">
-                    <input type="isShow" id="isShow" th:name="isShow" th:value="${menu.getIsShow()}"
-                           placeholder="是否显示" lay-verify="required|isShow" autocomplete="off" class="layui-input">
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode == 'add' || mode == 'addChildren'}">
+                        <option th:value="1" th:text="显示"></option>
+                        <option th:value="0" th:text="不显示"></option>
+                    </select>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode != 'add' && mode != 'addChildren'}">
+                        <option th:if="${1 == menu.isShow}" th:value="1" th:text="显示"></option>
+                        <option th:if="${1 == menu.isShow}" th:value="0" th:text="不显示"></option>
+                        <option th:if="${0 == menu.isShow}" th:value="0" th:text="不显示"></option>
+                        <option th:if="${0 == menu.isShow}" th:value="1" th:text="显示"></option>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <input type="type" id="type" th:name="type" th:value="${menu.getType()}"
-                           placeholder="类型" lay-verify="required|type" autocomplete="off" class="layui-input">
+                    <select name="type" id="type" lay-verify="" th:if="${mode == 'add' || mode == 'addChildren'}">
+                        <option th:value="0" th:text="菜单"></option>
+                        <option th:value="1" th:text="按钮"></option>
+                    </select>
+                    <select name="type" id="type" lay-verify="" th:if="${mode != 'add' && mode != 'addChildren'}">
+                        <option th:if="${0 == menu.type}" th:value="0" th:text="菜单"></option>
+                        <option th:if="${0 == menu.type}" th:value="1" th:text="按钮"></option>
+                        <option th:if="${1 == menu.type}" th:value="1" th:text="按钮"></option>
+                        <option th:if="${1 == menu.type}" th:value="0" th:text="菜单"></option>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
@@ -75,6 +91,16 @@
         </div>
     </form>
 </div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    layui.use('form', function(){
+        var form = layui.form;
+
+        //各种基于事件的操作，下面会有进一步介绍
+    });
+</script>
 <script type="text/javascript">
     //保存方法
     function save() {

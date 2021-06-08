@@ -43,16 +43,21 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
      * 保存数据前的操作，手动调用
      */
     public void preInsert() {
+        if (!this.isNewRecord){
+            if(this.getIdType().equals(IDTYPE_UUID)){
+                setId(AutoId.getAutoId());
+            }else if(this.getIdType().equals(IDTYPE_AUTO)){
+                //使用自增长不需要设置主键
+            }
+
+        }
         Subject subject = SecurityUtils.getSubject();
         Operator entity = (Operator) subject.getPrincipal();
-        if (!this.isNewData) {
-            setId(AutoId.getAutoId());
-        }
         Date now = new Date();
+        this.updateTime = now;
         this.createBy = entity;
-        this.createTime = now;
+        this.createTime = this.updateTime;
         this.updateBy = entity;
-        this.updateTime = this.updateTime;
     }
 
     /**

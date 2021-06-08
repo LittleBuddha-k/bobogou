@@ -20,6 +20,11 @@ public abstract class BaseEntity<E> implements Serializable {
     protected boolean isNewRecord = false;
 
     /**
+     * 主键策略（默认：UUID）
+     */
+    protected String IdType = IDTYPE_UUID;
+
+    /**
      * 当前实体分页对象
      * @return
      */
@@ -59,6 +64,15 @@ public abstract class BaseEntity<E> implements Serializable {
 
     public void setCurrentUser(Operator currentUser) {
         this.currentUser = currentUser;
+    }
+
+    @JsonIgnore
+    public String getIdType() {
+        return IdType;
+    }
+
+    public void setIdType(String idType) {
+        IdType = idType;
     }
 
     public Page<E> getPage() {
@@ -110,4 +124,7 @@ public abstract class BaseEntity<E> implements Serializable {
     public static final String DEL_FLAG_NORMAL = "0";
     public static final String DEL_FLAG_DELETE = "1";
     public static final String DEL_FLAG_AUDIT = "2";
+
+    public static final String IDTYPE_UUID = "UUID";
+    public static final String  IDTYPE_AUTO = "AUTO";
 }

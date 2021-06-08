@@ -20,8 +20,8 @@ public class Menu extends DataEntity<Menu> {
     private String target;    // 目标（ mainFrame、_blank、_self、_parent、_top）
     private String icon;    // 图标
     private Integer sort;    // 排序
-    private String isShow;    // 是否在菜单中显示（1：显示；0：不显示）
-    private String type; //按钮类型（1：按钮；0：菜单）
+    private Integer isShow;    // 是否在菜单中显示（1：显示；0：不显示）
+    private Integer type; //按钮类型（1：按钮；0：菜单）
     private String permission; // 权限标识
     private boolean hasChildren;
 
@@ -114,19 +114,19 @@ public class Menu extends DataEntity<Menu> {
         this.sort = sort;
     }
 
-    public String getIsShow() {
+    public Integer getIsShow() {
         return isShow;
     }
 
-    public void setIsShow(String isShow) {
+    public void setIsShow(Integer isShow) {
         this.isShow = isShow;
     }
 
-    public String getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 

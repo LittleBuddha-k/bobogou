@@ -182,7 +182,7 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
         //2.去除类型为按钮的数据
         List noBtn = new ArrayList();
         for (Menu menuDatum : menuData) {
-            if ("0".equals(menuDatum.getType())) {
+            if (0 == menuDatum.getType()) {
                 noBtn.add(menuDatum);
             }
         }
