@@ -3,7 +3,10 @@ package com.littlebuddha.bobogou.modules.service.system;
 import com.littlebuddha.bobogou.common.utils.AutoId;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.system.*;
+import com.littlebuddha.bobogou.modules.entity.system.Menu;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.mapper.system.MenuMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
@@ -108,13 +111,8 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     }
 
     public List<Role> findRolesByOperator(Operator operator) {
-        List<Role> rolesByOperator = roleMapper.getRolesByOperator(new Role(operator));
+        List<Role> rolesByOperator = roleMapper.findList(new Role(operator));
         return rolesByOperator;
-    }
-
-    public List<Menu> findMenusByRole(Role role) {
-        List<Menu> menus = operatorMapper.getMenusByRole(role);
-        return menus;
     }
 
     @Override
@@ -140,40 +138,36 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         return recovery;
     }
 
-    public List<RoleMenu> findRoleMenusByRole(Role role) {
-        List<RoleMenu> roleMenus = operatorMapper.getRoleMenusByRole(new RoleMenu(role));
-        for (RoleMenu roleMenu : roleMenus) {
-            if (roleMenu.getRole() != null && StringUtils.isNotBlank(roleMenu.getRole().getId())) {
-
-            }
-            if (roleMenu.getMenu() != null && StringUtils.isNotBlank(roleMenu.getMenu().getId())) {
-                Menu menu = menuMapper.get(roleMenu.getMenu());
-                roleMenu.setMenu(menu);
-            }
-        }
-        return roleMenus;
+    /**
+     * 查询当前用户对应的菜单权限
+     *
+     * @param role
+     * @return
+     */
+    public List<Menu> findPermissions(Role role) {
+        List<Menu> menus = menuMapper.findList(new Menu(role));
+        return menus;
     }
-
 
     public List<Menu> getMenusByOperator() {
         Operator currentUser = UserUtils.getCurrentUser();
         List<Role> roles = findRolesByOperator(currentUser);
         List<Menu> menuData = new ArrayList<>();
-        List<RoleMenu> roleMenusByRole = new ArrayList<>();
+        List<Menu> menusByRole = new ArrayList<>();
         //1.查询当前用户的所有角色菜单信息
         for (Role role : roles) {
-            List<RoleMenu> roleMenus = menuMapper.getRoleMenusByRole(new RoleMenu(role));
-            if (roleMenus != null && roleMenus.size() > 0) {
-                roleMenusByRole.addAll(roleMenus);
+            List<Menu> menus = menuMapper.findList(new Menu(role));
+            if (menus != null && menus.size() > 0) {
+                menusByRole.addAll(menus);
             }
         }
         //2.将所有1得到的menu放入menuList
-        for (RoleMenu roleMenu : roleMenusByRole) {
-            if (roleMenu != null && StringUtils.isNotBlank(roleMenu.getMenu().getId())) {
-                Menu menu = menuMapper.get(roleMenu.getMenu());
+        for (Menu menu : menusByRole) {
+            if (menu != null && StringUtils.isNotBlank(menu.getId())) {
                 menuData.add(menu);
             }
         }
+        System.out.println("完成");
         return menuData;
     }
 

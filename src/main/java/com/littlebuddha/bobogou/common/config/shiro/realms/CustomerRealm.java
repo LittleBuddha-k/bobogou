@@ -1,9 +1,9 @@
 package com.littlebuddha.bobogou.common.config.shiro.realms;
 
 import com.littlebuddha.bobogou.common.utils.ApplicationContextUtils;
+import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
-import com.littlebuddha.bobogou.modules.entity.system.RoleMenu;
 import com.littlebuddha.bobogou.modules.service.system.OperatorService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -40,9 +40,9 @@ public class CustomerRealm extends AuthorizingRealm {
                 simpleAuthorizationInfo.addRole(role.getEnglishName());
             });
             for (Role role : roles) {
-                List<RoleMenu> roleMenus = operatorService.findRoleMenusByRole(role);
-                roleMenus.forEach(roleMenu->{
-                    simpleAuthorizationInfo.addStringPermission(roleMenu.getMenu().getPermission());
+                List<Menu> menus = operatorService.findPermissions(role);
+                menus.forEach(menu -> {
+                    simpleAuthorizationInfo.addStringPermission(menu.getPermission());
                 });
             }
             return simpleAuthorizationInfo;

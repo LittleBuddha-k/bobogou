@@ -29,14 +29,14 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>
-        FROM ud_user a
+        FROM system_operator a
         WHERE id=#{id}
     </select>
 
     <select id="getOperatorByName" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>
-        FROM ud_user a
+        FROM system_operator a
         WHERE nickname=#{nickname}
     </select>
 
@@ -62,7 +62,7 @@
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>
-        FROM ud_user a
+        FROM system_operator a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -95,7 +95,7 @@
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>
-        FROM ud_user a
+        FROM system_operator a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -125,7 +125,7 @@
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>
-        FROM ud_user a
+        FROM system_operator a
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -137,7 +137,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO ud_user(
+        INSERT INTO system_operator(
             id,
             phone,
             password,
@@ -177,7 +177,7 @@
     </insert>
 
     <update id="update">
-        UPDATE ud_user SET
+        UPDATE system_operator SET
             phone = #{phone},
             password = #{password},
             header = #{header},
@@ -198,17 +198,17 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE ud_user SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE system_operator SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE ud_user SET del_flag = #{DEL_FLAG_NORMAL}
+        UPDATE system_operator SET del_flag = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM ud_user
+        DELETE FROM system_operator
         WHERE id=#{id}
     </delete>
 </mapper>

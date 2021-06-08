@@ -3,7 +3,6 @@ package com.littlebuddha.bobogou.modules.entity.system;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,8 @@ public class Menu extends DataEntity<Menu> {
 
     private Role role;//作为外键使用
 
+    private Operator operator;//作为外键使用
+
     public Menu() {
         super();
     }
@@ -42,6 +43,10 @@ public class Menu extends DataEntity<Menu> {
         this.role = role;
     }
 
+    public Menu(Operator operator) {
+        this.operator = operator;
+    }
+
     public Menu getParent() {
         return parent;
     }
@@ -51,7 +56,7 @@ public class Menu extends DataEntity<Menu> {
     }
 
     public String getParentId() {
-        if(parent != null && StringUtils.isNotBlank(parent.getId())){
+        if (parent != null && StringUtils.isNotBlank(parent.getId())) {
             parentId = parent.getId();
         }
         return parentId;
@@ -158,6 +163,14 @@ public class Menu extends DataEntity<Menu> {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
     }
 
     public static void sortList(List<Menu> list, List<Menu> sourcelist, String parentId, boolean cascade) {

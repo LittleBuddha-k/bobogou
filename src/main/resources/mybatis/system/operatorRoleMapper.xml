@@ -14,14 +14,14 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRole">
         SELECT
         <include refid="operatorRoleColumns"/>
-        FROM recruit_operator_role
+        FROM system_operator_role
         WHERE id=#{id}
     </select>
 
     <select id="getByOperatorAndRole" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRole">
         SELECT
         <include refid="operatorRoleColumns"/>
-        FROM recruit_operator_role a
+        FROM system_operator_role a
         <!-- 判断条件参数是否为空 -->
         <where>
             <if test="operator != null and operator.id != null and operator.id != ''">
@@ -36,7 +36,7 @@
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRole">
         SELECT
         <include refid="operatorRoleColumns"/>
-        FROM recruit_operator_role a
+        FROM system_operator_role a
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -60,7 +60,7 @@
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRole">
         SELECT
         <include refid="operatorRoleColumns"/>
-        FROM recruit_operator_role a
+        FROM system_operator_role a
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -72,7 +72,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO recruit_operator_role(
+        INSERT INTO system_operator_role(
             id,
             operator_id,
             role_id,
@@ -86,7 +86,7 @@
     </insert>
 
     <update id="update">
-        UPDATE recruit_operator_role SET
+        UPDATE system_operator_role SET
             operator_id = #{operator.id},
             role_id = #{role.id},
             del_flag = #{delFlag}
@@ -94,22 +94,22 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE recruit_operator_role SET del_flag = 1
+        UPDATE system_operator_role SET del_flag = 1
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE recruit_operator_role SET del_flag = 0
+        UPDATE system_operator_role SET del_flag = 0
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM recruit_operator_role
+        DELETE FROM system_operator_role
         WHERE id = #{id}
     </delete>
 
     <delete id="deleteOutByOperatorRole">
-        DELETE FROM recruit_operator_role
+        DELETE FROM system_operator_role
         <where>
             <if test="operatorId != null and operatorId= ''">
                 operator_id = #{operatorId}
@@ -122,7 +122,7 @@
 
     <!--删除一切用户角色-->
     <delete id="deleteOutByOperator">
-        DELETE FROM recruit_operator_role
+        DELETE FROM system_operator_role
         WHERE operator_id = #{operatorId}
     </delete>
 </mapper>

@@ -172,7 +172,7 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
     }
 
     /**
-     * 将会返回menu集合-----排序+set子集
+     * 将会返回menu集合-----排序+设置子集
      *
      * @return
      */

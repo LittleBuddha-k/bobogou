@@ -52,6 +52,9 @@ public class PortalController extends BaseController {
         return "modules/system/portal";
     }
 
+    /**
+     * 登录成功请求的菜单数据
+     */
     @ResponseBody
     @GetMapping("/data")
     public Portal data() {

@@ -13,14 +13,14 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_role_menu a
+        FROM system_role_menu a
         WHERE a.id=#{id}
     </select>
 
     <select id="getByRoleMenu" resultType="com.littlebuddha.bobogou.modules.entity.system.RoleMenu">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_role_menu a
+        FROM system_role_menu a
         <where>
             <if test="role != null and role.id != null and role.id != ''">
                 a.role_id=#{role.id}
@@ -32,7 +32,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO recruit_role_menu(
+        INSERT INTO system_role_menu(
             id,
             role_id,
             menu_id
@@ -44,14 +44,14 @@
     </insert>
 
     <update id="update">
-        UPDATE recruit_role_menu SET
+        UPDATE system_role_menu SET
             role_id = #{role.id},
             menu_id = #{menu.id},
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM recruit_role_menu
+        DELETE FROM system_role_menu
         <where>
             <if test="role != null and role.id != null and role.id != ''">
                 role_id=#{role.id}
@@ -64,7 +64,7 @@
 
     <!--删除一切用户角色-->
     <delete id="deleteOutByRole">
-        DELETE FROM recruit_role_menu
+        DELETE FROM system_role_menu
         WHERE role_id = #{roleId}
     </delete>
 </mapper>

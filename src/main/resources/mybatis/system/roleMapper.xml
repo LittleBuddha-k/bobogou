@@ -14,21 +14,22 @@
     </sql>
 
     <sql id="roleJoins">
-        LEFT JOIN recruit_operator_role b ON a.id=b.role_id
-        LEFT JOIN recruit_system_operator c ON c.id=b.operator_id
+        LEFT JOIN system_operator_role b ON a.id=b.role_id
+        LEFT JOIN system_operator c ON c.id=b.operator_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_system_role a
+        FROM system_role a
         WHERE id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_system_role a
+        FROM system_role a
+        <include refid="roleJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -37,6 +38,9 @@
             </if>
             <if test="englishName != null and englishName != ''">
                 and a.english_name = #{englishName}
+            </if>
+            <if test="operator != null and operator.id != null and operator.id != ''">
+                and b.operator_id = #{operator.id}
             </if>
         </where>
         <choose>
@@ -52,7 +56,7 @@
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_system_role a
+        FROM system_role a
         <where>
             a.del_flag = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -76,29 +80,7 @@
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
-        FROM recruit_system_role a
-        <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-
-            </when>
-            <otherwise>
-
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="getRolesByOperator" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
-        SELECT
-        <include refid="roleColumns"/>
-        FROM recruit_system_role a
-        <include refid="roleJoins"/>
-        <where>
-            a.del_flag = #{DEL_FLAG_NORMAL}
-            <!-- 判断条件参数是否为空 -->
-            <if test="operator != null and operator.id != null and operator.id != ''">
-                and b.operator_id = #{operator.id}
-            </if>
-        </where>
+        FROM system_role a
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -110,7 +92,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO recruit_system_role(
+        INSERT INTO system_role(
             id,
             name,
             english_name,
@@ -134,7 +116,7 @@
     </insert>
 
     <update id="update">
-        UPDATE recruit_system_role SET
+        UPDATE system_role SET
             name = #{name},
             english_name = #{englishName},
             create_by = #{createBy.id},
@@ -147,17 +129,17 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE recruit_system_role SET del_flag = 1
+        UPDATE system_role SET del_flag = 1
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE recruit_system_role SET del_flag = 0
+        UPDATE system_role SET del_flag = 0
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM recruit_system_role
+        DELETE FROM system_role
         WHERE id=#{id}
     </delete>
 </mapper>
