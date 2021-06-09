@@ -269,7 +269,7 @@
                 layer.open({
                     type: 2,
                     title: title,
-                    content: "/recruit/portal/importTemplate",//下载页面
+                    content: "/bobogou/portal/importTemplate",//下载页面
                     skin: 'demo-class',
                     area: ['75%', '70%'],
                     offset: 'auto',

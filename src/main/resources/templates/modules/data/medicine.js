@@ -39,61 +39,56 @@ layui.use(['form', 'table'], function () {
                     sortName: 'name'
                 },
                 {
-                    title: '功能',
-                    field: 'function',
+                    title: '进价',
+                    field: 'purchasingPrice',
                     sort: true
                 },
                 {
                     title: '原价',
-                    field: 'originalPrice'
+                    field: 'originalCost'
                 },
                 {
-                    title: '折后价',
-                    field: 'discountPrice'
+                    title: '普通会员价',
+                    field: 'sellingPrice'
                 },
                 {
-                    title: '图片',
-                    field: 'picture',
+                    title: '会员价',
+                    field: 'vipPrice',
                     sort: true
                 },
                 {
-                    title: '折扣',
-                    field: 'rebate',
+                    title: '规格',
+                    field: 'specification',
                     sort: true
                 },
                 {
-                    title: '标签',
-                    field: 'label',
+                    title: '数量',
+                    field: 'amount',
                     sort: true
                 },
                 {
-                    title: '处方类型',
-                    field: 'prescriptionType',
+                    title: '销量',
+                    field: 'salesVolume',
                     sort: true
                 },
                 {
-                    title: '基本单位',
-                    field: 'basicUnit',
+                    title: '功效',
+                    field: 'effect',
                     sort: true
                 },
                 {
-                    title: '品牌',
-                    field: 'brand',
+                    title: '好评率',
+                    field: 'applauseRate',
                     sort: true
                 },
                 {
-                    title: '批准文号',
-                    field: 'approvalNumber',
+                    title: '健康豆',
+                    field: 'healthBeans',
                     sort: true
                 },
                 {
-                    title: '产地',
-                    field: 'placeOfOrigin',
-                    sort: true
-                },
-                {
-                    title: '成分',
-                    field: 'component',
+                    title: '是否销售',
+                    field: 'isMarket',
                     sort: true
                 },
                 {
@@ -108,8 +103,7 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            name: $("#name").val(),
-            brand: $("#brand").val()
+            name: $("#name").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -119,8 +113,7 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('medicineTable', {
             where: {
-                name: $("#name").val(),
-                brand: $("#brand").val()
+                name: $("#name").val()
             }
         });
         return false;
@@ -131,7 +124,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(medicineTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/medicine/form/add", "新建用户信息")
+            var index = rc.openSaveDialog("/bobogou/data/medicine/form/add", "新建药品信息")
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -144,7 +137,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/medicine/form/edit?id=' + ids, "编辑用户信息");
+                rc.openSaveDialog('/bobogou/data/medicine/form/edit?id=' + ids, "编辑药品信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -158,7 +151,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/medicine/form/view?id=' + ids, "查看用户信息");
+                rc.openViewDialog('/bobogou/data/medicine/form/view?id=' + ids, "查看药品信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);

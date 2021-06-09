@@ -2,41 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper">
     <sql id="medicineColumns">
-        id AS "id",
-        name AS "name",
-        function AS "function",
-        original_price AS "originalPrice",
-        discount_price AS "discountPrice",
-        picture AS "picture",
-        rebate AS "rebate",
-        label AS "label",
-        prescription_type AS "prescriptionType",
-        basic_unit AS "basicUnit",
-        brand AS "brand",
-        approval_number AS "approvalNumber",
-        place_of_origin AS "placeOfOrigin",
-        component AS "component",
-        create_by AS "createBy.id",
-        create_date AS "createDate",
-        update_by AS "updateBy.id",
-        update_date AS "updateDate",
-        remarks AS "remarks",
-        del_flag AS "delFlag"
+        a.id AS "id",
+        a.name AS "name",
+        a.images AS "images",
+        a.brand_id AS "brandId",
+        a.tag_id AS "tagId",
+        a.purchasing_price AS "purchasingPrice",
+        a.original_cost AS "originalCost",
+        a.selling_price AS "sellingPrice",
+        a.vip_price AS "vipPrice",
+        a.specification AS "specification",
+        a.amount AS "amount",
+        a.sales_volume AS "salesVolume",
+        a.effect AS "effect",
+        a.applause_rate AS "applauseRate",
+        a.health_beans AS "healthBeans",
+        a.is_market AS "isMarket",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createDate",
+        a.update_time AS "updateDate",
+        a.account_id AS "accountId"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
         SELECT
         <include refid="medicineColumns"/>
-        FROM recruit_data_medicine a
+        FROM mb_goods a
         WHERE id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
         SELECT
         <include refid="medicineColumns"/>
-        FROM recruit_data_medicine a
+        FROM mb_goods a
         <where>
-            a.del_flag = #{DEL_FLAG_NORMAL}
+            a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="name != null and name != ''">
                 and a.name = #{name}
@@ -47,7 +47,7 @@
                 ORDER BY ${orderBy}
             </when>
             <otherwise>
-                ORDER BY a.create_date DESC
+                ORDER BY a.create_time DESC
             </otherwise>
         </choose>
     </select>
@@ -55,9 +55,9 @@
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
         SELECT
         <include refid="medicineColumns"/>
-        FROM recruit_data_medicine a
+        FROM mb_goods a
         <where>
-            a.del_flag = #{DEL_FLAG_DELETE}
+            a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="name != null and name != ''">
                 and a.name = #{name}
@@ -68,7 +68,7 @@
                 ORDER BY ${orderBy}
             </when>
             <otherwise>
-                ORDER BY a.create_date DESC
+                ORDER BY a.create_time DESC
             </otherwise>
         </choose>
     </select>
@@ -76,7 +76,7 @@
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
         SELECT
         <include refid="medicineColumns"/>
-        FROM recruit_data_medicine a
+        FROM mb_goods a
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -87,88 +87,86 @@
         </choose>
     </select>
 
-    <insert id="insert">
-        INSERT INTO recruit_data_medicine(
-            id,
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO mb_goods(
             name,
-            function,
-            original_price,
-            discount_price,
-            picture,
-            rebate,
-            label,
-            prescription_type,
-            basic_unit,
-            brand,
-            approval_number,
-            place_of_origin,
-            component,
-            create_by,
-            create_date,
-            update_by,
-            update_date,
-            remarks,
-            del_flag
+            images,
+            brand_id,
+            tag_id,
+            purchasing_price,
+            original_cost,
+            selling_price,
+            vip_price,
+            specification,
+            amount,
+            sales_volume,
+            effect,
+            applause_rate,
+            health_beans,
+            is_market,
+            is_deleted,
+            create_time,
+            update_time,
+            account_id
         )VALUES (
-            #{id},
             #{name},
-            #{function},
-            #{originalPrice},
-            #{discountPrice},
-            #{picture},
-            #{rebate},
-            #{label},
-            #{prescriptionType},
-            #{basicUnit},
-            #{brand},
-            #{approvalNumber},
-            #{placeOfOrigin},
-            #{component},
-            #{createBy.id},
-            #{createDate},
-            #{updateBy.id},
-            #{updateDate},
-            #{remarks},
-            #{delFlag}
+            #{images},
+            #{brandId},
+            #{tagId},
+            #{purchasingPrice},
+            #{originalCost},
+            #{sellingPrice},
+            #{vipPrice},
+            #{specification},
+            #{amount},
+            #{salesVolume},
+            #{effect},
+            #{applauseRate},
+            #{healthBeans},
+            #{isMarket},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{accountId}
         )
     </insert>
 
     <update id="update">
-        UPDATE recruit_data_medicine SET
+        UPDATE mb_goods SET
             name = #{name},
-            function = #{function},
-            original_price = #{originalPrice},
-            discount_price = #{discountPrice},
-            picture = #{picture},
-            rebate = #{rebate},
-            label = #{label},
-            prescription_type = #{prescriptionType},
-            basic_unit = #{basicUnit},
-            brand = #{brand},
-            approval_number = #{approvalNumber},
-            place_of_origin = #{placeOfOrigin},
-            component = #{component},
-            create_by = #{createBy.id},
-            create_date = #{createDate},
-            update_by = #{updateBy.id},
-            update_date = #{updateDate},
-            remarks = #{remarks},
-            del_flag = #{delFlag}
+            images = #{images},
+            brand_id = #{brandId},
+            tag_id = #{tagId},
+            purchasing_price = #{purchasingPrice},
+            original_cost = #{originalCost},
+            selling_price = #{sellingPrice},
+            vip_price = #{vipPrice},
+            specification = #{specification},
+            amount = #{amount},
+            sales_volume = #{salesVolume},
+            effect = #{effect},
+            applause_rate = #{applauseRate},
+            health_beans = #{healthBeans},
+            is_market = #{isMarket},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            account_id = #{accountId}
         WHERE id=#{id}
     </update>
 
     <update id="deleteByLogic">
-        UPDATE recruit_data_medicine SET del_flag = #{DEL_FLAG_DELETE}
+        UPDATE mb_goods SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE recruit_data_medicine SET del_flag = #{DEL_FLAG_NORMAL}
+        UPDATE mb_goods SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM recruit_data_medicine
+        DELETE FROM mb_goods
         WHERE id=#{id}
     </delete>
 </mapper>

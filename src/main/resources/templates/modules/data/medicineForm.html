@@ -24,33 +24,10 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">功能</label>
+                <label class="layui-form-label">功效</label>
                 <div class="layui-input-inline">
-                    <input type="function" id="function" th:name="function" th:value="${medicine.getFunction()}"
-                           placeholder="功能" lay-verify="required|function" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">原价</label>
-                <div class="layui-input-inline">
-                    <input type="originalPrice" id="originalPrice" th:name="originalPrice"
-                           th:value="${medicine.getOriginalPrice()}"
-                           placeholder="原价" lay-verify="required|originalPrice" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">折后价</label>
-                <div class="layui-input-inline">
-                    <input type="discountPrice" id="discountPrice" th:name="discountPrice"
-                           th:value="${medicine.getDiscountPrice()}"
-                           placeholder="折后价" lay-verify="required|discountPrice" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">图片</label>
-                <div class="layui-input-inline">
-                    <input type="picture" id="picture" th:name="picture" th:value="${medicine.getPicture()}"
-                           placeholder="图片" lay-verify="required|picture" autocomplete="off" class="layui-input">
+                    <input type="effect" id="effect" th:name="effect" th:value="${medicine.getEffect()}"
+                           placeholder="功效" lay-verify="required|effect" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
