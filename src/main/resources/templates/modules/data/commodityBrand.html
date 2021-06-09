@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>商品标签列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" id="searchForm">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">品牌名称</label>
+                            <div class="layui-input-inline">
+                                <input type="brandName" name="brandName" th:value="${commodityBrand.getBrandName()}"
+                                       th:id="brandName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">品牌规格分类名称</label>
+                            <div class="layui-input-inline">
+                                <input type="classifyName" name="classifyName" th:value="${commodityBrand.getClassifyName()}"
+                                       th:id="classifyName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolBar">
+            <div class="layui-btn-container">
+                <shiro:hasPermission name="data:commodityBrand:add">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="data:commodityBrand:edit">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="data:commodityBrand:view">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="data:commodityBrand:delete">
+                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
+                    </button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="data:commodityBrand:import">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
+                </shiro:hasPermission>
+                <shiro:hasPermission name="data:commodityBrand:export">
+                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
+                </shiro:hasPermission>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="commodityBrandTable" lay-filter="commodityBrandTableFilter"></table>
+
+        <script type="text/html" id="operation">
+            <shiro:hasPermission name="system:commodityBrand:export">
+                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
+            </shiro:hasPermission>
+        </script>
+
+    </div>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/commodityBrand.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+</body>
+</html>

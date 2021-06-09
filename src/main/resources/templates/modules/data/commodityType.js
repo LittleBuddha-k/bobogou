@@ -72,8 +72,10 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            type: $("#type").val(),
-            status: $("#status").val()
+            name: $("#name").val(),
+            icon: $("#icon").val(),
+            parentId: $("#parentId").val(),
+            accountId: $("#accountId").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -83,8 +85,10 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('commodityTypeTable', {
             where: {
-                type: $("#type").val(),
-                status: $("#status").val()
+                name: $("#name").val(),
+                icon: $("#icon").val(),
+                parentId: $("#parentId").val(),
+                accountId: $("#accountId").val()
             }
         });
         return false;
@@ -95,7 +99,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(commodityTypeTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/commodityType/form/add", "新建轮播图信息")
+            var index = rc.openSaveDialog("/bobogou/data/commodityType/form/add", "新建商品分类信息")
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -108,7 +112,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/commodityType/form/edit?id=' + ids, "编辑轮播图信息");
+                rc.openSaveDialog('/bobogou/data/commodityType/form/edit?id=' + ids, "编辑商品分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -122,7 +126,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/commodityType/form/view?id=' + ids, "查看轮播图信息");
+                rc.openViewDialog('/bobogou/data/commodityType/form/view?id=' + ids, "查看商品分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);

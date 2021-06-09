@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#commodityTagTable',
-        url: '/bobogou/data/commodityTag/data',
+        elem: '#commodityBrandTable',
+        url: '/bobogou/data/commodityBrand/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -33,10 +33,16 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '标签名称',
-                    field: 'name',
+                    title: '品牌名称',
+                    field: 'brandName',
                     sort: true,
-                    sortName: 'name'
+                    sortName: 'brandName'
+                },
+                {
+                    title: '品牌规格分类名称',
+                    field: 'classifyName',
+                    sort: true,
+                    sortName: 'classifyName'
                 },
                 {
                     title: '操作',
@@ -50,7 +56,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            name: $("#name").val()
+            brandName: $("#brandName").val(),
+            classifyName: $("#classifyName").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -58,9 +65,10 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('commodityTagTable', {
+        table.reload('commodityBrandTable', {
             where: {
-                name: $("#name").val()
+                brandName: $("#brandName").val(),
+                classifyName: $("#classifyName").val()
             }
         });
         return false;
@@ -69,9 +77,9 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(commodityTagTableFilter)', function (obj) {
+    table.on('toolbar(commodityBrandTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/commodityTag/form/add", "新建商品标签信息")
+            var index = rc.openSaveDialog("/bobogou/data/commodityBrand/form/add", "新建商品品牌规格分类信息")
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -84,7 +92,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/commodityTag/form/edit?id=' + ids, "编辑商品标签信息");
+                rc.openSaveDialog('/bobogou/data/commodityBrand/form/edit?id=' + ids, "编辑商品品牌规格分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -98,7 +106,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/commodityTag/form/view?id=' + ids, "查看商品标签信息");
+                rc.openViewDialog('/bobogou/data/commodityBrand/form/view?id=' + ids, "查看商品品牌规格分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -108,7 +116,7 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/data/commodityTag/deleteByPhysics?ids=" + ids, '',function (data) {
+                rc.post("/bobogou/data/commodityBrand/deleteByPhysics?ids=" + ids, '',function (data) {
                     if(data.code == 200){
                         //执行搜索重载
                         refresh();
@@ -119,15 +127,15 @@ layui.use(['form', 'table'], function () {
                 });
             }
         } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/commodityTag/importTemplate", "/bobogou/data/commodityTag/importFile")
+            rc.openImportDialog("/bobogou/data/commodityBrand/importTemplate", "/bobogou/data/commodityBrand/importFile")
         } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/commodityTag/exportFile?" + $("#searchForm").serialize());
+            rc.downloadFile("/bobogou/data/commodityBrand/exportFile?" + $("#searchForm").serialize());
         }
     });
 
-    table.on('tool(commodityTagTableFilter)', function (obj) {
+    table.on('tool(commodityBrandTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/commodityTag/addRolePage?id=" + id, "设置角色")
+        var index = rc.openSelectionDialog("/bobogou/data/commodityBrand/addRolePage?id=" + id, "设置角色")
         $(window).on("resize", function () {
             layer.full(index);
         });
@@ -142,7 +150,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('commodityTagTable'),
+    var checkStatus = table.checkStatus('commodityBrandTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -159,7 +167,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('commodityTagTable', {
+        table.reload('commodityBrandTable', {
             page: {
                 curr: 1
             }
