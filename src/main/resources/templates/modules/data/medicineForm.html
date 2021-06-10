@@ -111,7 +111,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label">标签</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
+                    <input type="checkbox" th:if="${mode == 'add'}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
+                    <input type="checkbox" th:if="${mode != 'add' && medicine.getTagId().contains(commodityTag.getId())}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag" checked>
+                    <input type="checkbox" th:if="${mode != 'add' && !medicine.getTagId().contains(commodityTag.getId())}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
                     <input type="hidden" name="tagId" id="tagId" th:value="${medicine.getTagId()}">
                 </div>
             </div>
