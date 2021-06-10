@@ -16,6 +16,9 @@ public class CommodityBrand extends DataEntity<CommodityBrand> {
     private String parentId;//品牌ID，为品牌时=0
     private String accountId;//最后操作账号ID
 
+    public CommodityBrand() {
+    }
+
     @ExcelField(title = "品牌名称", align = 2, sort = 1)
     public String getBrandName() {
         return brandName;

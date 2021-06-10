@@ -39,6 +39,24 @@ layui.use(['form', 'table'], function () {
                     sortName: 'name'
                 },
                 {
+                    title: '图片',
+                    field: 'images',
+                    sort: true,
+                    sortName: 'images'
+                },
+                {
+                    title: '品牌分类ID',
+                    field: 'brandId',
+                    sort: true,
+                    sortName: 'brandId'
+                },
+                {
+                    title: '商品标签ID',
+                    field: 'tagId',
+                    sort: true,
+                    sortName: 'tagId'
+                },
+                {
                     title: '进价',
                     field: 'purchasingPrice',
                     sort: true

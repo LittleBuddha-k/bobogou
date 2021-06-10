@@ -35,6 +35,9 @@ public class Medicine extends DataEntity<Medicine> {
     private String isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 
+    public Medicine() {
+    }
+
     @ExcelField(title = "商品名称",align=2,sort=1)
     public String getName() {
         return name;

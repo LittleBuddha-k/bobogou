@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>药品管理</title>
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <div>
@@ -24,36 +19,113 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label">进价</label>
+                <div class="layui-input-inline">
+                    <input type="purchasingPrice" id="purchasingPrice" th:name="purchasingPrice" th:value="${medicine.getPurchasingPrice()}"
+                           placeholder="进价" lay-verify="required|purchasingPrice" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">原价</label>
+                <div class="layui-input-inline">
+                    <input type="originalCost" id="originalCost" th:name="originalCost" th:value="${medicine.getOriginalCost()}"
+                           placeholder="原价" lay-verify="required|originalCost" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">普通会员价</label>
+                <div class="layui-input-inline">
+                    <input type="sellingPrice" id="sellingPrice" th:name="sellingPrice" th:value="${medicine.getSellingPrice()}"
+                           placeholder="普通会员价" lay-verify="required|sellingPrice" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">会员价</label>
+                <div class="layui-input-inline">
+                    <input type="vipPrice" id="vipPrice" th:name="vipPrice" th:value="${medicine.getVipPrice()}"
+                           placeholder="会员价" lay-verify="required|vipPrice" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">规格</label>
+                <div class="layui-input-inline">
+                    <input type="specification" id="specification" th:name="specification" th:value="${medicine.getSpecification()}"
+                           placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">数量</label>
+                <div class="layui-input-inline">
+                    <input type="amount" id="amount" th:name="amount" th:value="${medicine.getAmount()}"
+                           placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">销量</label>
+                <div class="layui-input-inline">
+                    <input type="salesVolume" id="salesVolume" th:name="salesVolume" th:value="${medicine.getSalesVolume()}"
+                           placeholder="销量" lay-verify="required|salesVolume" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">功效</label>
                 <div class="layui-input-inline">
                     <input type="effect" id="effect" th:name="effect" th:value="${medicine.getEffect()}"
                            placeholder="功效" lay-verify="required|effect" autocomplete="off" class="layui-input">
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">好评率</label>
+                <div class="layui-input-inline">
+                    <input type="applauseRate" id="applauseRate" th:name="applauseRate" th:value="${medicine.getApplauseRate()}"
+                           placeholder="好评率" lay-verify="required|applauseRate" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">健康豆</label>
+                <div class="layui-input-inline">
+                    <input type="healthBeans" id="healthBeans" th:name="healthBeans" th:value="${medicine.getHealthBeans()}"
+                           placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否在售</label>
+                <div class="layui-input-inline">
+                    <input type="isMarket" id="isMarket" th:name="isMarket" th:value="${medicine.getIsMarket()}"
+                           placeholder="是否在售" lay-verify="required|isMarket" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">分类规格</label>
+                <div class="layui-input-inline">
+                    <select name="brandId" lay-verify="" th:if="${mode == 'add'}">
+                        <option  th:text="请选择"/>
+                        <option th:each="commodityBrand:${commodityBrandList}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
+                    </select>
+                    <select name="brandId" lay-verify="" th:if="${mode != 'add'}">
+                        <option th:each="commodityBrand:${commodityBrandList}" th:if="${commodityBrand.getId() == medicine.getBrandId()}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
+                        <option th:each="commodityBrand:${commodityBrandList}" th:if="${commodityBrand.getId() != medicine.getBrandId()}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">标签</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
+                    <input type="hidden" name="tagId" id="tagId" th:value="${medicine.getTagId()}">
+                </div>
+            </div>
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    //保存方法
-    function save(parentIndex) {
-        $.ajax({
-            url: "/bobogou/data/medicine/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#medicineForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
-    }
-</script>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/medicineForm.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>
 </html>

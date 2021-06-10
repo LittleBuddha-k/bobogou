@@ -15,6 +15,9 @@ public class CommodityTag extends DataEntity<CommodityTag> {
 
     private Operator operator;//外键使用
 
+    public CommodityTag() {
+    }
+
     @ExcelField(title = "分类名称", align = 2, sort = 1)
     public String getName() {
         return name;
