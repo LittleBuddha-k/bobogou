@@ -4,8 +4,6 @@ import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Date;
-
 /**
  * 药品实体类
  */
@@ -16,10 +14,10 @@ public class Medicine extends DataEntity<Medicine> {
     private Banner banner;//轮播图外键
     private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
 
-    private CommodityBrand commodityBrand;//商品品牌规格外键
+    private GoodsBrand goodsBrand;//商品品牌规格外键
     private String brandId;//品牌分类ID
 
-    private CommodityTag commodityTag;//商品标签外键
+    private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔
 
     private Integer purchasingPrice;//进价，单位：分
@@ -38,7 +36,7 @@ public class Medicine extends DataEntity<Medicine> {
     public Medicine() {
     }
 
-    @ExcelField(title = "商品名称",align=2,sort=1)
+    @ExcelField(title = "商品名称", align = 2, sort = 1)
     public String getName() {
         return name;
     }
@@ -63,12 +61,12 @@ public class Medicine extends DataEntity<Medicine> {
         this.images = images;
     }
 
-    public CommodityBrand getCommodityBrand() {
-        return commodityBrand;
+    public GoodsBrand getGoodsBrand() {
+        return goodsBrand;
     }
 
-    public void setCommodityBrand(CommodityBrand commodityBrand) {
-        this.commodityBrand = commodityBrand;
+    public void setGoodsBrand(GoodsBrand goodsBrand) {
+        this.goodsBrand = goodsBrand;
     }
 
     public String getBrandId() {
@@ -79,12 +77,12 @@ public class Medicine extends DataEntity<Medicine> {
         this.brandId = brandId;
     }
 
-    public CommodityTag getCommodityTag() {
-        return commodityTag;
+    public GoodsTag getGoodsTag() {
+        return goodsTag;
     }
 
-    public void setCommodityTag(CommodityTag commodityTag) {
-        this.commodityTag = commodityTag;
+    public void setGoodsTag(GoodsTag goodsTag) {
+        this.goodsTag = goodsTag;
     }
 
     public String getTagId() {
@@ -95,7 +93,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.tagId = tagId;
     }
 
-    @ExcelField(title = "进价",align=2,sort=2)
+    @ExcelField(title = "进价", align = 2, sort = 2)
     public Integer getPurchasingPrice() {
         return purchasingPrice;
     }
@@ -104,7 +102,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.purchasingPrice = purchasingPrice;
     }
 
-    @ExcelField(title = "原价",align=2,sort=3)
+    @ExcelField(title = "原价", align = 2, sort = 3)
     public Integer getOriginalCost() {
         return originalCost;
     }
@@ -113,7 +111,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.originalCost = originalCost;
     }
 
-    @ExcelField(title = "普通会员价",align=2,sort=4)
+    @ExcelField(title = "普通会员价", align = 2, sort = 4)
     public Integer getSellingPrice() {
         return sellingPrice;
     }
@@ -122,7 +120,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.sellingPrice = sellingPrice;
     }
 
-    @ExcelField(title = "会员价",align=2,sort=5)
+    @ExcelField(title = "会员价", align = 2, sort = 5)
     public Integer getVipPrice() {
         return vipPrice;
     }
@@ -131,7 +129,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.vipPrice = vipPrice;
     }
 
-    @ExcelField(title = "规格",align=2,sort=6)
+    @ExcelField(title = "规格", align = 2, sort = 6)
     public String getSpecification() {
         return specification;
     }
@@ -140,7 +138,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.specification = specification;
     }
 
-    @ExcelField(title = "数量",align=2,sort=7)
+    @ExcelField(title = "数量", align = 2, sort = 7)
     public Integer getAmount() {
         return amount;
     }
@@ -149,7 +147,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.amount = amount;
     }
 
-    @ExcelField(title = "销量",align=2,sort=8)
+    @ExcelField(title = "销量", align = 2, sort = 8)
     public Integer getSalesVolume() {
         return salesVolume;
     }
@@ -158,7 +156,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.salesVolume = salesVolume;
     }
 
-    @ExcelField(title = "功效",align=2,sort=9)
+    @ExcelField(title = "功效", align = 2, sort = 9)
     public String getEffect() {
         return effect;
     }
@@ -167,7 +165,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.effect = effect;
     }
 
-    @ExcelField(title = "好评率",align=2,sort=10)
+    @ExcelField(title = "好评率", align = 2, sort = 10)
     public String getApplauseRate() {
         return applauseRate;
     }
@@ -176,7 +174,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.applauseRate = applauseRate;
     }
 
-    @ExcelField(title = "健康豆",align=2,sort=11)
+    @ExcelField(title = "健康豆", align = 2, sort = 11)
     public String getHealthBeans() {
         return healthBeans;
     }
@@ -185,7 +183,7 @@ public class Medicine extends DataEntity<Medicine> {
         this.healthBeans = healthBeans;
     }
 
-    @ExcelField(title = "是否在售",align=2,sort=12)
+    @ExcelField(title = "是否在售", align = 2, sort = 12)
     public String getIsMarket() {
         return isMarket;
     }
@@ -195,7 +193,7 @@ public class Medicine extends DataEntity<Medicine> {
     }
 
     public String getAccountId() {
-        if(this.updateBy != null && StringUtils.isNotBlank(updateBy.getId())){
+        if (this.updateBy != null && StringUtils.isNotBlank(updateBy.getId())) {
             this.accountId = this.updateBy.getId();
         }
         return accountId;

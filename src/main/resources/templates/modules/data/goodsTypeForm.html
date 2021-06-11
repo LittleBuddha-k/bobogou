@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>商品标签管理</title>
+    <title>商品分类管理</title>
     <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
     <!--引入工具js-->
     <script type="text/javascript" src="/bobogou/utils/util.js"></script>
@@ -13,21 +13,35 @@
 </head>
 <body>
 <div>
-    <form class="layui-form" id="commodityBrandForm">
-        <input type="hidden" name="id" th:value="${commodityBrand.getId()}">
+    <form class="layui-form" id="goodsTypeForm">
+        <input type="hidden" name="id" th:value="${goodsType.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">品牌名称</label>
+                <label class="layui-form-label">分类名称</label>
                 <div class="layui-input-inline">
-                    <input type="brandName" name="brandName" th:value="${commodityBrand.getBrandName()}"
-                           th:id="brandName" autocomplete="off" class="layui-input">
+                    <input type="name" name="name" th:value="${goodsType.getName()}"
+                           th:id="name" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">品牌规格分类名称</label>
+                <label class="layui-form-label">分类图标地址</label>
                 <div class="layui-input-inline">
-                    <input type="classifyName" name="classifyName" th:value="${commodityBrand.getClassifyName()}"
-                           th:id="classifyName" autocomplete="off" class="layui-input">
+                    <input type="icon" name="icon" th:value="${goodsType.getIcon()}" autocomplete="off"
+                           th:id="icon" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">父级分类ID</label>
+                <div class="layui-input-inline">
+                    <input type="parentId" name="parentId" th:value="${goodsType.getParentId()}" autocomplete="off"
+                           th:id="parentId" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">最后操作人ID</label>
+                <div class="layui-input-inline">
+                    <input type="accountId" name="accountId" th:value="${goodsType.getAccountId()}" autocomplete="off"
+                           th:id="accountId" class="layui-input">
                 </div>
             </div>
         </div>
@@ -37,10 +51,10 @@
     //保存方法
     function save(parentIndex) {
         $.ajax({
-            url: "/bobogou/data/commodityBrand/save",    //请求的url地址
+            url: "/bobogou/data/goodsType/save",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#commodityBrandForm").serialize(),    //参数值
+            data: $("#goodsTypeForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页

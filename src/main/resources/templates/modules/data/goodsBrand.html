@@ -19,10 +19,17 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">分类名称</label>
+                            <label class="layui-form-label">品牌名称</label>
                             <div class="layui-input-inline">
-                                <input type="name" name="name" th:value="${commodityTag.getName()}"
-                                       th:id="name" autocomplete="off" class="layui-input">
+                                <input type="brandName" name="brandName" th:value="${goodsBrand.getBrandName()}"
+                                       th:id="brandName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">品牌规格分类名称</label>
+                            <div class="layui-input-inline">
+                                <input type="classifyName" name="classifyName" th:value="${goodsBrand.getClassifyName()}"
+                                       th:id="classifyName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -37,32 +44,32 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:commodityTag:add">
+                <shiro:hasPermission name="data:goodsBrand:add">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityTag:edit">
+                <shiro:hasPermission name="data:goodsBrand:edit">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityTag:view">
+                <shiro:hasPermission name="data:goodsBrand:view">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityTag:delete">
+                <shiro:hasPermission name="data:goodsBrand:delete">
                     <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
                     </button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityTag:import">
+                <shiro:hasPermission name="data:goodsBrand:import">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityTag:export">
+                <shiro:hasPermission name="data:goodsBrand:export">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
                 </shiro:hasPermission>
             </div>
         </script>
 
-        <table class="layui-hide" id="commodityTagTable" lay-filter="commodityTagTableFilter"></table>
+        <table class="layui-hide" id="goodsBrandTable" lay-filter="goodsBrandTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="system:commodityTag:export">
+            <shiro:hasPermission name="system:goodsBrand:export">
                 <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
             </shiro:hasPermission>
         </script>
@@ -73,7 +80,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/commodityTag.js"></script>
+<script type="text/javascript" src="/bobogou/modules/data/goodsBrand.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

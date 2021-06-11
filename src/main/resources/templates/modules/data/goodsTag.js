@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#commodityTagTable',
-        url: '/bobogou/data/commodityTag/data',
+        elem: '#goodsTagTable',
+        url: '/bobogou/data/goodsTag/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -58,7 +58,7 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('commodityTagTable', {
+        table.reload('goodsTagTable', {
             where: {
                 name: $("#name").val()
             }
@@ -69,9 +69,9 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(commodityTagTableFilter)', function (obj) {
+    table.on('toolbar(goodsTagTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/commodityTag/form/add", "新建商品标签信息")
+            var index = rc.openSaveDialog("/bobogou/data/goodsTag/form/add", "新建商品标签信息")
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -84,7 +84,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/commodityTag/form/edit?id=' + ids, "编辑商品标签信息");
+                rc.openSaveDialog('/bobogou/data/goodsTag/form/edit?id=' + ids, "编辑商品标签信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -98,7 +98,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/commodityTag/form/view?id=' + ids, "查看商品标签信息");
+                rc.openViewDialog('/bobogou/data/goodsTag/form/view?id=' + ids, "查看商品标签信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/data/commodityTag/deleteByPhysics?ids=" + ids, '',function (data) {
+                rc.post("/bobogou/data/goodsTag/deleteByPhysics?ids=" + ids, '',function (data) {
                     if(data.code == 200){
                         //执行搜索重载
                         refresh();
@@ -119,15 +119,15 @@ layui.use(['form', 'table'], function () {
                 });
             }
         } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/commodityTag/importTemplate", "/bobogou/data/commodityTag/importFile")
+            rc.openImportDialog("/bobogou/data/goodsTag/importTemplate", "/bobogou/data/goodsTag/importFile")
         } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/commodityTag/exportFile?" + $("#searchForm").serialize());
+            rc.downloadFile("/bobogou/data/goodsTag/exportFile?" + $("#searchForm").serialize());
         }
     });
 
-    table.on('tool(commodityTagTableFilter)', function (obj) {
+    table.on('tool(goodsTagTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/commodityTag/addRolePage?id=" + id, "设置角色")
+        var index = rc.openSelectionDialog("/bobogou/data/goodsTag/addRolePage?id=" + id, "设置角色")
         $(window).on("resize", function () {
             layer.full(index);
         });
@@ -142,7 +142,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('commodityTagTable'),
+    var checkStatus = table.checkStatus('goodsTagTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -159,7 +159,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('commodityTagTable', {
+        table.reload('goodsTagTable', {
             page: {
                 curr: 1
             }

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="utf-8">
-    <title>商品分类列表</title>
+    <title>商品标签列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -21,29 +21,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">分类名称</label>
                             <div class="layui-input-inline">
-                                <input type="name" name="name" th:value="${commodityType.getName()}"
+                                <input type="name" name="name" th:value="${goodsTag.getName()}"
                                        th:id="name" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">分类图标地址</label>
-                            <div class="layui-input-inline">
-                                <input type="icon" name="icon" th:value="${commodityType.getIcon()}" autocomplete="off"
-                                       th:id="icon" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">父级分类ID</label>
-                            <div class="layui-input-inline">
-                                <input type="parentId" name="parentId" th:value="${commodityType.getParentId()}" autocomplete="off"
-                                       th:id="parentId" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">最后操作人ID</label>
-                            <div class="layui-input-inline">
-                                <input type="accountId" name="accountId" th:value="${commodityType.getAccountId()}" autocomplete="off"
-                                       th:id="accountId" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -58,32 +37,32 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:commodityType:add">
+                <shiro:hasPermission name="data:goodsTag:add">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityType:edit">
+                <shiro:hasPermission name="data:goodsTag:edit">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityType:view">
+                <shiro:hasPermission name="data:goodsTag:view">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityType:delete">
+                <shiro:hasPermission name="data:goodsTag:delete">
                     <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
                     </button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityType:import">
+                <shiro:hasPermission name="data:goodsTag:import">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:commodityType:export">
+                <shiro:hasPermission name="data:goodsTag:export">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
                 </shiro:hasPermission>
             </div>
         </script>
 
-        <table class="layui-hide" id="commodityTypeTable" lay-filter="commodityTypeTableFilter"></table>
+        <table class="layui-hide" id="goodsTagTable" lay-filter="goodsTagTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="system:commodityType:export">
+            <shiro:hasPermission name="system:goodsTag:export">
                 <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
             </shiro:hasPermission>
         </script>
@@ -94,7 +73,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/commodityType.js"></script>
+<script type="text/javascript" src="/bobogou/modules/data/goodsTag.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

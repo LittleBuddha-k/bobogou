@@ -3,8 +3,8 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.data.CommodityBrand;
-import com.littlebuddha.bobogou.modules.mapper.data.CommodityBrandMapper;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsBrand;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsBrandMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -17,49 +17,46 @@ import java.util.List;
  */
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class CommodityBrandService extends CrudService<CommodityBrand, CommodityBrandMapper> {
-
-    @Autowired
-    private CommodityBrandMapper commodityBrandMapper;
+public class GoodsBrandService extends CrudService<GoodsBrand, GoodsBrandMapper> {
 
     @Override
-    public CommodityBrand get(CommodityBrand entity) {
+    public GoodsBrand get(GoodsBrand entity) {
         return super.get(entity);
     }
 
     @Override
-    public List<CommodityBrand> findList(CommodityBrand entity) {
+    public List<GoodsBrand> findList(GoodsBrand entity) {
         return super.findList(entity);
     }
 
     @Override
-    public PageInfo<CommodityBrand> findPage(Page<CommodityBrand> page, CommodityBrand entity) {
+    public PageInfo<GoodsBrand> findPage(Page<GoodsBrand> page, GoodsBrand entity) {
         return super.findPage(page, entity);
     }
 
     @Override
-    public int save(CommodityBrand entity) {
+    public int save(GoodsBrand entity) {
         entity.setIdType("AUTO");
         return super.save(entity);
     }
 
     @Override
-    public int deleteByLogic(CommodityBrand entity) {
+    public int deleteByLogic(GoodsBrand entity) {
         return super.deleteByLogic(entity);
     }
 
     @Override
-    public int deleteByPhysics(CommodityBrand entity) {
+    public int deleteByPhysics(GoodsBrand entity) {
         return super.deleteByPhysics(entity);
     }
 
     @Override
-    public PageInfo<CommodityBrand> findRecoveryPage(Page<CommodityBrand> page, CommodityBrand entity) {
+    public PageInfo<GoodsBrand> findRecoveryPage(Page<GoodsBrand> page, GoodsBrand entity) {
         return super.findRecoveryPage(page, entity);
     }
 
     @Override
-    public int recovery(CommodityBrand entity) {
+    public int recovery(GoodsBrand entity) {
         return super.recovery(entity);
     }
 }

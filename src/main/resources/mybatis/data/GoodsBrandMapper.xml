@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.CommodityTypeMapper">
-    <sql id="commodityTypeColumns">
-        a.id AS "id",
-        a.name AS "name",
-        a.icon AS "icon",
-        a.parent_id AS "parentId",
-        a.account_id AS "accountId",
-        a.is_deleted AS "isDeleted",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsBrandMapper">
+    <sql id="goodsBrandColumns">
+        id AS "id",
+        brand_name AS "brandName",
+        classify_name AS "classifyName",
+        parent_id AS "parentId",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime",
+        account_id AS "accountId"
     </sql>
 
-    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityType">
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsBrand">
         SELECT
-        <include refid="commodityTypeColumns"/>
-        FROM mb_classify a
+        <include refid="goodsBrandColumns"/>
+        FROM md_goods_brand a
         WHERE id=#{id}
     </select>
 
-    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityType">
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsBrand">
         SELECT
-        <include refid="commodityTypeColumns"/>
-        FROM mb_classify a
+        <include refid="goodsBrandColumns"/>
+        FROM md_goods_brand a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -40,10 +40,10 @@
         </choose>
     </select>
 
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityType">
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsBrand">
         SELECT
-        <include refid="commodityTypeColumns"/>
-        FROM mb_classify a
+        <include refid="goodsBrandColumns"/>
+        FROM md_goods_brand a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -59,49 +59,49 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO mb_classify(
-            name,
-            icon,
+        INSERT INTO md_goods_brand(
+            brand_name,
+            classify_name,
             parent_id,
-            account_id,
             is_deleted,
             create_time,
-            update_time
+            update_time,
+            account_id
         )VALUES (
-            #{name},
-            #{icon},
+            #{brandName},
+            #{classifyName},
             #{parentId},
-            #{accountId},
             #{isDeleted},
             #{createTime},
-            #{updateTime}
+            #{updateTime},
+            #{accountId}
         )
     </insert>
 
     <update id="update">
-        UPDATE mb_classify SET
-            name = #{name},
-            icon = #{icon},
+        UPDATE md_goods_brand SET
+            brand_name = #{brandName},
+            classify_name = #{classifyName},
             parent_id = #{parentId},
-            account_id = #{accountId},
-            is_deleted  = #{isDeleted},
+            is_deleted = #{isDeleted},
             create_time = #{createTime},
-            update_time = #{updateTime}
+            update_time = #{updateTime},
+            account_id = #{accountId}
         WHERE id=#{id}
     </update>
 
     <update id="deleteByLogic">
-        UPDATE mb_classify SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE md_goods_brand SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE mb_classify SET is_deleted = #{DEL_FLAG_NORMAL}
+        UPDATE md_goods_brand SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM mb_classify
+        DELETE FROM md_goods_brand
         WHERE id=#{id}
     </delete>
 </mapper>

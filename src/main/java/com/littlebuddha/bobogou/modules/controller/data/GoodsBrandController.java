@@ -8,8 +8,8 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.CommodityBrand;
-import com.littlebuddha.bobogou.modules.service.data.CommodityBrandService;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsBrand;
+import com.littlebuddha.bobogou.modules.service.data.GoodsBrandService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,22 +29,22 @@ import java.util.Map;
  * 商品品牌规格controller
  */
 @Controller
-@RequestMapping("/data/commodityBrand")
-public class CommodityBrandController extends BaseController {
+@RequestMapping("/data/goodsBrand")
+public class GoodsBrandController extends BaseController {
 
     @Autowired
-    private CommodityBrandService commodityBrandService;
+    private GoodsBrandService goodsBrandService;
 
     @ModelAttribute
-    public CommodityBrand get(@RequestParam(required = false) String id) {
-        CommodityBrand commodityBrand = null;
+    public GoodsBrand get(@RequestParam(required = false) String id) {
+        GoodsBrand goodsBrand = null;
         if (StringUtils.isNotBlank(id)) {
-            commodityBrand = commodityBrandService.get(id);
+            goodsBrand = goodsBrandService.get(id);
         }
-        if (commodityBrand == null) {
-            commodityBrand = new CommodityBrand();
+        if (goodsBrand == null) {
+            goodsBrand = new GoodsBrand();
         }
-        return commodityBrand;
+        return goodsBrand;
     }
 
     /**
@@ -55,11 +55,11 @@ public class CommodityBrandController extends BaseController {
      * @param session
      * @return
      */
-    //@RequiresPermissions("system/CommodityBrand/list")
+    //@RequiresPermissions("system/goodsBrand/list")
     @GetMapping(value = {"/", "/list"})
-    public String list(CommodityBrand commodityBrand, Model model, HttpSession session) {
-        model.addAttribute("commodityBrand", commodityBrand);
-        return "modules/data/commodityBrand";
+    public String list(GoodsBrand goodsBrand, Model model, HttpSession session) {
+        model.addAttribute("goodsBrand", goodsBrand);
+        return "modules/data/goodsBrand";
     }
 
     /**
@@ -69,8 +69,8 @@ public class CommodityBrandController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/data")
-    public TreeResult data(CommodityBrand commodityBrand) {
-        PageInfo<CommodityBrand> page = commodityBrandService.findPage(new Page<CommodityBrand>(), commodityBrand);
+    public TreeResult data(GoodsBrand goodsBrand) {
+        PageInfo<GoodsBrand> page = goodsBrandService.findPage(new Page<GoodsBrand>(), goodsBrand);
         return getLayUiData(page);
     }
 
@@ -83,9 +83,9 @@ public class CommodityBrandController extends BaseController {
      * @return
      */
     @GetMapping("/form/{mode}")
-    public String form(@PathVariable(name = "mode") String mode, CommodityBrand commodityBrand, Model model) {
-        model.addAttribute("commodityBrand", commodityBrand);
-        return "modules/data/commodityBrandForm";
+    public String form(@PathVariable(name = "mode") String mode, GoodsBrand goodsBrand, Model model) {
+        model.addAttribute("goodsBrand", goodsBrand);
+        return "modules/data/goodsBrandForm";
     }
 
     /**
@@ -96,8 +96,8 @@ public class CommodityBrandController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/save")
-    public Result save(CommodityBrand commodityBrand) {
-        int save = commodityBrandService.save(commodityBrand);
+    public Result save(GoodsBrand goodsBrand) {
+        int save = goodsBrandService.save(goodsBrand);
         if (save > 0) {
             return new Result("200", "保存成功");
         } else {
@@ -111,8 +111,8 @@ public class CommodityBrandController extends BaseController {
         Result result = new Result();
         try {
             String fileName = "商品品牌规格模板.xlsx";
-            List<CommodityBrand> list = Lists.newArrayList();
-            new ExportExcel("商品品牌规格数据", CommodityBrand.class, 1).setDataList(list).write(response, fileName).dispose();
+            List<GoodsBrand> list = Lists.newArrayList();
+            new ExportExcel("商品品牌规格数据", GoodsBrand.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             result.setSuccess(true);
@@ -130,10 +130,10 @@ public class CommodityBrandController extends BaseController {
             int failureNum = 0;
             StringBuilder failureMsg = new StringBuilder();
             ImportExcel ei = new ImportExcel(file, 1, 0);
-            List<CommodityBrand> list = ei.getDataList(CommodityBrand.class);
-            for (CommodityBrand CommodityBrand : list) {
+            List<GoodsBrand> list = ei.getDataList(GoodsBrand.class);
+            for (GoodsBrand goodsBrand : list) {
                 try {
-                    commodityBrandService.save(CommodityBrand);
+                    goodsBrandService.save(goodsBrand);
                     successNum++;
                 } catch (Exception ex) {
                     failureNum++;
@@ -153,15 +153,15 @@ public class CommodityBrandController extends BaseController {
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(CommodityBrand commodityBrand, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(GoodsBrand goodsBrand, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
             String fileName = "商品品牌规格" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<CommodityBrand> list = commodityBrandService.findList(commodityBrand);
+            List<GoodsBrand> list = goodsBrandService.findList(goodsBrand);
             if (list != null & list.size() > 0) {
-                new ExportExcel("商品品牌规格", CommodityBrand.class).setDataList(list).write(response, fileName).dispose();
+                new ExportExcel("商品品牌规格", GoodsBrand.class).setDataList(list).write(response, fileName).dispose();
             } else {
-                new ExportExcel("商品品牌规格", CommodityBrand.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
+                new ExportExcel("商品品牌规格", GoodsBrand.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
             }
             return null;
         } catch (Exception e) {
@@ -177,11 +177,11 @@ public class CommodityBrandController extends BaseController {
         System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
-            CommodityBrand CommodityBrand = commodityBrandService.get(s);
-            if (CommodityBrand == null) {
+            GoodsBrand goodsBrand = goodsBrandService.get(s);
+            if (goodsBrand == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = commodityBrandService.deleteByLogic(CommodityBrand);
+            int i = goodsBrandService.deleteByLogic(goodsBrand);
         }
         return new Result("200", "数据清除成功");
     }
@@ -191,33 +191,33 @@ public class CommodityBrandController extends BaseController {
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
         for (String s : split) {
-            CommodityBrand CommodityBrand = commodityBrandService.get(s);
-            if (CommodityBrand == null) {
+            GoodsBrand goodsBrand = goodsBrandService.get(s);
+            if (goodsBrand == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = commodityBrandService.deleteByPhysics(CommodityBrand);
+            int i = goodsBrandService.deleteByPhysics(goodsBrand);
         }
         return new Result("200", "数据清除成功");
     }
 
     @GetMapping("/recoveryList")
-    public String recoveryList(CommodityBrand CommodityBrand, Model model) {
-        model.addAttribute("CommodityBrand", CommodityBrand);
-        return "modules/recovery/CommodityBrandRecovery";
+    public String recoveryList(GoodsBrand goodsBrand, Model model) {
+        model.addAttribute("goodsBrand", goodsBrand);
+        return "modules/recovery/goodsBrandRecovery";
     }
 
     @ResponseBody
     @PostMapping("/recoveryData")
-    public Map recoveryData(CommodityBrand CommodityBrand, Model model) {
-        model.addAttribute("CommodityBrand", CommodityBrand);
-        PageInfo<CommodityBrand> page = commodityBrandService.findRecoveryPage(new Page<CommodityBrand>(), CommodityBrand);
+    public Map recoveryData(GoodsBrand goodsBrand, Model model) {
+        model.addAttribute("goodsBrand", goodsBrand);
+        PageInfo<GoodsBrand> page = goodsBrandService.findRecoveryPage(new Page<GoodsBrand>(), goodsBrand);
         return getBootstrapData(page);
     }
 
     @ResponseBody
     @PostMapping("/recovery")
-    public Result recovery(CommodityBrand CommodityBrand) {
-        int recovery = commodityBrandService.recovery(CommodityBrand);
+    public Result recovery(GoodsBrand goodsBrand) {
+        int recovery = goodsBrandService.recovery(goodsBrand);
         if (recovery > 0) {
             return new Result("200", "数据已恢复");
         } else {

@@ -8,8 +8,8 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.CommodityTag;
-import com.littlebuddha.bobogou.modules.service.data.CommodityTagService;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
+import com.littlebuddha.bobogou.modules.service.data.GoodsTypeService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +26,22 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/commodityTag")
-public class CommodityTagController extends BaseController {
+@RequestMapping("/data/goodsType")
+public class GoodsTypeController extends BaseController {
 
     @Autowired
-    private CommodityTagService commodityTagService;
+    private GoodsTypeService goodsTypeService;
 
     @ModelAttribute
-    public CommodityTag get(@RequestParam(required = false) String id) {
-        CommodityTag commodityTag = null;
+    public GoodsType get(@RequestParam(required = false) String id) {
+        GoodsType goodsType = null;
         if (StringUtils.isNotBlank(id)) {
-            commodityTag = commodityTagService.get(id);
+            goodsType = goodsTypeService.get(id);
         }
-        if (commodityTag == null) {
-            commodityTag = new CommodityTag();
+        if (goodsType == null) {
+            goodsType = new GoodsType();
         }
-        return commodityTag;
+        return goodsType;
     }
 
     /**
@@ -52,11 +52,11 @@ public class CommodityTagController extends BaseController {
      * @param session
      * @return
      */
-    //@RequiresPermissions("system/CommodityTag/list")
+    //@RequiresPermissions("system/GoodsType/list")
     @GetMapping(value = {"/", "/list"})
-    public String list(CommodityTag commodityTag, Model model, HttpSession session) {
-        model.addAttribute("commodityTag", commodityTag);
-        return "modules/data/commodityTag";
+    public String list(GoodsType goodsType, Model model, HttpSession session) {
+        model.addAttribute("goodsType", goodsType);
+        return "modules/data/goodsType";
     }
 
     /**
@@ -66,8 +66,8 @@ public class CommodityTagController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/data")
-    public TreeResult data(CommodityTag commodityTag) {
-        PageInfo<CommodityTag> page = commodityTagService.findPage(new Page<CommodityTag>(), commodityTag);
+    public TreeResult data(GoodsType goodsType) {
+        PageInfo<GoodsType> page = goodsTypeService.findPage(new Page<GoodsType>(), goodsType);
         return getLayUiData(page);
     }
 
@@ -80,9 +80,9 @@ public class CommodityTagController extends BaseController {
      * @return
      */
     @GetMapping("/form/{mode}")
-    public String form(@PathVariable(name = "mode") String mode, CommodityTag commodityTag, Model model) {
-        model.addAttribute("commodityTag", commodityTag);
-        return "modules/data/commodityTagForm";
+    public String form(@PathVariable(name = "mode") String mode, GoodsType goodsType, Model model) {
+        model.addAttribute("goodsType", goodsType);
+        return "modules/data/goodsTypeForm";
     }
 
     /**
@@ -93,8 +93,8 @@ public class CommodityTagController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/save")
-    public Result save(CommodityTag commodityTag) {
-        int save = commodityTagService.save(commodityTag);
+    public Result save(GoodsType goodsType) {
+        int save = goodsTypeService.save(goodsType);
         if (save > 0) {
             return new Result("200", "保存成功");
         } else {
@@ -107,9 +107,9 @@ public class CommodityTagController extends BaseController {
     public Result importTemplate(HttpServletResponse response) {
         Result result = new Result();
         try {
-            String fileName = "商品标签模板.xlsx";
-            List<CommodityTag> list = Lists.newArrayList();
-            new ExportExcel("商品标签数据", CommodityTag.class, 1).setDataList(list).write(response, fileName).dispose();
+            String fileName = "商品分类模板.xlsx";
+            List<GoodsType> list = Lists.newArrayList();
+            new ExportExcel("商品分类数据", GoodsType.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             result.setSuccess(true);
@@ -127,43 +127,43 @@ public class CommodityTagController extends BaseController {
             int failureNum = 0;
             StringBuilder failureMsg = new StringBuilder();
             ImportExcel ei = new ImportExcel(file, 1, 0);
-            List<CommodityTag> list = ei.getDataList(CommodityTag.class);
-            for (CommodityTag CommodityTag : list) {
+            List<GoodsType> list = ei.getDataList(GoodsType.class);
+            for (GoodsType goodsType : list) {
                 try {
-                    commodityTagService.save(CommodityTag);
+                    goodsTypeService.save(goodsType);
                     successNum++;
                 } catch (Exception ex) {
                     failureNum++;
                 }
             }
             if (failureNum > 0) {
-                failureMsg.insert(0, "，失败 " + failureNum + " 条商品标签记录。");
+                failureMsg.insert(0, "，失败 " + failureNum + " 条商品分类记录。");
             }
             result.setSuccess(true);
-            result.setMsg("已成功导入 " + successNum + " 条商品标签记录" + failureMsg);
+            result.setMsg("已成功导入 " + successNum + " 条商品分类记录" + failureMsg);
         } catch (Exception e) {
             result.setSuccess(false);
-            result.setMsg("导入商品标签失败！失败信息：" + e.getMessage());
+            result.setMsg("导入商品分类失败！失败信息：" + e.getMessage());
         }
         return result;
     }
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(CommodityTag commodityTag, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(GoodsType goodsType, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
-            String fileName = "商品标签" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<CommodityTag> list = commodityTagService.findList(commodityTag);
+            String fileName = "商品分类" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            List<GoodsType> list = goodsTypeService.findList(goodsType);
             if (list != null & list.size() > 0) {
-                new ExportExcel("商品标签", CommodityTag.class).setDataList(list).write(response, fileName).dispose();
+                new ExportExcel("商品分类", GoodsType.class).setDataList(list).write(response, fileName).dispose();
             } else {
-                new ExportExcel("商品标签", CommodityTag.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
+                new ExportExcel("商品分类", GoodsType.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
             }
             return null;
         } catch (Exception e) {
             result.setSuccess(false);
-            result.setMsg("导出商品标签记录失败！失败信息：" + e.getMessage());
+            result.setMsg("导出商品分类记录失败！失败信息：" + e.getMessage());
         }
         return result;
     }
@@ -174,11 +174,11 @@ public class CommodityTagController extends BaseController {
         System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
-            CommodityTag CommodityTag = commodityTagService.get(s);
-            if (CommodityTag == null) {
+            GoodsType goodsType = goodsTypeService.get(s);
+            if (goodsType == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = commodityTagService.deleteByLogic(CommodityTag);
+            int i = goodsTypeService.deleteByLogic(goodsType);
         }
         return new Result("200", "数据清除成功");
     }
@@ -188,33 +188,33 @@ public class CommodityTagController extends BaseController {
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
         for (String s : split) {
-            CommodityTag CommodityTag = commodityTagService.get(s);
-            if (CommodityTag == null) {
+            GoodsType goodsType = goodsTypeService.get(s);
+            if (goodsType == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = commodityTagService.deleteByPhysics(CommodityTag);
+            int i = goodsTypeService.deleteByPhysics(goodsType);
         }
         return new Result("200", "数据清除成功");
     }
 
     @GetMapping("/recoveryList")
-    public String recoveryList(CommodityTag CommodityTag, Model model) {
-        model.addAttribute("CommodityTag", CommodityTag);
-        return "modules/recovery/CommodityTagRecovery";
+    public String recoveryList(GoodsType goodsType, Model model) {
+        model.addAttribute("goodsType", goodsType);
+        return "modules/recovery/goodsTypeRecovery";
     }
 
     @ResponseBody
     @PostMapping("/recoveryData")
-    public Map recoveryData(CommodityTag CommodityTag, Model model) {
-        model.addAttribute("CommodityTag", CommodityTag);
-        PageInfo<CommodityTag> page = commodityTagService.findRecoveryPage(new Page<CommodityTag>(), CommodityTag);
+    public Map recoveryData(GoodsType goodsType, Model model) {
+        model.addAttribute("goodsType", goodsType);
+        PageInfo<GoodsType> page = goodsTypeService.findRecoveryPage(new Page<GoodsType>(), goodsType);
         return getBootstrapData(page);
     }
 
     @ResponseBody
     @PostMapping("/recovery")
-    public Result recovery(CommodityTag CommodityTag) {
-        int recovery = commodityTagService.recovery(CommodityTag);
+    public Result recovery(GoodsType goodsType) {
+        int recovery = goodsTypeService.recovery(goodsType);
         if (recovery > 0) {
             return new Result("200", "数据已恢复");
         } else {

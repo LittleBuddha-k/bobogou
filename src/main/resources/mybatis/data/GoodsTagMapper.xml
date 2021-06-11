@@ -1,28 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.CommodityBrandMapper">
-    <sql id="commodityBrandColumns">
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsTagMapper">
+    <sql id="goodsTagColumns">
         id AS "id",
-        brand_name AS "brandName",
-        classify_name AS "classifyName",
-        parent_id AS "parentId",
+        name AS "name",
         is_deleted AS "isDeleted",
         create_time AS "createTime",
         update_time AS "updateTime",
         account_id AS "accountId"
     </sql>
 
-    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityBrand">
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsTag">
         SELECT
-        <include refid="commodityBrandColumns"/>
-        FROM md_goods_brand a
+        <include refid="goodsTagColumns"/>
+        FROM md_tag a
         WHERE id=#{id}
     </select>
 
-    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityBrand">
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsTag">
         SELECT
-        <include refid="commodityBrandColumns"/>
-        FROM md_goods_brand a
+        <include refid="goodsTagColumns"/>
+        FROM md_tag a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -40,10 +38,10 @@
         </choose>
     </select>
 
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.CommodityBrand">
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsTag">
         SELECT
-        <include refid="commodityBrandColumns"/>
-        FROM md_goods_brand a
+        <include refid="goodsTagColumns"/>
+        FROM md_tag a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -59,18 +57,14 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO md_goods_brand(
-            brand_name,
-            classify_name,
-            parent_id,
+        INSERT INTO md_tag(
+            name,
             is_deleted,
             create_time,
             update_time,
             account_id
         )VALUES (
-            #{brandName},
-            #{classifyName},
-            #{parentId},
+            #{name},
             #{isDeleted},
             #{createTime},
             #{updateTime},
@@ -79,10 +73,8 @@
     </insert>
 
     <update id="update">
-        UPDATE md_goods_brand SET
-            brand_name = #{brandName},
-            classify_name = #{classifyName},
-            parent_id = #{parentId},
+        UPDATE md_tag SET
+            name = #{name},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime},
@@ -91,17 +83,17 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE md_goods_brand SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE md_tag SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE md_goods_brand SET is_deleted = #{DEL_FLAG_NORMAL}
+        UPDATE md_tag SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM md_goods_brand
+        DELETE FROM md_tag
         WHERE id=#{id}
     </delete>
 </mapper>

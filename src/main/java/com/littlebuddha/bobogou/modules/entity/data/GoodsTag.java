@@ -7,7 +7,7 @@ import com.littlebuddha.bobogou.modules.entity.system.Operator;
 /**
  * 商品标签实体类
  */
-public class CommodityTag extends DataEntity<CommodityTag> {
+public class GoodsTag extends DataEntity<GoodsTag> {
 
 
     private String name;//标签名称
@@ -15,7 +15,7 @@ public class CommodityTag extends DataEntity<CommodityTag> {
 
     private Operator operator;//外键使用
 
-    public CommodityTag() {
+    public GoodsTag() {
     }
 
     @ExcelField(title = "分类名称", align = 2, sort = 1)

@@ -8,11 +8,11 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.CommodityBrand;
-import com.littlebuddha.bobogou.modules.entity.data.CommodityTag;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsBrand;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsTag;
 import com.littlebuddha.bobogou.modules.entity.data.Medicine;
-import com.littlebuddha.bobogou.modules.service.data.CommodityBrandService;
-import com.littlebuddha.bobogou.modules.service.data.CommodityTagService;
+import com.littlebuddha.bobogou.modules.service.data.GoodsBrandService;
+import com.littlebuddha.bobogou.modules.service.data.GoodsTagService;
 import com.littlebuddha.bobogou.modules.service.data.MedicineService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -37,10 +37,10 @@ public class MedicineController extends BaseController {
     private MedicineService medicineService;
 
     @Autowired
-    private CommodityTagService commodityTagService;
+    private GoodsTagService goodsTagService;
 
     @Autowired
-    private CommodityBrandService commodityBrandService;
+    private GoodsBrandService goodsBrandService;
 
     @ModelAttribute
     public Medicine get(@RequestParam(required = false) String id) {
@@ -92,11 +92,11 @@ public class MedicineController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Medicine medicine, Model model) {
         //查询所有标签
-        List<CommodityTag> commodityTagList = commodityTagService.findList(new CommodityTag());
+        List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
         //标签数据
         model.addAttribute("commodityTagList", commodityTagList);
         //查询所有品牌分类
-        List<CommodityBrand> commodityBrandList = commodityBrandService.findList(new CommodityBrand());
+        List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
         //品牌分类数据
         model.addAttribute("commodityBrandList", commodityBrandList);
         model.addAttribute("medicine", medicine);

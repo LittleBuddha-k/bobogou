@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#commodityTypeTable',
-        url: '/bobogou/data/commodityType/data',
+        elem: '#goodsBrandTable',
+        url: '/bobogou/data/goodsBrand/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -33,32 +33,16 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '分类名称',
-                    field: 'name',
+                    title: '品牌名称',
+                    field: 'brandName',
                     sort: true,
-                    sortName: 'name',
-                    templet:function(data){
-                        var valueArray = data.name;
-                        return valueArray;
-                    }
+                    sortName: 'brandName'
                 },
                 {
-                    title: '分类图标地址',
-                    field: 'icon',
+                    title: '品牌规格分类名称',
+                    field: 'classifyName',
                     sort: true,
-                    sortName: 'icon'
-                },
-                {
-                    title: '父级分类ID',
-                    field: 'parentId',
-                    sort: true,
-                    sortName: 'parentId'
-                },
-                {
-                    title: '最后操作人ID',
-                    field: 'accountId',
-                    sort: true,
-                    sortName: 'accountId'
+                    sortName: 'classifyName'
                 },
                 {
                     title: '操作',
@@ -72,10 +56,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            name: $("#name").val(),
-            icon: $("#icon").val(),
-            parentId: $("#parentId").val(),
-            accountId: $("#accountId").val()
+            brandName: $("#brandName").val(),
+            classifyName: $("#classifyName").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -83,12 +65,10 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('commodityTypeTable', {
+        table.reload('goodsBrandTable', {
             where: {
-                name: $("#name").val(),
-                icon: $("#icon").val(),
-                parentId: $("#parentId").val(),
-                accountId: $("#accountId").val()
+                brandName: $("#brandName").val(),
+                classifyName: $("#classifyName").val()
             }
         });
         return false;
@@ -97,9 +77,9 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(commodityTypeTableFilter)', function (obj) {
+    table.on('toolbar(goodsBrandTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/commodityType/form/add", "新建商品分类信息")
+            var index = rc.openSaveDialog("/bobogou/data/goodsBrand/form/add", "新建商品品牌规格分类信息")
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -112,7 +92,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/commodityType/form/edit?id=' + ids, "编辑商品分类信息");
+                rc.openSaveDialog('/bobogou/data/goodsBrand/form/edit?id=' + ids, "编辑商品品牌规格分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -126,7 +106,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/commodityType/form/view?id=' + ids, "查看商品分类信息");
+                rc.openViewDialog('/bobogou/data/goodsBrand/form/view?id=' + ids, "查看商品品牌规格分类信息");
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -136,7 +116,7 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/data/commodityType/deleteByPhysics?ids=" + ids, '',function (data) {
+                rc.post("/bobogou/data/goodsBrand/deleteByPhysics?ids=" + ids, '',function (data) {
                     if(data.code == 200){
                         //执行搜索重载
                         refresh();
@@ -147,15 +127,15 @@ layui.use(['form', 'table'], function () {
                 });
             }
         } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/commodityType/importTemplate", "/bobogou/data/commodityType/importFile")
+            rc.openImportDialog("/bobogou/data/goodsBrand/importTemplate", "/bobogou/data/goodsBrand/importFile")
         } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/commodityType/exportFile?" + $("#searchForm").serialize());
+            rc.downloadFile("/bobogou/data/goodsBrand/exportFile?" + $("#searchForm").serialize());
         }
     });
 
-    table.on('tool(commodityTypeTableFilter)', function (obj) {
+    table.on('tool(goodsBrandTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/commodityType/addRolePage?id=" + id, "设置角色")
+        var index = rc.openSelectionDialog("/bobogou/data/goodsBrand/addRolePage?id=" + id, "设置角色")
         $(window).on("resize", function () {
             layer.full(index);
         });
@@ -170,7 +150,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('commodityTypeTable'),
+    var checkStatus = table.checkStatus('goodsBrandTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -187,7 +167,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('commodityTypeTable', {
+        table.reload('goodsBrandTable', {
             page: {
                 curr: 1
             }

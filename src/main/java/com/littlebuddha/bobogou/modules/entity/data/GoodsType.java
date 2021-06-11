@@ -7,14 +7,14 @@ import com.littlebuddha.bobogou.modules.entity.system.Operator;
 /**
  * 商品分类实体类
  */
-public class CommodityType extends DataEntity<CommodityType> {
+public class GoodsType extends DataEntity<GoodsType> {
 
     private String name;//分类名称
     private String icon;//分类图标地址
     private Integer parentId;//父级分类ID，顶级=0
     private Integer accountId;//最后操作人ID
 
-    private CommodityType commodityType;//图标外键
+    private GoodsType goodsType;//图标外键
     private Operator operator;//最后操作人外键
 
     @ExcelField(title = "分类名称", align = 2, sort = 1)
@@ -53,12 +53,12 @@ public class CommodityType extends DataEntity<CommodityType> {
         this.accountId = accountId;
     }
 
-    public CommodityType getCommodityType() {
-        return commodityType;
+    public GoodsType getGoodsType() {
+        return goodsType;
     }
 
-    public void setCommodityType(CommodityType commodityType) {
-        this.commodityType = commodityType;
+    public void setGoodsType(GoodsType goodsType) {
+        this.goodsType = goodsType;
     }
 
     public Operator getOperator() {
