@@ -23,7 +23,7 @@ public class Menu extends DataEntity<Menu> {
     private Integer isShow;    // 是否在菜单中显示（1：显示；0：不显示）
     private Integer type; //按钮类型（1：按钮；0：菜单）
     private String permission; // 权限标识
-    private boolean hasChildren;
+    private boolean hasChildren = false;//（true：有子集；false：无子集,默认值false）
 
     private List<Menu> child;    // 子级菜单列表
 

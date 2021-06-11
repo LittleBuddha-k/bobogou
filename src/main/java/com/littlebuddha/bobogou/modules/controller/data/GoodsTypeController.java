@@ -81,6 +81,9 @@ public class GoodsTypeController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, GoodsType goodsType, Model model) {
+        //查询所有分类项
+        List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
+        model.addAttribute("goodsTypeList", goodsTypeList);
         model.addAttribute("goodsType", goodsType);
         return "modules/data/goodsTypeForm";
     }

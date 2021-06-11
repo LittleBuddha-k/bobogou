@@ -88,7 +88,11 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
         }
 
         //设置父类信息
-        menu.setParent(menuMapper.get(menu.getParent().getId()));
+        Menu parentMenu = menuMapper.get(menu.getParent().getId());
+        parentMenu.setHasChildren(true);
+        menu.setParent(parentMenu);
+        //更新父类hasChildren字段
+        menuMapper.update(parentMenu);
 
         // 获取修改前的parentIds，用于更新子节点的parentIds
         String oldParentIds = menu.getParentIds();

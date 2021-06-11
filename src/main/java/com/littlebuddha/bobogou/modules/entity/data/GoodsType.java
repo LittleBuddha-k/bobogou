@@ -15,7 +15,8 @@ public class GoodsType extends DataEntity<GoodsType> {
     private Integer parentId;//父级分类ID，顶级=0
     private String accountId;//最后操作人ID
 
-    private GoodsType goodsType;//图标外键
+    private GoodsType goodsType;//商品分类外键
+    private String parentName;//分类名称
 
     @ExcelField(title = "分类名称", align = 2, sort = 1)
     public String getName() {
@@ -62,5 +63,15 @@ public class GoodsType extends DataEntity<GoodsType> {
 
     public void setGoodsType(GoodsType goodsType) {
         this.goodsType = goodsType;
+    }
+
+    public String getParentName() {
+        if (goodsType != null && StringUtils.isNotBlank(goodsType.getName()))
+            this.parentName = goodsType.getName();
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

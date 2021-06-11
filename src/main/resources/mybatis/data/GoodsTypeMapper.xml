@@ -7,22 +7,29 @@
         a.icon AS "icon",
         a.parent_id AS "parentId",
         a.account_id AS "accountId",
+        b.name AS "goodsType.name",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="goodsTypeJoins">
+        LEFT JOIN mb_classify b ON a.parent_id = b.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsType">
         SELECT
         <include refid="goodsTypeColumns"/>
         FROM mb_classify a
-        WHERE id=#{id}
+        <include refid="goodsTypeJoins"/>
+        WHERE a.id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsType">
         SELECT
         <include refid="goodsTypeColumns"/>
         FROM mb_classify a
+        <include refid="goodsTypeJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -44,6 +51,7 @@
         SELECT
         <include refid="goodsTypeColumns"/>
         FROM mb_classify a
+        <include refid="goodsTypeJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->

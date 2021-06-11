@@ -49,10 +49,10 @@ layui.use(['form', 'table'], function () {
                     sortName: 'icon'
                 },
                 {
-                    title: '父级分类ID',
-                    field: 'parentId',
+                    title: '父级',
+                    field: 'parentName',
                     sort: true,
-                    sortName: 'parentId'
+                    sortName: 'goodsType.name'
                 },
                 {
                     title: '最后操作人ID',
@@ -74,8 +74,7 @@ layui.use(['form', 'table'], function () {
         where: {
             name: $("#name").val(),
             icon: $("#icon").val(),
-            parentId: $("#parentId").val(),
-            accountId: $("#accountId").val()
+            parentId: $("#parentId").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -87,8 +86,7 @@ layui.use(['form', 'table'], function () {
             where: {
                 name: $("#name").val(),
                 icon: $("#icon").val(),
-                parentId: $("#parentId").val(),
-                accountId: $("#accountId").val()
+                parentId: $("#parentId").val()
             }
         });
         return false;
