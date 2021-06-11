@@ -73,12 +73,13 @@
         </script>
 
         <form id="hiddenForm">
-            <input type="hidden" th:name="id" th:value="${operator.id}">
-            <input type="hidden" th:name="username" th:value="${operator.username}">
-            <input type="hidden" th:name="password" th:value="${operator.password}">
+            <input type="hidden" th:name="id" th:value="${operator.getId()}">
+            <input type="hidden" th:name="username" th:value="${operator.getPhone()}">
+            <input type="hidden" th:name="username" th:value="${operator.getPassword()}">
+            <input type="hidden" th:name="username" th:value="${operator.getHeader()}">
+            <input type="hidden" th:name="username" th:value="${operator.getNickname()}">
+            <input type="hidden" th:name="password" th:value="${operator.getSex()}">
             <input type="hidden" th:name="sex" th:value="${operator.sex}">
-            <input type="hidden" th:name="age" th:value="${operator.age}">
-            <input type="hidden" th:name="address" th:value="${operator.address}">
             <input type="hidden" th:name="rolesId" th:value="${rolesId}" id="rolesId">
         </form>
     </div>

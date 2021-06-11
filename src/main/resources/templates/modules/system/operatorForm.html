@@ -17,10 +17,10 @@
         <input type="hidden" name="id" th:value="${operator.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">姓名</label>
+                <label class="layui-form-label">电话</label>
                 <div class="layui-input-inline">
-                    <input type="username" id="username" th:name="username" th:value="${operator.getUsername()}"
-                           placeholder="姓名" lay-verify="required|username" autocomplete="off" class="layui-input">
+                    <input type="phone" id="phone" th:name="phone" th:value="${operator.getPhone()}"
+                           placeholder="电话" lay-verify="required|phone" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -31,24 +31,17 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline">
+                    <input type="nickname" id="nickname" th:name="nickname" th:value="${operator.getNickname()}"
+                           placeholder="昵称" lay-verify="required|nickname" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">性别</label>
                 <div class="layui-input-inline">
                     <input type="sex" id="sex" th:name="sex" th:value="${operator.getSex()}"
                            placeholder="性别" lay-verify="required|sex" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">年龄</label>
-                <div class="layui-input-inline">
-                    <input type="age" id="age" th:name="age" th:value="${operator.getAge()}"
-                           placeholder="年龄" lay-verify="required|age" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">地址</label>
-                <div class="layui-input-inline">
-                    <input type="address" id="address" th:name="address" th:value="${operator.getAddress()}"
-                           placeholder="地址" lay-verify="required|address" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>

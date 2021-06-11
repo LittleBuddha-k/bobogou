@@ -15,7 +15,7 @@
         a.sigin_in_time AS "signInTime",
         a.message_status AS "messageStatus",
         a.user_agreement AS "userAgreement",
-        a.is_deleted AS "isDelete",
+        a.is_deleted AS "isDeleted",
         a.salt AS "salt",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
@@ -138,7 +138,6 @@
 
     <insert id="insert">
         INSERT INTO system_operator(
-            id,
             phone,
             password,
             header,
@@ -156,7 +155,6 @@
             create_time,
             update_time
         )VALUES (
-            #{id},
             #{phone},
             #{password},
             #{header},
@@ -169,7 +167,7 @@
             #{signInTime},
             #{messageStatus},
             #{userAgreement},
-            #{isDelete},
+            #{isDeleted},
             #{salt},
             #{createTime},
             #{updateTime}
@@ -190,7 +188,7 @@
             sigin_in_time = #{signInTime},
             message_status = #{messageStatus},
             user_agreement = #{userAgreement},
-            is_deleted = #{isDelete},
+            is_deleted = #{isDeleted},
             salt = #{salt},
             create_time = #{createTime},
             update_time = #{updateTime}
@@ -203,7 +201,7 @@
     </update>
 
     <update id="recovery">
-        UPDATE system_operator SET del_flag = #{DEL_FLAG_NORMAL}
+        UPDATE system_operator SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
