@@ -20,7 +20,7 @@ import java.util.Map;
  * 图标controller
  */
 @Controller
-@RequestMapping("/data/icon")
+@RequestMapping("/system/icon")
 public class IconController extends BaseController {
 
     @Autowired
@@ -50,7 +50,7 @@ public class IconController extends BaseController {
     @GetMapping(value = {"/", "/list"})
     public String list(Icon icon, Model model, HttpSession session) {
         model.addAttribute("icon", icon);
-        return "modules/data/icon";
+        return "modules/system/icon";
     }
 
     /**
@@ -76,7 +76,7 @@ public class IconController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Icon icon, Model model) {
         model.addAttribute("icon", icon);
-        return "modules/data/iconForm";
+        return "modules/system/iconForm";
     }
 
     /**

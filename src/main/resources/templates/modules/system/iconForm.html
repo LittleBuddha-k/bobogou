@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>图标管理</title>
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="iconForm">
+        <input type="hidden" name="id" th:value="${icon.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">图标名</label>
+                <div class="layui-input-inline">
+                    <input type="name" id="name" th:name="url" th:value="${icon.getName()}"
+                           placeholder="图标名" lay-verify="required|name" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">图标类名</abel>
+                <div class="layui-input-inline">
+                    <input type="classCode" id="classCode" th:name="classCode" th:value="${icon.getClassCode()}"
+                           placeholder="图标类名" lay-verify="required|classCode" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //保存方法
+    function save(parentIndex) {
+        $.ajax({
+            url: "/bobogou/system/icon/save",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: $("#iconForm").serialize(),    //参数值
+            type: "POST",   //请求方式
+            success: function (result) {
+                //假设这是iframe页
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+                parent.refresh();
+                rc.alert(result.msg)
+            },
+            error: function (result) {
+                rc.alert(result.msg)
+            }
+        });
+    }
+</script>
+</body>
+</html>

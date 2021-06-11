@@ -47,7 +47,6 @@ function init() {
                             align: 'left',
                             title: '菜单图标',
                             templet: function (d) {
-                                let strings = d.icon.toString().split(" ");
                                 let html = '<i class="' + d.icon + '"></i> ';
                                 return html;
                             }
