@@ -16,11 +16,14 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
 
     private boolean isNewData = false;//此项数据是否为新数据
 
-    protected String isDeleted;       //0---正常  1---删除
+    protected String isDeleted = "0";       //0---正常  1---删除
+    protected String delFlag = "0";       //0---正常  1---删除  初始值为0
 
     protected Operator createBy;
+    protected Date createDate;
     protected Date createTime;
     protected Operator updateBy;
+    protected Date updateDate;
     protected Date updateTime;
 
     protected String remarks;
@@ -70,6 +73,30 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
         this.updateTime = new Date();
     }
 
+    public boolean getNewData() {
+        return isNewData;
+    }
+
+    public void setNewData(boolean newData) {
+        isNewData = newData;
+    }
+
+    public String getIsDeleted() {
+        return isDeleted;
+    }
+
+    public void setIsDeleted(String isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
+    }
+
     public Operator getCreateBy() {
         return createBy;
     }
@@ -79,11 +106,19 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     }
 
     public Date getCreateDate() {
-        return createTime;
+        return createDate;
     }
 
     public void setCreateDate(Date createDate) {
-        this.createTime = createDate;
+        this.createDate = createDate;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Operator getUpdateBy() {
@@ -95,10 +130,18 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     }
 
     public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateDate(Date updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 
@@ -108,13 +151,5 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    public String getDelFlag() {
-        return isDeleted;
-    }
-
-    public void setDelFlag(String isDeleted) {
-        this.isDeleted = isDeleted;
     }
 }

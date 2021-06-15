@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>区级管理</title>
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="areaForm">
+        <input type="hidden" name="id" th:value="${area.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">区级代码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="code" th:value="${area.getCode()}"
+                           th:id="code" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">区名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${area.getName()}" autocomplete="off"
+                           th:id="name" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">简称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="shortName" th:value="${area.getShortName()}" autocomplete="off"
+                           th:id="shortName" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">市级代码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="cityCode" th:value="${area.getCityCode()}" autocomplete="off"
+                           th:id="cityCode" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">经度</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="lng" th:value="${area.getLng()}" autocomplete="off"
+                           th:id="lng" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">纬度</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="lat" th:value="${area.getLat()}" autocomplete="off"
+                           th:id="lat" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="sort" th:value="${area.getSort()}" autocomplete="off"
+                           th:id="sort" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="remarks" th:value="${area.getRemarks()}" autocomplete="off"
+                           th:id="remarks" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="status" th:value="${area.getStatus()}" autocomplete="off"
+                           th:id="status" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">租户ID</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="tenantCode" th:value="${area.getTenantCode()}" autocomplete="off"
+                           th:id="tenantCode" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    //保存方法
+    function save(parentIndex) {
+        $.ajax({
+            url: "/bobogou/data/area/save",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: $("#areaForm").serialize(),    //参数值
+            type: "POST",   //请求方式
+            success: function (result) {
+                //假设这是iframe页
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                parent.layer.close(index); //再执行关闭
+                parent.refresh();
+                rc.alert(result.msg)
+            },
+            error: function (result) {
+                rc.alert(result.msg)
+            }
+        });
+    }
+</script>
+</body>
+</html>

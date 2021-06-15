@@ -55,12 +55,13 @@ public abstract class CrudService<E extends DataEntity,M extends BaseMapper<E>> 
      * @return
      */
     public PageInfo<E> findPage(Page<E> page, E entity){
-        PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+        PageInfo<E> pageInfo = null;
         if(entity.getPageNo() != null && entity.getPageSize() != null){
             entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<E> list = mapper.findList(entity);
+            pageInfo = new PageInfo<E>(list);
         }
-        List<E> list = mapper.findList(entity);
-        PageInfo<E> pageInfo = new PageInfo<E>(list);
         return pageInfo;
     }
 
