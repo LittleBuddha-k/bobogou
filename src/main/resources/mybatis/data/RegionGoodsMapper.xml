@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper">
+    <sql id="regionGoodsColumns">
+        a.id AS "id",
+        a.province_id AS "provinceId",
+        a.city_id AS "cityId",
+        a.district_id AS "districtId",
+        a.street_id AS "streetId",
+        a.goods_id AS "goodsId",
+        a.amount AS "amount",
+        a.sales_volume AS "salesVolume",
+        a.is_market AS "isMarket",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime",
+        a.account_id AS "accountId"
+    </sql>
+
+    <sql id="regionGoodsJoins">
+        
+    </sql>
+    
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
+        SELECT
+        <include refid="regionGoodsColumns"/>
+        FROM md_region_goods a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
+        SELECT
+        <include refid="regionGoodsColumns"/>
+        FROM md_region_goods a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="provinceId != null and provinceId != ''">
+                and a.province_id = #{provinceId}
+            </if>
+            <if test="cityId != null and cityId != ''">
+                and a.city_id = #{cityId}
+            </if>
+            <if test="districtId != null and districtId != ''">
+                and a.district_id = #{districtId}
+            </if>
+            <if test="streetId != null and streetId != ''">
+                and a.street_id = #{streetId}
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and a.goods_id = #{goodsId}
+            </if>
+            <if test="amount != null and amount != ''">
+                and a.amount = #{amount}
+            </if>
+            <if test="salesVolume != null and salesVolume != ''">
+                and a.sales_volume = #{salesVolume}
+            </if>
+            <if test="isMarket != null and isMarket != ''">
+                and a.is_market = #{isMarket}
+            </if>
+            <if test="accountId != null and accountId != ''">
+                and a.account_id = #{accountId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
+        SELECT
+        <include refid="regionGoodsColumns"/>
+        FROM md_region_goods a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="provinceId != null and provinceId != ''">
+                and a.province_id = #{provinceId}
+            </if>
+            <if test="cityId != null and cityId != ''">
+                and a.city_id = #{cityId}
+            </if>
+            <if test="districtId != null and districtId != ''">
+                and a.district_id = #{districtId}
+            </if>
+            <if test="streetId != null and streetId != ''">
+                and a.street_id = #{streetId}
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and a.goods_id = #{goodsId}
+            </if>
+            <if test="amount != null and amount != ''">
+                and a.amount = #{amount}
+            </if>
+            <if test="salesVolume != null and salesVolume != ''">
+                and a.sales_volume = #{salesVolume}
+            </if>
+            <if test="isMarket != null and isMarket != ''">
+                and a.is_market = #{isMarket}
+            </if>
+            <if test="accountId != null and accountId != ''">
+                and a.account_id = #{accountId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_region_goods(
+            province_id,
+            city_id,
+            district_id,
+            street_id,
+            goods_id,
+            amount,
+            sales_volume,
+            is_market,
+            is_deleted,
+            create_time,
+            update_time,
+            account_id
+        )VALUES (
+            #{provinceId},
+            #{cityId},
+            #{districtId},
+            #{streetId},
+            #{goodsId},
+            #{amount},
+            #{salesVolume},
+            #{isMarket},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{accountId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE md_region_goods SET
+            province_id = #{provinceId},
+            city_id = #{cityId},
+            district_id = #{districtId},
+            street_id = #{streetId},
+            goods_id = #{goodsId},
+            amount = #{amount},
+            sales_volume = #{salesVolume},
+            is_market = #{isMarket},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            account_id = #{accountId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE md_region_goods SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE md_region_goods SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM md_region_goods
+        WHERE id=#{id}
+    </delete>
+</mapper>

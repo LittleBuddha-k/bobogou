@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>地域商品管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="regionGoodsForm">
+        <input type="hidden" name="id" th:value="${regionGoods.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">省</label>
+            <div class="layui-inline">
+                <select name="provinceId" lay-verify="" th:if="${mode == 'add'}" lay-filter="province">
+                    <option th:text="请选择"/>
+                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                </select>
+                <select name="provinceId" lay-verify="" th:if="${mode != 'add'}">
+                    <option th:each="province:${provinceList}"
+                            th:if="${province.getId() == regionGoods.getProvinceId()}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                    <option th:each="province:${provinceList}"
+                            th:if="${province.getId() != regionGoods.getProvinceId()}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="cityId" lay-verify="" th:if="${mode == 'add'}" lay-filter="city">
+                    <option th:text="请先选择省份"/>
+                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="districtId" lay-verify="" th:if="${mode == 'add'}" lay-filter="area">
+                    <option th:text="请先选择城市"/>
+                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                </select>
+            </div>
+            <div class="layui-inline">
+                <select name="streetId" lay-verify="" th:if="${mode == 'add'}">
+                    <option th:text="请先选择区域"/>
+                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                            th:text="${province.getName()}"/>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">商品</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="goodsId" th:value="${regionGoods.getGoodsId()}" autocomplete="off"
+                           th:id="goodsId" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">商品数量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="amount" th:value="${regionGoods.getAmount()}" autocomplete="off"
+                           th:id="amount" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">销量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="salesVolume" th:value="${regionGoods.getSalesVolume()}" autocomplete="off"
+                           th:id="salesVolume" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否销售</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="isMarket" th:value="${regionGoods.getIsMarket()}" autocomplete="off"
+                           th:id="isMarket" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">最后操作人ID</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="accountId" th:value="${regionGoods.getAccountId()}" autocomplete="off"
+                           th:id="accountId" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/regionGoodsForm.js"></script>
+</body>
+</html>
