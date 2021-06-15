@@ -6,6 +6,7 @@
         a.name AS "name",
         a.icon AS "icon",
         a.parent_id AS "parentId",
+        a.level AS "level",
         a.account_id AS "accountId",
         b.name AS "goodsType.name",
         a.is_deleted AS "isDeleted",
@@ -33,9 +34,12 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <!--<if test="name != null and name != ''">
+            <if test="name != null and name != ''">
                 and a.name = #{name}
-            </if>-->
+            </if>
+            <if test="parentId != null and parentId != ''">
+            and a.id = #{parentId}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -71,6 +75,7 @@
             name,
             icon,
             parent_id,
+            level,
             account_id,
             is_deleted,
             create_time,
@@ -79,6 +84,7 @@
             #{name},
             #{icon},
             #{parentId},
+            #{level},
             #{accountId},
             #{isDeleted},
             #{createTime},
@@ -91,6 +97,7 @@
             name = #{name},
             icon = #{icon},
             parent_id = #{parentId},
+            level = #{level},
             account_id = #{accountId},
             is_deleted  = #{isDeleted},
             create_time = #{createTime},

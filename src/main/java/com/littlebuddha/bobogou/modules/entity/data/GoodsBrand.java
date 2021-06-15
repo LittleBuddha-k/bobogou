@@ -18,6 +18,10 @@ public class GoodsBrand extends DataEntity<GoodsBrand> {
     public GoodsBrand() {
     }
 
+    public GoodsBrand(String parentId) {
+        this.parentId = parentId;
+    }
+
     @ExcelField(title = "品牌名称", align = 2, sort = 1)
     public String getBrandName() {
         return brandName;

@@ -34,6 +34,15 @@ public class GoodsTypeService extends CrudService<GoodsType, GoodsTypeMapper> {
         return super.findPage(page, entity);
     }
 
+    /**
+     * 只查询顶级商品分类数据
+     * @return
+     */
+    public List<GoodsType> findLevelOneData(){
+
+        return null;
+    }
+
     @Override
     public int save(GoodsType entity) {
         entity.setIdType("AUTO");

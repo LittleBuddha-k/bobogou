@@ -17,6 +17,13 @@ layui.use('form', function(){
         //console.log($("#tagId").val())
         //console.log(data.othis); //得到美化后的DOM对象
     });
+
+    //商品分类级联下拉框
+    form.on('select(levelOne)', function(data){
+        console.log(data.elem); //得到select原始DOM对象
+        console.log(data.value); //得到被选中的值
+        console.log(data.othis); //得到美化后的DOM对象
+    });
 });
 
 function save(parentIndex) {

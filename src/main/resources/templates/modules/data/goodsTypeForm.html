@@ -43,6 +43,22 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">级别分类选择</label>
+                <div class="layui-input-inline">
+                    <select name="level" lay-verify="" th:if="${mode == 'add'}">
+                        <option  th:text="请选择"/>
+                        <option th:value="0" th:text="一级分类"/>
+                        <option th:value="1" th:text="二级分类"/>
+                        <option th:value="2" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add'}">
+                        <option th:if="${goodsType.getLevel() == 0}" th:value="0" th:text="一级分类"/>
+                        <option th:if="${goodsType.getLevel() == 1}" th:value="1" th:text="二级分类"/>
+                        <option th:if="${goodsType.getLevel() == 2}" th:value="2" th:text="三级分类"/>
+                    </select>
+                </div>
+            </div>
         </div>
     </form>
 </div>

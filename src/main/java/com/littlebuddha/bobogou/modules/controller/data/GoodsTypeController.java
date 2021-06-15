@@ -72,6 +72,18 @@ public class GoodsTypeController extends BaseController {
     }
 
     /**
+     * 根据父类信息查询子数据
+     * @param goodsType
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/getChildren")
+    public List<GoodsType> getChildren(GoodsType goodsType){
+        List<GoodsType> goodsTypes = goodsTypeService.findList(goodsType);
+        return goodsTypes;
+    }
+
+    /**
      * 返回表单
      *
      * @param mode

@@ -4,6 +4,8 @@ import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 /**
  * 药品实体类
  */
@@ -32,6 +34,8 @@ public class Medicine extends DataEntity<Medicine> {
     private String healthBeans;//健康豆，该商品可获得的健康豆
     private String isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
+
+    private List<GoodsType> goodsTypeList;//商品分类list
 
     public Medicine() {
     }
@@ -201,5 +205,13 @@ public class Medicine extends DataEntity<Medicine> {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public List<GoodsType> getGoodsTypeList() {
+        return goodsTypeList;
+    }
+
+    public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
+        this.goodsTypeList = goodsTypeList;
     }
 }
