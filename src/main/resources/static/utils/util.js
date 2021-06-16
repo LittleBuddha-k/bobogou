@@ -246,11 +246,12 @@
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
                         let ids = iframeWin.getSelector();
                         let split = ids.split(",");
-                        $("#goods").empty();
+                        $("#goodsId").empty();
                         //对应的值传回，拼出html下拉框语句
                         let tmp = "<option value='" + split[0] + "'>" + split[1] + "</option>";
-                        $("#goods").html(tmp);
+                        $("#goodsId").html(tmp);
                         form.render();
+                        layer.close(index);
                     }
                     , btn2: function (index, layero) {
                         //按钮【按钮二】的回调

@@ -59,11 +59,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">商品</label>
                 <div class="layui-input-inline" id="goods">
-                    <select name="goodsId" lay-verify="" th:if="${mode == 'add'}">
+                    <select name="goodsId" lay-verify="" th:if="${mode == 'add'}" id="goodsId">
                         <option th:if="${regionGoods.getMedicine() != null}" th:value="${regionGoods.getMedicine().getId()}"
                                 th:text="${regionGoods.getMedicine().getName()}"/>
                     </select>
-                    <select name="goodsId" lay-verify="" th:if="${mode != 'add'}">
+                    <select name="goodsId" lay-verify="" th:if="${mode != 'add'}" id="goodsId">
                         <option th:if="${regionGoods.getMedicine() != null}" th:value="${regionGoods.getMedicine().getId()}"
                                 th:text="${regionGoods.getMedicine().getName()}"/>
                     </select>
