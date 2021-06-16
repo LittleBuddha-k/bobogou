@@ -40,6 +40,10 @@ public class Medicine extends DataEntity<Medicine> {
     public Medicine() {
     }
 
+    public Medicine(String id) {
+        super(id);
+    }
+
     @ExcelField(title = "商品名称", align = 2, sort = 1)
     public String getName() {
         return name;

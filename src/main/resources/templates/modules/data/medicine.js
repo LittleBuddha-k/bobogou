@@ -198,11 +198,14 @@ layui.use(['form', 'table'], function () {
 
     table.on('tool(medicineTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/medicine/addRolePage?id=" + id, "设置角色")
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        if (obj.event === 'distribution') {
+            let goodsId = id;
+            rc.openSaveDialog("/bobogou/data/regionGoods/form/add?goodsId=" + goodsId, "区域分配")
+        } else if (obj.event === 'onShelves') {
+            alert("上架")
+        } else if (obj.event === 'offShelf') {
+            alert("下架")
+        }
     });
 });
 

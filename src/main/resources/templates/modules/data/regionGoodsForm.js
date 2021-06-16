@@ -4,26 +4,74 @@ layui.use('form', function(){
 
     //下拉框选中后的时间
     form.on('select(province)', function(data){
-        alert("省份选中")
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
+        let provinceId = data.value;
+        $("#city").empty();//清空城市选项
+        rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#city").html(tmp);
+                form.render();
+            }
+        })
     });
     //下拉框选中后的时间
     form.on('select(city)', function(data){
-        alert("城市选中")
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
+        let cityId = data.value;
+        $("#area").empty();//清空城市选项
+        rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#area").html(tmp);
+                form.render();
+            }
+        })
     });
     //下拉框选中后的时间
     form.on('select(area)', function(data){
-        alert("区域选中")
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
+        let streetId = data.value;
+        $("#street").empty();//清空城市选项
+        rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#street").html(tmp);
+                form.render();
+            }
+        })
     });
+
+    /*form.on('radio(isMarket)', function(data){
+        alert("选择了")
+        console.log(data.elem); //得到radio原始DOM对象
+        console.log(data.value); //被点击的radio的value值
+    });*/
 });
+
+$(document).ready(function () {
+    $("#goods").click(function () {
+
+    })
+})
 
 //保存方法
 function save(parentIndex) {

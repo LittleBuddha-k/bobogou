@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author ck
@@ -10,7 +11,10 @@ public class Area extends DataEntity<Area> {
     private String code;
     private String name;
     private String shortName;
+
+    private City city;
     private String cityCode;
+
     private Double lng;
     private Double lat;
     private Integer sort;
@@ -41,7 +45,18 @@ public class Area extends DataEntity<Area> {
         this.shortName = shortName;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public String getCityCode() {
+        if(city != null && StringUtils.isNotBlank(city.getCode())){
+            this.cityCode = city.getCode();
+        }
         return cityCode;
     }
 

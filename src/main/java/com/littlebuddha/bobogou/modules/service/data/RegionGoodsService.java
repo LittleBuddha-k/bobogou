@@ -5,8 +5,10 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -21,6 +23,9 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Autowired
     private RegionGoodsMapper regionGoodsMapper;
 
+    @Autowired
+    private OperatorMapper operatorMapper;
+
     @Override
     public RegionGoods get(RegionGoods entity) {
         return super.get(entity);
@@ -33,7 +38,16 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
 
     @Override
     public PageInfo<RegionGoods> findPage(Page<RegionGoods> page, RegionGoods entity) {
-        return super.findPage(page, entity);
+        PageInfo<RegionGoods> pageRegionGoods = super.findPage(page, entity);
+        List<RegionGoods> list = pageRegionGoods.getList();
+        for (RegionGoods regionGoods : list) {
+            Operator operator = new Operator();
+            operator.setId(regionGoods.getAccountId());
+            Operator updateBy = operatorMapper.get(operator);
+            regionGoods.setUpdateBy(updateBy);
+        }
+        System.out.println(pageRegionGoods.getList());
+        return pageRegionGoods;
     }
 
     @Override

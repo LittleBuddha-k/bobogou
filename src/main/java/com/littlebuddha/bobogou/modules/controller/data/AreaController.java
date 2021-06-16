@@ -9,7 +9,9 @@ import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.service.data.AreaService;
+import com.littlebuddha.bobogou.modules.service.data.CityService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class AreaController extends BaseController {
 
     @Autowired
     private AreaService areaService;
+
+    @Autowired
+    private CityService cityService;
 
     @ModelAttribute
     public Area get(@RequestParam(required = false) String id) {
@@ -69,6 +74,21 @@ public class AreaController extends BaseController {
     public TreeResult data(Area area) {
         PageInfo<Area> page = areaService.findPage(new Page<Area>(), area);
         return getLayUiData(page);
+    }
+
+    /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/all")
+    public List<Area> all(Area entity) {
+        if(entity != null && StringUtils.isNotBlank(entity.getCity().getId())){
+            City city = cityService.get(entity.getCity().getId());
+            entity.setCityCode(city.getCode());
+        }
+        List<Area> list = areaService.findList(entity);
+        return list;
     }
 
     /**

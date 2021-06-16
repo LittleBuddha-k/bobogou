@@ -10,7 +10,10 @@ public class Street extends DataEntity<Street> {
     private String code;
     private String name;
     private String shortName;
+
+    private Area area;
     private String areaCode;
+
     private Double lng;
     private Double lat;
     private Integer sort;
@@ -39,6 +42,14 @@ public class Street extends DataEntity<Street> {
 
     public void setShortName(String shortName) {
         this.shortName = shortName;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     public String getAreaCode() {

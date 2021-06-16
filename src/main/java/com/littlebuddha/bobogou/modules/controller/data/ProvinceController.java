@@ -72,6 +72,17 @@ public class ProvinceController extends BaseController {
     }
 
     /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/all")
+    public List<Province> all(Province province) {
+        List<Province> list = provinceService.findList(province);
+        return list;
+    }
+
+    /**
      * 返回表单
      *
      * @param mode

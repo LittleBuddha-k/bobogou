@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * @author ck
@@ -10,7 +11,11 @@ public class City extends DataEntity<City> {
     private String code;
     private String name;
     private String shortName;
+
+    //搞个省外键
+    private Province province;
     private String provinceCode;
+
     private Double lng;
     private Double lat;
     private Integer sort;
@@ -41,7 +46,18 @@ public class City extends DataEntity<City> {
         this.shortName = shortName;
     }
 
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
     public String getProvinceCode() {
+        if(province != null && StringUtils.isNotBlank(province.getCode())){
+            this.provinceCode = province.getCode();
+        }
         return provinceCode;
     }
 

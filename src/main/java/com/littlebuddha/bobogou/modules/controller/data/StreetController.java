@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.Street;
+import com.littlebuddha.bobogou.modules.service.data.AreaService;
 import com.littlebuddha.bobogou.modules.service.data.StreetService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,9 @@ public class StreetController extends BaseController {
 
     @Autowired
     private StreetService streetService;
+
+    @Autowired
+    private AreaService areaService;
 
     @ModelAttribute
     public Street get(@RequestParam(required = false) String id) {
@@ -69,6 +74,21 @@ public class StreetController extends BaseController {
     public TreeResult data(Street street) {
         PageInfo<Street> page = streetService.findPage(new Page<Street>(), street);
         return getLayUiData(page);
+    }
+
+    /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/all")
+    public List<Street> all(Street street) {
+        if(street != null && StringUtils.isNotBlank(street.getArea().getId())){
+            Area area = areaService.get(street.getArea().getId());
+            street.setAreaCode(area.getCode());
+        }
+        List<Street> list = streetService.findList(street);
+        return list;
     }
 
     /**

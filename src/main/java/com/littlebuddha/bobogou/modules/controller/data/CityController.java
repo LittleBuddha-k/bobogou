@@ -9,7 +9,9 @@ import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.data.City;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.service.data.CityService;
+import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class CityController extends BaseController {
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private ProvinceService provinceService;
 
     @ModelAttribute
     public City get(@RequestParam(required = false) String id) {
@@ -72,6 +77,21 @@ public class CityController extends BaseController {
     }
 
     /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/all")
+    public List<City> all(City city) {
+        if(city != null && StringUtils.isNotBlank(city.getProvince().getId())){
+            Province province = provinceService.get(city.getProvince().getId());
+            city.setProvinceCode(province.getCode());
+        }
+        List<City> list = cityService.findList(city);
+        return list;
+    }
+
+    /**
      * 返回表单
      *
      * @param mode
@@ -81,6 +101,10 @@ public class CityController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, City city, Model model) {
+        if(city != null && StringUtils.isNotBlank(city.getProvince().getId())){
+            Province province = provinceService.get(city.getProvince().getId());
+            city.setProvince(province);
+        }
         model.addAttribute("city", city);
         return "modules/data/cityForm";
     }

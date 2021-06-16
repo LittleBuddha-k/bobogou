@@ -3,10 +3,15 @@
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper">
     <sql id="regionGoodsColumns">
         a.id AS "id",
+        b.name AS "province.name",
         a.province_id AS "provinceId",
+        c.name AS "city.name",
         a.city_id AS "cityId",
+        d.name AS "area.name",
         a.district_id AS "districtId",
+        e.name AS "street.name",
         a.street_id AS "streetId",
+        f.name AS "goodsName",
         a.goods_id AS "goodsId",
         a.amount AS "amount",
         a.sales_volume AS "salesVolume",
@@ -18,20 +23,26 @@
     </sql>
 
     <sql id="regionGoodsJoins">
-        
+        LEFT JOIN system_province b ON a.province_id = b.id
+        LEFT JOIN system_city c ON a.city_id = c.id
+        LEFT JOIN system_area d ON a.district_id = d.id
+        LEFT JOIN system_street e ON a.street_id = e.id
+        LEFT JOIN mb_goods f ON a.goods_id = f.id
     </sql>
     
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
         SELECT
         <include refid="regionGoodsColumns"/>
         FROM md_region_goods a
-        WHERE id=#{id}
+        <include refid="regionGoodsJoins"/>
+        WHERE a.id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
         SELECT
         <include refid="regionGoodsColumns"/>
         FROM md_region_goods a
+        <include refid="regionGoodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -77,6 +88,7 @@
         SELECT
         <include refid="regionGoodsColumns"/>
         FROM md_region_goods a
+        <include refid="regionGoodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->

@@ -44,6 +44,9 @@ public class RegionGoodsController extends BaseController {
     @Autowired
     private StreetService streetService;
 
+    @Autowired
+    private MedicineService medicineService;
+
     @ModelAttribute
     public RegionGoods get(@RequestParam(required = false) String id) {
         RegionGoods regionGoods = null;
@@ -99,6 +102,19 @@ public class RegionGoodsController extends BaseController {
         //查询省级数据---前端做地域级联动
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
+        //查询省级数据---前端做地域级联动
+        /*List<City> cityList = cityService.findList(new City());
+        model.addAttribute("cityList", cityList);
+        //查询省级数据---前端做地域级联动
+        List<Area> areaList = areaService.findList(new Area());
+        model.addAttribute("areaList", areaList);
+        //查询省级数据---前端做地域级联动
+        List<Street> streetList = streetService.findList(new Street());
+        model.addAttribute("streetList", streetList);*/
+        //
+        if(regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())){
+            regionGoods.setMedicine(medicineService.get(new Medicine(regionGoods.getGoodsId())));
+        }
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoodsForm";
     }

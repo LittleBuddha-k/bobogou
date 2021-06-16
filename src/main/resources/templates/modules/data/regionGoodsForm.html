@@ -14,7 +14,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">省</label>
                 <div class="layui-input-inline">
-                    <select name="provinceId" lay-verify="" th:if="${mode == 'add'}" lay-filter="province">
+                    <select name="provinceId" lay-verify="" th:if="${mode == 'add'}" lay-filter="province"
+                            th:id="province">
                         <option th:text="请选择"/>
                         <option th:each="province:${provinceList}" th:value="${province.getId()}"
                                 th:text="${province.getName()}"/>
@@ -22,42 +23,34 @@
                     <select name="provinceId" lay-verify="" th:if="${mode != 'add'}">
                         <option th:each="province:${provinceList}"
                                 th:if="${province.getId() == regionGoods.getProvinceId()}"
-                                th:value="${province.getId()}"
-                                th:text="${province.getName()}"/>
+                                th:value="${province.getId()}" th:text="${province.getName()}"/>
                         <option th:each="province:${provinceList}"
                                 th:if="${province.getId() != regionGoods.getProvinceId()}"
-                                th:value="${province.getId()}"
-                                th:text="${province.getName()}"/>
+                                th:value="${province.getId()}" th:text="${province.getName()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">市</label>
                 <div class="layui-input-inline">
-                    <select name="cityId" lay-verify="" th:if="${mode == 'add'}" lay-filter="city">
-                        <option th:text="请先选择省份"/>
-                        <option th:each="province:${provinceList}" th:value="${province.getId()}"
-                                th:text="${province.getName()}"/>
+                    <select name="cityId" lay-verify="" lay-filter="city" th:id="city">
+                        <option th:if="${regionGoods.getCity() != null}" th:value="${regionGoods.getCityId()}" th:text="${regionGoods.getCity().getName()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">区</label>
                 <div class="layui-input-inline">
-                    <select name="districtId" lay-verify="" th:if="${mode == 'add'}" lay-filter="area">
-                        <option th:text="请先选择城市"/>
-                        <option th:each="province:${provinceList}" th:value="${province.getId()}"
-                                th:text="${province.getName()}"/>
+                    <select name="districtId" lay-verify="" lay-filter="area" th:id="area">
+                        <option th:if="${regionGoods.getArea() != null}" th:value="${regionGoods.districtId}" th:text="${regionGoods.getArea().getName()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">街道</label>
                 <div class="layui-input-inline">
-                    <select name="streetId" lay-verify="" th:if="${mode == 'add'}">
-                        <option th:text="请先选择区域"/>
-                        <option th:each="province:${provinceList}" th:value="${province.getId()}"
-                                th:text="${province.getName()}"/>
+                    <select name="streetId" lay-verify="" th:id="street" lay-filter="street">
+                        <option th:if="${regionGoods.getStreet() != null}" th:value="${regionGoods.getStreetId()}" th:text="${regionGoods.getStreet().getName()}"/>
                     </select>
                 </div>
             </div>
@@ -65,9 +58,15 @@
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">商品</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="goodsId" th:value="${regionGoods.getGoodsId()}" autocomplete="off"
-                           th:id="goodsId" class="layui-input">
+                <div class="layui-input-inline" id="goods">
+                    <select name="goodsId" lay-verify="" th:if="${mode == 'add'}">
+                        <option th:if="${regionGoods.getMedicine() != null}" th:value="${regionGoods.getMedicine().getId()}"
+                                th:text="${regionGoods.getMedicine().getName()}"/>
+                    </select>
+                    <select name="goodsId" lay-verify="" th:if="${mode != 'add'}">
+                        <option th:if="${regionGoods.getMedicine() != null}" th:value="${regionGoods.getMedicine().getId()}"
+                                th:text="${regionGoods.getMedicine().getName()}"/>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
@@ -85,17 +84,23 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">是否销售</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="isMarket" th:value="${regionGoods.getIsMarket()}" autocomplete="off"
-                           th:id="isMarket" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">最后操作人ID</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="accountId" th:value="${regionGoods.getAccountId()}" autocomplete="off"
-                           th:id="accountId" class="layui-input">
+                <div class="layui-inline">
+                    <label class="layui-form-label">是否销售</label>
+                    <div class="layui-inline">
+                        <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
+                                th:id="isMarket">
+                            <option th:value="0" th:text="是"/>
+                            <option th:value="1" th:text="否"/>
+                        </select>
+                        <select name="isMarket" lay-verify="" th:if="${mode != 'add' && '0' == regionGoods.getIsMarket()}">
+                            <option th:value="0" th:text="是"/>
+                            <option th:value="1" th:text="否"/>
+                        </select>
+                        <select name="isMarket" lay-verify="" th:if="${mode != 'add' && '1' == regionGoods.getIsMarket()}">
+                            <option th:value="1" th:text="否"/>
+                            <option th:value="0" th:text="是"/>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>

@@ -36,11 +36,11 @@ layui.use(['form', 'table'], function () {
                     title: '省',
                     field: 'provinceName',
                     sort: true,
-                    sortName: 'provinceName',
+                    sortName: 'provinceName'/*,
                     templet:function(data){
                         var valueArray = data.provinceName;
                         return valueArray;
-                    }
+                    }*/
                 },
                 {
                     title: '市',
