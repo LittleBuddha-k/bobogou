@@ -226,6 +226,32 @@ function getIdSelections(table) {
     return ids;
 }
 
+function getSelector() {
+    let ids = "";
+    let name = "";
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        var checkStatus = table.checkStatus('medicineTable'),
+            data = checkStatus.data;
+        let idArr = ids.toString().split(",");
+        if (data.length > 1) {
+            rc.alert("只能选择一条数据")
+        } else if (data.length <= 0) {
+            rc.alert("请至少选择一条数据")
+        } else {
+            ids = data[0].id;
+            name = data[0].name;
+        }
+        /*for (let i = 0; i < data.length; i++) {
+            ids = ids + data[i].id + ",";
+        }*/
+    })
+    return ids + "," + name;
+}
+
 function refresh() {
     layui.use(['form', 'table'], function () {
         var $ = layui.jquery,

@@ -68,8 +68,14 @@ layui.use('form', function(){
 });
 
 $(document).ready(function () {
-    $("#goods").click(function () {
-
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+        let idsSelections;
+        $("#goods").click(function () {
+            let openSelector = rc.openSelector("/bobogou/data/medicine/","选择商品");
+        })
     })
 })
 

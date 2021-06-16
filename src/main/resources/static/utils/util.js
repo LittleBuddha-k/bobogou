@@ -229,6 +229,46 @@
                 });
             });
         },
+        openSelector: function open(url, title) {
+            layui.use(['layer', 'form'],function () {
+                var layer = layui.layer;
+                var form = layui.form;
+                layer.open({
+                    type: 2,
+                    title: title,
+                    content: url,
+                    skin: 'demo-class',
+                    area: ['75%', '70%'],
+                    offset: 'auto',
+                    btn: ['确定', '关闭'],
+                    yes: function (index, layero) {
+                        //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                        let ids = iframeWin.getSelector();
+                        let split = ids.split(",");
+                        $("#goods").empty();
+                        //对应的值传回，拼出html下拉框语句
+                        let tmp = "<option value='" + split[0] + "'>" + split[1] + "</option>";
+                        $("#goods").html(tmp);
+                        form.render();
+                    }
+                    , btn2: function (index, layero) {
+                        //按钮【按钮二】的回调
+                        layer.close(index);
+                    },
+                    //按钮1、2、3的位置
+                    btnAlign: 'c',
+                    //关闭按钮的风格
+                    closeBtn: 2,
+                    shade: [0.8, '#393D49'],
+                    //设置延时关闭时间
+                    //time: 5000,
+                    shift: 4,
+                    //配置最大化最小化按钮
+                    maxmin: true
+                });
+            });
+        },
         openTreeSaveDialog: function open(url, title) {
             layui.use('layer', function () {
                 var layer = layui.layer;
@@ -336,25 +376,13 @@
                         rc.info("连接失败，请检查网络!")
                     } else if (xhr.status == 404) {
                         var errDetail = "<font color='red'>404,请求地址不存在！</font>";
-                        top.layer.alert(errDetail, {
-                            icon: 2,
-                            area: ['auto', 'auto'],
-                            title: "请求出错"
-                        })
+                        rc.msg("请求出错")
                     } else if (xhr.status && xhr.responseText) {
                         var errDetail = "<font color='red'>" + xhr.responseText.replace(/[\r\n]/g, "<br>").replace(/[\r]/g, "<br>").replace(/[\n]/g, "<br>") + "</font>";
-                        top.layer.alert(errDetail, {
-                            icon: 2,
-                            area: ['80%', '70%'],
-                            title: xhr.status + "错误"
-                        })
+                        rc.msg(xhr.status + "错误")
                     } else {
                         var errDetail = xhr.responseText == "<font color='red'>未知错误!</font>";
-                        top.layer.alert(errDetail, {
-                            icon: 2,
-                            area: ['auto', 'auto'],
-                            title: "真悲剧，后台抛出异常了"
-                        })
+                        rc.alert("真悲剧，后台抛出异常了")
                     }
 
                 }
@@ -366,11 +394,13 @@
         },
 
         close:function(index){
-            if(index){
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);//关闭当前页
+            /*if(index){
                 top.layer.close(index);
             }else{
                 top.layer.closeAll();
-            }
+            }*/
 
         },
 
