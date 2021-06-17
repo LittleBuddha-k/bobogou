@@ -35,6 +35,10 @@ public class Medicine extends DataEntity<Medicine> {
     private String isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 
+    private GoodsType levelOne;//一级分类
+    private GoodsType levelTwo;//一级分类
+    private GoodsType levelThree;//一级分类
+
     private List<GoodsType> goodsTypeList;//商品分类list
 
     public Medicine() {
@@ -217,5 +221,29 @@ public class Medicine extends DataEntity<Medicine> {
 
     public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
         this.goodsTypeList = goodsTypeList;
+    }
+
+    public GoodsType getLevelOne() {
+        return levelOne;
+    }
+
+    public void setLevelOne(GoodsType levelOne) {
+        this.levelOne = levelOne;
+    }
+
+    public GoodsType getLevelTwo() {
+        return levelTwo;
+    }
+
+    public void setLevelTwo(GoodsType levelTwo) {
+        this.levelTwo = levelTwo;
+    }
+
+    public GoodsType getLevelThree() {
+        return levelThree;
+    }
+
+    public void setLevelThree(GoodsType levelThree) {
+        this.levelThree = levelThree;
     }
 }

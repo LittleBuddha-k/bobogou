@@ -36,8 +36,9 @@ layui.use(['form', 'table'], function () {
                     title: '药名',
                     field: 'name',
                     sort: true,
-                    sortName: 'name'
-                },
+                    sortName: 'name',
+                    align: 'center'
+                },/*,
                 {
                     title: '图片',
                     field: 'images',
@@ -49,7 +50,7 @@ layui.use(['form', 'table'], function () {
                     field: 'brandId',
                     sort: true,
                     sortName: 'brandId'
-                },
+                }
                 {
                     title: '商品标签ID',
                     field: 'tagId',
@@ -78,41 +79,47 @@ layui.use(['form', 'table'], function () {
                     title: '规格',
                     field: 'specification',
                     sort: true
-                },
+                }*/,
                 {
                     title: '数量',
                     field: 'amount',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '销量',
                     field: 'salesVolume',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '功效',
                     field: 'effect',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '好评率',
                     field: 'applauseRate',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '是否销售',
                     field: 'isMarket',
-                    sort: true
+                    sort: true,
+                    align: 'center'
                 },
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center"
+                    align: 'left'
                 }
             ]
         ],

@@ -38,7 +38,10 @@
                 and a.name = #{name}
             </if>
             <if test="parentId != null and parentId != ''">
-            and a.id = #{parentId}
+                and a.id = #{parentId}
+            </if>
+            <if test="level != null and level != ''">
+                and a.level = #{level}
             </if>
         </where>
         <choose>

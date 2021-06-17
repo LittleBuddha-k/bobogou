@@ -10,9 +10,11 @@ import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsBrand;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsTag;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
 import com.littlebuddha.bobogou.modules.entity.data.Medicine;
 import com.littlebuddha.bobogou.modules.service.data.GoodsBrandService;
 import com.littlebuddha.bobogou.modules.service.data.GoodsTagService;
+import com.littlebuddha.bobogou.modules.service.data.GoodsTypeService;
 import com.littlebuddha.bobogou.modules.service.data.MedicineService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -41,6 +43,9 @@ public class MedicineController extends BaseController {
 
     @Autowired
     private GoodsBrandService goodsBrandService;
+
+    @Autowired
+    private GoodsTypeService goodsTypeService;
 
     @ModelAttribute
     public Medicine get(@RequestParam(required = false) String id) {
@@ -99,6 +104,13 @@ public class MedicineController extends BaseController {
         List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
         //品牌分类数据
         model.addAttribute("commodityBrandList", commodityBrandList);
+        //查询商品分类数据：分一级、二级、三级
+        List<GoodsType> goodsTypeLevelOne = goodsTypeService.findList(new GoodsType(0));//查询一级商品分类
+        List<GoodsType> goodsTypeLevelTwo = goodsTypeService.findList(new GoodsType(1));//查询二级商品分类
+        List<GoodsType> goodsTypeLevelThree = goodsTypeService.findList(new GoodsType(2));//查询三级商品分类
+        model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
+        model.addAttribute("goodsTypeLevelTwo", goodsTypeLevelTwo);
+        model.addAttribute("goodsTypeLevelThree", goodsTypeLevelThree);
         model.addAttribute("medicine", medicine);
         return "modules/data/medicineForm";
     }

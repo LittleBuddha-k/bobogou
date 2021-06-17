@@ -20,6 +20,13 @@ public class GoodsType extends DataEntity<GoodsType> {
     private GoodsType goodsType;//商品分类外键
     private String parentName;//分类名称
 
+    public GoodsType() {
+    }
+
+    public GoodsType(Integer level) {
+        this.level = level;
+    }
+
     @ExcelField(title = "分类名称", align = 2, sort = 1)
     public String getName() {
         return name;
