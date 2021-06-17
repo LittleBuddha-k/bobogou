@@ -3,71 +3,71 @@
 <head>
     <meta charset="UTF-8">
     <title>轮播图管理</title>
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--markdown编辑器css-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <div>
-    <form class="layui-form" id="bannerForm">
+    <form class="layui-form" lay-filter="example" id="bannerForm">
         <input type="hidden" name="id" th:value="${banner.getId()}">
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">药名</label>
-                <div class="layui-input-inline">
-                    <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
-                           placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
+            <label class="layui-form-label">图片地址</label>
+            <!--<div class="layui-input-block">
+                <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
+                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
+            </div>-->
+            <div class="layui-upload-drag" id="test10" name="file">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="upload" th:if="${mode == 'add'}">
+                    <hr>
+                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                </div>
+                <div class="" id="upload" th:if="${mode != 'add'}">
+                    <hr>
+                    <img th:src="${banner.getUrl()}" alt="上传成功后渲染" style="max-width: 196px" th:if="${mode != 'add'}">
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">展示位置</label>
-                <div class="layui-input-inline">
-                    <input type="type" id="type" th:name="type" th:value="${banner.getType()}"
-                           placeholder="展示位置" lay-verify="required|type" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片地址</label>
+            <div class="layui-input-block">
+                <input type="type" id="url" th:name="url" th:value="${banner.getUrl()}"
+                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">链接地址</label>
-                <div class="layui-input-inline">
-                    <input type="link" id="link" th:name="link" th:value="${banner.getLink()}"
-                           placeholder="链接地址" lay-verify="required|link" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">展示位置</label>
+            <div class="layui-input-block">
+                <input type="type" id="type" th:name="type" th:value="${banner.getType()}"
+                       placeholder="展示位置" lay-verify="required|type" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">展示状态</label>
-                <div class="layui-input-inline">
-                    <input type="status" id="status" th:name="status" th:value="${banner.getStatus()}"
-                           placeholder="展示状态" lay-verify="required|status" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">链接地址</label>
+            <div class="layui-input-block">
+                <input type="link" id="link" th:name="link" th:value="${banner.getLink()}"
+                       placeholder="链接地址" lay-verify="required|link" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">展示状态</label>
+            <div class="layui-input-block">
+                <input type="status" id="status" th:name="status" th:value="${banner.getStatus()}"
+                       placeholder="展示状态" lay-verify="required|status" autocomplete="off" class="layui-input">
             </div>
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    //保存方法
-    function save(parentIndex) {
-        $.ajax({
-            url: "/bobogou/data/banner/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#bannerForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
-    }
-</script>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入markdownjs-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script type="text/javascript" src="/bobogou/modules/data/bannerForm.js"></script>
 </body>
 </html>

@@ -21,7 +21,7 @@ spring:
   datasource:
     username: root
     password: 212527
-    url: jdbc:mysql://localhost:3306/bobogou?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/bobogou?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
@@ -85,7 +85,7 @@ homeinfo:
 
 logoinfo:
   title: 播播狗
-  image: /bobogou/pictures/recruit/logo.jpg
+  image: /bobogou/pictures/logo/logo.jpg
   href: 2
 
 ---
