@@ -11,111 +11,124 @@
     <form class="layui-form" id="medicineForm">
         <input type="hidden" name="id" th:value="${medicine.getId()}">
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">药名</label>
-                <div class="layui-input-inline">
-                    <input type="name" id="name" th:name="name" th:value="${medicine.getName()}"
-                           placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
-                </div>
+            <label class="layui-form-label">药名</label>
+            <div class="layui-input-block">
+                <input type="name" id="name" th:name="name" th:value="${medicine.getName()}"
+                       placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">进价</label>
-                <div class="layui-input-inline">
-                    <input type="purchasingPrice" id="purchasingPrice" th:name="purchasingPrice" th:value="${medicine.getPurchasingPrice()}"
-                           placeholder="进价" lay-verify="required|purchasingPrice" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">进价</label>
+            <div class="layui-input-block">
+                <input type="purchasingPrice" id="purchasingPrice" th:name="purchasingPrice"
+                       th:value="${medicine.getPurchasingPrice()}"
+                       placeholder="进价" lay-verify="required|purchasingPrice" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">原价</label>
-                <div class="layui-input-inline">
-                    <input type="originalCost" id="originalCost" th:name="originalCost" th:value="${medicine.getOriginalCost()}"
-                           placeholder="原价" lay-verify="required|originalCost" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">原价</label>
+            <div class="layui-input-block">
+                <input type="originalCost" id="originalCost" th:name="originalCost"
+                       th:value="${medicine.getOriginalCost()}"
+                       placeholder="原价" lay-verify="required|originalCost" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">普通会员价</label>
-                <div class="layui-input-inline">
-                    <input type="sellingPrice" id="sellingPrice" th:name="sellingPrice" th:value="${medicine.getSellingPrice()}"
-                           placeholder="普通会员价" lay-verify="required|sellingPrice" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">普通会员价</label>
+            <div class="layui-input-block">
+                <input type="sellingPrice" id="sellingPrice" th:name="sellingPrice"
+                       th:value="${medicine.getSellingPrice()}"
+                       placeholder="普通会员价" lay-verify="required|sellingPrice" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">会员价</label>
-                <div class="layui-input-inline">
-                    <input type="vipPrice" id="vipPrice" th:name="vipPrice" th:value="${medicine.getVipPrice()}"
-                           placeholder="会员价" lay-verify="required|vipPrice" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">会员价</label>
+            <div class="layui-input-block">
+                <input type="vipPrice" id="vipPrice" th:name="vipPrice" th:value="${medicine.getVipPrice()}"
+                       placeholder="会员价" lay-verify="required|vipPrice" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">规格</label>
-                <div class="layui-input-inline">
-                    <input type="specification" id="specification" th:name="specification" th:value="${medicine.getSpecification()}"
-                           placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">规格</label>
+            <div class="layui-input-block">
+                <input type="specification" id="specification" th:name="specification"
+                       th:value="${medicine.getSpecification()}"
+                       placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">数量</label>
-                <div class="layui-input-inline">
-                    <input type="amount" id="amount" th:name="amount" th:value="${medicine.getAmount()}"
-                           placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数量</label>
+            <div class="layui-input-block">
+                <input type="amount" id="amount" th:name="amount" th:value="${medicine.getAmount()}"
+                       placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">销量</label>
-                <div class="layui-input-inline">
-                    <input type="salesVolume" id="salesVolume" th:name="salesVolume" th:value="${medicine.getSalesVolume()}"
-                           placeholder="销量" lay-verify="required|salesVolume" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">销量</label>
+            <div class="layui-input-block">
+                <input type="salesVolume" id="salesVolume" th:name="salesVolume" th:value="${medicine.getSalesVolume()}"
+                       placeholder="销量" lay-verify="required|salesVolume" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">功效</label>
-                <div class="layui-input-inline">
-                    <input type="effect" id="effect" th:name="effect" th:value="${medicine.getEffect()}"
-                           placeholder="功效" lay-verify="required|effect" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">功效</label>
+            <div class="layui-input-block">
+                <input type="effect" id="effect" th:name="effect" th:value="${medicine.getEffect()}"
+                       placeholder="功效" lay-verify="required|effect" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">好评率</label>
-                <div class="layui-input-inline">
-                    <input type="applauseRate" id="applauseRate" th:name="applauseRate" th:value="${medicine.getApplauseRate()}"
-                           placeholder="好评率" lay-verify="required|applauseRate" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">好评率</label>
+            <div class="layui-input-block">
+                <input type="applauseRate" id="applauseRate" th:name="applauseRate"
+                       th:value="${medicine.getApplauseRate()}"
+                       placeholder="好评率" lay-verify="required|applauseRate" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">健康豆</label>
-                <div class="layui-input-inline">
-                    <input type="healthBeans" id="healthBeans" th:name="healthBeans" th:value="${medicine.getHealthBeans()}"
-                           placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">健康豆</label>
+            <div class="layui-input-block">
+                <input type="healthBeans" id="healthBeans" th:name="healthBeans" th:value="${medicine.getHealthBeans()}"
+                       placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">是否在售</label>
-                <div class="layui-input-inline">
-                    <input type="isMarket" id="isMarket" th:name="isMarket" th:value="${medicine.getIsMarket()}"
-                           placeholder="是否在售" lay-verify="required|isMarket" autocomplete="off" class="layui-input">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">是否在售</label>
+            <div class="layui-input-block">
+                <input type="isMarket" id="isMarket" th:name="isMarket" th:value="${medicine.getIsMarket()}"
+                       placeholder="是否在售" lay-verify="required|isMarket" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">品牌分类规格</label>
-                <div class="layui-input-inline">
-                    <select name="brandId" lay-verify="" th:if="${mode == 'add'}">
-                        <option  th:text="请选择"/>
-                        <option th:each="commodityBrand:${commodityBrandList}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
-                    </select>
-                    <select name="brandId" lay-verify="" th:if="${mode != 'add'}">
-                        <option th:each="commodityBrand:${commodityBrandList}" th:if="${commodityBrand.getId() == medicine.getBrandId()}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
-                        <option th:each="commodityBrand:${commodityBrandList}" th:if="${commodityBrand.getId() != medicine.getBrandId()}" th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
-                    </select>
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">品牌分类规格</label>
+            <div class="layui-input-block">
+                <select name="brandId" lay-verify="" th:if="${mode == 'add'}">
+                    <option th:text="请选择"/>
+                    <option th:each="commodityBrand:${commodityBrandList}" th:value="${commodityBrand.getId()}"
+                            th:text="${commodityBrand.getBrandName()}"/>
+                </select>
+                <select name="brandId" lay-verify="" th:if="${mode != 'add'}">
+                    <option th:each="commodityBrand:${commodityBrandList}"
+                            th:if="${commodityBrand.getId() == medicine.getBrandId()}"
+                            th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
+                    <option th:each="commodityBrand:${commodityBrandList}"
+                            th:if="${commodityBrand.getId() != medicine.getBrandId()}"
+                            th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
+                </select>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">标签</label>
-                <div class="layui-input-block">
-                    <input type="checkbox" th:if="${mode == 'add'}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
-                    <input type="checkbox" th:if="${mode != 'add' && medicine.getTagId().contains(commodityTag.getId())}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag" checked>
-                    <input type="checkbox" th:if="${mode != 'add' && !medicine.getTagId().contains(commodityTag.getId())}" th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
-                    <input type="hidden" name="tagId" id="tagId" th:value="${medicine.getTagId()}">
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标签</label>
+            <div class="layui-input-block">
+                <input type="checkbox" th:if="${mode == 'add'}" th:each="commodityTag:${commodityTagList}"
+                       th:value="${commodityTag.getId()}" th:title="${commodityTag.getName()}" lay-filter="tag">
+                <input type="checkbox" th:if="${mode != 'add' && medicine.getTagId().contains(commodityTag.getId())}"
+                       th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}"
+                       th:title="${commodityTag.getName()}" lay-filter="tag" checked>
+                <input type="checkbox" th:if="${mode != 'add' && !medicine.getTagId().contains(commodityTag.getId())}"
+                       th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}"
+                       th:title="${commodityTag.getName()}" lay-filter="tag">
+                <input type="hidden" name="tagId" id="tagId" th:value="${medicine.getTagId()}">
             </div>
         </div>
         <div class="layui-form-item">
@@ -123,31 +136,55 @@
             <div class="layui-input-inline">
                 <select name="levelOne.id" lay-filter="levelOne" th:if="${mode == 'add'}">
                     <option value="">一级分类</option>
-                    <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">一级分类</option>
+                    <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
+                            th:text="${levelOne.getName()}">一级分类
+                    </option>
                 </select>
                 <select name="levelOne.id" lay-filter="levelOne" th:if="${mode != 'add'}">
-                    <option th:each="levelOne:${goodsTypeLevelOne}" th:if="${medicine.getLevelOne() != null && medicine.getLevelOne().getId() == levelOne.getId()}" th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">一级分类</option>
-                    <option th:each="levelOne:${goodsTypeLevelOne}" th:if="${medicine.getLevelOne() != null && medicine.getLevelOne().getId() != levelOne.getId()}" th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">一级分类</option>
+                    <option th:each="levelOne:${goodsTypeLevelOne}"
+                            th:if="${medicine.getLevelOne() != null && medicine.getLevelOne().getId() == levelOne.getId()}"
+                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">一级分类
+                    </option>
+                    <option th:each="levelOne:${goodsTypeLevelOne}"
+                            th:if="${medicine.getLevelOne() != null && medicine.getLevelOne().getId() != levelOne.getId()}"
+                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">一级分类
+                    </option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="levelTwo.id" lay-filter="levelTwo" th:if="${mode == 'add'}">
                     <option value="">二级分类</option>
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}" th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">二级分类</option>
+                    <option th:each="levelTwo:${goodsTypeLevelTwo}" th:value="${levelTwo.getId()}"
+                            th:text="${levelTwo.getName()}">二级分类
+                    </option>
                 </select>
                 <select name="levelTwo.id" lay-filter="levelTwo" th:if="${mode != 'add'}">
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}" th:if="${medicine.getLevelTwo() != null && medicine.getLevelTwo().getId() == levelTwo.getId()}" th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">二级分类</option>
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}" th:if="${medicine.getLevelTwo() != null && medicine.getLevelTwo().getId() != levelTwo.getId()}" th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">二级分类</option>
+                    <option th:each="levelTwo:${goodsTypeLevelTwo}"
+                            th:if="${medicine.getLevelTwo() != null && medicine.getLevelTwo().getId() == levelTwo.getId()}"
+                            th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">二级分类
+                    </option>
+                    <option th:each="levelTwo:${goodsTypeLevelTwo}"
+                            th:if="${medicine.getLevelTwo() != null && medicine.getLevelTwo().getId() != levelTwo.getId()}"
+                            th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">二级分类
+                    </option>
                 </select>
             </div>
             <div class="layui-input-inline">
                 <select name="levelThree.id" lay-filter="levelThree" th:if="${mode == 'add'}">
                     <option value="">三级分类</option>
-                    <option th:each="levelThree:${goodsTypeLevelThree}" th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">三级分类</option>
+                    <option th:each="levelThree:${goodsTypeLevelThree}" th:value="${levelThree.getId()}"
+                            th:text="${levelThree.getName()}">三级分类
+                    </option>
                 </select>
                 <select name="levelThree.id" lay-filter="levelThree" th:if="${mode != 'add'}">
-                    <option th:each="levelThree:${goodsTypeLevelThree}" th:if="${medicine.getLevelThree() != null && medicine.getLevelThree().getId() == levelThree.getId()}" th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">三级分类</option>
-                    <option th:each="levelThree:${goodsTypeLevelThree}" th:if="${medicine.getLevelThree() != null && medicine.getLevelThree().getId() != levelThree.getId()}" th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">三级分类</option>
+                    <option th:each="levelThree:${goodsTypeLevelThree}"
+                            th:if="${medicine.getLevelThree() != null && medicine.getLevelThree().getId() == levelThree.getId()}"
+                            th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">三级分类
+                    </option>
+                    <option th:each="levelThree:${goodsTypeLevelThree}"
+                            th:if="${medicine.getLevelThree() != null && medicine.getLevelThree().getId() != levelThree.getId()}"
+                            th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">三级分类
+                    </option>
                 </select>
             </div>
         </div>

@@ -16,12 +16,10 @@
     <form class="layui-form" id="goodsTagForm">
         <input type="hidden" name="id" th:value="${goodsTag.getId()}">
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">分类名称</label>
-                <div class="layui-input-inline">
-                    <input type="name" name="name" th:value="${goodsTag.getName()}"
-                           th:id="name" autocomplete="off" class="layui-input">
-                </div>
+            <label class="layui-form-label">分类名称</label>
+            <div class="layui-input-block">
+                <input type="name" name="name" th:value="${goodsTag.getName()}"
+                       th:id="name" autocomplete="off" class="layui-input">
             </div>
         </div>
     </form>
