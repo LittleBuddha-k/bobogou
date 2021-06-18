@@ -83,7 +83,7 @@ public class StreetController extends BaseController {
     @ResponseBody
     @PostMapping("/all")
     public List<Street> all(Street street) {
-        if(street != null && StringUtils.isNotBlank(street.getArea().getId())){
+        if(street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
             Area area = areaService.get(street.getArea().getId());
             street.setAreaCode(area.getCode());
         }

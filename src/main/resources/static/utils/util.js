@@ -135,7 +135,7 @@
                 });
             });
         },
-        openSaveDialog: function open(url, title) {
+        openSaveDialog: function open(url, title,width,height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -143,7 +143,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: ['75%', '70%'],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -168,7 +168,7 @@
                 });
             });
         },
-        openViewDialog: function open(url, title) {
+        openViewDialog: function open(url, title,width,height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -176,7 +176,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: ['75%', '70%'],
+                    area: [width,height],
                     offset: 'auto',
                     btn: ['关闭'],
                     cancel: function (index) {
@@ -194,7 +194,7 @@
                 });
             });
         },
-        openSelectionDialog: function open(url, title) {
+        openSelectionDialog: function open(url, title,width,height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -202,7 +202,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: ['75%', '70%'],
+                    area: [width,height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -229,7 +229,7 @@
                 });
             });
         },
-        openSelector: function open(url, title) {
+        openSelector: function open(url, title,width,height) {
             layui.use(['layer', 'form'],function () {
                 var layer = layui.layer;
                 var form = layui.form;
@@ -238,7 +238,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: ['75%', '70%'],
+                    area: [width,height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -270,7 +270,7 @@
                 });
             });
         },
-        openTreeSaveDialog: function open(url, title) {
+        openTreeSaveDialog: function open(url, title,width,height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -278,7 +278,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: ['75%', '70%'],
+                    area: [width,height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {

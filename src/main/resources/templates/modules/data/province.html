@@ -61,24 +61,11 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">备注</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="remarks" th:value="${province.getRemarks()}" autocomplete="off"
-                                       th:id="remarks" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <label class="layui-form-label">状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="status" th:value="${province.getStatus()}" autocomplete="off"
-                                       th:id="status" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">租户ID</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="tenantCode" th:value="${province.getTenantCode()}" autocomplete="off"
-                                       th:id="tenantCode" class="layui-input">
+                                <input type="radio" name="status" value="1" title="正常" lay-filter="status">
+                                <input type="radio" name="status" value="0" title="停用" lay-filter="status">
+                                <input type="hidden" name="status" th:id="status">
                             </div>
                         </div>
                         <div class="layui-inline">

@@ -15,7 +15,8 @@
         update_date AS "updateDate",
         remarks AS "remarks",
         status AS "status",
-        tenant_code AS "tenantCode"
+        tenant_code AS "tenantCode",
+        a.del_flag AS "delFlag"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Street">
@@ -53,7 +54,7 @@
             <if test="sort != null and sort != ''">
                 and a.sort = #{sort}
             </if>
-            <if test="status != null and status != ''">
+            <if test="status != null">
                 and a.status = #{status}
             </if>
             <if test="tenantCode != null and tenantCode != ''">
@@ -139,7 +140,11 @@
             lat,
             sort,
             create_date,
-            update_date
+            update_date,
+            remarks,
+            status,
+            tenant_code,
+            del_flag
         )VALUES (
             #{code},
             #{name},
@@ -149,7 +154,11 @@
             #{lat},
             #{sort},
             #{createDate},
-            #{updateDate}
+            #{updateDate},
+            #{remarks},
+            #{status},
+            #{tenantCode},
+            #{delFlag}
         )
     </insert>
 
@@ -163,7 +172,11 @@
             lat = #{lat},
             sort = #{sort},
             create_date = #{createDate},
-            update_date = #{updateDate}
+            update_date = #{updateDate},
+            remarks = #{remarks},
+            status = #{status},
+            tenant_code = #{tenantCode},
+            del_flag = #{delFlag}
         WHERE id=#{id}
     </update>
 

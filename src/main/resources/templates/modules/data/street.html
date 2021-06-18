@@ -26,16 +26,17 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">市名</label>
+                            <label class="layui-form-label">街道名称</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="name" th:value="${street.getName()}" autocomplete="off"
                                        th:id="name" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">简称</label>
+                            <label class="layui-form-label">街道简称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="shortName" th:value="${street.getShortName()}" autocomplete="off"
+                                <input type="text" name="shortName" th:value="${street.getShortName()}"
+                                       autocomplete="off"
                                        th:id="shortName" class="layui-input">
                             </div>
                         </div>
@@ -77,15 +78,9 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="status" th:value="${street.getStatus()}" autocomplete="off"
-                                       th:id="status" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">租户ID</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="tenantCode" th:value="${street.getTenantCode()}" autocomplete="off"
-                                       th:id="tenantCode" class="layui-input">
+                                <input type="radio" name="status" value="1" title="正常" lay-filter="status">
+                                <input type="radio" name="status" value="0" title="停用" lay-filter="status">
+                                <input type="hidden" name="status" th:id="status">
                             </div>
                         </div>
                         <div class="layui-inline">

@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>街道级管理</title>
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <div>
@@ -74,9 +69,20 @@
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">状态</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="status" th:value="${street.getStatus()}" autocomplete="off"
-                           th:id="status" class="layui-input">
+                <div class="layui-input-inline" th:if="${mode == 'add'}">
+                    <input type="radio" name="status" value="1" title="正常" lay-filter="status">
+                    <input type="radio" name="status" value="0" title="停用" lay-filter="status">
+                    <input type="hidden" name="status" th:id="status">
+                </div>
+                <div class="layui-input-inline" th:if="${mode != 'add' && street.getStatus() == 0}">
+                    <input type="radio" name="status" value="1" title="正常" lay-filter="status">
+                    <input type="radio" name="status" value="0" checked="" title="停用" lay-filter="status">
+                    <input type="hidden" name="status" th:id="status">
+                </div>
+                <div class="layui-input-inline" th:if="${mode != 'add' && street.getStatus() == 1}">
+                    <input type="radio" name="status" value="1" checked="" title="正常" lay-filter="status">
+                    <input type="radio" name="status" value="0" title="停用" lay-filter="status">
+                    <input type="hidden" name="status" th:id="status">
                 </div>
             </div>
             <div class="layui-inline">
@@ -89,27 +95,12 @@
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    //保存方法
-    function save(parentIndex) {
-        $.ajax({
-            url: "/bobogou/data/street/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#streetForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
-    }
-</script>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/streetForm.js"></script>
 </body>
 </html>

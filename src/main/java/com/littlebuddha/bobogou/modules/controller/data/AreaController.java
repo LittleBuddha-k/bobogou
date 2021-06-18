@@ -83,7 +83,7 @@ public class AreaController extends BaseController {
     @ResponseBody
     @PostMapping("/all")
     public List<Area> all(Area entity) {
-        if(entity != null && StringUtils.isNotBlank(entity.getCity().getId())){
+        if(entity != null && entity.getCity() != null && StringUtils.isNotBlank(entity.getCity().getId())){
             City city = cityService.get(entity.getCity().getId());
             entity.setCityCode(city.getCode());
         }

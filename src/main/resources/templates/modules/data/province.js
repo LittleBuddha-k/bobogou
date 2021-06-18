@@ -133,7 +133,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(provinceTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/province/form/add", "新建省级信息")
+            var index = rc.openSaveDialog("/bobogou/data/province/form/add", "新建省级信息",'75%','70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -146,7 +146,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/province/form/edit?id=' + ids, "编辑省级信息");
+                rc.openSaveDialog('/bobogou/data/province/form/edit?id=' + ids, "编辑省级信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -160,7 +160,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/province/form/view?id=' + ids, "查看省级信息");
+                rc.openViewDialog('/bobogou/data/province/form/view?id=' + ids, "查看省级信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -194,6 +194,13 @@ layui.use(['form', 'table'], function () {
             layer.full(index);
         });
         return false;
+    });
+
+    //监视列表查找单选框
+    form.on('radio(status)', function(data){
+        //console.log(data.value); //被点击的radio的value值
+        let status = data.value;
+        $("#status").val(status);
     });
 });
 

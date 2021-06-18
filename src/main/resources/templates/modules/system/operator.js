@@ -124,7 +124,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(operatorTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息")
+            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息",'75%','70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -137,7 +137,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + ids, "编辑用户信息");
+                rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + ids, "编辑用户信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -151,7 +151,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/system/operator/form/view?id=' + ids, "查看用户信息");
+                rc.openViewDialog('/bobogou/system/operator/form/view?id=' + ids, "查看用户信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -179,7 +179,7 @@ layui.use(['form', 'table'], function () {
 
     table.on('tool(operatorTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/system/operator/addRolePage?id=" + id, "设置角色")
+        var index = rc.openSelectionDialog("/bobogou/system/operator/addRolePage?id=" + id, "设置角色",'100%','100%')
         $(window).on("resize", function () {
             layer.full(index);
         });

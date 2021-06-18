@@ -95,7 +95,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(bannerTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息")
+            var index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息",'75%','70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + ids, "编辑轮播图信息");
+                rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + ids, "编辑轮播图信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -122,7 +122,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/banner/form/view?id=' + ids, "查看轮播图信息");
+                rc.openViewDialog('/bobogou/data/banner/form/view?id=' + ids, "查看轮播图信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);

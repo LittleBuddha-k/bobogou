@@ -101,7 +101,7 @@ public class CityController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, City city, Model model) {
-        if(city != null && StringUtils.isNotBlank(city.getProvince().getId())){
+        if(city != null && city.getProvince() != null && StringUtils.isNotBlank(city.getProvince().getId())){
             Province province = provinceService.get(city.getProvince().getId());
             city.setProvince(province);
         }

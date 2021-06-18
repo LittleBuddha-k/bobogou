@@ -81,7 +81,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(iconTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/icon/form/add", "新建图标信息")
+            var index = rc.openSaveDialog("/bobogou/system/icon/form/add", "新建图标信息",'75%','70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -94,7 +94,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/icon/form/edit?id=' + ids, "编辑图标信息");
+                rc.openSaveDialog('/bobogou/system/icon/form/edit?id=' + ids, "编辑图标信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/system/icon/form/view?id=' + ids, "查看图标信息");
+                rc.openViewDialog('/bobogou/system/icon/form/view?id=' + ids, "查看图标信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);

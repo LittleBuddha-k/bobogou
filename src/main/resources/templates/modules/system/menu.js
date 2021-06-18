@@ -121,7 +121,7 @@ function init() {
             var checkStatus = table.checkStatus('menuTable');
             var data = checkStatus.data;
             if (obj.event === 'add') {
-                rc.openSaveDialog("/bobogou/system/menu/form/add", "添加一级菜单");
+                rc.openSaveDialog("/bobogou/system/menu/form/add", "添加一级菜单",'75%','70%');
             } else if (obj.event === 'edit') {
                 if (data.length <= 0) {
                     rc.confirm("请至少选择一条数据")
@@ -129,7 +129,7 @@ function init() {
                     rc.confirm("只能选择一条数据")
                 } else {
                     var id = data[0].id;
-                    rc.openSaveDialog("/bobogou/system/menu/form/edit?id=" + id, "编辑菜单信息")
+                    rc.openSaveDialog("/bobogou/system/menu/form/edit?id=" + id, "编辑菜单信息",'75%','70%')
                 }
             } else if (obj.event === "delete") {
                 var ids = "";
@@ -150,7 +150,7 @@ function init() {
 
             if (layEvent === 'addChildren') {
                 let parentId = data.id;
-                rc.openTreeSaveDialog("/bobogou/system/menu/form/addChildren?parent.id=" + parentId, "添加下级菜单")
+                rc.openTreeSaveDialog("/bobogou/system/menu/form/addChildren?parent.id=" + parentId, "添加下级菜单",'75%','70%')
             } else if (layEvent === 'del') {
                 let id = data.id;
                 rc.treeTablePost("/bobogou/system/menu/deleteByPhysics?ids=" + id);

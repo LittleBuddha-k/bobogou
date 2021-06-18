@@ -50,24 +50,24 @@
             <div class="layui-input-block">
                 <select name="level" lay-verify="" th:if="${mode == 'add'}">
                     <option th:text="请选择"/>
-                    <option th:value="0" th:text="一级分类"/>
-                    <option th:value="1" th:text="二级分类"/>
-                    <option th:value="2" th:text="三级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
                 </select>
                 <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 0}">
-                    <option th:value="0" th:text="一级分类"/>
-                    <option th:value="1" th:text="二级分类"/>
-                    <option th:value="2" th:text="三级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
                 </select>
                 <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 1}">
-                    <option th:value="1" th:text="二级分类"/>
-                    <option th:value="0" th:text="一级分类"/>
-                    <option th:value="2" th:text="三级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
                 </select>
                 <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
-                    <option th:value="2" th:text="三级分类"/>
-                    <option th:value="0" th:text="一级分类"/>
-                    <option th:value="1" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
                 </select>
             </div>
         </div>

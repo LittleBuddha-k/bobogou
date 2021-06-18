@@ -77,7 +77,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(roleTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息")
+            var index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息",'75%','70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -90,7 +90,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + ids, "编辑角色信息");
+                rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + ids, "编辑角色信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -104,7 +104,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/role/form/view?id=' + ids, "编辑角色信息");
+                rc.openSaveDialog('/bobogou/system/role/form/view?id=' + ids, "编辑角色信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -125,7 +125,7 @@ layui.use(['form', 'table'], function () {
 
     table.on('tool(roleTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限")
+        var index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
         $(window).on("resize", function () {
             layer.full(index);
         });

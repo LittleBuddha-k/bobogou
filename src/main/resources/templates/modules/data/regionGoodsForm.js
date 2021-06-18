@@ -74,7 +74,7 @@ $(document).ready(function () {
             table = layui.table;
         let idsSelections;
         $("#goods").click(function () {
-            let openSelector = rc.openSelector("/bobogou/data/medicine/","选择商品");
+            let openSelector = rc.openSelector("/bobogou/data/medicine/","选择商品",'85%','80%');
         })
     })
 })

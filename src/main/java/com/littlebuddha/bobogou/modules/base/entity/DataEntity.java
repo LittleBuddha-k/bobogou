@@ -58,7 +58,9 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
         Operator entity = (Operator) subject.getPrincipal();
         Date now = new Date();
         this.updateTime = now;
+        this.updateDate = now;
         this.createBy = entity;
+        this.createDate = this.updateDate;
         this.createTime = this.updateTime;
         this.updateBy = entity;
     }
