@@ -26,6 +26,19 @@ layui.use('form', function(){
     });
 });
 
+$(document).ready(function () {
+    $(function() {
+        var editor = editormd("goodsInfoAdd", {
+            width  : "100%",
+            height : "400px",
+            path   : "/bobogou/plugins/markdown/lib/",
+            watch  : false,
+            delay  : 0,
+            placeholder: "请编辑商品详情",
+        });
+    });
+})
+
 function save(parentIndex) {
     $.ajax({
         url: "/bobogou/data/medicine/save",    //请求的url地址

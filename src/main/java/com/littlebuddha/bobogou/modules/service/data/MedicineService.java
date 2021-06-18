@@ -3,8 +3,11 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
 import com.littlebuddha.bobogou.modules.entity.data.Medicine;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -18,6 +21,9 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
 
     @Autowired
     private MedicineMapper medicineMapper;
+
+    @Autowired
+    private GoodsInfoMapper goodsInfoMapper;
 
     @Override
     public Medicine get(Medicine entity) {
@@ -36,7 +42,26 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
 
     @Override
     public int save(Medicine entity) {
-        return super.save(entity);
+        int save = super.save(entity);
+        GoodsInfo goodsInfo = entity.getGoodsInfo();
+        if (goodsInfo != null && StringUtils.isNotBlank(goodsInfo.getContent())) {
+            goodsInfo.setMedicine(entity);
+            //一条商品对应一条详情
+            List<GoodsInfo> list = goodsInfoMapper.findList(goodsInfo);
+            if (GoodsInfo.DEL_FLAG_NORMAL.equals(goodsInfo.getIsDeleted())) {
+                //即是此条商品还未建立详情信息
+                if (list.size() <= 0) {
+                    goodsInfo.preInsert();
+                    goodsInfoMapper.insert(goodsInfo);
+                } else {
+                    goodsInfo.preUpdate();
+                    goodsInfoMapper.update(goodsInfo);
+                }
+            }else {
+                goodsInfoMapper.deleteByPhysics(goodsInfo);
+            }
+        }
+        return save;
     }
 
     @Override

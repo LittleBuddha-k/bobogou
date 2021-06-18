@@ -41,6 +41,8 @@ public class Medicine extends DataEntity<Medicine> {
 
     private List<GoodsType> goodsTypeList;//商品分类list
 
+    private GoodsInfo goodsInfo;//商品详情
+
     public Medicine() {
     }
 
@@ -245,5 +247,13 @@ public class Medicine extends DataEntity<Medicine> {
 
     public void setLevelThree(GoodsType levelThree) {
         this.levelThree = levelThree;
+    }
+
+    public GoodsInfo getGoodsInfo() {
+        return goodsInfo;
+    }
+
+    public void setGoodsInfo(GoodsInfo goodsInfo) {
+        this.goodsInfo = goodsInfo;
     }
 }

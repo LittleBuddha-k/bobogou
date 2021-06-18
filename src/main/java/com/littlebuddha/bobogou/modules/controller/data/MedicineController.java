@@ -8,14 +8,8 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsBrand;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsTag;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
-import com.littlebuddha.bobogou.modules.entity.data.Medicine;
-import com.littlebuddha.bobogou.modules.service.data.GoodsBrandService;
-import com.littlebuddha.bobogou.modules.service.data.GoodsTagService;
-import com.littlebuddha.bobogou.modules.service.data.GoodsTypeService;
-import com.littlebuddha.bobogou.modules.service.data.MedicineService;
+import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +40,9 @@ public class MedicineController extends BaseController {
 
     @Autowired
     private GoodsTypeService goodsTypeService;
+
+    @Autowired
+    private GoodsInfoService goodsInfoService;
 
     @ModelAttribute
     public Medicine get(@RequestParam(required = false) String id) {
@@ -112,6 +109,9 @@ public class MedicineController extends BaseController {
         model.addAttribute("goodsTypeLevelTwo", goodsTypeLevelTwo);
         model.addAttribute("goodsTypeLevelThree", goodsTypeLevelThree);
         model.addAttribute("medicine", medicine);
+        //查询商品详情
+        GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(medicine));
+        medicine.setGoodsInfo(goodsInfo);
         return "modules/data/medicineForm";
     }
 

@@ -5,6 +5,8 @@
     <title>药品管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
 </head>
 <body>
 <div>
@@ -95,8 +97,21 @@
         <div class="layui-form-item">
             <label class="layui-form-label">是否在售</label>
             <div class="layui-input-block">
-                <input type="isMarket" id="isMarket" th:name="isMarket" th:value="${medicine.getIsMarket()}"
-                       placeholder="是否在售" lay-verify="required|isMarket" autocomplete="off" class="layui-input">
+                <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
+                        th:id="isMarket">
+                    <option th:value="1" th:text="是"/>
+                    <option th:value="0" th:text="否"/>
+                </select>
+                <select name="isMarket" lay-verify=""
+                        th:if="${mode != 'add' && '1' == medicine.getIsMarket()}">
+                    <option th:value="1" th:text="是"/>
+                    <option th:value="0" th:text="否"/>
+                </select>
+                <select name="isMarket" lay-verify=""
+                        th:if="${mode != 'add' && '0' == medicine.getIsMarket()}">
+                    <option th:value="0" th:text="否"/>
+                    <option th:value="1" th:text="是"/>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -188,6 +203,14 @@
                 </select>
             </div>
         </div>
+        <div th:id="goodsInfoAdd" th:if="${mode == 'add' || medicine.getGoodsInfo() == null}">
+            <textarea style="display:none;" name="goodsInfo.content">### 请编辑商品详情
+            </textarea>
+        </div>
+        <div th:id="goodsInfoOther" th:if="${mode != 'add' && medicine.getGoodsInfo() != null}">
+            <textarea style="display:none;" name="goodsInfo.content" th:text="${medicine.getGoodsInfo().getContent()}">### 商品详情查看
+            </textarea>
+        </div>
     </form>
 </div>
 
@@ -197,6 +220,8 @@
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/medicineForm.js"></script>
 </body>
