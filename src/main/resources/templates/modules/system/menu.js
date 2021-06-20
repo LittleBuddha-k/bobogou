@@ -152,9 +152,11 @@ function init() {
                 let parentId = data.id;
                 rc.openTreeSaveDialog("/bobogou/system/menu/form/addChildren?parent.id=" + parentId, "添加下级菜单",'75%','70%')
             } else if (layEvent === 'del') {
-                let id = data.id;
-                rc.treeTablePost("/bobogou/system/menu/deleteByPhysics?ids=" + id);
-                renderTable();
+                rc.confirm('确认要删除该信息吗？', function() {
+                    let id = data.id;
+                    rc.treeTablePost("/bobogou/system/menu/deleteByPhysics?ids=" + id);
+                    renderTable();
+                })
             }
         });
     });

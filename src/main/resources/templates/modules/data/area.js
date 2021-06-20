@@ -37,7 +37,7 @@ layui.use(['form', 'table'], function () {
                     field: 'code',
                     sort: true,
                     sortName: 'code',
-                    templet:function(data){
+                    templet: function (data) {
                         var valueArray = data.code;
                         return valueArray;
                     }
@@ -141,7 +141,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(areaTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/area/form/add", "新建区级信息",'75%','70%')
+            var index = rc.openSaveDialog("/bobogou/data/area/form/add", "新建区级信息", '75%', '70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -154,7 +154,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/area/form/edit?id=' + ids, "编辑区级信息",'75%','70%');
+                rc.openSaveDialog('/bobogou/data/area/form/edit?id=' + ids, "编辑区级信息", '75%', '70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -168,7 +168,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/area/form/view?id=' + ids, "查看区级信息",'75%','70%');
+                rc.openViewDialog('/bobogou/data/area/form/view?id=' + ids, "查看区级信息", '75%', '70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -178,15 +178,17 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/data/area/deleteByPhysics?ids=" + ids, '',function (data) {
-                    if(data.code == 200){
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    }else{
-                        rc.alert(data.msg);
-                    }
-                });
+                rc.confirm('确认要删除该区域信息吗？', function () {
+                    rc.post("/bobogou/data/area/deleteByPhysics?ids=" + ids, '', function (data) {
+                        if (data.code == 200) {
+                            //执行搜索重载
+                            refresh();
+                            rc.alert(data.msg);
+                        } else {
+                            rc.alert(data.msg);
+                        }
+                    });
+                })
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/area/importTemplate", "/bobogou/data/area/importFile")
@@ -205,7 +207,7 @@ layui.use(['form', 'table'], function () {
     });
 
     //监视列表查找单选框
-    form.on('radio(status)', function(data){
+    form.on('radio(status)', function (data) {
         //console.log(data.value); //被点击的radio的value值
         let status = data.value;
         $("#status").val(status);
@@ -240,9 +242,7 @@ function refresh() {
             page: {
                 curr: 1
             }
-            , where: {
-
-            }
+            , where: {}
         }, 'data');
     })
 }

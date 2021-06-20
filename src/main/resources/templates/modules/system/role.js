@@ -114,7 +114,9 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/system/role/deleteByPhysics?ids=" + ids, "", 'roleTable', table);
+                rc.confirm('确认要删除该信息吗？', function() {
+                    rc.post("/bobogou/system/role/deleteByPhysics?ids=" + ids, "", 'roleTable', table);
+                })
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/forecast/twoColorBall/importTemplate", "/bobogou/forecast/twoColorBall/importFile")

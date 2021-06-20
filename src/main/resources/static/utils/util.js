@@ -116,12 +116,27 @@
                 layer.msg(msg);
             });
         },
-        confirm: function confirm(msg) {
+        confirm: function confirm(msg, succFuc, cancelFuc) {
             layui.use('layer', function () {
                 var layer = layui.layer;
-                layer.confirm(msg, function (index) {
-                    layer.close(index);
-                });
+
+                layer.confirm(msg,
+                    {icon: 3, title:'系统提示', btn: ['是','否'] //按钮
+                    }, function(index){
+                        if (typeof succFuc == 'function') {
+                            succFuc();
+                        }else{
+                            location = succFuc;
+                            rc.alert("操作成功！", {icon:1});
+                        }
+                        layer.close(index);
+                    }, function(index){
+                        if(cancelFuc)
+                            cancelFuc();
+                        layer.close(index);
+                    });
+
+                return false;
             });
         },
         msg: function msg(msg) {

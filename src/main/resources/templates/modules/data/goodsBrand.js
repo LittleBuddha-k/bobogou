@@ -116,15 +116,17 @@ layui.use(['form', 'table'], function () {
             if (ids == null || ids == '') {
                 rc.alert("请至少选择一条数据")
             } else {
-                rc.post("/bobogou/data/goodsBrand/deleteByPhysics?ids=" + ids, '',function (data) {
-                    if(data.code == 200){
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    }else{
-                        rc.alert(data.msg);
-                    }
-                });
+                rc.confirm('确认要删除该信息吗？', function() {
+                    rc.post("/bobogou/data/goodsBrand/deleteByPhysics?ids=" + ids, '', function (data) {
+                        if (data.code == 200) {
+                            //执行搜索重载
+                            refresh();
+                            rc.alert(data.msg);
+                        } else {
+                            rc.alert(data.msg);
+                        }
+                    });
+                })
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/goodsBrand/importTemplate", "/bobogou/data/goodsBrand/importFile")
