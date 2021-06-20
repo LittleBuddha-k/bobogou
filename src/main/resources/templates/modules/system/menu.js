@@ -136,8 +136,10 @@ function init() {
                 for (var i = 0; i < data.length; i++) {
                     ids = ids + "," + data[i].id;
                 }
-                rc.treeTablePost("/bobogou/system/menu/deleteByPhysics?ids=" + ids)
-                renderTable();
+                rc.confirm('确认要删除该信息吗？', function() {
+                    rc.treeTablePost("/bobogou/system/menu/delete?ids=" + ids)
+                    renderTable();
+                })
             } else if (obj.event === "refresh") {
                 renderTable();
             }
@@ -154,8 +156,10 @@ function init() {
             } else if (layEvent === 'del') {
                 rc.confirm('确认要删除该信息吗？', function() {
                     let id = data.id;
-                    rc.treeTablePost("/bobogou/system/menu/deleteByPhysics?ids=" + id);
-                    renderTable();
+                    rc.confirm('确认要删除该信息吗？', function() {
+                        rc.treeTablePost("/bobogou/system/menu/delete?ids=" + id);
+                        renderTable();
+                    })
                 })
             }
         });
