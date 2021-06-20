@@ -16,22 +16,21 @@
     <form class="layui-form" id="iconForm">
         <input type="hidden" name="id" th:value="${icon.getId()}">
         <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">图标名</label>
-                <div class="layui-input-inline">
-                    <input type="name" id="name" th:name="url" th:value="${icon.getName()}"
-                           placeholder="图标名" lay-verify="required|name" autocomplete="off" class="layui-input">
-                </div>
+            <label class="layui-form-label">图标名</label>
+            <div class="layui-input-block">
+                <input type="name" id="name" th:name="name" th:value="${icon.getName()}"
+                       placeholder="图标名" lay-verify="required|name" autocomplete="off" class="layui-input">
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">图标类名</abel>
-                <div class="layui-input-inline">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图标类名</label>
+                <div class="layui-input-block">
                     <input type="classCode" id="classCode" th:name="classCode" th:value="${icon.getClassCode()}"
                            placeholder="图标类名" lay-verify="required|classCode" autocomplete="off" class="layui-input">
                 </div>
-            </div>
         </div>
-    </form>
+</div>
+</form>
 </div>
 <script type="text/javascript">
     //保存方法
