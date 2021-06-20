@@ -31,7 +31,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     //拖拽上传
     upload.render({
         elem: '#test10'
-        ,url: '/bobogou/data/banner/pictureUpload?uploadPath='+"/data/banner" //改成您自己的上传接口
+        ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
         ,done: function(res){
             layer.msg('上传成功');
             layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);

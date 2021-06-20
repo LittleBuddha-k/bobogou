@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <!--markdown富文本编辑-->
     <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css" />
 </head>
 <body>
 <div>
@@ -203,12 +204,24 @@
                 </select>
             </div>
         </div>
-        <div th:id="goodsInfoAdd" th:if="${mode == 'add' || medicine.getGoodsInfo() == null}">
-            <textarea style="display:none;" name="goodsInfo.content">### 请编辑商品详情
+        <div th:id="goodsInfoAdd" th:if="${mode == 'add'}">
+            <textarea style="display:none;" name="goodsInfo.content">
             </textarea>
         </div>
-        <div th:id="goodsInfoOther" th:if="${mode != 'add' && medicine.getGoodsInfo() != null}">
-            <textarea style="display:none;" name="goodsInfo.content" th:text="${medicine.getGoodsInfo().getContent()}">### 商品详情查看
+        <div th:id="goodsInfoAdd" th:if="${mode == 'edit' && medicine.getGoodsInfo() == null}">
+            <textarea style="display:none;" name="goodsInfo.content">
+            </textarea>
+        </div>
+        <div th:id="goodsInfoAdd" th:if="${mode == 'edit' && medicine.getGoodsInfo() != null}">
+            <textarea style="display:none;" name="goodsInfo.content" th:text="${medicine.getGoodsInfo().getContent()}">
+            </textarea>
+        </div>
+        <div th:id="goodsInfoOther" th:if="${mode == 'view' && medicine.getGoodsInfo() == null}">
+            <textarea style="display:none;" name="goodsInfo.content">
+            </textarea>
+        </div>
+        <div th:id="goodsInfoOther" th:if="${mode == 'view' && medicine.getGoodsInfo() != null}">
+            <textarea style="display:none;" name="goodsInfo.content" th:text="${medicine.getGoodsInfo().getContent()}">
             </textarea>
         </div>
     </form>
@@ -222,6 +235,8 @@
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--markdown富文本编辑js-->
 <script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/medicineForm.js"></script>
 </body>

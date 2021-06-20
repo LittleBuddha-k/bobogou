@@ -54,6 +54,8 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
                 } else {
+                    GoodsInfo byGoods = goodsInfoMapper.getByGoods(new GoodsInfo(entity));
+                    goodsInfo.setId(byGoods.getId());
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }

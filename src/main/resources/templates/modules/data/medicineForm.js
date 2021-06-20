@@ -26,7 +26,9 @@ layui.use('form', function(){
     });
 });
 
+//富文本编辑
 $(document).ready(function () {
+    //编辑时
     $(function() {
         var editor = editormd("goodsInfoAdd", {
             width  : "100%",
@@ -35,6 +37,20 @@ $(document).ready(function () {
             watch  : false,
             delay  : 0,
             placeholder: "请编辑商品详情",
+            imageUpload          : true,          // Enable/disable upload
+            imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL       : "/bobogou/file/markdownUpload",             // Upload url
+            crossDomainUpload    : false,          // Enable/disable Cross-domain upload
+            uploadCallbackURL    : "",             // Cross-domain upload callback url
+        });
+    });
+
+    //查看时
+    $(function() {
+        var testView = editormd.markdownToHTML("goodsInfoOther", {
+            // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
+            // htmlDecode : true,  // Enable / disable HTML tag encode.
+            // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
         });
     });
 })
