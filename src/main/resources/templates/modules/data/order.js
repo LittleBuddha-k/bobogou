@@ -36,6 +36,7 @@ layui.use(['form', 'table'], function () {
                     title: '订单编号',
                     field: 'number',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'number',
                     templet: function (data) {
                         var valueArray = data.number;
@@ -46,30 +47,35 @@ layui.use(['form', 'table'], function () {
                     title: '总金额',
                     field: 'grossAmount',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'grossAmount'
                 },
                 {
                     title: '积分',
                     field: 'integral',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'integral'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'healthBeans'
                 },
                 {
                     title: '配送地址',
                     field: 'addressId',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'addressId'
                 },
                 {
                     title: '配送方式',
                     field: 'distributionMode',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'distributionMode',
                     templet: function (data) {
                         let distributionMode = data.distributionMode;
@@ -84,12 +90,14 @@ layui.use(['form', 'table'], function () {
                     title: '物流单号',
                     field: 'trackingNo',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'trackingNo'
                 },
                 {
                     title: '支付方式',
                     field: 'payMode',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'payMode',
                     templet: function (data) {
                         let payMode = data.payMode;
@@ -110,6 +118,7 @@ layui.use(['form', 'table'], function () {
                     title: '类型',
                     field: 'type',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'type',
                     templet: function (data) {
                         let type = data.type;
@@ -126,6 +135,7 @@ layui.use(['form', 'table'], function () {
                     title: '状态',
                     field: 'status',
                     sort: true,
+                    width: '7.5%',
                     sortName: 'status',
                     templet: function (data) {
                         let status = data.status;
@@ -148,6 +158,7 @@ layui.use(['form', 'table'], function () {
                     title: '支付时间',
                     field: 'payTime',
                     sort: true,
+                    width: '10%',
                     sortName: 'payTime',
                     templet: function (data) {
                         var payTime = data.payTime;
@@ -156,7 +167,8 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    align: "center",
+                    align: "left",
+                    width: '15%',
                     templet: function (data) {
                         var status = data.status;
                         if (4 == status){
