@@ -31,6 +31,10 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         super(id);
     }
 
+    public OrderInfo(Order order) {
+        this.order = order;
+    }
+
     public String getOrderId() {
         if(order != null && StringUtils.isNotBlank(order.getId())){
             this.orderId = order.getId();

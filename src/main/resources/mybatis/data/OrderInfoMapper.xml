@@ -31,7 +31,7 @@
         <where>
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
-                 a.orderId LIKE concat('%',#{orderId},'%')
+                 a.order_id LIKE concat('%',#{orderId},'%')
                 <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
                 <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
                 <!--<if test="dbName == 'mysql'"></if>-->
@@ -62,11 +62,10 @@
             </if>
         </where>
         <choose>
-            <when test="OrderInfoBy !=null and OrderInfoBy != ''">
-                OrderInfo BY ${OrderInfoBy}
+            <when test="orderBy !=null and orderBy != ''">
             </when>
             <otherwise>
-                OrderInfo BY a.create_time DESC
+                Order BY a.create_time DESC
             </otherwise>
         </choose>
     </select>
@@ -78,7 +77,7 @@
         <where>
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
-                a.orderId LIKE concat('%',#{orderId},'%')
+                a.order_id LIKE concat('%',#{orderId},'%')
                 <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
                 <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
                 <!--<if test="dbName == 'mysql'"></if>-->
@@ -107,13 +106,16 @@
             <if test="type != null">
                 and a.type = #{type}
             </if>
+            <if test="order != null and order.id != null and order.id != ''">
+                and a.order_id = #{order.id}
+            </if>
         </where>
         <choose>
-            <when test="OrderInfoBy !=null and OrderInfoBy != ''">
-                OrderInfo BY ${OrderInfoBy}
+            <when test="orderBy !=null and orderBy != ''">
+
             </when>
             <otherwise>
-                OrderInfo BY a.create_time DESC
+                Order BY a.create_time DESC
             </otherwise>
         </choose>
     </select>
@@ -123,7 +125,7 @@
         <include refid="orderInfoColumns"/>
         FROM sd_order_info a
         <choose>
-            <when test="page !=null and page.OrderInfoBy != null and page.OrderInfoBy != ''">
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
             </when>
             <otherwise>

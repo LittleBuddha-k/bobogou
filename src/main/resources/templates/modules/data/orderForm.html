@@ -228,13 +228,15 @@
                           th:text="${order.getRefundReason()}" th:id="refundReason"></textarea>
             </div>
         </div>
-        <input type="hidden" id="orderInfo" th:value="${order.getOrderInfoList()}">
+        <input type="hidden" id="orderInfo" th:value="${orderInfo}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="#" onclick="addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl);orderInfoRowIdx = orderInfoRowIdx + 1;" ><i class="layui-icon layui-icon-addition"></i>新建</a>
+                <a href="#"
+                   onclick="addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl);orderInfoRowIdx = orderInfoRowIdx + 1;"><i
+                        class="layui-icon layui-icon-addition"></i>新建</a>
             </label>
         </div>
         <table class="layui-table">
@@ -244,15 +246,15 @@
                 <col>
             </colgroup>
             <thead>
-                <tr>
-                    <th>商品名称</th>
-                    <th>商品规格</th>
-                    <th>购买数量</th>
-                    <th>商品单价</th>
-                    <th>总价</th>
-                    <th>类型</th>
-                    <th>状态</th>
-                </tr>
+            <tr>
+                <th>商品名称</th>
+                <th>商品规格</th>
+                <th>购买数量</th>
+                <th>商品单价</th>
+                <th>总价</th>
+                <th>类型</th>
+                <th>状态</th>
+            </tr>
             </thead>
             <tbody id="orderInfoList">
             </tbody>
@@ -287,17 +289,27 @@
 				</tr>//-->
             </script>
             <script type="text/javascript">
-                var orderInfoRowIdx = 0, orderInfoTpl = $("#orderInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
-                $(document).ready(function() {
-                    let value = $("#orderInfo").val();
-                    console.log("返回的任何人"+value)
-                    if(value != null && value != ''){
-                        var data = JSON.stringify(value);
-                        for (var i=0; i<data.length; i++){
-                            addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl, data[i]);
-                            orderInfoRowIdx = orderInfoRowIdx + 1;
-                        }
-                    }
+                var orderInfoRowIdx = 0,
+                    orderInfoTpl = $("#orderInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "get",
+                        enctype: 'multipart/form-data',
+                        url: '/bobogou/data/order/orderInfoList',
+                        processData: false, //prevent jQuery from automatically transforming the data into a query string
+                        contentType: false,
+                        success: function (result) {
+                            let value = result;
+                            console.log("解析成字符串后的" + value)
+                            if (value != null && value != '') {
+                                alert(value.length)
+                                for (var i = 0; i < value.length; i++) {
+                                    addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl, value[i]);
+                                    orderInfoRowIdx = orderInfoRowIdx + 1;
+                                }
+                            }
+                        },
+                    });
                 });
             </script>
         </table>
