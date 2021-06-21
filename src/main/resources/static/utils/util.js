@@ -110,16 +110,56 @@
                 }
             });
         },
-        alert: function alert(msg) {
+        info:function(msg){
             layui.use('layer', function () {
-                var layer = layui.layer;
-                layer.msg(msg);
+            return layer.msg(msg);
+            });
+        },
+
+        warning: function(msg){//通知
+            layui.use('layer', function () {
+            return layer.msg(msg, {icon:0});
+            });
+        },
+
+        success:function(msg){
+            layui.use('layer', function () {
+            return layer.msg(msg, {icon:1});
+            });
+        },
+
+        error:function(msg){
+            return layer.msg(msg, {icon:2});
+        },
+        /**加载层，一直阻塞浏览器窗口，必须手动调用close方法关闭*/
+        loading:function(msg){
+            if(!msg){
+                msg = '正在提交，请稍等...';
+            }
+
+            var index = top.layer.msg(msg, {
+                icon: 16
+                ,shade: 0.01,
+                time:999999999//设置超长时间
+            });
+
+            return index;
+        },
+        /**alert弹出框，阻塞浏览器窗口*/
+        alert:function(msg){
+            layui.use('layer', function () {
+            layer.alert(msg, {
+                skin: 'layui-layer-lan'
+                ,area:['auto', 'auto']
+                ,icon: 0
+                ,closeBtn: 0
+                ,anim: 4 //动画类型
+            });
             });
         },
         confirm: function confirm(msg, succFuc, cancelFuc) {
             layui.use('layer', function () {
                 var layer = layui.layer;
-
                 layer.confirm(msg,
                     {icon: 3, title:'系统提示', btn: ['是','否'] //按钮
                     }, function(index){

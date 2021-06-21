@@ -42,6 +42,7 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
 
     @Override
     public int save(Medicine entity) {
+        entity.setIdType("AUTO");
         int save = super.save(entity);
         GoodsInfo goodsInfo = entity.getGoodsInfo();
         if (goodsInfo != null && StringUtils.isNotBlank(goodsInfo.getContent())) {
@@ -51,11 +52,12 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
             if (GoodsInfo.DEL_FLAG_NORMAL.equals(goodsInfo.getIsDeleted())) {
                 //即是此条商品还未建立详情信息
                 if (list.size() <= 0) {
+                    goodsInfo.setIdType("AUTO");
+                    goodsInfo.setId(entity.getId());
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
                 } else {
                     GoodsInfo byGoods = goodsInfoMapper.getByGoods(new GoodsInfo(entity));
-                    goodsInfo.setId(byGoods.getId());
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.OrderMapper">
+    <sql id="orderColumns">
+        id AS "id",
+        number AS "number",
+        gross_amount AS "grossamount",
+        integral AS "integral",
+        health_beans AS "healthBeans",
+        address_id AS "addressId",
+        distribution_mode AS "distributionMode",
+        tracking_no AS "trackingNo",
+        pay_mode AS "payMode",
+        type AS "type",
+        status AS "status",
+        pay_time AS "payTime",
+        refund_reason AS "refundReason",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM sd_order a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM sd_order a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="number != null and number != ''">
+                AND a.unit LIKE concat('%',#{number},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="grossAmount != null and grossAmount != ''">
+                and a.gross_amount = #{grossAmount}
+            </if>
+            <if test="integral != null and integral != ''">
+                and a.integral = #{integral}
+            </if>
+            <if test="healthBeans != null and cityCohealthBeansde != ''">
+                and a.healthBeans = #{healthBeans}
+            </if>
+            <if test="addressId != null and addressId != ''">
+                and a.addressId = #{addressId}
+            </if>
+            <if test="distributionMode != null and distributionMode != ''">
+                and a.distribution_mode = #{distributionMode}
+            </if>
+            <if test="trackingNo != null and trackingNo != ''">
+                and a.tracking_no = #{trackingNo}
+            </if>
+            <if test="payMode != null">
+                and a.pay_mode = #{payMode}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+            <if test="status != null and status != ''">
+                and a.status = #{status}
+            </if>
+            <if test="payTime != null and payTime != ''">
+                and a.pay_time = #{payTime}
+            </if>
+            <if test="refundReason != null and refundReason != ''">
+                and a.refund_reason LIKE concat('%',#{refundReason},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM sd_order a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="number != null and number != ''">
+                AND a.unit LIKE concat('%',#{number},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="grossAmount != null and grossAmount != ''">
+                and a.gross_amount = #{grossAmount}
+            </if>
+            <if test="integral != null and integral != ''">
+                and a.integral = #{integral}
+            </if>
+            <if test="healthBeans != null and cityCohealthBeansde != ''">
+                and a.healthBeans = #{healthBeans}
+            </if>
+            <if test="addressId != null and addressId != ''">
+                and a.addressId = #{addressId}
+            </if>
+            <if test="distributionMode != null and distributionMode != ''">
+                and a.distribution_mode = #{distributionMode}
+            </if>
+            <if test="trackingNo != null and trackingNo != ''">
+                and a.tracking_no = #{trackingNo}
+            </if>
+            <if test="payMode != null">
+                and a.pay_mode = #{payMode}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+            <if test="status != null and status != ''">
+                and a.status = #{status}
+            </if>
+            <if test="payTime != null and payTime != ''">
+                and a.pay_time = #{payTime}
+            </if>
+            <if test="refundReason != null and refundReason != ''">
+                and a.refund_reason LIKE concat('%',#{refundReason},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
+        SELECT
+        <include refid="orderColumns"/>
+        FROM sd_order a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sd_order(
+            number,
+            gross_amount,
+            integral,
+            health_beans,
+            address_id,
+            distribution_mode,
+            tracking_no,
+            pay_mode,
+            type,
+            status,
+            pay_time,
+            refund_reason,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{number},
+            #{grossAmount},
+            #{integral},
+            #{healthBeans},
+            #{addressId},
+            #{distributionMode},
+            #{trackingNo},
+            #{payMode},
+            #{type},
+            #{status},
+            #{payTime},
+            #{refundReason},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE sd_order SET
+            number = #{number},
+            gross_amount = #{grossAmount},
+            integral = #{integral},
+            health_beans = #{healthBeans},
+            address_id = #{addressId},
+            distribution_mode = #{distributionMode},
+            tracking_no = #{trackingNo},
+            pay_mode = #{payMode},
+            type = #{type},
+            status = #{status},
+            pay_time = #{payTime},
+            refund_reason = #{refundReason},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE sd_order SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE sd_order SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM sd_order
+        WHERE id=#{id}
+    </delete>
+</mapper>
