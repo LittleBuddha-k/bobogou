@@ -46,7 +46,7 @@
             <if test="integral != null and integral != ''">
                 and a.integral = #{integral}
             </if>
-            <if test="healthBeans != null and cityCohealthBeansde != ''">
+            <if test="healthBeans != null and healthBeans != ''">
                 and a.healthBeans = #{healthBeans}
             </if>
             <if test="addressId != null and addressId != ''">

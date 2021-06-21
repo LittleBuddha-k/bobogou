@@ -5,6 +5,8 @@
     <title>订单管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/bobogou/utils/vendor.js"></script>
 </head>
 <body>
 <div>
@@ -54,12 +56,14 @@
                     <option th:value="1" th:text="顺丰"/>
                     <option th:value="2" th:text="京东"/>
                 </select>
-                <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 1}" lay-filter="distributionMode"
+                <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 1}"
+                        lay-filter="distributionMode"
                         th:id="distributionMode">
                     <option th:value="1" th:text="顺丰"/>
                     <option th:value="2" th:text="京东"/>
                 </select>
-                <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 2}" lay-filter="distributionMode"
+                <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 2}"
+                        lay-filter="distributionMode"
                         th:id="distributionMode">
                     <option th:value="2" th:text="京东"/>
                     <option th:value="1" th:text="顺丰"/>
@@ -224,9 +228,86 @@
                           th:text="${order.getRefundReason()}" th:id="refundReason"></textarea>
             </div>
         </div>
+        <input type="hidden" id="goodsList" th:value="${order.getGoodsInfoList()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">订单商品：</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <a href="#" onclick="addRow('#orderGoodsList', orderProductRowIdx, orderProductTpl);orderProductRowIdx = orderProductRowIdx + 1;" ><i class="layui-icon layui-icon-addition"></i>新建</a>
+            </label>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品规格</th>
+                    <th>购买数量</th>
+                    <th>商品单价</th>
+                    <th>总价</th>
+                    <th>类型</th>
+                    <th>状态</th>
+                </tr>
+            </thead>
+            <tbody id="orderGoodsList">
+            </tbody>
+            <script type="text/template" id="orderProductTpl">//<!--
+				<tr id="goodsInfoList{{idx}}">
+					<td class="layui-hide">
+						<input id="goodsInfoList{{idx}}_id" name="goodsInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+					</td>
+
+                    <td>
+						<input id="goodsInfoList{{idx}}_specification" name="goodsInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" onclick="selectGoods(goodsInfoList{{idx}}_specification)"/>
+					</td>
+
+					<td>
+						<input id="goodsInfoList{{idx}}_specification" name="goodsInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input"/>
+					</td>
+
+
+					<td>
+						<input id="goodsInfoList{{idx}}_amount" name="goodsInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="goodsInfoList{{idx}}_price" name="goodsInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="goodsInfoList{{idx}}_totalPrice" name="goodsInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="goodsInfoList{{idx}}_type" name="goodsInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
+					</td>
+
+					<td class="text-center" width="10">
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#goodsInfoList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
+					</td>
+				</tr>//-->
+            </script>
+            <script type="text/javascript">
+                var orderProductRowIdx = 0, orderProductTpl = $("#orderProductTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
+                $(document).ready(function() {
+                    let value = $("#goodsList").val();
+                    if(value != null && value != ''){
+                        var data = JSON.stringify(value);
+                        for (var i=0; i<data.length; i++){
+                            addRow('#orderGoodsList', orderProductRowIdx, orderProductTpl, data[i]);
+                            orderProductRowIdx = orderProductRowIdx + 1;
+                        }
+                    }
+                });
+            </script>
+        </table>
     </form>
 </div>
-<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入工具js-->

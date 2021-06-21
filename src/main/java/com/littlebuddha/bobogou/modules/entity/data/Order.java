@@ -4,6 +4,7 @@ import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author ck
@@ -22,6 +23,8 @@ public class Order extends DataEntity<Order> {
     private Integer status;//状态，0=已取消，1=待付款，2=待收货，3=已完成，4=申请退款，5=已退款
     private String payTime;//支付时间
     private String refundReason;//退款原因
+
+    private List<GoodsInfo> goodsInfoList;//子表列表
 
     public Order() {
     }
@@ -124,5 +127,13 @@ public class Order extends DataEntity<Order> {
 
     public void setRefundReason(String refundReason) {
         this.refundReason = refundReason;
+    }
+
+    public List<GoodsInfo> getGoodsInfoList() {
+        return goodsInfoList;
+    }
+
+    public void setGoodsInfoList(List<GoodsInfo> goodsInfoList) {
+        this.goodsInfoList = goodsInfoList;
     }
 }

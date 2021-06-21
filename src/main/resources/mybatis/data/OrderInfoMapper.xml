@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper">
+    <sql id="orderInfoColumns">
+        a.id AS "id",
+        a.order_id AS "orderId",
+        a.goods_id AS "goodsId",
+        a.goods_image AS "goodsImage",
+        a.goods_name AS "goodsName",
+        a.specification AS "specification",
+        a.amount AS "amount",
+        a.price AS "price",
+        a.total_price AS "totalPrice",
+        a.type AS "type",
+        a.status AS "status",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
+        SELECT
+        <include refid="orderInfoColumns"/>
+        FROM sd_order_info a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
+        SELECT
+        <include refid="orderInfoColumns"/>
+        FROM sd_order_info a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="orderId != null and orderId != ''">
+                 a.orderId LIKE concat('%',#{orderId},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and a.goodsId = #{goodsId}
+            </if>
+            <if test="goodsImage != null and goodsImage != ''">
+                and a.goodsImage = #{goodsImage}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and a.goodsName = #{goodsName}
+            </if>
+            <if test="specification != null and specification != ''">
+                and a.specification = #{specification}
+            </if>
+            <if test="amount != null and amount != ''">
+                and a.amount = #{amount}
+            </if>
+            <if test="price != null and price != ''">
+                and a.price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and a.totalPrice = #{totalPrice}
+            </if>
+            <if test="type != null">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="OrderInfoBy !=null and OrderInfoBy != ''">
+                OrderInfo BY ${OrderInfoBy}
+            </when>
+            <otherwise>
+                OrderInfo BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
+        SELECT
+        <include refid="orderInfoColumns"/>
+        FROM sd_order_info a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="orderId != null and orderId != ''">
+                a.orderId LIKE concat('%',#{orderId},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="goodsId != null and goodsId != ''">
+                and a.goodsId = #{goodsId}
+            </if>
+            <if test="goodsImage != null and goodsImage != ''">
+                and a.goodsImage = #{goodsImage}
+            </if>
+            <if test="goodsName != null and goodsName != ''">
+                and a.goodsName = #{goodsName}
+            </if>
+            <if test="specification != null and specification != ''">
+                and a.specification = #{specification}
+            </if>
+            <if test="amount != null and amount != ''">
+                and a.amount = #{amount}
+            </if>
+            <if test="price != null and price != ''">
+                and a.price = #{price}
+            </if>
+            <if test="totalPrice != null">
+                and a.totalPrice = #{totalPrice}
+            </if>
+            <if test="type != null">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="OrderInfoBy !=null and OrderInfoBy != ''">
+                OrderInfo BY ${OrderInfoBy}
+            </when>
+            <otherwise>
+                OrderInfo BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
+        SELECT
+        <include refid="orderInfoColumns"/>
+        FROM sd_order_info a
+        <choose>
+            <when test="page !=null and page.OrderInfoBy != null and page.OrderInfoBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sd_order_info(
+            order_id,
+            goods_id,
+            goods_image,
+            goods_name,
+            specification,
+            amount,
+            price,
+            total_price,
+            type,
+            status,
+            create_time,
+            update_time
+        )VALUES (
+            #{orderId},
+            #{goodsId},
+            #{goodsImage},
+            #{goodsName},
+            #{specification},
+            #{amount},
+            #{price},
+            #{totalPrice},
+            #{type},
+            #{status},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE sd_order_info SET
+            order_id = #{orderId},
+            goods_id = #{goodsId},
+            goods_image = #{goodsImage},
+            goods_name = #{goodsName},
+            specification = #{specification},
+            amount = #{amount},
+            price = #{price},
+            total_price = #{totalPrice},
+            type = #{type},
+            status = #{status},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE sd_order_info SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE sd_order_info SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM sd_order_info
+        WHERE id=#{id}
+    </delete>
+</mapper>
