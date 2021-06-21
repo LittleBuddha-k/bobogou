@@ -72,6 +72,21 @@ public class MedicineController extends BaseController {
     }
 
     /**
+     * 返回药品列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/Medicine/list")
+    @GetMapping(value = {"/select"})
+    public String select(Medicine medicine, Model model, HttpSession session) {
+        model.addAttribute("medicine", medicine);
+        return "modules/common/select/goods";
+    }
+
+    /**
      * 返回数据
      *
      * @return

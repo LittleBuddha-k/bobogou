@@ -24,7 +24,7 @@ public class Order extends DataEntity<Order> {
     private String payTime;//支付时间
     private String refundReason;//退款原因
 
-    private List<GoodsInfo> goodsInfoList;//子表列表
+    private List<OrderInfo> orderInfoList;//子表列表
 
     public Order() {
     }
@@ -129,11 +129,11 @@ public class Order extends DataEntity<Order> {
         this.refundReason = refundReason;
     }
 
-    public List<GoodsInfo> getGoodsInfoList() {
-        return goodsInfoList;
+    public List<OrderInfo> getOrderInfoList() {
+        return orderInfoList;
     }
 
-    public void setGoodsInfoList(List<GoodsInfo> goodsInfoList) {
-        this.goodsInfoList = goodsInfoList;
+    public void setOrderInfoList(List<OrderInfo> orderInfoList) {
+        this.orderInfoList = orderInfoList;
     }
 }

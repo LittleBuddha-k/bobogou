@@ -228,13 +228,13 @@
                           th:text="${order.getRefundReason()}" th:id="refundReason"></textarea>
             </div>
         </div>
-        <input type="hidden" id="goodsList" th:value="${order.getGoodsInfoList()}">
+        <input type="hidden" id="orderInfo" th:value="${order.getOrderInfoList()}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">
-                <a href="#" onclick="addRow('#orderGoodsList', orderProductRowIdx, orderProductTpl);orderProductRowIdx = orderProductRowIdx + 1;" ><i class="layui-icon layui-icon-addition"></i>新建</a>
+                <a href="#" onclick="addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl);orderInfoRowIdx = orderInfoRowIdx + 1;" ><i class="layui-icon layui-icon-addition"></i>新建</a>
             </label>
         </div>
         <table class="layui-table">
@@ -254,48 +254,48 @@
                     <th>状态</th>
                 </tr>
             </thead>
-            <tbody id="orderGoodsList">
+            <tbody id="orderInfoList">
             </tbody>
-            <script type="text/template" id="orderProductTpl">//<!--
-				<tr id="goodsInfoList{{idx}}">
+            <script type="text/template" id="orderInfoTpl">//<!--
+				<tr id="orderInfoList{{idx}}">
 					<td class="layui-hide">
-						<input id="goodsInfoList{{idx}}_id" name="goodsInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+						<input id="orderInfoList{{idx}}_id" name="orderInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
 					</td>
 
                     <td>
-						<input id="goodsInfoList{{idx}}_specification" name="goodsInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" onclick="selectGoods(goodsInfoList{{idx}}_specification)"/>
+						<input id="orderInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" onclick="selectGoods('orderInfoList[{{idx}}].goodsId')"/>
+						<input name="orderInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
 					</td>
 
 					<td>
-						<input id="goodsInfoList{{idx}}_amount" name="goodsInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
 					</td>
 
 					<td>
-						<input id="goodsInfoList{{idx}}_price" name="goodsInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_price" name="orderInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
 					</td>
 
 					<td>
-						<input id="goodsInfoList{{idx}}_totalPrice" name="goodsInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_totalPrice" name="orderInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
 					</td>
 
-					<td>
-						<input id="goodsInfoList{{idx}}_type" name="goodsInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
-					</td>
+
 
 					<td class="text-center" width="10">
-						{{#delBtn}}<span class="close" onclick="delRow(this, '#goodsInfoList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#orderInfoList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
 					</td>
 				</tr>//-->
             </script>
             <script type="text/javascript">
-                var orderProductRowIdx = 0, orderProductTpl = $("#orderProductTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
+                var orderInfoRowIdx = 0, orderInfoTpl = $("#orderInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g,"");
                 $(document).ready(function() {
-                    let value = $("#goodsList").val();
+                    let value = $("#orderInfo").val();
+                    console.log("返回的任何人"+value)
                     if(value != null && value != ''){
                         var data = JSON.stringify(value);
                         for (var i=0; i<data.length; i++){
-                            addRow('#orderGoodsList', orderProductRowIdx, orderProductTpl, data[i]);
-                            orderProductRowIdx = orderProductRowIdx + 1;
+                            addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl, data[i]);
+                            orderInfoRowIdx = orderInfoRowIdx + 1;
                         }
                     }
                 });

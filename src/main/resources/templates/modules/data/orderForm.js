@@ -11,7 +11,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 });
 
 function selectGoods(id) {
-    let openSelector = rc.openSelector("/bobogou/data/medicine/", "选择商品", '100%', '100%');
+    let openSelector = rc.openGoodsSelect("/bobogou/data/medicine/select/", "选择商品", '100%', '100%',id);
 }
 
 //保存方法

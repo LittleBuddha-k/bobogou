@@ -3,17 +3,27 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
+import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class OrderService extends CrudService<Order, OrderMapper> {
+
+    @Autowired
+    private OrderInfoMapper orderInfoMapper;
 
     @Override
     public Order get(Order entity) {
@@ -31,9 +41,31 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     }
 
     @Override
+    @Transactional
     public int save(Order entity) {
         entity.setIdType("AUTO");
-        return super.save(entity);
+        int save = super.save(entity);
+        super.save(entity);
+        if (entity != null && entity.getOrderInfoList() != null && entity.getOrderInfoList().size() > 0) {
+            for (OrderInfo orderInfo : entity.getOrderInfoList()) {
+                if (orderInfo.getId() == null) {
+                    continue;
+                }
+                if (OrderInfo.DEL_FLAG_NORMAL.equals(orderInfo.getIsDeleted())) {
+                    if (StringUtils.isBlank(orderInfo.getId())) {
+                        orderInfo.setOrder(entity);
+                        orderInfo.preInsert();
+                        orderInfoMapper.insert(orderInfo);
+                    } else {
+                        orderInfo.preUpdate();
+                        orderInfoMapper.update(orderInfo);
+                    }
+                } else {
+                    orderInfoMapper.deleteByPhysics(orderInfo);
+                }
+            }
+        }
+        return save;
     }
 
     @Override
