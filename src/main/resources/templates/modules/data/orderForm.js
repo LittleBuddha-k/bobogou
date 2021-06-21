@@ -1,25 +1,17 @@
-layui.use(['form', 'layedit', 'laydate'], function(){
+layui.use(['form', 'layedit', 'laydate'], function () {
     var form = layui.form
-        ,layer = layui.layer
-        ,laydate = layui.laydate;
+        , layer = layui.layer
+        , laydate = layui.laydate;
 
     //日期
     laydate.render({
         elem: '#payTime'
-        ,type: 'datetime'
+        , type: 'datetime'
     });
 });
 
 function selectGoods(id) {
-    layui.use(['form', 'table'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table;
-        let idsSelections;
-        $(id).click(function () {
-            let openSelector = rc.openSelector("/bobogou/data/medicine/","选择商品",'85%','80%');
-        })
-    })
+    let openSelector = rc.openSelector("/bobogou/data/medicine/", "选择商品", '100%', '100%');
 }
 
 //保存方法
@@ -42,37 +34,39 @@ function save(parentIndex) {
         }
     });
 }
-function addRow(list, idx, tpl, row){
+
+function addRow(list, idx, tpl, row) {
     $(list).append(Mustache.render(tpl, {
         idx: idx, delBtn: true, row: row
     }));
-    $(list+idx).find("select").each(function(){
+    $(list + idx).find("select").each(function () {
         $(this).val($(this).attr("data-value"));
     });
-    $(list+idx).find("input[type='checkbox'], input[type='radio']").each(function(){
+    $(list + idx).find("input[type='checkbox'], input[type='radio']").each(function () {
         var ss = $(this).attr("data-value").split(',');
-        for (var i=0; i<ss.length; i++){
-            if($(this).val() == ss[i]){
-                $(this).attr("checked","checked");
+        for (var i = 0; i < ss.length; i++) {
+            if ($(this).val() == ss[i]) {
+                $(this).attr("checked", "checked");
             }
         }
     });
-    $(list+idx).find(".form_datetime").each(function(){
+    $(list + idx).find(".form_datetime").each(function () {
         $(this).datetimepicker({
             format: "YYYY-MM-DD HH:mm:ss"
         });
     });
 }
-function delRow(obj, prefix){
-    var id = $(prefix+"_id");
-    var delFlag = $(prefix+"_delFlag");
-    if (id.val() == ""){
+
+function delRow(obj, prefix) {
+    var id = $(prefix + "_id");
+    var delFlag = $(prefix + "_delFlag");
+    if (id.val() == "") {
         $(obj).parent().parent().remove();
-    }else if(delFlag.val() == "0"){
+    } else if (delFlag.val() == "0") {
         delFlag.val("1");
         $(obj).html("&divide;").attr("title", "撤销删除");
         $(obj).parent().parent().addClass("error");
-    }else if(delFlag.val() == "1"){
+    } else if (delFlag.val() == "1") {
         delFlag.val("0");
         $(obj).html("&times;").attr("title", "删除");
         $(obj).parent().parent().removeClass("error");
