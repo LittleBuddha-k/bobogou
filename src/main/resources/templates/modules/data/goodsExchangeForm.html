@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>兑付商品管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="goodsExchangeForm">
+        <input type="hidden" name="id" th:value="${goodsExchange.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名称</label>
+            <div class="layui-input-block">
+                <input type="name" id="name" th:name="name" th:value="${goodsExchange.getName()}"
+                       placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片地址</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                <button type="button" class="layui-btn" id="btn_image_clear">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo2"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo2">
+                        <img  th:if="${goodsExchange.getImageUrl() != ''}"  th:each="image:${goodsExchange.getImageUrl().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="imageUrl" name="imageUrl" th:value="${goodsExchange.getImageUrl()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-block">
+                <input type="name" id="price" th:name="price" th:value="${goodsExchange.getPrice()}"
+                       placeholder="价格" lay-verify="required|price" autocomplete="off" class="layui-input" onblur="isNumber('price')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">健康豆</label>
+            <div class="layui-input-block">
+                <input type="name" id="healthBeans" th:name="healthBeans" th:value="${goodsExchange.getHealthBeans()}"
+                       placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input" onblur="isNumber('healthBeans')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">积分</label>
+            <div class="layui-input-block">
+                <input type="name" id="integral" th:name="integral" th:value="${goodsExchange.getIntegral()}"
+                       placeholder="积分" lay-verify="required|integral" autocomplete="off" class="layui-input" onblur="isNumber('integral')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">规格</label>
+            <div class="layui-input-block">
+                <input type="name" id="specification" th:name="specification" th:value="${goodsExchange.getSpecification()}"
+                       placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">数量</label>
+            <div class="layui-input-block">
+                <input type="name" id="amount" th:name="amount" th:value="${goodsExchange.getAmount()}"
+                       placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input" onblur="isNumber('amount')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">兑换量</label>
+            <div class="layui-input-block">
+                <input type="name" id="changeAmount" th:name="changeAmount" th:value="${goodsExchange.getChangeAmount()}"
+                       placeholder="兑换量" lay-verify="required|changeAmount" autocomplete="off" class="layui-input" onblur="isNumber('changeAmount')">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">详情</label>
+            <div class="layui-input-block">
+                <input type="name" id="content" th:name="content" th:value="${goodsExchange.getContent()}"
+                       placeholder="详情" lay-verify="required|content" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+                <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
+                        th:id="status">
+                    <option th:value="0" th:text="可兑换"/>
+                    <option th:value="1" th:text="不可兑换"/>
+                </select>
+                <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 0}" lay-filter="status"
+                        th:id="status">
+                    <option th:value="0" th:text="可兑换"/>
+                    <option th:value="1" th:text="不可兑换"/>
+                </select>
+                <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 1}" lay-filter="status"
+                        th:id="status">
+                    <option th:value="0" th:text="可兑换"/>
+                    <option th:value="1" th:text="不可兑换"/>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/goodsExchangeForm.js"></script>
+<!--引入本表单验证的js文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+</body>
+</html>

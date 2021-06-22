@@ -139,7 +139,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(regionGoodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息",'75%','70%')
+            var index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息",'100%','100%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -152,7 +152,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + ids, "编辑地域商品信息",'75%','70%');
+                rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + ids, "编辑地域商品信息",'100%','100%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -166,7 +166,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/regionGoods/form/view?id=' + ids, "查看地域商品信息",'75%','70%');
+                rc.openViewDialog('/bobogou/data/regionGoods/form/view?id=' + ids, "查看地域商品信息",'100%','100%');
             }
             $(window).on("resize", function () {
                 layer.full(index);

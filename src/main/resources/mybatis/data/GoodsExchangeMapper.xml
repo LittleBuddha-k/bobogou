@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsExchangeMapper">
+    <sql id="goodsExchangeColumns">
+         a.id AS " id",
+         a.name AS "name",
+         a.image_url AS "imageurl",
+         a.price AS "price",
+         a.health_beans AS "healthBeans",
+         a.integral AS "integral",
+         a.specification AS "specification",
+         a.amount AS "amount",
+         a.change_amount AS "changeAmount",
+         a.content AS "content",
+         a.status AS "status",
+         a.is_deleted AS "isDeleted",
+         a.create_time AS "createTime",
+         a.update_time AS "updateTime",
+         a.account_id AS "accountId"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
+        SELECT
+        <include refid="goodsExchangeColumns"/>
+        FROM cd_shange_goods a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
+        SELECT
+        <include refid="goodsExchangeColumns"/>
+        FROM cd_shange_goods a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                a.name LIKE concat('%',#{name},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="price != null">
+                and a.price = #{price}
+            </if>
+            <if test="healthBeans != null">
+                and a.health_beans = #{healthBeans}
+            </if>
+            <if test="integral != null">
+                and a.integral = #{integral}
+            </if>
+            <if test="specification != null and specification != ''">
+                a.specification LIKE concat('%',#{specification},'%')
+            </if>
+            <if test="amount != null">
+                and a.amount = #{amount}
+            </if>
+            <if test="changeAmount != null">
+                and a.change_amount = #{changeAmount}
+            </if>
+            <if test="content != null and content != ''">
+                a.content LIKE concat('%',#{content},'%')
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
+        SELECT
+        <include refid="goodsExchangeColumns"/>
+        FROM cd_shange_goods a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                a.name LIKE concat('%',#{name},'%')
+                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
+                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
+                <!--<if test="dbName == 'mysql'"></if>-->
+            </if>
+            <if test="price != null">
+                and a.price = #{price}
+            </if>
+            <if test="healthBeans != null">
+                and a.health_beans = #{healthBeans}
+            </if>
+            <if test="integral != null">
+                and a.integral = #{integral}
+            </if>
+            <if test="specification != null and specification != ''">
+                a.specification LIKE concat('%',#{specification},'%')
+            </if>
+            <if test="amount != null">
+                and a.amount = #{amount}
+            </if>
+            <if test="changeAmount != null">
+                and a.change_amount = #{changeAmount}
+            </if>
+            <if test="content != null and content != ''">
+                a.content LIKE concat('%',#{content},'%')
+            </if>
+            <if test="status != null">
+                and a.status = #{status}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
+        SELECT
+        <include refid="goodsExchangeColumns"/>
+        FROM cd_shange_goods a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO cd_shange_goods(
+            name,
+            image_url,
+            price,
+            health_beans,
+            integral,
+            specification,
+            amount,
+            change_amount,
+            content,
+            status,
+            is_deleted,
+            create_time,
+            update_time,
+            account_id
+        )VALUES (
+            #{name},
+            #{imageUrl},
+            #{price},
+            #{healthBeans},
+            #{integral},
+            #{specification},
+            #{amount},
+            #{changeAmount},
+            #{content},
+            #{status},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{accountId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE cd_shange_goods SET
+            name = #{name},
+            image_url = #{imageUrl},
+            price = #{price},
+            health_beans = #{healthBeans},
+            integral = #{integral},
+            specification = #{specification},
+            amount = #{amount},
+            change_amount = #{changeAmount},
+            content = #{content},
+            status = #{status},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            account_id = #{accountId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE cd_shange_goods SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE cd_shange_goods SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM cd_shange_goods
+        WHERE id=#{id}
+    </delete>
+</mapper>
