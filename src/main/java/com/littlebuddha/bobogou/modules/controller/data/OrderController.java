@@ -113,9 +113,11 @@ public class OrderController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/orderInfoList")
-    public List<OrderInfo> orderInfoList(Order order) {
-        List<OrderInfo> orderInfoList = orderInfoService.findList(new OrderInfo(order));
-        String orderInfo = JsonMapper.getInstance().toJson(orderInfoList);
+    public List<OrderInfo> orderInfoList(String orderId) {
+        List<OrderInfo> orderInfoList = null;
+        if (StringUtils.isNotBlank(orderId)){
+            orderInfoList = orderInfoService.findList(new OrderInfo(new Order(orderId)));
+        }
         return orderInfoList;
     }
 

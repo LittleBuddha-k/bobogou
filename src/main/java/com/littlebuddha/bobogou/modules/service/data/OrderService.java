@@ -3,16 +3,16 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
+import com.littlebuddha.bobogou.modules.entity.data.Medicine;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
-import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +24,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Autowired
     private OrderInfoMapper orderInfoMapper;
+
+    @Autowired
+    private MedicineMapper medicineMapper;
 
     @Override
     public Order get(Order entity) {
@@ -48,15 +51,23 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         super.save(entity);
         if (entity != null && entity.getOrderInfoList() != null && entity.getOrderInfoList().size() > 0) {
             for (OrderInfo orderInfo : entity.getOrderInfoList()) {
+                orderInfo.setIdType("AUTO");
+                Medicine medicine = null;
+                if (orderInfo.getGoodsId() != null && StringUtils.isNotBlank(orderInfo.getGoodsId())){
+                    medicine = medicineMapper.get(orderInfo.getGoodsId());
+                }
                 if (orderInfo.getId() == null) {
                     continue;
                 }
                 if (OrderInfo.DEL_FLAG_NORMAL.equals(orderInfo.getIsDeleted())) {
                     if (StringUtils.isBlank(orderInfo.getId())) {
                         orderInfo.setOrder(entity);
+                        orderInfo.setMedicine(medicine);
                         orderInfo.preInsert();
                         orderInfoMapper.insert(orderInfo);
                     } else {
+                        orderInfo.setOrder(entity);
+                        orderInfo.setMedicine(medicine);
                         orderInfo.preUpdate();
                         orderInfoMapper.update(orderInfo);
                     }

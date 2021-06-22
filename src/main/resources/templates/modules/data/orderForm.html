@@ -11,7 +11,7 @@
 <body>
 <div>
     <form class="layui-form" id="orderForm">
-        <input type="hidden" name="id" th:value="${order.getId()}">
+        <input type="hidden" name="id" id="id" th:value="${order.getId()}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单编号</label>
             <div class="layui-input-block">
@@ -254,6 +254,7 @@
                 <th>总价</th>
                 <th>类型</th>
                 <th>状态</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody id="orderInfoList">
@@ -269,6 +270,10 @@
 						<input name="orderInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
 					</td>
 
+                    <td>
+						<input id="orderInfoList{{idx}}_specification" name="orderInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input"/>
+					</td>
+
 					<td>
 						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
 					</td>
@@ -281,7 +286,13 @@
 						<input id="orderInfoList{{idx}}_totalPrice" name="orderInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
 					</td>
 
+                    <td>
+						<input id="orderInfoList{{idx}}_type" name="orderInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
+					</td>
 
+                    <td>
+						<input id="orderInfoList{{idx}}_status" name="orderInfoList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input"/>
+					</td>
 
 					<td class="text-center" width="10">
 						{{#delBtn}}<span class="close" onclick="delRow(this, '#orderInfoList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
@@ -292,17 +303,16 @@
                 var orderInfoRowIdx = 0,
                     orderInfoTpl = $("#orderInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
                 $(document).ready(function () {
+                    let orderId = $("#id").val();
                     $.ajax({
                         type: "get",
                         enctype: 'multipart/form-data',
-                        url: '/bobogou/data/order/orderInfoList',
+                        url: '/bobogou/data/order/orderInfoList?orderId='+orderId,
                         processData: false, //prevent jQuery from automatically transforming the data into a query string
                         contentType: false,
                         success: function (result) {
                             let value = result;
-                            console.log("解析成字符串后的" + value)
                             if (value != null && value != '') {
-                                alert(value.length)
                                 for (var i = 0; i < value.length; i++) {
                                     addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl, value[i]);
                                     orderInfoRowIdx = orderInfoRowIdx + 1;
