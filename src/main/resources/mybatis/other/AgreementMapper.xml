@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.AgreementMapper">
+    <sql id="agreementColumns">
+        id AS "id",
+        type AS "type",
+        title AS "title",
+        content AS "content",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime",
+        account_id AS "accountId"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.Agreement">
+        SELECT
+        <include refid="agreementColumns"/>
+        FROM db_protocol a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.Agreement">
+        SELECT
+        <include refid="agreementColumns"/>
+        FROM db_protocol a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <if test="type != null">
+                and a.type = #{type}
+            </if>
+            <if test="title != null and title != ''">
+                a.title LIKE concat('%',#{title},'%')
+            </if>
+            <if test="content != null and content != ''">
+                a.content LIKE concat('%',#{content},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.Agreement">
+        SELECT
+        <include refid="agreementColumns"/>
+        FROM db_protocol a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="type != null">
+                and a.type = #{type}
+            </if>
+            <if test="title != null and title != ''">
+                a.title LIKE concat('%',#{title},'%')
+            </if>
+            <if test="content != null and content != ''">
+                a.content LIKE concat('%',#{content},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO db_protocol(
+            type,
+            title,
+            content,
+            is_deleted,
+            create_time,
+            update_time,
+            account_id
+        )VALUES (
+            #{type},
+            #{title},
+            #{content},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{accountId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE db_protocol SET
+            type = #{type},
+            title = #{title},
+            content = #{content},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            account_id = #{accountId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE db_protocol SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE db_protocol SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM db_protocol
+        WHERE id=#{id}
+    </delete>
+</mapper>

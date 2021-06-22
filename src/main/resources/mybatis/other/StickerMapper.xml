@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.StickerMapper">
+    <sql id="stickerColumns">
+        id AS "id",
+        user_id AS "userId",
+        the_heir AS "theHeir",
+        image_url AS "imageUrl",
+        remark AS "remark",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.Sticker">
+        SELECT
+        <include refid="stickerColumns"/>
+        FROM ud_stick_single a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.Sticker">
+        SELECT
+        <include refid="stickerColumns"/>
+        FROM ud_stick_single a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="userId != null">
+                and a.user_id = #{userId}
+            </if>
+            <if test="theHeir != null and theHeir != ''">
+                a.the_heir LIKE concat('%',#{theHeir},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.Sticker">
+        SELECT
+        <include refid="stickerColumns"/>
+        FROM ud_stick_single a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <if test="userId != null">
+                and a.user_id = #{userId}
+            </if>
+            <if test="theHeir != null and theHeir != ''">
+                a.the_heir LIKE concat('%',#{theHeir},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ud_stick_single(
+            user_id,
+            the_heir,
+            image_url,
+            remark,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{userId},
+            #{theHeir},
+            #{imageUrl},
+            #{remark},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE ud_stick_single SET
+            user_id = #{userId},
+            the_heir = #{theHeir},
+            image_url = #{imageUrl},
+            remark = #{remark},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE ud_stick_single SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE ud_stick_single SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM ud_stick_single
+        WHERE id=#{id}
+    </delete>
+</mapper>
