@@ -57,7 +57,7 @@
             <if test="collectNumber != null">
                 and a.collect_number = #{collectNumber}
             </if>
-            <if test="sigin_in_time != null">
+            <if test="signInTime != null">
                 and a.signInTime = #{signInTime}
             </if>
             <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >
@@ -111,7 +111,7 @@
             <if test="collectNumber != null">
                 and a.collect_number = #{collectNumber}
             </if>
-            <if test="sigin_in_time != null">
+            <if test="signInTime != null">
                 and a.signInTime = #{signInTime}
             </if>
             <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >

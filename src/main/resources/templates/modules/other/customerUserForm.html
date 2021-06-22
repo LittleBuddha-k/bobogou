@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>商品分类管理</title>
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <!--引入工具js-->
+    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="goodsTypeForm">
+        <input type="hidden" name="id" th:value="${goodsType.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类名称</label>
+            <div class="layui-input-block">
+                <input type="name" name="name" th:value="${goodsType.getName()}"
+                       th:id="name" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">分类图标地址</label>
+            <div class="layui-input-block">
+                <input type="icon" name="icon" th:value="${goodsType.getIcon()}" autocomplete="off"
+                       th:id="icon" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">父级分类</label>
+            <div class="layui-input-block">
+                <select name="parentId" lay-verify="" th:if="${mode == 'add'}">
+                    <option th:value="0" th:text="请选择"/>
+                    <option th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
+                            th:text="${goodsType.getName()}"/>
+                </select>
+                <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
+                    <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() == goodsType.getParentId()}"
+                            th:value="${goodsType.getId()}" th:text="${goodsType.getName()}"/>
+                    <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() != goodsType.getParentId()}"
+                            th:value="${goodsType.getId()}" th:text="${goodsType.getName()}"/>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">级别分类选择</label>
+            <div class="layui-input-block">
+                <select name="level" lay-verify="" th:if="${mode == 'add'}">
+                    <option th:text="请选择"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
+                </select>
+                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 0}">
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
+                </select>
+                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 1}">
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
+                </select>
+                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
+                    <option th:value="3" th:text="三级分类"/>
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                </select>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/goodsTypeForm.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+</body>
+</html>

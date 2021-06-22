@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/customerUser")
+@RequestMapping("/other/customerUser")
 public class CustomerUserController extends BaseController {
 
     @Autowired

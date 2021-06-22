@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/sticker")
+@RequestMapping("/other/sticker")
 public class StickerController extends BaseController {
 
     @Autowired

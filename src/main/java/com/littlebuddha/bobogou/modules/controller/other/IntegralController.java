@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/integral")
+@RequestMapping("/other/integral")
 public class IntegralController extends BaseController {
 
     @Autowired

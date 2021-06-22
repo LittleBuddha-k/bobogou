@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/agreement")
+@RequestMapping("/other/agreement")
 public class AgreementController extends BaseController {
 
     @Autowired
