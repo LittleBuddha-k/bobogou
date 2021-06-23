@@ -145,7 +145,7 @@ public class OperatorController extends BaseController {
             Operator operator = operatorService.get(s);
             if (operator != null) {
                 if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
-                    return new Result("555", "管理员用户不能被删除");
+                    return new Result("555", "超级管理员用户不能被删除");
                 }else {
                     int i = operatorService.deleteByLogic(operator);
                 }
@@ -165,7 +165,7 @@ public class OperatorController extends BaseController {
             Operator operator = operatorService.get(s);
             if (operator != null) {
                 if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
-                    return new Result("555", "管理员用户不能被删除");
+                    return new Result("555", "超级管理员用户不能被删除");
                 }else {
                     int i = operatorService.deleteByPhysics(operator);
                 }

@@ -3,16 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>菜单管理</title>
-    <!--引入jquery-->
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
-    <!--引入本html的js文件-->
-    <script type="text/javascript" src="/bobogou/modules/system/menu.js"></script>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <!--表格显示区域-->
@@ -22,21 +14,7 @@
         <!--左上角工具栏-->
         <script type="text/html" id="toolbarDemo">
             <div class="layui-btn-group">
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe654;</i>新增</button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-sm" lay-event="edit"><i class="layui-icon">&#xe642;</i>修改
-                    </button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-sm" lay-event="delete"><i class="layui-icon">&#xe640;</i>删除
-                    </button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-sm" lay-event="refresh"><i class="layui-icon">&#xe666;</i>刷新
-                    </button>
-                </shiro:hasRole>
+                <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe654;</i>新增</button>
             </div>
         </script>
 
@@ -45,10 +23,20 @@
 
         <!-- 操作列 -->
         <script type="text/html" id="auth-state">
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="view">查看</a>
+            <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
             <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="addChildren">添加下级菜单</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
         </script>
     </div>
 </div>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/system/menu.js"></script>
 </body>
 </html>

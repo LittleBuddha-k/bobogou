@@ -144,7 +144,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Transactional
     public int deleteByPhysics(Operator entity) {
         int i = super.deleteByPhysics(entity);
-        int row = operatorRoleMapper.deleteByPhysics(new OperatorRole(entity));
+        operatorRoleMapper.deleteByOperatorPhysics(entity.getId());
         return i;
     }
 
@@ -152,7 +152,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Transactional
     public int deleteByLogic(Operator entity) {
         int i = super.deleteByLogic(entity);
-        int row = operatorRoleMapper.deleteByLogic(new OperatorRole(entity));
+        operatorRoleMapper.deleteByOperatorLogic(entity.getId());
         return i;
     }
 
@@ -207,7 +207,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             String[] rolesId = operator.getRolesId().split(",");
             //直接在每次保存前删除所有角色用户关联信息，然后再根据传参重新赋值
             if (StringUtils.isNotBlank(operator.getId())) {
-                operatorRoleMapper.deleteOutByOperator(operator.getId());
+                operatorRoleMapper.deleteByOperatorPhysics(operator.getId());
             }
             for (String roleId : rolesId) {
                 Role role = roleMapper.get(new Role(roleId));
@@ -218,7 +218,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         } else if (operator != null && StringUtils.isBlank(operator.getRolesId())) {
             //当取消所有角色时执行
             if (StringUtils.isNotBlank(operator.getId())) {
-                operatorRoleMapper.deleteOutByOperator(operator.getId());
+                operatorRoleMapper.deleteByOperatorPhysics(operator.getId());
             }
         }
         return row;

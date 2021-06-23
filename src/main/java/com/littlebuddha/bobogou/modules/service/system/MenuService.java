@@ -76,17 +76,39 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
     @Transactional
     public int save(Menu menu) {
         int save = 0;
-        List<Menu> allList = menuMapper.findAllList(new Menu());
-        //当数据库没有菜单数据时，需要设置第一条数据为最高级菜单
-        if (allList != null && allList.isEmpty()) {
-            Menu parent = new Menu();
-            parent.setId("-1");
-            menu.setParent(parent);
-            menu.setParentIds("-1");
-            menu.setSort(0);
-            save = super.save(menu);
+        // 获取父节点实体
+        Menu parent = menuMapper.get(new Menu(menu.getParent().getId()));
+        parent.setHasChildren(true);
+        menu.setParent(parent);
+        //更新父类hasChildren字段
+        menuMapper.update(parent);
+
+        menu.setParent(parent);
+
+        // 获取修改前的parentIds，用于更新子节点的parentIds
+        String oldParentIds = menu.getParentIds();
+
+        // 设置新的父节点串
+        menu.setParentIds(menu.getParent().getParentIds()+menu.getParent().getId()+",");
+
+        // 保存或更新实体
+        if (StringUtils.isBlank(menu.getId())){
+            menu.preInsert();
+            save = menuMapper.insert(menu);
+        }else{
+            menu.preUpdate();
+            save = menuMapper.update(menu);
         }
 
+        // 更新子节点 parentIds
+        Menu m = new Menu();
+        m.setParentIds("%,"+menu.getId()+",%");
+        List<Menu> list = menuMapper.findByParentIdsLike(m);
+        for (Menu e : list){
+            e.setParentIds(e.getParentIds().replace(oldParentIds, menu.getParentIds()));
+            menuMapper.updateParentIds(e);
+        }
+        /*
         //设置父类信息
         Menu parentMenu = menuMapper.get(menu.getParent().getId());
         parentMenu.setHasChildren(true);
@@ -124,9 +146,7 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
         for (Menu entity : list) {
             entity.setParentIds(entity.getParentIds().replace(oldParentIds, menu.getParentIds()));
             menuMapper.updateParentIds(entity);
-        }
-
-        save = super.save(menu);
+        }*/
         return save;
     }
 

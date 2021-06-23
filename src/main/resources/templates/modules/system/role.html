@@ -28,7 +28,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">英文名称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="englishName" th:value="${role.getEnglishName()}" autocomplete="off"
+                                <input type="text" name="englishName" th:value="${role.getEnglishName()}"
+                                       autocomplete="off"
                                        th:id="englishName" class="layui-input">
                             </div>
                         </div>
@@ -44,42 +45,27 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasRole>
-                <shiro:hasRole name="admin">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasRole>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
             </div>
         </script>
 
         <table class="layui-hide" id="roleTable" lay-filter="roleTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置权限</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="view">查看</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="addPermission">设置权限</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
         </script>
 
     </div>
 </div>
-<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/system/role.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/system/role.js"></script>
 </body>
 </html>

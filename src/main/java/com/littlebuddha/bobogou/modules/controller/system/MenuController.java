@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.service.system.MenuService;
@@ -17,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -94,7 +96,6 @@ public class MenuController extends BaseController {
     public String form(@PathVariable(name = "mode") String mode, Menu menu, Model model) {
         //当查看的菜单为师祖级菜单
         if (menu.getParent() == null || StringUtils.isBlank(menu.getParent().getId())) {
-            System.out.println("设置初始级");
             menu.setParent(menuService.getTopMenu());
         }
         //为其设置parent
@@ -118,12 +119,28 @@ public class MenuController extends BaseController {
     @ResponseBody
     @PostMapping("/save")
     public Result save(Menu menu) {
-        int save = menuService.save(menu);
-        if (save > 0) {
-            return new Result("200", "保存成功");
-        } else {
-            return new Result("310", "未知错误！保存失败");
+        Result result = new Result();
+        if(UserUtils.getCurrentUser() != null && StringUtils.isNotBlank(UserUtils.getCurrentUser().getId())){
+            if (!UserUtils.isAdmin(UserUtils.getCurrentUser().getId())){
+                result.setCode("222");
+                result.setMsg("越权操作，只有超级管理员才能添加或修改数据！");
+                return result;
+            }
         }
+        // 获取排序号，最末节点排序号+30
+        if (StringUtils.isBlank(menu.getId())){
+            List<Menu> list = new ArrayList<>();
+            List<Menu> sourcelist = menuService.findAllList(new Menu());
+            Menu.sortList(list, sourcelist, menu.getParentId(), false);
+            if (list.size() > 0){
+                menu.setSort(list.get(list.size()-1).getSort() + 30);
+            }else {
+                menu.setSort(30);
+            }
+        }
+        int save = menuService.save(menu);
+        Result commonResult = getCommonResult(save);
+        return commonResult;
     }
 
     @ResponseBody

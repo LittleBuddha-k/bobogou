@@ -41,4 +41,12 @@ public class UserUtils {
         }
         return null;
     }
+
+    /**
+     * 是否为超级管理员
+     * @return
+     */
+    public static boolean isAdmin(String id){
+        return id != null && "1".equals(id);
+    }
 }

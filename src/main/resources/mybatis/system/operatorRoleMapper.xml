@@ -121,7 +121,12 @@
     </delete>
 
     <!--删除一切用户角色-->
-    <delete id="deleteOutByOperator">
+    <delete id="deleteByOperatorLogic">
+        UPDATE system_operator_role SET del_flag = 1
+        WHERE operator_id = #{operatorId}
+    </delete>
+    <!--删除一切用户角色-->
+    <delete id="deleteByOperatorPhysics">
         DELETE FROM system_operator_role
         WHERE operator_id = #{operatorId}
     </delete>

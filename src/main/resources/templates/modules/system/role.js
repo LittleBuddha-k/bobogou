@@ -77,10 +77,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(roleTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息",'75%','70%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
+            let index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息",'75%','70%')
         } else if (obj.event === 'edit') {  // 监听修改操作
             let ids = getIdSelections(table, 'roleTable') + "";
             let idArr = ids.toString().split(",");
@@ -104,7 +101,6 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/role/form/view?id=' + ids, "编辑角色信息",'75%','70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -126,12 +122,26 @@ layui.use(['form', 'table'], function () {
     });
 
     table.on('tool(roleTableFilter)', function (obj) {
-        var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        let id = obj.data.id;
+        let event = obj.event;
+        if(event == 'edit'){
+            rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + id, "编辑角色信息",'75%','70%');
+        }else if (event == 'view'){
+            rc.openSaveDialog('/bobogou/system/role/form/view?id=' + id, "查看角色信息",'75%','70%');
+        }else if (event == 'addPermission'){
+            let index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
+        }else if (event == 'delete'){
+            rc.confirm('确认要删除该信息吗？', function () {
+                rc.post("/bobogou/system/role/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }
     });
 });
 

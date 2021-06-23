@@ -138,30 +138,39 @@ public class RoleController extends BaseController {
     @ResponseBody
     @PostMapping("/delete")
     public Result delete(String ids) {
-        System.out.println("ids:" + ids);
+        Result result = null;
         String[] split = ids.split(",");
         for (String s : split) {
             Role role = roleService.get(s);
             if (role == null) {
-                return new Result("311", "数据不存在,或已被删除，请刷新试试！");
+                result = new Result("311", "数据不存在,或已被删除，请刷新试试！");
+            }else if (StringUtils.isNotBlank(role.getId()) && "1".equals(role.getId())){
+                result = new Result("311", "超级管理员角色不能被删除");
+            }else {
+                int i = roleService.deleteByLogic(role);
+                result = getCommonResult(i);
             }
-            int i = roleService.deleteByLogic(role);
         }
-        return new Result("200", "数据清除成功");
+        return result;
     }
 
     @ResponseBody
     @PostMapping("/deleteByPhysics")
     public Result deleteByPhysics(String ids) {
+        Result result = null;
         String[] split = ids.split(",");
         for (String s : split) {
             Role role = roleService.get(s);
             if (role == null) {
-                return new Result("311", "数据不存在,或已被删除，请刷新试试！");
+                result = new Result("311", "数据不存在,或已被删除，请刷新试试！");
+            }else if (StringUtils.isNotBlank(role.getId()) && "1".equals(role.getId())){
+                result = new Result("311", "超级管理员角色不能被删除");
+            }else {
+                int i = roleService.deleteByPhysics(role);
+                result = getCommonResult(i);
             }
-            int i = roleService.deleteByPhysics(role);
         }
-        return new Result("200", "数据清除成功");
+        return result;
     }
 
     @GetMapping("/recoveryList")

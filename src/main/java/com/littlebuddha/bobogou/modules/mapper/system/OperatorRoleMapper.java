@@ -30,5 +30,11 @@ public interface OperatorRoleMapper extends BaseMapper<OperatorRole> {
      * 删除用户所有角色绑定
      * @param operatorId
      */
-    void deleteOutByOperator(String operatorId);
+
+    void deleteByOperatorLogic(String operatorId);
+    /**
+     * 删除用户所有角色绑定
+     * @param operatorId
+     */
+    void deleteByOperatorPhysics(String operatorId);
 }
