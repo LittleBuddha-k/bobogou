@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.Integral;
 import com.littlebuddha.bobogou.modules.mapper.other.IntegralMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,13 @@ public class IntegralService extends CrudService<Integral, IntegralMapper> {
 
     @Override
     public PageInfo<Integral> findPage(Page<Integral> page, Integral entity) {
+        if(entity != null && entity.getIntegral() != null){
+            String integral = StringUtils.deleteWhitespace(entity.getIntegral().toString());
+            entity.setIntegral(Integer.valueOf(integral));
+        }if(entity != null && entity.getDay() != null){
+            String day = StringUtils.deleteWhitespace(entity.getDay().toString());
+            entity.setIntegral(Integer.valueOf(day));
+        }
         return super.findPage(page, entity);
     }
 

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.Sticker;
 import com.littlebuddha.bobogou.modules.mapper.other.StickerMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class StickerService extends CrudService<Sticker, StickerMapper> {
 
     @Override
     public PageInfo<Sticker> findPage(Page<Sticker> page, Sticker entity) {
+        if(entity != null){
+            String theHair = StringUtils.deleteWhitespace(entity.getTheHeir());
+            entity.setTheHeir(theHair);
+        }
         return super.findPage(page, entity);
     }
 

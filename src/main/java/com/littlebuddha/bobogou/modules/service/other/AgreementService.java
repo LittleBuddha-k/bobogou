@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.Agreement;
 import com.littlebuddha.bobogou.modules.mapper.other.AgreementMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class AgreementService extends CrudService<Agreement, AgreementMapper> {
 
     @Override
     public PageInfo<Agreement> findPage(Page<Agreement> page, Agreement entity) {
+        if(entity != null){
+            String title = StringUtils.deleteWhitespace(entity.getTitle());
+            entity.setTitle(title);
+        }
         return super.findPage(page, entity);
     }
 

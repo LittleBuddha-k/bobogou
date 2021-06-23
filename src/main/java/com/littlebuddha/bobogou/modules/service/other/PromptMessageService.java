@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.PromptMessage;
 import com.littlebuddha.bobogou.modules.mapper.other.PromptMessageMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,12 @@ public class PromptMessageService extends CrudService<PromptMessage, PromptMessa
 
     @Override
     public PageInfo<PromptMessage> findPage(Page<PromptMessage> page, PromptMessage entity) {
+        if(entity != null){
+            String title = StringUtils.deleteWhitespace(entity.getTitle());
+            entity.setTitle(title);
+            String outLine = StringUtils.deleteWhitespace(entity.getOutline());
+            entity.setOutline(outLine);
+        }
         return super.findPage(page, entity);
     }
 

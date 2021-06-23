@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -31,6 +32,12 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Override
     public PageInfo<CustomerUser> findPage(Page<CustomerUser> page, CustomerUser entity) {
+        if(entity != null){
+            String phone = StringUtils.deleteWhitespace(entity.getPhone());
+            entity.setPhone(phone);
+            String nickname = StringUtils.deleteWhitespace(entity.getNickname());
+            entity.setNickname(nickname);
+        }
         return super.findPage(page, entity);
     }
 
