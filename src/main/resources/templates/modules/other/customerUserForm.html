@@ -18,20 +18,19 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">头像</label>
-            <div class="layui-input-block">
-                <input type="header" name="header" th:value="${customerUser.getHeader()}" autocomplete="off"
-                       th:id="header" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">头像</label>
+            <label class="layui-form-label">图片地址</label>
             <div class="layui-upload-drag" id="test10" name="file">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="upload" th:if="${mode == 'add'}">
+                    <hr>
+                    <img src="" alt="asdasd" style="max-width: 196px">
+                </div>
                 <div class="" id="upload" th:if="${mode != 'add'}">
                     <hr>
-                    <img th:src="${customerUser.getHeader()}" alt="没有设置头像,或者文件位置错误" style="max-width: 196px" th:if="${customerUser.getHeader() != null}">
-                    <img th:src="${customerUser.getHeader()}" alt="没有设置头像,或者文件位置错误" style="max-width: 196px" th:if="${customerUser.getHeader() == null}">
+                    <img th:src="${customerUser.getHeader()}" alt="未设置头像" style="max-width: 196px">
                 </div>
+                <input type="hidden" id="header">
             </div>
         </div>
         <div class="layui-form-item">
@@ -148,8 +147,12 @@
 
         <div class="layui-form-item" th:if="${mode == 'vip'}">
             <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass" th:if="${customerUser.getApplyStatus() == 0}"> 通 过 </button>
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse" th:if="${customerUser.getApplyStatus() == 0}"> 拒 绝 </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
+                        th:if="${customerUser.getApplyStatus() == 0}"> 通 过
+                </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
+                        th:if="${customerUser.getApplyStatus() == 0}"> 拒 绝
+                </button>
             </div>
         </div>
     </form>

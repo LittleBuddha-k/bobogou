@@ -7,6 +7,18 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,upload = layui.upload
         ,element = layui.element;
 
+    //拖拽上传
+    upload.render({
+        elem: '#test10'
+        ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
+        ,done: function(res){
+            layer.msg('上传成功');
+            layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
+            $("#header").val(res.body.url);
+        }
+    });
+
+
     form.on('submit(pass)', function(data){
         //获取customerUser表单中的id信息
         let id = $("#id").val();
