@@ -117,11 +117,10 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            loginName: $("#nickname").val(),
-            nickname: $("#sex").val(),
+            loginName: $("#loginName").val(),
+            nickname: $("#nickname").val(),
             phone: $("#phone").val(),
-            sex: $("#phone").val(),
-            messageStatus: $("#phone").val()
+            sex: $("#sex").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -131,11 +130,10 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('operatorTable', {
             where: {
-                loginName: $("#nickname").val(),
-                nickname: $("#sex").val(),
+                loginName: $("#loginName").val(),
+                nickname: $("#nickname").val(),
                 phone: $("#phone").val(),
-                sex: $("#phone").val(),
-                messageStatus: $("#phone").val()
+                sex: $("#sex").val()
             }
         });
         return false;

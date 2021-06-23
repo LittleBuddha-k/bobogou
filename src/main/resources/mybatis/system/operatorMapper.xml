@@ -72,6 +72,18 @@
             <if test='currentUser.id != "1"'><!--如果不是管理员则查询当前用户数据-->
                 AND a.id = #{currentUser.id}
             </if>
+            <if test="loginName != null and loginName != ''">
+                AND a.login_name LIKE concat('%',#{loginName},'%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                AND a.nickname LIKE concat('%',#{nickname},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND a.phone LIKE concat('%',#{phone},'%')
+            </if>
+            <if test="sex != null">
+                AND a.sex = #{sex}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

@@ -1,5 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.system;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.AutoId;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -113,6 +115,29 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     public List<Role> findRolesByOperator(Operator operator) {
         List<Role> rolesByOperator = roleMapper.findList(new Role(operator));
         return rolesByOperator;
+    }
+
+    @Override
+    public Operator get(Operator entity) {
+        return super.get(entity);
+    }
+
+    @Override
+    public List<Operator> findList(Operator entity) {
+        return super.findList(entity);
+    }
+
+    @Override
+    public PageInfo<Operator> findPage(Page<Operator> page, Operator entity) {
+        if (entity != null){
+            String loginName = StringUtils.deleteWhitespace(entity.getLoginName());
+            String nickname = StringUtils.deleteWhitespace(entity.getNickname());
+            String phone = StringUtils.deleteWhitespace(entity.getPhone());
+            entity.setLoginName(loginName);
+            entity.setNickname(nickname);
+            entity.setPhone(phone);
+        }
+        return super.findPage(page, entity);
     }
 
     @Override

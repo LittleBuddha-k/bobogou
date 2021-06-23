@@ -47,10 +47,10 @@
                 and a.integral = #{integral}
             </if>
             <if test="healthBeans != null and healthBeans != ''">
-                and a.healthBeans = #{healthBeans}
+                and a.health_beans = #{healthBeans}
             </if>
             <if test="addressId != null and addressId != ''">
-                and a.addressId = #{addressId}
+                and a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
                 and a.distribution_mode = #{distributionMode}
@@ -104,10 +104,10 @@
                 and a.integral = #{integral}
             </if>
             <if test="healthBeans != null and cityCohealthBeansde != ''">
-                and a.healthBeans = #{healthBeans}
+                and a.health_beans = #{healthBeans}
             </if>
             <if test="addressId != null and addressId != ''">
-                and a.addressId = #{addressId}
+                and a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
                 and a.distribution_mode = #{distributionMode}
