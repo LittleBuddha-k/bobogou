@@ -144,7 +144,11 @@ public class OperatorController extends BaseController {
         for (String s : split) {
             Operator operator = operatorService.get(s);
             if (operator != null) {
-                int i = operatorService.deleteByLogic(operator);
+                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
+                    return new Result("555", "管理员用户不能被删除");
+                }else {
+                    int i = operatorService.deleteByLogic(operator);
+                }
             } else {
                 fail = fail + 1;
             }
@@ -160,7 +164,11 @@ public class OperatorController extends BaseController {
         for (String s : split) {
             Operator operator = operatorService.get(s);
             if (operator != null) {
-                int i = operatorService.deleteByPhysics(operator);
+                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
+                    return new Result("555", "管理员用户不能被删除");
+                }else {
+                    int i = operatorService.deleteByPhysics(operator);
+                }
             } else if (s != null && StringUtils.isNotBlank(s)) {
                 fail = fail + 1;
             }
