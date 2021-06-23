@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>用户协议管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="agreementForm">
+        <input type="hidden" name="id" id="id" th:value="${agreement.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="" th:if="${agreement.getType() == null}">
+                    <option th:value="1" th:text="用户协议"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 1}">
+                    <option th:value="1" th:text="用户协议"/>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-block">
+                <input type="title" name="title" th:value="${agreement.getTitle()}" autocomplete="off"
+                       th:id="title" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容</label>
+            <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" name="content" th:text="${agreement.getContent()}"
+                          th:id="content" ></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+</body>
+</html>

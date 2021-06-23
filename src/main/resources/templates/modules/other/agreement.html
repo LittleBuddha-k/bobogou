@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>用户协议列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" id="searchForm">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">类型</label>
+                            <div class="layui-input-inline">
+                                <select name="type" lay-verify="" th:if="${agreement.getType() == null}">
+                                    <option th:value="1" th:text="用户协议"/>
+                                </select>
+                                <select name="type" lay-verify="" th:if="${agreement.getType() == 1}">
+                                    <option th:value="1" th:text="用户协议"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">标题</label>
+                            <div class="layui-input-inline">
+                                <input type="title" name="title" th:value="${agreement.getTitle()}"
+                                       th:id="title" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="layui-inline">
+                        <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                lay-filter="other-search-btn"><i class="layui-icon"></i> 搜 索
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <script type="text/html" id="toolBar">
+            <div class="layui-btn-container">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
+            </div>
+        </script>
+
+        <table class="layui-hide" id="agreementTable" lay-filter="agreementTableFilter"></table>
+
+        <script type="text/html" id="operation">
+            <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="delete">删除</a>
+        </script>
+
+    </div>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/agreement.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+</body>
+</html>
