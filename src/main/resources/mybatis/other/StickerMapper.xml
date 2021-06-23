@@ -27,10 +27,10 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="userId != null">
-                and a.user_id = #{userId}
+                AND a.user_id = #{userId}
             </if>
             <if test="theHeir != null and theHeir != ''">
-                a.the_heir LIKE concat('%',#{theHeir},'%')
+                AND a.the_heir LIKE concat('%',#{theHeir},'%')
             </if>
         </where>
         <choose>
@@ -51,10 +51,10 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="userId != null">
-                and a.user_id = #{userId}
+                AND a.user_id = #{userId}
             </if>
             <if test="theHeir != null and theHeir != ''">
-                a.the_heir LIKE concat('%',#{theHeir},'%')
+                AND a.the_heir LIKE concat('%',#{theHeir},'%')
             </if>
         </where>
         <choose>

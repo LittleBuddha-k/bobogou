@@ -26,10 +26,10 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="day != null">
-                and a.day = #{day}
+                AND a.day = #{day}
             </if>
         </where>
         <choose>
@@ -50,10 +50,10 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="day != null">
-                and a.day = #{day}
+                AND a.day = #{day}
             </if>
         </where>
         <choose>

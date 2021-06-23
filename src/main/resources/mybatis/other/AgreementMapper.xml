@@ -26,13 +26,13 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test="type != null">
-                and a.type = #{type}
+                AND a.type = #{type}
             </if>
             <if test="title != null and title != ''">
-                a.title LIKE concat('%',#{title},'%')
+                AND a.title LIKE concat('%',#{title},'%')
             </if>
             <if test="content != null and content != ''">
-                a.content LIKE concat('%',#{content},'%')
+                AND a.content LIKE concat('%',#{content},'%')
             </if>
         </where>
         <choose>
@@ -53,13 +53,13 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="type != null">
-                and a.type = #{type}
+                AND a.type = #{type}
             </if>
             <if test="title != null and title != ''">
-                a.title LIKE concat('%',#{title},'%')
+                AND a.title LIKE concat('%',#{title},'%')
             </if>
             <if test="content != null and content != ''">
-                a.content LIKE concat('%',#{content},'%')
+                AND a.content LIKE concat('%',#{content},'%')
             </if>
         </where>
         <choose>

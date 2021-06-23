@@ -22,6 +22,8 @@ public class PromptMessage extends DataEntity<System> {
     private Integer userId;//用户ID，推送给所有用户=0
     private String accountId;//最后操作人
 
+    private String updateByName;//
+
     public PromptMessage() {
     }
 
@@ -78,5 +80,16 @@ public class PromptMessage extends DataEntity<System> {
 
     public void setAccountId(String accountId) {
         this.accountId = accountId;
+    }
+
+    public String getUpdateByName() {
+        if(updateBy != null && StringUtils.isNotBlank(updateBy.getNickname())){
+            this.updateByName = updateBy.getNickname();
+        }
+        return updateByName;
+    }
+
+    public void setUpdateByName(String updateByName) {
+        this.updateByName = updateByName;
     }
 }
