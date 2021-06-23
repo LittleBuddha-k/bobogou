@@ -13,8 +13,9 @@ public class Operator extends DataEntity<Operator> {
     private String nickname;      //昵称
     private String password;//密码
     private String salt;//盐值
-    private String phone; //性别，0=未知，1=男，2=女
-    private Integer sex;//会员等级，0=普通会员，1=vip
+    private String picture;//头像
+    private String phone; //电话
+    private Integer sex;//性别，0=未知，1=男，2=女
     private Integer messageStatus;//消息状态 0=关闭，1=打开
     private String department;//部门
     private String workNumber;//工号
@@ -63,6 +64,14 @@ public class Operator extends DataEntity<Operator> {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getPhone() {

@@ -19,24 +19,38 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户昵称</label>
+                            <label class="layui-form-label">登录名称</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="loginName" th:value="${operator.getLoginName()}"
+                                       th:id="loginName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">管理员昵称</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="nickname" th:value="${operator.getNickname()}"
                                        th:id="nickname" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户性别</label>
+                            <label class="layui-form-label">管理员电话</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
+                                       th:id="phone" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">管理员性别</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="sex" th:value="${operator.getSex()}" autocomplete="off"
                                        th:id="sex" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户电话</label>
+                            <label class="layui-form-label">接受消息状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
-                                       th:id="phone" class="layui-input">
+                                <input type="text" name="messageStatus" th:value="${operator.getMessageStatus()}" autocomplete="off"
+                                       th:id="messageStatus" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -51,10 +65,8 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="system:operator:add">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="system:operator:edit">
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
+                <!--<shiro:hasPermission name="system:operator:edit">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
                 </shiro:hasPermission>
                 <shiro:hasPermission name="system:operator:view">
@@ -69,14 +81,17 @@
                 </shiro:hasPermission>
                 <shiro:hasPermission name="system:operator:export">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
+                </shiro:hasPermission>-->
             </div>
         </script>
 
         <table class="layui-hide" id="operatorTable" lay-filter="operatorTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置角色</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="view">查看</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="setRole">设置角色</a>
         </script>
 
     </div>

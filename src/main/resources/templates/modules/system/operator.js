@@ -33,64 +33,82 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '用户电话',
-                    field: 'phone',
-                    sort: true
+                    title: '登录名',
+                    field: 'loginName',
+                    sort: true,
+                    width: '15%'
                 },
                 {
-                    title: '用户头像',
-                    field: 'header',
-                    sort: true
-                },
-                {
-                    title: '用户昵称',
+                    title: '昵称',
                     field: 'nickname',
-                    sort: true
+                    sort: true,
+                    width: '15%'
                 },
                 {
-                    title: '用户性别',
+                    title: '电话',
+                    field: 'phone',
+                    sort: true,
+                    width: '20%'
+                },
+                {
+                    title: '性别',
                     field: 'sex',
-                    sort: true
+                    sort: true,
+                    width: '5%',
+                    templet: function (data) {
+                        var sex = data.sex;
+                        if (0 == sex) {
+                            return "未知";
+                        } else if (1 == sex) {
+                            return "男";
+                        } else if (2 == sex) {
+                            return "女";
+                        }
+                    }
                 },
                 {
-                    title: '会员等级',
-                    field: 'member',
-                    sort: true
-                },
-                {
-                    title: '积分',
-                    field: 'integral',
-                    sort: true
-                },
-                {
-                    title: '健康豆',
-                    field: 'healthBeans',
-                    sort: true
-                },
-                {
-                    title: '收藏数量',
-                    field: 'collectNumber',
-                    sort: true
-                },
-                {
-                    title: '签到时间',
-                    field: 'signInTime',
-                    sort: true
-                },
-                {
-                    title: '消息接收状态',
+                    title: '消息状态',
                     field: 'messageStatus',
-                    sort: true
+                    sort: true,
+                    width: '10%',
+                    templet: function (data) {
+                        var messageStatus = data.messageStatus;
+                        if (0 == messageStatus) {
+                            return "关闭";
+                        } else if (1 == messageStatus) {
+                            return "打开";
+                        } else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
-                    title: '是否同意用户协议',
-                    field: 'userAgreement',
-                    sort: true
+                    title: '工号',
+                    field: 'workNumber',
+                    sort: true,
+                    width: '10%'
+                },
+                {
+                    title: '登录标识',
+                    field: 'loginFlag',
+                    sort: true,
+                    width: '10%',
+                    templet: function (data) {
+                        var loginFlag = data.loginFlag;
+                        if (0 == loginFlag) {
+                            return "不允许登录";
+                        } else if (1 == loginFlag) {
+                            return "允许登录";
+                        } else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center"
+                    align: "center",
+                    width: '15%'
                 }
             ]
         ],
@@ -99,9 +117,11 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            nickname: $("#nickname").val(),
-            sex: $("#sex").val(),
-            phone: $("#phone").val()
+            loginName: $("#nickname").val(),
+            nickname: $("#sex").val(),
+            phone: $("#phone").val(),
+            sex: $("#phone").val(),
+            messageStatus: $("#phone").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -111,9 +131,11 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('operatorTable', {
             where: {
-                nickname: $("#nickname").val(),
-                sex: $("#sex").val(),
-                phone: $("#phone").val()
+                loginName: $("#nickname").val(),
+                nickname: $("#sex").val(),
+                phone: $("#phone").val(),
+                sex: $("#phone").val(),
+                messageStatus: $("#phone").val()
             }
         });
         return false;
@@ -124,68 +146,30 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(operatorTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息",'75%','70%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + ids, "编辑用户信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/system/operator/form/view?id=' + ids, "查看用户信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该信息吗？', function() {
-                    rc.post("/bobogou/system/operator/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/system/operator/importTemplate", "/bobogou/system/operator/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/system/operator/exportFile?" + $("#searchForm").serialize());
+            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息", '75%', '70%')
         }
     });
 
     table.on('tool(operatorTableFilter)', function (obj) {
         var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/system/operator/addRolePage?id=" + id, "设置角色",'100%','100%')
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        if (obj.event === 'edit') {  // 监听修改操作
+            rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + id, "编辑用户信息", '75%', '70%');
+        } else if (obj.event === 'view') {  // 监听查看操作
+            rc.openViewDialog('/bobogou/system/operator/form/view?id=' + id, "查看用户信息", '75%', '70%');
+        } else if (obj.event === 'delete') {  // 监听删除操作
+            rc.confirm('确认要删除该信息吗？', function () {
+                rc.post("/bobogou/system/operator/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        } else if (obj.event === 'setRole') {
+            var index = rc.openSelectionDialog("/bobogou/system/operator/addRolePage?id=" + id, "设置角色", '100%', '100%')
+        }
     });
 });
 
@@ -217,9 +201,7 @@ function refresh() {
             page: {
                 curr: 1
             }
-            , where: {
-
-            }
+            , where: {}
         }, 'data');
     })
 }

@@ -6,3 +6,9 @@ function isNumber(id) {
         return false;
     }
 }
+
+function notEmpty(id) {
+    if ($(id).val() == ''){
+        rc.error("该项不能为空")
+    }
+}
