@@ -104,7 +104,7 @@ public class LoginController extends BaseController {
         Result result = null;
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
-        result = new Result("303","退出成功");
+        result = new Result("200","退出成功");
         return result;
     }
 }

@@ -37,11 +37,11 @@ layui.use(['form', 'table'], function () {
                     field: 'phone',
                     sort: true,
                     sortName: 'phone',
-                    templet:function(other){
-                        var valueArray = other.phone;
+                    templet:function(data){
+                        var valueArray = data.phone;
                         return valueArray;
                     }
-                },
+                },/*
                 {
                     title: '密码',
                     field: 'password',
@@ -53,7 +53,7 @@ layui.use(['form', 'table'], function () {
                     field: 'header',
                     sort: true,
                     sortName: 'header'
-                },
+                },*/
                 {
                     title: '昵称',
                     field: 'nickname',
@@ -64,13 +64,31 @@ layui.use(['form', 'table'], function () {
                     title: '性别',
                     field: 'sex',
                     sort: true,
-                    sortName: 'sex'
+                    sortName: 'sex',
+                    templet:function(data){
+                        let sex = data.sex;
+                        if(0 == sex){
+                            return "未知"
+                        }else if(1 == sex){
+                            return "男"
+                        }else if(2 == sex){
+                            return "女"
+                        }
+                    }
                 },
                 {
                     title: '会员等级',
                     field: 'member',
                     sort: true,
-                    sortName: 'member'
+                    sortName: 'member',
+                    templet:function(data){
+                        let member = data.member;
+                        if(0 == member){
+                            return "普通会员"
+                        }else if(1 == member){
+                            return "VIP"
+                        }
+                    }
                 },
                 {
                     title: '积分',
@@ -100,13 +118,45 @@ layui.use(['form', 'table'], function () {
                     title: '消息接收状态',
                     field: 'messageStatus',
                     sort: true,
-                    sortName: 'messageStatus'
+                    sortName: 'messageStatus',
+                    templet:function(data){
+                        let messageStatus = data.messageStatus;
+                        if(0 == messageStatus){
+                            return "关闭"
+                        }else if(1 == messageStatus){
+                            return "打开"
+                        }
+                    }
                 },
                 {
                     title: '是否同意用户协议',
                     field: 'userAgreement',
                     sort: true,
-                    sortName: 'userAgreement'
+                    sortName: 'userAgreement',
+                    templet:function(data){
+                        let userAgreement = data.userAgreement;
+                        if(0 == userAgreement){
+                            return "未同意"
+                        }else if(1 == userAgreement){
+                            return "已同意"
+                        }
+                    }
+                },
+                {
+                    title: '会员申请状态',
+                    field: 'applyStatus',
+                    sort: true,
+                    sortName: 'applyStatus',
+                    templet:function(data){
+                        let applyStatus = data.applyStatus;
+                        if(0 == applyStatus){
+                            return "未审核"
+                        }else if(1 == applyStatus){
+                            return "已同意"
+                        }else if(2 == applyStatus){
+                            return "已拒绝"
+                        }
+                    }
                 },
                 {
                     title: '操作',
@@ -141,8 +191,9 @@ layui.use(['form', 'table'], function () {
     table.on('tool(customerUserTableFilter)', function (obj) {
         let id = obj.data.id;
         if (obj.event === 'detail') {
-            let index = rc.openSaveDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情")
+            let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","100%","100%")
         } else if (obj.event === 'vip') {
+            let index = rc.openViewDialog("/bobogou/other/customerUser/form/vip?id=" + id, "VIP审核","100%","100%")
         }
     });
 });

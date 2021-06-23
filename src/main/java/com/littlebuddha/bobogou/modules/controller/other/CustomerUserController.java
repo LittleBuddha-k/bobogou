@@ -98,6 +98,15 @@ public class CustomerUserController extends BaseController {
         return "modules/other/customerUserForm";
     }
 
+    @ResponseBody
+    @PostMapping("/vip")
+    public Result vip(CustomerUser customerUser){
+        Result result = new Result();
+        int row = customerUserService.beVip(customerUser);
+        Result commonResult = getCommonResult(row);
+        return commonResult;
+    }
+
     /**
      * 数据保存
      *

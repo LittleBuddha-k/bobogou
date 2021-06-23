@@ -63,11 +63,12 @@
                     <a href="javascript:;" th:text="${session.currentUser.getNickname()}"></a>
                     <dl class="layui-nav-child">
                         <dd>
-                            <a href="javascript:;" layuimini-content-href="/backstage/page/user-setting.html" data-title="基本资料" data-icon="fa fa-gears">基本资料<span class="layui-badge-dot"></span></a>
+                            <a href="javascript:;" data-title="基本资料" data-icon="fa fa-gears" id="information">基本资料<span class="layui-badge-dot"></span></a>
                         </dd>
-                        <dd>
+                        <input type="hidden" th:value="${session.currentUser.getId()}" id="currentUser">
+                        <!--<dd>
                             <a href="javascript:;" layuimini-content-href="/backstage/page/user-password.html" data-title="修改密码" data-icon="fa fa-gears">修改密码</a>
-                        </dd>
+                        </dd>-->
                         <dd>
                             <hr>
                         </dd>
@@ -127,8 +128,12 @@
 
     </div>
 </div>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <script src="/bobogou/modules/system/portal.js" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>
 </html>

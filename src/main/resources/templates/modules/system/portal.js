@@ -29,8 +29,20 @@ layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
     });
 
     $('.login-out').on("click", function () {
-        layer.msg('退出登录成功', function () {
-            window.location = '/bobogou/system/loginPage';
+        rc.confirm('确定退出系统吗？', function () {
+            rc.post('/bobogou/system/logout','',function (data) {
+                if (data.code == 200){
+                    window.location = "/bobogou/system/loginPage";
+                    rc.msg("退出登录成功");
+                }else {
+                    rc.msg("退出登录失败");
+                }
+            })
         });
     });
 });
+
+$("#information").click(function () {
+    let currentUser = $("#currentUser").val();
+    rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + currentUser, "编辑用户信息",'75%','70%');
+})

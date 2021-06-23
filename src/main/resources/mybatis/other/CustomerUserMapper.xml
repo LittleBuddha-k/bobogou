@@ -15,6 +15,7 @@
         a.sigin_in_time AS "signInTime",
         a.message_status AS "messageStatus",
         a.user_agreement AS "userAgreement",
+        a.apply_status AS "applyStatus",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
@@ -34,40 +35,43 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test="phone != null and phone != ''">
-                a.phone LIKE concat('%',#{phone},'%')
+                AND a.phone LIKE concat('%',#{phone},'%')
             </if>
             <if test="password != null and password != ''">
-                a.pssword LIKE concat('%',#{password},'%')
+                AND a.pssword LIKE concat('%',#{password},'%')
             </if>
             <if test="nickname != null and nickname != ''">
-                a.nickname LIKE concat('%',#{nickname},'%')
+                AND a.nickname LIKE concat('%',#{nickname},'%')
             </if>
             <if test="sex != null">
-                and a.sex = #{sex}
+                AND a.sex = #{sex}
             </if>
             <if test="member != null">
-                and a.member = #{member}
+                AND a.member = #{member}
             </if>
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="healthBeans != null">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="collectNumber != null">
-                and a.collect_number = #{collectNumber}
+                AND a.collect_number = #{collectNumber}
             </if>
             <if test="signInTime != null">
-                and a.signInTime = #{signInTime}
+                AND a.signInTime = #{signInTime}
             </if>
             <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >
                 and a.create_date between #{beginDate} and #{endDate}
             </if>-->
             <if test="messageStatus != null">
-                and a.message_status = #{messageStatus}
+                AND a.message_status = #{messageStatus}
             </if>
             <if test="userAgreement != null">
                 and a.user_agreement = #{userAgreement}
+            </if>
+            <if test="applyStatus != null">
+                and a.apply_status = #{applyStatus}
             </if>
         </where>
         <choose>
@@ -88,40 +92,43 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
 
             <if test="phone != null and phone != ''">
-                a.phone LIKE concat('%',#{phone},'%')
+                AND a.phone LIKE concat('%',#{phone},'%')
             </if>
             <if test="password != null and password != ''">
-                a.pssword LIKE concat('%',#{password},'%')
+                AND a.pssword LIKE concat('%',#{password},'%')
             </if>
             <if test="nickname != null and nickname != ''">
-                a.nickname LIKE concat('%',#{nickname},'%')
+                AND a.nickname LIKE concat('%',#{nickname},'%')
             </if>
             <if test="sex != null">
-                and a.sex = #{sex}
+                AND and a.sex = #{sex}
             </if>
             <if test="member != null">
-                and a.member = #{member}
+                AND a.member = #{member}
             </if>
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="healthBeans != null">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="collectNumber != null">
-                and a.collect_number = #{collectNumber}
+                AND a.collect_number = #{collectNumber}
             </if>
             <if test="signInTime != null">
-                and a.signInTime = #{signInTime}
+                AND a.signInTime = #{signInTime}
             </if>
             <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >
                 and a.create_date between #{beginDate} and #{endDate}
             </if>-->
             <if test="messageStatus != null">
-                and a.message_status = #{messageStatus}
+                AND a.message_status = #{messageStatus}
             </if>
             <if test="userAgreement != null">
-                and a.user_agreement = #{userAgreement}
+                AND a.user_agreement = #{userAgreement}
+            </if>
+            <if test="applyStatus != null">
+                AND a.apply_status = #{applyStatus}
             </if>
         </where>
         <choose>
@@ -148,6 +155,7 @@
             sigin_in_time,
             message_status,
             user_agreement,
+            apply_status,
             is_deleted,
             create_time,
             update_time
@@ -164,6 +172,7 @@
             #{signInTime},
             #{messageStatus},
             #{userAgreement},
+            #{apply_status},
             #{isDeleted},
             #{createTime},
             #{updateTime}
@@ -184,9 +193,17 @@
             sigin_in_time = #{signInTime},
             message_status = #{messageStatus},
             user_agreement = #{userAgreement},
+            apply_status = #{applyStatus},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="beVip">
+        UPDATE ud_user SET
+            member = #{member},
+            apply_status = #{applyStatus}
         WHERE id=#{id}
     </update>
 
