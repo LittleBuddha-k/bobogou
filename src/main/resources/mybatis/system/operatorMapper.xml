@@ -2,23 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper">
     <sql id="operatorColumns">
-        a.id AS "id",
-        a.phone AS "phone",
-        a.password AS "password",
-        a.header AS "header",
-        a.nickname AS "nickname",
-        a.sex AS "sex",
-        a.member AS "member",
-        a.integral AS "integral",
-        a.health_beans AS "healthBeans",
-        a.collect_number AS "collectNumber",
-        a.sigin_in_time AS "signInTime",
-        a.message_status AS "messageStatus",
-        a.user_agreement AS "userAgreement",
-        a.is_deleted AS "isDeleted",
-        a.salt AS "salt",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+        id AS "id",
+        login_name AS "loginName",
+        nickname AS "nickname",
+        password AS "password",
+        salt AS "salt",
+        phone AS "phone",
+        sex AS "sex",
+        message_status AS "messageStatus",
+        department AS "department",
+        work_number AS "workNumber",
+        login_flag AS "loginFlag",
+        login_ip AS "loginIp",
+        login_address AS "loginAddress",
+        create_by AS "createBy.id",
+        create_date AS "createDate",
+        update_by AS "updateBy.id",
+        update_date AS "updateDate",
+        del_flag AS "delFlag",
+        remarks AS "remarks"
     </sql>
 
     <sql id="operatorJoins">
@@ -37,7 +39,7 @@
         SELECT
         <include refid="operatorColumns"/>
         FROM system_operator a
-        WHERE nickname=#{nickname}
+        WHERE a.login_name=#{loginName}
     </select>
 
     <!--根据用户和角色查询是否有operator-role数据-->
@@ -48,7 +50,7 @@
         role_id AS "role.id"
         FROM recruit_operator_role a
         <where>
-            a.is_deleted = #{DEL_FLAG_NORMAL}
+            a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="operator != null and operator.id != null and operator.id != ''">
                 and a.operator_id = #{operator.id}
@@ -64,23 +66,11 @@
         <include refid="operatorColumns"/>
         FROM system_operator a
         <where>
-            a.is_deleted = #{DEL_FLAG_NORMAL}
+            a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <!--<if test="username != null and username != ''">
-                and a.username = #{username}
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询当前用户数据-->
+                AND a.id = #{currentUser.id}
             </if>
-            <if test="sex != null and sex != ''">
-                and a.sex = #{sex}
-            </if>
-            <if test="age != null and age != ''">
-                and a.age = #{age}
-            </if>
-            <if test="address != null and address != ''">
-                and a.address = #{address}
-            </if>
-            <if test="phone != null and address != ''">
-                and a.phone = #{phone}
-            </if>-->
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -97,7 +87,7 @@
         <include refid="operatorColumns"/>
         FROM system_operator a
         <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
+            a.del_flag = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="username != null and username != ''">
                 and a.username = #{username}
@@ -138,70 +128,78 @@
 
     <insert id="insert">
         INSERT INTO system_operator(
-            phone,
-            password,
-            header,
+            id,
+            login_name,
             nickname,
-            sex,
-            member,
-            integral,
-            health_beans,
-            collect_number,
-            sigin_in_time,
-            message_status,
-            user_agreement,
-            is_deleted,
+            password,
             salt,
-            create_time,
-            update_time
+            phone,
+            sex,
+            message_status,
+            department,
+            work_number,
+            login_flag,
+            login_ip,
+            login_address,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            del_flag,
+            remarks
         )VALUES (
-            #{phone},
-            #{password},
-            #{header},
+            #{id},
+            #{loginName},
             #{nickname},
-            #{sex},
-            #{member},
-            #{integral},
-            #{healthBeans},
-            #{collectNumber},
-            #{signInTime},
-            #{messageStatus},
-            #{userAgreement},
-            #{isDeleted},
+            #{password},
             #{salt},
-            #{createTime},
-            #{updateTime}
+            #{phone},
+            #{sex},
+            #{messageStatus},
+            #{department},
+            #{workNumber},
+            #{loginFlag},
+            #{loginIp},
+            #{loginAddress},
+            #{create_by},
+            #{create_date},
+            #{updateBy},
+            #{updateDate},
+            #{delFlag},
+            #{remarks}
         )
     </insert>
 
     <update id="update">
         UPDATE system_operator SET
-            phone = #{phone},
-            password = #{password},
-            header = #{header},
+            login_name = #{loginName},
             nickname = #{nickname},
-            sex = #{sex},
-            member = #{member},
-            integral = #{integral},
-            health_beans = #{healthBeans},
-            collect_number = #{collectNumber},
-            sigin_in_time = #{signInTime},
-            message_status = #{messageStatus},
-            user_agreement = #{userAgreement},
-            is_deleted = #{isDeleted},
+            password = #{password},
             salt = #{salt},
-            create_time = #{createTime},
-            update_time = #{updateTime}
+            phone = #{phone},
+            sex = #{sex},
+            message_status = #{messageStatus},
+            department = #{department},
+            work_number = #{workNumber},
+            login_flag = #{loginFlag},
+            login_ip = #{loginIp},
+            login_address = #{loginAddress},
+            create_by = #{create_by},
+            create_date = #{create_date},
+            update_by = #{updateBy},
+            update_date = #{updateDate},
+            del_flag = #{delFlag},
+            remarks = #{remarks}
         WHERE id=#{id}
     </update>
 
     <update id="deleteByLogic">
-        UPDATE system_operator SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE system_operator SET del_flag = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE system_operator SET is_deleted = #{DEL_FLAG_NORMAL}
+        UPDATE system_operator SET del_flag = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 

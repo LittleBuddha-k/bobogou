@@ -22,15 +22,15 @@
             <div class="layui-upload-drag" id="test10" name="file">
                 <i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide" id="upload" th:if="${mode == 'add'}">
+                <div class="layui-hide" th:id="upload" th:if="${mode == 'add'}">
                     <hr>
                     <img src="" alt="asdasd" style="max-width: 196px">
                 </div>
-                <div class="" id="upload" th:if="${mode != 'add'}">
+                <div class="" th:id="upload" th:if="${mode != 'add'}">
                     <hr>
                     <img th:src="${customerUser.getHeader()}" alt="未设置头像" style="max-width: 196px">
                 </div>
-                <input type="hidden" id="header">
+                <input type="hidden" id="header" name="header">
             </div>
         </div>
         <div class="layui-form-item">

@@ -42,8 +42,6 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Transactional
     public int save(Operator operator) {
         int operatorRow;
-        //operator主键自增长
-        operator.setIdType("AUTO");
         //这一步保存的是operator数据
         if (operator.getIsNewData()) {
             operator.preInsert();
