@@ -12,7 +12,7 @@ public class GoodsType extends DataEntity<GoodsType> {
 
     private String name;//分类名称
     private String icon;//分类图标地址
-    private Integer parentId;//父级分类ID，顶级=0
+    private String parentId;//父级分类ID，顶级=0
     private Integer level;//级别分类字段
 
     private String accountId;//最后操作人ID
@@ -46,11 +46,11 @@ public class GoodsType extends DataEntity<GoodsType> {
     }
 
     @ExcelField(title = "父级分类ID", align = 2, sort = 1)
-    public Integer getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Integer parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

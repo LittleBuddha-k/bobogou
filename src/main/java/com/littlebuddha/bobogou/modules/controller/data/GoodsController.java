@@ -117,12 +117,8 @@ public class GoodsController extends BaseController {
         //品牌分类数据
         model.addAttribute("commodityBrandList", commodityBrandList);
         //查询商品分类数据：分一级、二级、三级
-        List<GoodsType> goodsTypeLevelOne = goodsTypeService.findList(new GoodsType(0));//查询一级商品分类
-        List<GoodsType> goodsTypeLevelTwo = goodsTypeService.findList(new GoodsType(1));//查询二级商品分类
-        List<GoodsType> goodsTypeLevelThree = goodsTypeService.findList(new GoodsType(2));//查询三级商品分类
+        List<GoodsType> goodsTypeLevelOne = goodsTypeService.findList(new GoodsType(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
-        model.addAttribute("goodsTypeLevelTwo", goodsTypeLevelTwo);
-        model.addAttribute("goodsTypeLevelThree", goodsTypeLevelThree);
         model.addAttribute("goods", goods);
         //查询商品详情
         GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));

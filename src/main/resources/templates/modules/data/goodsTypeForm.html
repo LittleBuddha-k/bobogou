@@ -51,11 +51,9 @@
                             th:text="${goodsType.getName()}"/>
                 </select>
                 <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
-                    <option th:value="0" th:text="请选择"/>
-                    <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() == goodsType.getParentId()}"
-                            th:value="${goodsType.getId()}" th:text="${goodsType.getName()}"/>
-                    <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() != goodsType.getParentId()}"
-                            th:value="${goodsType.getId()}" th:text="${goodsType.getName()}"/>
+                    <option th:each="type:${goodsTypeList}"
+                            th:if="${type.getId() == goodsType.getParentId()}"
+                            th:value="${type.getId()}" th:text="${type.getName()}"/>
                 </select>
             </div>
         </div>
