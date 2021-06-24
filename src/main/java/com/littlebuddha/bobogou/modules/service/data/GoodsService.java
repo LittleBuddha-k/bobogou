@@ -37,6 +37,10 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Override
     public PageInfo<Goods> findPage(Page<Goods> page, Goods entity) {
+        if (entity != null){
+            String name = StringUtils.deleteWhitespace(entity.getName());
+            entity.setName(name);
+        }
         return super.findPage(page, entity);
     }
 

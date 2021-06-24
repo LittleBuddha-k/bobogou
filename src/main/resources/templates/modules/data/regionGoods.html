@@ -21,40 +21,48 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">省</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="provinceId" th:value="${regionGoods.getProvinceId()}"
-                                       th:id="provinceId" autocomplete="off" class="layui-input">
+                                <select name="provinceId" lay-verify="" lay-filter="province"
+                                        th:id="provinceId">
+                                    <option th:text="请选择" value=""/>
+                                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                                            th:text="${province.getName()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">市</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cityId" th:value="${regionGoods.getCityId()}"
-                                       autocomplete="off"
-                                       th:id="cityId" class="layui-input">
+                                <select name="cityId" lay-verify="" lay-filter="city" th:id="cityId">
+                                    <option th:if="${regionGoods.getCity() != null}" th:value="${regionGoods.getCityId()}"
+                                            th:text="${regionGoods.getCity().getName()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">区</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="districtId" th:value="${regionGoods.getDistrictId()}"
-                                       autocomplete="off"
-                                       th:id="districtId" class="layui-input">
+                                <select name="districtId" lay-verify="" lay-filter="area" th:id="districtId">
+                                    <option th:if="${regionGoods.getArea() != null}" th:value="${regionGoods.districtId}"
+                                            th:text="${regionGoods.getArea().getName()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">街道</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="streetId" th:value="${regionGoods.getStreetId()}"
-                                       autocomplete="off"
-                                       th:id="streetId" class="layui-input">
+                                <select name="streetId" lay-verify="" th:id="streetId" lay-filter="streetId">
+                                    <option th:if="${regionGoods.getStreet() != null}" th:value="${regionGoods.getStreetId()}"
+                                            th:text="${regionGoods.getStreet().getName()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">商品</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="goodsId" th:value="${regionGoods.getGoodsId()}"
+                            <div class="layui-input-inline" onclick="selectGoods('goodsId')">
+                                <input type="text" th:value="${regionGoods.getGoodsId()}"
                                        autocomplete="off"
-                                       th:id="goodsId" class="layui-input">
+                                       th:id="goodsId" class="layui-input" readonly="readonly" >
+                                <input type="hidden" name="goodsId" id="goods">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -71,6 +79,9 @@
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-reset-btn"><i class="layui-icon"></i> 重 置
                             </button>
                         </div>
                     </div>

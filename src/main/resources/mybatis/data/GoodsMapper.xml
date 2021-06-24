@@ -48,7 +48,7 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="name != null and name != ''">
-                and a.name = #{name}
+                AND a.name LIKE concat('%',#{name},'%')
             </if>
         </where>
         <choose>
