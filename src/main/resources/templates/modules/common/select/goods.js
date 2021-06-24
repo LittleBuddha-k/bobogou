@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#medicineTable',
-        url: '/bobogou/data/medicine/data',
+        elem: '#goodsTable',
+        url: '/bobogou/data/goods/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -136,7 +136,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('medicineTable'),
+    var checkStatus = table.checkStatus('goodsTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -154,7 +154,7 @@ function getSelector() {
             form = layui.form,
             table = layui.table;
 
-        var checkStatus = table.checkStatus('medicineTable'),
+        var checkStatus = table.checkStatus('goodsTable'),
             data = checkStatus.data;
         let idArr = ids.toString().split(",");
         if (data.length > 1) {
@@ -179,7 +179,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('medicineTable', {
+        table.reload('goodsTable', {
             page: {
                 curr: 1
             }

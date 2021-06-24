@@ -11,7 +11,7 @@
 <body>
 <div>
     <form class="layui-form" id="regionGoodsForm">
-        <input type="hidden" name="id" th:value="${regionGoods.getId()}">
+        <input type="hidden" name="id" id="id" th:value="${regionGoods.getId()}">
         <div class="layui-form-item">
             <label class="layui-form-label">省</label>
             <div class="layui-input-block">
@@ -120,17 +120,13 @@
             </label>
         </div>
         <table class="layui-table">
-            <colgroup>
-                <col width="150">
-                <col width="200">
-                <col>
-            </colgroup>
             <thead>
             <tr>
                 <th>商品名称</th>
                 <th>数量</th>
                 <th>销量</th>
                 <th>是否销售</th>
+                <th>删除</th>
             </tr>
             </thead>
             <tbody id="regionGoodsList">
@@ -146,28 +142,16 @@
 						<input name="regionGoodsList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
 					</td>
 
-                    <td>
-						<input id="regionGoodsList{{idx}}_specification" name="regionGoodsList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input"/>
-					</td>
-
 					<td>
 						<input id="regionGoodsList{{idx}}_amount" name="regionGoodsList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
 					</td>
 
 					<td>
-						<input id="regionGoodsList{{idx}}_price" name="regionGoodsList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
+						<input id="regionGoodsList{{idx}}_salesVolume" name="regionGoodsList[{{idx}}].salesVolume" type="text" value="{{row.salesVolume}}"    class="layui-input"/>
 					</td>
 
 					<td>
-						<input id="regionGoodsList{{idx}}_totalPrice" name="regionGoodsList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
-					</td>
-
-                    <td>
-						<input id="regionGoodsList{{idx}}_type" name="regionGoodsList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
-					</td>
-
-                    <td>
-						<input id="regionGoodsList{{idx}}_status" name="regionGoodsList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input"/>
+						<input id="regionGoodsList{{idx}}_isMarket" name="regionGoodsList[{{idx}}].isMarket" type="text" value="{{row.isMarket}}"    class="layui-input"/>
 					</td>
 
 					<td class="text-center" width="10">
@@ -179,11 +163,11 @@
                 var regionGoodsRowIdx = 0,
                     regionGoodsTpl = $("#regionGoodsTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
                 $(document).ready(function () {
-                    let orderId = $("#id").val();
+                    let regionGoodsId = $("#id").val();
                     $.ajax({
                         type: "get",
                         enctype: 'multipart/form-data',
-                        url: '/bobogou/data/order/regionGoodsInfoList?orderId='+orderId,
+                        url: '/bobogou/data/regionGoods/regionGoodsInfoList?regionGoodsId='+regionGoodsId,
                         processData: false, //prevent jQuery from automatically transforming the data into a query string
                         contentType: false,
                         success: function (result) {

@@ -9,6 +9,7 @@ import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -52,8 +53,23 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
 
     @Override
     public int save(RegionGoods entity) {
+        int row = 0;
+        RegionGoods regionGoods = null;
         entity.setIdType("AUTO");
-        return super.save(entity);
+        if (entity != null && entity.getRegionGoodsList() != null && entity.getRegionGoodsList().size() > 0){
+            //所选商品列表
+            List<RegionGoods> regionGoodsList = entity.getRegionGoodsList();
+            for (RegionGoods goods : regionGoodsList) {
+                regionGoods = new RegionGoods();
+                BeanUtils.copyProperties(entity,regionGoods);
+                regionGoods.setGoodsId(goods.getGoodsId());
+                regionGoods.setAmount(goods.getAmount());
+                regionGoods.setSalesVolume(goods.getSalesVolume());
+                regionGoods.setIsMarket(goods.getIsMarket());
+                row = super.save(regionGoods);
+            }
+        }
+        return row;
     }
 
     @Override

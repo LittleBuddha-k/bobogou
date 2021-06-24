@@ -38,7 +38,7 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     private String accountId;//最后操作人ID
     private String updateByName;//
 
-    private List<Goods> regionGoodsList;
+    private List<RegionGoods> regionGoodsList;//商品区域下的商品列表
 
     public RegionGoods() {
     }
@@ -234,11 +234,11 @@ public class RegionGoods extends DataEntity<RegionGoods> {
         this.updateByName = updateByName;
     }
 
-    public List<Goods> getRegionGoodsList() {
+    public List<RegionGoods> getRegionGoodsList() {
         return regionGoodsList;
     }
 
-    public void setRegionGoodsList(List<Goods> regionGoodsList) {
+    public void setRegionGoodsList(List<RegionGoods> regionGoodsList) {
         this.regionGoodsList = regionGoodsList;
     }
 }

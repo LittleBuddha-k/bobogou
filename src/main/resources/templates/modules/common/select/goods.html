@@ -21,7 +21,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="name" th:value="${medicine.getName()}"
+                                <input type="text" name="name" th:value="${goods.getName()}"
                                        th:id="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -35,7 +35,7 @@
             </div>
         </fieldset>
 
-        <table class="layui-hide" id="medicineTable" lay-filter="medicineTableFilter"></table>
+        <table class="layui-hide" id="goodsTable" lay-filter="goodsTableFilter"></table>
 
     </div>
 </div>

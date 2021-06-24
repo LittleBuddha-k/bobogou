@@ -47,31 +47,31 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="provinceId != null and provinceId != ''">
-                and a.province_id = #{provinceId}
+                AND a.province_id = #{provinceId}
             </if>
             <if test="cityId != null and cityId != ''">
-                and a.city_id = #{cityId}
+                AND a.city_id = #{cityId}
             </if>
             <if test="districtId != null and districtId != ''">
-                and a.district_id = #{districtId}
+                AND a.district_id = #{districtId}
             </if>
             <if test="streetId != null and streetId != ''">
-                and a.street_id = #{streetId}
+                AND a.street_id = #{streetId}
             </if>
             <if test="goodsId != null and goodsId != ''">
-                and a.goods_id = #{goodsId}
+                AND a.goods_id = #{goodsId}
             </if>
             <if test="amount != null and amount != ''">
-                and a.amount = #{amount}
+                AND a.amount = #{amount}
             </if>
             <if test="salesVolume != null and salesVolume != ''">
-                and a.sales_volume = #{salesVolume}
+                AND a.sales_volume = #{salesVolume}
             </if>
             <if test="isMarket != null and isMarket != ''">
-                and a.is_market = #{isMarket}
+                AND a.is_market = #{isMarket}
             </if>
             <if test="accountId != null and accountId != ''">
-                and a.account_id = #{accountId}
+                AND a.account_id = #{accountId}
             </if>
         </where>
         <choose>
@@ -93,31 +93,31 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="provinceId != null and provinceId != ''">
-                and a.province_id = #{provinceId}
+                AND a.province_id = #{provinceId}
             </if>
             <if test="cityId != null and cityId != ''">
-                and a.city_id = #{cityId}
+                AND a.city_id = #{cityId}
             </if>
             <if test="districtId != null and districtId != ''">
-                and a.district_id = #{districtId}
+                AND a.district_id = #{districtId}
             </if>
             <if test="streetId != null and streetId != ''">
-                and a.street_id = #{streetId}
+                AND a.street_id = #{streetId}
             </if>
             <if test="goodsId != null and goodsId != ''">
-                and a.goods_id = #{goodsId}
+                AND a.goods_id = #{goodsId}
             </if>
             <if test="amount != null and amount != ''">
-                and a.amount = #{amount}
+                AND a.amount = #{amount}
             </if>
             <if test="salesVolume != null and salesVolume != ''">
-                and a.sales_volume = #{salesVolume}
+                AND a.sales_volume = #{salesVolume}
             </if>
             <if test="isMarket != null and isMarket != ''">
-                and a.is_market = #{isMarket}
+                AND a.is_market = #{isMarket}
             </if>
             <if test="accountId != null and accountId != ''">
-                and a.account_id = #{accountId}
+                AND a.account_id = #{accountId}
             </if>
         </where>
         <choose>

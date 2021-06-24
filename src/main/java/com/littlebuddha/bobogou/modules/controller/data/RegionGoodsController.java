@@ -127,11 +127,22 @@ public class RegionGoodsController extends BaseController {
     @ResponseBody
     @GetMapping("/regionGoodsInfoList")
     public List<RegionGoods> regionGoodsList(String regionGoodsId) {
-        List<RegionGoods> regionGoodsInfoList = null;
+        List<RegionGoods> list = new ArrayList<>();
         if (StringUtils.isNotBlank(regionGoodsId)){
-            regionGoodsInfoList = regionGoodsService.findList(new RegionGoods(regionGoodsId));
+            //获取商品区域信息
+            RegionGoods regionGoods = regionGoodsService.get(new RegionGoods(regionGoodsId));
+            //根据商品信息中的省、市、区、街道设置查询信息
+            RegionGoods selectOption = new RegionGoods();
+            if (regionGoods != null){
+                selectOption.setProvinceId(regionGoods.getProvinceId());
+                selectOption.setCityId(regionGoods.getCityId());
+                selectOption.setDistrictId(regionGoods.getDistrictId());
+                selectOption.setStreetId(regionGoods.getStreetId());
+            }
+            //根据查询信息获取查询结果
+            list = regionGoodsService.findList(selectOption);
         }
-        return regionGoodsInfoList;
+        return list;
     }
 
     /**

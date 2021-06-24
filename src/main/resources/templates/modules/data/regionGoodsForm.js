@@ -101,7 +101,7 @@ function save(parentIndex) {
 }
 
 function selectGoods(id) {
-    let openSelector = rc.openGoodsSelect("/bobogou/data/medicine/select/", "选择商品", '100%', '100%',id);
+    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
 }
 
 function addRow(list, idx, tpl, row) {
