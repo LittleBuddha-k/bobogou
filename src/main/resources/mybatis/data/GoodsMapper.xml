@@ -23,12 +23,17 @@
         a.is_deleted AS "isDeleted",
         a.create_time AS "createDate",
         a.update_time AS "updateDate",
-        a.account_id AS "accountId"
+        a.account_id AS "accountId",
+        d.classify_id AS "goodsClassify.classifyId",
+        d.second_classify_id AS "goodsClassify.secondClassifyId",
+        d.reclassify_id AS "goodsClassify.reclassifyId",
+        d.goods_id AS "goodsClassify.goodsId"
     </sql>
 
     <sql id="goodsJoins">
         LEFT JOIN md_goods_brand b ON a.brand_id = b.id
         LEFT JOIN md_tag c ON a.tag_id = c.id
+        LEFT JOIN md_goods_classify d ON a.id = d.goods_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">

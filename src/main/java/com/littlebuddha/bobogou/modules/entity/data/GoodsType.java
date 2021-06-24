@@ -20,6 +20,8 @@ public class GoodsType extends DataEntity<GoodsType> {
     private GoodsType goodsType;//商品分类外键
     private String parentName;//分类名称
 
+
+
     public GoodsType() {
     }
 

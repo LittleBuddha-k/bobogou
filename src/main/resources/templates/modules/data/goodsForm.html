@@ -100,18 +100,18 @@
             <div class="layui-input-block">
                 <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
                         th:id="isMarket">
-                    <option th:value="1" th:text="是"/>
-                    <option th:value="0" th:text="否"/>
+                    <option th:value="0" th:text="是"/>
+                    <option th:value="2" th:text="否"/>
                 </select>
                 <select name="isMarket" lay-verify=""
                         th:if="${mode != 'add' && '1' == goods.getIsMarket()}">
-                    <option th:value="1" th:text="是"/>
-                    <option th:value="0" th:text="否"/>
+                    <option th:value="0" th:text="是"/>
+                    <option th:value="2" th:text="否"/>
                 </select>
                 <select name="isMarket" lay-verify=""
                         th:if="${mode != 'add' && '0' == goods.getIsMarket()}">
-                    <option th:value="0" th:text="否"/>
-                    <option th:value="1" th:text="是"/>
+                    <option th:value="2" th:text="否"/>
+                    <option th:value="0" th:text="是"/>
                 </select>
             </div>
         </div>
@@ -150,57 +150,39 @@
         <div class="layui-form-item">
             <label class="layui-form-label">商品分类</label>
             <div class="layui-input-inline">
-                <select name="levelOne.id" lay-filter="levelOne" th:if="${mode == 'add'}">
+                <select name="goodsClassify.classifyId" lay-filter="levelOne" th:if="${mode == 'add'}">
                     <option value="">请选择</option>
                     <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
-                            th:text="${levelOne.getName()}">请选择
+                            th:text="${levelOne.getName()}">
                     </option>
                 </select>
-                <select name="levelOne.id" lay-filter="levelOne" th:if="${mode != 'add'}">
+                <select name="goodsClassify.classifyId" lay-filter="levelOne" th:if="${mode != 'add' && goods.getGoodsClassify() != null}">
                     <option th:each="levelOne:${goodsTypeLevelOne}"
-                            th:if="${goods.getLevelOne() != null && goods.getLevelOne().getId() == levelOne.getId()}"
-                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">请选择
+                            th:if="${goods.getGoodsClassify().getClassifyId() == levelOne.getId()}"
+                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
                     </option>
                     <option th:each="levelOne:${goodsTypeLevelOne}"
-                            th:if="${goods.getLevelOne() != null && goods.getLevelOne().getId() != levelOne.getId()}"
-                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">请选择
+                            th:if="${goods.getGoodsClassify().getClassifyId() != levelOne.getId()}"
+                            th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
+                    </option>
+                </select>
+                <select name="goodsClassify.classifyId" lay-filter="levelOne" th:if="${mode != 'add' && goods.getGoodsClassify() == null}">
+                    <option value="">请选择</option>
+                    <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
+                            th:text="${levelOne.getName()}">
                     </option>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="levelTwo.id" lay-filter="levelTwo" th:if="${mode == 'add'}">
-                    <option value="">请选择</option>
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}" th:value="${levelTwo.getId()}"
-                            th:text="${levelTwo.getName()}">请选择
-                    </option>
-                </select>
-                <select name="levelTwo.id" lay-filter="levelTwo" th:if="${mode != 'add'}">
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}"
-                            th:if="${goods.getLevelTwo() != null && goods.getLevelTwo().getId() == levelTwo.getId()}"
-                            th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">请选择
-                    </option>
-                    <option th:each="levelTwo:${goodsTypeLevelTwo}"
-                            th:if="${goods.getLevelTwo() != null && goods.getLevelTwo().getId() != levelTwo.getId()}"
-                            th:value="${levelTwo.getId()}" th:text="${levelTwo.getName()}">请选择
-                    </option>
+                <select name="goodsClassify.secondClassifyId" lay-verify="" lay-filter="levelTwo" th:id="levelTwo">
+                    <option th:if="${goods.getGoodsClassify() != null}" th:value="${goods.getGoodsClassify().getSecondClassifyId()}"
+                            th:text="${goods.getGoodsClassify().getLevelTwoName()}"/>
                 </select>
             </div>
             <div class="layui-input-inline">
-                <select name="levelThree.id" lay-filter="levelThree" th:if="${mode == 'add'}">
-                    <option value="">请选择</option>
-                    <option th:each="levelThree:${goodsTypeLevelThree}" th:value="${levelThree.getId()}"
-                            th:text="${levelThree.getName()}">请选择
-                    </option>
-                </select>
-                <select name="levelThree.id" lay-filter="levelThree" th:if="${mode != 'add'}">
-                    <option th:each="levelThree:${goodsTypeLevelThree}"
-                            th:if="${goods.getLevelThree() != null && goods.getLevelThree().getId() == levelThree.getId()}"
-                            th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">请选择
-                    </option>
-                    <option th:each="levelThree:${goodsTypeLevelThree}"
-                            th:if="${goods.getLevelThree() != null && goods.getLevelThree().getId() != levelThree.getId()}"
-                            th:value="${levelThree.getId()}" th:text="${levelThree.getName()}">请选择
-                    </option>
+                <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree">
+                    <option th:if="${goods.getGoodsClassify() != null}" th:value="${goods.getGoodsClassify().getReclassifyId()}"
+                            th:text="${goods.getGoodsClassify().getLevelThreeName()}"/>
                 </select>
             </div>
         </div>

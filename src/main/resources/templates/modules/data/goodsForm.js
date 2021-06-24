@@ -19,10 +19,43 @@ layui.use('form', function(){
     });
 
     //商品分类级联下拉框
+    //下拉框选中后的时间
     form.on('select(levelOne)', function(data){
-        console.log(data.elem); //得到select原始DOM对象
-        console.log(data.value); //得到被选中的值
-        console.log(data.othis); //得到美化后的DOM对象
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let parentId = data.value;
+        $("#levelTwo").empty();//清空城市选项
+        rc.post("/bobogou/data/goodsType/all",{"parentId":parentId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#city").html(tmp);
+                form.render();
+            }
+        })
+    });
+    //下拉框选中后的时间
+    form.on('select(levelTwo)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let parentId = data.value;
+        $("#levelThree").empty();//清空城市选项
+        rc.post("/bobogou/data/goodsType/all",{"parentId":parentId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#area").html(tmp);
+                form.render();
+            }
+        })
     });
 });
 

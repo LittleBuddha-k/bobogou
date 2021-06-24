@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsClassifyMapper">
+    <sql id="goodsClassifyColumns">
+        a.id AS "id",
+        a.classify_id AS "classifyId",
+        a.second_classify_id AS "secondClassifyId",
+        a.reclassify_id AS "reclassifyId",
+        a.goods_id AS "goodsId",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="goodsClassifyJoins">
+        LEFT JOIN md_goods_classify b ON
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
+        SELECT
+        <include refid="goodsClassifyColumns"/>
+        FROM md_goods_classify a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
+        SELECT
+        <include refid="goodsClassifyColumns"/>
+        FROM md_goods_classify a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
+        SELECT
+        <include refid="goodsClassifyColumns"/>
+        FROM md_goods_classify a
+        <choose>
+            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
+
+            </when>
+            <otherwise>
+
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_goods_classify(
+            classify_id,
+            second_classify_id,
+            reclassify_id,
+            goods_id,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{classifyId},
+            #{secondClassifyId},
+            #{reclassifyId},
+            #{goodsId},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE md_goods_classify SET
+            classify_id = #{classifyId},
+            second_classify_id = #{secondClassifyId},
+            reclassify_id = #{reclassifyId},
+            goods_id = #{goodsId},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE md_goods_classify SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE md_goods_classify SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM md_goods_classify
+        WHERE id=#{id}
+    </delete>
+</mapper>

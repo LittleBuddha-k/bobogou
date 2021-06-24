@@ -35,11 +35,7 @@ public class Goods extends DataEntity<Goods> {
     private String isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 
-    private GoodsType levelOne;//一级分类
-    private GoodsType levelTwo;//一级分类
-    private GoodsType levelThree;//一级分类
-
-    private List<GoodsType> goodsTypeList;//商品分类list
+    private GoodsClassify goodsClassify;//商品分类外键
 
     private GoodsInfo goodsInfo;//商品详情
 
@@ -217,36 +213,12 @@ public class Goods extends DataEntity<Goods> {
         this.accountId = accountId;
     }
 
-    public List<GoodsType> getGoodsTypeList() {
-        return goodsTypeList;
+    public GoodsClassify getGoodsClassify() {
+        return goodsClassify;
     }
 
-    public void setGoodsTypeList(List<GoodsType> goodsTypeList) {
-        this.goodsTypeList = goodsTypeList;
-    }
-
-    public GoodsType getLevelOne() {
-        return levelOne;
-    }
-
-    public void setLevelOne(GoodsType levelOne) {
-        this.levelOne = levelOne;
-    }
-
-    public GoodsType getLevelTwo() {
-        return levelTwo;
-    }
-
-    public void setLevelTwo(GoodsType levelTwo) {
-        this.levelTwo = levelTwo;
-    }
-
-    public GoodsType getLevelThree() {
-        return levelThree;
-    }
-
-    public void setLevelThree(GoodsType levelThree) {
-        this.levelThree = levelThree;
+    public void setGoodsClassify(GoodsClassify goodsClassify) {
+        this.goodsClassify = goodsClassify;
     }
 
     public GoodsInfo getGoodsInfo() {

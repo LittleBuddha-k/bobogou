@@ -72,6 +72,22 @@ public class GoodsTypeController extends BaseController {
     }
 
     /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/all")
+    public List<GoodsType> all(GoodsType entity) {
+        List<GoodsType> result = new ArrayList<>();
+        if(entity != null && entity.getParentId() != null && StringUtils.isNotBlank(entity.getParentId())){
+            GoodsType parent = new GoodsType();
+            parent.setParentId(entity.getParentId());
+            result = goodsTypeService.findList(parent);
+        }
+        return result;
+    }
+
+    /**
      * 根据父类信息查询子数据
      * @param goodsType
      * @return

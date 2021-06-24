@@ -3,10 +3,14 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsClassify;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsClassifyMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsTypeMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -25,6 +29,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
 
+    @Autowired
+    private GoodsClassifyMapper goodsClassifyMapper;
+
     @Override
     public Goods get(Goods entity) {
         return super.get(entity);
@@ -37,7 +44,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Override
     public PageInfo<Goods> findPage(Page<Goods> page, Goods entity) {
-        if (entity != null){
+        if (entity != null) {
             String name = StringUtils.deleteWhitespace(entity.getName());
             entity.setName(name);
         }
@@ -48,6 +55,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     public int save(Goods entity) {
         entity.setIdType("AUTO");
         int save = super.save(entity);
+        //插入商品详情
         GoodsInfo goodsInfo = entity.getGoodsInfo();
         if (goodsInfo != null && StringUtils.isNotBlank(goodsInfo.getContent())) {
             goodsInfo.setMedicine(entity);
@@ -60,14 +68,30 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     goodsInfo.setId(entity.getId());
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
-                } else {
+                } else if (list.size() == 1){
                     GoodsInfo byGoods = goodsInfoMapper.getByGoods(new GoodsInfo(entity));
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }
-            }else {
+            } else {
                 goodsInfoMapper.deleteByPhysics(goodsInfo);
             }
+        }
+        //插入商品分类
+        if (entity != null) {
+            GoodsClassify goodsClassify = new GoodsClassify();
+            goodsClassify.setIdType("AUTO");
+            /*if (entity.getLevelOne() != null) {
+                goodsClassify.setClassifyId(entity.getLevelOne().getId());
+            }
+            if (entity.getLevelTwo() != null) {
+                goodsClassify.setSecondClassifyId(entity.getLevelTwo().getId());
+            }
+            if (entity.getLevelThree() != null) {
+                goodsClassify.setReclassifyId(entity.getLevelThree().getId());
+            }
+            goodsClassify.setGoodsId(entity.getId());
+            goodsClassifyMapper.insert()*/
         }
         return save;
     }
