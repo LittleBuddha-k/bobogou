@@ -79,103 +79,58 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsBrandTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsBrand/form/add", "新建商品品牌规格分类信息",'75%','70%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/goodsBrand/form/edit?id=' + ids, "编辑商品品牌规格分类信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/goodsBrand/form/view?id=' + ids, "查看商品品牌规格分类信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该信息吗？', function() {
-                    rc.post("/bobogou/data/goodsBrand/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                            rc.alert(data.msg);
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/goodsBrand/importTemplate", "/bobogou/data/goodsBrand/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/goodsBrand/exportFile?" + $("#searchForm").serialize());
+            var index = rc.openSaveDialog("/bobogou/data/goodsBrand/form/add", "新建商品品牌规格分类信息", '75%', '70%')
         }
     });
 
     table.on('tool(goodsBrandTableFilter)', function (obj) {
-        var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/goodsBrand/addRolePage?id=" + id, "设置角色")
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        let id = obj.data.id;
+        let event = obj.event;
+        if (event === 'edit') {
+            rc.openSaveDialog('/bobogou/data/goodsBrand/form/edit?id=' + id, "编辑信息", '100%', '100%');
+        } else if (event === 'delete') {
+            rc.confirm('确认要删除该信息吗？', function () {
+                rc.post("/bobogou/data/goodsBrand/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }
     });
-});
-
-/**
- * 获取layui table 复选框的id
- * @param table -- table = layui.table;
- * @param tableId -- layui table 的id
- * @returns {string}
- */
-function getIdSelections(table) {
-    var checkStatus = table.checkStatus('goodsBrandTable'),
-        data = checkStatus.data;
-    let ids = "";
-    for (let i = 0; i < data.length; i++) {
-        ids = ids + data[i].id + ",";
+})
+    /**
+     * 获取layui table 复选框的id
+     * @param table -- table = layui.table;
+     * @param tableId -- layui table 的id
+     * @returns {string}
+     */
+    function getIdSelections(table) {
+        var checkStatus = table.checkStatus('goodsBrandTable'),
+            data = checkStatus.data;
+        let ids = "";
+        for (let i = 0; i < data.length; i++) {
+            ids = ids + data[i].id + ",";
+        };
+        return ids;
     }
-    ;
-    return ids;
-}
 
-function refresh() {
-    layui.use(['form', 'table'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table;
+    function refresh() {
+        layui.use(['form', 'table'], function () {
+            var $ = layui.jquery,
+                form = layui.form,
+                table = layui.table;
 
-        //执行搜索重载
-        table.reload('goodsBrandTable', {
-            page: {
-                curr: 1
-            }
-            , where: {
-
-            }
-        }, 'data');
-    })
-}
+            //执行搜索重载
+            table.reload('goodsBrandTable', {
+                page: {
+                    curr: 1
+                }
+                , where: {}
+            }, 'data');
+        })
+    }

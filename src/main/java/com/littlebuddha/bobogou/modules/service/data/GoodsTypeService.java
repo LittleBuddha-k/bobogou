@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsTypeMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -31,6 +32,10 @@ public class GoodsTypeService extends CrudService<GoodsType, GoodsTypeMapper> {
 
     @Override
     public PageInfo<GoodsType> findPage(Page<GoodsType> page, GoodsType entity) {
+        if(entity != null){
+            String name = StringUtils.deleteWhitespace(entity.getName());
+            entity.setName(name);
+        }
         return super.findPage(page, entity);
     }
 

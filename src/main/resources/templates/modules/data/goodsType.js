@@ -95,69 +95,28 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsTypeTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsType/form/add", "新建商品分类信息",'75%','70%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/goodsType/form/edit?id=' + ids, "编辑商品分类信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/goodsType/form/view?id=' + ids, "查看商品分类信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该信息吗？', function() {
-                    rc.post("/bobogou/data/goodsType/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                            rc.alert(data.msg);
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/goodsType/importTemplate", "/bobogou/data/goodsType/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/goodsType/exportFile?" + $("#searchForm").serialize());
+            let index = rc.openSaveDialog("/bobogou/data/goodsType/form/add", "新建商品分类信息",'75%','70%')
         }
     });
 
     table.on('tool(goodsTypeTableFilter)', function (obj) {
-        var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/goodsType/addRolePage?id=" + id, "设置角色")
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        let id = obj.data.id;
+        let event = obj.event;
+        if (event === 'edit') {
+            rc.openSaveDialog('/bobogou/data/goodsType/form/edit?id=' + id, "编辑信息", '100%', '100%');
+        } else if (event === 'delete') {
+            rc.confirm('确认要删除该信息吗？', function () {
+                rc.post("/bobogou/data/goodsType/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }
     });
 });
 

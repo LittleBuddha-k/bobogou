@@ -26,9 +26,12 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <!--<if test="name != null and name != ''">
-                and a.name = #{name}
-            </if>-->
+            <if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -47,6 +50,12 @@
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
+            <if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

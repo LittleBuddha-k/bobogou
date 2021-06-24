@@ -28,32 +28,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">商品分类</label>
                             <div class="layui-input-inline">
-                                <select name="level" id="level" lay-filter="levelOne" th:if="${goodsType.getLevel() == null}">
+                                <select name="level" id="level" lay-filter="levelOne">
                                     <option value="">请选择</option>
                                     <option th:value="1" th:text="一级分类">
                                     <option th:value="2" th:text="二级分类">
                                     <option th:value="3" th:text="三级分类">
-                                    </option>
-                                </select>
-                                <select name="level" id="level" lay-filter="levelOne" th:if="${goodsType.getLevel() != null && goodsType.getLevel() == 0}">
-                                    <option value="">请选择</option>
-                                    <option th:value="1" th:text="一级分类">
-                                    <option th:value="2" th:text="二级分类">
-                                    <option th:value="3" th:text="三级分类">
-                                    </option>
-                                </select>
-                                <select name="level" id="level" lay-filter="levelOne" th:if="${goodsType.getLevel() != null && goodsType.getLevel() == 1}">
-                                    <option value="">请选择</option>
-                                    <option th:value="2" th:text="二级分类">
-                                    <option th:value="1" th:text="一级分类">
-                                    <option th:value="3" th:text="三级分类">
-                                    </option>
-                                </select>
-                                <select name="level" id="level" lay-filter="levelOne" th:if="${goodsType.getLevel() != null && goodsType.getLevel() == 2}">
-                                    <option value="">请选择</option>
-                                    <option th:value="3" th:text="三级分类">
-                                    <option th:value="1" th:text="一级分类">
-                                    <option th:value="2" th:text="二级分类">
                                     </option>
                                 </select>
                             </div>
@@ -70,34 +49,15 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:goodsType:add">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsType:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsType:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsType:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsType:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsType:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
             </div>
         </script>
 
         <table class="layui-hide" id="goodsTypeTable" lay-filter="goodsTypeTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="system:goodsType:export">
-                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
-            </shiro:hasPermission>
+                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
         </script>
 
     </div>

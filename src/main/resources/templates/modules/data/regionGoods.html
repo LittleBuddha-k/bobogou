@@ -60,9 +60,12 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">是否销售</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="isMarket" th:value="${regionGoods.getIsMarket()}"
-                                       autocomplete="off"
-                                       th:id="isMarket" class="layui-input">
+                                <select name="isMarket" lay-verify="" lay-filter="isMarket"
+                                        th:id="isMarket">
+                                    <option th:value="''" th:text="请选择"/>
+                                    <option th:value="0" th:text="是"/>
+                                    <option th:value="1" th:text="否"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">

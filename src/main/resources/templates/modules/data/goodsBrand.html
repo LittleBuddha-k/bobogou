@@ -28,7 +28,8 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">品牌规格分类名称</label>
                             <div class="layui-input-inline">
-                                <input type="classifyName" name="classifyName" th:value="${goodsBrand.getClassifyName()}"
+                                <input type="classifyName" name="classifyName"
+                                       th:value="${goodsBrand.getClassifyName()}"
                                        th:id="classifyName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -44,34 +45,15 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:goodsBrand:add">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsBrand:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsBrand:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsBrand:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsBrand:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:goodsBrand:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
             </div>
         </script>
 
         <table class="layui-hide" id="goodsBrandTable" lay-filter="goodsBrandTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="system:goodsBrand:export">
-                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
-            </shiro:hasPermission>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
         </script>
 
     </div>

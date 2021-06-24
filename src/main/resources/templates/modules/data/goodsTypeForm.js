@@ -1,22 +1,23 @@
-layui.use('form', function(){
-    var form = layui.form;
+layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
+    var $ = layui.jquery
+        , form = layui.form
+        , layer = layui.layer
+        , layedit = layui.layedit
+        , laydate = layui.laydate
+        ,upload = layui.upload
+        ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
-    //对标签的操作----点击时才生效
-    //form.on('checkbox(tag)', function(data){
-    //    //console.log(data.elem); //得到checkbox原始DOM对象
-    //    let checked = data.elem.checked; //是否被选中，true或者false
-    //    if(checked){
-    //        let id = data.value; //复选框value值，也可以通过data.elem.value得到
-    //        let tagId = $("#tagId").val();
-    //        let get = tagId + "," + id;
-    //        $("#tagId").val(get);
-    //    }else {
-    //        $("#tagId").val("")
-    //    }
-    //    //console.log($("#tagId").val())
-    //    //console.log(data.othis); //得到美化后的DOM对象
-    //});
+    //拖拽上传
+    upload.render({
+        elem: '#test10'
+        ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
+        ,done: function(res){
+            layer.msg('上传成功');
+            layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
+            $("#icon").val(res.body.url);
+        }
+    });
 });
 
 //保存方法

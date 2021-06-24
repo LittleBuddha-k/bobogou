@@ -24,10 +24,23 @@
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">分类图标地址</label>
-            <div class="layui-input-block">
-                <input type="icon" name="icon" th:value="${goodsType.getIcon()}" autocomplete="off"
-                       th:id="icon" class="layui-input">
+            <!--<div class="layui-input-block">
+                <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
+                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
+            </div>-->
+            <div class="layui-upload-drag" id="test10" name="file">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" th:id="upload" th:if="${mode == 'add'}">
+                    <hr>
+                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                </div>
+                <div class="" th:id="upload" th:if="${mode != 'add'}">
+                    <hr>
+                    <img th:src="${goodsType.getIcon()}" alt="上传成功后渲染" style="max-width: 196px" th:if="${mode != 'add'}">
+                </div>
             </div>
+            <input type="hidden" id="icon" name="icon" th:value="${goodsType.getIcon()}">
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">父级分类</label>
@@ -38,6 +51,7 @@
                             th:text="${goodsType.getName()}"/>
                 </select>
                 <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
+                    <option th:value="0" th:text="请选择"/>
                     <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() == goodsType.getParentId()}"
                             th:value="${goodsType.getId()}" th:text="${goodsType.getName()}"/>
                     <option th:each="goodsType:${goodsTypeList}" th:if="${goodsType.getId() != goodsType.getParentId()}"
@@ -49,22 +63,21 @@
             <label class="layui-form-label">级别分类选择</label>
             <div class="layui-input-block">
                 <select name="level" lay-verify="" th:if="${mode == 'add'}">
-                    <option th:text="请选择"/>
-                    <option th:value="1" th:text="一级分类"/>
-                    <option th:value="2" th:text="二级分类"/>
-                    <option th:value="3" th:text="三级分类"/>
-                </select>
-                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 0}">
                     <option th:value="1" th:text="一级分类"/>
                     <option th:value="2" th:text="二级分类"/>
                     <option th:value="3" th:text="三级分类"/>
                 </select>
                 <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 1}">
+                    <option th:value="1" th:text="一级分类"/>
+                    <option th:value="2" th:text="二级分类"/>
+                    <option th:value="3" th:text="三级分类"/>
+                </select>
+                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
                     <option th:value="2" th:text="二级分类"/>
                     <option th:value="1" th:text="一级分类"/>
                     <option th:value="3" th:text="三级分类"/>
                 </select>
-                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
+                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 3}">
                     <option th:value="3" th:text="三级分类"/>
                     <option th:value="1" th:text="一级分类"/>
                     <option th:value="2" th:text="二级分类"/>
@@ -78,9 +91,9 @@
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/goodsTypeForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/goodsTypeForm.js"></script>
 </body>
 </html>

@@ -70,9 +70,18 @@ public class RegionGoodsController extends BaseController {
     //@RequiresPermissions("system/RegionGoods/list")
     @GetMapping(value = {"/", "/list"})
     public String list(RegionGoods regionGoods, Model model, HttpSession session) {
-        //查询省级数据---前端做地域级联动
+        //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
+        /*//查询省级数据
+        List<City> cityList = cityService.findList(new City());
+        model.addAttribute("cityList", cityList);
+        //查询省级数据
+        List<Area> areaList = areaService.findList(new Area());
+        model.addAttribute("areaList", areaList);
+        //查询省级数据
+        List<Street> streetList = streetService.findList(new Street());
+        model.addAttribute("streetList", streetList);*/
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoods";
     }

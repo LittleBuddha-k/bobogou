@@ -110,15 +110,12 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            provinceId: $("#code").val(),
-            cityId: $("#name").val(),
-            districtId: $("#shortName").val(),
-            streetId: $("#cityCode").val(),
-            goodsId: $("#lng").val(),
-            amount: $("#lat").val(),
-            salesVolume: $("#sort").val(),
-            isMarket: $("#remarks").val(),
-            accountId: $("#status").val()
+            provinceId: $("#provinceId").val(),
+            cityId: $("#cityId").val(),
+            districtId: $("#districtId").val(),
+            streetId: $("#streetId").val(),
+            goodsId: $("#goodsId").val(),
+            isMarket: $("#isMarket").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -128,15 +125,12 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('regionGoodsTable', {
             where: {
-                provinceId: $("#code").val(),
-                cityId: $("#name").val(),
-                districtId: $("#shortName").val(),
-                streetId: $("#cityCode").val(),
-                goodsId: $("#lng").val(),
-                amount: $("#lat").val(),
-                salesVolume: $("#sort").val(),
-                isMarket: $("#remarks").val(),
-                accountId: $("#status").val()
+                provinceId: $("#provinceId").val(),
+                cityId: $("#cityId").val(),
+                districtId: $("#districtId").val(),
+                streetId: $("#streetId").val(),
+                goodsId: $("#goodsId").val(),
+                isMarket: $("#isMarket").val()
             }
         });
         return false;
