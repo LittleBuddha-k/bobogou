@@ -41,8 +41,10 @@
         <div class="layui-form-item">
             <label class="layui-form-label">展示位置</label>
             <div class="layui-input-block">
-                <input type="type" id="type" th:name="type" th:value="${banner.getType()}"
-                       placeholder="展示位置" lay-verify="required|type" autocomplete="off" class="layui-input">
+                <select name="type" lay-verify="" lay-filter="isMarket"
+                        th:id="type">
+                    <option th:value="1" th:text="首页"/>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -55,8 +57,26 @@
         <div class="layui-form-item">
             <label class="layui-form-label">展示状态</label>
             <div class="layui-input-block">
-                <input type="status" id="status" th:name="status" th:value="${banner.getStatus()}"
-                       placeholder="展示状态" lay-verify="required|status" autocomplete="off" class="layui-input">
+                <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
+                        th:id="status">
+                    <option th:value="0" th:text="隐藏"/>
+                    <option th:value="1" th:text="展示"/>
+                </select>
+                <select name="status" lay-verify=""
+                        th:if="${mode != 'add' && banner.getStatus() == null}">
+                    <option th:value="0" th:text="隐藏"/>
+                    <option th:value="1" th:text="展示"/>
+                </select>
+                <select name="status" lay-verify=""
+                        th:if="${mode != 'add' && 0 == banner.getStatus()}">
+                    <option th:value="0" th:text="隐藏"/>
+                    <option th:value="1" th:text="展示"/>
+                </select>
+                <select name="status" lay-verify=""
+                        th:if="${mode != 'add' && 1 == banner.getStatus()}">
+                    <option th:value="1" th:text="展示"/>
+                    <option th:value="0" th:text="隐藏"/>
+                </select>
             </div>
         </div>
     </form>

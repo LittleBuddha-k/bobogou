@@ -46,7 +46,15 @@ layui.use(['form', 'table'], function () {
                     title: '展示位置',
                     field: 'type',
                     sort: true,
-                    sortName: 'type'
+                    sortName: 'type',
+                    templet:function(data){
+                        let type = data.type;
+                        if(1 == type){
+                            return "首页";
+                        }else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
                     title: '链接地址',
@@ -58,7 +66,15 @@ layui.use(['form', 'table'], function () {
                     title: '状态',
                     field: 'status',
                     sort: true,
-                    sortName: 'status'
+                    sortName: 'status',
+                    templet:function(data){
+                        let status = data.status;
+                        if(0 == status){
+                            return "隐藏";
+                        }else if (1 == status){
+                            return "显示";
+                        }
+                    }
                 },
                 {
                     title: '操作',
@@ -95,69 +111,29 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(bannerTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息",'75%','70%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + ids, "编辑轮播图信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/banner/form/view?id=' + ids, "查看轮播图信息",'75%','70%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该轮播图信息吗？', function() {
-                    rc.post("/bobogou/data/banner/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                            rc.alert(data.msg);
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/banner/importTemplate", "/bobogou/data/banner/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/banner/exportFile?" + $("#searchForm").serialize());
+            let index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息",'75%','70%')
         }
     });
 
     table.on('tool(bannerTableFilter)', function (obj) {
-        var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/banner/addRolePage?id=" + id, "设置角色")
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        let id = obj.data.id;
+        let event = obj.event;
+
+        if('edit' == event){
+            rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + id, "编辑轮播图信息",'75%','70%');
+        }else if ('delete' == event){
+            rc.confirm('确认要删除该轮播图信息吗？', function() {
+                rc.post("/bobogou/data/banner/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }
     });
 });
 
