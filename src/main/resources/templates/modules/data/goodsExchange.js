@@ -114,6 +114,7 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
+            name: $("#name").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -123,6 +124,7 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('goodsExchangeTable', {
             where: {
+                name: $("#name").val()
             }
         });
         return false;

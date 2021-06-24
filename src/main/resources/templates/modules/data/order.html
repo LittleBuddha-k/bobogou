@@ -26,28 +26,6 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">总金额</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="grossAmount" th:value="${order.getGrossAmount()}" autocomplete="off"
-                                       th:id="grossAmount" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">积分</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="integral" th:value="${order.getIntegral()}"
-                                       autocomplete="off"
-                                       th:id="integral" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">健康豆</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="healthBeans" th:value="${order.getHealthBeans()}" autocomplete="off"
-                                       th:id="healthBeans" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <label class="layui-form-label">配送地址</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="addressId" th:value="${order.getAddressId()}" autocomplete="off"
@@ -57,8 +35,12 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">配送方式</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="distributionMode" th:value="${order.getDistributionMode()}" autocomplete="off"
-                                       th:id="distributionMode" class="layui-input">
+                                <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
+                                        th:id="distributionMode">
+                                    <option th:value="''" th:text="请选择"/>
+                                    <option th:value="1" th:text="顺丰"/>
+                                    <option th:value="2" th:text="京东"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -66,41 +48,6 @@
                             <div class="layui-input-inline">
                                 <input type="text" name="trackingNo" th:value="${order.getTrackingNo()}" autocomplete="off"
                                        th:id="trackingNo" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">支付方式</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="payMode" th:value="${order.getPayMode()}" autocomplete="off"
-                                       th:id="payMode" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">类型</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="type" th:value="${order.getType()}" autocomplete="off"
-                                       th:id="type" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="status" th:value="${order.getStatus()}" autocomplete="off"
-                                       th:id="status" class="layui-input">
-                            </div>
-                        </div>
-                        <!--<div class="layui-inline">
-                            <label class="layui-form-label">支付时间</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="payTime" th:value="${order.getPayTime()}" autocomplete="off"
-                                       th:id="payTime" class="layui-input">
-                            </div>
-                        </div>-->
-                        <div class="layui-inline">
-                            <label class="layui-form-label">退款原因</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="refundReason" th:value="${order.getRefundReason()}" autocomplete="off"
-                                       th:id="refundReason" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">

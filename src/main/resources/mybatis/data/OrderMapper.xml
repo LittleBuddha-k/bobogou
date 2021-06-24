@@ -35,43 +35,40 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="number != null and number != ''">
-                AND a.unit LIKE concat('%',#{number},'%')
-                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
-                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
-                <!--<if test="dbName == 'mysql'"></if>-->
+                AND a.number LIKE concat('%',#{number},'%')
             </if>
             <if test="grossAmount != null and grossAmount != ''">
-                and a.gross_amount = #{grossAmount}
+                AND a.gross_amount = #{grossAmount}
             </if>
             <if test="integral != null and integral != ''">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="healthBeans != null and healthBeans != ''">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="addressId != null and addressId != ''">
-                and a.address_id = #{addressId}
+                AND a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
-                and a.distribution_mode = #{distributionMode}
+                AND a.distribution_mode = #{distributionMode}
             </if>
             <if test="trackingNo != null and trackingNo != ''">
-                and a.tracking_no = #{trackingNo}
+                AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
             </if>
             <if test="payMode != null">
-                and a.pay_mode = #{payMode}
+                AND a.pay_mode = #{payMode}
             </if>
             <if test="type != null and type != ''">
-                and a.type = #{type}
+                AND a.type = #{type}
             </if>
             <if test="status != null and status != ''">
-                and a.status = #{status}
+                AND a.status = #{status}
             </if>
             <if test="payTime != null and payTime != ''">
-                and a.pay_time = #{payTime}
+                AND a.pay_time = #{payTime}
             </if>
             <if test="refundReason != null and refundReason != ''">
-                and a.refund_reason LIKE concat('%',#{refundReason},'%')
+                AND a.refund_reason LIKE concat('%',#{refundReason},'%')
             </if>
         </where>
         <choose>
@@ -92,43 +89,40 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="number != null and number != ''">
-                AND a.unit LIKE concat('%',#{number},'%')
-                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
-                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
-                <!--<if test="dbName == 'mysql'"></if>-->
+                AND a.number LIKE concat('%',#{number},'%')
             </if>
             <if test="grossAmount != null and grossAmount != ''">
-                and a.gross_amount = #{grossAmount}
+                AND a.gross_amount = #{grossAmount}
             </if>
             <if test="integral != null and integral != ''">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="healthBeans != null and cityCohealthBeansde != ''">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="addressId != null and addressId != ''">
-                and a.address_id = #{addressId}
+                AND a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
-                and a.distribution_mode = #{distributionMode}
+                AND a.distribution_mode = #{distributionMode}
             </if>
             <if test="trackingNo != null and trackingNo != ''">
-                and a.tracking_no = #{trackingNo}
+                AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
             </if>
             <if test="payMode != null">
-                and a.pay_mode = #{payMode}
+                AND a.pay_mode = #{payMode}
             </if>
             <if test="type != null and type != ''">
-                and a.type = #{type}
+                AND a.type = #{type}
             </if>
             <if test="status != null and status != ''">
-                and a.status = #{status}
+                AND a.status = #{status}
             </if>
             <if test="payTime != null and payTime != ''">
-                and a.pay_time = #{payTime}
+                AND a.pay_time = #{payTime}
             </if>
             <if test="refundReason != null and refundReason != ''">
-                and a.refund_reason LIKE concat('%',#{refundReason},'%')
+                AND a.refund_reason LIKE concat('%',#{refundReason},'%')
             </if>
         </where>
         <choose>

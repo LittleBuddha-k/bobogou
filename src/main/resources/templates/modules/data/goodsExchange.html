@@ -13,68 +13,16 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
 
-        <!--<fieldset class="table-search-fieldset">
+        <fieldset class="table-search-fieldset">
             <legend>搜索信息</legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">区代码</label>
+                            <label class="layui-form-label">商品名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="code" th:value="${goodsExchange.getCode()}"
-                                       th:id="code" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">区名</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="name" th:value="${goodsExchange.getName()}" autocomplete="off"
-                                       th:id="name" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">简称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="shortName" th:value="${goodsExchange.getShortName()}"
-                                       autocomplete="off"
-                                       th:id="shortName" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">市级代码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="cityCode" th:value="${goodsExchange.getCityCode()}"
-                                       autocomplete="off"
-                                       th:id="cityCode" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">经度</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="lng" th:value="${goodsExchange.getLng()}" autocomplete="off"
-                                       th:id="lng" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">纬度</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="lat" th:value="${goodsExchange.getLat()}" autocomplete="off"
-                                       th:id="lat" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">排序</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="sort" th:value="${goodsExchange.getSort()}" autocomplete="off"
-                                       th:id="sort" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-inline">
-                                <input type="radio" name="status" value="1" title="正常" lay-filter="status">
-                                <input type="radio" name="status" value="0" title="停用" lay-filter="status">
-                                <input type="hidden" name="status" th:id="status">
+                                <input type="text" name="name" th:value="${goodsExchange.getName()}"
+                                       th:id="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -85,7 +33,7 @@
                     </div>
                 </form>
             </div>
-        </fieldset>-->
+        </fieldset>
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">

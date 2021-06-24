@@ -40,6 +40,20 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Override
     public PageInfo<Order> findPage(Page<Order> page, Order entity) {
+        if (entity != null) {
+            String number = StringUtils.deleteWhitespace(entity.getNumber());
+            entity.setNumber(number);
+            if (entity.getAddressId() != null) {
+                String addressId = StringUtils.deleteWhitespace(entity.getAddressId().toString());
+                entity.setAddressId(Integer.valueOf(addressId));
+            }
+            if (entity.getDistributionMode() != null) {
+                String distributionMode = StringUtils.deleteWhitespace(entity.getDistributionMode().toString());
+                entity.setDistributionMode(Integer.valueOf(distributionMode));
+            }
+            String trackingNo = StringUtils.deleteWhitespace(entity.getTrackingNo());
+            entity.setTrackingNo(trackingNo);
+        }
         return super.findPage(page, entity);
     }
 
@@ -53,7 +67,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             for (OrderInfo orderInfo : entity.getOrderInfoList()) {
                 orderInfo.setIdType("AUTO");
                 Goods medicine = null;
-                if (orderInfo.getGoodsId() != null && StringUtils.isNotBlank(orderInfo.getGoodsId())){
+                if (orderInfo.getGoodsId() != null && StringUtils.isNotBlank(orderInfo.getGoodsId())) {
                     medicine = medicineMapper.get(orderInfo.getGoodsId());
                 }
                 if (orderInfo.getId() == null) {

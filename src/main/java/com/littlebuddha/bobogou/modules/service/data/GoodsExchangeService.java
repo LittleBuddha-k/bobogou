@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsExchange;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsExchangeMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,10 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
 
     @Override
     public PageInfo<GoodsExchange> findPage(Page<GoodsExchange> page, GoodsExchange entity) {
+        if(entity != null){
+            String name = StringUtils.deleteWhitespace(entity.getName());
+            entity.setName(name);
+        }
         return super.findPage(page, entity);
     }
 

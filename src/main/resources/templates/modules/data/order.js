@@ -191,17 +191,9 @@ layui.use(['form', 'table'], function () {
         skin: 'line',
         where: {
             number: $("#number").val(),
-            grossAmount: $("#grossAmount").val(),
-            integral: $("#integral").val(),
-            healthBeans: $("#healthBeans").val(),
             addressId: $("#addressId").val(),
             distributionMode: $("#distributionMode").val(),
-            trackingNo: $("#trackingNo").val(),
-            payMode: $("#payMode").val(),
-            type: $("#type").val(),
-            status: $("#status").val(),
-            payTime: $("#payTime").val(),
-            refundReason: $("#refundReason").val()
+            trackingNo: $("#trackingNo").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -212,17 +204,9 @@ layui.use(['form', 'table'], function () {
         table.reload('orderTable', {
             where: {
                 number: $("#number").val(),
-                grossAmount: $("#grossAmount").val(),
-                integral: $("#integral").val(),
-                healthBeans: $("#healthBeans").val(),
                 addressId: $("#addressId").val(),
                 distributionMode: $("#distributionMode").val(),
-                trackingNo: $("#trackingNo").val(),
-                payMode: $("#payMode").val(),
-                type: $("#type").val(),
-                status: $("#status").val(),
-                payTime: $("#payTime").val(),
-                refundReason: $("#refundReason").val()
+                trackingNo: $("#trackingNo").val()
             }
         });
         return false;

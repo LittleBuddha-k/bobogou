@@ -34,34 +34,31 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="name != null and name != ''">
-                a.name LIKE concat('%',#{name},'%')
-                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
-                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
-                <!--<if test="dbName == 'mysql'"></if>-->
+                AND a.name LIKE concat('%',#{name},'%')
             </if>
             <if test="price != null">
-                and a.price = #{price}
+                AND a.price = #{price}
             </if>
             <if test="healthBeans != null">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="specification != null and specification != ''">
-                a.specification LIKE concat('%',#{specification},'%')
+                AND a.specification LIKE concat('%',#{specification},'%')
             </if>
             <if test="amount != null">
-                and a.amount = #{amount}
+                AND a.amount = #{amount}
             </if>
             <if test="changeAmount != null">
-                and a.change_amount = #{changeAmount}
+                AND a.change_amount = #{changeAmount}
             </if>
             <if test="content != null and content != ''">
-                a.content LIKE concat('%',#{content},'%')
+                AND a.content LIKE concat('%',#{content},'%')
             </if>
             <if test="status != null">
-                and a.status = #{status}
+                AND a.status = #{status}
             </if>
         </where>
         <choose>
@@ -82,34 +79,34 @@
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
             <if test="name != null and name != ''">
-                a.name LIKE concat('%',#{name},'%')
+                AND a.name LIKE concat('%',#{name},'%')
                 <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
                 <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
                 <!--<if test="dbName == 'mysql'"></if>-->
             </if>
             <if test="price != null">
-                and a.price = #{price}
+                AND a.price = #{price}
             </if>
             <if test="healthBeans != null">
-                and a.health_beans = #{healthBeans}
+                AND a.health_beans = #{healthBeans}
             </if>
             <if test="integral != null">
-                and a.integral = #{integral}
+                AND a.integral = #{integral}
             </if>
             <if test="specification != null and specification != ''">
-                a.specification LIKE concat('%',#{specification},'%')
+                AND a.specification LIKE concat('%',#{specification},'%')
             </if>
             <if test="amount != null">
-                and a.amount = #{amount}
+                AND a.amount = #{amount}
             </if>
             <if test="changeAmount != null">
-                and a.change_amount = #{changeAmount}
+                AND a.change_amount = #{changeAmount}
             </if>
             <if test="content != null and content != ''">
-                a.content LIKE concat('%',#{content},'%')
+                AND a.content LIKE concat('%',#{content},'%')
             </if>
             <if test="status != null">
-                and a.status = #{status}
+                AND a.status = #{status}
             </if>
         </where>
         <choose>
