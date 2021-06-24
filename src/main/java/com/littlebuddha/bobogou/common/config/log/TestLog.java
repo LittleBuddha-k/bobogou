@@ -1,6 +1,6 @@
 package com.littlebuddha.bobogou.common.config.log;
 
-import com.littlebuddha.bobogou.modules.entity.data.Medicine;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -12,8 +12,8 @@ public class TestLog {
     private static final Logger LOG = LoggerFactory.getLogger(TestLog.class);
 
     @Bean
-    public Medicine logMethod() {
+    public Goods logMethod() {
         LOG.info("==========print log==========");
-        return new Medicine();
+        return new Goods();
     }
 }

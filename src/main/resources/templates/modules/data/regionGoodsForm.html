@@ -5,6 +5,8 @@
     <title>地域商品管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/bobogou/utils/vendor.js"></script>
 </head>
 <body>
 <div>
@@ -56,7 +58,7 @@
                 </select>
             </div>
         </div>
-        <div class="layui-form-item">
+        <!--<div class="layui-form-item">
             <label class="layui-form-label">商品</label>
             <div class="layui-input-block" id="goods">
                 <select name="goodsId" lay-verify="" th:if="${mode == 'add'}" id="goodsId">
@@ -105,10 +107,100 @@
                     <option th:value="0" th:text="是"/>
                 </select>
             </div>
+        </div>-->
+        <!--选择商品-->
+        <div class="layui-form-item">
+            <label class="layui-form-label">分配商品选择：</label>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <a href="#"
+                   onclick="addRow('#regionGoodsList', regionGoodsRowIdx, regionGoodsTpl);regionGoodsRowIdx = regionGoodsRowIdx + 1;"><i
+                        class="layui-icon layui-icon-addition"></i>新建</a>
+            </label>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>数量</th>
+                <th>销量</th>
+                <th>是否销售</th>
+            </tr>
+            </thead>
+            <tbody id="regionGoodsList">
+            </tbody>
+            <script type="text/template" id="regionGoodsTpl">//<!--
+				<tr id="regionGoodsList{{idx}}">
+					<td class="layui-hide">
+						<input id="regionGoodsList{{idx}}_id" name="regionGoodsList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+					</td>
+
+                    <td>
+						<input id="regionGoodsList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" onclick="selectGoods('regionGoodsList[{{idx}}].goodsId')"/>
+						<input name="regionGoodsList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
+					</td>
+
+                    <td>
+						<input id="regionGoodsList{{idx}}_specification" name="regionGoodsList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="regionGoodsList{{idx}}_amount" name="regionGoodsList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="regionGoodsList{{idx}}_price" name="regionGoodsList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="regionGoodsList{{idx}}_totalPrice" name="regionGoodsList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
+					</td>
+
+                    <td>
+						<input id="regionGoodsList{{idx}}_type" name="regionGoodsList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
+					</td>
+
+                    <td>
+						<input id="regionGoodsList{{idx}}_status" name="regionGoodsList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input"/>
+					</td>
+
+					<td class="text-center" width="10">
+						{{#delBtn}}<span class="close" onclick="delRow(this, '#regionGoodsList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
+					</td>
+				</tr>//-->
+            </script>
+            <script type="text/javascript">
+                var regionGoodsRowIdx = 0,
+                    regionGoodsTpl = $("#regionGoodsTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
+                $(document).ready(function () {
+                    let orderId = $("#id").val();
+                    $.ajax({
+                        type: "get",
+                        enctype: 'multipart/form-data',
+                        url: '/bobogou/data/order/regionGoodsInfoList?orderId='+orderId,
+                        processData: false, //prevent jQuery from automatically transforming the data into a query string
+                        contentType: false,
+                        success: function (result) {
+                            let value = result;
+                            if (value != null && value != '') {
+                                for (var i = 0; i < value.length; i++) {
+                                    addRow('#regionGoodsList', regionGoodsRowIdx, regionGoodsTpl, value[i]);
+                                    regionGoodsRowIdx = regionGoodsRowIdx + 1;
+                                }
+                            }
+                        },
+                    });
+                });
+            </script>
+        </table>
     </form>
 </div>
-<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入工具js-->

@@ -3,10 +3,10 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.data.Medicine;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
-import com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +26,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     private OrderInfoMapper orderInfoMapper;
 
     @Autowired
-    private MedicineMapper medicineMapper;
+    private GoodsMapper medicineMapper;
 
     @Override
     public Order get(Order entity) {
@@ -52,7 +52,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         if (entity != null && entity.getOrderInfoList() != null && entity.getOrderInfoList().size() > 0) {
             for (OrderInfo orderInfo : entity.getOrderInfoList()) {
                 orderInfo.setIdType("AUTO");
-                Medicine medicine = null;
+                Goods medicine = null;
                 if (orderInfo.getGoodsId() != null && StringUtils.isNotBlank(orderInfo.getGoodsId())){
                     medicine = medicineMapper.get(orderInfo.getGoodsId());
                 }

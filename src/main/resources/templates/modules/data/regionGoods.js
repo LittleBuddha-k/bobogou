@@ -82,7 +82,15 @@ layui.use(['form', 'table'], function () {
                     title: '是否在售',
                     field: 'isMarket',
                     sort: true,
-                    sortName: 'isMarket'
+                    sortName: 'isMarket',
+                    templet:function(data){
+                        let isMarket = data.isMarket;
+                        if(0 == isMarket){
+                            return "在售";
+                        }else if(1 == isMarket){
+                            return "停售";
+                        }
+                    }
                 },
                 {
                     title: '修改人',
@@ -139,69 +147,29 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(regionGoodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息",'100%','100%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + ids, "编辑地域商品信息",'100%','100%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/regionGoods/form/view?id=' + ids, "查看地域商品信息",'100%','100%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该信息吗？', function() {
-                    rc.post("/bobogou/data/regionGoods/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                            rc.alert(data.msg);
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/regionGoods/importTemplate", "/bobogou/data/regionGoods/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/regionGoods/exportFile?" + $("#searchForm").serialize());
+            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息",'100%','100%')
         }
     });
 
     table.on('tool(regionGoodsTableFilter)', function (obj) {
-        var id = obj.data.id;
-        var index = rc.openSelectionDialog("/bobogou/data/regionGoods/addRolePage?id=" + id, "设置角色")
-        $(window).on("resize", function () {
-            layer.full(index);
-        });
-        return false;
+        let id = obj.data.id;
+        let event = obj.event;
+
+        if('edit' == event){
+            rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息",'100%','100%');
+        }else if ('delete' == event){
+            rc.confirm('确认要删除该信息吗？', function() {
+                rc.post("/bobogou/data/regionGoods/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }
     });
 });
 

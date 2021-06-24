@@ -21,7 +21,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">药名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="name" th:value="${medicine.getName()}"
+                                <input type="text" name="name" th:value="${goods.getName()}"
                                        th:id="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -37,32 +37,16 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:medicine:add">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:medicine:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:medicine:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:medicine:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:medicine:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:medicine:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
             </div>
         </script>
 
-        <table class="layui-hide" id="medicineTable" lay-filter="medicineTableFilter"></table>
+        <table class="layui-hide" id="goodsTable" lay-filter="goodsTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="distribution">分配区域</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>
         </script>
@@ -73,7 +57,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/medicine.js"></script>
+<script type="text/javascript" src="/bobogou/modules/data/goods.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

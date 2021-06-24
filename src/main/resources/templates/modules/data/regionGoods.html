@@ -28,59 +28,43 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">市</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="cityId" th:value="${regionGoods.getCityId()}" autocomplete="off"
+                                <input type="text" name="cityId" th:value="${regionGoods.getCityId()}"
+                                       autocomplete="off"
                                        th:id="cityId" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">区</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="districtId" th:value="${regionGoods.getDistrictId()}" autocomplete="off"
+                                <input type="text" name="districtId" th:value="${regionGoods.getDistrictId()}"
+                                       autocomplete="off"
                                        th:id="districtId" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">街道</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="streetId" th:value="${regionGoods.getStreetId()}" autocomplete="off"
+                                <input type="text" name="streetId" th:value="${regionGoods.getStreetId()}"
+                                       autocomplete="off"
                                        th:id="streetId" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">商品</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="goodsId" th:value="${regionGoods.getGoodsId()}" autocomplete="off"
+                                <input type="text" name="goodsId" th:value="${regionGoods.getGoodsId()}"
+                                       autocomplete="off"
                                        th:id="goodsId" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">商品数量</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="amount" th:value="${regionGoods.getAmount()}" autocomplete="off"
-                                       th:id="amount" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">销量</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="salesVolume" th:value="${regionGoods.getSalesVolume()}" autocomplete="off"
-                                       th:id="salesVolume" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">是否销售</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="isMarket" th:value="${regionGoods.getIsMarket()}" autocomplete="off"
+                                <input type="text" name="isMarket" th:value="${regionGoods.getIsMarket()}"
+                                       autocomplete="off"
                                        th:id="isMarket" class="layui-input">
                             </div>
                         </div>
-                        <!--<div class="layui-inline">
-                            <label class="layui-form-label">最后操作人ID</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="accountId" th:value="${regionGoods.getAccountId()}" autocomplete="off"
-                                       th:id="accountId" class="layui-input">
-                            </div>
-                        </div>-->
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -93,34 +77,15 @@
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:regionGoods:add">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:regionGoods:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:regionGoods:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:regionGoods:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:regionGoods:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:regionGoods:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
+                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
             </div>
         </script>
 
         <table class="layui-hide" id="regionGoodsTable" lay-filter="regionGoodsTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="data:regionGoods:export">
-                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
-            </shiro:hasPermission>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
         </script>
 
     </div>

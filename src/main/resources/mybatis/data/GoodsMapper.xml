@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper">
-    <sql id="medicineColumns">
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper">
+    <sql id="goodsColumns">
         a.id AS "id",
         a.name AS "name",
         a.images AS "images",
@@ -26,24 +26,24 @@
         a.account_id AS "accountId"
     </sql>
 
-    <sql id="medicineJoins">
+    <sql id="goodsJoins">
         LEFT JOIN md_goods_brand b ON a.brand_id = b.id
         LEFT JOIN md_tag c ON a.tag_id = c.id
     </sql>
 
-    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
-        <include refid="medicineColumns"/>
+        <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="medicineJoins"/>
+        <include refid="goodsJoins"/>
         WHERE a.id=#{id}
     </select>
 
-    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
-        <include refid="medicineColumns"/>
+        <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="medicineJoins"/>
+        <include refid="goodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -61,11 +61,11 @@
         </choose>
     </select>
 
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
-        <include refid="medicineColumns"/>
+        <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="medicineJoins"/>
+        <include refid="goodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -83,11 +83,11 @@
         </choose>
     </select>
 
-    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Medicine">
+    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
-        <include refid="medicineColumns"/>
+        <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="medicineJoins"/>
+        <include refid="goodsJoins"/>
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -163,6 +163,11 @@
             create_time = #{createTime},
             update_time = #{updateTime},
             account_id = #{accountId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="onTheShelf">
+        UPDATE mb_goods SET is_market = #{isMarket}
         WHERE id=#{id}
     </update>
 

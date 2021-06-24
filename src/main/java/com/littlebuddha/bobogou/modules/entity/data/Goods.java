@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 药品实体类
  */
-public class Medicine extends DataEntity<Medicine> {
+public class Goods extends DataEntity<Goods> {
 
     private String name;//商品名称
 
@@ -43,10 +43,10 @@ public class Medicine extends DataEntity<Medicine> {
 
     private GoodsInfo goodsInfo;//商品详情
 
-    public Medicine() {
+    public Goods() {
     }
 
-    public Medicine(String id) {
+    public Goods(String id) {
         super(id);
     }
 

@@ -45,7 +45,7 @@ public class RegionGoodsController extends BaseController {
     private StreetService streetService;
 
     @Autowired
-    private MedicineService medicineService;
+    private GoodsService medicineService;
 
     @ModelAttribute
     public RegionGoods get(@RequestParam(required = false) String id) {
@@ -113,10 +113,25 @@ public class RegionGoodsController extends BaseController {
         model.addAttribute("streetList", streetList);*/
         //
         if(regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())){
-            regionGoods.setMedicine(medicineService.get(new Medicine(regionGoods.getGoodsId())));
+            regionGoods.setMedicine(medicineService.get(new Goods(regionGoods.getGoodsId())));
         }
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoodsForm";
+    }
+
+    /**
+     * 返回商品区域信息列表json字符串
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/regionGoodsInfoList")
+    public List<RegionGoods> regionGoodsList(String regionGoodsId) {
+        List<RegionGoods> regionGoodsInfoList = null;
+        if (StringUtils.isNotBlank(regionGoodsId)){
+            regionGoodsInfoList = regionGoodsService.findList(new RegionGoods(regionGoodsId));
+        }
+        return regionGoodsInfoList;
     }
 
     /**

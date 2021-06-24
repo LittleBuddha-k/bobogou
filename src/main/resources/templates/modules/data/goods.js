@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#medicineTable',
-        url: '/bobogou/data/medicine/data',
+        elem: '#goodsTable',
+        url: '/bobogou/data/goods/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -37,7 +37,8 @@ layui.use(['form', 'table'], function () {
                     field: 'name',
                     sort: true,
                     sortName: 'name',
-                    align: 'center'
+                    align: 'center',
+                    width: '8%'
                 }/*,
                 {
                     title: '图片',
@@ -60,32 +61,38 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '进价',
                     field: 'purchasingPrice',
-                    sort: true
+                    sort: true,
+                    width: '8%'
                 },
                 {
                     title: '原价',
-                    field: 'originalCost'
+                    field: 'originalCost',
+                    width: '8%'
                 },
                 {
                     title: '普通会员价',
-                    field: 'sellingPrice'
+                    field: 'sellingPrice',
+                    width: '8%'
                 },
                 {
                     title: '会员价',
                     field: 'vipPrice',
-                    sort: true
+                    sort: true,
+                    width: '8%'
                 },
                 {
                     title: '规格',
                     field: 'specification',
-                    sort: true
+                    sort: true,
+                    width: '8%'
                 },
                 {
                     title: '数量',
                     field: 'amount',
                     sort: true,
-                    align: 'center'
-                },
+                    align: 'center',
+                    width: '8%'
+                },/*
                 {
                     title: '销量',
                     field: 'salesVolume',
@@ -97,29 +104,60 @@ layui.use(['form', 'table'], function () {
                     field: 'effect',
                     sort: true,
                     align: 'center'
-                },
+                },*/
                 {
                     title: '好评率',
                     field: 'applauseRate',
                     sort: true,
-                    align: 'center'
+                    align: 'center',
+                    width: '8%'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
                     sort: true,
-                    align: 'center'
+                    align: 'center',
+                    width: '8%'
                 },
                 {
                     title: '是否销售',
                     field: 'isMarket',
                     sort: true,
-                    align: 'center'
+                    align: 'center',
+                    width: '8%',
+                    templet:function(data){
+                        let isMarket = data.isMarket;
+                        if(0 == isMarket){
+                            return "在售";
+                        }else if (2 == isMarket){
+                            return "停售";
+                        }else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
                     title: '操作',
-                    toolbar: '#operation',
-                    align: 'left'
+                    //toolbar: '#operation',
+                    align: 'left',
+                    width: '20%',
+                    templet:function(data){
+                        let isMarket = data.isMarket;
+                        if(0 == isMarket){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>';
+                        }else if (2 == isMarket){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>\n'
+                        }else {
+                            return "未知";
+                        }
+                    }
+
                 }
             ]
         ],
@@ -136,7 +174,7 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('medicineTable', {
+        table.reload('goodsTable', {
             where: {
                 name: $("#name").val()
             }
@@ -147,73 +185,55 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(medicineTableFilter)', function (obj) {
+    table.on('toolbar(goodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/medicine/form/add", "新建药品信息",'100%','100%')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/medicine/form/edit?id=' + ids, "编辑药品信息",'100%','100%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/medicine/form/view?id=' + ids, "查看药品信息",'100%','100%');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'delete') {  // 监听删除操作
-            let ids = getIdSelections(table);
-            if (ids == null || ids == '') {
-                rc.alert("请至少选择一条数据")
-            } else {
-                rc.confirm('确认要删除该商品信息吗？', function() {
-                    rc.post("/bobogou/data/medicine/delete?ids=" + ids, '', function (data) {
-                        if (data.code == 200) {
-                            //执行搜索重载
-                            refresh();
-                            rc.alert(data.msg);
-                        } else {
-                            rc.alert(data.msg);
-                        }
-                    });
-                })
-            }
-        } else if (obj.event === 'import') {  // 监听删除操作
-            rc.openImportDialog("/bobogou/data/medicine/importTemplate", "/bobogou/data/medicine/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/medicine/exportFile?" + $("#searchForm").serialize());
+            var index = rc.openSaveDialog("/bobogou/data/goods/form/add", "新建药品信息",'100%','100%')
         }
     });
 
-    table.on('tool(medicineTableFilter)', function (obj) {
-        var id = obj.data.id;
-        if (obj.event === 'distribution') {
-            let goodsId = id;
-            rc.openSaveDialog("/bobogou/data/regionGoods/form/add?goodsId=" + goodsId, "区域分配",'100%','100%')
-        } else if (obj.event === 'onShelves') {
-            alert("上架")
-        } else if (obj.event === 'offShelf') {
-            alert("下架")
+    table.on('tool(goodsTableFilter)', function (obj) {
+        let id = obj.data.id;
+        let event = obj.event;
+        if (event === 'edit') {
+            rc.openSaveDialog('/bobogou/data/goods/form/edit?id=' + id, "编辑药品信息",'100%','100%');
+        } else if (event === 'onShelves') {
+            rc.confirm('是否确认上架商品？', function() {
+                rc.post("/bobogou/data/goods/onTheShelf",{"id":id,"isMarket":0} , function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }else if (event === 'offShelf') {
+            rc.confirm('确认要下架该商品？', function() {
+                rc.post("/bobogou/data/goods/onTheShelf", {"id":id,"isMarket":2}, function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        } else if (event === 'delete') {
+            rc.confirm('确认要删除该商品信息吗？', function() {
+                rc.post("/bobogou/data/goods/delete?ids=" + id, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }else if (obj.event === 'detail') {
+            rc.openViewDialog("/bobogou/data/goods/form/view?id="+id, "查看药品信息",'100%','100%')
         }
     });
 });
@@ -225,7 +245,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('medicineTable'),
+    var checkStatus = table.checkStatus('goodsTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -243,7 +263,7 @@ function getSelector() {
             form = layui.form,
             table = layui.table;
 
-        var checkStatus = table.checkStatus('medicineTable'),
+        var checkStatus = table.checkStatus('goodsTable'),
             data = checkStatus.data;
         let idArr = ids.toString().split(",");
         if (data.length > 1) {
@@ -268,7 +288,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('medicineTable', {
+        table.reload('goodsTable', {
             page: {
                 curr: 1
             }

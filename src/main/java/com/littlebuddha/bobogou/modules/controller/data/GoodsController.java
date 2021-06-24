@@ -26,11 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/medicine")
-public class MedicineController extends BaseController {
+@RequestMapping("/data/goods")
+public class GoodsController extends BaseController {
 
     @Autowired
-    private MedicineService medicineService;
+    private GoodsService goodsService;
 
     @Autowired
     private GoodsTagService goodsTagService;
@@ -45,15 +45,15 @@ public class MedicineController extends BaseController {
     private GoodsInfoService goodsInfoService;
 
     @ModelAttribute
-    public Medicine get(@RequestParam(required = false) String id) {
-        Medicine medicine = null;
+    public Goods get(@RequestParam(required = false) String id) {
+        Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
-            medicine = medicineService.get(id);
+            goods = goodsService.get(id);
         }
-        if (medicine == null) {
-            medicine = new Medicine();
+        if (goods == null) {
+            goods = new Goods();
         }
-        return medicine;
+        return goods;
     }
 
     /**
@@ -64,11 +64,11 @@ public class MedicineController extends BaseController {
      * @param session
      * @return
      */
-    //@RequiresPermissions("system/Medicine/list")
+    //@RequiresPermissions("system/goods/list")
     @GetMapping(value = {"/", "/list"})
-    public String list(Medicine medicine, Model model, HttpSession session) {
-        model.addAttribute("medicine", medicine);
-        return "modules/data/medicine";
+    public String list(Goods goods, Model model, HttpSession session) {
+        model.addAttribute("goods", goods);
+        return "modules/data/goods";
     }
 
     /**
@@ -79,10 +79,10 @@ public class MedicineController extends BaseController {
      * @param session
      * @return
      */
-    //@RequiresPermissions("system/Medicine/list")
+    //@RequiresPermissions("system/goods/list")
     @GetMapping(value = {"/select"})
-    public String select(Medicine medicine, Model model, HttpSession session) {
-        model.addAttribute("medicine", medicine);
+    public String select(Goods goods, Model model, HttpSession session) {
+        model.addAttribute("goods", goods);
         return "modules/common/select/goods";
     }
 
@@ -93,8 +93,8 @@ public class MedicineController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/data")
-    public TreeResult data(Medicine medicine) {
-        PageInfo<Medicine> page = medicineService.findPage(new Page<Medicine>(), medicine);
+    public TreeResult data(Goods goods) {
+        PageInfo<Goods> page = goodsService.findPage(new Page<Goods>(), goods);
         return getLayUiData(page);
     }
 
@@ -107,7 +107,7 @@ public class MedicineController extends BaseController {
      * @return
      */
     @GetMapping("/form/{mode}")
-    public String form(@PathVariable(name = "mode") String mode, Medicine medicine, Model model) {
+    public String form(@PathVariable(name = "mode") String mode, Goods goods, Model model) {
         //查询所有标签
         List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
         //标签数据
@@ -123,11 +123,11 @@ public class MedicineController extends BaseController {
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
         model.addAttribute("goodsTypeLevelTwo", goodsTypeLevelTwo);
         model.addAttribute("goodsTypeLevelThree", goodsTypeLevelThree);
-        model.addAttribute("medicine", medicine);
+        model.addAttribute("goods", goods);
         //查询商品详情
-        GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(medicine));
-        medicine.setGoodsInfo(goodsInfo);
-        return "modules/data/medicineForm";
+        GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
+        goods.setGoodsInfo(goodsInfo);
+        return "modules/data/goodsForm";
     }
 
     /**
@@ -138,13 +138,31 @@ public class MedicineController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/save")
-    public Result save(Medicine medicine) {
-        int save = medicineService.save(medicine);
+    public Result save(Goods goods) {
+        int save = goodsService.save(goods);
         if (save > 0) {
             return new Result("200", "保存成功");
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }
+
+    /**
+     * 进行上架or下架操作
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/onTheShelf")
+    public Result onTheShelf(Goods goods){
+        Result result = new Result();
+        if (goods != null && StringUtils.isNotBlank(goods.getId()) && StringUtils.isNotBlank(goods.getIsMarket())){
+            int row = goodsService.onTheShelf(goods);
+            result = getCommonResult(row);
+        }else {
+            result.setCode("222");
+            result.setMsg("未知原因，操作失败");
+        }
+        return result;
     }
 
     @ResponseBody
@@ -153,8 +171,8 @@ public class MedicineController extends BaseController {
         Result result = new Result();
         try {
             String fileName = "药品模板.xlsx";
-            List<Medicine> list = Lists.newArrayList();
-            new ExportExcel("药品数据", Medicine.class, 1).setDataList(list).write(response, fileName).dispose();
+            List<Goods> list = Lists.newArrayList();
+            new ExportExcel("药品数据", Goods.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             result.setSuccess(true);
@@ -172,10 +190,10 @@ public class MedicineController extends BaseController {
             int failureNum = 0;
             StringBuilder failureMsg = new StringBuilder();
             ImportExcel ei = new ImportExcel(file, 1, 0);
-            List<Medicine> list = ei.getDataList(Medicine.class);
-            for (Medicine mayApplyCost : list) {
+            List<Goods> list = ei.getDataList(Goods.class);
+            for (Goods mayApplyCost : list) {
                 try {
-                    medicineService.save(mayApplyCost);
+                    goodsService.save(mayApplyCost);
                     successNum++;
                 } catch (Exception ex) {
                     failureNum++;
@@ -195,15 +213,15 @@ public class MedicineController extends BaseController {
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(Medicine medicine, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(Goods goods, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
             String fileName = "药品" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<Medicine> list = medicineService.findList(medicine);
+            List<Goods> list = goodsService.findList(goods);
             if (list != null & list.size() > 0) {
-                new ExportExcel("药品", Medicine.class).setDataList(list).write(response, fileName).dispose();
+                new ExportExcel("药品", Goods.class).setDataList(list).write(response, fileName).dispose();
             } else {
-                new ExportExcel("药品", Medicine.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
+                new ExportExcel("药品", Goods.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
             }
             return null;
         } catch (Exception e) {
@@ -219,11 +237,11 @@ public class MedicineController extends BaseController {
         System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
-            Medicine medicine = medicineService.get(s);
-            if (medicine == null) {
+            Goods goods = goodsService.get(s);
+            if (goods == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = medicineService.deleteByLogic(medicine);
+            int i = goodsService.deleteByLogic(goods);
         }
         return new Result("200", "数据清除成功");
     }
@@ -233,33 +251,33 @@ public class MedicineController extends BaseController {
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
         for (String s : split) {
-            Medicine medicine = medicineService.get(s);
-            if (medicine == null) {
+            Goods goods = goodsService.get(s);
+            if (goods == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = medicineService.deleteByPhysics(medicine);
+            int i = goodsService.deleteByPhysics(goods);
         }
         return new Result("200", "数据清除成功");
     }
 
     @GetMapping("/recoveryList")
-    public String recoveryList(Medicine medicine, Model model) {
-        model.addAttribute("medicine", medicine);
-        return "modules/recovery/medicineRecovery";
+    public String recoveryList(Goods goods, Model model) {
+        model.addAttribute("goods", goods);
+        return "modules/recovery/goodsRecovery";
     }
 
     @ResponseBody
     @PostMapping("/recoveryData")
-    public Map recoveryData(Medicine medicine, Model model) {
-        model.addAttribute("medicine", medicine);
-        PageInfo<Medicine> page = medicineService.findRecoveryPage(new Page<Medicine>(), medicine);
+    public Map recoveryData(Goods goods, Model model) {
+        model.addAttribute("goods", goods);
+        PageInfo<Goods> page = goodsService.findRecoveryPage(new Page<Goods>(), goods);
         return getBootstrapData(page);
     }
 
     @ResponseBody
     @PostMapping("/recovery")
-    public Result recovery(Medicine medicine) {
-        int recovery = medicineService.recovery(medicine);
+    public Result recovery(Goods goods) {
+        int recovery = goodsService.recovery(goods);
         if (recovery > 0) {
             return new Result("200", "数据已恢复");
         } else {

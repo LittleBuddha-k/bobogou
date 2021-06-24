@@ -4,9 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
-import com.littlebuddha.bobogou.modules.entity.data.Medicine;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsInfoMapper;
-import com.littlebuddha.bobogou.modules.mapper.data.MedicineMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -17,31 +17,31 @@ import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
-public class MedicineService extends CrudService<Medicine, MedicineMapper> {
+public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Autowired
-    private MedicineMapper medicineMapper;
+    private GoodsMapper goodsMapper;
 
     @Autowired
     private GoodsInfoMapper goodsInfoMapper;
 
     @Override
-    public Medicine get(Medicine entity) {
+    public Goods get(Goods entity) {
         return super.get(entity);
     }
 
     @Override
-    public List<Medicine> findList(Medicine entity) {
+    public List<Goods> findList(Goods entity) {
         return super.findList(entity);
     }
 
     @Override
-    public PageInfo<Medicine> findPage(Page<Medicine> page, Medicine entity) {
+    public PageInfo<Goods> findPage(Page<Goods> page, Goods entity) {
         return super.findPage(page, entity);
     }
 
     @Override
-    public int save(Medicine entity) {
+    public int save(Goods entity) {
         entity.setIdType("AUTO");
         int save = super.save(entity);
         GoodsInfo goodsInfo = entity.getGoodsInfo();
@@ -69,7 +69,12 @@ public class MedicineService extends CrudService<Medicine, MedicineMapper> {
     }
 
     @Override
-    public int deleteByPhysics(Medicine entity) {
+    public int deleteByPhysics(Goods entity) {
         return super.deleteByPhysics(entity);
+    }
+
+    public int onTheShelf(Goods goods) {
+        int row = goodsMapper.onTheShelf(goods);
+        return row;
     }
 }

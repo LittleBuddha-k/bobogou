@@ -4,6 +4,8 @@ import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.List;
+
 /**
  * 区域--商品实体类
  */
@@ -25,7 +27,7 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     private String streetId;//乡镇街道ID
     private String streetName;
 
-    private Medicine medicine;
+    private Goods medicine;
     private String goodsId;//商品ID
     private String goodsName;
 
@@ -35,6 +37,15 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     private String accountId;//最后操作人ID
     private String updateByName;//
+
+    private List<Goods> regionGoodsList;
+
+    public RegionGoods() {
+    }
+
+    public RegionGoods(String id) {
+        super(id);
+    }
 
     public Province getProvince() {
         return province;
@@ -148,11 +159,11 @@ public class RegionGoods extends DataEntity<RegionGoods> {
         this.streetName = streetName;
     }
 
-    public Medicine getMedicine() {
+    public Goods getMedicine() {
         return medicine;
     }
 
-    public void setMedicine(Medicine medicine) {
+    public void setMedicine(Goods medicine) {
         this.medicine = medicine;
     }
 
@@ -221,5 +232,13 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     public void setUpdateByName(String updateByName) {
         this.updateByName = updateByName;
+    }
+
+    public List<Goods> getRegionGoodsList() {
+        return regionGoodsList;
+    }
+
+    public void setRegionGoodsList(List<Goods> regionGoodsList) {
+        this.regionGoodsList = regionGoodsList;
     }
 }

@@ -99,3 +99,45 @@ function save(parentIndex) {
         }
     });
 }
+
+function selectGoods(id) {
+    let openSelector = rc.openGoodsSelect("/bobogou/data/medicine/select/", "选择商品", '100%', '100%',id);
+}
+
+function addRow(list, idx, tpl, row) {
+    $(list).append(Mustache.render(tpl, {
+        idx: idx, delBtn: true, row: row
+    }));
+    $(list + idx).find("select").each(function () {
+        $(this).val($(this).attr("data-value"));
+    });
+    $(list + idx).find("input[type='checkbox'], input[type='radio']").each(function () {
+        var ss = $(this).attr("data-value").split(',');
+        for (var i = 0; i < ss.length; i++) {
+            if ($(this).val() == ss[i]) {
+                $(this).attr("checked", "checked");
+            }
+        }
+    });
+    $(list + idx).find(".form_datetime").each(function () {
+        $(this).datetimepicker({
+            format: "YYYY-MM-DD HH:mm:ss"
+        });
+    });
+}
+
+function delRow(obj, prefix) {
+    var id = $(prefix + "_id");
+    var delFlag = $(prefix + "_delFlag");
+    if (id.val() == "") {
+        $(obj).parent().parent().remove();
+    } else if (delFlag.val() == "0") {
+        delFlag.val("1");
+        $(obj).html("&divide;").attr("title", "撤销删除");
+        $(obj).parent().parent().addClass("error");
+    } else if (delFlag.val() == "1") {
+        delFlag.val("0");
+        $(obj).html("&times;").attr("title", "删除");
+        $(obj).parent().parent().removeClass("error");
+    }
+}

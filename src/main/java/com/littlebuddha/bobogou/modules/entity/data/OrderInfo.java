@@ -22,7 +22,7 @@ public class OrderInfo extends DataEntity<OrderInfo> {
 
     private Order order;//外键
 
-    private Medicine medicine;//商品外键
+    private Goods medicine;//商品外键
 
     public OrderInfo() {
     }
@@ -135,11 +135,11 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.order = order;
     }
 
-    public Medicine getMedicine() {
+    public Goods getMedicine() {
         return medicine;
     }
 
-    public void setMedicine(Medicine medicine) {
+    public void setMedicine(Goods medicine) {
         this.medicine = medicine;
     }
 }

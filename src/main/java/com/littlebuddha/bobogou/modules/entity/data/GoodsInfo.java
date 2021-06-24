@@ -1,6 +1,5 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
-import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,7 +11,7 @@ public class GoodsInfo extends DataEntity<GoodsInfo> {
     private String content;//商品详情内容
     private String accountId;//更新人
 
-    private Medicine medicine;//商品外键
+    private Goods medicine;//商品外键
     private String goodsId;//
 
     public GoodsInfo() {
@@ -22,7 +21,7 @@ public class GoodsInfo extends DataEntity<GoodsInfo> {
         super(id);
     }
 
-    public GoodsInfo(Medicine medicine) {
+    public GoodsInfo(Goods medicine) {
         this.medicine = medicine;
     }
 
@@ -45,11 +44,11 @@ public class GoodsInfo extends DataEntity<GoodsInfo> {
         this.accountId = accountId;
     }
 
-    public Medicine getMedicine() {
+    public Goods getMedicine() {
         return medicine;
     }
 
-    public void setMedicine(Medicine medicine) {
+    public void setMedicine(Goods medicine) {
         this.medicine = medicine;
     }
 

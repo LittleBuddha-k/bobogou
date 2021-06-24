@@ -57,10 +57,10 @@ $(document).ready(function () {
 
 function save(parentIndex) {
     $.ajax({
-        url: "/bobogou/data/medicine/save",    //请求的url地址
+        url: "/bobogou/data/goods/save",    //请求的url地址
         dataType: "json",   //返回格式为json
         async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-        data: $("#medicineForm").serialize(),    //参数值
+        data: $("#goodsForm").serialize(),    //参数值
         type: "POST",   //请求方式
         success: function (result) {
             //假设这是iframe页
