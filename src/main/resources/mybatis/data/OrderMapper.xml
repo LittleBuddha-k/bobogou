@@ -37,16 +37,16 @@
             <if test="number != null and number != ''">
                 AND a.number LIKE concat('%',#{number},'%')
             </if>
-            <if test="grossAmount != null and grossAmount != ''">
+            <if test="grossAmount != null">
                 AND a.gross_amount = #{grossAmount}
             </if>
-            <if test="integral != null and integral != ''">
+            <if test="integral != null">
                 AND a.integral = #{integral}
             </if>
-            <if test="healthBeans != null and healthBeans != ''">
+            <if test="healthBeans != null">
                 AND a.health_beans = #{healthBeans}
             </if>
-            <if test="addressId != null and addressId != ''">
+            <if test="addressId != null">
                 AND a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
@@ -100,7 +100,7 @@
             <if test="healthBeans != null and cityCohealthBeansde != ''">
                 AND a.health_beans = #{healthBeans}
             </if>
-            <if test="addressId != null and addressId != ''">
+            <if test="addressId != null">
                 AND a.address_id = #{addressId}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
