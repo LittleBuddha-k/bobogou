@@ -512,6 +512,21 @@
 
         getActiveTab:function(){
             return $(".J_iframe:visible");
-        }
+        },
+        //表单验证控件
+        validateForm: function (id) {
+            return $(id).validate({
+                errorPlacement: function(error, element) {
+                    if (element.is(":checkbox")||element.is(":radio")){
+                        error.appendTo(element.parent().parent().parent().parent());
+                    }else  if (element.parent().is(".form_datetime") ||element.parent().is(".input-append") || element.is(".mydatepicker")){
+                        error.appendTo(element.parent().parent());
+                    }else{
+                        error.insertAfter(element);
+                    }
+                }
+            }).form();
+
+        },
     }
 })(jQuery);

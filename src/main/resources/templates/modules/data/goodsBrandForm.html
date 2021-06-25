@@ -3,54 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <title>商品品牌规格管理</title>
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <div>
     <form class="layui-form" id="goodsBrandForm">
         <input type="hidden" name="id" th:value="${goodsBrand.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">品牌名称</label>
+            <label class="layui-form-label" for="brandName">品牌名称</label>
             <div class="layui-input-block">
                 <input type="brandName" name="brandName" th:value="${goodsBrand.getBrandName()}"
-                       th:id="brandName" autocomplete="off" class="layui-input">
+                       th:id="brandName" autocomplete="off" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">品牌规格分类名称</label>
+            <label class="layui-form-label" for="classifyName">品牌规格分类名称</label>
             <div class="layui-input-block">
                 <input type="classifyName" name="classifyName" th:value="${goodsBrand.getClassifyName()}"
-                       th:id="classifyName" autocomplete="off" class="layui-input">
+                       th:id="classifyName" autocomplete="off" class="layui-input required">
             </div>
         </div>
     </form>
 </div>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 <script type="text/javascript">
     //保存方法
     function save(parentIndex) {
-        $.ajax({
-            url: "/bobogou/data/goodsBrand/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#goodsBrandForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
+        var isValidate = rc.validateForm('#goodsBrandForm');//校验表单
+        if(!isValidate){
+            return false;
+        }else {
+            $.ajax({
+                url: "/bobogou/data/goodsBrand/save",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: $("#goodsBrandForm").serialize(),    //参数值
+                type: "POST",   //请求方式
+                success: function (result) {
+                    //假设这是iframe页
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    parent.refresh();
+                    rc.alert(result.msg)
+                },
+                error: function (result) {
+                    rc.alert(result.msg)
+                }
+            });
+        }
     }
 </script>
 </body>

@@ -3,27 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>商品分类管理</title>
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <!--引入工具js-->
-    <script type="text/javascript" src="/bobogou/utils/util.js"></script>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
-    <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 </head>
 <body>
 <div>
     <form class="layui-form" id="goodsTypeForm">
         <input type="hidden" name="id" th:value="${goodsType.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">分类名称</label>
+            <label class="layui-form-label" for="name">分类名称</label>
             <div class="layui-input-block">
                 <input type="name" name="name" th:value="${goodsType.getName()}"
-                       th:id="name" autocomplete="off" class="layui-input">
+                       th:id="name" autocomplete="off" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">分类图标地址</label>
+            <label class="layui-form-label" for="icon">分类图标地址</label>
             <!--<div class="layui-input-block">
                 <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
                        placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
@@ -84,7 +79,6 @@
         </div>
     </form>
 </div>
-
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入jquery-->
@@ -93,5 +87,9 @@
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/goodsTypeForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

@@ -143,11 +143,11 @@
 					</td>
 
 					<td>
-						<input id="regionGoodsList{{idx}}_amount" name="regionGoodsList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+						<input id="regionGoodsList{{idx}}_amount" name="regionGoodsList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input number"/>
 					</td>
 
 					<td>
-						<input id="regionGoodsList{{idx}}_salesVolume" name="regionGoodsList[{{idx}}].salesVolume" type="text" value="{{row.salesVolume}}"    class="layui-input"/>
+						<input id="regionGoodsList{{idx}}_salesVolume" name="regionGoodsList[{{idx}}].salesVolume" type="text" value="{{row.salesVolume}}"    class="layui-input number"/>
 					</td>
 
 					<td>
@@ -191,5 +191,9 @@
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/regionGoodsForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

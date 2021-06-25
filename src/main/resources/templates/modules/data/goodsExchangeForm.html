@@ -11,14 +11,14 @@
     <form class="layui-form" id="goodsExchangeForm">
         <input type="hidden" name="id" th:value="${goodsExchange.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">商品名称</label>
+            <label class="layui-form-label" for="name">商品名称</label>
             <div class="layui-input-block">
-                <input type="name" id="name" th:name="name" th:value="${goodsExchange.getName()}"
-                       placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
+                <input type="text" id="name" th:name="name" th:value="${goodsExchange.getName()}"
+                       placeholder="药名" autocomplete="off" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">图片地址</label>
+            <label class="layui-form-label" for="imageUrl">图片地址</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test2">多图片上传</button>
                 <button type="button" class="layui-btn" id="btn_image_clear">清空多图</button>
@@ -36,56 +36,56 @@
             <input type="hidden" id="imageUrl" name="imageUrl" th:value="${goodsExchange.getImageUrl()}">
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">价格</label>
+            <label class="layui-form-label" for="price">价格</label>
             <div class="layui-input-block">
                 <input type="name" id="price" th:name="price" th:value="${goodsExchange.getPrice()}"
-                       placeholder="价格" lay-verify="required|price" autocomplete="off" class="layui-input" onblur="isNumber('price')">
+                       placeholder="价格" lay-verify="required|price" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">健康豆</label>
+            <label class="layui-form-label" for="healthBeans">健康豆</label>
             <div class="layui-input-block">
                 <input type="name" id="healthBeans" th:name="healthBeans" th:value="${goodsExchange.getHealthBeans()}"
-                       placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input" onblur="isNumber('healthBeans')">
+                       placeholder="健康豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">积分</label>
+            <label class="layui-form-label" for="integral">积分</label>
             <div class="layui-input-block">
                 <input type="name" id="integral" th:name="integral" th:value="${goodsExchange.getIntegral()}"
-                       placeholder="积分" lay-verify="required|integral" autocomplete="off" class="layui-input" onblur="isNumber('integral')">
+                       placeholder="积分" lay-verify="required|integral" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">规格</label>
+            <label class="layui-form-label" for="specification">规格</label>
             <div class="layui-input-block">
                 <input type="name" id="specification" th:name="specification" th:value="${goodsExchange.getSpecification()}"
                        placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">数量</label>
+            <label class="layui-form-label" for="amount">数量</label>
             <div class="layui-input-block">
                 <input type="name" id="amount" th:name="amount" th:value="${goodsExchange.getAmount()}"
-                       placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input" onblur="isNumber('amount')">
+                       placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">兑换量</label>
+            <label class="layui-form-label" for="changeAmount">兑换量</label>
             <div class="layui-input-block">
                 <input type="name" id="changeAmount" th:name="changeAmount" th:value="${goodsExchange.getChangeAmount()}"
-                       placeholder="兑换量" lay-verify="required|changeAmount" autocomplete="off" class="layui-input" onblur="isNumber('changeAmount')">
+                       placeholder="兑换量" lay-verify="required|changeAmount" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">详情</label>
+            <label class="layui-form-label" for="content">详情</label>
             <div class="layui-input-block">
                 <input type="name" id="content" th:name="content" th:value="${goodsExchange.getContent()}"
                        placeholder="详情" lay-verify="required|content" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">状态</label>
+            <label class="layui-form-label" for="status">状态</label>
             <div class="layui-input-block">
                 <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
                         th:id="status">
@@ -115,5 +115,9 @@
 <script type="text/javascript" src="/bobogou/modules/data/goodsExchangeForm.js"></script>
 <!--引入本表单验证的js文件-->
 <script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

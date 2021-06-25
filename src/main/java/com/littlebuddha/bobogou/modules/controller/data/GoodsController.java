@@ -162,7 +162,7 @@ public class GoodsController extends BaseController {
     @PostMapping("/onTheShelf")
     public Result onTheShelf(Goods goods){
         Result result = new Result();
-        if (goods != null && StringUtils.isNotBlank(goods.getId()) && StringUtils.isNotBlank(goods.getIsMarket())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
             int row = goodsService.onTheShelf(goods);
             result = getCommonResult(row);
         }else {

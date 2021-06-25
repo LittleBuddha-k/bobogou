@@ -15,7 +15,7 @@ public class Goods extends DataEntity<Goods> {
     private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
 
     private GoodsBrand goodsBrand;//商品品牌规格外键
-    private String brandId;//品牌分类ID
+    private Integer brandId;//品牌分类ID
 
     private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔
@@ -30,9 +30,9 @@ public class Goods extends DataEntity<Goods> {
     private Integer stockAmount;//库存
     private Integer salesVolume;//销量
     private String effect;//功效
-    private String applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
-    private String healthBeans;//健康豆，该商品可获得的健康豆
-    private String isMarket;//是否销售，0=在售，2停售
+    private Integer applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
+    private Integer healthBeans;//健康豆，该商品可获得的健康豆
+    private Integer isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 
     private GoodsClassify goodsClassify;//商品分类外键
@@ -79,11 +79,11 @@ public class Goods extends DataEntity<Goods> {
         this.goodsBrand = goodsBrand;
     }
 
-    public String getBrandId() {
+    public Integer getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(String brandId) {
+    public void setBrandId(Integer brandId) {
         this.brandId = brandId;
     }
 
@@ -192,29 +192,29 @@ public class Goods extends DataEntity<Goods> {
     }
 
     @ExcelField(title = "好评率", align = 2, sort = 10)
-    public String getApplauseRate() {
+    public Integer getApplauseRate() {
         return applauseRate;
     }
 
-    public void setApplauseRate(String applauseRate) {
+    public void setApplauseRate(Integer applauseRate) {
         this.applauseRate = applauseRate;
     }
 
     @ExcelField(title = "健康豆", align = 2, sort = 11)
-    public String getHealthBeans() {
+    public Integer getHealthBeans() {
         return healthBeans;
     }
 
-    public void setHealthBeans(String healthBeans) {
+    public void setHealthBeans(Integer healthBeans) {
         this.healthBeans = healthBeans;
     }
 
     @ExcelField(title = "是否在售", align = 2, sort = 12)
-    public String getIsMarket() {
+    public Integer getIsMarket() {
         return isMarket;
     }
 
-    public void setIsMarket(String isMarket) {
+    public void setIsMarket(Integer isMarket) {
         this.isMarket = isMarket;
     }
 
