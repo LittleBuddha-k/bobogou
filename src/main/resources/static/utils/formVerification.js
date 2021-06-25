@@ -10,5 +10,8 @@ function isNumber(id) {
 function notEmpty(id) {
     if ($(id).val() == ''){
         rc.error("该项不能为空")
+        return false;
+    }else {
+        return false;
     }
 }

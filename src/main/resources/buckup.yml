@@ -12,10 +12,6 @@ server:
   port: 8887
   servlet:
     context-path: /bobogou
-    multipart:
-       enabled: true
-       max-file-size: 20MB
-       max-request-size: 20MB
 spring:
   profiles: dev
   thymeleaf:
@@ -58,6 +54,11 @@ spring:
 #  自定义静态资源路径
 #  resources:
 #    static-locations: classpath:/webpage
+#配置文件
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
 mybatis:
   #  boot2以上不再使用mybatis-config.xml配置文件，直接在yml中配置
   #  config-location: classpath:mybatis/mybatis-config.xml

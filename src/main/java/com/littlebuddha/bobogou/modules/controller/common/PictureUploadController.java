@@ -39,7 +39,8 @@ public class PictureUploadController {
         //String uploadPath = request.getParameter("uploadPath");
         String fileName = file.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        //String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        String filePath = "D://temp-rainy//"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
@@ -51,8 +52,8 @@ public class PictureUploadController {
             e.printStackTrace();
         }
         String domainName = globalSetting.getDomainName();
-        String filename = filePath + "/" + fileName;
-        result.put("url",domainName +filename);
+        String filename = "/temp-rainy/" + fileName;
+        result.put("url","/bobogou" +filename);
         return result;
     }
 
@@ -76,7 +77,8 @@ public class PictureUploadController {
         }
         String fileName = multipartFile.getOriginalFilename();  // 文件名
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        //String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        String filePath = "D://temp-rainy//"; // 上传后的路径
         fileName = UUID.randomUUID() + suffixName; // 新文件名
         File dest = new File(filePath + fileName);
         if (!dest.getParentFile().exists()) {
@@ -84,10 +86,12 @@ public class PictureUploadController {
         }
         try {
             multipartFile.transferTo(dest);
-            String filename = filePath + "/" + fileName;
+            //String filename = filePath + "/" + fileName;
+            String filename = "/temp-rainy/" + fileName;
             result.setSuccess(1);
             String domainName = globalSetting.getDomainName();
-            result.setUrl(domainName + filename);
+            //result.setUrl(domainName + filename);
+            result.setUrl("/bobogou" + filename);
             result.setMessage("上传成功");
         } catch (IOException e) {
             e.printStackTrace();
