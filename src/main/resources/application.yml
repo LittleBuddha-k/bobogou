@@ -90,6 +90,9 @@ logoinfo:
   image: /bobogou/pictures/logo/logo.jpg
   href: 2
 
+global:
+  uploadPath: /usr/image
+  domainName: /1.117.222.27:8887/bobogou
 ---
 server:
   port: 8081
