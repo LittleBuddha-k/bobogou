@@ -11,17 +11,17 @@
     <form class="layui-form" id="integralForm">
         <input type="hidden" name="id" id="id" th:value="${integral.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">积分</label>
+            <label class="layui-form-label" for="integral">积分</label>
             <div class="layui-input-block">
                 <input type="integral" name="integral" th:value="${integral.getIntegral()}"
-                       th:id="integral" autocomplete="off" class="layui-input">
+                       th:id="integral" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">天数</label>
+            <label class="layui-form-label" for="day">天数</label>
             <div class="layui-input-block">
                 <input type="day" name="day" th:value="${integral.getDay()}" autocomplete="off"
-                       th:id="day" class="layui-input">
+                       th:id="day" class="layui-input number">
             </div>
         </div>
     </form>
@@ -35,5 +35,9 @@
 <script type="text/javascript" src="/bobogou/modules/other/integralForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

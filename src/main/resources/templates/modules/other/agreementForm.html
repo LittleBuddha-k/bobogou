@@ -22,16 +22,16 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
+            <label class="layui-form-label" for="title">标题</label>
             <div class="layui-input-block">
                 <input type="title" name="title" th:value="${agreement.getTitle()}" autocomplete="off"
-                       th:id="title" class="layui-input">
+                       th:id="title" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">内容</label>
+            <label class="layui-form-label" for="content">内容</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea" name="content" th:text="${agreement.getContent()}"
+                <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${agreement.getContent()}"
                           th:id="content" ></textarea>
             </div>
         </div>
@@ -46,5 +46,9 @@
 <script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

@@ -11,10 +11,10 @@
     <form class="layui-form" id="stickerForm">
         <input type="hidden" name="id" id="id" th:value="${sticker.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">上传人</label>
+            <label class="layui-form-label" for="theHeir">上传人</label>
             <div class="layui-input-block">
                 <input type="theHeir" name="theHeir" th:value="${sticker.getTheHeir()}"
-                       th:id="theHeir" autocomplete="off" class="layui-input">
+                       th:id="theHeir" autocomplete="off" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
@@ -36,9 +36,9 @@
             <input type="hidden" id="imageUrl" name="imageUrl" th:value="${sticker.getImageUrl()}">
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">描述</label>
+            <label class="layui-form-label" for="remark">描述</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea" name="remark" th:text="${sticker.getRemark()}"
+                <textarea placeholder="请输入内容" class="layui-textarea required" name="remark" th:text="${sticker.getRemark()}"
                           th:id="remark" ></textarea>
             </div>
         </div>
@@ -53,5 +53,9 @@
 <script type="text/javascript" src="/bobogou/modules/other/stickerForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

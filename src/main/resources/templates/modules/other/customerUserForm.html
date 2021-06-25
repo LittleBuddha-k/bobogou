@@ -11,7 +11,7 @@
     <form class="layui-form" id="customerUserForm">
         <input type="hidden" name="id" id="id" th:value="${customerUser.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">手机号</label>
+            <label class="layui-form-label" for="phone">手机号</label>
             <div class="layui-input-block">
                 <input type="phone" name="phone" th:value="${customerUser.getPhone()}"
                        th:id="phone" autocomplete="off" class="layui-input">
@@ -34,7 +34,7 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">昵称</label>
+            <label class="layui-form-label" for="nickname">昵称</label>
             <div class="layui-input-block">
                 <input type="nickname" name="nickname" th:value="${customerUser.getNickname()}" autocomplete="off"
                        th:id="nickname" class="layui-input">
@@ -83,28 +83,28 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">积分</label>
+            <label class="layui-form-label" for="integral">积分</label>
             <div class="layui-input-block">
                 <input type="text" name="integral" th:value="${customerUser.getIntegral()}" autocomplete="off"
                        th:id="integral" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">健康豆</label>
+            <label class="layui-form-label" for="healthBeans">健康豆</label>
             <div class="layui-input-block">
                 <input type="text" name="healthBeans" th:value="${customerUser.getHealthBeans()}" autocomplete="off"
                        th:id="healthBeans" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">收藏数量</label>
+            <label class="layui-form-label" for="collectNumber">收藏数量</label>
             <div class="layui-input-block">
                 <input type="text" name="collectNumber" th:value="${customerUser.getCollectNumber()}" autocomplete="off"
                        th:id="collectNumber" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">签到时间</label>
+            <label class="layui-form-label" for="signInTime">签到时间</label>
             <div class="layui-input-block">
                 <input type="text" name="signInTime" th:value="${customerUser.getSignInTime()}" autocomplete="off"
                        th:id="signInTime" class="layui-input">
@@ -166,5 +166,9 @@
 <script type="text/javascript" src="/bobogou/modules/other/customerUserForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>

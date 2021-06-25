@@ -11,23 +11,23 @@
     <form class="layui-form" id="promptMessageForm">
         <input type="hidden" name="id" id="id" th:value="${promptMessage.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">标题</label>
+            <label class="layui-form-label" for="title">标题</label>
             <div class="layui-input-block">
                 <input type="title" name="title" th:value="${promptMessage.getTitle()}"
-                       th:id="title" autocomplete="off" class="layui-input">
+                       th:id="title" autocomplete="off" class="layui-input required">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">概要信息</label>
+            <label class="layui-form-label" for="outline">概要信息</label>
             <div class="layui-input-block">
                 <input type="outline" name="outline" th:value="${promptMessage.getOutline()}" autocomplete="off"
                        th:id="outline" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">内容</label>
+            <label class="layui-form-label" for="content">内容</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea" name="content" th:text="${promptMessage.getContent()}"
+                <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${promptMessage.getContent()}"
                           th:id="content" ></textarea>
             </div>
         </div>
@@ -59,5 +59,9 @@
 <script type="text/javascript" src="/bobogou/modules/other/promptMessageForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 </body>
 </html>
