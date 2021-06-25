@@ -162,13 +162,14 @@
                             th:if="${goods.getGoodsClassify().getClassifyId() == levelOne.getId()}"
                             th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
                     </option>
+                    <option value="">请选择</option>
                     <option th:each="levelOne:${goodsTypeLevelOne}"
                             th:if="${goods.getGoodsClassify().getClassifyId() != levelOne.getId()}"
                             th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
                     </option>
                 </select>
                 <select name="goodsClassify.classifyId" lay-filter="levelOne" th:if="${mode != 'add' && goods.getGoodsClassify() == null}">
-                    <option value="0">请选择</option>
+                    <option value="">请选择</option>
                     <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
                             th:text="${levelOne.getName()}">
                     </option>
