@@ -92,6 +92,20 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     align: 'center',
                     width: '8%'
+                },
+                {
+                    title: '已分配',
+                    field: 'usedAmount',
+                    sort: true,
+                    align: 'center',
+                    width: '8%'
+                },
+                {
+                    title: '库存数',
+                    field: 'stockAmount',
+                    sort: true,
+                    align: 'center',
+                    width: '8%'
                 },/*
                 {
                     title: '销量',
@@ -104,7 +118,7 @@ layui.use(['form', 'table'], function () {
                     field: 'effect',
                     sort: true,
                     align: 'center'
-                },*/
+                },
                 {
                     title: '好评率',
                     field: 'applauseRate',
@@ -118,7 +132,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     align: 'center',
                     width: '8%'
-                },
+                },*/
                 {
                     title: '是否销售',
                     field: 'isMarket',

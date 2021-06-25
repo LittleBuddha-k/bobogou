@@ -26,6 +26,8 @@ public class Goods extends DataEntity<Goods> {
     private Double vipPrice;//会员价，单位：分
     private String specification;//规格
     private Integer amount;//数量
+    private Integer usedAmount;//已用
+    private Integer stockAmount;//库存
     private Integer salesVolume;//销量
     private String effect;//功效
     private String applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
@@ -153,6 +155,22 @@ public class Goods extends DataEntity<Goods> {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public Integer getUsedAmount() {
+        return usedAmount;
+    }
+
+    public void setUsedAmount(Integer usedAmount) {
+        this.usedAmount = usedAmount;
+    }
+
+    public Integer getStockAmount() {
+        return stockAmount;
+    }
+
+    public void setStockAmount(Integer stockAmount) {
+        this.stockAmount = stockAmount;
     }
 
     @ExcelField(title = "销量", align = 2, sort = 8)

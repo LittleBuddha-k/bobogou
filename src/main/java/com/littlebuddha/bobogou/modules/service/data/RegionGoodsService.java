@@ -3,9 +3,11 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
@@ -28,6 +30,9 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Autowired
     private OperatorMapper operatorMapper;
 
+    @Autowired
+    private GoodsMapper goodsMapper;
+
     @Override
     public RegionGoods get(RegionGoods entity) {
         return super.get(entity);
@@ -48,7 +53,6 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             Operator updateBy = operatorMapper.get(operator);
             regionGoods.setUpdateBy(updateBy);
         }
-        System.out.println(pageRegionGoods.getList());
         return pageRegionGoods;
     }
 
@@ -69,8 +73,20 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         regionGoods.setAmount(goods.getAmount());
                         regionGoods.setSalesVolume(goods.getSalesVolume());
                         regionGoods.setIsMarket(goods.getIsMarket());
-                        regionGoods.preInsert();
-                        row = regionGoodsMapper.insert(regionGoods);
+                        //插入数据的同时对商品库存进行操作
+                        Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
+                        if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
+                            //如果分配数量大于库存量
+                            return row = -1;
+                        }else if (stock != null && stock.getStockAmount() > Integer.valueOf(goods.getAmount())){
+                            Goods goodsStock = new Goods();
+                            goodsStock.setId(goods.getGoodsId());
+                            goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));
+                            goodsStock.setStockAmount(Integer.valueOf(goods.getAmount()));
+                            goodsMapper.updateStock(goodsStock);
+                            regionGoods.preInsert();
+                            row = regionGoodsMapper.insert(regionGoods);
+                        }
                     }else {
                         regionGoods = new RegionGoods();
                         BeanUtils.copyProperties(entity, regionGoods);
@@ -78,8 +94,20 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         regionGoods.setAmount(goods.getAmount());
                         regionGoods.setSalesVolume(goods.getSalesVolume());
                         regionGoods.setIsMarket(goods.getIsMarket());
-                        regionGoods.preUpdate();
-                        row = regionGoodsMapper.update(regionGoods);
+                        //更新数据的同时对商品库存进行操作
+                        Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
+                        if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
+                            //如果分配数量大于库存量
+                            return row = -1;
+                        }else if (stock != null && stock.getStockAmount() > Integer.valueOf(goods.getAmount())){
+                            Goods goodsStock = new Goods();
+                            goodsStock.setId(goods.getGoodsId());
+                            goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));
+                            goodsStock.setStockAmount(Integer.valueOf(goods.getAmount()));
+                            goodsMapper.updateStock(goodsStock);
+                            regionGoods.preUpdate();
+                            row = regionGoodsMapper.update(regionGoods);
+                        }
                     }
                 }else {
                     regionGoodsMapper.deleteByLogic(goods);

@@ -88,11 +88,18 @@ function save(parentIndex) {
         data: $("#regionGoodsForm").serialize(),    //参数值
         type: "POST",   //请求方式
         success: function (result) {
-            //假设这是iframe页
-            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-            parent.layer.close(index); //再执行关闭
-            parent.refresh();
-            rc.alert(result.msg)
+            console.log(result)
+            if (result.code == 200){
+                rc.alert(result.msg)
+                //假设这是iframe页
+                setTimeout(function(){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    parent.refresh();
+                }, 1000);
+            }else {
+                rc.alert(result.msg)
+            }
         },
         error: function (result) {
             rc.alert(result.msg)

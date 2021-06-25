@@ -166,7 +166,9 @@ public class RegionGoodsController extends BaseController {
         int save = regionGoodsService.save(regionGoods);
         if (save > 0) {
             return new Result("200", "保存成功");
-        } else {
+        } else if (save == -1){
+            return new Result("222", "分配数量已超过商品本身库存数，请确认");
+        }else {
             return new Result("310", "未知错误！保存失败");
         }
     }

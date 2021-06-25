@@ -15,6 +15,8 @@
         a.vip_price AS "vipPrice",
         a.specification AS "specification",
         a.amount AS "amount",
+        a.used_amount AS "usedAmount",
+        a.stock_amount AS "stockAmount",
         a.sales_volume AS "salesVolume",
         a.effect AS "effect",
         a.applause_rate AS "applauseRate",
@@ -37,6 +39,14 @@
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
+        SELECT
+        <include refid="goodsColumns"/>
+        FROM mb_goods a
+        <include refid="goodsJoins"/>
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="getStock" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
@@ -115,6 +125,8 @@
             vip_price,
             specification,
             amount,
+            used_amount,
+            stock_amount,
             sales_volume,
             effect,
             applause_rate,
@@ -135,6 +147,8 @@
             #{vipPrice},
             #{specification},
             #{amount},
+            #{usedAmount},
+            #{stockAmount},
             #{salesVolume},
             #{effect},
             #{applauseRate},
@@ -159,6 +173,8 @@
             vip_price = #{vipPrice},
             specification = #{specification},
             amount = #{amount},
+            used_amount = #{usedAmount},
+            stock_amount = #{stockAmount},
             sales_volume = #{salesVolume},
             effect = #{effect},
             applause_rate = #{applauseRate},
@@ -171,6 +187,15 @@
         WHERE id=#{id}
     </update>
 
+    <!--更新库存-->
+    <update id="updateStock">
+        UPDATE mb_goods SET
+            used_amount = used_amount + #{usedAmount},
+            stock_amount = stock_amount - #{stockAmount}
+        WHERE id=#{id}
+    </update>
+
+    <!--商品上下架-->
     <update id="onTheShelf">
         UPDATE mb_goods SET is_market = #{isMarket}
         WHERE id=#{id}

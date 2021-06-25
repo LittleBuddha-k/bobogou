@@ -11,5 +11,12 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface GoodsMapper extends BaseMapper<Goods> {
 
+    //查询库存数
+    Goods getStock(Goods goods);
+
+    //更新库存
+    int updateStock(Goods goods);
+
+    //上下架操作
     int onTheShelf(Goods goods);
 }
