@@ -56,43 +56,40 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         entity.setIdType("AUTO");
         int save = super.save(entity);
         //插入商品详情
-        GoodsInfo goodsInfo = entity.getGoodsInfo();
-        if (goodsInfo != null && StringUtils.isNotBlank(goodsInfo.getContent())) {
-            goodsInfo.setMedicine(entity);
-            //一条商品对应一条详情
-            List<GoodsInfo> list = goodsInfoMapper.findList(goodsInfo);
-            if (GoodsInfo.DEL_FLAG_NORMAL.equals(goodsInfo.getIsDeleted())) {
-                //即是此条商品还未建立详情信息
-                if (list.size() <= 0) {
+        if (entity != null && entity.getGoodsClassify() != null) {
+            GoodsInfo goodsInfo = entity.getGoodsInfo();
+            if (goodsInfo.DEL_FLAG_NORMAL.equals(goodsInfo.getIsDeleted())) {
+                if (StringUtils.isBlank(goodsInfo.getId())) {
                     goodsInfo.setIdType("AUTO");
                     goodsInfo.setId(entity.getId());
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
-                } else if (list.size() == 1){
-                    GoodsInfo byGoods = goodsInfoMapper.getByGoods(new GoodsInfo(entity));
+                }else {
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }
-            } else {
-                goodsInfoMapper.deleteByPhysics(goodsInfo);
+            }else {
+                goodsInfoMapper.deleteByLogic(goodsInfo);
             }
         }
+
         //插入商品分类
-        if (entity != null) {
-            GoodsClassify goodsClassify = new GoodsClassify();
-            goodsClassify.setIdType("AUTO");
-            /*if (entity.getLevelOne() != null) {
-                goodsClassify.setClassifyId(entity.getLevelOne().getId());
+        if (entity != null && entity.getGoodsClassify() != null){
+            //所选商品列表
+            GoodsClassify goodsClassify = entity.getGoodsClassify();
+            if (goodsClassify.DEL_FLAG_NORMAL.equals(goodsClassify.getIsDeleted())) {
+                    if (StringUtils.isBlank(goodsClassify.getId())) {
+                        goodsClassify.setGoodsId(entity.getId());
+                        goodsClassify.preInsert();
+                        goodsClassifyMapper.insert(goodsClassify);
+                    }else {
+                        goodsClassify.preUpdate();
+                        goodsClassifyMapper.update(goodsClassify);
+                    }
+                }else {
+                goodsClassifyMapper.deleteByLogic(goodsClassify);
+                }
             }
-            if (entity.getLevelTwo() != null) {
-                goodsClassify.setSecondClassifyId(entity.getLevelTwo().getId());
-            }
-            if (entity.getLevelThree() != null) {
-                goodsClassify.setReclassifyId(entity.getLevelThree().getId());
-            }
-            goodsClassify.setGoodsId(entity.getId());
-            goodsClassifyMapper.insert()*/
-        }
         return save;
     }
 

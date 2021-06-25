@@ -9,24 +9,45 @@
         a.goods_id AS "goodsId",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+        a.update_time AS "updateTime",
+        b.name AS "levelOneName",
+        c.name AS "levelTwoName",
+        d.name AS "levelThreeName"
     </sql>
 
     <sql id="goodsClassifyJoins">
-        LEFT JOIN md_goods_classify b ON
+        LEFT JOIN mb_classify b ON a.classify_id = b.id
+        LEFT JOIN mb_classify c ON a.second_classify_id = c.id
+        LEFT JOIN mb_classify d ON a.reclassify_id = d.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
         SELECT
         <include refid="goodsClassifyColumns"/>
         FROM md_goods_classify a
+        <include refid="goodsClassifyJoins"/>
         WHERE a.id=#{id}
+    </select>
+
+    <select id="getByGoods" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
+        SELECT
+        <include refid="goodsClassifyColumns"/>
+        FROM md_goods_classify a
+        <include refid="goodsClassifyJoins"/>
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="goodsId != null and goodsId != ''">
+                AND a.goods_id LIKE concat('%',#{goodsId},'%')
+            </if>
+        </where>
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
         SELECT
         <include refid="goodsClassifyColumns"/>
         FROM md_goods_classify a
+        <include refid="goodsClassifyJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -45,6 +66,7 @@
         SELECT
         <include refid="goodsClassifyColumns"/>
         FROM md_goods_classify a
+        <include refid="goodsClassifyJoins"/>
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 

@@ -33,7 +33,7 @@ layui.use('form', function(){
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
-                $("#city").html(tmp);
+                $("#levelTwo").html(tmp);
                 form.render();
             }
         })
@@ -52,7 +52,7 @@ layui.use('form', function(){
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
-                $("#area").html(tmp);
+                $("#levelThree").html(tmp);
                 form.render();
             }
         })

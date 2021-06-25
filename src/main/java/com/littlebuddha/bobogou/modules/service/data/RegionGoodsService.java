@@ -9,6 +9,7 @@ import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -60,13 +61,29 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             //所选商品列表
             List<RegionGoods> regionGoodsList = entity.getRegionGoodsList();
             for (RegionGoods goods : regionGoodsList) {
-                regionGoods = new RegionGoods();
-                BeanUtils.copyProperties(entity,regionGoods);
-                regionGoods.setGoodsId(goods.getGoodsId());
-                regionGoods.setAmount(goods.getAmount());
-                regionGoods.setSalesVolume(goods.getSalesVolume());
-                regionGoods.setIsMarket(goods.getIsMarket());
-                row = super.save(regionGoods);
+                if (RegionGoods.DEL_FLAG_NORMAL.equals(goods.getIsDeleted())) {
+                    if (StringUtils.isBlank(goods.getId())) {
+                        regionGoods = new RegionGoods();
+                        BeanUtils.copyProperties(entity, regionGoods);
+                        regionGoods.setGoodsId(goods.getGoodsId());
+                        regionGoods.setAmount(goods.getAmount());
+                        regionGoods.setSalesVolume(goods.getSalesVolume());
+                        regionGoods.setIsMarket(goods.getIsMarket());
+                        regionGoods.preInsert();
+                        row = regionGoodsMapper.insert(regionGoods);
+                    }else {
+                        regionGoods = new RegionGoods();
+                        BeanUtils.copyProperties(entity, regionGoods);
+                        regionGoods.setGoodsId(goods.getGoodsId());
+                        regionGoods.setAmount(goods.getAmount());
+                        regionGoods.setSalesVolume(goods.getSalesVolume());
+                        regionGoods.setIsMarket(goods.getIsMarket());
+                        regionGoods.preUpdate();
+                        row = regionGoodsMapper.update(regionGoods);
+                    }
+                }else {
+                    regionGoodsMapper.deleteByLogic(goods);
+                }
             }
         }
         return row;

@@ -14,10 +14,10 @@
     <form class="layui-form" id="goodsForm">
         <input type="hidden" name="id" th:value="${goods.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">药名</label>
+            <label class="layui-form-label">商品名</label>
             <div class="layui-input-block">
                 <input type="name" id="name" th:name="name" th:value="${goods.getName()}"
-                       placeholder="药名" lay-verify="required|name" autocomplete="off" class="layui-input">
+                       placeholder="商品名" lay-verify="required|name" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -100,18 +100,18 @@
             <div class="layui-input-block">
                 <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
                         th:id="isMarket">
-                    <option th:value="0" th:text="是"/>
-                    <option th:value="2" th:text="否"/>
-                </select>
-                <select name="isMarket" lay-verify=""
-                        th:if="${mode != 'add' && '1' == goods.getIsMarket()}">
-                    <option th:value="0" th:text="是"/>
-                    <option th:value="2" th:text="否"/>
+                    <option th:value="0" th:text="在售"/>
+                    <option th:value="2" th:text="停售"/>
                 </select>
                 <select name="isMarket" lay-verify=""
                         th:if="${mode != 'add' && '0' == goods.getIsMarket()}">
-                    <option th:value="2" th:text="否"/>
-                    <option th:value="0" th:text="是"/>
+                    <option th:value="0" th:text="在售"/>
+                    <option th:value="2" th:text="停售"/>
+                </select>
+                <select name="isMarket" lay-verify=""
+                        th:if="${mode != 'add' && '2' == goods.getIsMarket()}">
+                    <option th:value="2" th:text="停售"/>
+                    <option th:value="0" th:text="在售"/>
                 </select>
             </div>
         </div>

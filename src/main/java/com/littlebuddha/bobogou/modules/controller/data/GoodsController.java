@@ -44,6 +44,9 @@ public class GoodsController extends BaseController {
     @Autowired
     private GoodsInfoService goodsInfoService;
 
+    @Autowired
+    private GoodsClassifyService goodsClassifyService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
@@ -110,19 +113,27 @@ public class GoodsController extends BaseController {
     public String form(@PathVariable(name = "mode") String mode, Goods goods, Model model) {
         //查询所有标签
         List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
-        //标签数据
         model.addAttribute("commodityTagList", commodityTagList);
         //查询所有品牌分类
         List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
-        //品牌分类数据
         model.addAttribute("commodityBrandList", commodityBrandList);
         //查询商品分类数据：分一级、二级、三级
         List<GoodsType> goodsTypeLevelOne = goodsTypeService.findList(new GoodsType(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
-        model.addAttribute("goods", goods);
+        //查询当前商品的商品分类详情
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsClassify select = new GoodsClassify();
+            select.setGoodsId(goods.getId());
+            GoodsClassify goodsClassify = goodsClassifyService.getByGoods(select);
+            goods.setGoodsClassify(goodsClassify);
+        }
         //查询商品详情
-        GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
-        goods.setGoodsInfo(goodsInfo);
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsInfo select = new GoodsInfo();
+            select.setGoodsId(goods.getId());
+            GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
+            goods.setGoodsInfo(goodsInfo);
+        }
         return "modules/data/goodsForm";
     }
 

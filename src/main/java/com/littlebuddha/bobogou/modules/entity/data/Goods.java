@@ -4,8 +4,6 @@ import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
-
 /**
  * 药品实体类
  */
@@ -22,10 +20,10 @@ public class Goods extends DataEntity<Goods> {
     private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔
 
-    private Integer purchasingPrice;//进价，单位：分
-    private Integer originalCost;//原价，单位：分
-    private Integer sellingPrice;//普通会员价，单位：分
-    private Integer vipPrice;//会员价，单位：分
+    private Double purchasingPrice;//进价，单位：分
+    private Double originalCost;//原价，单位：分
+    private Double sellingPrice;//普通会员价，单位：分
+    private Double vipPrice;//会员价，单位：分
     private String specification;//规格
     private Integer amount;//数量
     private Integer salesVolume;//销量
@@ -37,7 +35,7 @@ public class Goods extends DataEntity<Goods> {
 
     private GoodsClassify goodsClassify;//商品分类外键
 
-    private GoodsInfo goodsInfo;//商品详情
+    private GoodsInfo goodsInfo;//商品详情外键
 
     public Goods() {
     }
@@ -104,38 +102,38 @@ public class Goods extends DataEntity<Goods> {
     }
 
     @ExcelField(title = "进价", align = 2, sort = 2)
-    public Integer getPurchasingPrice() {
+    public Double getPurchasingPrice() {
         return purchasingPrice;
     }
 
-    public void setPurchasingPrice(Integer purchasingPrice) {
+    public void setPurchasingPrice(Double purchasingPrice) {
         this.purchasingPrice = purchasingPrice;
     }
 
     @ExcelField(title = "原价", align = 2, sort = 3)
-    public Integer getOriginalCost() {
+    public Double getOriginalCost() {
         return originalCost;
     }
 
-    public void setOriginalCost(Integer originalCost) {
+    public void setOriginalCost(Double originalCost) {
         this.originalCost = originalCost;
     }
 
     @ExcelField(title = "普通会员价", align = 2, sort = 4)
-    public Integer getSellingPrice() {
+    public Double getSellingPrice() {
         return sellingPrice;
     }
 
-    public void setSellingPrice(Integer sellingPrice) {
+    public void setSellingPrice(Double sellingPrice) {
         this.sellingPrice = sellingPrice;
     }
 
     @ExcelField(title = "会员价", align = 2, sort = 5)
-    public Integer getVipPrice() {
+    public Double getVipPrice() {
         return vipPrice;
     }
 
-    public void setVipPrice(Integer vipPrice) {
+    public void setVipPrice(Double vipPrice) {
         this.vipPrice = vipPrice;
     }
 

@@ -33,7 +33,7 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '药名',
+                    title: '商品名',
                     field: 'name',
                     sort: true,
                     sortName: 'name',
