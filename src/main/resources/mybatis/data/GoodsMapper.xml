@@ -197,6 +197,14 @@
         WHERE id=#{id}
     </update>
 
+    <!--在区域商品做更新时先将原有的区域商品分配数量恢复到商品表更新库存-->
+    <update id="recoveryStock">
+        UPDATE mb_goods SET
+            used_amount = used_amount - #{usedAmount},
+            stock_amount = stock_amount + #{stockAmount}
+        WHERE id=#{id}
+    </update>
+
     <!--商品上下架-->
     <update id="onTheShelf">
         UPDATE mb_goods SET is_market = #{isMarket}

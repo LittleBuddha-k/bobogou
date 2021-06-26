@@ -79,7 +79,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
                             //如果分配数量大于库存量
                             return row = -1;
-                        }else if (stock != null && stock.getStockAmount() > Integer.valueOf(goods.getAmount())){
+                        }else if (stock != null && stock.getStockAmount() >= Integer.valueOf(goods.getAmount())){
                             Goods goodsStock = new Goods();
                             goodsStock.setId(goods.getGoodsId());
                             goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));
@@ -95,12 +95,23 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         regionGoods.setAmount(goods.getAmount());
                         regionGoods.setSalesVolume(goods.getSalesVolume());
                         regionGoods.setIsMarket(goods.getIsMarket());
+                        //先将本条商品区域的分配数量恢复到原本的样子
+                        RegionGoods startingValue = regionGoodsMapper.get(regionGoods);
+                        if (startingValue != null){
+                            Goods startingStock = new Goods();
+                            startingStock.setUsedAmount(Integer.valueOf(startingValue.getAmount()));
+                            startingStock.setStockAmount(Integer.valueOf(startingValue.getAmount()));
+                            startingStock.setId(goods.getGoodsId());
+                            goodsMapper.recoveryStock(startingStock);
+                        }else {
+
+                        }
                         //更新数据的同时对商品库存进行操作
                         Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
                         if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
                             //如果分配数量大于库存量
                             return row = -1;
-                        }else if (stock != null && stock.getStockAmount() > Integer.valueOf(goods.getAmount())){
+                        }else if (stock != null && stock.getStockAmount() >= Integer.valueOf(goods.getAmount())){
                             Goods goodsStock = new Goods();
                             goodsStock.setId(goods.getGoodsId());
                             goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));

@@ -17,6 +17,9 @@ public interface GoodsMapper extends BaseMapper<Goods> {
     //更新库存
     int updateStock(Goods goods);
 
+    //在区域商品做更新时先将原有的区域商品分配数量恢复到商品表更新库存
+    int recoveryStock(Goods goods);
+
     //上下架操作
     int onTheShelf(Goods goods);
 }
