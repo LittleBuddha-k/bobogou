@@ -13,6 +13,8 @@
 <div>
     <form class="layui-form" id="goodsForm">
         <input type="hidden" name="id" th:value="${goods.getId()}">
+        <input type="hidden" th:if="${goods.getGoodsInfo() != null}" name="goodsInfo.id" th:value="${goods.getGoodsInfo().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id" th:value="${goods.getGoodsClassify().getId()}">
         <div class="layui-form-item">
             <label class="layui-form-label" for="name">商品名</label>
             <div class="layui-input-block">
@@ -64,6 +66,20 @@
             <div class="layui-input-block">
                 <input type="amount" id="amount" th:name="amount" th:value="${goods.getAmount()}"
                        placeholder="数量" autocomplete="off" class="layui-input number">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="usedAmount">已分配</label>
+            <div class="layui-input-block">
+                <input type="text" id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
+                       placeholder="已分配" autocomplete="off" class="layui-input number">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="stockAmount">库存</label>
+            <div class="layui-input-block">
+                <input type="text" id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
+                       placeholder="库存" autocomplete="off" class="layui-input number">
             </div>
         </div>
         <div class="layui-form-item">
@@ -125,11 +141,11 @@
                 </select>
                 <select name="brandId" lay-verify="" th:if="${mode != 'add'}">
                     <option th:each="commodityBrand:${commodityBrandList}"
-                            th:if="${commodityBrand.getId() == goods.getBrandId()}"
+                            th:if="${commodityBrand.getId() == goods.getBrandId().toString()}"
                             th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                     <option th:text="请选择" value="0"/>
                     <option th:each="commodityBrand:${commodityBrandList}"
-                            th:if="${commodityBrand.getId() != goods.getBrandId()}"
+                            th:if="${commodityBrand.getId() != goods.getBrandId().toString()}"
                             th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                 </select>
             </div>

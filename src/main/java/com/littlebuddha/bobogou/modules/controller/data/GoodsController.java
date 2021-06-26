@@ -47,6 +47,9 @@ public class GoodsController extends BaseController {
     @Autowired
     private GoodsClassifyService goodsClassifyService;
 
+    @Autowired
+    private RegionGoodsService regionGoodsService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
@@ -164,6 +167,18 @@ public class GoodsController extends BaseController {
         Result result = new Result();
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
             int row = goodsService.onTheShelf(goods);
+            //修改区域商品上下架
+            RegionGoods regionGoods = new RegionGoods();
+            if (goods.getIsMarket() == 0){
+                //在售
+                regionGoods.setIsMarket("0");
+                regionGoods.setGoodsId(goods.getId());
+            }else if (goods.getIsMarket() == 2){
+                //停售
+                regionGoods.setIsMarket("1");
+                regionGoods.setGoodsId(goods.getId());
+            }
+            regionGoodsService.updateIsMarket(regionGoods);
             result = getCommonResult(row);
         }else {
             result.setCode("222");

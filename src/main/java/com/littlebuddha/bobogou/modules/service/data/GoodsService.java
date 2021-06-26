@@ -58,7 +58,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         entity.setIdType("AUTO");
         int save = super.save(entity);
         //插入商品详情
-        if (entity != null && entity.getGoodsClassify() != null) {
+        if (entity != null && entity.getGoodsInfo() != null) {
             GoodsInfo goodsInfo = entity.getGoodsInfo();
             if (goodsInfo.DEL_FLAG_NORMAL.equals(goodsInfo.getIsDeleted())) {
                 if (StringUtils.isBlank(goodsInfo.getId())) {

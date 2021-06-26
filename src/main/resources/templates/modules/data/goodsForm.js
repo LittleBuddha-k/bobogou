@@ -35,6 +35,11 @@ layui.use('form', function(){
                 }
                 $("#levelTwo").html(tmp);
                 form.render();
+            }else {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                $("#levelTwo").html(tmp);
+                form.render();
             }
         })
     });
@@ -52,6 +57,11 @@ layui.use('form', function(){
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
+                $("#levelThree").html(tmp);
+                form.render();
+            }else {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
                 $("#levelThree").html(tmp);
                 form.render();
             }

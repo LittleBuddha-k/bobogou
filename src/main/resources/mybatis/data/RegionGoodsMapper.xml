@@ -177,6 +177,12 @@
         WHERE id=#{id}
     </update>
 
+    <update id="updateIsMarket">
+        UPDATE md_region_goods SET
+            is_market = #{isMarket}
+        WHERE goods_id=#{goodsId}
+    </update>
+
     <update id="deleteByLogic">
         UPDATE md_region_goods SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}

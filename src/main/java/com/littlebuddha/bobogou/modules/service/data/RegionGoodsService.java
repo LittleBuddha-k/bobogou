@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
@@ -114,6 +115,11 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 }
             }
         }
+        return row;
+    }
+
+    public int updateIsMarket(RegionGoods regionGoods){
+        int row = regionGoodsMapper.updateIsMarket(regionGoods);
         return row;
     }
 

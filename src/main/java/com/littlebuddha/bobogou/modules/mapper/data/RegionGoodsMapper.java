@@ -11,4 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface RegionGoodsMapper extends BaseMapper<RegionGoods> {
 
+    //修改区域商品上下架
+    int updateIsMarket(RegionGoods regionGoods);
 }
