@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     }
 
     @Override
+    @Transactional
     public int save(RegionGoods entity) {
         int row = 0;
         RegionGoods regionGoods = null;
@@ -76,14 +78,14 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         regionGoods.setIsMarket(goods.getIsMarket());
                         //插入数据的同时对商品库存进行操作
                         Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
-                        if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
+                        if(stock != null && stock.getStockAmount() < goods.getAmount()){
                             //如果分配数量大于库存量
                             return row = -1;
-                        }else if (stock != null && stock.getStockAmount() >= Integer.valueOf(goods.getAmount())){
+                        }else if (stock != null && stock.getStockAmount() >= goods.getAmount()){
                             Goods goodsStock = new Goods();
                             goodsStock.setId(goods.getGoodsId());
-                            goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));
-                            goodsStock.setStockAmount(Integer.valueOf(goods.getAmount()));
+                            goodsStock.setUsedAmount(goods.getAmount());
+                            goodsStock.setStockAmount(goods.getAmount());
                             goodsMapper.updateStock(goodsStock);
                             regionGoods.preInsert();
                             row = regionGoodsMapper.insert(regionGoods);
@@ -99,8 +101,8 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         RegionGoods startingValue = regionGoodsMapper.get(regionGoods);
                         if (startingValue != null){
                             Goods startingStock = new Goods();
-                            startingStock.setUsedAmount(Integer.valueOf(startingValue.getAmount()));
-                            startingStock.setStockAmount(Integer.valueOf(startingValue.getAmount()));
+                            startingStock.setUsedAmount(startingValue.getAmount());
+                            startingStock.setStockAmount(startingValue.getAmount());
                             startingStock.setId(goods.getGoodsId());
                             goodsMapper.recoveryStock(startingStock);
                         }else {
@@ -108,14 +110,14 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         }
                         //更新数据的同时对商品库存进行操作
                         Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
-                        if(stock != null && stock.getStockAmount() < Integer.valueOf(goods.getAmount())){
+                        if(stock != null && stock.getStockAmount() < goods.getAmount()){
                             //如果分配数量大于库存量
                             return row = -1;
-                        }else if (stock != null && stock.getStockAmount() >= Integer.valueOf(goods.getAmount())){
+                        }else if (stock != null && stock.getStockAmount() >= goods.getAmount()){
                             Goods goodsStock = new Goods();
                             goodsStock.setId(goods.getGoodsId());
-                            goodsStock.setUsedAmount(Integer.valueOf(goods.getAmount()));
-                            goodsStock.setStockAmount(Integer.valueOf(goods.getAmount()));
+                            goodsStock.setUsedAmount(goods.getAmount());
+                            goodsStock.setStockAmount(goods.getAmount());
                             goodsMapper.updateStock(goodsStock);
                             regionGoods.preUpdate();
                             row = regionGoodsMapper.update(regionGoods);

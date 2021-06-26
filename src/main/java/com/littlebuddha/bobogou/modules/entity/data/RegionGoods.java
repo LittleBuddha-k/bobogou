@@ -31,9 +31,9 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     private String goodsId;//商品ID
     private String goodsName;
 
-    private String amount;//商品数量
-    private String salesVolume;//销量
-    private String isMarket;//是否销售，0=在售，1=停售
+    private Integer amount;//商品数量
+    private Integer salesVolume;//销量
+    private Integer isMarket;//是否销售，0=在售，1=停售
 
     private String accountId;//最后操作人ID
     private String updateByName;//
@@ -185,29 +185,29 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     }
 
     @ExcelField(title = "商品数量", align = 2, sort = 6)
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
     @ExcelField(title = "销量", align = 2, sort = 7)
-    public String getSalesVolume() {
+    public Integer getSalesVolume() {
         return salesVolume;
     }
 
-    public void setSalesVolume(String salesVolume) {
+    public void setSalesVolume(Integer salesVolume) {
         this.salesVolume = salesVolume;
     }
 
     @ExcelField(title = "是否销售", align = 2, sort = 8)
-    public String getIsMarket() {
+    public Integer getIsMarket() {
         return isMarket;
     }
 
-    public void setIsMarket(String isMarket) {
+    public void setIsMarket(Integer isMarket) {
         this.isMarket = isMarket;
     }
 
