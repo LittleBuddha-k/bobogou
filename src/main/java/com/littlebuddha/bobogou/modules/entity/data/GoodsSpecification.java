@@ -13,7 +13,7 @@ public class GoodsSpecification extends DataEntity<GoodsSpecification> {
     private String authorization;//批准号
     private String manufacturingEnterprise;//生产企业
     private String specification;//产品规格
-    private String usage;//用法用量
+    private String dosage;//用法用量
     private String attending;//使用症/功能主治
     private String adverseReaction;//不良反应
     private Integer prescriptionType;//药品分类，0=处方药，1=（非处方药）中成药，2=（非处方药）化学药剂
@@ -32,6 +32,13 @@ public class GoodsSpecification extends DataEntity<GoodsSpecification> {
     private String directions;//使用方法
     private String takingCycle;//服用周期
     private Integer accountId;//操作人员ID
+
+    public GoodsSpecification() {
+    }
+
+    public GoodsSpecification(String id) {
+        super(id);
+    }
 
     public String getCommonName() {
         return commonName;
@@ -65,12 +72,12 @@ public class GoodsSpecification extends DataEntity<GoodsSpecification> {
         this.specification = specification;
     }
 
-    public String getUsage() {
-        return usage;
+    public String getDosage() {
+        return dosage;
     }
 
-    public void setUsage(String usage) {
-        this.usage = usage;
+    public void setDosage(String dosage) {
+        this.dosage = dosage;
     }
 
     public String getAttending() {

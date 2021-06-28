@@ -50,6 +50,9 @@ public class GoodsController extends BaseController {
     @Autowired
     private RegionGoodsService regionGoodsService;
 
+    @Autowired
+    private GoodsSpecificationService goodsSpecificationService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
@@ -136,6 +139,13 @@ public class GoodsController extends BaseController {
             select.setGoodsId(goods.getId());
             GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
             goods.setGoodsInfo(goodsInfo);
+        }
+        //查询商品规格
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsSpecification select = new GoodsSpecification();
+            select.setId(goods.getId());
+            GoodsSpecification goodsSpecification = goodsSpecificationService.get(select);
+            goods.setGoodsSpecification(goodsSpecification);
         }
         return "modules/data/goodsForm";
     }
