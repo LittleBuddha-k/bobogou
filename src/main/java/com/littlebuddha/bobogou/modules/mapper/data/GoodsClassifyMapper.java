@@ -13,4 +13,10 @@ import org.apache.ibatis.annotations.Mapper;
 public interface GoodsClassifyMapper extends BaseMapper<GoodsClassify> {
 
     GoodsClassify getByGoods(GoodsClassify goodsClassify);
+
+    //根据商品id逻辑删除
+    void deleteLogicByGoods(GoodsClassify goodsClassify);
+
+    //根据商品id物理删除
+    void deletePhysicsByGoods(GoodsClassify goodsClassify);
 }

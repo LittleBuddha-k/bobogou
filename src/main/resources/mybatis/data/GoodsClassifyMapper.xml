@@ -114,6 +114,11 @@
         WHERE id=#{id}
     </update>
 
+    <update id="deleteLogicByGoods">
+        UPDATE md_goods_classify SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE goods_id=#{goodsId}
+    </update>
+
     <update id="recovery">
         UPDATE md_goods_classify SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
@@ -122,5 +127,10 @@
     <delete id="deleteByPhysics">
         DELETE FROM md_goods_classify
         WHERE id=#{id}
+    </delete>
+
+    <delete id="deletePhysicsByGoods">
+        DELETE FROM md_goods_classify
+        WHERE goods_id=#{goodsId}
     </delete>
 </mapper>

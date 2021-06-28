@@ -3,14 +3,8 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsClassify;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsInfo;
-import com.littlebuddha.bobogou.modules.entity.data.Goods;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
-import com.littlebuddha.bobogou.modules.mapper.data.GoodsClassifyMapper;
-import com.littlebuddha.bobogou.modules.mapper.data.GoodsInfoMapper;
-import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
-import com.littlebuddha.bobogou.modules.mapper.data.GoodsTypeMapper;
+import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.mapper.data.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -32,6 +26,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Autowired
     private GoodsClassifyMapper goodsClassifyMapper;
+
+    @Autowired
+    private GoodsSpecificationMapper goodsSpecificationMapper;
 
     @Override
     public Goods get(Goods entity) {
@@ -92,12 +89,67 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goodsClassifyMapper.deleteByLogic(goodsClassify);
                 }
             }
+
+        //插入商品规格
+        if (entity != null && entity.getGoodsSpecification() != null) {
+            GoodsSpecification goodsSpecification = entity.getGoodsSpecification();
+            if (goodsSpecification.DEL_FLAG_NORMAL.equals(goodsSpecification.getIsDeleted())) {
+                if (StringUtils.isBlank(goodsSpecification.getId())) {
+                    goodsSpecification.setIdType("AUTO");
+                    goodsSpecification.setId(entity.getId());
+                    goodsSpecification.preInsert();
+                    goodsSpecificationMapper.insert(goodsSpecification);
+                }else {
+                    goodsSpecification.preUpdate();
+                    goodsSpecificationMapper.update(goodsSpecification);
+                }
+            }else {
+                goodsSpecificationMapper.deleteByLogic(goodsSpecification);
+            }
+        }
         return save;
     }
 
     @Override
+    @Transactional
+    public int deleteByLogic(Goods entity) {
+        int row = super.deleteByLogic(entity);
+        if (entity != null && StringUtils.isNotBlank(entity.getId())){
+            //删除商品分类
+            GoodsClassify goodsClassify = new GoodsClassify();
+            goodsClassify.setGoodsId(entity.getId());
+            goodsClassifyMapper.deleteLogicByGoods(goodsClassify);
+            //删除商品规格
+            GoodsSpecification specification = new GoodsSpecification();
+            specification.setId(entity.getId());
+            goodsSpecificationMapper.deleteByLogic(specification);
+            //删除商品详情
+            GoodsInfo goodsInfo = new GoodsInfo();
+            goodsInfo.setId(entity.getId());
+            goodsInfoMapper.deleteByLogic(goodsInfo);
+        }
+        return row;
+    }
+
+    @Override
+    @Transactional
     public int deleteByPhysics(Goods entity) {
-        return super.deleteByPhysics(entity);
+        int row = super.deleteByPhysics(entity);
+        if (entity != null && StringUtils.isNotBlank(entity.getId())){
+            //删除商品分类
+            GoodsClassify goodsClassify = new GoodsClassify();
+            goodsClassify.setGoodsId(entity.getId());
+            goodsClassifyMapper.deletePhysicsByGoods(goodsClassify);
+            //删除商品规格
+            GoodsSpecification specification = new GoodsSpecification();
+            specification.setId(entity.getId());
+            goodsSpecificationMapper.deleteByPhysics(specification);
+            //删除商品详情
+            GoodsInfo goodsInfo = new GoodsInfo();
+            goodsInfo.setId(entity.getId());
+            goodsInfoMapper.deleteByPhysics(goodsInfo);
+        }
+        return row;
     }
 
     public int onTheShelf(Goods goods) {
