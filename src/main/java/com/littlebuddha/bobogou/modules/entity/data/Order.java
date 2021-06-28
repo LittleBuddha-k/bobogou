@@ -21,6 +21,8 @@ public class Order extends DataEntity<Order> {
     private Integer payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
     private Integer type;//类型，0=购买，1=健康豆兑换，2=积分兑换
     private Integer status;//状态，0=已取消，1=待付款，2=待收货，3=已完成，4=申请退款，5=已退款
+    private Date outTime;//出库时间
+    private Integer outStatus;//出库状态
     private String payTime;//支付时间
     private String refundReason;//退款原因
 
@@ -111,6 +113,22 @@ public class Order extends DataEntity<Order> {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Date getOutTime() {
+        return outTime;
+    }
+
+    public void setOutTime(Date outTime) {
+        this.outTime = outTime;
+    }
+
+    public Integer getOutStatus() {
+        return outStatus;
+    }
+
+    public void setOutStatus(Integer outStatus) {
+        this.outStatus = outStatus;
     }
 
     public String getPayTime() {

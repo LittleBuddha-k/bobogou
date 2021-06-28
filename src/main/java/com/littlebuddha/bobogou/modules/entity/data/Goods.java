@@ -37,6 +37,8 @@ public class Goods extends DataEntity<Goods> {
 
     private GoodsClassify goodsClassify;//商品分类外键
 
+    private GoodsSpecification goodsSpecification;//商品规格外键
+
     private GoodsInfo goodsInfo;//商品详情外键
 
     public Goods() {
@@ -235,6 +237,14 @@ public class Goods extends DataEntity<Goods> {
 
     public void setGoodsClassify(GoodsClassify goodsClassify) {
         this.goodsClassify = goodsClassify;
+    }
+
+    public GoodsSpecification getGoodsSpecification() {
+        return goodsSpecification;
+    }
+
+    public void setGoodsSpecification(GoodsSpecification goodsSpecification) {
+        this.goodsSpecification = goodsSpecification;
     }
 
     public GoodsInfo getGoodsInfo() {

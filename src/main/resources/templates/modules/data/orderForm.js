@@ -5,6 +5,11 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
     //日期
     laydate.render({
+        elem: '#outTime'
+        , type: 'datetime'
+    });
+    //日期
+    laydate.render({
         elem: '#payTime'
         , type: 'datetime'
     });
