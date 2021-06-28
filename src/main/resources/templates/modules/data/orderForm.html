@@ -13,6 +13,224 @@
     <form class="layui-form" id="orderForm">
         <input type="hidden" name="id" id="id" th:value="${order.getId()}">
         <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="number">订单编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="number" th:value="${order.getNumber()}"
+                           th:id="number" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="grossAmount">总金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="grossAmount" th:value="${order.getGrossAmount()}" autocomplete="off"
+                           th:id="grossAmount" class="layui-input number">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="integral">积分</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="integral" th:value="${order.getIntegral()}"
+                           autocomplete="off"
+                           th:id="integral" class="layui-input number">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="healthBeans">健康豆</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="healthBeans" th:value="${order.getHealthBeans()}" autocomplete="off"
+                           th:id="healthBeans" class="layui-input number">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="addressId">配送地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="addressId" th:value="${order.getAddressId()}" autocomplete="off"
+                           th:id="addressId" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="distributionMode">配送方式</label>
+                <div class="layui-input-inline">
+                    <select name="distributionMode" lay-verify="" th:if="${mode == 'add'}" lay-filter="distributionMode"
+                            th:id="distributionMode">
+                        <option th:value="1" th:text="顺丰"/>
+                        <option th:value="2" th:text="京东"/>
+                    </select>
+                    <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 1}"
+                            lay-filter="distributionMode"
+                            th:id="distributionMode">
+                        <option th:value="1" th:text="顺丰"/>
+                        <option th:value="2" th:text="京东"/>
+                    </select>
+                    <select name="distributionMode" lay-verify="" th:if="${mode != 'add' && order.distributionMode == 2}"
+                            lay-filter="distributionMode"
+                            th:id="distributionMode">
+                        <option th:value="2" th:text="京东"/>
+                        <option th:value="1" th:text="顺丰"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="trackingNo">物流单号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="trackingNo" th:value="${order.getTrackingNo()}" autocomplete="off"
+                           th:id="trackingNo" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="payMode">支付方式</label>
+                <div class="layui-input-inline">
+                    <select name="payMode" lay-verify="" th:if="${mode == 'add'}" lay-filter="payMode"
+                            th:id="payMode">
+                        <option th:value="0" th:text="兑换"/>
+                        <option th:value="1" th:text="微信"/>
+                        <option th:value="2" th:text="支付宝"/>
+                        <option th:value="3" th:text="银行卡"/>
+                    </select>
+                    <select name="payMode" lay-verify="" th:if="${mode != 'add' && order.payMode == 0}" lay-filter="payMode"
+                            th:id="payMode">
+                        <option th:value="0" th:text="兑换"/>
+                        <option th:value="1" th:text="微信"/>
+                        <option th:value="2" th:text="支付宝"/>
+                        <option th:value="3" th:text="银行卡"/>
+                    </select>
+                    <select name="payMode" lay-verify="" th:if="${mode != 'add' && order.payMode == 1}" lay-filter="payMode"
+                            th:id="payMode">
+                        <option th:value="1" th:text="微信"/>
+                        <option th:value="0" th:text="兑换"/>
+                        <option th:value="2" th:text="支付宝"/>
+                        <option th:value="3" th:text="银行卡"/>
+                    </select>
+                    <select name="payMode" lay-verify="" th:if="${mode != 'add' && order.payMode == 2}" lay-filter="payMode"
+                            th:id="payMode">
+                        <option th:value="2" th:text="支付宝"/>
+                        <option th:value="0" th:text="兑换"/>
+                        <option th:value="1" th:text="微信"/>
+                        <option th:value="3" th:text="银行卡"/>
+                    </select>
+                    <select name="payMode" lay-verify="" th:if="${mode != 'add' && order.payMode == 3}" lay-filter="payMode"
+                            th:id="payMode">
+                        <option th:value="3" th:text="银行卡"/>
+                        <option th:value="0" th:text="兑换"/>
+                        <option th:value="1" th:text="微信"/>
+                        <option th:value="2" th:text="支付宝"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="type">类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="" th:if="${mode == 'add'}" lay-filter="type"
+                            th:id="type">
+                        <option th:value="0" th:text="购买"/>
+                        <option th:value="1" th:text="健康豆兑换"/>
+                        <option th:value="2" th:text="积分兑换"/>
+                    </select>
+                    <select name="type" lay-verify="" th:if="${mode != 'add' && order.type == 0}" lay-filter="type"
+                            th:id="type">
+                        <option th:value="0" th:text="购买"/>
+                        <option th:value="1" th:text="健康豆兑换"/>
+                        <option th:value="2" th:text="积分兑换"/>
+                    </select>
+                    <select name="type" lay-verify="" th:if="${mode != 'add' && order.type == 1}" lay-filter="type"
+                            th:id="type">
+                        <option th:value="1" th:text="健康豆兑换"/>
+                        <option th:value="0" th:text="购买"/>
+                        <option th:value="2" th:text="积分兑换"/>
+                    </select>
+                    <select name="type" lay-verify="" th:if="${mode != 'add' && order.type == 2}" lay-filter="type"
+                            th:id="type">
+                        <option th:value="2" th:text="积分兑换"/>
+                        <option th:value="0" th:text="购买"/>
+                        <option th:value="1" th:text="健康豆兑换"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="status">状态</label>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 0}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 1}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 2}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 3}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 4}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="4" th:text="申请退款"/>
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="5" th:text="已退款"/>
+                    </select>
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && order.status == 5}" lay-filter="status"
+                            th:id="status">
+                        <option th:value="5" th:text="已退款"/>
+                        <option th:value="0" th:text="已取消"/>
+                        <option th:value="1" th:text="待付款"/>
+                        <option th:value="2" th:text="待收货"/>
+                        <option th:value="3" th:text="已完成"/>
+                        <option th:value="4" th:text="申请退款"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="payTime">支付时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="payTime" th:value="${order.getPayTime()}" autocomplete="off"
+                           th:id="payTime" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label" for="refundReason">退款原因</label>
+                <div class="layui-input-block">
+                <textarea placeholder="请输入内容" class="layui-textarea" name="refundReason"
+                          th:text="${order.getRefundReason()}" th:id="refundReason"></textarea>
+                </div>
+            </div>
+        </div>
+        <!--<div class="layui-form-item">
             <label class="layui-form-label" for="number">订单编号</label>
             <div class="layui-input-block">
                 <input type="text" name="number" th:value="${order.getNumber()}"
@@ -227,7 +445,7 @@
                 <textarea placeholder="请输入内容" class="layui-textarea" name="refundReason"
                           th:text="${order.getRefundReason()}" th:id="refundReason"></textarea>
             </div>
-        </div>
+        </div>-->
         <input type="hidden" id="orderInfo" th:value="${orderInfo}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>

@@ -217,7 +217,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(orderTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/order/form/add", "新建订单信息", '100%', '100%')
+            var index = rc.openSaveDialog("/bobogou/data/order/form/add", "新建订单信息", '85%', '70%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -230,7 +230,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + ids, "编辑订单信息", '100%', '100%');
+                rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + ids, "编辑订单信息", '85%', '70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -244,7 +244,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/order/form/view?id=' + ids, "查看订单信息", '100%', '100%');
+                rc.openViewDialog('/bobogou/data/order/form/view?id=' + ids, "查看订单信息", '85%', '70%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -276,9 +276,9 @@ layui.use(['form', 'table'], function () {
     table.on('tool(orderTableFilter)', function (obj) {
         let id = obj.data.id;
         if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'100%','100%')
+            rc.openViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
         } else if (obj.event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '100%', '100%');
+            rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '85%', '70%');
         } else if (obj.event === 'chargeback') {
 
         }
