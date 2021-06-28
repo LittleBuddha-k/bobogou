@@ -5,6 +5,9 @@
     <title>用户协议管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css"/>
 </head>
 <body>
 <div>
@@ -29,8 +32,8 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="content">内容</label>
-            <div class="layui-input-block">
+            <label class="layui-form-label" for="content">内容编辑：</label>
+            <div class="layui-input-block" id="content">
                 <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${agreement.getContent()}"
                           th:id="content" ></textarea>
             </div>
@@ -42,10 +45,14 @@
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
 <!--引入表单验证-->
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>

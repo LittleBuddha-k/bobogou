@@ -30,14 +30,14 @@
                     <img th:src="${banner.getUrl()}" alt="上传成功后渲染" style="max-width: 196px" th:if="${mode != 'add'}">
                 </div>
             </div>
-        </div>
+        </div><!--
         <div class="layui-form-item">
             <label class="layui-form-label">图片地址</label>
             <div class="layui-input-block">
                 <input type="type" id="url" th:name="url" th:value="${banner.getUrl()}"
                        placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
             </div>
-        </div>
+        </div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">展示位置</label>
             <div class="layui-input-block">
@@ -46,14 +46,14 @@
                     <option th:value="1" th:text="首页"/>
                 </select>
             </div>
-        </div>
+        </div><!--
         <div class="layui-form-item">
             <label class="layui-form-label">链接地址</label>
             <div class="layui-input-block">
                 <input type="link" id="link" th:name="link" th:value="${banner.getLink()}"
                        placeholder="链接地址" lay-verify="required|link" autocomplete="off" class="layui-input">
             </div>
-        </div>
+        </div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">展示状态</label>
             <div class="layui-input-block">

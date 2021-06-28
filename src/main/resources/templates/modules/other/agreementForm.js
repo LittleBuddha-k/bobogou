@@ -35,3 +35,32 @@ function save(parentIndex) {
         });
     }
 }
+
+//富文本编辑
+$(document).ready(function () {
+    //编辑时
+    $(function() {
+        var editor = editormd("content", {
+            width  : "100%",
+            height : "400px",
+            path   : "/bobogou/plugins/markdown/lib/",
+            watch  : false,
+            delay  : 0,
+            placeholder: "协议详情编辑",
+            imageUpload          : true,          // Enable/disable upload
+            imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL       : "/bobogou/file/markdownUpload",             // Upload url
+            crossDomainUpload    : false,          // Enable/disable Cross-domain upload
+            uploadCallbackURL    : "",             // Cross-domain upload callback url
+        });
+    });
+
+    //查看时
+    $(function() {
+        var testView = editormd.markdownToHTML("goodsInfoOther", {
+            // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
+            // htmlDecode : true,  // Enable / disable HTML tag encode.
+            // htmlDecode : "style,script,iframe",  // Note: If enabled, you should filter some dangerous HTML tags for website security.
+        });
+    });
+})

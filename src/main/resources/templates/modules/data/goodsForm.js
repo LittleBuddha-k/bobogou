@@ -25,11 +25,12 @@ layui.use('form', function(){
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
         let parentId = data.value;
-        $("#levelTwo").empty();//清空城市选项
+        $("#levelTwo").empty();//清空二级
+        $("#levelThree").empty();//清空三级
         rc.post("/bobogou/data/goodsType/all",{"parentId":parentId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -37,7 +38,7 @@ layui.use('form', function(){
                 form.render();
             }else {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 $("#levelTwo").html(tmp);
                 form.render();
             }
@@ -53,7 +54,7 @@ layui.use('form', function(){
         rc.post("/bobogou/data/goodsType/all",{"parentId":parentId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -61,7 +62,7 @@ layui.use('form', function(){
                 form.render();
             }else {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 $("#levelThree").html(tmp);
                 form.render();
             }

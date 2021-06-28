@@ -43,10 +43,23 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
-                    title: '图片地址',
+                    title: '图片展示',
                     field: 'imageUrl',
                     sort: true,
-                    sortName: 'imageUrl'
+                    sortName: 'imageUrl',
+                    templet: function (data) {
+                        var imageUrl = data.imageUrl;
+                        let split = imageUrl.split(",");
+                        let html = "";
+                        if (imageUrl != null || imageUrl != ''){
+                            for (let i = 0;i<split.length;i++){
+                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                            }
+                            return html;
+                        }else {
+                            return "无图片";
+                        }
+                    }
                 },
                 {
                     title: '价格',
@@ -95,13 +108,13 @@ layui.use(['form', 'table'], function () {
                     field: 'status',
                     sort: true,
                     sortName: 'status'
-                },
+                },/*
                 {
                     title: '更新人',
                     field: 'updateByName',
                     sort: true,
                     sortName: 'updateByName'
-                },
+                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',

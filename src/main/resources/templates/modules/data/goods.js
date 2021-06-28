@@ -247,7 +247,7 @@ layui.use(['form', 'table'], function () {
                 });
             })
         }else if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/goods/form/view?id="+id, "查看药品信息",'100%','100%')
+            rc.openViewDialog("/bobogou/data/goods/form/detail?id="+id, "查看药品信息",'100%','100%')
         }
     });
 });

@@ -46,20 +46,24 @@ layui.use(['form', 'table'], function () {
                     title: '分类图标地址',
                     field: 'icon',
                     sort: true,
-                    sortName: 'icon'
+                    sortName: 'icon',
+                    templet: function (data) {
+                        var icon = data.icon;
+                        return '<img src="' + icon + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                    }
                 },
                 {
                     title: '父级',
                     field: 'parentName',
                     sort: true,
                     sortName: 'goodsType.name'
-                },
+                },/*
                 {
                     title: '最后操作人ID',
                     field: 'accountId',
                     sort: true,
                     sortName: 'accountId'
-                },
+                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',

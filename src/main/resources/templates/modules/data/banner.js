@@ -31,7 +31,7 @@ layui.use(['form', 'table'], function () {
             [
                 {
                     type: "checkbox"
-                },
+                },/*
                 {
                     title: '地址',
                     field: 'url',
@@ -41,7 +41,7 @@ layui.use(['form', 'table'], function () {
                         var valueArray = data.url;
                         return valueArray;
                     }
-                },
+                },*/
                 {
                     title: '展示位置',
                     field: 'type',
@@ -55,13 +55,13 @@ layui.use(['form', 'table'], function () {
                             return "未知";
                         }
                     }
-                },
+                },/*
                 {
                     title: '链接地址',
                     field: 'link',
                     sort: true,
                     sortName: 'link'
-                },
+                },*/
                 {
                     title: '状态',
                     field: 'status',

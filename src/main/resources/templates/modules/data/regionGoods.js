@@ -149,13 +149,13 @@ layui.use(['form', 'table'], function () {
                             return "停售";
                         }
                     }
-                },
+                },/*
                 {
                     title: '修改人',
                     field: 'updateByName',
                     sort: true,
                     sortName: 'updateByName'
-                },
+                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',
