@@ -89,7 +89,7 @@
     </select>
 
     <insert id="insert">
-        INSERT INTO md_goods_specification(
+        INSERT INTO md_goods_specification VALUES(
             id,
             common_name,
             authorization,
