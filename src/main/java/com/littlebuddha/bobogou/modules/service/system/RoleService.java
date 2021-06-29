@@ -67,7 +67,13 @@ public class RoleService extends CrudService<Role, RoleMapper> {
     @Override
     @Transactional
     public int deleteByLogic(Role entity) {
-        return super.deleteByLogic(entity);
+        //删除角色表的角色
+        int i = super.deleteByLogic(entity);
+        //删除角色-菜单中的角色-菜单数据
+        if (StringUtils.isNotBlank(entity.getId())){
+            roleMenuMapper.deleteLogicByRole(new RoleMenu(entity));
+        }
+        return i;
     }
 
     @Override

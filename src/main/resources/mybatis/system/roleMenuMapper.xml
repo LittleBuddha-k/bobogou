@@ -50,10 +50,16 @@
         WHERE id=#{id}
     </update>
 
+    <update id="deleteLogicByRole">
+        UPDATE system_role_menu SET
+            del_flag = #{DEL_FLAG_DELETE}
+        WHERE role_id=#{role.id}
+    </update>
+
     <update id="deleteLogicByMenu">
         UPDATE system_role_menu SET
             del_flag = #{DEL_FLAG_DELETE}
-        WHERE id=#{id}
+        WHERE role_id=#{role.id}
     </update>
 
     <delete id="deleteByPhysics">
@@ -72,6 +78,12 @@
     <delete id="deleteOutByRole">
         DELETE FROM system_role_menu
         WHERE role_id = #{roleId}
+    </delete>
+
+    <!--删除一切用户角色-->
+    <delete id="deletePhysicsByRole">
+        DELETE FROM system_role_menu
+        WHERE role_id = #{role.id}
     </delete>
 
     <!--删除一切用户角色-->

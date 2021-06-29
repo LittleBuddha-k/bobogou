@@ -146,16 +146,26 @@ public class MenuController extends BaseController {
     @ResponseBody
     @PostMapping("/delete")
     public Result delete(String ids) {
-        System.out.println("ids:" + ids);
+        Result result = null;
         String[] split = ids.split(",");
         for (String s : split) {
             Menu menu = menuService.get(s);
             if (menu == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
+            }else {
+                if (StringUtils.isNotBlank(menu.getId()) && "-1".equals(menu.getId())){
+                    result = new Result("311", "菜单管理不能被删除！！！");
+                }else if (StringUtils.isNotBlank(menu.getId()) && "d615fa4b406b4173aa909ef403669ba6".equals(menu.getId())){
+                    result = new Result("311", "系统设置不能被删除！！！");
+                }else if (StringUtils.isNotBlank(menu.getId()) && "928b13d7655d478f81c627e28423efd7".equals(menu.getId())){
+                    result = new Result("311", "管理菜单不能被删除！！！");
+                }else {
+                    int i = menuService.deleteByLogic(menu);
+                    result = getCommonResult(i);
+                }
             }
-            int i = menuService.deleteByLogic(menu);
         }
-        return new Result("200", "数据清除成功");
+        return result;
     }
 
     @ResponseBody
