@@ -83,14 +83,14 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(integralTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/integral/form/add", "新建积分信息",'55%','50%')
+            var index = rc.openSaveDialog("/bobogou/other/integral/form/add", "新建积分信息",'55%','35%')
         }
     });
 
     table.on('tool(integralTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/integral/form/edit?id="+ids, "编辑积分信息",'55%','50%')
+            var index = rc.openSaveDialog("/bobogou/other/integral/form/edit?id="+ids, "编辑积分信息",'55%','35%')
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/other/integral/delete?ids=" + ids, '', function (data) {

@@ -43,13 +43,22 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
-                    title: '图片地址',
+                    title: '图片展示',
                     field: 'imageUrl',
                     sort: true,
                     sortName: 'imageUrl',
-                    templet:function(data){
+                    templet: function (data) {
                         var imageUrl = data.imageUrl;
-                        return imageUrl;
+                        let split = imageUrl.split(",");
+                        let html = "";
+                        if (imageUrl != null || imageUrl != ''){
+                            for (let i = 0;i<split.length;i++){
+                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                            }
+                            return html;
+                        }else {
+                            return "无图片";
+                        }
                     }
                 },
                 {

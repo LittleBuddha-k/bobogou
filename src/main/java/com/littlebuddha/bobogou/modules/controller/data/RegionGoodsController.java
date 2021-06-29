@@ -31,7 +31,7 @@ public class RegionGoodsController extends BaseController {
 
     @Autowired
     private RegionGoodsService regionGoodsService;
-    
+
     @Autowired
     private ProvinceService provinceService;
 
@@ -121,7 +121,7 @@ public class RegionGoodsController extends BaseController {
         List<Street> streetList = streetService.findList(new Street());
         model.addAttribute("streetList", streetList);*/
         //
-        if(regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())){
+        if (regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())) {
             regionGoods.setMedicine(medicineService.get(new Goods(regionGoods.getGoodsId())));
         }
         model.addAttribute("regionGoods", regionGoods);
@@ -130,6 +130,7 @@ public class RegionGoodsController extends BaseController {
 
     /**
      * 返回商品区域信息列表json字符串
+     *
      * @param
      * @return
      */
@@ -137,19 +138,21 @@ public class RegionGoodsController extends BaseController {
     @GetMapping("/regionGoodsInfoList")
     public List<RegionGoods> regionGoodsList(String regionGoodsId) {
         List<RegionGoods> list = new ArrayList<>();
-        if (StringUtils.isNotBlank(regionGoodsId)){
+        if (StringUtils.isNotBlank(regionGoodsId)) {
             //获取商品区域信息
             RegionGoods regionGoods = regionGoodsService.get(new RegionGoods(regionGoodsId));
-            //根据商品信息中的省、市、区、街道设置查询信息
-            RegionGoods selectOption = new RegionGoods();
-            if (regionGoods != null){
-                selectOption.setProvinceId(regionGoods.getProvinceId());
-                selectOption.setCityId(regionGoods.getCityId());
-                selectOption.setDistrictId(regionGoods.getDistrictId());
-                selectOption.setStreetId(regionGoods.getStreetId());
+            if (regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())) {
+                //根据商品信息中的省、市、区、街道设置查询信息
+                RegionGoods selectOption = new RegionGoods();
+                if (regionGoods != null) {
+                    selectOption.setProvinceId(regionGoods.getProvinceId());
+                    selectOption.setCityId(regionGoods.getCityId());
+                    selectOption.setDistrictId(regionGoods.getDistrictId());
+                    selectOption.setStreetId(regionGoods.getStreetId());
+                }
+                //根据查询信息获取查询结果
+                list = regionGoodsService.findList(selectOption);
             }
-            //根据查询信息获取查询结果
-            list = regionGoodsService.findList(selectOption);
         }
         return list;
     }
@@ -166,9 +169,9 @@ public class RegionGoodsController extends BaseController {
         int save = regionGoodsService.save(regionGoods);
         if (save > 0) {
             return new Result("200", "保存成功");
-        } else if (save == -1){
+        } else if (save == -1) {
             return new Result("222", "分配数量已超过商品本身库存数，请确认");
-        }else {
+        } else {
             return new Result("310", "未知错误！保存失败");
         }
     }

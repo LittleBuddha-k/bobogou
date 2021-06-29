@@ -9,6 +9,8 @@ layui.use('form', function(){
         //console.log(data.othis); //得到美化后的DOM对象
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
+        $("#area").empty();//清空城市选项
+        $("#street").empty();//清空城市选项
         rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
@@ -28,6 +30,7 @@ layui.use('form', function(){
         //console.log(data.othis); //得到美化后的DOM对象
         let cityId = data.value;
         $("#area").empty();//清空城市选项
+        $("#street").empty();//清空城市选项
         rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句

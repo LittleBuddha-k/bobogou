@@ -79,7 +79,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsBrandTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsBrand/form/add", "新建商品品牌规格分类信息", '75%', '70%')
+            var index = rc.openSaveDialog("/bobogou/data/goodsBrand/form/add", "新建商品品牌规格分类信息", '50%', '30%')
         }
     });
 
@@ -87,7 +87,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goodsBrand/form/edit?id=' + id, "编辑信息", '100%', '100%');
+            rc.openSaveDialog('/bobogou/data/goodsBrand/form/edit?id=' + id, "编辑信息", '50%', '30%');
         } else if (event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/data/goodsBrand/delete?ids=" + id, '', function (data) {

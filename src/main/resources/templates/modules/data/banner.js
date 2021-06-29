@@ -111,7 +111,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(bannerTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息",'75%','70%')
+            let index = rc.openSaveDialog("/bobogou/data/banner/form/add", "新建轮播图信息",'50%','50%')
         }
     });
 
@@ -120,7 +120,7 @@ layui.use(['form', 'table'], function () {
         let event = obj.event;
 
         if('edit' == event){
-            rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + id, "编辑轮播图信息",'75%','70%');
+            rc.openSaveDialog('/bobogou/data/banner/form/edit?id=' + id, "编辑轮播图信息",'50%','50%');
         }else if ('delete' == event){
             rc.confirm('确认要删除该轮播图信息吗？', function() {
                 rc.post("/bobogou/data/banner/delete?ids=" + id, '', function (data) {

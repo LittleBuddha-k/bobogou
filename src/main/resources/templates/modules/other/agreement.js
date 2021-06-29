@@ -93,14 +93,14 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(agreementTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/agreement/form/add", "新建协议信息",'85%','70%')
+            var index = rc.openSaveDialog("/bobogou/other/agreement/form/add", "新建协议信息",'65%','70%')
         }
     });
 
     table.on('tool(agreementTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/agreement/form/edit?id="+ids, "编辑协议信息",'85%','70%')
+            var index = rc.openSaveDialog("/bobogou/other/agreement/form/edit?id="+ids, "编辑协议信息",'65%','70%')
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/other/agreement/delete?ids=" + ids, '', function (data) {

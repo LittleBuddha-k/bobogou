@@ -21,7 +21,8 @@
                     <option th:each="province:${provinceList}" th:value="${province.getId()}"
                             th:text="${province.getName()}"/>
                 </select>
-                <select name="provinceId" lay-verify="" th:if="${mode != 'add'}">
+                <select name="provinceId" lay-verify="" th:if="${mode != 'add'}" lay-filter="province"
+                        th:id="province">
                     <option th:each="province:${provinceList}"
                             th:if="${province.getId() == regionGoods.getProvinceId()}"
                             th:value="${province.getId()}" th:text="${province.getName()}"/>

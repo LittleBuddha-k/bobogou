@@ -127,6 +127,17 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                     regionGoodsMapper.deleteByLogic(goods);
                 }
             }
+        }else if (entity != null && entity.getRegionGoodsList() == null){
+            if (RegionGoods.DEL_FLAG_NORMAL.equals(entity.getIsDeleted())) {
+                if (StringUtils.isBlank(entity.getId())) {
+                    entity.setIdType("AUTO");
+                    entity.preInsert();
+                    row = regionGoodsMapper.insert(entity);
+                }else {
+                    entity.preUpdate();
+                    row = regionGoodsMapper.update(entity);
+                }
+            }
         }
         return row;
     }

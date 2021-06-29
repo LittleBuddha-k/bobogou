@@ -16,7 +16,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 });
 
 function selectGoods(id) {
-    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
+    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '75%', '85%',id);
 }
 
 //保存方法
