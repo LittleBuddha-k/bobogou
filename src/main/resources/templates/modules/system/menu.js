@@ -101,7 +101,7 @@ function init() {
                             field: 'permission',
                             align: 'left',
                             title: '操作',
-                            templet: '#auth-state', width: 200, align: 'left'
+                            templet: '#auth-state', width: 280, align: 'left'
                         },
                     ]
                 ],
@@ -119,7 +119,7 @@ function init() {
             var checkStatus = table.checkStatus('menuTable');
             var data = checkStatus.data;
             if (obj.event === 'add') {
-                rc.openSaveDialog("/bobogou/system/menu/form/add", "添加一级菜单", '75%', '70%');
+                rc.openSaveDialog("/bobogou/system/menu/form/add", "添加一级菜单", '40%', '50%');
             }
         })
 
@@ -130,9 +130,9 @@ function init() {
             let id = obj.data.id;
 
             if (obj.event === 'view') {
-                rc.openViewDialog("/bobogou/system/menu/form/view?id=" + id, "查看菜单信息", '75%', '70%')
+                rc.openViewDialog("/bobogou/system/menu/form/view?id=" + id, "查看菜单信息", '40%', '50%')
             } else if (obj.event === "edit") {
-                rc.openSaveDialog("/bobogou/system/menu/form/edit?id=" + id, "编辑菜单信息", '75%', '70%')
+                rc.openSaveDialog("/bobogou/system/menu/form/edit?id=" + id, "编辑菜单信息", '40%', '50%')
                 renderTable();
             } else if (obj.event === "delete") {
                 rc.confirm('确认要删除该信息吗？', function () {
@@ -146,7 +146,7 @@ function init() {
                     });
                 })
             } else if (layEvent === 'addChildren') {
-                rc.openSaveDialog("/bobogou/system/menu/form/addChildren?parent.id=" + id, "添加下级菜单", '75%', '70%')
+                rc.openSaveDialog("/bobogou/system/menu/form/addChildren?parent.id=" + id, "添加下级菜单", '40%', '50%')
             }
         });
     });
