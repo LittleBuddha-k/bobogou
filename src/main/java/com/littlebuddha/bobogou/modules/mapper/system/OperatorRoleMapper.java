@@ -7,6 +7,8 @@ import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  *
  */
@@ -18,7 +20,7 @@ public interface OperatorRoleMapper extends BaseMapper<OperatorRole> {
      * @param operatorRole
      * @return
      */
-    OperatorRole getByOperatorAndRole(OperatorRole operatorRole);
+    List<OperatorRole> getByOperatorAndRole(OperatorRole operatorRole);
 
     /**
      * 干掉传参以外的数据

@@ -31,11 +31,6 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询管理员以数据-->
-                AND (
-                a.id = #{currentUser.id}
-                )
-            </if>
             <if test="name != null and name != ''">
                 and a.name = #{name}
             </if>

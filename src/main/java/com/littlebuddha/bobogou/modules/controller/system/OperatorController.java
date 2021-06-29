@@ -6,7 +6,9 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.service.system.OperatorRoleService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,9 @@ public class OperatorController extends BaseController {
 
     @Autowired
     private OperatorService operatorService;
+
+    @Autowired
+    private OperatorRoleService operatorRoleService;
 
     @ModelAttribute
     public Operator get(@RequestParam(required = false) String id) {
@@ -114,13 +119,13 @@ public class OperatorController extends BaseController {
 
     @GetMapping("/addRolePage")
     public String addRolePage(Operator operator, Model model) {
-        List<Role> rolesByOperator = new ArrayList<>();
+        List<OperatorRole> operatorRole = new ArrayList<>();
         if (operator != null && StringUtils.isNotBlank(operator.getId())) {
-            rolesByOperator = operatorService.findRolesByOperator(operator);
+            operatorRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(operator));
             String rolesId = "";
-            for (Role role : rolesByOperator) {
-                if (role != null && StringUtils.isNotBlank(role.getId())) {
-                    rolesId = role.getId() + "," + rolesId;
+            for (OperatorRole entity : operatorRole) {
+                if (entity != null && entity.getRole() != null && StringUtils.isNotBlank(entity.getRole().getId())) {
+                    rolesId = entity.getRole().getId() + "," + rolesId;
                 }
             }
             model.addAttribute("rolesId", rolesId);

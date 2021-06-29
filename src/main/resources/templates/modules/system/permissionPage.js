@@ -55,7 +55,7 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '父级id',
-                    field: 'parent.id'
+                    field: 'parentId'
                 },
                 {
                     title: '菜单名字',
