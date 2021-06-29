@@ -127,7 +127,7 @@ layui.use(['form', 'table'], function () {
         if(event == 'edit'){
             rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + id, "编辑角色信息",'30%','30%');
         }else if (event == 'view'){
-            rc.openSaveDialog('/bobogou/system/role/form/view?id=' + id, "查看角色信息",'30%','30%');
+            rc.openViewDialog('/bobogou/system/role/form/view?id=' + id, "查看角色信息",'30%','30%');
         }else if (event == 'addPermission'){
             let index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
         }else if (event == 'delete'){
