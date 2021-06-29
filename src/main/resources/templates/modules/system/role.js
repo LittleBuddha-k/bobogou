@@ -77,7 +77,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(roleTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息",'75%','70%')
+            let index = rc.openSaveDialog("/bobogou/system/role/form/add", "新建角色信息",'30%','30%')
         } else if (obj.event === 'edit') {  // 监听修改操作
             let ids = getIdSelections(table, 'roleTable') + "";
             let idArr = ids.toString().split(",");
@@ -87,7 +87,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + ids, "编辑角色信息",'75%','70%');
+                rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + ids, "编辑角色信息",'30%','30%');
             }
             $(window).on("resize", function () {
                 layer.full(index);
@@ -125,9 +125,9 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if(event == 'edit'){
-            rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + id, "编辑角色信息",'75%','70%');
+            rc.openSaveDialog('/bobogou/system/role/form/edit?id=' + id, "编辑角色信息",'30%','30%');
         }else if (event == 'view'){
-            rc.openSaveDialog('/bobogou/system/role/form/view?id=' + id, "查看角色信息",'75%','70%');
+            rc.openSaveDialog('/bobogou/system/role/form/view?id=' + id, "查看角色信息",'30%','30%');
         }else if (event == 'addPermission'){
             let index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
         }else if (event == 'delete'){

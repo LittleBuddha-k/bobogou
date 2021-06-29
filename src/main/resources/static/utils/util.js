@@ -219,7 +219,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
@@ -245,7 +245,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
@@ -280,7 +280,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
@@ -321,7 +321,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
@@ -364,7 +364,7 @@
                 //time: 5000,
                 shift: 4,
                 //配置最大化最小化按钮
-                maxmin: true
+                maxmin: false
             });
         });
     },
@@ -398,7 +398,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
@@ -450,7 +450,7 @@
                     //time: 5000,
                     shift: 4,
                     //配置最大化最小化按钮
-                    maxmin: true
+                    maxmin: false
                 });
             });
         },
