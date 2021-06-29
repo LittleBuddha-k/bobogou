@@ -99,12 +99,12 @@
                     if(200 == result.code){
                         window.location.href = '/bobogou/portal/list';
                     }else {
-                        alert(result.msg);
+                        layer.msg(result.msg);
                     }
                 },
                 error: function () {
                     //请求出错处理
-                    alert("请求出错");
+                    layer.msg("请求出错");
                 }
             })
             return false;
