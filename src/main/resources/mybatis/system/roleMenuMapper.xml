@@ -50,6 +50,12 @@
         WHERE id=#{id}
     </update>
 
+    <update id="deleteLogicByMenu">
+        UPDATE system_role_menu SET
+            del_flag = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
     <delete id="deleteByPhysics">
         DELETE FROM system_role_menu
         <where>
@@ -66,5 +72,11 @@
     <delete id="deleteOutByRole">
         DELETE FROM system_role_menu
         WHERE role_id = #{roleId}
+    </delete>
+
+    <!--删除一切用户角色-->
+    <delete id="deletePhysicsByMenu">
+        DELETE FROM system_role_menu
+        WHERE menu_id = #{menu.id}
     </delete>
 </mapper>

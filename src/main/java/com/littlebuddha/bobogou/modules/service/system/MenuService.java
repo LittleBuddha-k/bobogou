@@ -178,13 +178,14 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
         return i;
     }
 
+    //只做物理删除
     @Override
     @Transactional
     public int deleteByLogic(Menu menu) {
         //删除菜单
         int i = super.deleteByLogic(menu);
         //查找与菜单相关的 角色--菜单相关数据一并删除
-        int i1 = roleMenuMapper.deleteByLogic(new RoleMenu(menu));
+        int i1 = roleMenuMapper.deleteLogicByMenu(new RoleMenu(menu));
         //删除其子菜单
         if (menu != null && StringUtils.isNotBlank(menu.getId())) {
             Menu parentIds = new Menu();
@@ -193,8 +194,7 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
             for (Menu entity : byParentIdsLike) {
                 super.deleteByLogic(entity);
                 //删除其子菜单   角色--菜单相关数据
-                roleMenuMapper.deleteByLogic(new RoleMenu(entity));
-                System.out.println(entity);
+                roleMenuMapper.deleteLogicByMenu(new RoleMenu(entity));
             }
         }
         return i;

@@ -17,7 +17,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">上级菜单</label>
                 <div class="layui-input-inline">
-                    <select name="parent.id" id="parent.id" lay-verify="">
+                    <select name="parent.id" th:id="parent.id" lay-verify="" th:if="${mode == 'view'}" disabled="true">
+                        <option th:value="${menu.getParent().getId()}"
+                                th:text="${menu.getParent().getTitle()}"></option>
+                    </select>
+                    <select name="parent.id" th:id="parent.id" lay-verify="" th:if="${mode != 'view'}">
                         <option th:value="${menu.getParent().getId()}"
                                 th:text="${menu.getParent().getTitle()}"></option>
                     </select>
@@ -27,28 +31,44 @@
                 <label class="layui-form-label">菜单名</label>
                 <div class="layui-input-inline">
                     <input type="title" id="title" th:name="title" th:value="${menu.getTitle()}"
-                           placeholder="菜单名" lay-verify="required|title" autocomplete="off" class="layui-input">
+                           placeholder="菜单名" lay-verify="required|title" autocomplete="off" class="layui-input"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="title" id="title" th:name="title" th:value="${menu.getTitle()}"
+                           placeholder="菜单名" lay-verify="required|title" autocomplete="off" class="layui-input required"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">链接</label>
                 <div class="layui-input-inline">
                     <input type="href" id="href" th:name="href" th:value="${menu.getHref()}"
-                           placeholder="链接" lay-verify="required|href" autocomplete="off" class="layui-input">
+                           placeholder="链接" lay-verify="required|href" autocomplete="off" class="layui-input"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="href" id="href" th:name="href" th:value="${menu.getHref()}"
+                           placeholder="链接" lay-verify="required|href" autocomplete="off" class="layui-input"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">目标</label>
                 <div class="layui-input-inline">
                     <input type="target" id="target" th:name="target" th:value="${menu.getTarget()}"
-                           placeholder="目标" lay-verify="required|target" autocomplete="off" class="layui-input">
+                           placeholder="目标" lay-verify="required|target" autocomplete="off" class="layui-input"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="target" id="target" th:name="target" th:value="${menu.getTarget()}"
+                           placeholder="目标" lay-verify="required|target" autocomplete="off" class="layui-input"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">图标</label>
                 <div class="layui-input-inline">
                     <input type="icon" id="icon" th:name="icon" th:value="${menu.getIcon()}"
-                           placeholder="图标" lay-verify="required|icon" autocomplete="off" class="layui-input">
+                           placeholder="图标" lay-verify="required|icon" autocomplete="off" class="layui-input"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="icon" id="icon" th:name="icon" th:value="${menu.getIcon()}"
+                           placeholder="图标" lay-verify="required|icon" autocomplete="off" class="layui-input"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
             <div class="layui-inline">
@@ -85,7 +105,11 @@
                 <label class="layui-form-label">权限标识</label>
                 <div class="layui-input-inline">
                     <input type="permission" id="address" th:name="permission" th:value="${menu.getPermission()}"
-                           placeholder="权限标识" lay-verify="required|permission" autocomplete="off" class="layui-input">
+                           placeholder="权限标识" lay-verify="required|permission" autocomplete="off" class="layui-input"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="permission" id="address" th:name="permission" th:value="${menu.getPermission()}"
+                           placeholder="权限标识" lay-verify="required|permission" autocomplete="off" class="layui-input"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
         </div>
@@ -94,8 +118,14 @@
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
 <script>
-    layui.use('form', function(){
+    layui.use('form', function () {
         var form = layui.form;
 
         //各种基于事件的操作，下面会有进一步介绍
@@ -104,28 +134,33 @@
 <script type="text/javascript">
     //保存方法
     function save() {
-        $.ajax({
-            url: "/bobogou/system/menu/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#menuForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                if('200' == result.code){
-                    //请求成功时处理
-                    // 刷新整个父窗口
-                    parent.refresh();
-                    //假设这是iframe页
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
-                }else {
-                    //假设这是iframe页
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
-                    rc.alert(result.msg)
+        let isValidate = rc.validateForm('#menuForm');//校验表单
+        if (!isValidate) {
+            return false;
+        } else {
+            $.ajax({
+                url: "/bobogou/system/menu/save",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: $("#menuForm").serialize(),    //参数值
+                type: "POST",   //请求方式
+                success: function (result) {
+                    if ('200' == result.code) {
+                        //请求成功时处理
+                        // 刷新整个父窗口
+                        parent.refresh();
+                        //假设这是iframe页
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    } else {
+                        //假设这是iframe页
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                        rc.alert(result.msg)
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 </script>
 </body>
