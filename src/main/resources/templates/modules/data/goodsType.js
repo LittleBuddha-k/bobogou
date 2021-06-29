@@ -43,7 +43,7 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
-                    title: '分类图标地址',
+                    title: '图标展示',
                     field: 'icon',
                     sort: true,
                     sortName: 'icon',

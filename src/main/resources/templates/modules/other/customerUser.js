@@ -150,7 +150,7 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(0 == applyStatus){
-                            return "未审核"
+                            return '未审核'
                         }else if(1 == applyStatus){
                             return "已同意"
                         }else if(2 == applyStatus){
@@ -160,8 +160,20 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    toolbar: '#operation',
-                    align: "center"
+                    //toolbar: '#operation',
+                    align: "center",
+                    templet:function(data){
+                        let applyStatus = data.applyStatus;
+                        if(0 == applyStatus){
+                            return '\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">VIP审核</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
+                        }else if(1 == applyStatus){
+                            return "已同意"
+                        }else if(2 == applyStatus){
+                            return "已拒绝"
+                        }
+                    }
                 }
             ]
         ],
