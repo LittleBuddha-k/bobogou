@@ -65,6 +65,12 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                 }
             }
         } else {
+            //如果前端传回的密码与原本数据库密码不匹配，执行修改密码
+            Operator initOperator = operatorMapper.get(operator);
+            if(StringUtils.isNotBlank(operator.getPassword()) && initOperator != null && !operator.getPassword().equals(initOperator.getPassword())){
+                Md5Hash md5Hash = new Md5Hash(operator.getPassword(), initOperator.getSalt(), 1024);
+                operator.setPassword(md5Hash.toHex());
+            }
             operator.preUpdate();
             operatorRow = operatorMapper.update(operator);
 
