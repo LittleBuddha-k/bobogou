@@ -69,8 +69,8 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询当前用户数据-->
-                AND a.id = #{currentUser.id}
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员-->
+                AND a.id != "1"
             </if>
             <if test="loginName != null and loginName != ''">
                 AND a.login_name LIKE concat('%',#{loginName},'%')

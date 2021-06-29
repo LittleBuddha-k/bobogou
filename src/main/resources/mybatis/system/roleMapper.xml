@@ -31,6 +31,9 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员角色-->
+                AND a.id != "1"
+            </if>
             <if test="name != null and name != ''">
                 and a.name = #{name}
             </if>
