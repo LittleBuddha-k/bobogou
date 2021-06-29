@@ -127,6 +127,10 @@
         SELECT
         <include refid="menuColumns"/>
         FROM system_menu a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+        </where>
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
                 ORDER BY a.sort

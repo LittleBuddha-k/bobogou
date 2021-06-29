@@ -74,30 +74,58 @@
             <div class="layui-inline">
                 <label class="layui-form-label">是否显示</label>
                 <div class="layui-input-inline">
-                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode == 'add' || mode == 'addChildren'}">
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode != 'view' && menu.getIsShow() == 1}">
                         <option th:value="1" th:text="显示"></option>
                         <option th:value="0" th:text="不显示"></option>
                     </select>
-                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode != 'add' && mode != 'addChildren'}">
-                        <option th:if="${1 == menu.isShow}" th:value="1" th:text="显示"></option>
-                        <option th:if="${1 == menu.isShow}" th:value="0" th:text="不显示"></option>
-                        <option th:if="${0 == menu.isShow}" th:value="0" th:text="不显示"></option>
-                        <option th:if="${0 == menu.isShow}" th:value="1" th:text="显示"></option>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode != 'view' && menu.getIsShow() == 0}">
+                        <option th:value="0" th:text="不显示"></option>
+                        <option th:value="1" th:text="显示"></option>
+                    </select>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode != 'view' && menu.getIsShow() == null}">
+                        <option th:value="1" th:text="显示"></option>
+                        <option th:value="0" th:text="不显示"></option>
+                    </select>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode == 'view' && menu.getIsShow() == 1}" disabled="true">
+                        <option th:value="1" th:text="显示"></option>
+                        <option th:value="0" th:text="不显示"></option>
+                    </select>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode == 'view' && menu.getIsShow() == 0}" disabled="true">
+                        <option th:value="0" th:text="不显示"></option>
+                        <option th:value="1" th:text="显示"></option>
+                    </select>
+                    <select name="isShow" id="isShow" lay-verify="" th:if="${mode == 'view' && menu.getIsShow() == null}" disabled="true">
+                        <option th:value="1" th:text="显示"></option>
+                        <option th:value="0" th:text="不显示"></option>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <select name="type" id="type" lay-verify="" th:if="${mode == 'add' || mode == 'addChildren'}">
+                    <select name="type" id="type" lay-verify="" th:if="${mode == 'view' && menu.getType() == 0}" disabled="=true">
                         <option th:value="0" th:text="菜单"></option>
                         <option th:value="1" th:text="按钮"></option>
                     </select>
-                    <select name="type" id="type" lay-verify="" th:if="${mode != 'add' && mode != 'addChildren'}">
-                        <option th:if="${0 == menu.type}" th:value="0" th:text="菜单"></option>
-                        <option th:if="${0 == menu.type}" th:value="1" th:text="按钮"></option>
-                        <option th:if="${1 == menu.type}" th:value="1" th:text="按钮"></option>
-                        <option th:if="${1 == menu.type}" th:value="0" th:text="菜单"></option>
+                    <select name="type" id="type" lay-verify="" th:if="${mode == 'view' && menu.getType() == 1}" disabled="=true">
+                        <option th:value="1" th:text="按钮"></option>
+                        <option th:value="0" th:text="菜单"></option>
+                    </select>
+                    <select name="type" id="type" lay-verify="" th:if="${mode == 'view' && menu.getType() == null}" disabled="=true">
+                        <option th:value="0" th:text="菜单"></option>
+                        <option th:value="1" th:text="按钮"></option>
+                    </select>
+                    <select name="type" id="type" lay-verify="" th:if="${mode != 'view' && menu.getType() == 0}">
+                        <option th:value="0" th:text="菜单"></option>
+                        <option th:value="1" th:text="按钮"></option>
+                    </select>
+                    <select name="type" id="type" lay-verify="" th:if="${mode != 'view' && menu.getType() == 1}">
+                        <option th:value="1" th:text="按钮"></option>
+                        <option th:value="0" th:text="菜单"></option>
+                    </select>
+                    <select name="type" id="type" lay-verify="" th:if="${mode != 'view' && menu.getType() == null}">
+                        <option th:value="0" th:text="菜单"></option>
+                        <option th:value="1" th:text="按钮"></option>
                     </select>
                 </div>
             </div>
