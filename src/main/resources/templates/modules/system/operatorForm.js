@@ -22,13 +22,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
 
 //保存方法
 function save(parentIndex) {
-    if ($("#username").val() == '') {
-        rc.alert("名称不能为空")
-    }
-    if ($("#password").val() == '') {
-        rc.alert("密码不能为空")
-    }
-    if ($("#username").val() != '' && $("#password").val() != '') {
+    let isValidate = rc.validateForm('#operatorForm');//校验表单
+    if (!isValidate) {
+        return false;
+    } else {
         $.ajax({
             url: "/bobogou/system/operator/save",    //请求的url地址
             dataType: "json",   //返回格式为json
