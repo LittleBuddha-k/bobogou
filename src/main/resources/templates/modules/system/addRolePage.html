@@ -73,10 +73,7 @@
         </script>
 
         <form id="hiddenForm">
-            <input type="hidden" th:name="id" th:value="${operator.getId()}">
-            <input type="hidden" th:name="username" th:value="${operator.getPhone()}">
-            <input type="hidden" th:name="nickname" th:value="${operator.getNickname()}">
-            <input type="hidden" th:name="sex" th:value="${operator.sex}">
+            <input type="hidden" th:name="id" th:value="${operator.getId()}" id="id">
             <input type="hidden" th:name="rolesId" th:value="${rolesId}" id="rolesId">
         </form>
     </div>

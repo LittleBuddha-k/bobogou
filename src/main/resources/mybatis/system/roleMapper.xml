@@ -14,8 +14,6 @@
     </sql>
 
     <sql id="roleJoins">
-        LEFT JOIN system_operator_role b ON a.id=b.role_id
-        LEFT JOIN system_operator c ON c.id=b.operator_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
@@ -43,9 +41,6 @@
             </if>
             <if test="englishName != null and englishName != ''">
                 and a.english_name = #{englishName}
-            </if>
-            <if test="operator != null and operator.id != null and operator.id != ''">
-                and b.operator_id = #{operator.id}
             </if>
         </where>
         <choose>

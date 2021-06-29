@@ -44,7 +44,7 @@
                 and a.operator_id = #{operator.id}
             </if>
             <if test="operator != null and operator.id != null and operator.id != ''">
-                and a.role_id = #{role_id}
+                and a.role_id = #{role.id}
             </if>
         </where>
         <choose>

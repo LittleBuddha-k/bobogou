@@ -65,7 +65,7 @@
                     <img th:if="${operator.getPicture() == null}" alt="未设置头像" style="max-width: 196px">
                     <img th:if="${operator.getPicture() != null}" th:src="${operator.getPicture()}" alt="111" style="max-width: 196px">
                 </div>
-                <input type="hidden" id="picture" name="picture">
+                <input type="hidden" id="picture" name="picture" th:value="${operator.getPicture()}">
             </div>
         </div>
         <div class="layui-form-item">
