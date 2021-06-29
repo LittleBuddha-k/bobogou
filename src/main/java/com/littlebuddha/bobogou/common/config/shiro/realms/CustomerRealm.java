@@ -3,8 +3,10 @@ package com.littlebuddha.bobogou.common.config.shiro.realms;
 import com.littlebuddha.bobogou.common.utils.ApplicationContextUtils;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.system.OperatorService;
+import com.littlebuddha.bobogou.modules.service.system.RoleService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -17,6 +19,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRealm extends AuthorizingRealm {
@@ -30,17 +33,28 @@ public class CustomerRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         OperatorService operatorService = (OperatorService) ApplicationContextUtils.getBean("operatorService");
+        RoleService roleService = (RoleService) ApplicationContextUtils.getBean("roleService");
         //根据完整的用户信息查询用户角色以及用户权限
         Operator operator = (Operator) principalCollection.getPrimaryPrincipal();
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-        List<Role> rolesByOperator = operatorService.findRolesByOperator(operator);
+        List<OperatorRole> rolesByOperator = operatorService.findRolesByOperator(operator);
         if (!CollectionUtils.isEmpty(rolesByOperator)) {
-            List<Role> roles = rolesByOperator;
-            roles.forEach(role -> {
+            for (OperatorRole operatorRole : rolesByOperator) {
+                if (operatorRole != null && operatorRole.getRole() != null){
+                    Role role = roleService.get(operatorRole.getRole());
+                    if (role != null) {
+                        simpleAuthorizationInfo.addRole(role.getEnglishName());
+                    }
+                }
+            }
+            /*roles.forEach(role -> {
                 simpleAuthorizationInfo.addRole(role.getEnglishName());
-            });
-            for (Role role : roles) {
-                List<Menu> menus = operatorService.findPermissions(role);
+            });*/
+            for (OperatorRole operatorRole : rolesByOperator) {
+                List<Menu> menus = new ArrayList<>();
+                if (operatorRole != null && operatorRole.getRole() != null){
+                    menus = operatorService.findPermissions(operatorRole.getRole());
+                }
                 menus.forEach(menu -> {
                     simpleAuthorizationInfo.addStringPermission(menu.getPermission());
                 });

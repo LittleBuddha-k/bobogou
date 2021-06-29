@@ -40,11 +40,11 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <if test="operator != null and operator.id != null and operator.id != ''">
-                and a.operator_id = #{operator.id}
+            <if test="role != null and role.id != null and role.id != ''">
+                and a.role_id = #{role.id}
             </if>
             <if test="operator != null and operator.id != null and operator.id != ''">
-                and a.role_id = #{role.id}
+                and a.operator_id = #{operator.id}
             </if>
         </where>
         <choose>

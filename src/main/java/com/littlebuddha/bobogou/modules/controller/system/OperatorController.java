@@ -80,8 +80,6 @@ public class OperatorController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Operator operator, Model model) {
-        List<Role> rolesByOperator = operatorService.findRolesByOperator(operator);
-        model.addAttribute("roles", rolesByOperator);
         model.addAttribute("operator", operator);
         return "modules/system/operatorForm";
     }

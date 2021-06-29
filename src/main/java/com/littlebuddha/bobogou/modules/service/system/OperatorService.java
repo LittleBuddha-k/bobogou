@@ -112,9 +112,9 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         return operatorMapper.getOperatorByName(operator);
     }
 
-    public List<Role> findRolesByOperator(Operator operator) {
-        List<Role> rolesByOperator = roleMapper.findList(new Role(operator));
-        return rolesByOperator;
+    public List<OperatorRole> findRolesByOperator(Operator operator) {
+        List<OperatorRole> operatorRoleList = operatorRoleMapper.findList(new OperatorRole(operator));
+        return operatorRoleList;
     }
 
     @Override
@@ -180,14 +180,16 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
 
     public List<Menu> getMenusByOperator() {
         Operator currentUser = UserUtils.getCurrentUser();
-        List<Role> roles = findRolesByOperator(currentUser);
+        List<OperatorRole> rolesByOperator = findRolesByOperator(currentUser);
         List<Menu> menuData = new ArrayList<>();
         List<Menu> menusByRole = new ArrayList<>();
         //1.查询当前用户的所有角色菜单信息
-        for (Role role : roles) {
-            List<Menu> menus = menuMapper.findList(new Menu(role));
-            if (menus != null && menus.size() > 0) {
-                menusByRole.addAll(menus);
+        for (OperatorRole operatorRole : rolesByOperator) {
+            if (operatorRole != null && operatorRole.getRole() !=  null &&StringUtils.isNotBlank(operatorRole.getRole().getId())) {
+                List<Menu> menus = menuMapper.findList(new Menu(operatorRole.getRole()));
+                if (menus != null && menus.size() > 0) {
+                    menusByRole.addAll(menus);
+                }
             }
         }
         //2.将所有1得到的menu放入menuList
