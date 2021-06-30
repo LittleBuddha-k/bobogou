@@ -22,7 +22,7 @@ public class GlobalSetting {
     private String uploadImage;//图片全局配置保存上传路径
 
     @Value("${global.domainName}")
-    private String domainName;//域名
+    private String rootPath;//rootPath
 
     public String getUploadImage() {
         return uploadImage;
@@ -32,11 +32,11 @@ public class GlobalSetting {
         this.uploadImage = uploadImage;
     }
 
-    public String getDomainName() {
-        return domainName;
+    public String getRootPath() {
+        return rootPath;
     }
 
-    public void setDomainName(String domainName) {
-        this.domainName = domainName;
+    public void setRootPath(String rootPath) {
+        this.rootPath = rootPath;
     }
 }
