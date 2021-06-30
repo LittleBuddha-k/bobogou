@@ -25,29 +25,30 @@
                            th:id="outline" class="layui-input">
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">类型</label>
-                <div class="layui-input-inline">
-                    <select name="type" lay-verify="" th:if="${promptMessage.getType() == null}">
-                        <option th:value="0" th:text="系统消息"/>
-                        <option th:value="1" th:text="促销活动消息"/>
-                    </select>
-                    <select name="type" lay-verify="" th:if="${promptMessage.getType() == 0}">
-                        <option th:value="0" th:text="系统消息"/>
-                        <option th:value="1" th:text="促销活动消息"/>
-                    </select>
-                    <select name="type" lay-verify="" th:if="${promptMessage.getType() == 1}">
-                        <option th:value="1" th:text="促销活动消息"/>
-                        <option th:value="0" th:text="系统消息"/>
-                    </select>
-                </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="" th:if="${promptMessage.getType() == null}">
+                    <option th:value="0" th:text="系统消息"/>
+                    <option th:value="1" th:text="促销活动消息"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${promptMessage.getType() == 0}">
+                    <option th:value="0" th:text="系统消息"/>
+                    <option th:value="1" th:text="促销活动消息"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${promptMessage.getType() == 1}">
+                    <option th:value="1" th:text="促销活动消息"/>
+                    <option th:value="0" th:text="系统消息"/>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" for="content">内容</label>
             <div class="layui-input-block">
-                <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${promptMessage.getContent()}"
-                          th:id="content" ></textarea>
+                <textarea placeholder="请输入内容" class="layui-textarea required" name="content"
+                          th:text="${promptMessage.getContent()}"
+                          th:id="content"></textarea>
             </div>
         </div>
     </form>

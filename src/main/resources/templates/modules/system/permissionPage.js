@@ -52,16 +52,16 @@ layui.use(['form', 'table'], function () {
             [
                 {
                     type: "checkbox"
-                },
+                },/*
                 {
                     title: '父级id',
                     field: 'parentId'
-                },
+                },*/
                 {
                     title: '菜单名字',
                     field: 'title',
                     sort: true
-                },
+                },/*
                 {
                     title: '链接',
                     field: 'href',
@@ -76,7 +76,7 @@ layui.use(['form', 'table'], function () {
                     title: '图标',
                     field: 'icon',
                     sort: true
-                },
+                },*/
                 {
                     title: '排序',
                     field: 'sort',
@@ -85,22 +85,43 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '是否显示',
                     field: 'isShow',
-                    sort: true
-                },
+                    sort: true,
+                    templet: function (d) {
+                        if (1 == d.isShow) {
+                            return '是';
+                        } else {
+                            return '否';
+                        }
+                    }
+                },/*
                 {
                     title: '菜单类型',
                     field: 'type',
-                    sort: true
+                    sort: true,
+                    templet: function (d) {
+                        if (0 == d.type) {
+                            return '菜单';
+                        } else if (1 == d.type) {
+                            return '按钮';
+                        }
+                    }
                 },
                 {
                     title: '权限标识',
                     field: 'permission',
                     sort: true
-                },
+                },*/
                 {
                     title: '是否有子类',
                     field: 'hasChildren',
-                    sort: true
+                    sort: true,
+                    templet: function (d) {
+                        if (d.hasChildren) {
+                            return '是';
+                        } else {
+                            return '否';
+                        }
+                    }
                 }/*,
                 {
                     title: '操作',

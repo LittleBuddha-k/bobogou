@@ -115,7 +115,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(promptMessageTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/promptMessage/form/add", "新建信息",'990px','300px')
+            var index = rc.openSaveDialog("/bobogou/other/promptMessage/form/add", "新建信息",'650px','340px')
         }
     });
 

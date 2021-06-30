@@ -99,7 +99,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsTypeTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/goodsType/form/add", "新建商品分类信息",'1020px','412px')
+            let index = rc.openSaveDialog("/bobogou/data/goodsType/form/add", "新建商品分类信息",'467px','455px')
         }
     });
 
@@ -107,7 +107,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goodsType/form/edit?id=' + id, "编辑信息", '1020px', '412px');
+            rc.openSaveDialog('/bobogou/data/goodsType/form/edit?id=' + id, "编辑信息", '467px', '455px');
         } else if (event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/data/goodsType/delete?ids=" + id, '', function (data) {

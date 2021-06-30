@@ -19,19 +19,27 @@
             <div class="layui-inline">
                 <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-inline">
-                    <input type="name"  th:name="name" th:value="${role.getName()}" placeholder="角色名称"
-                           lay-verify="required|name" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>
-                    <input type="name"  th:name="name" th:value="${role.getName()}" placeholder="角色名称"
-                           lay-verify="required|name" autocomplete="off" class="layui-input required" th:if="${mode != 'view'}">
+                    <input type="name" th:name="name" th:value="${role.getName()}" placeholder="角色名称"
+                           lay-verify="required|name" autocomplete="off" class="layui-input required"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="name" th:name="name" th:value="${role.getName()}" placeholder="角色名称"
+                           lay-verify="required|name" autocomplete="off" class="layui-input required"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label">英文名称</label>
                 <div class="layui-input-inline">
-                    <input type="englishName" th:name="englishName" th:value="${role.getEnglishName()}" placeholder="英文名称"
-                           lay-verify="required|englishName" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>
-                    <input type="englishName" th:name="englishName" th:value="${role.getEnglishName()}" placeholder="英文名称"
-                           lay-verify="required|englishName" autocomplete="off" class="layui-input required" th:if="${mode != 'view'}">
+                    <input type="englishName" th:name="englishName" th:value="${role.getEnglishName()}"
+                           placeholder="英文名称"
+                           lay-verify="required|englishName" autocomplete="off" class="layui-input required"
+                           th:if="${mode == 'view'}" readonly>
+                    <input type="englishName" th:name="englishName" th:value="${role.getEnglishName()}"
+                           placeholder="英文名称"
+                           lay-verify="required|englishName" autocomplete="off" class="layui-input required"
+                           th:if="${mode != 'view'}">
                 </div>
             </div>
         </div>
