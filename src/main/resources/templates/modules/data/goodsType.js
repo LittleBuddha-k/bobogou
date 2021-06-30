@@ -51,13 +51,13 @@ layui.use(['form', 'table'], function () {
                         var icon = data.icon;
                         return '<img src="' + icon + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
                     }
-                },
+                },/*
                 {
                     title: '父级',
                     field: 'parentName',
                     sort: true,
                     sortName: 'goodsType.name'
-                },/*
+                },
                 {
                     title: '最后操作人ID',
                     field: 'accountId',

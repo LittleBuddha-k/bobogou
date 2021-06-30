@@ -18,7 +18,7 @@ public class Menu extends DataEntity<Menu> {
     private String title;    // 名称
     private String href;    // 链接
     private String target;    // 目标（ mainFrame、_blank、_self、_parent、_top）
-    private String icon;    // 图标
+    private String icon = "layui-icon layui-icon-layer";    // 图标
     private Integer sort;    // 排序
     private Integer isShow;    // 是否在菜单中显示（1：显示；0：不显示）
     private Integer type; //按钮类型（1：按钮；0：菜单）

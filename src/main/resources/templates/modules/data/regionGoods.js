@@ -94,6 +94,7 @@ layui.use(['form', 'table'], function () {
                     title: '省',
                     field: 'provinceName',
                     sort: true,
+                    width: '10%',
                     sortName: 'provinceName'/*,
                     templet:function(data){
                         var valueArray = data.provinceName;
@@ -104,42 +105,49 @@ layui.use(['form', 'table'], function () {
                     title: '市',
                     field: 'cityName',
                     sort: true,
+                    width: '10%',
                     sortName: 'cityName'
                 },
                 {
                     title: '区',
                     field: 'areaName',
                     sort: true,
+                    width: '10%',
                     sortName: 'areaName'
                 },
                 {
                     title: '街道',
                     field: 'streetName',
                     sort: true,
+                    width: '10%',
                     sortName: 'streetName'
                 },
                 {
                     title: '商品',
                     field: 'goodsName',
                     sort: true,
+                    width: '10%',
                     sortName: 'goodsName'
                 },
                 {
                     title: '商品数量',
                     field: 'amount',
                     sort: true,
+                    width: '10%',
                     sortName: 'amount'
                 },
                 {
                     title: '销量',
                     field: 'salesVolume',
                     sort: true,
+                    width: '10%',
                     sortName: 'salesVolume'
                 },
                 {
                     title: '是否在售',
                     field: 'isMarket',
                     sort: true,
+                    width: '10%',
                     sortName: 'isMarket',
                     templet:function(data){
                         let isMarket = data.isMarket;
@@ -147,6 +155,8 @@ layui.use(['form', 'table'], function () {
                             return "在售";
                         }else if(1 == isMarket){
                             return "停售";
+                        }else {
+                            return ""
                         }
                     }
                 },/*
@@ -159,7 +169,8 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center"
+                    align: "center",
+                    width: '20%'
                 }
             ]
         ],

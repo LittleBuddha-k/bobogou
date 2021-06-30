@@ -11,144 +11,150 @@
     <form class="layui-form" id="customerUserForm">
         <input type="hidden" name="id" id="id" th:value="${customerUser.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label" for="phone">手机号</label>
-            <div class="layui-input-block">
-                <input type="phone" name="phone" th:value="${customerUser.getPhone()}"
-                       th:id="phone" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">图片地址</label>
-            <div class="layui-upload-drag" id="test10" name="file">
-                <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide" th:id="upload" th:if="${mode == 'add'}">
-                    <hr>
-                    <img src="" alt="asdasd" style="max-width: 196px">
-                </div>
-                <div class="" th:id="upload" th:if="${mode != 'add'}">
+            <label class="layui-form-label">头像</label>
+            <div class="layui-upload-drag" name="file">
+                <!--<i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>-->
+                <div class="">
                     <hr>
                     <img th:src="${customerUser.getHeader()}" alt="未设置头像" style="max-width: 196px">
                 </div>
-                <input type="hidden" id="header" name="header">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="phone">手机号</label>
+                <div class="layui-input-inline">
+                    <input type="phone" name="phone" th:value="${customerUser.getPhone()}"
+                           th:id="phone" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="nickname">昵称</label>
+                <div class="layui-input-inline">
+                    <input type="nickname" name="nickname" th:value="${customerUser.getNickname()}" autocomplete="off"
+                           th:id="nickname" class="layui-input" readonly>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="nickname">昵称</label>
-            <div class="layui-input-block">
-                <input type="nickname" name="nickname" th:value="${customerUser.getNickname()}" autocomplete="off"
-                       th:id="nickname" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == null}" disabled="true">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 0}" disabled="true">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 1}" disabled="true">
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 2}" disabled="true">
+                        <option th:value="2" th:text="女"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">会员等级</label>
+                <div class="layui-input-inline">
+                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == null}" disabled="true">
+                        <option th:value="0" th:text="普通会员"/>
+                        <option th:value="1" th:text="VIP"/>
+                    </select>
+                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == 0}" disabled="true">
+                        <option th:value="0" th:text="普通会员"/>
+                        <option th:value="1" th:text="VIP"/>
+                    </select>
+                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == 1}" disabled="true">
+                        <option th:value="1" th:text="VIP"/>
+                        <option th:value="0" th:text="普通会员"/>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-                <select name="sex" lay-verify="" th:if="${customerUser.getSex() == null}">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 0}">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 1}">
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 2}">
-                    <option th:value="2" th:text="女"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="integral">积分</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="integral" th:value="${customerUser.getIntegral()}" autocomplete="off"
+                           th:id="integral" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="healthBeans">健康豆</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="healthBeans" th:value="${customerUser.getHealthBeans()}" autocomplete="off"
+                           th:id="healthBeans" class="layui-input" readonly>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">会员等级</label>
-            <div class="layui-input-block">
-                <select name="member" lay-verify="" th:if="${customerUser.getMember() == null}">
-                    <option th:value="0" th:text="普通会员"/>
-                    <option th:value="1" th:text="VIP"/>
-                </select>
-                <select name="member" lay-verify="" th:if="${customerUser.getMember() == 0}">
-                    <option th:value="0" th:text="普通会员"/>
-                    <option th:value="1" th:text="VIP"/>
-                </select>
-                <select name="member" lay-verify="" th:if="${customerUser.getMember() == 1}">
-                    <option th:value="1" th:text="VIP"/>
-                    <option th:value="0" th:text="普通会员"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="collectNumber">收藏数量</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="collectNumber" th:value="${customerUser.getCollectNumber()}" autocomplete="off"
+                           th:id="collectNumber" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="signInTime">签到时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="signInTime" th:value="${customerUser.getSignInTime()}" autocomplete="off"
+                           th:id="signInTime" class="layui-input" readonly>
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="integral">积分</label>
-            <div class="layui-input-block">
-                <input type="text" name="integral" th:value="${customerUser.getIntegral()}" autocomplete="off"
-                       th:id="integral" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">消息接收状态</label>
+                <div class="layui-input-inline">
+                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == null}" disabled="true">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 0}" disabled="true">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 1}" disabled="true">
+                        <option th:value="1" th:text="打开"/>
+                        <option th:value="0" th:text="关闭"/>
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="healthBeans">健康豆</label>
-            <div class="layui-input-block">
-                <input type="text" name="healthBeans" th:value="${customerUser.getHealthBeans()}" autocomplete="off"
-                       th:id="healthBeans" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="collectNumber">收藏数量</label>
-            <div class="layui-input-block">
-                <input type="text" name="collectNumber" th:value="${customerUser.getCollectNumber()}" autocomplete="off"
-                       th:id="collectNumber" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="signInTime">签到时间</label>
-            <div class="layui-input-block">
-                <input type="text" name="signInTime" th:value="${customerUser.getSignInTime()}" autocomplete="off"
-                       th:id="signInTime" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">消息接收状态</label>
-            <div class="layui-input-block">
-                <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == null}">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 0}">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 1}">
-                    <option th:value="1" th:text="打开"/>
-                    <option th:value="0" th:text="关闭"/>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">是否同意用户协议</label>
-            <div class="layui-input-block">
-                <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == null}">
-                    <option th:value="0" th:text="未同意"/>
-                    <option th:value="1" th:text="已同意"/>
-                </select>
-                <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 0}">
-                    <option th:value="0" th:text="未同意"/>
-                    <option th:value="1" th:text="已同意"/>
-                </select>
-                <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 1}">
-                    <option th:value="1" th:text="已同意"/>
-                    <option th:value="0" th:text="未同意"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否同意用户协议</label>
+                <div class="layui-input-inline">
+                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == null}" disabled="true">
+                        <option th:value="0" th:text="未同意"/>
+                        <option th:value="1" th:text="已同意"/>
+                    </select>
+                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 0}" disabled="true">
+                        <option th:value="0" th:text="未同意"/>
+                        <option th:value="1" th:text="已同意"/>
+                    </select>
+                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 1}" disabled="true">
+                        <option th:value="1" th:text="已同意"/>
+                        <option th:value="0" th:text="未同意"/>
+                    </select>
+                </div>
             </div>
         </div>
 
         <div class="layui-form-item" th:if="${mode == 'vip'}">
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
-                        th:if="${customerUser.getApplyStatus() == 0}"> 通 过
+                        th:if="${customerUser.getApplyStatus() == 0}" style="margin-left: 140px"> 通 过
                 </button>
                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
                         th:if="${customerUser.getApplyStatus() == 0}"> 拒 绝

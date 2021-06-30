@@ -203,9 +203,9 @@ layui.use(['form', 'table'], function () {
     table.on('tool(customerUserTableFilter)', function (obj) {
         let id = obj.data.id;
         if (obj.event === 'detail') {
-            let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","100%","100%")
+            let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","700px","600px")
         } else if (obj.event === 'vip') {
-            let index = rc.openViewDialog("/bobogou/other/customerUser/form/vip?id=" + id, "VIP审核","100%","100%")
+            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/form/vip?id=" + id, "VIP审核","700px","600px")
         }
     });
 });

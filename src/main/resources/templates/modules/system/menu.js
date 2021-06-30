@@ -36,12 +36,12 @@ function init() {
                             field: 'title',
                             align: 'left',
                             title: '菜单名称'
-                        },
+                        },/*
                         {
                             field: 'href',
                             align: 'left',
                             title: '菜单url'
-                        },
+                        },*/
                         {
                             field: 'icon',
                             align: 'left',
@@ -67,7 +67,7 @@ function init() {
                                     return '否';
                                 }
                             }
-                        },
+                        },/*
                         {
                             field: 'type',
                             align: 'left',
@@ -79,7 +79,7 @@ function init() {
                                     return '按钮';
                                 }
                             }
-                        },/*
+                        },
                         {
                             field: 'permission',
                             align: 'left',

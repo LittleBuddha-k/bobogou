@@ -11,17 +11,19 @@
     <form class="layui-form" id="integralForm">
         <input type="hidden" name="id" id="id" th:value="${integral.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label" for="integral">积分</label>
-            <div class="layui-input-block">
-                <input type="integral" name="integral" th:value="${integral.getIntegral()}"
-                       th:id="integral" autocomplete="off" class="layui-input number">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="integral">积分</label>
+                <div class="layui-input-inline">
+                    <input type="integral" name="integral" th:value="${integral.getIntegral()}"
+                           th:id="integral" autocomplete="off" class="layui-input number">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="day">天数</label>
-            <div class="layui-input-block">
-                <input type="day" name="day" th:value="${integral.getDay()}" autocomplete="off"
-                       th:id="day" class="layui-input number">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="day">天数</label>
+                <div class="layui-input-inline">
+                    <input type="day" name="day" th:value="${integral.getDay()}" autocomplete="off"
+                           th:id="day" class="layui-input number">
+                </div>
             </div>
         </div>
     </form>

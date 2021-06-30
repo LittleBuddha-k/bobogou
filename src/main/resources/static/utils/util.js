@@ -249,6 +249,32 @@
                 });
             });
         },
+        openViewDialogNoClose: function open(url, title,width,height) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.open({
+                    type: 2,
+                    title: title,
+                    content: url,
+                    skin: 'demo-class',
+                    area: [width,height],
+                    offset: 'auto',/*
+                    btn: ['关闭'],
+                    cancel: function (index) {
+                    },*/
+                    //按钮1、2、3的位置
+                    btnAlign: 'c',
+                    //关闭按钮的风格
+                    closeBtn: 2,
+                    shade: [0.8, '#393D49'],
+                    //设置延时关闭时间
+                    //time: 5000,
+                    shift: 4,
+                    //配置最大化最小化按钮
+                    maxmin: false
+                });
+            });
+        },
         openSelectionDialog: function open(url, title,width,height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
