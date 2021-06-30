@@ -95,7 +95,6 @@ function save(parentIndex) {
             data: $("#regionGoodsForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
-                console.log(result)
                 if (result.code == 200) {
                     rc.alert(result.msg)
                     //假设这是iframe页
