@@ -67,7 +67,7 @@
             <if test="salesVolume != null and salesVolume != ''">
                 AND a.sales_volume = #{salesVolume}
             </if>
-            <if test="isMarket != null and isMarket != ''">
+            <if test="isMarket != null">
                 AND a.is_market = #{isMarket}
             </if>
             <if test="accountId != null and accountId != ''">

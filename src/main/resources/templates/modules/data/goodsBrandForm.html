@@ -11,17 +11,19 @@
     <form class="layui-form" id="goodsBrandForm">
         <input type="hidden" name="id" th:value="${goodsBrand.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label" for="brandName">品牌名称</label>
-            <div class="layui-input-block">
-                <input type="brandName" name="brandName" th:value="${goodsBrand.getBrandName()}"
-                       th:id="brandName" autocomplete="off" class="layui-input required">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="brandName">品牌名称</label>
+                <div class="layui-input-inline">
+                    <input type="brandName" name="brandName" th:value="${goodsBrand.getBrandName()}"
+                           th:id="brandName" autocomplete="off" class="layui-input required">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="classifyName">品牌规格分类名称</label>
-            <div class="layui-input-block">
-                <input type="classifyName" name="classifyName" th:value="${goodsBrand.getClassifyName()}"
-                       th:id="classifyName" autocomplete="off" class="layui-input required">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="classifyName">品牌规格分类名称</label>
+                <div class="layui-input-inline">
+                    <input type="classifyName" name="classifyName" th:value="${goodsBrand.getClassifyName()}"
+                           th:id="classifyName" autocomplete="off" class="layui-input required">
+                </div>
             </div>
         </div>
     </form>
