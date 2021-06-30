@@ -217,7 +217,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(orderTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/order/form/add", "新建订单信息", '85%', '70%')
+            var index = rc.openSaveDialog("/bobogou/data/order/form/add", "新建订单信息", '1320px', '650px')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -230,7 +230,7 @@ layui.use(['form', 'table'], function () {
                 rc.alert("请至少选择一条数据")
             } else if (idArr[0]) {
                 ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + ids, "编辑订单信息", '85%', '70%');
+                rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + ids, "编辑订单信息", '1320px', '650px');
             }
             $(window).on("resize", function () {
                 layer.full(index);

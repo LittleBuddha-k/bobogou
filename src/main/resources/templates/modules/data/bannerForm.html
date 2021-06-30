@@ -30,53 +30,40 @@
                     <img th:src="${banner.getUrl()}" alt="上传成功后渲染" style="max-width: 196px" th:if="${mode != 'add'}">
                 </div>
             </div>
-        </div><!--
+        </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">图片地址</label>
-            <div class="layui-input-block">
-                <input type="type" id="url" th:name="url" th:value="${banner.getUrl()}"
-                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
+            <div class="layui-inline">
+                <label class="layui-form-label">展示位置</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="" lay-filter="isMarket"
+                            th:id="type">
+                        <option th:value="1" th:text="首页"/>
+                    </select>
+                </div>
             </div>
-        </div>-->
-        <div class="layui-form-item">
-            <label class="layui-form-label">展示位置</label>
-            <div class="layui-input-block">
-                <select name="type" lay-verify="" lay-filter="isMarket"
-                        th:id="type">
-                    <option th:value="1" th:text="首页"/>
-                </select>
-            </div>
-        </div><!--
-        <div class="layui-form-item">
-            <label class="layui-form-label">链接地址</label>
-            <div class="layui-input-block">
-                <input type="link" id="link" th:name="link" th:value="${banner.getLink()}"
-                       placeholder="链接地址" lay-verify="required|link" autocomplete="off" class="layui-input">
-            </div>
-        </div>-->
-        <div class="layui-form-item">
-            <label class="layui-form-label">展示状态</label>
-            <div class="layui-input-block">
-                <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
-                        th:id="status">
+            <div class="layui-inline">
+                <label class="layui-form-label">展示状态</label>
+                <div class="layui-input-inline"><select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
+                                                        th:id="status">
                     <option th:value="0" th:text="隐藏"/>
                     <option th:value="1" th:text="展示"/>
                 </select>
-                <select name="status" lay-verify=""
-                        th:if="${mode != 'add' && banner.getStatus() == null}">
-                    <option th:value="0" th:text="隐藏"/>
-                    <option th:value="1" th:text="展示"/>
-                </select>
-                <select name="status" lay-verify=""
-                        th:if="${mode != 'add' && 0 == banner.getStatus()}">
-                    <option th:value="0" th:text="隐藏"/>
-                    <option th:value="1" th:text="展示"/>
-                </select>
-                <select name="status" lay-verify=""
-                        th:if="${mode != 'add' && 1 == banner.getStatus()}">
-                    <option th:value="1" th:text="展示"/>
-                    <option th:value="0" th:text="隐藏"/>
-                </select>
+                    <select name="status" lay-verify=""
+                            th:if="${mode != 'add' && banner.getStatus() == null}">
+                        <option th:value="0" th:text="隐藏"/>
+                        <option th:value="1" th:text="展示"/>
+                    </select>
+                    <select name="status" lay-verify=""
+                            th:if="${mode != 'add' && 0 == banner.getStatus()}">
+                        <option th:value="0" th:text="隐藏"/>
+                        <option th:value="1" th:text="展示"/>
+                    </select>
+                    <select name="status" lay-verify=""
+                            th:if="${mode != 'add' && 1 == banner.getStatus()}">
+                        <option th:value="1" th:text="展示"/>
+                        <option th:value="0" th:text="隐藏"/>
+                    </select>
+                </div>
             </div>
         </div>
     </form>

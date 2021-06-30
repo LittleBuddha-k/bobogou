@@ -158,7 +158,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsExchangeTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/add", "新建兑付信息", '40%', '60%')
+            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/add", "新建兑付信息", '1000px', '500px')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -168,7 +168,7 @@ layui.use(['form', 'table'], function () {
     table.on('tool(goodsExchangeTableFilter)', function (obj) {
         var id = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/edit?id="+id, "编辑兑付信息", '40%', '60%')
+            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/edit?id="+id, "编辑兑付信息", '1000px', '500px')
             $(window).on("resize", function () {
                 layer.full(index);
             });

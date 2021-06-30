@@ -11,13 +11,6 @@
     <form class="layui-form" id="goodsTypeForm">
         <input type="hidden" name="id" th:value="${goodsType.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label" for="name">分类名称</label>
-            <div class="layui-input-block">
-                <input type="name" name="name" th:value="${goodsType.getName()}"
-                       th:id="name" autocomplete="off" class="layui-input required">
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label class="layui-form-label" for="icon">分类图标地址</label>
             <!--<div class="layui-input-block">
                 <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
@@ -38,43 +31,51 @@
             <input type="hidden" id="icon" name="icon" th:value="${goodsType.getIcon()}">
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">父级分类</label>
-            <div class="layui-input-block">
-                <select name="parentId" lay-verify="" th:if="${mode == 'add'}">
-                    <option th:value="0" th:text="请选择"/>
-                    <option th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
-                            th:text="${goodsType.getName()}"/>
-                </select>
-                <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
-                    <option th:each="type:${goodsTypeList}"
-                            th:if="${type.getId() == goodsType.getParentId()}"
-                            th:value="${type.getId()}" th:text="${type.getName()}"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">分类名称</label>
+                <div class="layui-input-inline">
+                    <input type="name" name="name" th:value="${goodsType.getName()}"
+                           th:id="name" autocomplete="off" class="layui-input required">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">级别分类选择</label>
-            <div class="layui-input-block">
-                <select name="level" lay-verify="" th:if="${mode == 'add'}">
+            <div class="layui-inline">
+                <label class="layui-form-label">父级分类</label>
+                <div class="layui-input-inline">
+                    <select name="parentId" lay-verify="" th:if="${mode == 'add'}">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
+                                th:text="${goodsType.getName()}"/>
+                    </select>
+                    <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
+                        <option th:each="type:${goodsTypeList}"
+                                th:if="${type.getId() == goodsType.getParentId()}"
+                                th:value="${type.getId()}" th:text="${type.getName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">级别分类选择</label>
+                <div class="layui-input-inline"><select name="level" lay-verify="" th:if="${mode == 'add'}">
                     <option th:value="1" th:text="一级分类"/>
                     <option th:value="2" th:text="二级分类"/>
                     <option th:value="3" th:text="三级分类"/>
                 </select>
-                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 1}">
-                    <option th:value="1" th:text="一级分类"/>
-                    <option th:value="2" th:text="二级分类"/>
-                    <option th:value="3" th:text="三级分类"/>
-                </select>
-                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
-                    <option th:value="2" th:text="二级分类"/>
-                    <option th:value="1" th:text="一级分类"/>
-                    <option th:value="3" th:text="三级分类"/>
-                </select>
-                <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 3}">
-                    <option th:value="3" th:text="三级分类"/>
-                    <option th:value="1" th:text="一级分类"/>
-                    <option th:value="2" th:text="二级分类"/>
-                </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 1}">
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="2" th:text="二级分类"/>
+                        <option th:value="3" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 2}">
+                        <option th:value="2" th:text="二级分类"/>
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="3" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && goodsType.getLevel() == 3}">
+                        <option th:value="3" th:text="三级分类"/>
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="2" th:text="二级分类"/>
+                    </select>
+                </div>
             </div>
         </div>
     </form>

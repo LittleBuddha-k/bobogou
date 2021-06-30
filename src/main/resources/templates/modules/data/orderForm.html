@@ -51,6 +51,8 @@
                            th:id="healthBeans" class="layui-input number" th:if="${mode != 'add'}" readonly>
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="addressId">配送地址</label>
                 <div class="layui-input-inline">
@@ -185,6 +187,8 @@
                     </select>
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="type">类型</label>
                 <div class="layui-input-inline" th:if="${mode == 'add'}">
@@ -450,7 +454,8 @@
                     </select>
                 </div>
             </div>
-
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="payTime">支付时间</label>
                 <div class="layui-input-inline">
