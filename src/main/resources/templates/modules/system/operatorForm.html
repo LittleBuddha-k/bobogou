@@ -11,30 +11,43 @@
     <form class="layui-form" id="operatorForm">
         <input type="hidden" name="id" th:value="${operator.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label" for="loginName">登录名称</label>
-            <div class="layui-input-block">
-                <input type="text" name="loginName" th:value="${operator.getLoginName()}"
-                       th:id="loginName" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>
-                <input type="text" name="loginName" th:value="${operator.getLoginName()}"
-                       th:id="loginName" autocomplete="off" class="layui-input required" th:if="${mode != 'view'}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginName">登录名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="loginName" th:value="${operator.getLoginName()}"
+                           th:id="loginName" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>
+                    <input type="text" name="loginName" th:value="${operator.getLoginName()}"
+                           th:id="loginName" autocomplete="off" class="layui-input required" th:if="${mode != 'view'}">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="nickname">昵称</label>
+                <div class="layui-input-inline">
+                    <input type="nickname" name="nickname" th:value="${operator.getNickname()}" autocomplete="off"
+                           th:id="nickname" class="layui-input required" th:if="${mode == 'view'}" readonly>
+                    <input type="nickname" name="nickname" th:value="${operator.getNickname()}" autocomplete="off"
+                           th:id="nickname" class="layui-input required" th:if="${mode != 'view'}">
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="nickname">昵称</label>
-            <div class="layui-input-block">
-                <input type="nickname" name="nickname" th:value="${operator.getNickname()}" autocomplete="off"
-                       th:id="nickname" class="layui-input required" th:if="${mode == 'view'}" readonly>
-                <input type="nickname" name="nickname" th:value="${operator.getNickname()}" autocomplete="off"
-                       th:id="nickname" class="layui-input required" th:if="${mode != 'view'}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="password">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" th:value="${operator.getPassword()}" autocomplete="off"
+                           th:id="password" class="layui-input required" th:if="${mode == 'view'}" readonly>
+                    <input type="password" name="password" th:value="${operator.getPassword()}" autocomplete="off"
+                           th:id="password" class="layui-input required" th:if="${mode != 'view'}">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="password">密码</label>
-            <div class="layui-input-block">
-                <input type="password" name="password" th:value="${operator.getPassword()}" autocomplete="off"
-                       th:id="password" class="layui-input required" th:if="${mode == 'view'}" readonly>
-                <input type="password" name="password" th:value="${operator.getPassword()}" autocomplete="off"
-                       th:id="password" class="layui-input required" th:if="${mode != 'view'}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="phone">电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
+                           th:id="phone" class="layui-input" th:if="${mode == 'view'}" readonly>
+                    <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
+                           th:id="phone" class="layui-input" th:if="${mode != 'view'}">
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
@@ -68,125 +81,120 @@
                 <input type="hidden" id="picture" name="picture" th:value="${operator.getPicture()}">
             </div>
         </div>
+
         <div class="layui-form-item">
-            <label class="layui-form-label" for="phone">电话</label>
-            <div class="layui-input-block">
-                <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
-                       th:id="phone" class="layui-input" th:if="${mode == 'view'}" readonly>
-                <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
-                       th:id="phone" class="layui-input" th:if="${mode != 'view'}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="sex">性别</label>
+                <div class="layui-input-inline">
+                    <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == null}">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 0}">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 1}">
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 2}">
+                        <option th:value="2" th:text="女"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == null}" disabled="true">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 0}" disabled="true">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 1}" disabled="true">
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 2}" disabled="true">
+                        <option th:value="2" th:text="女"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="messageStatus">消息状态</label>
+                <div class="layui-input-inline"><select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == null}">
+                    <option th:value="0" th:text="关闭"/>
+                    <option th:value="1" th:text="打开"/>
+                </select>
+                    <select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == 0}">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == 1}">
+                        <option th:value="1" th:text="打开"/>
+                        <option th:value="0" th:text="关闭"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == null}" disabled="true">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == 0}" disabled="true">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == 1}" disabled="true">
+                        <option th:value="1" th:text="打开"/>
+                        <option th:value="0" th:text="关闭"/>
+                    </select>
+                </div>
             </div>
         </div>
+
         <div class="layui-form-item">
-            <label class="layui-form-label" for="sex">性别</label>
-            <div class="layui-input-block">
-                <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == null}">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 0}">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 1}">
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode != 'view' && operator.getSex() == 2}">
-                    <option th:value="2" th:text="女"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == null}" disabled="true">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 0}" disabled="true">
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 1}" disabled="true">
-                    <option th:value="1" th:text="男"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="2" th:text="女"/>
-                </select>
-                <select name="sex" lay-verify="" th:if="${mode == 'view' && operator.getSex() == 2}" disabled="true">
-                    <option th:value="2" th:text="女"/>
-                    <option th:value="0" th:text="未知"/>
-                    <option th:value="1" th:text="男"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="workNumber">工号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="workNumber" th:value="${operator.getWorkNumber()}" autocomplete="off"
+                           th:id="workNumber" class="layui-input" th:if="${mode == 'view'}" readonly>
+                    <input type="text" name="workNumber" th:value="${operator.getWorkNumber()}" autocomplete="off"
+                           th:id="workNumber" class="layui-input" th:if="${mode != 'view'}">
+                </div>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="messageStatus">消息状态</label>
-            <div class="layui-input-block">
-                <select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == null}">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == 0}">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${mode != 'view' && operator.getMessageStatus() == 1}">
-                    <option th:value="1" th:text="打开"/>
-                    <option th:value="0" th:text="关闭"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == null}" disabled="true">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == 0}" disabled="true">
-                    <option th:value="0" th:text="关闭"/>
-                    <option th:value="1" th:text="打开"/>
-                </select>
-                <select name="messageStatus" lay-verify="" th:if="${mode == 'view' && operator.getMessageStatus() == 1}" disabled="true">
-                    <option th:value="1" th:text="打开"/>
-                    <option th:value="0" th:text="关闭"/>
-                </select>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="workNumber">工号</label>
-            <div class="layui-input-block">
-                <input type="text" name="workNumber" th:value="${operator.getWorkNumber()}" autocomplete="off"
-                       th:id="workNumber" class="layui-input" th:if="${mode == 'view'}" readonly>
-                <input type="text" name="workNumber" th:value="${operator.getWorkNumber()}" autocomplete="off"
-                       th:id="workNumber" class="layui-input" th:if="${mode != 'view'}">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="loginFlag">登录标识</label>
-            <div class="layui-input-block">
-                <select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == null}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginFlag">登录标识</label>
+                <div class="layui-input-inline"><select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == null}">
                     <option th:value="0" th:text="不允许登录"/>
                     <option th:value="1" th:text="允许登录"/>
                 </select>
-                <select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == 0}">
-                    <option th:value="0" th:text="不允许登录"/>
-                    <option th:value="1" th:text="允许登录"/>
-                </select>
-                <select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == 1}">
-                    <option th:value="1" th:text="允许登录"/>
-                    <option th:value="0" th:text="不允许登录"/>
-                </select>
-                <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == null}" disabled="true">
-                    <option th:value="0" th:text="不允许登录"/>
-                    <option th:value="1" th:text="允许登录"/>
-                </select>
-                <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == 0}" disabled="true">
-                    <option th:value="0" th:text="不允许登录"/>
-                    <option th:value="1" th:text="允许登录"/>
-                </select>
-                <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == 1}" disabled="true">
-                    <option th:value="1" th:text="允许登录"/>
-                    <option th:value="0" th:text="不允许登录"/>
-                </select>
+                    <select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == 0}">
+                        <option th:value="0" th:text="不允许登录"/>
+                        <option th:value="1" th:text="允许登录"/>
+                    </select>
+                    <select name="loginFlag" lay-verify="" th:if="${mode != 'view' && operator.getLoginFlag() == 1}">
+                        <option th:value="1" th:text="允许登录"/>
+                        <option th:value="0" th:text="不允许登录"/>
+                    </select>
+                    <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == null}" disabled="true">
+                        <option th:value="0" th:text="不允许登录"/>
+                        <option th:value="1" th:text="允许登录"/>
+                    </select>
+                    <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == 0}" disabled="true">
+                        <option th:value="0" th:text="不允许登录"/>
+                        <option th:value="1" th:text="允许登录"/>
+                    </select>
+                    <select name="loginFlag" lay-verify="" th:if="${mode == 'view' && operator.getLoginFlag() == 1}" disabled="true">
+                        <option th:value="1" th:text="允许登录"/>
+                        <option th:value="0" th:text="不允许登录"/>
+                    </select>
+                </div>
             </div>
         </div>
     </form>

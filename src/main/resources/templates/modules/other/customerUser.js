@@ -101,13 +101,13 @@ layui.use(['form', 'table'], function () {
                     field: 'healthBeans',
                     sort: true,
                     sortName: 'healthBeans'
-                },
+                },/*
                 {
                     title: '收藏数量',
                     field: 'collectNumber',
                     sort: true,
                     sortName: 'collectNumber'
-                },
+                },*/
                 {
                     title: '签到时间',
                     field: 'signInTime',
