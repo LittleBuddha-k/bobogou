@@ -21,7 +21,7 @@ public class GlobalSetting {
     @Value("${global.uploadPath}")
     private String uploadImage;//图片全局配置保存上传路径
 
-    @Value("${global.domainName}")
+    @Value("${global.rootPath}")
     private String rootPath;//rootPath
 
     public String getUploadImage() {
