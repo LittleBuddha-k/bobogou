@@ -1,5 +1,6 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -118,6 +119,7 @@ public class Order extends DataEntity<Order> {
         this.status = status;
     }
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public Date getOutTime() {
         return outTime;
     }

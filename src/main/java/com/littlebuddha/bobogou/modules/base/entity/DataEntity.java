@@ -1,5 +1,6 @@
 package com.littlebuddha.bobogou.modules.base.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.littlebuddha.bobogou.common.utils.AutoId;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
@@ -20,10 +21,18 @@ public abstract class DataEntity<E> extends BaseEntity<E> {
     protected String delFlag = "0";       //0---正常  1---删除  初始值为0
 
     protected Operator createBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date createDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date createTime;
     protected Operator updateBy;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date updateDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     protected Date updateTime;
 
     protected String remarks;
