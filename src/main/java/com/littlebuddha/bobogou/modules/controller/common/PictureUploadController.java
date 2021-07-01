@@ -51,7 +51,7 @@ public class PictureUploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String domainName = globalSetting.getDomainName();
+        String domainName = globalSetting.getRootPath();
         String filename = "/temp-rainy/" + fileName;
         result.put("url","/bobogou" +filename);
         return result;
@@ -89,7 +89,7 @@ public class PictureUploadController {
             //String filename = filePath + "/" + fileName;
             String filename = "/temp-rainy/" + fileName;
             result.setSuccess(1);
-            String domainName = globalSetting.getDomainName();
+            String domainName = globalSetting.getRootPath();
             //result.setUrl(domainName + filename);
             result.setUrl("/bobogou" + filename);
             result.setMessage("上传成功");
