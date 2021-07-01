@@ -92,7 +92,7 @@ homeinfo:
 logoinfo:
   title: 播播狗
   image: /bobogou/pictures/logo/logo.jpg
-  href: 2
+  href: /bobogou/portal/list
 
 global:
   uploadPath: /usr/image
