@@ -72,6 +72,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                     if (StringUtils.isBlank(goods.getId())) {
                         regionGoods = new RegionGoods();
                         BeanUtils.copyProperties(entity, regionGoods);
+                        regionGoods.setId(goods.getId());
                         regionGoods.setGoodsId(goods.getGoodsId());
                         regionGoods.setAmount(goods.getAmount());
                         regionGoods.setSalesVolume(goods.getSalesVolume());
@@ -93,6 +94,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                     }else {
                         regionGoods = new RegionGoods();
                         BeanUtils.copyProperties(entity, regionGoods);
+                        regionGoods.setId(goods.getId());
                         regionGoods.setGoodsId(goods.getGoodsId());
                         regionGoods.setAmount(goods.getAmount());
                         regionGoods.setSalesVolume(goods.getSalesVolume());
