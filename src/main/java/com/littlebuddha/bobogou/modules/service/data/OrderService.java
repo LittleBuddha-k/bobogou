@@ -62,7 +62,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     public int save(Order entity) {
         entity.setIdType("AUTO");
         int save = super.save(entity);
-        super.save(entity);
         if (entity != null && entity.getOrderInfoList() != null && entity.getOrderInfoList().size() > 0) {
             for (OrderInfo orderInfo : entity.getOrderInfoList()) {
                 orderInfo.setIdType("AUTO");

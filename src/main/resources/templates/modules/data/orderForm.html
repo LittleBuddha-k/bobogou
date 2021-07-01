@@ -236,9 +236,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="outStatus">出库状态</label>
                 <div class="layui-input-inline">
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && order.getOutStatus() == null}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && order.getOutStatus() == null}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
                         <option th:value="1" th:text="出库"/>
@@ -246,9 +246,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && 0==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 0==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="0" th:text="备货"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="1" th:text="出库"/>
@@ -256,9 +256,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && 1==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 1==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="1" th:text="出库"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -266,9 +266,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && 2==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 2==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="2" th:text="运输中"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -276,9 +276,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && 3==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 3==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -286,9 +286,9 @@
                         <option th:value="2" th:text="运输中"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode == 'detail' && 4==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status" disabled="true">
+                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 4==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="4" th:text="退货"/>
                         <option th:value="0" th:text="备货"/>
@@ -296,9 +296,9 @@
                         <option th:value="2" th:text="运输中"/>
                         <option th:value="3" th:text="已收货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && order.getOutStatus() == null}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && order.getOutStatus() == null}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
                         <option th:value="1" th:text="出库"/>
@@ -306,9 +306,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && 0==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 0==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="0" th:text="备货"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="1" th:text="出库"/>
@@ -316,9 +316,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && 1==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 1==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="1" th:text="出库"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -326,9 +326,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && 2==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 2==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="2" th:text="运输中"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -336,9 +336,9 @@
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && 3==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 3==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="3" th:text="已收货"/>
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="备货"/>
@@ -346,9 +346,9 @@
                         <option th:value="2" th:text="运输中"/>
                         <option th:value="4" th:text="退货"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'detail' && 4==order.getOutStatus()}"
-                            lay-filter="status"
-                            th:id="status">
+                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 4==order.getOutStatus()}"
+                            lay-filter="outStatus"
+                            th:id="outStatus">
                         <option th:value="-1" th:text="请选择"/>
                         <option th:value="4" th:text="退货"/>
                         <option th:value="0" th:text="备货"/>
