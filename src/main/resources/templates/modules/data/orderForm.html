@@ -379,14 +379,14 @@
         <input type="hidden" id="orderInfo" th:value="${orderInfo}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
-        </div>
+        </div><!--
         <div class="layui-form-item">
             <label class="layui-form-label">
                 <a href="#"
                    onclick="addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl);orderInfoRowIdx = orderInfoRowIdx + 1;"><i
                         class="layui-icon layui-icon-addition"></i>新建</a>
             </label>
-        </div>
+        </div>-->
         <table class="layui-table">
             <colgroup>
                 <col width="150">
@@ -402,7 +402,6 @@
                 <th>总价</th>
                 <th>类型</th>
                 <th>状态</th>
-                <th>操作</th>
             </tr>
             </thead>
             <tbody id="orderInfoList">
@@ -419,31 +418,27 @@
 					</td>
 
                     <td>
-						<input id="orderInfoList{{idx}}_specification" name="orderInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_specification" name="orderInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" readonly/>
 					</td>
 
 					<td>
-						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input" readonly/>
 					</td>
 
 					<td>
-						<input id="orderInfoList{{idx}}_price" name="orderInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_price" name="orderInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input" readonly/>
 					</td>
 
 					<td>
-						<input id="orderInfoList{{idx}}_totalPrice" name="orderInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_totalPrice" name="orderInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input" readonly/>
 					</td>
 
                     <td>
-						<input id="orderInfoList{{idx}}_type" name="orderInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_type" name="orderInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input" readonly/>
 					</td>
 
                     <td>
-						<input id="orderInfoList{{idx}}_status" name="orderInfoList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input"/>
-					</td>
-
-					<td class="text-center" width="10">
-						{{#delBtn}}<span class="close" onclick="delRow(this, '#orderInfoList{{idx}}')" title="删除">&times;</span>{{/delBtn}}
+						<input id="orderInfoList{{idx}}_status" name="orderInfoList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input" readonly/>
 					</td>
 				</tr>//-->
             </script>
