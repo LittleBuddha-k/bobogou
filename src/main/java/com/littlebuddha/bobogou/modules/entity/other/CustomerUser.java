@@ -28,6 +28,9 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private Integer userAgreement;//是否同意用户协议，0=未同意，1=已同意
     private Integer applyStatus;//会员申请状态 0=未申请，1=已申请，2=已通过，3=已拒绝
 
+    //会员表 外键
+    private UserMember userMember;//
+
     public CustomerUser() {
     }
 
@@ -137,5 +140,13 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setApplyStatus(Integer applyStatus) {
         this.applyStatus = applyStatus;
+    }
+
+    public UserMember getUserMember() {
+        return userMember;
+    }
+
+    public void setUserMember(UserMember userMember) {
+        this.userMember = userMember;
     }
 }

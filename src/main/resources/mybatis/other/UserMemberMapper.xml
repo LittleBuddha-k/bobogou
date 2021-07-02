@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper">
+    <sql id="userMemberUserColumns">
+        id AS "id",
+        user_id AS "userId",
+        real_name AS "realName",
+        phone AS "phone",
+        card_no AS "cardNo",
+        province_id AS "provinceId",
+        province AS "province",
+        city_id AS "cityId",
+        city AS "city",
+        district_id AS "districtId",
+        district AS "district",
+        street_id AS "streetId",
+        street AS "street",
+        real_address AS "realAddress",
+        business_license AS "businessLicense",
+        begin_time AS "beginTime",
+        end_time AS "endTime",
+        status AS "status",
+        refuse_reason AS "refuseReason",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime",
+        account_id AS "accountId"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.UserMember">
+        SELECT
+        <include refid="userMemberUserColumns"/>
+        FROM ud_user_member a
+        WHERE id=#{id}
+    </select>
+
+    <select id="getByUser" resultType="com.littlebuddha.bobogou.modules.entity.other.UserMember">
+        SELECT
+        <include refid="userMemberUserColumns"/>
+        FROM ud_user_member a
+        WHERE a.user_id=#{userId}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.UserMember">
+        SELECT
+        <include refid="userMemberUserColumns"/>
+        FROM ud_user_member a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!--<if test="phone != null and phone != ''">
+                AND a.phone LIKE concat('%',#{phone},'%')
+            </if>
+            <if test="password != null and password != ''">
+                AND a.pssword LIKE concat('%',#{password},'%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                AND a.nickname LIKE concat('%',#{nickname},'%')
+            </if>-->
+            <if test="userId != null and userId != ''">
+                AND a.user_id = #{userId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.UserMember">
+        SELECT
+        <include refid="userMemberUserColumns"/>
+        FROM ud_user_member a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <if test="sex != null">
+                AND and a.sex = #{sex}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ud_user_member(
+            user_id,
+            real_name,
+            phone,
+            card_no,
+            province_id,
+            province,
+            city_id,
+            city,
+            district_id,
+            district,
+            street_id,
+            street,
+            real_address,
+            business_license,
+            begin_time,
+            end_time,
+            status,
+            refuse_reason,
+            is_deleted,
+            create_time,
+            update_time,
+            account_id
+        )VALUES (
+            #{userId},
+            #{realName},
+            #{phone},
+            #{cardNo},
+            #{provinceId},
+            #{province},
+            #{cityId},
+            #{city},
+            #{districtId},
+            #{district},
+            #{streetId},
+            #{street},
+            #{realAddress},
+            #{businessLicense},
+            #{beginTime},
+            #{endTime},
+            #{status},
+            #{refuseReason},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{accountId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE ud_user_member SET
+            user_id = #{userId},
+            real_name = #{realName},
+            phone = #{phone},
+            card_no = #{cardNo},
+            province_id = #{provinceId},
+            province = #{province},
+            city_id = #{cityId},
+            city = #{city},
+            district_id = #{districtId},
+            district = #{district},
+            street_id = #{streetId},
+            street = #{street},
+            real_address = #{realAddress},
+            business_license = #{businessLicense},
+            begin_time = #{beginTime},
+            end_time = #{endTime},
+            status = #{status},
+            refuse_reason = #{refuseReason},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            account_id = #{accountId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE ud_user_member SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE ud_user_member SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM ud_user_member
+        WHERE id=#{id}
+    </delete>
+</mapper>

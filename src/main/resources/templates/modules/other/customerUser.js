@@ -220,7 +220,7 @@ layui.use(['form', 'table'], function () {
         if (obj.event === 'detail') {
             let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","700px","560px")
         } else if (obj.event === 'vip') {
-            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/form/vip?id=" + id, "VIP审核","700px","560px")
+            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核","700px","580px")
         }
     });
 });

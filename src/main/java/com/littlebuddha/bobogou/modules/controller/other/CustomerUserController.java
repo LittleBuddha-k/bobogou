@@ -8,10 +8,10 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
-import com.littlebuddha.bobogou.modules.service.data.CityService;
+import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
+import com.littlebuddha.bobogou.modules.service.other.UserMemberService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +33,9 @@ public class CustomerUserController extends BaseController {
 
     @Autowired
     private CustomerUserService customerUserService;
+
+    @Autowired
+    private UserMemberService userMemberService;
 
     @ModelAttribute
     public CustomerUser get(@RequestParam(required = false) String id) {
@@ -75,6 +78,7 @@ public class CustomerUserController extends BaseController {
 
     /**
      * 返回所有数据
+     *
      * @return
      */
     @ResponseBody
@@ -98,9 +102,34 @@ public class CustomerUserController extends BaseController {
         return "modules/other/customerUserForm";
     }
 
+    /**
+     * vip审核页面
+     *
+     * @param
+     * @return
+     */
+    @GetMapping("/vipPage")
+    public String vipPage(UserMember userMember, Model model) {
+        if (userMember != null && userMember.getUserId() != null) {
+            UserMember entity = userMemberService.getByUser(userMember);
+            model.addAttribute("userMember", entity);
+        }else {
+            userMember = new UserMember();
+            model.addAttribute("userMember", userMember);
+        }
+        if (userMember != null && userMember.getUserId() != null){
+            CustomerUser customerUser = customerUserService.get(userMember.getUserId().toString());
+            model.addAttribute("customerUser", customerUser);
+        }else {
+            CustomerUser customerUser = new CustomerUser();
+            model.addAttribute("customerUser", customerUser);
+        }
+        return "modules/other/userMemberForm";
+    }
+
     @ResponseBody
     @PostMapping("/vip")
-    public Result vip(CustomerUser customerUser){
+    public Result vip(CustomerUser customerUser) {
         Result result = new Result();
         int row = customerUserService.beVip(customerUser);
         Result commonResult = getCommonResult(row);

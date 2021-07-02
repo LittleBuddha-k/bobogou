@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>用户会员资料信息</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="userMemberForm">
+        <input type="hidden" name="id" id="id" th:value="${userMember.getId()}">
+        <input type="hidden" name="userId" id="userId" th:value="${userMember.getUserId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="realName">真实姓名</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="realName" th:value="${userMember.getRealName()}"
+                           th:id="realName" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="phone">联系电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" th:value="${userMember.getPhone()}" autocomplete="off"
+                           th:id="phone" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="cardNo">身份证号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="cardNo" th:value="${userMember.getCardNo()}" autocomplete="off"
+                           th:id="cardNo" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="province">省</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="province" th:value="${userMember.getProvince()}" autocomplete="off"
+                           th:id="province" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="city">市</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="city" th:value="${userMember.getCity()}" autocomplete="off"
+                           th:id="city" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="district">区</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="district" th:value="${userMember.getDistrict()}" autocomplete="off"
+                           th:id="district" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="street">街道</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="street" th:value="${userMember.getStreet()}" autocomplete="off"
+                           th:id="street" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="realAddress">真实地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="realAddress" th:value="${userMember.getRealAddress()}" autocomplete="off"
+                           th:id="realAddress" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="businessLicense">营业执照地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="businessLicense" th:value="${userMember.getBusinessLicense()}" autocomplete="off"
+                           th:id="businessLicense" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="beginTime">营业执照有效开始时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="beginTime" th:value="${userMember.getBeginTime()}" autocomplete="off"
+                           th:id="beginTime" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="endTime">营业执照有效结束时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="endTime" th:value="${userMember.getEndTime()}" autocomplete="off"
+                           th:id="endTime" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="status">审核状态</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="status" th:if="${0 == userMember.getStatus()}" th:value="未审核" autocomplete="off"
+                           th:id="status" class="layui-input" readonly>
+                    <input type="text" name="status" th:if="${1 == userMember.getStatus()}" th:value="已通过" autocomplete="off"
+                           th:id="status" class="layui-input" readonly>
+                    <input type="text" name="status" th:if="${2 == userMember.getStatus()}" th:value="已拒绝" autocomplete="off"
+                           th:id="status" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="refuseReason">拒绝原因</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="refuseReason" th:value="${userMember.getRefuseReason()}" autocomplete="off"
+                           th:id="refuseReason" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
+                        th:if="${customerUser.getApplyStatus() == 1}" style="margin-left: 140px"> 通 过
+                </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
+                        th:if="${customerUser.getApplyStatus() == 1}"> 拒 绝
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/userMemberForm.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+</body>
+</html>
