@@ -35,10 +35,10 @@ public class UserMember extends DataEntity<UserMember> {
     private String businessLicense;//营业执照地址
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date beginTime;//营业执照有效开始时间
+    private String beginTime;//营业执照有效开始时间
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date endTime;//营业执照有效结束时间
+    private String endTime;//营业执照有效结束时间
 
     private Integer status;//审核状态，0=未审核，1=已通过，2=已拒绝
     private String refuseReason;//拒绝原因
@@ -164,20 +164,20 @@ public class UserMember extends DataEntity<UserMember> {
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    public Date getBeginTime() {
+    public String getBeginTime() {
         return beginTime;
     }
 
-    public void setBeginTime(Date beginTime) {
+    public void setBeginTime(String beginTime) {
         this.beginTime = beginTime;
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    public Date getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 
