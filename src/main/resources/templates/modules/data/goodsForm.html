@@ -473,7 +473,6 @@
                 <div class="layui-input-inline">
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}" lay-filter="prescriptionType"
                             th:id="prescriptionType" disabled="true">
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="1" th:text="中成药"/>
                         <option th:value="2" th:text="化学药剂"/>
@@ -481,27 +480,23 @@
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() != null && 0== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType" disabled="true">
                         <option th:value="0" th:text="处方药"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="1" th:text="中成药"/>
                         <option th:value="2" th:text="化学药剂"/>
                     </select>
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() != null && 1== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType" disabled="true">
                         <option th:value="1" th:text="中成药"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="2" th:text="化学药剂"/>
                     </select>
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() != null && 2== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType" disabled="true">
                         <option th:value="2" th:text="化学药剂"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="1" th:text="中成药"/>
                     </select>
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}" lay-filter="prescriptionType"
                             th:id="prescriptionType">
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="1" th:text="中成药"/>
                         <option th:value="2" th:text="化学药剂"/>
@@ -509,21 +504,18 @@
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() != null && 0== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType">
                         <option th:value="0" th:text="处方药"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="1" th:text="中成药"/>
                         <option th:value="2" th:text="化学药剂"/>
                     </select>
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() != null && 1== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType">
                         <option th:value="1" th:text="中成药"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="2" th:text="化学药剂"/>
                     </select>
                     <select name="goodsSpecification.prescriptionType" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() != null && 2== goods.getGoodsSpecification().getPrescriptionType()}" lay-filter="prescriptionType"
                             th:id="prescriptionType">
                         <option th:value="2" th:text="化学药剂"/>
-                        <option th:value="-1" th:text="请选择"/>
                         <option th:value="0" th:text="处方药"/>
                         <option th:value="1" th:text="中成药"/>
                     </select>
