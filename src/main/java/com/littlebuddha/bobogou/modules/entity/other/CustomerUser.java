@@ -26,7 +26,7 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private String signInTime;//签到时间
     private Integer messageStatus;//消息接收状态，0=关闭，1=打开
     private Integer userAgreement;//是否同意用户协议，0=未同意，1=已同意
-    private Integer applyStatus;//会员申请状态 0：未审核 1：已通过 2：已拒绝
+    private Integer applyStatus;//会员申请状态 0=未申请，1=已申请，2=已通过，3=已拒绝
 
     public CustomerUser() {
     }

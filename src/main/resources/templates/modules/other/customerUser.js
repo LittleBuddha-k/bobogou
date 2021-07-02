@@ -160,10 +160,12 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(0 == applyStatus){
-                            return '未审核'
+                            return '未申请'
                         }else if(1 == applyStatus){
-                            return "已同意"
+                            return "已申请"
                         }else if(2 == applyStatus){
+                            return "已同意"
+                        }else if(3 == applyStatus){
                             return "已拒绝"
                         }
                     }
@@ -175,14 +177,16 @@ layui.use(['form', 'table'], function () {
                     width: '10%',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
-                        if(0 == applyStatus){
+                        if(1 == applyStatus){
                             return '\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">VIP审核</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
-                        }else if(1 == applyStatus){
-                            return "已同意"
                         }else if(2 == applyStatus){
+                            return "已同意"
+                        }else if(3 == applyStatus){
                             return "已拒绝"
+                        }else if(0 == applyStatus){
+                            return "未申请"
                         }
                     }
                 }

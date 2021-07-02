@@ -149,15 +149,50 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">会员申请状态</label>
+                <div class="layui-input-inline">
+                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == null}" disabled="true">
+                        <option th:value="0" th:text="未申请"/>
+                        <option th:value="1" th:text="已申请"/>
+                        <option th:value="2" th:text="已同意"/>
+                        <option th:value="3" th:text="已拒绝"/>
+                    </select>
+                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 0}" disabled="true">
+                        <option th:value="0" th:text="未申请"/>
+                        <option th:value="1" th:text="已申请"/>
+                        <option th:value="0" th:text="已同意"/>
+                        <option th:value="1" th:text="已拒绝"/>
+                    </select>
+                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 1}" disabled="true">
+                        <option th:value="1" th:text="已申请"/>
+                        <option th:value="0" th:text="未申请"/>
+                        <option th:value="2" th:text="已同意"/>
+                        <option th:value="3" th:text="已拒绝"/>
+                    </select>
+                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 2}" disabled="true">
+                        <option th:value="2" th:text="已同意"/>
+                        <option th:value="0" th:text="未申请"/>
+                        <option th:value="1" th:text="已申请"/>
+                        <option th:value="3" th:text="已拒绝"/>
+                    </select>
+                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 3}" disabled="true">
+                        <option th:value="3" th:text="已拒绝"/>
+                        <option th:value="0" th:text="未申请"/>
+                        <option th:value="1" th:text="已申请"/>
+                        <option th:value="2" th:text="已同意"/>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="layui-form-item" th:if="${mode == 'vip'}">
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
-                        th:if="${customerUser.getApplyStatus() == 0}" style="margin-left: 140px"> 通 过
+                        th:if="${customerUser.getApplyStatus() == 1}" style="margin-left: 140px"> 通 过
                 </button>
                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
-                        th:if="${customerUser.getApplyStatus() == 0}"> 拒 绝
+                        th:if="${customerUser.getApplyStatus() == 1}"> 拒 绝
                 </button>
             </div>
         </div>
