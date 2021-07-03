@@ -31,6 +31,7 @@ public class Goods extends DataEntity<Goods> {
     private Integer salesVolume;//销量
     private String effect;//功效
     private Integer applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
+    private Integer comments;//评论数
     private Integer healthBeans;//健康豆，该商品可获得的健康豆
     private Integer isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
@@ -200,6 +201,14 @@ public class Goods extends DataEntity<Goods> {
 
     public void setApplauseRate(Integer applauseRate) {
         this.applauseRate = applauseRate;
+    }
+
+    public Integer getComments() {
+        return comments;
+    }
+
+    public void setComments(Integer comments) {
+        this.comments = comments;
     }
 
     @ExcelField(title = "健康豆", align = 2, sort = 11)

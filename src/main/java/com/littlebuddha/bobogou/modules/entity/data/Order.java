@@ -13,6 +13,7 @@ import java.util.List;
  * @date 2020/7/24 15:14
  */
 public class Order extends DataEntity<Order> {
+    private Integer userId;//用户id
     private String number;//订单编号
     private Double grossAmount;//总金额，单位：分
     private Integer integral;//积分
@@ -29,6 +30,7 @@ public class Order extends DataEntity<Order> {
     private Integer outStatus;//出库状态
     private String payTime;//支付时间
     private String refundReason;//退款原因
+    private String refundExplain;//退款原因
 
     private List<OrderInfo> orderInfoList;//子表列表
 
@@ -37,6 +39,14 @@ public class Order extends DataEntity<Order> {
 
     public Order(String id) {
         super(id);
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getNumber() {
@@ -150,6 +160,14 @@ public class Order extends DataEntity<Order> {
 
     public void setRefundReason(String refundReason) {
         this.refundReason = refundReason;
+    }
+
+    public String getRefundExplain() {
+        return refundExplain;
+    }
+
+    public void setRefundExplain(String refundExplain) {
+        this.refundExplain = refundExplain;
     }
 
     public List<OrderInfo> getOrderInfoList() {
