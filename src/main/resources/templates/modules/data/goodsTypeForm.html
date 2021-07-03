@@ -49,6 +49,9 @@
                     <option th:each="type:${goodsTypeList}"
                             th:if="${type.getId() == goodsType.getParentId()}"
                             th:value="${type.getId()}" th:text="${type.getName()}"/>
+                    <option th:each="type:${goodsTypeList}"
+                            th:if="${type.getId() != goodsType.getParentId()}"
+                            th:value="${type.getId()}" th:text="${type.getName()}"/>
                 </select>
             </div>
         </div>
