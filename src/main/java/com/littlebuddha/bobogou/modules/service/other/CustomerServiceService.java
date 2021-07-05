@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerService;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerServiceMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,9 @@ import java.util.List;
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CustomerServiceService extends CrudService<CustomerService, CustomerServiceMapper> {
+
+    @Autowired
+    private CustomerServiceMapper customerServiceMapper;
 
     @Override
     public CustomerService get(CustomerService entity) {
@@ -28,6 +32,16 @@ public class CustomerServiceService extends CrudService<CustomerService, Custome
     @Override
     public PageInfo<CustomerService> findPage(Page<CustomerService> page, CustomerService entity) {
         return super.findPage(page, entity);
+    }
+
+    /**
+     * 查询未读聊天记录
+     * @param customerService
+     * @return
+     */
+    public List<CustomerService> findNoReadChat(CustomerService customerService) {
+        List<CustomerService> chatNoReadList = customerServiceMapper.getNoReadChat(customerService);
+        return chatNoReadList;
     }
 
     @Override

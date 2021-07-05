@@ -2,27 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.CustomerServiceMapper">
     <sql id="customerServiceColumns">
-        a.id AS "id",
-        a.url AS "url",
-        a.type AS "type",
-        a.link AS "link",
-        a.status AS "status",
-        a.is_deleted AS "isDeleted",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+        id AS "id",
+        user_id AS "userId",
+        account_id AS "accountId",
+        content AS "content",
+        type AS "type",
+        statu AS "statu",
+        create_time AS "createTime",
+        update_time AS "updateTime"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerService">
         SELECT
         <include refid="customerServiceColumns"/>
-        FROM db_customerService a
+        FROM ud_chat a
         WHERE id=#{id}
+    </select>
+
+    <select id="getNoReadChat" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerService">
+        SELECT
+            user_id AS "userId",
+            count(1) AS "noReadCount"
+        FROM ud_chat a
+        WHERE account_id =  #{accountId}
+        GROUP BY user_id,statu
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerService">
         SELECT
         <include refid="customerServiceColumns"/>
-        FROM db_customerService a
+        FROM ud_chat a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -40,68 +49,23 @@
         </choose>
     </select>
 
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerService">
-        SELECT
-        <include refid="customerServiceColumns"/>
-        FROM db_customerService a
-        <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
-            <!-- 判断条件参数是否为空 -->
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO db_customerService(
-            url,
+        INSERT INTO ud_chat(
+            user_id,
+            account_id,
+            content,
             type,
-            link,
-            status,
-            is_deleted,
+            statu,
             create_time,
             update_time
         )VALUES (
-            #{url},
+            #{user_id},
+            #{account_id},
+            #{content},
             #{type},
-            #{link},
-            #{status},
-            #{isDeleted},
-            #{createTime},
-            #{updateTime}
+            #{statu},
+            #{create_time},
+            #{update_time}
         )
     </insert>
-
-    <update id="update">
-        UPDATE db_customerService SET
-            url = #{url},
-            type = #{type},
-            link = #{link},
-            status = #{status},
-            is_deleted = #{isDeleted},
-            create_time = #{createTime},
-            update_time = #{updateTime}
-        WHERE id=#{id}
-    </update>
-
-    <update id="deleteByLogic">
-        UPDATE db_customerService SET is_deleted = #{DEL_FLAG_DELETE}
-        WHERE id=#{id}
-    </update>
-
-    <update id="recovery">
-        UPDATE db_customerService SET is_deleted = #{DEL_FLAG_NORMAL}
-        WHERE id=#{id}
-    </update>
-
-    <delete id="deleteByPhysics">
-        DELETE FROM db_customerService
-        WHERE id=#{id}
-    </delete>
 </mapper>
