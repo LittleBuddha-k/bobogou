@@ -4,7 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerService;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerServiceMapper;
+import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -18,6 +21,9 @@ public class CustomerServiceService extends CrudService<CustomerService, Custome
 
     @Autowired
     private CustomerServiceMapper customerServiceMapper;
+
+    @Autowired
+    private CustomerUserMapper customerUserMapper;
 
     @Override
     public CustomerService get(CustomerService entity) {
@@ -41,6 +47,14 @@ public class CustomerServiceService extends CrudService<CustomerService, Custome
      */
     public List<CustomerService> findNoReadChat(CustomerService customerService) {
         List<CustomerService> chatNoReadList = customerServiceMapper.getNoReadChat(customerService);
+        for (CustomerService customer : chatNoReadList) {
+            if (customer != null && customer.getUserId() != null){
+                CustomerUser customerUser = customerUserMapper.get(new CustomerUser(customer.getUserId().toString()));
+                if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+                    customer.setUserName(customerUser.getNickname());
+                }
+            }
+        }
         return chatNoReadList;
     }
 

@@ -107,4 +107,18 @@ public class LoginController extends BaseController {
         result = new Result("200","退出成功");
         return result;
     }
+
+    /**
+     * 实时聊天时需要使用的当前登录用户
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/currentUser")
+    public Operator currentUser(){
+        Operator currentUser = UserUtils.getCurrentUser();
+        if(currentUser == null){
+            currentUser = new Operator();
+        }
+        return currentUser;
+    }
 }
