@@ -68,7 +68,7 @@ layui.use(['form', 'table'], function () {
                     sortName: 'price'
                 },
                 {
-                    title: '健康豆',
+                    title: '播播豆',
                     field: 'healthBeans',
                     sort: true,
                     sortName: 'healthBeans'

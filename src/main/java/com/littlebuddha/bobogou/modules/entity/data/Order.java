@@ -23,10 +23,10 @@ public class Order extends DataEntity<Order> {
     private String trackingNo;//物流单号
     private Integer payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
     private Integer type;//类型，0=购买，1=健康豆兑换，2=积分兑换
-    private Integer status;//状态，0=已取消，1=待付款，2=待收货，3=已完成，4=申请退款，5=已退款
+    private Integer status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date outTime;//出库时间
+    private String outTime;//出库时间
     private Integer outStatus;//出库状态
     private String payTime;//支付时间
     private String refundReason;//退款原因
@@ -130,11 +130,11 @@ public class Order extends DataEntity<Order> {
     }
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    public Date getOutTime() {
+    public String getOutTime() {
         return outTime;
     }
 
-    public void setOutTime(Date outTime) {
+    public void setOutTime(String outTime) {
         this.outTime = outTime;
     }
 

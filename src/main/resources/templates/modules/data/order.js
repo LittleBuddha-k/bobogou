@@ -58,7 +58,7 @@ layui.use(['form', 'table'], function () {
                     sortName: 'integral'
                 },
                 {
-                    title: '健康豆',
+                    title: '播播豆',
                     field: 'healthBeans',
                     sort: true,
                     width: '7.5%',
@@ -83,6 +83,8 @@ layui.use(['form', 'table'], function () {
                             return "顺丰";
                         }else if (2 == distributionMode){
                             return "京东";
+                        }else if (0 == distributionMode){
+                            return "未发货";
                         }
                     }
                 },
@@ -144,13 +146,17 @@ layui.use(['form', 'table'], function () {
                         }else if (1 == status){
                             return "待付款";
                         }else if (2 == status){
-                            return "待收货";
+                            return "待发货";
                         }else if (3 == status){
-                            return "已完成";
+                            return "待收货";
                         }else if (4 == status){
-                            return "申请退款";
+                            return "已完成";
                         }else if (5 == status){
-                            return "已退款";
+                            return "申请退款";
+                        }else if (6 == status){
+                            return "已同意退款";
+                        }else if (7 == status){
+                            return "退款完成";
                         }
                     }
                 },
@@ -171,7 +177,7 @@ layui.use(['form', 'table'], function () {
                     width: '15%',
                     templet: function (data) {
                         var status = data.status;
-                        if (4 == status){
+                        if (5 == status){
                             return '\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>\n' +
