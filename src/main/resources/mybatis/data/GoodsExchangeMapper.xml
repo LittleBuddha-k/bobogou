@@ -22,14 +22,14 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
         SELECT
         <include refid="goodsExchangeColumns"/>
-        FROM cd_shange_goods a
+        FROM cd_change_goods a
         WHERE a.id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
         SELECT
         <include refid="goodsExchangeColumns"/>
-        FROM cd_shange_goods a
+        FROM cd_change_goods a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -74,7 +74,7 @@
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
         SELECT
         <include refid="goodsExchangeColumns"/>
-        FROM cd_shange_goods a
+        FROM cd_change_goods a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -122,7 +122,7 @@
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsExchange">
         SELECT
         <include refid="goodsExchangeColumns"/>
-        FROM cd_shange_goods a
+        FROM cd_change_goods a
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
@@ -134,7 +134,7 @@
     </select>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO cd_shange_goods(
+        INSERT INTO cd_change_goods(
             name,
             image_url,
             price,
@@ -168,7 +168,7 @@
     </insert>
 
     <update id="update">
-        UPDATE cd_shange_goods SET
+        UPDATE cd_change_goods SET
             name = #{name},
             image_url = #{imageUrl},
             price = #{price},
@@ -187,17 +187,17 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE cd_shange_goods SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE cd_change_goods SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE cd_shange_goods SET is_deleted = #{DEL_FLAG_NORMAL}
+        UPDATE cd_change_goods SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM cd_shange_goods
+        DELETE FROM cd_change_goods
         WHERE id=#{id}
     </delete>
 </mapper>

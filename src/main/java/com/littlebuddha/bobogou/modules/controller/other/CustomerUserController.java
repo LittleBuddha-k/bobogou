@@ -49,6 +49,21 @@ public class CustomerUserController extends BaseController {
         return customerUser;
     }
 
+    @ResponseBody
+    @GetMapping("/byPhone")
+    public Result getByPhone(CustomerUser customerUser) {
+        Result result = null;
+        if (customerUser.getPhone() != null && StringUtils.isNotBlank(customerUser.getPhone())){
+            CustomerUser byPhone = customerUserService.getByPhone(customerUser);
+            result = new Result();
+            result.setCode("200");
+            result.setData(byPhone);
+        }else {
+            result = new Result("333","失败");
+        }
+        return result;
+    }
+
     /**
      * 返回客户列表
      *

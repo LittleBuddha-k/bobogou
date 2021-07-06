@@ -144,16 +144,16 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(operatorTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息", '730px', '500px')
+            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息", '730px', '680px')
         }
     });
 
     table.on('tool(operatorTableFilter)', function (obj) {
         var id = obj.data.id;
         if (obj.event === 'edit') {  // 监听修改操作
-            rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + id, "编辑用户信息", '730px', '500px');
+            rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + id, "编辑用户信息", '730px', '680px');
         } else if (obj.event === 'view') {  // 监听查看操作
-            rc.openViewDialog('/bobogou/system/operator/form/view?id=' + id, "查看用户信息", '730px', '500px');
+            rc.openViewDialog('/bobogou/system/operator/form/view?id=' + id, "查看用户信息", '730px', '680px');
         } else if (obj.event === 'delete') {  // 监听删除操作
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/system/operator/delete?ids=" + id, '', function (data) {

@@ -7,7 +7,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , upload = layui.upload
         , element = layui.element;
 
-//拖拽上传
+    //拖拽上传
     upload.render({
         elem: '#test10'
         , url: '/bobogou/file/picture?uploadPath=' + "/data/banner" //改成您自己的上传接口
@@ -59,6 +59,73 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         })
     });
+
+    //动态添加
+    $("#phone").change(function () {
+        let phone = $("#phone").val();
+        if(phone != '' && phone != null){
+            $.ajax({
+                //请求方式
+                type : "GET",
+                //请求地址
+                url : "/bobogou/other/customerUser/byPhone?phone="+phone,
+                async : false,//改为同步
+                //数据，json字符串
+                //data : JSON.stringify(list),
+                //请求成功
+                success : function(result) {
+                    if (result.data == null){
+                        let html = '<div class="layui-inline">' +
+                            '<label class="layui-form-label" for="areaManager">区域管理员等级</label>' +
+                            '<div class="layui-input-inline">' +
+                            '<select name="customerUser.areaManager" lay-verify="" >' +
+                            '<option th:value="0" th:text="前端用户"/>' +
+                            '<option th:value="1" th:text="省管理员"/>' +
+                            '<option th:value="2" th:text="市管理员"/>' +
+                            '<option th:value="3" th:text="区管理员"/>' +
+                            '</select>' +
+                            '</div>' +
+                            '</div>' +
+                            '<div class="layui-inline">' +
+                            '<label class="layui-form-label" for="status">状态</label>' +
+                            '<div class="layui-input-inline">' +
+                            '<select name="customerUser.status" lay-verify="" >' +
+                            '<option th:value="0" th:text="app未注册"/>' +
+                            '<option th:value="1" th:text="app已注册"/>' +
+                            '</select>' +
+                            '</div>' +
+                            '</div>';
+                        $("#append").empty();
+                        $("#append").append(html);
+                        form.render();
+                    }else {
+                        let html = '<div class="layui-inline">' +
+                            '<label class="layui-form-label" for="areaManager">区域管理员等级</label>' +
+                            '<div class="layui-input-inline">' +
+                            '<select name="customerUser.areaManager" lay-verify="" >' +
+                            '<option th:value="0" th:text="前端用户"/>' +
+                            '<option th:value="1" th:text="省管理员"/>' +
+                            '<option th:value="2" th:text="市管理员"/>' +
+                            '<option th:value="3" th:text="区管理员"/>' +
+                            '</select>' +
+                            '</div>' +
+                            '</div>';
+                        $("#append").empty();
+                        $("#append").append(html);
+                        layui.use('form', function(){
+                            let form = layui.form;
+                            form.render();
+                        });
+                    }
+                },
+                //请求失败，包含具体的错误信息
+                error : function(e){
+                    console.log("请求shibai "+e.status);
+                    console.log("请求shibai "+e.responseText);
+                }
+            });
+        }
+    })
 })
 
 
@@ -87,3 +154,6 @@ function save(parentIndex) {
         });
     }
 }
+
+$(document).ready(function () {
+})

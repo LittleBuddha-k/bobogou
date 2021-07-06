@@ -260,6 +260,57 @@
                 </div>
             </div>
         </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && operator.customerUser == null}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="areaManager">区域管理员等级</label>
+                <div class="layui-input-inline">
+                    <select name="customerUser.areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" disabled="true">
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && operator.customerUser != null}">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="areaManager">区域管理员等级</label>
+                <div class="layui-input-inline">
+                    <select name="customerUser.areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" disabled="true" th:if="${0 == operator.getCustomerUser().getAreaManager()}">
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                    <select name="customerUser.areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" disabled="true" th:if="${1 == operator.getCustomerUser().getAreaManager()}">
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                    <select name="customerUser.areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" disabled="true" th:if="${2 == operator.getCustomerUser().getAreaManager()}">
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                    <select name="customerUser.areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" disabled="true" th:if="${3 == operator.getCustomerUser().getAreaManager()}">
+                        <option th:value="3" th:text="区管理员"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" id="append">
+        </div>
     </form>
 </div>
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
