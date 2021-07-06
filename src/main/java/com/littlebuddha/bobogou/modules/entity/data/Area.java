@@ -21,6 +21,13 @@ public class Area extends DataEntity<Area> {
     private Integer status;
     private String tenantCode;
 
+    public Area() {
+    }
+
+    public Area(String id) {
+        super(id);
+    }
+
     public String getCode() {
         return code;
     }

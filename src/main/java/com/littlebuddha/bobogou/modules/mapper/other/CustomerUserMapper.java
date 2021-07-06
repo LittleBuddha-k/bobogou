@@ -11,4 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
     int beVip(CustomerUser customerUser);
+
+    //通过号码查询用户
+    CustomerUser getByPhone(CustomerUser customerUser);
 }

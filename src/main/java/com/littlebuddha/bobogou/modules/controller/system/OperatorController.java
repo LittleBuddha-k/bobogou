@@ -5,9 +5,16 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
-import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.service.data.AreaService;
+import com.littlebuddha.bobogou.modules.service.data.CityService;
+import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
+import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorRoleService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorService;
 import org.apache.commons.lang3.StringUtils;
@@ -31,11 +38,37 @@ public class OperatorController extends BaseController {
     @Autowired
     private OperatorRoleService operatorRoleService;
 
+    @Autowired
+    private ProvinceService provinceService;
+
+    @Autowired
+    private CityService cityService;
+
+    @Autowired
+    private AreaService areaService;
+
+    @Autowired
+    private CustomerUserService customerUserService;
+
     @ModelAttribute
     public Operator get(@RequestParam(required = false) String id) {
         Operator operator = null;
         if (StringUtils.isNotBlank(id)) {
             operator = operatorService.get(id);
+            if (operator.getCityId() != null && StringUtils.isNotBlank(operator.getCityId())){
+                City city = cityService.get(new City(operator.getCityId()));
+                operator.setCity(city);
+            }
+            if (operator.getAreaId() != null && StringUtils.isNotBlank(operator.getAreaId())){
+                Area area = areaService.get(new Area(operator.getAreaId()));
+                operator.setArea(area);
+            }
+            if (operator.getPhone() != null && StringUtils.isNotBlank(operator.getPhone())){
+                CustomerUser selectOption = new CustomerUser();
+                selectOption.setPhone(operator.getPhone());
+                CustomerUser byPhone = customerUserService.getByPhone(selectOption);
+                operator.setCustomerUser(byPhone);
+            }
         }
         if (operator == null) {
             operator = new Operator();
@@ -80,6 +113,9 @@ public class OperatorController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Operator operator, Model model) {
+        //查询省级数据
+        List<Province> provinceList = provinceService.findList(new Province());
+        model.addAttribute("provinceList", provinceList);
         model.addAttribute("operator", operator);
         return "modules/system/operatorForm";
     }
@@ -147,9 +183,9 @@ public class OperatorController extends BaseController {
         for (String s : split) {
             Operator operator = operatorService.get(s);
             if (operator != null) {
-                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
+                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())) {
                     return new Result("555", "超级管理员用户不能被删除");
-                }else {
+                } else {
                     int i = operatorService.deleteByLogic(operator);
                 }
             } else {
@@ -167,9 +203,9 @@ public class OperatorController extends BaseController {
         for (String s : split) {
             Operator operator = operatorService.get(s);
             if (operator != null) {
-                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())){
+                if (StringUtils.isNotBlank(operator.getId()) && "1".equals(operator.getId())) {
                     return new Result("555", "超级管理员用户不能被删除");
-                }else {
+                } else {
                     int i = operatorService.deleteByPhysics(operator);
                 }
             } else if (s != null && StringUtils.isNotBlank(s)) {

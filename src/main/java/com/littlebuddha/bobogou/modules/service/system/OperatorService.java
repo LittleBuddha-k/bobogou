@@ -5,10 +5,12 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.AutoId;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.MenuMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
@@ -39,6 +41,9 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
 
     @Autowired
     private OperatorRoleMapper operatorRoleMapper;
+
+    @Autowired
+    private CustomerUserMapper customerUserMapper;
 
     @Override
     @Transactional

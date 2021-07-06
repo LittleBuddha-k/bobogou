@@ -17,6 +17,48 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             $("#picture").val(res.body.url);
         }
     });
+
+    //下拉框选中后的时间
+    form.on('select(province)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let provinceId = data.value;
+        $("#city").empty();//清空城市选项
+        $("#area").empty();//清空城市选项
+        $("#street").empty();//清空城市选项
+        rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#city").html(tmp);
+                form.render();
+            }
+        })
+    });
+    //下拉框选中后的时间
+    form.on('select(city)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let cityId = data.value;
+        $("#area").empty();//清空城市选项
+        $("#street").empty();//清空城市选项
+        rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#area").html(tmp);
+                form.render();
+            }
+        })
+    });
 })
 
 

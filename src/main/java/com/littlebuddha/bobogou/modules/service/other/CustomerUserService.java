@@ -25,6 +25,11 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         return super.get(entity);
     }
 
+    public CustomerUser getByPhone(CustomerUser entity){
+        CustomerUser byPhone = customerUserMapper.getByPhone(entity);
+        return byPhone;
+    }
+
     @Override
     public List<CustomerUser> findList(CustomerUser entity) {
         return super.findList(entity);

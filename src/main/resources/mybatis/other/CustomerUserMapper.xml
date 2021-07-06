@@ -2,22 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper">
     <sql id="customerUserColumns">
-        a.id AS "id",
-        a.phone AS "phone",
-        a.pssword AS "password",
-        a.header AS "header",
-        a.nickname AS "nickname",
-        a.sex AS "sex",
-        a.member AS "member",
-        a.integral AS "integral",
-        a.health_beans AS "healthBeans",
-        a.sigin_in_time AS "signInTime",
-        a.message_status AS "messageStatus",
-        a.user_agreement AS "userAgreement",
-        a.apply_status AS "applyStatus",
-        a.is_deleted AS "isDeleted",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+        id AS "id",
+        phone AS "phone",
+        pssword AS "pssword",
+        header AS "header",
+        nickname AS "nickname",
+        sex AS "sex",
+        member AS "member",
+        integral AS "integral",
+        health_beans AS "healthBeans",
+        collect_number AS "collectNumber",
+        sigin_in_time AS "signInTime",
+        purchase_amount AS "purchaseAmount",
+        message_status AS "messageStatus",
+        user_agreement AS "userAgreement",
+        apply_status AS "applyStatus",
+        vip_expire AS "vipExpire",
+        area_manager AS "areaManager",
+        profit_amount AS "profitAmount",
+        amount_withdrawn AS "amountWithdrawn",
+        withdrawal_amount AS "withdrawalAmount",
+        operator AS "operator.id",
+        status AS "status",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
@@ -25,6 +34,13 @@
         <include refid="customerUserColumns"/>
         FROM ud_user a
         WHERE id=#{id}
+    </select>
+
+    <select id="getByPhone" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
+        SELECT
+        <include refid="customerUserColumns"/>
+        FROM ud_user a
+        WHERE a.phone = #{phone}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
@@ -144,26 +160,44 @@
             member,
             integral,
             health_beans,
+            collect_number,
             sigin_in_time,
+            purchase_amount,
             message_status,
             user_agreement,
             apply_status,
+            vip_expire,
+            area_manager,
+            profit_amount,
+            amount_withdrawn,
+            withdrawal_amount,
+            operator,
+            status,
             is_deleted,
             create_time,
             update_time
         )VALUES (
             #{phone},
-            #{password},
+            #{pssword},
             #{header},
             #{nickname},
             #{sex},
             #{member},
             #{integral},
             #{healthBeans},
-            #{signInTime},
+            #{collectNumber},
+            #{siginInTime},
+            #{purchaseAmount},
             #{messageStatus},
             #{userAgreement},
-            #{apply_status},
+            #{applyStatus},
+            #{vipExpire},
+            #{areaManager},
+            #{profitAmount},
+            #{amountWithdrawn},
+            #{withdrawalAmount},
+            #{operatorId},
+            #{status},
             #{isDeleted},
             #{createTime},
             #{updateTime}
@@ -173,17 +207,26 @@
     <update id="update">
         UPDATE ud_user SET
             phone = #{phone},
-            pssword = #{password},
+            pssword = #{pssword},
             header = #{header},
             nickname = #{nickname},
             sex = #{sex},
             member = #{member},
             integral = #{integral},
             health_beans = #{healthBeans},
-            sigin_in_time = #{signInTime},
+            collect_number = #{collectNumber},
+            sigin_in_time = #{siginInTime},
+            purchase_amount = #{purchaseAmount},
             message_status = #{messageStatus},
             user_agreement = #{userAgreement},
             apply_status = #{applyStatus},
+            vip_expire = #{vipExpire},
+            area_manager = #{areaManager},
+            profit_amount = #{profitAmount},
+            amount_withdrawn = #{amountWithdrawn},
+            withdrawal_amount = #{withdrawalAmount},
+            operator = #{operatorId},
+            status = #{status},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}

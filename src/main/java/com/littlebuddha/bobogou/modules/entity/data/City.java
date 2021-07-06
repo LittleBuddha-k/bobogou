@@ -22,6 +22,13 @@ public class City extends DataEntity<City> {
     private Integer status;
     private String tenantCode;
 
+    public City() {
+    }
+
+    public City(String id) {
+        super(id);
+    }
+
     public String getCode() {
         return code;
     }

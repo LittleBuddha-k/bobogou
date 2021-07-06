@@ -1,6 +1,10 @@
 package com.littlebuddha.bobogou.modules.entity.system;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 
 import java.util.List;
 
@@ -23,9 +27,18 @@ public class Operator extends DataEntity<Operator> {
     private String loginIp;//登录ip
     private String loginAddress;//登录ip地址
 
+    private Province province;//省
+    private String provinceId;//
+    private City city;//市
+    private String cityId;//
+    private Area area;//区
+    private String areaId;//
+
     private List<Role> roles;            //角色信息
     private Role role;          //角色外键
     private String rolesId; //工具使用变量，重新修改角色属性时使用
+
+    private CustomerUser customerUser;//后台人员亦关联前APP用户
 
     public Operator() {
     }
@@ -138,6 +151,54 @@ public class Operator extends DataEntity<Operator> {
         this.loginAddress = loginAddress;
     }
 
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public String getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
     public List<Role> getRoles() {
         return roles;
     }
@@ -160,5 +221,13 @@ public class Operator extends DataEntity<Operator> {
 
     public void setRolesId(String rolesId) {
         this.rolesId = rolesId;
+    }
+
+    public CustomerUser getCustomerUser() {
+        return customerUser;
+    }
+
+    public void setCustomerUser(CustomerUser customerUser) {
+        this.customerUser = customerUser;
     }
 }

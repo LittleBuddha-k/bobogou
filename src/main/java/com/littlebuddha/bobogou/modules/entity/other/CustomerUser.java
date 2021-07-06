@@ -1,6 +1,8 @@
 package com.littlebuddha.bobogou.modules.entity.other;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -24,9 +26,19 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private Integer healthBeans;//健康豆
     //private Integer collectNumber;//收藏数量
     private String signInTime;//签到时间
+    private Integer purchaseAmount;//成功下单购买次数
     private Integer messageStatus;//消息接收状态，0=关闭，1=打开
     private Integer userAgreement;//是否同意用户协议，0=未同意，1=已同意
     private Integer applyStatus;//会员申请状态 0=未申请，1=已申请，2=已通过，3=已拒绝
+    private String vipExpire;//VIP到期时间，后台在通过VIP申请的时候填入申请通过的当前时间
+    private Integer areaManager;//区域管理员等级，0=前端用户，1=省管理员，2=市管理员，3=区管理员
+    private Double profitAmount;//分润金额（可提现金额），单位：分
+    private Double amountWithdrawn;//分润冻结金额（分润不可提现金额），单位：分
+    private Double withdrawalAmount;//已提现金额，单位：分
+    private Operator operator;//后台管理员ID，区域管理员ID，关联system_operator表
+    private String operatorId;//
+    private Integer status;//状态，0=app未注册，1=app已注册
+
 
     //会员表 外键
     private UserMember userMember;//
@@ -118,6 +130,14 @@ public class CustomerUser extends DataEntity<CustomerUser> {
         this.signInTime = signInTime;
     }
 
+    public Integer getPurchaseAmount() {
+        return purchaseAmount;
+    }
+
+    public void setPurchaseAmount(Integer purchaseAmount) {
+        this.purchaseAmount = purchaseAmount;
+    }
+
     public Integer getMessageStatus() {
         return messageStatus;
     }
@@ -140,6 +160,73 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setApplyStatus(Integer applyStatus) {
         this.applyStatus = applyStatus;
+    }
+
+    public String getVipExpire() {
+        return vipExpire;
+    }
+
+    public void setVipExpire(String vipExpire) {
+        this.vipExpire = vipExpire;
+    }
+
+    public Integer getAreaManager() {
+        return areaManager;
+    }
+
+    public void setAreaManager(Integer areaManager) {
+        this.areaManager = areaManager;
+    }
+
+    public Double getProfitAmount() {
+        return profitAmount;
+    }
+
+    public void setProfitAmount(Double profitAmount) {
+        this.profitAmount = profitAmount;
+    }
+
+    public Double getAmountWithdrawn() {
+        return amountWithdrawn;
+    }
+
+    public void setAmountWithdrawn(Double amountWithdrawn) {
+        this.amountWithdrawn = amountWithdrawn;
+    }
+
+    public Double getWithdrawalAmount() {
+        return withdrawalAmount;
+    }
+
+    public void setWithdrawalAmount(Double withdrawalAmount) {
+        this.withdrawalAmount = withdrawalAmount;
+    }
+
+    public Operator getOperator() {
+        return operator;
+    }
+
+    public void setOperator(Operator operator) {
+        this.operator = operator;
+    }
+
+    public String getOperatorId() {
+        if (operator != null && StringUtils.isNotBlank(operator.getId())){
+            this.operatorId = operator.getId();
+        }
+        return operatorId;
+    }
+
+    public void setOperatorId(String operatorId) {
+        this.operatorId = operatorId;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public UserMember getUserMember() {
