@@ -66,12 +66,12 @@ layui.use(['form', 'table'], function () {
                     field: 'remark',
                     sort: true,
                     sortName: 'remark'
-                }/*,
+                },
                 {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center"
-                }*/
+                }
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
@@ -106,9 +106,7 @@ layui.use(['form', 'table'], function () {
 
     table.on('tool(stickerTableFilter)', function (obj) {
         let ids = obj.data.id;
-        if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/sticker/form/edit?id="+ids, "编辑积分信息",'55%','50%')
-        }else if (obj.event === 'delete') {
+        if (obj.event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/other/sticker/delete?ids=" + ids, '', function (data) {
                     if (data.code == 200) {
