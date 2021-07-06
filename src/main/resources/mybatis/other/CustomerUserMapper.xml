@@ -4,7 +4,7 @@
     <sql id="customerUserColumns">
         id AS "id",
         phone AS "phone",
-        pssword AS "pssword",
+        pssword AS "password",
         header AS "header",
         nickname AS "nickname",
         sex AS "sex",
@@ -178,7 +178,7 @@
             update_time
         )VALUES (
             #{phone},
-            #{pssword},
+            #{password},
             #{header},
             #{nickname},
             #{sex},
@@ -186,7 +186,7 @@
             #{integral},
             #{healthBeans},
             #{collectNumber},
-            #{siginInTime},
+            #{signInTime},
             #{purchaseAmount},
             #{messageStatus},
             #{userAgreement},
@@ -207,7 +207,7 @@
     <update id="update">
         UPDATE ud_user SET
             phone = #{phone},
-            pssword = #{pssword},
+            pssword = #{password},
             header = #{header},
             nickname = #{nickname},
             sex = #{sex},
@@ -215,7 +215,7 @@
             integral = #{integral},
             health_beans = #{healthBeans},
             collect_number = #{collectNumber},
-            sigin_in_time = #{siginInTime},
+            sigin_in_time = #{signInTime},
             purchase_amount = #{purchaseAmount},
             message_status = #{messageStatus},
             user_agreement = #{userAgreement},

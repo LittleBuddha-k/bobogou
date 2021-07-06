@@ -24,7 +24,7 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private Integer member;//会员等级，0=普通会员，1=vip
     private Integer integral;//积分
     private Integer healthBeans;//健康豆
-    //private Integer collectNumber;//收藏数量
+    private Integer collectNumber;//收藏数量
     private String signInTime;//签到时间
     private Integer purchaseAmount;//成功下单购买次数
     private Integer messageStatus;//消息接收状态，0=关闭，1=打开
@@ -114,13 +114,13 @@ public class CustomerUser extends DataEntity<CustomerUser> {
         this.healthBeans = healthBeans;
     }
 
-    /*public Integer getCollectNumber() {
+    public Integer getCollectNumber() {
         return collectNumber;
     }
 
     public void setCollectNumber(Integer collectNumber) {
         this.collectNumber = collectNumber;
-    }*/
+    }
 
     public String getSignInTime() {
         return signInTime;

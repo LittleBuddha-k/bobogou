@@ -98,6 +98,25 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                 }
             }
         }
+        //关联保存app用户
+        if(operator.getCustomerUser() != null){
+            CustomerUser customerUser = operator.getCustomerUser();
+            if (CustomerUser.DEL_FLAG_NORMAL.equals(customerUser.getDelFlag())){
+                if (!StringUtils.isNotBlank(customerUser.getId())) {
+                    customerUser.setIdType("AUTO");
+                    customerUser.setPhone(operator.getPhone());
+                    customerUser.setOperatorId(operator.getId());
+                    customerUser.preInsert();
+                    customerUserMapper.insert(customerUser);
+                }else {
+                    customerUser.setOperatorId(operator.getId());
+                    customerUser.preUpdate();
+                    customerUserMapper.update(customerUser);
+                }
+            }else {
+
+            }
+        }
         return operatorRow;
     }
 
