@@ -77,7 +77,7 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
     public int save(Menu menu) {
         int save = 0;
         // 获取父节点实体
-        Menu parent = menuMapper.get(new Menu(menu.getParent().getId()));
+        Menu parent = menuMapper.get(new Menu(menu.getParentId()));
         parent.setHasChildren(true);
         menu.setParent(parent);
         //更新父类hasChildren字段
