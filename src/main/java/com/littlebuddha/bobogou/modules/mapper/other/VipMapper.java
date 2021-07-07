@@ -10,4 +10,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface VipMapper extends BaseMapper<Vip> {
+
+    /**
+     * 通过类型查询vip规则数据
+     * @param vip
+     * @return
+     */
+    Vip getByType(Vip vip);
 }

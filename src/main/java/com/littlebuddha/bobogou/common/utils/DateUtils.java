@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.common.utils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -35,7 +36,26 @@ public class DateUtils {
         return DateFormatUtils.format(new Date(), pattern);
     }
 
+    /**
+     * 获取指定天数的日期
+     * @param num 指定的天数
+     * @return
+     */
+    public static Date getSpecifyDate (int num) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, num);
+        Date date = calendar.getTime();
+        return date;
+    }
+
     public static void main(String[] args) {
         System.out.println(getFullDate(new Date()));
+        //Date date = new Date();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //String currdate = format.format(date);
+        //
+        //System.out.println("当前日期是:" + currdate);
+        Date addDate = getSpecifyDate(30);
+        System.out.println("30天以后的日期是:"+format.format(addDate));
     }
 }

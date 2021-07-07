@@ -236,7 +236,8 @@
     <update id="beVip">
         UPDATE ud_user SET
             member = #{member},
-            apply_status = #{applyStatus}
+            apply_status = #{applyStatus},
+            vip_expire = #{vipExpire}
         WHERE id=#{id}
     </update>
 
