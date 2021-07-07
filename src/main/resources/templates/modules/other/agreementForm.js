@@ -24,10 +24,14 @@ function save(parentIndex) {
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
+                if (200 == result.code){
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    parent.refresh();
+                    rc.alert(result.msg)
+                }else {
+                    rc.alert(result.msg)
+                }
             },
             error: function (result) {
                 rc.alert(result.msg)

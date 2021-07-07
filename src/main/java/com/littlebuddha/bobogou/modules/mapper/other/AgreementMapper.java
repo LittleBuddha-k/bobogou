@@ -10,4 +10,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface AgreementMapper extends BaseMapper<Agreement> {
+    Agreement getByType(Agreement entity);
 }
