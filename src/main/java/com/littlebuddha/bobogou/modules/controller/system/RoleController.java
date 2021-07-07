@@ -73,8 +73,15 @@ public class RoleController extends BaseController {
 
     @ResponseBody
     @GetMapping("/allData")
-    public List<Role> allData(Role role) {
-        return roleService.findAllList(role);
+    public TreeResult allData(Role role) {
+        TreeResult result = null;
+        List<Role> allList = roleService.findList(new Role());
+        if (allList != null && allList.size() > 0) {
+            result = new TreeResult(0, "数据成功", allList, allList.size());
+        } else {
+            result = new TreeResult(466, "无数据");
+        }
+        return result;
     }
 
     /**
@@ -87,11 +94,17 @@ public class RoleController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Role role, Model model) {
-        model.addAttribute("role", role);
-        if ("add".equals(mode) || "edit".equals(mode) || "view".equals(mode)) {
-            return "modules/system/roleForm";
+        //当点击新建时
+        if (role.getParentId() == null) {
+            role.setParent(roleService.getTopRole());
         }
-        return "";
+        //当在当前行角色添加下级角色时
+        if (role.getParentId() != null ) {
+            Role entity = roleService.get(role.getParentId());
+            role.setParent(entity);
+        }
+        model.addAttribute("role", role);
+        return "modules/system/roleForm";
     }
 
     /**

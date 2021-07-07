@@ -20,4 +20,8 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      */
     List<Role> getRolesByOperator(Role role);
+
+    List<Role> findByParentIdsLike(Role update);
+
+    void updateParentIds(Role role);
 }

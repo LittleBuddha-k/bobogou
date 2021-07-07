@@ -5,6 +5,8 @@
         a.id AS "id",
         a.name AS "name",
         a.english_name AS "englishName",
+        a.parent_id AS "parentId",
+        a.parent_ids AS "parentIds",
         a.create_by AS "createBy.id",
         a.create_date AS "createDate",
         a.update_by AS "updateBy.id",
@@ -22,6 +24,15 @@
         FROM system_role a
         WHERE id=#{id}
     </select>
+
+    <select id="findByParentIdsLike" resultType="com.littlebuddha.bobogou.modules.entity.system.Menu">
+		SELECT
+			a.id AS "id",
+			a.parent_id AS "parent.id",
+			a.parent_ids AS "parentIds"
+		FROM system_role a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.parent_ids LIKE #{parentIds}
+	</select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
@@ -94,6 +105,8 @@
             id,
             name,
             english_name,
+            parent_id,
+            parent_ids,
             create_by,
             create_date,
             update_by,
@@ -104,6 +117,8 @@
             #{id},
             #{name},
             #{englishName},
+            #{parentId},
+            #{parentIds},
             #{createBy.id},
             #{createDate},
             #{updateBy.id},
@@ -117,6 +132,8 @@
         UPDATE system_role SET
             name = #{name},
             english_name = #{englishName},
+            parent_id = #{parentId},
+            parent_ids = #{parentIds},
             create_by = #{createBy.id},
             create_date = #{createDate},
             update_by = #{updateBy.id},
@@ -135,6 +152,13 @@
         UPDATE system_role SET del_flag = 0
         WHERE id=#{id}
     </update>
+
+    <update id="updateParentIds">
+		UPDATE system_role SET
+			parent_id = #{parent.id},
+			parent_ids = #{parentIds}
+		WHERE id = #{id}
+	</update>
 
     <delete id="deleteByPhysics">
         DELETE FROM system_role

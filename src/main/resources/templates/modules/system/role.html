@@ -43,18 +43,21 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolBar">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
+        <!--左上角工具栏-->
+        <script type="text/html" id="toolbar">
+            <div class="layui-btn-group">
+                <button class="layui-btn layui-btn-sm" lay-event="add"><i class="layui-icon">&#xe654;</i>新增</button>
             </div>
         </script>
 
-        <table class="layui-hide" id="roleTable" lay-filter="roleTableFilter"></table>
+        <!--表格区域-->
+        <table class="layui-table" id="roleTable" lay-filter="roleTable" style="white-space:nowrap"></table>
 
         <script type="text/html" id="operation">
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="view">查看</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="addPermission">设置权限</a>
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="addChildren">添加下级角色</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
         </script>
 
@@ -63,6 +66,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->

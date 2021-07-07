@@ -23,6 +23,9 @@ import java.util.List;
 public class RoleService extends CrudService<Role, RoleMapper> {
 
     @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
     private MenuMapper menuMapper;
 
     @Autowired
@@ -34,6 +37,19 @@ public class RoleService extends CrudService<Role, RoleMapper> {
     @Override
     public Role get(Role entity) {
         return super.get(entity);
+    }
+
+    /**
+     * 获取最顶级的一个角色---仅为工具角色
+     *
+     * @param
+     * @return
+     */
+    public Role getTopRole() {
+        Role role = new Role();
+        role.setId("-1");
+        Role topRole = get(role);
+        return topRole;
     }
 
     @Override
@@ -53,7 +69,27 @@ public class RoleService extends CrudService<Role, RoleMapper> {
 
     @Override
     public int save(Role entity) {
-        return super.save(entity);
+        // 获取父节点实体
+        Role parent = roleMapper.get(new Role(entity.getParentId()));
+        entity.setParent(parent);
+
+        // 获取修改前的parentIds，用于更新子节点的parentIds
+        String oldParentIds = entity.getParentIds();
+
+        // 设置新的父节点串
+        entity.setParentIds(entity.getParent().getParentIds()+entity.getParent().getId()+",");
+
+        int save = super.save(entity);
+
+        // 更新子节点 parentIds
+        Role update = new Role();
+        update.setParentIds("%,"+entity.getId()+",%");
+        List<Role> list = roleMapper.findByParentIdsLike(update);
+        for (Role role : list){
+            role.setParentIds(role.getParentIds().replace(oldParentIds, entity.getParentIds()));
+            roleMapper.updateParentIds(role);
+        }
+        return save;
     }
 
     @Override
