@@ -1,10 +1,7 @@
 package com.littlebuddha.bobogou.modules.controller.common;
 
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
-import com.littlebuddha.bobogou.common.utils.FileUtils;
-import com.littlebuddha.bobogou.common.utils.MarkdownResult;
-import com.littlebuddha.bobogou.common.utils.Result;
-import com.littlebuddha.bobogou.common.utils.UserUtils;
+import com.littlebuddha.bobogou.common.utils.*;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.UUID;
 
@@ -33,7 +32,29 @@ public class PictureUploadController {
     @PostMapping("/picture")
     public Result pictureUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile file, Model model) throws IOException {
         Result result = new Result();
-        if (file.isEmpty()) {
+        String rootPath = globalSetting.getUploadImage();
+        //上传文件名字
+        String fileName = file.getOriginalFilename();
+        //保存特殊名字
+        String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //年月日文件夹
+        String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
+        rootPath += data;
+        File typeDir = new File(Paths.get(rootPath).toUri());
+        if (!typeDir.exists() && !typeDir.isDirectory()) {
+            typeDir.mkdirs();
+        }
+        File tempFile = new File(Paths.get(rootPath, saveFileName).toUri());
+        if (!file.isEmpty()) {
+            try {
+                file.transferTo(tempFile);
+                String url = globalSetting.getRootPath() + data + "/" + saveFileName;
+                result.put("url",url);
+            } catch (IOException | RuntimeException e) {
+                e.printStackTrace();
+            }
+        }
+        /*if (file.isEmpty()) {
             result.setMsg("文件为空");
         }
         //String uploadPath = request.getParameter("uploadPath");
@@ -53,7 +74,7 @@ public class PictureUploadController {
         }
         String domainName = globalSetting.getRootPath();
         String filename = "/temp-rainy/" + fileName;
-        result.put("url","/bobogou" +filename);
+        result.put("url","/bobogou" +filename);*/
         return result;
     }
 
@@ -72,7 +93,34 @@ public class PictureUploadController {
         MarkdownResult result = new MarkdownResult();
         MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
         MultipartFile multipartFile = multipartHttpServletRequest.getFile("editormd-image-file");
-        if (multipartFile.isEmpty()) {
+        String rootPath = globalSetting.getUploadImage();
+        //上传文件名字
+        String fileName = file.getOriginalFilename();
+        //保存特殊名字
+        String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //年月日文件夹
+        String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
+        rootPath += data;
+        File typeDir = new File(Paths.get(rootPath).toUri());
+        if (!typeDir.exists() && !typeDir.isDirectory()) {
+            typeDir.mkdirs();
+        }
+        File tempFile = new File(Paths.get(rootPath, saveFileName).toUri());
+        if (!file.isEmpty()) {
+            try {
+                file.transferTo(tempFile);
+                String url = globalSetting.getRootPath() + data + "/" + saveFileName;
+                result.setSuccess(1);
+                result.setUrl(url);
+                result.setMessage("上传成功");
+            } catch (IOException | RuntimeException e) {
+                e.printStackTrace();
+                result.setSuccess(0);
+                result.setUrl("");
+                result.setMessage("上传失败:"+e.getMessage());
+            }
+        }
+        /*if (multipartFile.isEmpty()) {
             result.setMessage("文件为空");
         }
         String fileName = multipartFile.getOriginalFilename();  // 文件名
@@ -98,7 +146,7 @@ public class PictureUploadController {
             result.setSuccess(0);
             result.setUrl("");
             result.setMessage("上传失败:"+e.getMessage());
-        }
+        }*/
         return result;
     }
 }
