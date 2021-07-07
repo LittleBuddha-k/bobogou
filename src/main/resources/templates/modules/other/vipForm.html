@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>vip规则信息管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="vipForm">
+        <input type="hidden" name="id" id="id" th:value="${vip.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${vip.getName()}"
+                           th:id="name" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="time">有效时间(天)</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="time" th:value="${vip.getTime()}"
+                           th:id="time" autocomplete="off" class="layui-input required number">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="type">类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${vip.getType() == null}">
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="2" th:text="诊所"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${vip.getType() == 1}">
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="2" th:text="诊所"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${vip.getType() == 2}">
+                        <option th:value="2" th:text="诊所"/>
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${vip.getType() == 3}">
+                        <option th:value="3" th:text="医院"/>
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="2" th:text="诊所"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/vipForm.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+</body>
+</html>

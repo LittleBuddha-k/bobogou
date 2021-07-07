@@ -46,22 +46,28 @@
                 <label class="layui-form-label" for="type">机构类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true" th:if="${userMember.getType() == 0}">
+                            th:id="type" disabled="true" th:if="${userMember.getType() == null}">
                         <option th:value="1" th:text="药房"/>
                         <option th:value="2" th:text="诊所"/>
                         <option th:value="3" th:text="医院"/>
                     </select>
                     <select name="type" lay-verify="" lay-filter="type"
                             th:id="type" disabled="true" th:if="${userMember.getType() == 1}">
-                        <option th:value="1" th:text="诊所"/>
-                        <option th:value="2" th:text="药房"/>
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="2" th:text="诊所"/>
                         <option th:value="3" th:text="医院"/>
                     </select>
                     <select name="type" lay-verify="" lay-filter="type"
                             th:id="type" disabled="true" th:if="${userMember.getType() == 2}">
+                        <option th:value="2" th:text="药房"/>
+                        <option th:value="1" th:text="诊所"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" disabled="true" th:if="${userMember.getType() == 3}">
+                        <option th:value="3" th:text="诊所"/>
                         <option th:value="1" th:text="医院"/>
                         <option th:value="2" th:text="药房"/>
-                        <option th:value="3" th:text="诊所"/>
                     </select>
                 </div>
             </div>
