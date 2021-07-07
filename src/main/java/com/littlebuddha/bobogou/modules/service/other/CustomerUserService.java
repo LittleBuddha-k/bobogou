@@ -73,6 +73,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     }
 
     public int beVip(CustomerUser customerUser) {
+        if (customerUser.getUserMember() != null && customerUser.getUserMember().getType() != null){
+            //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
+        }
         int row = customerUserMapper.beVip(customerUser);
         return row;
     }

@@ -36,6 +36,36 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label" for="name">机构名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${userMember.getName()}" autocomplete="off"
+                           th:id="name" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="type">机构类型</label>
+                <div class="layui-input-inline">
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" disabled="true" th:if="${userMember.getType() == 0}">
+                        <option th:value="1" th:text="药房"/>
+                        <option th:value="2" th:text="诊所"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" disabled="true" th:if="${userMember.getType() == 1}">
+                        <option th:value="1" th:text="诊所"/>
+                        <option th:value="2" th:text="药房"/>
+                        <option th:value="3" th:text="医院"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" disabled="true" th:if="${userMember.getType() == 2}">
+                        <option th:value="1" th:text="医院"/>
+                        <option th:value="2" th:text="药房"/>
+                        <option th:value="3" th:text="诊所"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label" for="province">省</label>
                 <div class="layui-input-inline">
                     <input type="text" name="province" th:value="${userMember.getProvince()}" autocomplete="off"

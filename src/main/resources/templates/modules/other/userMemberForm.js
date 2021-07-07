@@ -8,10 +8,11 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
 
     form.on('submit(pass)', function(data){
+        let type = $("#type").val();
         //获取customerUser表单中的id信息
         let id = $("#userId").val();
         //修改当前customerUser的会员状态
-        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":1,"applyStatus":2},function (data) {
+        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":1,"userMember.type":type,"applyStatus":2},function (data) {
             if (200 == data.code){
                 //关闭当前页面
                 var index = parent.layer.getFrameIndex(window.name);
@@ -26,10 +27,11 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
     form.on('submit(refuse)', function(data){
+        let type = $("#type").val();
         //获取customerUser表单中的id信息
         let id = $("#userId").val();
         //修改当前customerUser的会员状态
-        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":0,"applyStatus":3},function (data) {
+        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":0,"userMember.type":type,"applyStatus":3},function (data) {
             if (200 == data.code){
                 //关闭当前页面
                 var index = parent.layer.getFrameIndex(window.name);

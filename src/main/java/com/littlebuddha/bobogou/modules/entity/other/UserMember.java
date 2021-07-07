@@ -23,6 +23,8 @@ public class UserMember extends DataEntity<UserMember> {
     private String realName;//真实姓名
     private String phone;//联系电话
     private String cardNo;//身份证号
+    private String name;//医院诊所药房名称
+    private Integer type;//类型，1=药房，2=诊所，3=医院
     private Integer provinceId;//省ID
     private String province;//省
     private Integer cityId;//市ID
@@ -81,6 +83,22 @@ public class UserMember extends DataEntity<UserMember> {
 
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     public Integer getProvinceId() {
