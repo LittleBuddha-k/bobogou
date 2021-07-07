@@ -95,12 +95,12 @@ public class MenuController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Menu menu, Model model) {
         //当查看的菜单为师祖级菜单
-        if (menu.getParent() == null || StringUtils.isBlank(menu.getParent().getId())) {
+        if (menu.getParentId() == null) {
             menu.setParent(menuService.getTopMenu());
         }
         //为其设置parent
-        if (menu.getParent() != null && StringUtils.isNotBlank(menu.getParent().getId())) {
-            Menu entity = menuService.get(menu.getParent().getId());
+        if (menu.getParentId() != null) {
+            Menu entity = menuService.get(menu.getParentId());
             menu.setParent(entity);
         }
         //前端下拉选项数据

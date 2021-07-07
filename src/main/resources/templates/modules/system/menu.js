@@ -133,7 +133,6 @@ function init() {
                 rc.openViewDialog("/bobogou/system/menu/form/view?id=" + id, "查看菜单信息", '670px', '340px')
             } else if (obj.event === "edit") {
                 rc.openSaveDialog("/bobogou/system/menu/form/edit?id=" + id, "编辑菜单信息", '670px', '340px')
-                renderTable();
             } else if (obj.event === "delete") {
                 rc.confirm('确认要删除该信息吗？', function () {
                     rc.post("/bobogou/system/menu/delete?ids=" + id, '', function (data) {

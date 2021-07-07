@@ -17,11 +17,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label">上级菜单</label>
                 <div class="layui-input-inline">
-                    <select name="parent.id" th:id="parent.id" lay-verify="" th:if="${mode == 'view'}" disabled="true">
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode == 'view'}" disabled="true">
                         <option th:value="${menu.getParent().getId()}"
                                 th:text="${menu.getParent().getTitle()}"></option>
                     </select>
-                    <select name="parent.id" th:id="parent.id" lay-verify="" th:if="${mode != 'view'}">
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode != 'view'}">
                         <option th:value="${menu.getParent().getId()}"
                                 th:text="${menu.getParent().getTitle()}"></option>
                     </select>

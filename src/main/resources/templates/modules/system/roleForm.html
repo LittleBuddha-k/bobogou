@@ -14,7 +14,12 @@
             <div class="layui-inline">
                 <label class="layui-form-label">上级角色</label>
                 <div class="layui-input-inline">
-                    <select name="parentId" th:id="parentId" lay-verify="">
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode == 'view'}" disabled="true">
+                        <option th:value="${role.getParent().getId()}"
+                                th:text="${role.getParent().getName()}">
+                        </option>
+                    </select>
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode != 'view'}">
                         <option th:value="${role.getParent().getId()}"
                                 th:text="${role.getParent().getName()}">
                         </option>
