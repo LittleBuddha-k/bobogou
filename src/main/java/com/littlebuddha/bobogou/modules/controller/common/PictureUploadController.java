@@ -95,7 +95,7 @@ public class PictureUploadController {
         MultipartFile multipartFile = multipartHttpServletRequest.getFile("editormd-image-file");
         String rootPath = globalSetting.getUploadImage();
         //上传文件名字
-        String fileName = file.getOriginalFilename();
+        String fileName = multipartFile.getOriginalFilename();
         //保存特殊名字
         String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
         //年月日文件夹
@@ -106,9 +106,9 @@ public class PictureUploadController {
             typeDir.mkdirs();
         }
         File tempFile = new File(Paths.get(rootPath, saveFileName).toUri());
-        if (!file.isEmpty()) {
+        if (!multipartFile.isEmpty()) {
             try {
-                file.transferTo(tempFile);
+                multipartFile.transferTo(tempFile);
                 String url = globalSetting.getRootPath() + data + "/" + saveFileName;
                 result.setSuccess(1);
                 result.setUrl(url);
