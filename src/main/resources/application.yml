@@ -96,7 +96,7 @@ logoinfo:
 
 global:
   uploadPath: /usr/image
-  rootPath: /bobogou
+  rootPath:  http://1.117.222.27/image/
 ---
 server:
   port: 8081

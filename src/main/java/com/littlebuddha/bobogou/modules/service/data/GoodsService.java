@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.MarkdownUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.*;
 import com.littlebuddha.bobogou.modules.mapper.data.*;
@@ -61,9 +62,13 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 if (StringUtils.isBlank(goodsInfo.getId())) {
                     goodsInfo.setIdType("AUTO");
                     goodsInfo.setId(entity.getId());
+                    String contentHtml = MarkdownUtils.markdownToHtmlExtensions(goodsInfo.getContent());
+                    goodsInfo.setContentHtml(contentHtml);
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
                 }else {
+                    String contentHtml = MarkdownUtils.markdownToHtmlExtensions(goodsInfo.getContent());
+                    goodsInfo.setContentHtml(contentHtml);
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }
