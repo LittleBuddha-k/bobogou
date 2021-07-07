@@ -41,6 +41,10 @@ layui.use(['form', 'table'], function () {
                         var type = data.type;
                         if(1 == type){
                             return "用户协议";
+                        }else if (2 == type){
+                            return "积分规则";
+                        }else if (3 == type){
+                            return "VIP规则";
                         }else {
                             return "未知";
                         }

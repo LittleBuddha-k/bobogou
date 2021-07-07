@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Agreement extends DataEntity<Agreement> {
 
-    private Integer type;//类型，1=用户协议
+    private Integer type;//类型，1=用户协议，2=积分规则，3=VIP规则
     private String title;//标题
     private String content;//内容
     private String accountId;//最后操作人ID

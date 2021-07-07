@@ -18,9 +18,23 @@
             <div class="layui-input-block">
                 <select name="type" lay-verify="" th:if="${agreement.getType() == null}">
                     <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="3" th:text="VIP规则"/>
                 </select>
                 <select name="type" lay-verify="" th:if="${agreement.getType() == 1}">
                     <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="3" th:text="VIP规则"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 2}">
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="3" th:text="VIP规则"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 3}">
+                    <option th:value="3" th:text="VIP规则"/>
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
                 </select>
             </div>
         </div>
