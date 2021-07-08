@@ -3,7 +3,7 @@
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsTagMapper">
     <sql id="goodsTagColumns">
         id AS "id",
-        tag AS "tag",
+        icon AS "icon",
         name AS "name",
         is_deleted AS "isDeleted",
         create_time AS "createTime",
@@ -59,14 +59,14 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO md_tag(
-            tag,
+            icon,
             name,
             is_deleted,
             create_time,
             update_time,
             account_id
         )VALUES (
-            tag,
+            icon,
             #{name},
             #{isDeleted},
             #{createTime},
@@ -77,7 +77,7 @@
 
     <update id="update">
         UPDATE md_tag SET
-            tag = #{tag},
+            icon = #{icon},
             name = #{name},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
