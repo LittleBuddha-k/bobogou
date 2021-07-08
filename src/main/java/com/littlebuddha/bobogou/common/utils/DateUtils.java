@@ -3,6 +3,8 @@ package com.littlebuddha.bobogou.common.utils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -46,6 +48,13 @@ public class DateUtils {
         calendar.add(Calendar.DATE, num);
         Date date = calendar.getTime();
         return date;
+    }
+
+    public static final String FORMAT_FILE_NAME = "yyyyMMdd";
+
+    public static String localDateTimeToString(LocalDateTime localDateTime,String dtf){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(dtf);
+        return dateTimeFormatter.format(localDateTime);
     }
 
     public static void main(String[] args) {

@@ -12,12 +12,13 @@ server:
   port: 8887
   servlet:
     context-path: /bobogou
-    multipart:
-       enabled: true
-       max-file-size: 20MB
-       max-request-size: 20MB
 spring:
   profiles: dev
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
   thymeleaf:
     #    禁用模板引擎的缓存
     cache: false
@@ -96,7 +97,7 @@ logoinfo:
 
 global:
   uploadPath: /usr/image
-  rootPath: /bobogou
+  rootPath:  http://1.117.222.27/image/
 ---
 server:
   port: 8081
