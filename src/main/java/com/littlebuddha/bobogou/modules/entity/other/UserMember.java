@@ -42,8 +42,14 @@ public class UserMember extends DataEntity<UserMember> {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String endTime;//营业执照有效结束时间
 
-    private Integer status;//审核状态，0=未审核，1=已通过，2=已拒绝
+    private String contractUrl;//合同文件地址
+    private Integer provinceUserId;//省审核人ID
+    private Integer cityUserId;//市审核人ID
+    private Integer districtUserId;//区审核人ID
+
+    private Integer status;//审核状态，0=未审核，1=区代理已审核通过，2=区代理审核已经拒绝，3=市代理已审核通过，4=市代理审核已拒绝，5=省代理已审核通过，6=省代理已经拒绝
     private String refuseReason;//拒绝原因
+    private Integer vipStatus;//vip已过期，0=正常，1=已过期
     private Integer accountId;//最后操作人ID
 
     public UserMember() {
@@ -199,6 +205,38 @@ public class UserMember extends DataEntity<UserMember> {
         this.endTime = endTime;
     }
 
+    public String getContractUrl() {
+        return contractUrl;
+    }
+
+    public void setContractUrl(String contractUrl) {
+        this.contractUrl = contractUrl;
+    }
+
+    public Integer getProvinceUserId() {
+        return provinceUserId;
+    }
+
+    public void setProvinceUserId(Integer provinceUserId) {
+        this.provinceUserId = provinceUserId;
+    }
+
+    public Integer getCityUserId() {
+        return cityUserId;
+    }
+
+    public void setCityUserId(Integer cityUserId) {
+        this.cityUserId = cityUserId;
+    }
+
+    public Integer getDistrictUserId() {
+        return districtUserId;
+    }
+
+    public void setDistrictUserId(Integer districtUserId) {
+        this.districtUserId = districtUserId;
+    }
+
     public Integer getStatus() {
         return status;
     }
@@ -213,6 +251,14 @@ public class UserMember extends DataEntity<UserMember> {
 
     public void setRefuseReason(String refuseReason) {
         this.refuseReason = refuseReason;
+    }
+
+    public Integer getVipStatus() {
+        return vipStatus;
+    }
+
+    public void setVipStatus(Integer vipStatus) {
+        this.vipStatus = vipStatus;
     }
 
     public Integer getAccountId() {
