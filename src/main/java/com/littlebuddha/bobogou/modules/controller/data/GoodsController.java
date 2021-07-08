@@ -39,7 +39,7 @@ public class GoodsController extends BaseController {
     private GoodsBrandService goodsBrandService;
 
     @Autowired
-    private GoodsTypeService goodsTypeService;
+    private ClassifyService goodsTypeService;
 
     @Autowired
     private GoodsInfoService goodsInfoService;
@@ -124,7 +124,7 @@ public class GoodsController extends BaseController {
         List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
         model.addAttribute("commodityBrandList", commodityBrandList);
         //查询商品分类数据：分一级、二级、三级
-        List<GoodsType> goodsTypeLevelOne = goodsTypeService.findList(new GoodsType(1));//查询一级商品分类
+        List<Classify> goodsTypeLevelOne = goodsTypeService.findList(new Classify(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
         //查询当前商品的商品分类详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){

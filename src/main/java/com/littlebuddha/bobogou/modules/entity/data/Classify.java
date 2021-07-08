@@ -2,30 +2,34 @@ package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
-import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import org.apache.commons.lang3.StringUtils;
 
 /**
  * 商品分类实体类
  */
-public class GoodsType extends DataEntity<GoodsType> {
+public class Classify extends DataEntity<Classify> {
 
     private String name;//分类名称
     private String icon;//分类图标地址
     private String parentId;//父级分类ID，顶级=0
     private Integer level;//级别分类字段
 
+    private Double provinceRatio;//省代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
+    private Double cityRatio;//市代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
+    private Double districtRatio;//区代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
+
+
     private String accountId;//最后操作人ID
 
-    private GoodsType goodsType;//商品分类外键
+    private Classify goodsType;//商品分类外键
     private String parentName;//分类名称
 
 
 
-    public GoodsType() {
+    public Classify() {
     }
 
-    public GoodsType(Integer level) {
+    public Classify(Integer level) {
         this.level = level;
     }
 
@@ -64,6 +68,30 @@ public class GoodsType extends DataEntity<GoodsType> {
         this.level = level;
     }
 
+    public Double getProvinceRatio() {
+        return provinceRatio;
+    }
+
+    public void setProvinceRatio(Double provinceRatio) {
+        this.provinceRatio = provinceRatio;
+    }
+
+    public Double getCityRatio() {
+        return cityRatio;
+    }
+
+    public void setCityRatio(Double cityRatio) {
+        this.cityRatio = cityRatio;
+    }
+
+    public Double getDistrictRatio() {
+        return districtRatio;
+    }
+
+    public void setDistrictRatio(Double districtRatio) {
+        this.districtRatio = districtRatio;
+    }
+
     @ExcelField(title = "最后操作人ID", align = 2, sort = 1)
     public String getAccountId() {
         if(this.updateBy != null && StringUtils.isNotBlank(updateBy.getId())){
@@ -76,11 +104,11 @@ public class GoodsType extends DataEntity<GoodsType> {
         this.accountId = accountId;
     }
 
-    public GoodsType getGoodsType() {
+    public Classify getGoodsType() {
         return goodsType;
     }
 
-    public void setGoodsType(GoodsType goodsType) {
+    public void setGoodsType(Classify goodsType) {
         this.goodsType = goodsType;
     }
 

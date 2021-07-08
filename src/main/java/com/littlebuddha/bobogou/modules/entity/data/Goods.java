@@ -11,28 +11,36 @@ public class Goods extends DataEntity<Goods> {
 
     private String name;//商品名称
 
+    private String certificateImage;//药品资质证书图片地址
+
     private Banner banner;//轮播图外键
     private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
 
     private GoodsBrand goodsBrand;//商品品牌规格外键
     private Integer brandId;//品牌分类ID
-
+    private Integer goodsFactoryId;//商品关联厂商字段
     private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔
+    private String goodsTypeId;//药品其它分类ID，多个使用英文逗号分隔，在开始和结尾也需要加英文逗号
 
     private Double purchasingPrice;//进价，单位：分
     private Double originalCost;//原价，单位：分
     private Double sellingPrice;//普通会员价，单位：分
     private Double vipPrice;//会员价，单位：分
     private String specification;//规格
+    private Double weight;//重量，单位：g，在需要运费的时候需要通过重量来计算运费，同一订单会计算订单所有商品的重量，小数点向上取整计算重量，运费按kg计算
     private Integer amount;//数量
     private Integer usedAmount;//已用
     private Integer stockAmount;//库存
     private Integer salesVolume;//销量
     private String effect;//功效
+    private String productTime;//生产日期
+    private Integer expirationDate;//保质期（单位：月）
     private Integer applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments;//评论数
     private Integer healthBeans;//健康豆，该商品可获得的健康豆
+    private Integer integral;//积分
+    private Integer isFreight;//是否需要运费哦：0--不需要，1=需要
     private Integer isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 

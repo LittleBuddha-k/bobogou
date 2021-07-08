@@ -8,8 +8,8 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.data.GoodsType;
-import com.littlebuddha.bobogou.modules.service.data.GoodsTypeService;
+import com.littlebuddha.bobogou.modules.entity.data.Classify;
+import com.littlebuddha.bobogou.modules.service.data.ClassifyService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +30,16 @@ import java.util.Map;
 public class GoodsTypeController extends BaseController {
 
     @Autowired
-    private GoodsTypeService goodsTypeService;
+    private ClassifyService classifyService;
 
     @ModelAttribute
-    public GoodsType get(@RequestParam(required = false) String id) {
-        GoodsType goodsType = null;
+    public Classify get(@RequestParam(required = false) String id) {
+        Classify goodsType = null;
         if (StringUtils.isNotBlank(id)) {
-            goodsType = goodsTypeService.get(id);
+            goodsType = classifyService.get(id);
         }
         if (goodsType == null) {
-            goodsType = new GoodsType();
+            goodsType = new Classify();
         }
         return goodsType;
     }
@@ -54,7 +54,7 @@ public class GoodsTypeController extends BaseController {
      */
     //@RequiresPermissions("system/GoodsType/list")
     @GetMapping(value = {"/", "/list"})
-    public String list(GoodsType goodsType, Model model, HttpSession session) {
+    public String list(Classify goodsType, Model model, HttpSession session) {
         model.addAttribute("goodsType", goodsType);
         return "modules/data/goodsType";
     }
@@ -66,8 +66,8 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/data")
-    public TreeResult data(GoodsType goodsType) {
-        PageInfo<GoodsType> page = goodsTypeService.findPage(new Page<GoodsType>(), goodsType);
+    public TreeResult data(Classify goodsType) {
+        PageInfo<Classify> page = classifyService.findPage(new Page<Classify>(), goodsType);
         return getLayUiData(page);
     }
 
@@ -77,12 +77,12 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/all")
-    public List<GoodsType> all(GoodsType entity) {
-        List<GoodsType> result = new ArrayList<>();
+    public List<Classify> all(Classify entity) {
+        List<Classify> result = new ArrayList<>();
         if(entity != null && entity.getParentId() != null && StringUtils.isNotBlank(entity.getParentId())){
-            GoodsType parent = new GoodsType();
+            Classify parent = new Classify();
             parent.setParentId(entity.getParentId());
-            result = goodsTypeService.findList(parent);
+            result = classifyService.findList(parent);
         }
         return result;
     }
@@ -94,8 +94,8 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/getChildren")
-    public List<GoodsType> getChildren(GoodsType goodsType){
-        List<GoodsType> goodsTypes = goodsTypeService.findList(goodsType);
+    public List<Classify> getChildren(Classify goodsType){
+        List<Classify> goodsTypes = classifyService.findList(goodsType);
         return goodsTypes;
     }
 
@@ -108,9 +108,9 @@ public class GoodsTypeController extends BaseController {
      * @return
      */
     @GetMapping("/form/{mode}")
-    public String form(@PathVariable(name = "mode") String mode, GoodsType goodsType, Model model) {
+    public String form(@PathVariable(name = "mode") String mode, Classify goodsType, Model model) {
         //查询所有分类项
-        List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
+        List<Classify> goodsTypeList = classifyService.findList(new Classify());
         model.addAttribute("goodsTypeList", goodsTypeList);
         model.addAttribute("goodsType", goodsType);
         return "modules/data/goodsTypeForm";
@@ -124,8 +124,8 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/save")
-    public Result save(GoodsType goodsType) {
-        int save = goodsTypeService.save(goodsType);
+    public Result save(Classify goodsType) {
+        int save = classifyService.save(goodsType);
         if (save > 0) {
             return new Result("200", "保存成功");
         } else {
@@ -139,8 +139,8 @@ public class GoodsTypeController extends BaseController {
         Result result = new Result();
         try {
             String fileName = "商品分类模板.xlsx";
-            List<GoodsType> list = Lists.newArrayList();
-            new ExportExcel("商品分类数据", GoodsType.class, 1).setDataList(list).write(response, fileName).dispose();
+            List<Classify> list = Lists.newArrayList();
+            new ExportExcel("商品分类数据", Classify.class, 1).setDataList(list).write(response, fileName).dispose();
             return null;
         } catch (Exception e) {
             result.setSuccess(true);
@@ -158,10 +158,10 @@ public class GoodsTypeController extends BaseController {
             int failureNum = 0;
             StringBuilder failureMsg = new StringBuilder();
             ImportExcel ei = new ImportExcel(file, 1, 0);
-            List<GoodsType> list = ei.getDataList(GoodsType.class);
-            for (GoodsType goodsType : list) {
+            List<Classify> list = ei.getDataList(Classify.class);
+            for (Classify goodsType : list) {
                 try {
-                    goodsTypeService.save(goodsType);
+                    classifyService.save(goodsType);
                     successNum++;
                 } catch (Exception ex) {
                     failureNum++;
@@ -181,15 +181,15 @@ public class GoodsTypeController extends BaseController {
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(GoodsType goodsType, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(Classify goodsType, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
             String fileName = "商品分类" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<GoodsType> list = goodsTypeService.findList(goodsType);
+            List<Classify> list = classifyService.findList(goodsType);
             if (list != null & list.size() > 0) {
-                new ExportExcel("商品分类", GoodsType.class).setDataList(list).write(response, fileName).dispose();
+                new ExportExcel("商品分类", Classify.class).setDataList(list).write(response, fileName).dispose();
             } else {
-                new ExportExcel("商品分类", GoodsType.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
+                new ExportExcel("商品分类", Classify.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
             }
             return null;
         } catch (Exception e) {
@@ -205,11 +205,11 @@ public class GoodsTypeController extends BaseController {
         System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
-            GoodsType goodsType = goodsTypeService.get(s);
+            Classify goodsType = classifyService.get(s);
             if (goodsType == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = goodsTypeService.deleteByLogic(goodsType);
+            int i = classifyService.deleteByLogic(goodsType);
         }
         return new Result("200", "数据清除成功");
     }
@@ -219,33 +219,33 @@ public class GoodsTypeController extends BaseController {
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
         for (String s : split) {
-            GoodsType goodsType = goodsTypeService.get(s);
+            Classify goodsType = classifyService.get(s);
             if (goodsType == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = goodsTypeService.deleteByPhysics(goodsType);
+            int i = classifyService.deleteByPhysics(goodsType);
         }
         return new Result("200", "数据清除成功");
     }
 
     @GetMapping("/recoveryList")
-    public String recoveryList(GoodsType goodsType, Model model) {
+    public String recoveryList(Classify goodsType, Model model) {
         model.addAttribute("goodsType", goodsType);
         return "modules/recovery/goodsTypeRecovery";
     }
 
     @ResponseBody
     @PostMapping("/recoveryData")
-    public Map recoveryData(GoodsType goodsType, Model model) {
+    public Map recoveryData(Classify goodsType, Model model) {
         model.addAttribute("goodsType", goodsType);
-        PageInfo<GoodsType> page = goodsTypeService.findRecoveryPage(new Page<GoodsType>(), goodsType);
+        PageInfo<Classify> page = classifyService.findRecoveryPage(new Page<Classify>(), goodsType);
         return getBootstrapData(page);
     }
 
     @ResponseBody
     @PostMapping("/recovery")
-    public Result recovery(GoodsType goodsType) {
-        int recovery = goodsTypeService.recovery(goodsType);
+    public Result recovery(Classify goodsType) {
+        int recovery = classifyService.recovery(goodsType);
         if (recovery > 0) {
             return new Result("200", "数据已恢复");
         } else {
