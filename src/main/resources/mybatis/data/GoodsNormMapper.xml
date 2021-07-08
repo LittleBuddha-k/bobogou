@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsNormMapper">
+    <sql id="goodsNormColumns">
+        id AS "id",
+        goods_id AS "goodsId",
+        goods_factory_id AS "goodsFactoryId",
+        sample_box AS "sampleBox",
+        outer_packing_box AS "outerPacking_box",
+        instruction_book AS "instructionBook",
+        other_data AS "otherData",
+        related_pictures AS "relatedPictures",
+        instructions AS "instructions",
+        quality_standard AS "qualityStandard",
+        survey_report AS "surveyReport",
+        prices AS "prices",
+        production_business_license AS "productionBusinessLicense",
+        production_certificate AS "productionCertificate",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsNorm">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_goods_norm a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsNorm">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_goods_norm a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsNorm">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_goods_norm a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--正常新增没有关联，首次创建-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_goods_norm(
+            goods_id,
+            goods_factory_id,
+            sample_box,
+            outer_packing_box,
+            instruction_book,
+            other_data,
+            related_pictures,
+            instructions,
+            quality_standard,
+            survey_report,
+            prices,
+            production_business_license,
+            production_certificate,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{goodsId},
+            #{goodsFactoryId},
+            #{sampleBox},
+            #{outerPackingBox},
+            #{instructionBook},
+            #{otherData},
+            #{relatedPictures},
+            #{instructions},
+            #{qualityStandard},
+            #{surveyReport},
+            #{prices},
+            #{productionBusinessLicense},
+            #{productionCertificate},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <!--非正常新增有关联，属于关联创建-->
+    <insert id="insertSecond" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_goods_norm(
+            id,
+            goods_id,
+            goods_factory_id,
+            sample_box,
+            outer_packing_box,
+            instruction_book,
+            other_data,
+            related_pictures,
+            instructions,
+            quality_standard,
+            survey_report,
+            prices,
+            production_business_license,
+            production_certificate,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{id},
+            #{goodsId},
+            #{goodsFactoryId},
+            #{sampleBox},
+            #{outerPackingBox},
+            #{instructionBook},
+            #{otherData},
+            #{relatedPictures},
+            #{instructions},
+            #{qualityStandard},
+            #{surveyReport},
+            #{prices},
+            #{productionBusinessLicense},
+            #{productionCertificate},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE md_goods_norm SET
+            goods_id = #{goodsId},
+            goods_factory_id = #{goodsFactoryId},
+            sample_box = #{sampleBox},
+            outer_packing_box = #{outerPackingBox},
+            instruction_book = #{instructionBook},
+            other_data = #{otherData},
+            related_pictures = #{relatedPictures},
+            instructions = #{instructions},
+            quality_standard = #{qualityStandard},
+            survey_report = #{surveyReport},
+            prices = #{prices},
+            production_business_license = #{productionBusinessLicense},
+            production_certificate = #{productionCertificate},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE md_goods_norm SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE md_goods_norm SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM md_goods_norm
+        WHERE id=#{id}
+    </delete>
+</mapper>
