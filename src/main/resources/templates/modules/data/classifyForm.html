@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>商品分类管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="classifyForm">
+        <input type="hidden" name="id" th:value="${classify.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="icon">分类图标地址</label>
+            <!--<div class="layui-input-block">
+                <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
+                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
+            </div>-->
+            <div class="layui-upload-drag" id="test10" name="file">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" th:id="upload" th:if="${mode == 'add'}">
+                    <hr>
+                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                </div>
+                <div class="" th:id="upload" th:if="${mode != 'add'}">
+                    <hr>
+                    <img th:src="${classify.getIcon()}" alt="上传成功后渲染" style="max-width: 196px"
+                         th:if="${mode != 'add'}">
+                </div>
+            </div>
+            <input type="hidden" id="icon" name="icon" th:value="${classify.getIcon()}">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">分类名称</label>
+                <div class="layui-input-inline">
+                    <input type="name" name="name" th:value="${classify.getName()}"
+                           th:id="name" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">父级分类</label>
+                <div class="layui-input-inline">
+                    <select name="parentId" lay-verify="" th:if="${mode == 'add'}">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="classify:${classifyList}" th:value="${classify.getId()}"
+                                th:text="${classify.getName()}"/>
+                    </select>
+                    <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
+                        <option th:each="type:${classifyList}"
+                                th:if="${type.getId() == classify.getParentId()}"
+                                th:value="${type.getId()}" th:text="${type.getName()}"/>
+                        <option th:each="type:${classifyList}"
+                                th:if="${type.getId() != classify.getParentId()}"
+                                th:value="${type.getId()}" th:text="${type.getName()}"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">级别分类选择</label>
+                <div class="layui-input-inline">
+                    <select name="level" lay-verify="" th:if="${mode == 'add'}" th:id="level" lay-filter="level">
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="2" th:text="二级分类"/>
+                        <option th:value="3" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 1}" th:id="level" lay-filter="level">
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="2" th:text="二级分类"/>
+                        <option th:value="3" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 2}" th:id="level" lay-filter="level">
+                        <option th:value="2" th:text="二级分类"/>
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="3" th:text="三级分类"/>
+                    </select>
+                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 3}" th:id="level" lay-filter="level">
+                        <option th:value="3" th:text="三级分类"/>
+                        <option th:value="1" th:text="一级分类"/>
+                        <option th:value="2" th:text="二级分类"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addProvinceRatio">
+                <label class="layui-form-label" for="provinceRatio">省代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="provinceRatio" th:value="${classify.getProvinceRatio()}"
+                           th:id="provinceRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addProvinceRatio">
+                <label class="layui-form-label" for="provinceRatio">省代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="provinceRatio" th:value="${classify.getProvinceRatio()}"
+                           th:id="provinceRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addCityRatio">
+                <label class="layui-form-label" for="cityRatio">市代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="cityRatio" th:value="${classify.getCityRatio()}"
+                           th:id="cityRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addCityRatio">
+                <label class="layui-form-label" for="cityRatio">市代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="cityRatio" th:value="${classify.getCityRatio()}"
+                           th:id="cityRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addDistrictRatio">
+                <label class="layui-form-label" for="districtRatio">区代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="districtRatio" th:value="${classify.getDistrictRatio()}"
+                           th:id="districtRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addDistrictRatio">
+                <label class="layui-form-label" for="districtRatio">区代理提成比例</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="districtRatio" th:value="${classify.getDistrictRatio()}"
+                           th:id="districtRatio" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/classifyForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+</body>
+</html>

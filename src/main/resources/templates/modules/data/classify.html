@@ -21,7 +21,7 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">分类名称</label>
                             <div class="layui-input-inline">
-                                <input type="name" name="name" th:value="${goodsType.getName()}"
+                                <input type="name" name="name" th:value="${classify.getName()}"
                                        th:id="name" autocomplete="off" class="layui-input">
                             </div>
                         </div>
@@ -53,7 +53,7 @@
             </div>
         </script>
 
-        <table class="layui-hide" id="goodsTypeTable" lay-filter="goodsTypeTableFilter"></table>
+        <table class="layui-hide" id="classifyTable" lay-filter="classifyTableFilter"></table>
 
         <script type="text/html" id="operation">
                 <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
@@ -66,7 +66,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/goodsType.js"></script>
+<script type="text/javascript" src="/bobogou/modules/data/classify.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

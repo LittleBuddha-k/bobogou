@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#goodsTypeTable',
-        url: '/bobogou/data/goodsType/data',
+        elem: '#classifyTable',
+        url: '/bobogou/data/classify/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -56,7 +56,7 @@ layui.use(['form', 'table'], function () {
                     title: '父级',
                     field: 'parentName',
                     sort: true,
-                    sortName: 'goodsType.name'
+                    sortName: 'classify.name'
                 },
                 {
                     title: '最后操作人ID',
@@ -85,7 +85,7 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('goodsTypeTable', {
+        table.reload('classifyTable', {
             where: {
                 name: $("#name").val(),
                 level: $("#level").val()
@@ -97,20 +97,20 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(goodsTypeTableFilter)', function (obj) {
+    table.on('toolbar(classifyTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/goodsType/form/add", "新建商品分类信息",'467px','455px')
+            let index = rc.openSaveDialog("/bobogou/data/classify/form/add", "新建商品分类信息",'680px','485px')
         }
     });
 
-    table.on('tool(goodsTypeTableFilter)', function (obj) {
+    table.on('tool(classifyTableFilter)', function (obj) {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goodsType/form/edit?id=' + id, "编辑信息", '467px', '455px');
+            rc.openSaveDialog('/bobogou/data/classify/form/edit?id=' + id, "编辑信息", '680px', '485px');
         } else if (event === 'delete') {
             rc.confirm('确认要删除该信息吗？', function () {
-                rc.post("/bobogou/data/goodsType/delete?ids=" + id, '', function (data) {
+                rc.post("/bobogou/data/classify/delete?ids=" + id, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();
@@ -131,7 +131,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('goodsTypeTable'),
+    var checkStatus = table.checkStatus('classifyTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -148,7 +148,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('goodsTypeTable', {
+        table.reload('classifyTable', {
             page: {
                 curr: 1
             }

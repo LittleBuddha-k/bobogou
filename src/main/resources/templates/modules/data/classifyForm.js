@@ -18,19 +18,32 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
             $("#icon").val(res.body.url);
         }
     });
+
+    //下拉框选中后的时间
+    form.on('select(level)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let level = data.value;
+        if(3 == level){
+            $("#addProvinceRatio").show();
+            $("#addCityRatio").show();
+            $("#addDistrictRatio").show();
+        }
+    });
 });
 
 //保存方法
 function save(parentIndex) {
-    var isValidate = rc.validateForm('#goodsTypeForm');//校验表单
+    var isValidate = rc.validateForm('#classifyForm');//校验表单
     if(!isValidate){
         return false;
     }else {
         $.ajax({
-            url: "/bobogou/data/goodsType/save",    //请求的url地址
+            url: "/bobogou/data/classify/save",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#goodsTypeForm").serialize(),    //参数值
+            data: $("#classifyForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页

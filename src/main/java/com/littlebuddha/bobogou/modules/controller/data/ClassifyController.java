@@ -26,22 +26,22 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/data/goodsType")
-public class GoodsTypeController extends BaseController {
+@RequestMapping("/data/classify")
+public class ClassifyController extends BaseController {
 
     @Autowired
     private ClassifyService classifyService;
 
     @ModelAttribute
     public Classify get(@RequestParam(required = false) String id) {
-        Classify goodsType = null;
+        Classify classify = null;
         if (StringUtils.isNotBlank(id)) {
-            goodsType = classifyService.get(id);
+            classify = classifyService.get(id);
         }
-        if (goodsType == null) {
-            goodsType = new Classify();
+        if (classify == null) {
+            classify = new Classify();
         }
-        return goodsType;
+        return classify;
     }
 
     /**
@@ -52,11 +52,11 @@ public class GoodsTypeController extends BaseController {
      * @param session
      * @return
      */
-    //@RequiresPermissions("system/GoodsType/list")
+    //@RequiresPermissions("system/classify/list")
     @GetMapping(value = {"/", "/list"})
-    public String list(Classify goodsType, Model model, HttpSession session) {
-        model.addAttribute("goodsType", goodsType);
-        return "modules/data/goodsType";
+    public String list(Classify classify, Model model, HttpSession session) {
+        model.addAttribute("classify", classify);
+        return "modules/data/classify";
     }
 
     /**
@@ -66,8 +66,8 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/data")
-    public TreeResult data(Classify goodsType) {
-        PageInfo<Classify> page = classifyService.findPage(new Page<Classify>(), goodsType);
+    public TreeResult data(Classify classify) {
+        PageInfo<Classify> page = classifyService.findPage(new Page<Classify>(), classify);
         return getLayUiData(page);
     }
 
@@ -89,14 +89,14 @@ public class GoodsTypeController extends BaseController {
 
     /**
      * 根据父类信息查询子数据
-     * @param goodsType
+     * @param classify
      * @return
      */
     @ResponseBody
     @GetMapping("/getChildren")
-    public List<Classify> getChildren(Classify goodsType){
-        List<Classify> goodsTypes = classifyService.findList(goodsType);
-        return goodsTypes;
+    public List<Classify> getChildren(Classify classify){
+        List<Classify> classifys = classifyService.findList(classify);
+        return classifys;
     }
 
     /**
@@ -108,12 +108,12 @@ public class GoodsTypeController extends BaseController {
      * @return
      */
     @GetMapping("/form/{mode}")
-    public String form(@PathVariable(name = "mode") String mode, Classify goodsType, Model model) {
+    public String form(@PathVariable(name = "mode") String mode, Classify classify, Model model) {
         //查询所有分类项
-        List<Classify> goodsTypeList = classifyService.findList(new Classify());
-        model.addAttribute("goodsTypeList", goodsTypeList);
-        model.addAttribute("goodsType", goodsType);
-        return "modules/data/goodsTypeForm";
+        List<Classify> classifyList = classifyService.findList(new Classify());
+        model.addAttribute("classifyList", classifyList);
+        model.addAttribute("classify", classify);
+        return "modules/data/classifyForm";
     }
 
     /**
@@ -124,8 +124,8 @@ public class GoodsTypeController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/save")
-    public Result save(Classify goodsType) {
-        int save = classifyService.save(goodsType);
+    public Result save(Classify classify) {
+        int save = classifyService.save(classify);
         if (save > 0) {
             return new Result("200", "保存成功");
         } else {
@@ -159,9 +159,9 @@ public class GoodsTypeController extends BaseController {
             StringBuilder failureMsg = new StringBuilder();
             ImportExcel ei = new ImportExcel(file, 1, 0);
             List<Classify> list = ei.getDataList(Classify.class);
-            for (Classify goodsType : list) {
+            for (Classify classify : list) {
                 try {
-                    classifyService.save(goodsType);
+                    classifyService.save(classify);
                     successNum++;
                 } catch (Exception ex) {
                     failureNum++;
@@ -181,11 +181,11 @@ public class GoodsTypeController extends BaseController {
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(Classify goodsType, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(Classify classify, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
             String fileName = "商品分类" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<Classify> list = classifyService.findList(goodsType);
+            List<Classify> list = classifyService.findList(classify);
             if (list != null & list.size() > 0) {
                 new ExportExcel("商品分类", Classify.class).setDataList(list).write(response, fileName).dispose();
             } else {
@@ -205,11 +205,11 @@ public class GoodsTypeController extends BaseController {
         System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
-            Classify goodsType = classifyService.get(s);
-            if (goodsType == null) {
+            Classify classify = classifyService.get(s);
+            if (classify == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = classifyService.deleteByLogic(goodsType);
+            int i = classifyService.deleteByLogic(classify);
         }
         return new Result("200", "数据清除成功");
     }
@@ -219,33 +219,33 @@ public class GoodsTypeController extends BaseController {
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
         for (String s : split) {
-            Classify goodsType = classifyService.get(s);
-            if (goodsType == null) {
+            Classify classify = classifyService.get(s);
+            if (classify == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
             }
-            int i = classifyService.deleteByPhysics(goodsType);
+            int i = classifyService.deleteByPhysics(classify);
         }
         return new Result("200", "数据清除成功");
     }
 
     @GetMapping("/recoveryList")
-    public String recoveryList(Classify goodsType, Model model) {
-        model.addAttribute("goodsType", goodsType);
-        return "modules/recovery/goodsTypeRecovery";
+    public String recoveryList(Classify classify, Model model) {
+        model.addAttribute("classify", classify);
+        return "modules/recovery/classifyRecovery";
     }
 
     @ResponseBody
     @PostMapping("/recoveryData")
-    public Map recoveryData(Classify goodsType, Model model) {
-        model.addAttribute("goodsType", goodsType);
-        PageInfo<Classify> page = classifyService.findRecoveryPage(new Page<Classify>(), goodsType);
+    public Map recoveryData(Classify classify, Model model) {
+        model.addAttribute("classify", classify);
+        PageInfo<Classify> page = classifyService.findRecoveryPage(new Page<Classify>(), classify);
         return getBootstrapData(page);
     }
 
     @ResponseBody
     @PostMapping("/recovery")
-    public Result recovery(Classify goodsType) {
-        int recovery = classifyService.recovery(goodsType);
+    public Result recovery(Classify classify) {
+        int recovery = classifyService.recovery(classify);
         if (recovery > 0) {
             return new Result("200", "数据已恢复");
         } else {
