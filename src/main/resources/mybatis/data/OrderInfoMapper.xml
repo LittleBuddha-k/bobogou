@@ -13,6 +13,7 @@
         a.total_price AS "totalPrice",
         a.type AS "type",
         a.status AS "status",
+        a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
     </sql>
@@ -146,6 +147,7 @@
             total_price,
             type,
             status,
+            is_deleted,
             create_time,
             update_time
         )VALUES (
@@ -159,6 +161,7 @@
             #{totalPrice},
             #{type},
             #{status},
+            #{isDeleted},
             #{createTime},
             #{updateTime}
         )
@@ -176,6 +179,7 @@
             total_price = #{totalPrice},
             type = #{type},
             status = #{status},
+            is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}
         WHERE id=#{id}
