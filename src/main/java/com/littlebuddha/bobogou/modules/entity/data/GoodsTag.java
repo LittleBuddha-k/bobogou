@@ -9,13 +9,25 @@ import com.littlebuddha.bobogou.modules.entity.system.Operator;
  */
 public class GoodsTag extends DataEntity<GoodsTag> {
 
-
+    private String icon;//图标地址
     private String name;//标签名称
     private String accountId;//最后操作人ID
 
     private Operator operator;//外键使用
 
     public GoodsTag() {
+    }
+
+    public GoodsTag(String id) {
+        super(id);
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     @ExcelField(title = "分类名称", align = 2, sort = 1)
