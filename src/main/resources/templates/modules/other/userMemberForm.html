@@ -138,12 +138,86 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="status">审核状态</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="status" th:if="${0 == userMember.getStatus()}" th:value="未审核" autocomplete="off"
-                           th:id="status" class="layui-input" readonly>
-                    <input type="text" name="status" th:if="${1 == userMember.getStatus()}" th:value="已通过" autocomplete="off"
-                           th:id="status" class="layui-input" readonly>
-                    <input type="text" name="status" th:if="${2 == userMember.getStatus()}" th:value="已拒绝" autocomplete="off"
-                           th:id="status" class="layui-input" readonly>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == null}">
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 0}">
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 1}">
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 2}">
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 3}">
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 4}">
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 5}">
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter="type"
+                            th:id="status" disabled="true" th:if="${userMember.getStatus() == 6}">
+                        <option th:value="6" th:text="省代理已经拒绝"/>
+                        <option th:value="0" th:text="未审核"/>
+                        <option th:value="1" th:text="区代理已审核通过"/>
+                        <option th:value="2" th:text="区代理审核已经拒绝"/>
+                        <option th:value="3" th:text="市代理已审核通过"/>
+                        <option th:value="4" th:text="市代理审核已拒绝"/>
+                        <option th:value="5" th:text="省代理已审核通过"/>
+                    </select>
                 </div>
             </div>
         </div>
@@ -151,8 +225,28 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="refuseReason">拒绝原因</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="refuseReason" th:value="${userMember.getRefuseReason()}" autocomplete="off"
-                           th:id="refuseReason" class="layui-input" readonly>
+                    <textarea placeholder="拒绝原因" name="refuseReason" th:value="${userMember.getRefuseReason()}" autocomplete="off"
+                              th:id="refuseReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="vipStatus">vip状态</label>
+                <div class="layui-input-inline">
+                    <select name="vipStatus" lay-verify="" lay-filter="type"
+                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == null}">
+                        <option th:value="0" th:text="正常"/>
+                        <option th:value="1" th:text="过期"/>
+                    </select>
+                    <select name="vipStatus" lay-verify="" lay-filter="type"
+                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == 0}">
+                        <option th:value="0" th:text="正常"/>
+                        <option th:value="1" th:text="过期"/>
+                    </select>
+                    <select name="vipStatus" lay-verify="" lay-filter="type"
+                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == 1}">
+                        <option th:value="1" th:text="过期"/>
+                        <option th:value="0" th:text="正常"/>
+                    </select>
                 </div>
             </div>
         </div>
