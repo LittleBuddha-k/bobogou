@@ -36,7 +36,7 @@ public class ClassifyController extends BaseController {
     public Classify get(@RequestParam(required = false) String id) {
         Classify classify = null;
         if (StringUtils.isNotBlank(id)) {
-            classify = classifyService.get(id);
+            classify = classifyService.get(new Classify(id));
         }
         if (classify == null) {
             classify = new Classify();

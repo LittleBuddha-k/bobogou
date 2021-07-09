@@ -2,10 +2,12 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Classify;
 import com.littlebuddha.bobogou.modules.mapper.data.ClassifyMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -19,30 +21,51 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ClassifyService extends CrudService<Classify, ClassifyMapper> {
 
+    @Autowired
+    private GlobalSetting globalSetting;
+
     @Override
     public Classify get(Classify entity) {
-        return super.get(entity);
+        Classify classify = super.get(entity);
+        if (classify != null) {
+            classify.setIcon(globalSetting.getRootPath() + classify.getIcon());
+        }
+        return classify;
     }
 
     @Override
     public List<Classify> findList(Classify entity) {
-        return super.findList(entity);
+        List<Classify> list = super.findList(entity);
+        for (Classify classify : list) {
+            if (classify != null && StringUtils.isNotBlank(classify.getIcon())) {
+                classify.setIcon(globalSetting.getRootPath() + classify.getIcon());
+            }
+        }
+        return list;
     }
 
     @Override
     public PageInfo<Classify> findPage(Page<Classify> page, Classify entity) {
-        if(entity != null){
+        if (entity != null) {
             String name = StringUtils.deleteWhitespace(entity.getName());
             entity.setName(name);
         }
-        return super.findPage(page, entity);
+        PageInfo<Classify> page1 = super.findPage(page, entity);
+        List<Classify> list = page1.getList();
+        for (Classify classify : list) {
+            if (classify != null && StringUtils.isNotBlank(classify.getIcon())) {
+                classify.setIcon(globalSetting.getRootPath() + classify.getIcon());
+            }
+        }
+        return page1;
     }
 
     /**
      * 只查询顶级商品分类数据
+     *
      * @return
      */
-    public List<Classify> findLevelOneData(){
+    public List<Classify> findLevelOneData() {
 
         return null;
     }

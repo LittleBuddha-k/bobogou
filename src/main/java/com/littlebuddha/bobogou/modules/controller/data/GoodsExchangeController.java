@@ -38,7 +38,7 @@ public class GoodsExchangeController extends BaseController {
     public GoodsExchange get(@RequestParam(required = false) String id) {
         GoodsExchange goodsExchange = null;
         if (StringUtils.isNotBlank(id)) {
-            goodsExchange = goodsExchangeService.get(id);
+            goodsExchange = goodsExchangeService.get(new GoodsExchange(id));
         }
         if (goodsExchange == null) {
             goodsExchange = new GoodsExchange();

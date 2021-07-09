@@ -9,11 +9,11 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GoodsNorm extends DataEntity<GoodsNorm> {
 
+    private Integer factoryId;//厂商ID
+    private String factoryName;//厂商ID
     private Goods goods;//商品外键
     private Integer goodsId;//商品ID
     private String goodsName;//商品ID
-    private Integer goodsFactoryId;//厂商ID
-    private String factoryName;//厂商ID
     private String sampleBox;//样盒图片地址
     private String outerPackingBox;//产品外包装盒，使用英文逗号分隔，按照近景图、正面图、底面图、有文字的侧面图先后顺序保存
     private String instructionBook;//说明书图片
@@ -31,6 +31,22 @@ public class GoodsNorm extends DataEntity<GoodsNorm> {
 
     public GoodsNorm(String id) {
         super(id);
+    }
+
+    public Integer getFactoryId() {
+        return factoryId;
+    }
+
+    public void setFactoryId(Integer factoryId) {
+        this.factoryId = factoryId;
+    }
+
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
     }
 
     public Goods getGoods() {
@@ -55,22 +71,6 @@ public class GoodsNorm extends DataEntity<GoodsNorm> {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
-    }
-
-    public Integer getGoodsFactoryId() {
-        return goodsFactoryId;
-    }
-
-    public void setGoodsFactoryId(Integer goodsFactoryId) {
-        this.goodsFactoryId = goodsFactoryId;
-    }
-
-    public String getFactoryName() {
-        return factoryName;
-    }
-
-    public void setFactoryName(String factoryName) {
-        this.factoryName = factoryName;
     }
 
     public String getSampleBox() {

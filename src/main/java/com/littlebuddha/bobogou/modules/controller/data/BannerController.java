@@ -36,7 +36,7 @@ public class BannerController extends BaseController {
     public Banner get(@RequestParam(required = false) String id) {
         Banner banner = null;
         if (StringUtils.isNotBlank(id)) {
-            banner = bannerService.get(id);
+            banner = bannerService.get(new Banner(id));
         }
         if (banner == null) {
             banner = new Banner();

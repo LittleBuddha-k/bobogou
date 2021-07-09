@@ -8,6 +8,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/temp-rainy/**").addResourceLocations("file:D:/temp-rainy/");
+        registry.addResourceHandler("/image").addResourceLocations("file:E:/usr/image/");
     }
 }

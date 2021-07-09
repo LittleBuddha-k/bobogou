@@ -3,8 +3,8 @@
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.GoodsNormMapper">
     <sql id="goodsNormColumns">
         id AS "id",
-        goods_id AS "goodsId",
-        goods_factory_id AS "goodsFactoryId",
+        factory_id AS "factoryId",
+        goods_name AS "goodsName",
         sample_box AS "sampleBox",
         outer_packing_box AS "outerPacking_box",
         instruction_book AS "instructionBook",
@@ -79,8 +79,8 @@
     <!--正常新增没有关联，首次创建-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO md_goods_norm(
-            goods_id,
-            goods_factory_id,
+            factory_id,
+            goods_name,
             sample_box,
             outer_packing_box,
             instruction_book,
@@ -96,8 +96,8 @@
             create_time,
             update_time
         )VALUES (
-            #{goodsId},
-            #{goodsFactoryId},
+            #{factoryId},
+            #{goodsName},
             #{sampleBox},
             #{outerPackingBox},
             #{instructionBook},
@@ -119,8 +119,8 @@
     <insert id="insertSecond" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO md_goods_norm(
             id,
-            goods_id,
-            goods_factory_id,
+            factory_id,
+            goods_name,
             sample_box,
             outer_packing_box,
             instruction_book,
@@ -137,8 +137,8 @@
             update_time
         )VALUES (
             #{id},
-            #{goodsId},
-            #{goodsFactoryId},
+            #{factoryId},
+            #{goodsName},
             #{sampleBox},
             #{outerPackingBox},
             #{instructionBook},
@@ -158,8 +158,8 @@
 
     <update id="update">
         UPDATE md_goods_norm SET
-            goods_id = #{goodsId},
-            goods_factory_id = #{goodsFactoryId},
+            factory_id = #{factoryId},
+            goods_name = #{goodsName},
             sample_box = #{sampleBox},
             outer_packing_box = #{outerPackingBox},
             instruction_book = #{instructionBook},

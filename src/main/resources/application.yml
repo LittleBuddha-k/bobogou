@@ -96,8 +96,8 @@ logoinfo:
   href: /bobogou/portal/list
 
 global:
-  uploadPath: /usr/image
-  rootPath:  http://1.117.222.27/bobogou/image/
+  uploadPath: /usr/image/
+  rootPath:  http://1.117.222.27/image/
 ---
 server:
   port: 8081

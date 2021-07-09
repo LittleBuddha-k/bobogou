@@ -13,6 +13,12 @@ public class Banner extends DataEntity<Banner> {
     private String link;  //链接地址
     private Integer status;//状态，0=隐藏，1=展示
 
+    public Banner() {
+    }
+
+    public Banner(String id) {
+        super(id);
+    }
 
     @ExcelField(title = "地址", align = 2, sort = 1)
     public String getUrl() {

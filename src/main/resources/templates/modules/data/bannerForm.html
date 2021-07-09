@@ -30,6 +30,7 @@
                     <img th:src="${banner.getUrl()}" alt="上传成功后渲染" style="max-width: 196px" th:if="${mode != 'add'}">
                 </div>
             </div>
+            <input type="hidden" id="url" name="url" th:value="${banner.getUrl()}">
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">

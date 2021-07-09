@@ -29,6 +29,10 @@ public class Classify extends DataEntity<Classify> {
     public Classify() {
     }
 
+    public Classify(String id) {
+        super(id);
+    }
+
     public Classify(Integer level) {
         this.level = level;
     }

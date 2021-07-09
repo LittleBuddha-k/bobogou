@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.service.system;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.AutoId;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -31,6 +32,9 @@ import java.util.List;
 public class OperatorService extends CrudService<Operator, OperatorMapper> {
 
     @Autowired
+    private GlobalSetting globalSetting;
+
+    @Autowired
     private OperatorMapper operatorMapper;
 
     @Autowired
@@ -57,6 +61,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             Md5Hash md5Hash = new Md5Hash(operator.getPassword(), splicing, 1024);
             operator.setSalt(splicing);
             operator.setPassword(md5Hash.toHex());
+            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(),""));
             operatorRow = operatorMapper.insert(operator);
 
             //这里应该将operator form填写的roles数据单独保存到operator-role表格
@@ -77,6 +82,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                 operator.setPassword(md5Hash.toHex());
             }
             operator.preUpdate();
+            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(),""));
             operatorRow = operatorMapper.update(operator);
 
             //这里应该将operator form填写的roles数据单独保存到operator-role表格
@@ -148,13 +154,30 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     }
 
     @Override
+    public Operator get(String id) {
+        Operator operator = super.get(id);
+        if (operator != null){
+            operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
+        }
+        return operator;
+    }
+
+    @Override
     public Operator get(Operator entity) {
-        return super.get(entity);
+        Operator operator = super.get(entity);
+        if (operator != null){
+            operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
+        }
+        return operator;
     }
 
     @Override
     public List<Operator> findList(Operator entity) {
-        return super.findList(entity);
+        List<Operator> list = super.findList(entity);
+        for (Operator operator : list) {
+            operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
+        }
+        return list;
     }
 
     @Override
@@ -167,7 +190,12 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             entity.setNickname(nickname);
             entity.setPhone(phone);
         }
-        return super.findPage(page, entity);
+        PageInfo<Operator> page1 = super.findPage(page, entity);
+        List<Operator> list = page1.getList();
+        for (Operator operator : list) {
+            operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
+        }
+        return page1;
     }
 
     @Override
