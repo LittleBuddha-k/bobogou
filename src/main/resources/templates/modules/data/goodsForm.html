@@ -209,22 +209,22 @@
                     </select>
                     <select name="brandId" lay-verify="" th:if="${mode != 'add'}">
                         <option th:each="commodityBrand:${commodityBrandList}"
-                                th:if="${commodityBrand.getId() == goods.getBrandId().toString()}"
+                                th:if="${commodityBrand.getId() == goods.getBrandId()}"
                                 th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                         <option th:text="请选择" value="0"/>
                         <option th:each="commodityBrand:${commodityBrandList}"
-                                th:if="${commodityBrand.getId() != goods.getBrandId().toString()}"
+                                th:if="${commodityBrand.getId() != goods.getBrandId()}"
                                 th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                     </select>
                 </div>
                 <div class="layui-input-inline" th:if="${mode == 'detail'}">
                     <select name="brandId" lay-verify="" disabled="true">
                         <option th:each="commodityBrand:${commodityBrandList}"
-                                th:if="${commodityBrand.getId() == goods.getBrandId().toString()}"
+                                th:if="${commodityBrand.getId() == goods.getBrandId()}"
                                 th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                         <option th:text="请选择" value="0"/>
                         <option th:each="commodityBrand:${commodityBrandList}"
-                                th:if="${commodityBrand.getId() != goods.getBrandId().toString()}"
+                                th:if="${commodityBrand.getId() != goods.getBrandId()}"
                                 th:value="${commodityBrand.getId()}" th:text="${commodityBrand.getBrandName()}"/>
                     </select>
                 </div>
