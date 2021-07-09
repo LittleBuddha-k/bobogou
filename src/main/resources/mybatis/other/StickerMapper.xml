@@ -4,7 +4,7 @@
     <sql id="stickerColumns">
         id AS "id",
         user_id AS "userId",
-        the_heir AS "theHeir",
+        shop_name AS "shopName",
         image_url AS "imageUrl",
         remark AS "remark",
         is_deleted AS "isDeleted",
@@ -29,8 +29,8 @@
             <if test="userId != null">
                 AND a.user_id = #{userId}
             </if>
-            <if test="theHeir != null and theHeir != ''">
-                AND a.the_heir LIKE concat('%',#{theHeir},'%')
+            <if test="shopName != null and shopName != ''">
+                AND a.shop_name LIKE concat('%',#{shopName},'%')
             </if>
         </where>
         <choose>
@@ -53,8 +53,8 @@
             <if test="userId != null">
                 AND a.user_id = #{userId}
             </if>
-            <if test="theHeir != null and theHeir != ''">
-                AND a.the_heir LIKE concat('%',#{theHeir},'%')
+            <if test="shopName != null and shopName != ''">
+                AND a.shop_name LIKE concat('%',#{shopName},'%')
             </if>
         </where>
         <choose>
@@ -70,7 +70,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ud_stick_single(
             user_id,
-            the_heir,
+            shop_name,
             image_url,
             remark,
             is_deleted,
@@ -78,7 +78,7 @@
             update_time
         )VALUES (
             #{userId},
-            #{theHeir},
+            #{shopName},
             #{imageUrl},
             #{remark},
             #{isDeleted},
@@ -90,7 +90,7 @@
     <update id="update">
         UPDATE ud_stick_single SET
             user_id = #{userId},
-            the_heir = #{theHeir},
+            shop_name = #{shopName},
             image_url = #{imageUrl},
             remark = #{remark},
             is_deleted = #{isDeleted},

@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.Sticker;
+import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
 import com.littlebuddha.bobogou.modules.service.other.StickerService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -32,14 +34,21 @@ public class StickerController extends BaseController {
     @Autowired
     private StickerService stickerService;
 
+    @Autowired
+    private CustomerUserService customerUserService;
+
     @ModelAttribute
     public Sticker get(@RequestParam(required = false) String id) {
         Sticker sticker = null;
         if (StringUtils.isNotBlank(id)) {
-            sticker = stickerService.get(id);
+            sticker = stickerService.get(new Sticker(id));
         }
         if (sticker == null) {
             sticker = new Sticker();
+        }
+        if (sticker != null && sticker.getUserId() != null){
+            CustomerUser customerUser = customerUserService.get(sticker.getUserId().toString());
+            sticker.setCustomerUser(customerUser);
         }
         return sticker;
     }

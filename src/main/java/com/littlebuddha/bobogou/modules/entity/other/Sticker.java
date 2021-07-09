@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.entity.other;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * \* Created with IntelliJ IDEA.
@@ -14,8 +15,10 @@ import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
  */
 public class Sticker extends DataEntity<Sticker> {
 
+    private CustomerUser customerUser;//用户外键
     private Integer userId;//用户ID
-    private String theHeir;//上传人
+    private String customerUserName;//用户名
+    private String shopName;//店名
     private String imageUrl;//图片地址，多张使用英文逗号分隔
     private String remark;//描述
 
@@ -26,6 +29,14 @@ public class Sticker extends DataEntity<Sticker> {
         super(id);
     }
 
+    public CustomerUser getCustomerUser() {
+        return customerUser;
+    }
+
+    public void setCustomerUser(CustomerUser customerUser) {
+        this.customerUser = customerUser;
+    }
+
     public Integer getUserId() {
         return userId;
     }
@@ -34,12 +45,23 @@ public class Sticker extends DataEntity<Sticker> {
         this.userId = userId;
     }
 
-    public String getTheHeir() {
-        return theHeir;
+    public String getCustomerUserName() {
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+            this.customerUserName = customerUser.getNickname();
+        }
+        return customerUserName;
     }
 
-    public void setTheHeir(String theHeir) {
-        this.theHeir = theHeir;
+    public void setCustomerUserName(String customerUserName) {
+        this.customerUserName = customerUserName;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
     }
 
     public String getImageUrl() {

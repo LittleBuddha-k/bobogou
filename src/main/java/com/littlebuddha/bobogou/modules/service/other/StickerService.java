@@ -2,10 +2,12 @@ package com.littlebuddha.bobogou.modules.service.other;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.Sticker;
 import com.littlebuddha.bobogou.modules.mapper.other.StickerMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -16,23 +18,58 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class StickerService extends CrudService<Sticker, StickerMapper> {
 
+    @Autowired
+    private GlobalSetting globalSetting;
+
     @Override
     public Sticker get(Sticker entity) {
-        return super.get(entity);
+        Sticker sticker = super.get(entity);
+        if (sticker != null && StringUtils.isNotBlank(sticker.getImageUrl())){
+            String result = "";
+            String[] split = sticker.getImageUrl().split(",");
+            for (String image : split) {
+                result = result + globalSetting.getRootPath() + image + ",";
+            }
+            sticker.setImageUrl(result);
+        }
+        return sticker;
     }
 
     @Override
     public List<Sticker> findList(Sticker entity) {
-        return super.findList(entity);
+        List<Sticker> list = super.findList(entity);
+        for (Sticker sticker : list) {
+            if (sticker != null && StringUtils.isNotBlank(sticker.getImageUrl())){
+                String result = "";
+                String[] split = sticker.getImageUrl().split(",");
+                for (String image : split) {
+                    result = result + globalSetting.getRootPath() + image + ",";
+                }
+                sticker.setImageUrl(result);
+            }
+        }
+        return list;
     }
 
     @Override
     public PageInfo<Sticker> findPage(Page<Sticker> page, Sticker entity) {
         if(entity != null){
-            String theHair = StringUtils.deleteWhitespace(entity.getTheHeir());
-            entity.setTheHeir(theHair);
+            String shopName = StringUtils.deleteWhitespace(entity.getShopName());
+            entity.setShopName(shopName);
         }
-        return super.findPage(page, entity);
+        PageInfo<Sticker> page1 = super.findPage(page, entity);
+        List<Sticker> list = page1.getList();
+        for (Sticker sticker : list) {
+            if (sticker != null && StringUtils.isNotBlank(sticker.getImageUrl())){
+                String result = "";
+                String[] split = sticker.getImageUrl().split(",");
+                for (String image : split) {
+                    result = result + globalSetting.getRootPath() + image + ",";
+                }
+                sticker.setImageUrl(result);
+            }
+        }
+        return page1;
     }
 
     @Override

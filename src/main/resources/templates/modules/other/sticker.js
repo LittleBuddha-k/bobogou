@@ -33,13 +33,27 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '上传人',
-                    field: 'theHeir',
+                    title: '用户',
+                    field: 'customerUserName',
                     sort: true,
-                    sortName: 'theHeir',
+                    sortName: 'customerUserName',
                     templet:function(data){
-                        var theHeir = data.theHeir;
-                        return theHeir;
+                        var customerUserName = data.customerUserName;
+                        if (customerUserName != null){
+                            return customerUserName;
+                        }else{
+                            return "未知";
+                        }
+                    }
+                },
+                {
+                    title: '店名',
+                    field: 'shopName',
+                    sort: true,
+                    sortName: 'shopName',
+                    templet:function(data){
+                        var shopName = data.shopName;
+                        return shopName;
                     }
                 },
                 {
