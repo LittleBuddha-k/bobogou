@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.FactoryMapper">
+    <sql id="goodsNormColumns">
+        id AS "id",
+        factory_type AS "factoryType",
+        product_type AS "productType",
+        factory_name AS "factoryName",
+        linkman AS "linkman",
+        phone AS "phone",
+        id_number AS "idNumber",
+        card_front AS "cardFront",
+        card_back AS "cardBack",
+        address AS "address",
+        business_license AS "businessLicense",
+        annual_report AS "annualReport",
+        business_permit AS "businessPermit",
+        basic_account AS "basicAccount",
+        billing_information AS "billingInformation",
+        sample_invoice_ticket AS "sampleInvoiceTicket",
+        quality_guarantee AS "qualityGuarantee",
+        seal_impression AS "sealImpression",
+        power_attorney AS "powerAttorney",
+        Invoice_counterparts AS "invoiceCounterparts",
+        bailor_card AS "bailorCard",
+        mandatary_card AS "mandataryCard",
+        take_delivery_bailment AS "takeDeliveryBailment",
+        food_business_license AS "foodBusinessLicense",
+        is_bailor AS "isBailor",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime",
+        operator_id AS "operatorId"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--正常新增没有关联，首次创建-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_factory(
+            factory_type,
+            product_type,
+            factory_name,
+            linkman,
+            phone,
+            id_number,
+            card_front,
+            card_back,
+            address,
+            business_license,
+            annual_report,
+            business_permit,
+            basic_account,
+            billing_information,
+            sample_invoice_ticket,
+            quality_guarantee,
+            seal_impression,
+            power_attorney,
+            Invoice_counterparts,
+            bailor_card,
+            mandatary_card,
+            take_delivery_bailment,
+            food_business_license,
+            is_bailor,
+            is_deleted,
+            create_time,
+            update_time,
+            operator_id
+        )VALUES (
+            #{factoryType},
+            #{productType},
+            #{factoryName},
+            #{linkman},
+            #{phone},
+            #{idNumber},
+            #{cardFront},
+            #{cardBack},
+            #{address},
+            #{businessLicense},
+            #{annualReport},
+            #{businessPermit},
+            #{basicAccount},
+            #{billingInformation},
+            #{sampleInvoiceTicket},
+            #{qualityGuarantee},
+            #{sealImpression},
+            #{powerAttorney},
+            #{invoiceCounterparts},
+            #{bailorCard},
+            #{mandataryCard},
+            #{takeDeliveryBailment},
+            #{foodBusinessLicense},
+            #{isBailor},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime},
+            #{operatorId}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE md_factory SET
+            factory_type = #{factoryType},
+            product_type = #{productType},
+            factory_name = #{factoryName},
+            linkman = #{linkman},
+            phone = #{phone},
+            id_number = #{idNumber},
+            card_front = #{cardFront},
+            card_back = #{cardBack},
+            address = #{address},
+            business_license = #{businessLicense},
+            annual_report = #{annualReport},
+            business_permit = #{businessPermit},
+            basic_account = #{basicAccount},
+            billing_information = #{billingInformation},
+            sample_invoice_ticket = #{sampleInvoiceTicket},
+            quality_guarantee = #{qualityGuarantee},
+            seal_impression = #{sealImpression},
+            power_attorney = #{powerAttorney},
+            Invoice_counterparts = #{invoiceCounterparts},
+            bailor_card = #{bailorCard},
+            mandatary_card = #{mandataryCard},
+            take_delivery_bailment = #{takeDeliveryBailment},
+            food_business_license = #{foodBusinessLicense},
+            is_bailor = #{isBailor},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            operator_id = #{operatorId}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE md_factory SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE md_factory SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM md_factory
+        WHERE id=#{id}
+    </delete>
+</mapper>

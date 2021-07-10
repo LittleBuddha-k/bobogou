@@ -59,7 +59,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (sampleBox != null || sampleBox != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -78,7 +80,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (outerPackingBox != null || outerPackingBox != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -97,7 +101,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (instructionBook != null || instructionBook != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -116,7 +122,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (otherData != null || otherData != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -135,7 +143,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (relatedPictures != null || relatedPictures != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -154,7 +164,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (instructions != null || instructions != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {

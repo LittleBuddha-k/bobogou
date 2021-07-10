@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.FactorySterilizeMapper">
-    <sql id="goodsNormColumns">
+    <sql id="factorySterilizeColumns">
         id AS "id",
         factory_id AS "factoryId",
         product_type AS "productType",
@@ -23,14 +23,14 @@
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
         WHERE id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
@@ -54,7 +54,7 @@
 
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}

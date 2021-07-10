@@ -62,7 +62,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (safetyAssessmentReport != null || safetyAssessmentReport != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -82,7 +84,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (filingSafetyEvaluation != null || filingSafetyEvaluation != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -102,7 +106,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (companyStandard != null || companyStandard != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -122,7 +128,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (provincialInspectionReport != null || provincialInspectionReport != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -142,7 +150,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (packagingRecord != null || packagingRecord != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -162,7 +172,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (productionBusinessLicense != null || productionBusinessLicense != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -182,7 +194,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (sanitaryLicenseDisinfectedProducts != null || sanitaryLicenseDisinfectedProducts != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -202,7 +216,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (drugManufacturingErtificate != null || drugManufacturingErtificate != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -222,7 +238,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (gmpErtificate != null || gmpErtificate != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -242,7 +260,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (qualitySystem != null || qualitySystem != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
@@ -262,7 +282,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (qualifiedSupplier != null || qualifiedSupplier != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != '') {
+                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
