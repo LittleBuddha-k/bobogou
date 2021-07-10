@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.FactorySterilizeMapper">
+    <sql id="goodsNormColumns">
+        id AS "id",
+        factory_id AS "factoryId",
+        product_type AS "productType",
+        safety_assessment_report AS "safetyAssessmentReport",
+        filing_safety_evaluation AS "filingSafetyEvaluation",
+        company_standard AS "companyStandard",
+        provincial_inspection_report AS "provincialInspectionReport",
+        packaging_record AS "packagingRecord",
+        production_business_license AS "productionBusinessLicense",
+        sanitary_license_disinfected_products AS "sanitaryLicenseDisinfectedProducts",
+        drug_manufacturing_ertificate AS "drugManufacturingErtificate",
+        gmp_ertificate AS "gmpErtificate",
+        quality_system AS "qualitySystem",
+        qualified_supplier AS "qualifiedSupplier",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory_sterilize a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory_sterilize a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM md_factory_sterilize a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--正常新增没有关联，首次创建-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO md_factory_sterilize(
+            factory_id,
+            product_type,
+            safety_assessment_report,
+            filing_safety_evaluation,
+            company_standard,
+            provincial_inspection_report,
+            packaging_record,
+            production_business_license,
+            sanitary_license_disinfected_products,
+            drug_manufacturing_ertificate,
+            gmp_ertificate,
+            quality_system,
+            qualified_supplier,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{factoryId},
+            #{productType},
+            #{safetyAssessmentReport},
+            #{filingSafetyEvaluation},
+            #{companyStandard},
+            #{provincialInspectionReport},
+            #{packagingRecord},
+            #{productionBusinessLicense},
+            #{sanitaryLicenseDisinfectedProducts},
+            #{drugManufacturingErtificate},
+            #{gmpErtificate},
+            #{qualitySystem},
+            #{qualifiedSupplier},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE md_factory_sterilize SET
+            factory_id = #{factoryId},
+            product_type = #{productType},
+            safety_assessment_report = #{safetyAssessmentReport},
+            filing_safety_evaluation = #{filingSafetyEvaluation},
+            company_standard = #{companyStandard},
+            provincial_inspection_report = #{provincialInspectionReport},
+            packaging_record = #{packagingRecord},
+            production_business_license = #{productionBusinessLicense},
+            sanitary_license_disinfected_products = #{sanitaryLicenseDisinfectedProducts},
+            drug_manufacturing_ertificate = #{drugManufacturingErtificate},
+            gmp_ertificate = #{gmpErtificate},
+            quality_system = #{qualitySystem},
+            qualified_supplier = #{qualifiedSupplier},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE md_factory_sterilize SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE md_factory_sterilize SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM md_factory_sterilize
+        WHERE id=#{id}
+    </delete>
+</mapper>
