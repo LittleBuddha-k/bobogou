@@ -232,7 +232,7 @@ layui.use(['form', 'table'], function () {
         let event = obj.event;
         if (event === 'edit') {
             rc.openSaveDialog('/bobogou/data/goodsNorm/form/edit?id=' + id, "编辑商品规范信息", '1010px', '700px');
-        }/* else if (event === 'delete') {
+        } else if (event === 'delete') {
             rc.confirm('确认要删除该商品规范信息吗？', function () {
                 rc.post("/bobogou/data/goodsNorm/delete?ids=" + id, '', function (data) {
                     if (data.code == 200) {
@@ -244,7 +244,7 @@ layui.use(['form', 'table'], function () {
                     }
                 });
             })
-        }*/
+        }
     });
 });
 
