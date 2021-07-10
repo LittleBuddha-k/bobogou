@@ -15,7 +15,7 @@
                 <label class="layui-form-label" for="factoryName">厂商</label>
                 <div class="layui-input-inline">
                     <input type="text" th:value="${goodsNorm.getFactoryName()}"
-                           th:id="factoryName" autocomplete="off" class="layui-input required" readonly>
+                           th:id="factoryName" autocomplete="off" class="layui-input required">
                     <input type="hidden" name="factoryId" th:value="${goodsNorm.getFactoryId()}"
                            th:id="factoryId" autocomplete="off" class="layui-input">
                 </div>
@@ -29,22 +29,149 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="imageUrl">样盒图片</label>
+            <label class="layui-form-label" for="sampleBox">样盒图片地址</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" id="test2">选择图片</button>
-                <button type="button" class="layui-btn" id="btn_image_clear">清空图片</button>
+                <button type="button" class="layui-btn" id="test1">样盒图片地址</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test1">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img  th:if="${goodsNorm.getSampleBox() != ''}"  th:each="image:${goodsNorm.getSampleBox().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="sampleBox" name="sampleBox" th:value="${goodsNorm.getSampleBox()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="outerPackingBox">产品外包装盒</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test2">产品外包装盒</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test2">清空多图</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo2"></div>
                 </blockquote>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
                     预览图：
-                    <!--<div class="layui-upload-list" th:id="demo2">
-                        <img  th:if="${goodsExchange.getImageUrl() != ''}"  th:each="image:${goodsExchange.getImageUrl().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>-->
+                    <div class="layui-upload-list" th:id="demo2">
+                        <img  th:if="${goodsNorm.getOuterPackingBox() != ''}"  th:each="image:${goodsNorm.getOuterPackingBox().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
                 </blockquote>
-            </div><!--
-            <input type="hidden" id="imageUrl" name="imageUrl" th:value="${goodsExchange.getImageUrl()}">-->
+            </div>
+            <input type="hidden" id="outerPackingBox" name="outerPackingBox" th:value="${goodsNorm.getOuterPackingBox()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="instructionBook">说明书图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test3">说明书图片</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test3">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo3"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo3">
+                        <img  th:if="${goodsNorm.getInstructionBook() != ''}"  th:each="image:${goodsNorm.getInstructionBook().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="instructionBook" name="instructionBook" th:value="${goodsNorm.getInstructionBook()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="otherData">其他获得药监批准文件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test4">其他获得药监批准文件</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test4">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo4"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo4">
+                        <img  th:if="${goodsNorm.getOtherData() != ''}"  th:each="image:${goodsNorm.getOtherData().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="otherData" name="otherData" th:value="${goodsNorm.getOtherData()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="relatedPictures">其他相关图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test5">其他相关图片</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test5">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo5"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo5">
+                        <img  th:if="${goodsNorm.getRelatedPictures() != ''}"  th:each="image:${goodsNorm.getRelatedPictures().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="relatedPictures" name="relatedPictures" th:value="${goodsNorm.getRelatedPictures()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="instructions">批件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" id="test6">批件</button>
+                <button type="button" class="layui-btn" id="btn_image_clear_test6">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo6"></div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo6">
+                        <img  th:if="${goodsNorm.getInstructions() != ''}"  th:each="image:${goodsNorm.getInstructions().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" id="instructions" name="instructions" th:value="${goodsNorm.getInstructions()}">
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="qualityStandard">质量标准</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:value="${goodsNorm.getQualityStandard()}"
+                           th:id="qualityStandard" th:name="qualityStandard" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="surveyReport">省检验报告</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:value="${goodsNorm.getSurveyReport()}"
+                           th:id="surveyReport" th:name="surveyReport" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="prices">物价</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:value="${goodsNorm.getPrices()}"
+                           th:id="prices" th:name="prices" autocomplete="off" class="layui-input number">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="productionBusinessLicense">生产企业营业执照地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:value="${goodsNorm.getProductionBusinessLicense()}"
+                           th:id="productionBusinessLicense" th:name="productionBusinessLicense" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="productionCertificate">生产企业生产许可证地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:value="${goodsNorm.getProductionCertificate()}"
+                           th:id="productionCertificate" th:name="productionCertificate" autocomplete="off" class="layui-input">
+                </div>
+            </div>
         </div>
     </form>
 </div>

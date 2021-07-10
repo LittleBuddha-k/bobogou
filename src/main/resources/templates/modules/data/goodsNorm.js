@@ -223,7 +223,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsNormTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/goodsNorm/form/add", "新建商品规范信息",'680px','485px')
+            let index = rc.openSaveDialog("/bobogou/data/goodsNorm/form/add", "新建商品规范信息",'1010px','700px')
         }
     });
 
@@ -231,7 +231,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goodsNorm/form/edit?id=' + id, "编辑商品规范信息", '680px', '485px');
+            rc.openSaveDialog('/bobogou/data/goodsNorm/form/edit?id=' + id, "编辑商品规范信息", '1010px', '700px');
         }/* else if (event === 'delete') {
             rc.confirm('确认要删除该商品规范信息吗？', function () {
                 rc.post("/bobogou/data/goodsNorm/delete?ids=" + id, '', function (data) {

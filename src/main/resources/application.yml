@@ -26,7 +26,7 @@ spring:
   datasource:
     username: root
     password: bbg123456
-    url: jdbc:mysql://1.117.222.27:3306/bbg?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
+    url: jdbc:mysql://1.117.222.27:3306/bbg?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
     #password: 212527
     #url: jdbc:mysql://localhost:3306/bobogou?useUnicode=true&characterEncoding=utf-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver

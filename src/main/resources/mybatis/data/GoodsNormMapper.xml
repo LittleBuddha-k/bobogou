@@ -6,7 +6,7 @@
         factory_id AS "factoryId",
         goods_name AS "goodsName",
         sample_box AS "sampleBox",
-        outer_packing_box AS "outerPacking_box",
+        outer_packing_box AS "outerPackingBox",
         instruction_book AS "instructionBook",
         other_data AS "otherData",
         related_pictures AS "relatedPictures",

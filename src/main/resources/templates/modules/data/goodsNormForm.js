@@ -8,14 +8,147 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
-    //拖拽上传
+    //多图片上传
     upload.render({
-        elem: '#test10'
-        ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
-        ,done: function(res){
-            layer.msg('上传成功');
-            layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
-            $("#icon").val(res.body.url);
+        elem: '#test1',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo1').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#sampleBox").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#sampleBox").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test2',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#outerPackingBox").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#outerPackingBox").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test3',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo3').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#instructionBook").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#instructionBook").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test4',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo4').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#otherData").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#otherData").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test5',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo5').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#relatedPictures").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#relatedPictures").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test6',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo6').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#instructions").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#instructions").val(upload_image_url);
         }
     });
 });
@@ -45,3 +178,51 @@ function save(parentIndex) {
         });
     }
 }
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test1").click(function () {
+    $('#demo1').html("");
+    $("#sampleBox").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test2").click(function () {
+    $('#demo2').html("");
+    $("#outerPackingBox").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test3").click(function () {
+    $('#demo3').html("");
+    $("#instructionBook").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test4").click(function () {
+    $('#demo4').html("");
+    $("#otherData").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test5").click(function () {
+    $('#demo5').html("");
+    $("#relatedPictures").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test6").click(function () {
+    $('#demo6').html("");
+    $("#instructions").val('');
+});

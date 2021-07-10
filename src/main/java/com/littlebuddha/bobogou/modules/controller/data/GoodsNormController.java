@@ -45,11 +45,7 @@ public class GoodsNormController extends BaseController {
     public GoodsNorm get(@RequestParam(required = false) String id) {
         GoodsNorm goodsNorm = null;
         if (StringUtils.isNotBlank(id)) {
-            goodsNorm = goodsNormService.get(id);
-            if (goodsNorm.getGoodsId() != null){
-                Goods goods = goodsService.get(new Goods(goodsNorm.getGoodsId().toString()));
-                goodsNorm.setGoods(goods);
-            }
+            goodsNorm = goodsNormService.get(new GoodsNorm(id));
         }
         if (goodsNorm == null) {
             goodsNorm = new GoodsNorm();
