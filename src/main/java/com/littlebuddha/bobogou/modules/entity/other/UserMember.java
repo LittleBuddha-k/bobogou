@@ -42,13 +42,28 @@ public class UserMember extends DataEntity<UserMember> {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String endTime;//营业执照有效结束时间
 
+    private String businessCertificate;//经营许可证地址，多张使用英文逗号分隔，药房为药品经营许可证（包括副本），医疗机构为医疗机构执业许可证（包括变更页）
+    private String foodBusinessLicense;//食品经营许可证，药房要经营食品时上传（选填）
+    private Integer isEntrust;//是否委托，0=否，1=是
+    private String authorityPurchase;//采购委托书地址（委托必填），多张使用英文逗号分隔
+    private String mandatary;//被委托人省份证地址（委托必填），正面在前，背面在后
+    private String groupPhoto;//经理人和申请人的合照图片地址（药房或者医疗机构的门店名），一张
+
     private String contractUrl;//合同文件地址
     private Integer provinceUserId;//省审核人ID
     private Integer cityUserId;//市审核人ID
     private Integer districtUserId;//区审核人ID
 
     private Integer status;//审核状态，0=未审核，1=区代理已审核通过，2=区代理审核已经拒绝，3=市代理已审核通过，4=市代理审核已拒绝，5=省代理已审核通过，6=省代理已经拒绝
-    private String refuseReason;//拒绝原因
+
+    private String provinceRefuseReason;//省级拒绝原因
+    private String provincePassReason;//省级通过原因
+    private String cityRefuseReason;//市级拒绝原因
+    private String cityPassReason;//市级通过原因
+    private String districtRefuseReason;//区级拒绝原因
+    private String districtPassReason;//区级通过原因
+
+
     private Integer vipStatus;//vip已过期，0=正常，1=已过期
     private Integer accountId;//最后操作人ID
 
@@ -205,6 +220,54 @@ public class UserMember extends DataEntity<UserMember> {
         this.endTime = endTime;
     }
 
+    public String getBusinessCertificate() {
+        return businessCertificate;
+    }
+
+    public void setBusinessCertificate(String businessCertificate) {
+        this.businessCertificate = businessCertificate;
+    }
+
+    public String getFoodBusinessLicense() {
+        return foodBusinessLicense;
+    }
+
+    public void setFoodBusinessLicense(String foodBusinessLicense) {
+        this.foodBusinessLicense = foodBusinessLicense;
+    }
+
+    public Integer getIsEntrust() {
+        return isEntrust;
+    }
+
+    public void setIsEntrust(Integer isEntrust) {
+        this.isEntrust = isEntrust;
+    }
+
+    public String getAuthorityPurchase() {
+        return authorityPurchase;
+    }
+
+    public void setAuthorityPurchase(String authorityPurchase) {
+        this.authorityPurchase = authorityPurchase;
+    }
+
+    public String getMandatary() {
+        return mandatary;
+    }
+
+    public void setMandatary(String mandatary) {
+        this.mandatary = mandatary;
+    }
+
+    public String getGroupPhoto() {
+        return groupPhoto;
+    }
+
+    public void setGroupPhoto(String groupPhoto) {
+        this.groupPhoto = groupPhoto;
+    }
+
     public String getContractUrl() {
         return contractUrl;
     }
@@ -245,12 +308,52 @@ public class UserMember extends DataEntity<UserMember> {
         this.status = status;
     }
 
-    public String getRefuseReason() {
-        return refuseReason;
+    public String getProvinceRefuseReason() {
+        return provinceRefuseReason;
     }
 
-    public void setRefuseReason(String refuseReason) {
-        this.refuseReason = refuseReason;
+    public void setProvinceRefuseReason(String provinceRefuseReason) {
+        this.provinceRefuseReason = provinceRefuseReason;
+    }
+
+    public String getProvincePassReason() {
+        return provincePassReason;
+    }
+
+    public void setProvincePassReason(String provincePassReason) {
+        this.provincePassReason = provincePassReason;
+    }
+
+    public String getCityRefuseReason() {
+        return cityRefuseReason;
+    }
+
+    public void setCityRefuseReason(String cityRefuseReason) {
+        this.cityRefuseReason = cityRefuseReason;
+    }
+
+    public String getCityPassReason() {
+        return cityPassReason;
+    }
+
+    public void setCityPassReason(String cityPassReason) {
+        this.cityPassReason = cityPassReason;
+    }
+
+    public String getDistrictRefuseReason() {
+        return districtRefuseReason;
+    }
+
+    public void setDistrictRefuseReason(String districtRefuseReason) {
+        this.districtRefuseReason = districtRefuseReason;
+    }
+
+    public String getDistrictPassReason() {
+        return districtPassReason;
+    }
+
+    public void setDistrictPassReason(String districtPassReason) {
+        this.districtPassReason = districtPassReason;
     }
 
     public Integer getVipStatus() {

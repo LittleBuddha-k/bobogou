@@ -135,6 +135,20 @@
                            th:id="endTime" class="layui-input" readonly>
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="businessCertificate">经营许可证地址</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">经营许可证地址</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img  th:if="${userMember.getBusinessCertificate() != ''}"  th:each="image:${userMember.getBusinessCertificate().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="status">审核状态</label>
                 <div class="layui-input-inline">
@@ -220,13 +234,46 @@
                     </select>
                 </div>
             </div>
-        </div>
-        <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" for="refuseReason">拒绝原因</label>
+                <label class="layui-form-label" for="provinceRefuseReason">省级拒绝原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="拒绝原因" name="refuseReason" th:value="${userMember.getRefuseReason()}" autocomplete="off"
-                              th:id="refuseReason" class="layui-textarea"></textarea>
+                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:value="${userMember.getProvinceRefuseReason()}" autocomplete="off"
+                              th:id="provinceRefuseReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="provincePassReason">省级通过原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="省级通过原因" name="provincePassReason" th:value="${userMember.getProvincePassReason()}" autocomplete="off"
+                              th:id="provincePassReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="cityRefuseReason">市级拒绝原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="市级拒绝原因" name="cityRefuseReason" th:value="${userMember.getCityRefuseReason()}" autocomplete="off"
+                              th:id="cityRefuseReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="cityPassReason">市级通过原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="市级通过原因" name="cityPassReason" th:value="${userMember.getCityPassReason()}" autocomplete="off"
+                              th:id="cityPassReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="districtRefuseReason">区级拒绝原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="区级拒绝原因" name="districtRefuseReason" th:value="${userMember.getDistrictRefuseReason()}" autocomplete="off"
+                              th:id="districtRefuseReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="districtPassReason">区级通过原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="区级通过原因" name="districtPassReason" th:value="${userMember.getDistrictPassReason()}" autocomplete="off"
+                              th:id="districtPassReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline">

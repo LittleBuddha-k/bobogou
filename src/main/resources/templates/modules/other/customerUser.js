@@ -76,6 +76,8 @@ layui.use(['form', 'table'], function () {
                             return "男"
                         }else if(2 == sex){
                             return "女"
+                        }else {
+                            return "未知"
                         }
                     }
                 },
@@ -91,6 +93,8 @@ layui.use(['form', 'table'], function () {
                             return "普通会员"
                         }else if(1 == member){
                             return "VIP"
+                        }else {
+                            return "未知"
                         }
                     }
                 },
@@ -133,6 +137,8 @@ layui.use(['form', 'table'], function () {
                             return "关闭"
                         }else if(1 == messageStatus){
                             return "打开"
+                        }else {
+                            return "未知"
                         }
                     }
                 },
@@ -148,6 +154,8 @@ layui.use(['form', 'table'], function () {
                             return "未同意"
                         }else if(1 == userAgreement){
                             return "已同意"
+                        }else {
+                            return "未知"
                         }
                     }
                 },
@@ -167,6 +175,8 @@ layui.use(['form', 'table'], function () {
                             return "已同意"
                         }else if(3 == applyStatus){
                             return "已拒绝"
+                        }else {
+                            return "未知"
                         }
                     }
                 },
@@ -187,6 +197,8 @@ layui.use(['form', 'table'], function () {
                             return "已拒绝"
                         }else if(0 == applyStatus){
                             return "未申请"
+                        }else {
+                            return "未知"
                         }
                     }
                 }
