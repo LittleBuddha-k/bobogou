@@ -1,5 +1,11 @@
-layui.use('form', function(){
-    var form = layui.form;
+layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
+    var $ = layui.jquery
+        , form = layui.form
+        , layer = layui.layer
+        , layedit = layui.layedit
+        , laydate = layui.laydate
+        ,upload = layui.upload
+        ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
     //对标签的操作----点击时才生效
@@ -68,6 +74,38 @@ layui.use('form', function(){
             }
         })
     });
+
+    //多图片上传
+    upload.render({
+        elem: '#test1',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo1').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#certificateImageWatermark").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#certificateImageWatermark").val(upload_image_url);
+        }
+    });
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test1").click(function () {
+    $('#demo1').html("");
+    $("#certificateImageWatermark").val('');
 });
 
 //富文本编辑

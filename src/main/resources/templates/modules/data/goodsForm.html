@@ -32,18 +32,20 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view' && goods.getCertificateImageWatermark() == null}">
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() == null}">
             <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
             <div class="layui-upload">
+                <button type="button" class="layui-btn">药品资质证书图片</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1"></div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view' && goods.getCertificateImageWatermark() != null}">
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() != null}">
             <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
             <div class="layui-upload">
+                <button type="button" class="layui-btn">药品资质证书图片</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
@@ -51,6 +53,32 @@
                     </div>
                 </blockquote>
             </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() == null}">
+            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">药品资质证书图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" th:value="${goods.getCertificateImageWatermark()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() != null}">
+            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">药品资质证书图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img  th:if="${goods.getCertificateImageWatermark() != null}"  th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" th:value="${goods.getCertificateImageWatermark()}">
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
