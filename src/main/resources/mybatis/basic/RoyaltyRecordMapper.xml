@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.RoyaltyRecordMapper">
+    <sql id="goodsNormColumns">
+        id AS "id",
+        user_id AS "userId",
+        order_id AS "orderId",
+        title AS "title",
+        money AS "money",
+        atio AS "atio",
+        type AS "type",
+        order_number AS "orderNumber",
+        status AS "status",
+        successful_time AS "successfulTime",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM ud_royalty_record a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM ud_royalty_record a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="userId != null and userId != ''">
+                AND a.user_id = #{userId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
+        SELECT
+        <include refid="goodsNormColumns"/>
+        FROM ud_royalty_record a
+        <where>
+            a.is_deleted = #{DEL_FLAG_DELETE}
+            <!-- 判断条件参数是否为空 -->
+            <!--<if test="brandName != null and brandName != ''">
+                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            </if>
+            <if test="classifyName != null and classifyName != ''">
+                AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--正常新增没有关联，首次创建-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO ud_royalty_record(
+            user_id,
+            order_id,
+            title,
+            money,
+            atio,
+            type,
+            order_number,
+            status,
+            successful_time,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{userId},
+            #{orderId},
+            #{title},
+            #{money},
+            #{atio},
+            #{type},
+            #{orderNumber},
+            #{status},
+            #{successfulTime},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE ud_royalty_record SET
+            user_id = #{userId},
+            order_id = #{orderId},
+            title = #{title},
+            money = #{money},
+            atio = #{atio},
+            type = #{type},
+            order_number = #{orderNumber},
+            status = #{status},
+            successful_time = #{successfulTime},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE ud_royalty_record SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <update id="recovery">
+        UPDATE ud_royalty_record SET is_deleted = #{DEL_FLAG_NORMAL}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM ud_royalty_record
+        WHERE id=#{id}
+    </delete>
+</mapper>

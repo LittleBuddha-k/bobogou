@@ -49,6 +49,15 @@
         FROM ud_user a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!--<if test='currentUser.id != "1"'>&lt;!&ndash;如果不是管理员则查询自己及下级部门数据&ndash;&gt;
+                AND (
+                a.create_by = #{currentUser.id}
+                OR office.parent_ids LIKE
+                <if test="dbName == 'oracle'">#{currentUser.office.parentIds}||#{currentUser.office.id}||'%'</if>
+                <if test="dbName == 'mssql'">#{currentUser.office.parentIds}+#{currentUser.office.id}+'%'</if>
+                <if test="dbName == 'mysql'">concat(#{currentUser.office.parentIds},#{currentUser.office.id},'%')</if>
+                )
+            </if>-->
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
