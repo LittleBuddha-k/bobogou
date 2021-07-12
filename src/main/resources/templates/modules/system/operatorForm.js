@@ -101,23 +101,81 @@ function save(parentIndex) {
     if (!isValidate) {
         return false;
     } else {
-        $.ajax({
-            url: "/bobogou/system/operator/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#operatorForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                parent.layer.close(index); //再执行关闭
-                parent.refresh();
-                rc.alert(result.msg)
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
+        let id = $("#id").val();
+        let loginName = $("#loginName").val();
+        let phone = $("#phone").val();
+        if (id == ''){
+            $.ajax({
+                url: "/bobogou/system/operator/dataList",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: {"loginName":loginName},    //参数值
+                type: "GET",   //请求方式
+                success: function (result) {
+                    if (result.length > 0){
+                        rc.alert("登录名已在系统中存在，请更换")
+                    }else {
+                        $.ajax({
+                            url: "/bobogou/other/customerUser/byPhone",    //请求的url地址
+                            dataType: "json",   //返回格式为json
+                            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                            data: {"phone":phone},    //参数值
+                            type: "GET",   //请求方式
+                            success: function (result) {
+                                let data = result.data;
+                                if (data != null){
+                                    rc.alert("电话号码已在系统中存在，请更换")
+                                }else {
+                                    $.ajax({
+                                        url: "/bobogou/system/operator/save",    //请求的url地址
+                                        dataType: "json",   //返回格式为json
+                                        async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                                        data: $("#operatorForm").serialize(),    //参数值
+                                        type: "POST",   //请求方式
+                                        success: function (result) {
+                                            //假设这是iframe页
+                                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                            parent.layer.close(index); //再执行关闭
+                                            parent.refresh();
+                                            rc.alert(result.msg)
+                                        },
+                                        error: function (result) {
+                                            rc.alert(result.msg)
+                                        }
+                                    });
+                                }
+                            },
+                            error: function (result) {
+                                rc.alert(result.msg)
+                            }
+                        });
+                    }
+                },
+                error: function (result) {
+                    rc.alert(result.msg)
+                }
+            });
+        }
+        if (id){
+            $.ajax({
+                url: "/bobogou/system/operator/save",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: $("#operatorForm").serialize(),    //参数值
+                type: "POST",   //请求方式
+                success: function (result) {
+                    //假设这是iframe页
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    parent.layer.close(index); //再执行关闭
+                    parent.refresh();
+                    rc.alert(result.msg)
+                },
+                error: function (result) {
+                    rc.alert(result.msg)
+                }
+            });
+
+        }
     }
 }
 
