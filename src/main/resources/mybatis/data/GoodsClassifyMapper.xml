@@ -77,7 +77,8 @@
         </choose>
     </select>
 
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <!--与商品做关联插入id=商品id-->
+    <insert id="insert">
         INSERT INTO md_goods_classify(
             classify_id,
             second_classify_id,

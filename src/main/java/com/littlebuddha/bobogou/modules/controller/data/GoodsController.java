@@ -63,17 +63,29 @@ public class GoodsController extends BaseController {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
             goods = goodsService.get(new Goods(id));
-            if (goods != null && StringUtils.isNotBlank(goods.getBrandId().toString())){
+            if (goods != null && goods.getBrandId()!= null && StringUtils.isNotBlank(goods.getBrandId().toString())){
                 GoodsBrand firstBrand = goodsBrandService.get(new GoodsBrand(goods.getBrandId().toString()));
                 goods.setFirstBrand(firstBrand);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getSecondBrandId().toString())){
+            if (goods != null && goods.getSecondBrandId()!= null &&  StringUtils.isNotBlank(goods.getSecondBrandId().toString())){
                 GoodsBrand secondBrand = goodsBrandService.get(new GoodsBrand(goods.getSecondBrandId().toString()));
                 goods.setSecondBrand(secondBrand);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getFactoryId().toString())){
+            if (goods != null && goods.getFactoryId()!= null &&  StringUtils.isNotBlank(goods.getFactoryId().toString())){
                 Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
                 goods.setFactory(factory);
+            }
+            if (goods != null){
+                GoodsClassify goodsClassify = goodsClassifyService.get(new GoodsClassify(goods.getId()));
+                goods.setGoodsClassify(goodsClassify);
+            }
+            if (goods != null){
+                GoodsSpecification goodsSpecification = goodsSpecificationService.get(new GoodsSpecification(goods.getId().toString()));
+                goods.setGoodsSpecification(goodsSpecification);
+            }
+            if (goods != null){
+                GoodsInfo goodsInfo = goodsInfoService.get(new GoodsInfo(goods.getId().toString()));
+                goods.setGoodsInfo(goodsInfo);
             }
         }
         if (goods == null) {

@@ -17,25 +17,49 @@
                th:value="${goods.getGoodsInfo().getId()}">
         <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id"
                th:value="${goods.getGoodsClassify().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsSpecification() != null}" name="goodsSpecification.id"
+               th:value="${goods.getGoodsSpecification().getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="name">商品名</label>
                 <div class="layui-input-inline">
-                    <input type="name" id="name" th:name="name" th:value="${goods.getName()}"
+                    <input type="name" th:id="name" th:name="name" th:value="${goods.getName()}"
                            placeholder="商品名" autocomplete="off" class="layui-input required"
                            th:if="${mode != 'detail'}">
-                    <input type="name" id="name" th:name="name" th:value="${goods.getName()}"
+                    <input type="name" th:id="name" th:name="name" th:value="${goods.getName()}"
                            placeholder="商品名" autocomplete="off" class="layui-input required" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
             </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && goods.getCertificateImageWatermark() == null}">
+            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
+            <div class="layui-upload">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1"></div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && goods.getCertificateImageWatermark() != null}">
+            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书图片</label>
+            <div class="layui-upload">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img  th:if="${goods.getCertificateImageWatermark() != null}"  th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="purchasingPrice">进价</label>
                 <div class="layui-input-inline">
-                    <input type="purchasingPrice" id="purchasingPrice" th:name="purchasingPrice"
+                    <input type="purchasingPrice" th:id="purchasingPrice" th:name="purchasingPrice"
                            th:value="${goods.getPurchasingPrice()}"
                            placeholder="进价" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="purchasingPrice" id="purchasingPrice" th:name="purchasingPrice"
+                    <input type="purchasingPrice" th:id="purchasingPrice" th:name="purchasingPrice"
                            th:value="${goods.getPurchasingPrice()}"
                            placeholder="进价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
@@ -44,10 +68,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="originalCost">原价</label>
                 <div class="layui-input-inline">
-                    <input type="originalCost" id="originalCost" th:name="originalCost"
+                    <input type="originalCost" th:id="originalCost" th:name="originalCost"
                            th:value="${goods.getOriginalCost()}"
                            placeholder="原价" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="originalCost" id="originalCost" th:name="originalCost"
+                    <input type="originalCost" th:id="originalCost" th:name="originalCost"
                            th:value="${goods.getOriginalCost()}"
                            placeholder="原价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
@@ -56,11 +80,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="sellingPrice">普通会员价</label>
                 <div class="layui-input-inline">
-                    <input type="sellingPrice" id="sellingPrice" th:name="sellingPrice"
+                    <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
                            th:value="${goods.getSellingPrice()}"
                            placeholder="普通会员价" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
-                    <input type="sellingPrice" id="sellingPrice" th:name="sellingPrice"
+                    <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
                            th:value="${goods.getSellingPrice()}"
                            placeholder="普通会员价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
@@ -69,9 +93,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="vipPrice">会员价</label>
                 <div class="layui-input-inline">
-                    <input type="vipPrice" id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
+                    <input type="vipPrice" th:id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
                            placeholder="会员价" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="vipPrice" id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
+                    <input type="vipPrice" th:id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
                            placeholder="会员价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -79,10 +103,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label">规格</label>
                 <div class="layui-input-inline">
-                    <input type="specification" id="specification" th:name="specification"
+                    <input type="specification" th:id="specification" th:name="specification"
                            th:value="${goods.getSpecification()}"
                            placeholder="规格" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
-                    <input type="specification" id="specification" th:name="specification"
+                    <input type="specification" th:id="specification" th:name="specification"
                            th:value="${goods.getSpecification()}"
                            placeholder="规格" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}" readonly>
                 </div>
@@ -90,9 +114,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="amount">数量</label>
                 <div class="layui-input-inline">
-                    <input type="amount" id="amount" th:name="amount" th:value="${goods.getAmount()}"
+                    <input type="amount" th:id="amount" th:name="amount" th:value="${goods.getAmount()}"
                            placeholder="数量" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="amount" id="amount" th:name="amount" th:value="${goods.getAmount()}"
+                    <input type="amount" th:id="amount" th:name="amount" th:value="${goods.getAmount()}"
                            placeholder="数量" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -100,9 +124,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="usedAmount">已分配</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
+                    <input type="text" th:id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
                            placeholder="已分配" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="text" id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
+                    <input type="text" th:id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
                            placeholder="已分配" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -110,9 +134,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="stockAmount">库存</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
+                    <input type="text" th:id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
                            placeholder="库存" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="text" id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
+                    <input type="text" th:id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
                            placeholder="库存" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -120,10 +144,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="salesVolume">销量</label>
                 <div class="layui-input-inline">
-                    <input type="salesVolume" id="salesVolume" th:name="salesVolume"
+                    <input type="salesVolume" th:id="salesVolume" th:name="salesVolume"
                            th:value="${goods.getSalesVolume()}"
                            placeholder="销量" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="salesVolume" id="salesVolume" th:name="salesVolume"
+                    <input type="salesVolume" th:id="salesVolume" th:name="salesVolume"
                            th:value="${goods.getSalesVolume()}"
                            placeholder="销量" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
@@ -132,19 +156,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label">功效</label>
                 <div class="layui-input-inline">
-                    <input type="effect" id="effect" th:name="effect" th:value="${goods.getEffect()}"
+                    <input type="effect" th:id="effect" th:name="effect" th:value="${goods.getEffect()}"
                            placeholder="功效" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
-                    <input type="effect" id="effect" th:name="effect" th:value="${goods.getEffect()}"
+                    <input type="effect" th:id="effect" th:name="effect" th:value="${goods.getEffect()}"
                            placeholder="功效" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}" readonly>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="applauseRate">好评率</label>
                 <div class="layui-input-inline">
-                    <input type="applauseRate" id="applauseRate" th:name="applauseRate"
+                    <input type="applauseRate" th:id="applauseRate" th:name="applauseRate"
                            th:value="${goods.getApplauseRate()}"
                            placeholder="好评率" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="applauseRate" id="applauseRate" th:name="applauseRate"
+                    <input type="applauseRate" th:id="applauseRate" th:name="applauseRate"
                            th:value="${goods.getApplauseRate()}"
                            placeholder="好评率" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
@@ -153,10 +177,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="healthBeans">播播豆</label>
                 <div class="layui-input-inline">
-                    <input type="healthBeans" id="healthBeans" th:name="healthBeans"
+                    <input type="healthBeans" th:id="healthBeans" th:name="healthBeans"
                            th:value="${goods.getHealthBeans()}"
                            placeholder="播播豆" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
-                    <input type="healthBeans" id="healthBeans" th:name="healthBeans"
+                    <input type="healthBeans" th:id="healthBeans" th:name="healthBeans"
                            th:value="${goods.getHealthBeans()}"
                            placeholder="播播豆" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>

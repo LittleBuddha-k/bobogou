@@ -45,7 +45,6 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="goodsJoins"/>
         WHERE a.id=#{id}
     </select>
 
@@ -53,7 +52,6 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="goodsJoins"/>
         WHERE a.id=#{id}
     </select>
 
@@ -61,7 +59,6 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="goodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -83,7 +80,6 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="goodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->
@@ -105,7 +101,6 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        <include refid="goodsJoins"/>
         <choose>
             <when test="page !=null and page.orderBy != null and page.orderBy != ''">
 
