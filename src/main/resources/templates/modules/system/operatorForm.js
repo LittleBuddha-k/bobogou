@@ -74,10 +74,13 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 //data : JSON.stringify(list),
                 //请求成功
                 success : function(result) {
+                    let data = result.data;
                     if (result.data == null){
                         $("#areaManager").show();
                         $("#status").show();
                     }else {
+                        let id = data.id;
+                        $("#customerUserId").val(id)
                         $("#areaManager").show();
                     }
                 },

@@ -92,7 +92,7 @@ public class OperatorController extends BaseController {
     }
 
     /**
-     * 返回数据
+     * 返回分页数据
      *
      * @return
      */
@@ -101,6 +101,16 @@ public class OperatorController extends BaseController {
     public TreeResult data(Operator operator) {
         PageInfo<Operator> page = operatorService.findPage(new Page<Operator>(), operator);
         return getLayUiData(page);
+    }
+    /**
+     * 返回不做分页的数据
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/dataList")
+    public List<Operator> dataList(Operator operator) {
+        List<Operator> list = operatorService.findList(operator);
+        return list;
     }
 
     /**
