@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -10,17 +11,21 @@ import org.apache.commons.lang3.StringUtils;
 public class Goods extends DataEntity<Goods> {
 
     private String name;//商品名称
-
-    private String certificateImage;//药品资质证书图片地址
+    private String certificateImageWatermark;//药品资质证书图片地址，一张，带水印
+    private String certificateImage;//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
 
     private Banner banner;//轮播图外键
     private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
 
-    private GoodsBrand goodsBrand;//商品品牌规格外键
-    private Integer brandId;//品牌分类ID
-    private Integer goodsFactoryId;//商品关联厂商字段
+    private GoodsBrand firstBrand;//商品品牌规格外键
+    private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
+    private GoodsBrand secondBrand;//商品品牌规格外键
+    private Integer secondBrandId;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
+    private Factory factory;//
+    private Integer factoryId;//厂商ID，关联厂商md_factory表
     private GoodsTag goodsTag;//商品标签外键
-    private String tagId;//商品标签ID,多个标签使用英文逗号分隔
+    private String tagId;//商品标签ID,多个标签使用英文逗号分隔，关联md_tag表
+    private GoodsType goodsType;//其他分类外键
     private String goodsTypeId;//药品其它分类ID，多个使用英文逗号分隔，在开始和结尾也需要加英文逗号
 
     private Double purchasingPrice;//进价，单位：分
@@ -30,17 +35,21 @@ public class Goods extends DataEntity<Goods> {
     private String specification;//规格
     private Double weight;//重量，单位：g，在需要运费的时候需要通过重量来计算运费，同一订单会计算订单所有商品的重量，小数点向上取整计算重量，运费按kg计算
     private Integer amount;//数量
-    private Integer usedAmount;//已用
-    private Integer stockAmount;//库存
+    private Integer usedAmount;//已分配
+    private Integer stockAmount;//库存数
     private Integer salesVolume;//销量
     private String effect;//功效
     private String productTime;//生产日期
     private Integer expirationDate;//保质期（单位：月）
     private Integer applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments;//评论数
-    private Integer healthBeans;//健康豆，该商品可获得的健康豆
-    private Integer integral;//积分
+    private Integer healthBeans;//健康豆，购买商品可获得的播播豆
+    private Integer integral;//积分，购买该商品可以获得的积分
     private Integer isFreight;//是否需要运费哦：0--不需要，1=需要
+    private Double administrativeFee;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，
+    private Double provinceRatio;//省代理(经理人)提成比例，单位：100%，最多三位小数
+    private Double cityRatio;//市代理(经理人)提成比例，单位：100%，最多三位小数
+    private Double districtRatio;//区代理(经纪人)提成比例，单位：100%，最多三位小数
     private Integer isMarket;//是否销售，0=在售，2停售
     private String accountId;//最后操作人ID
 
@@ -66,6 +75,22 @@ public class Goods extends DataEntity<Goods> {
         this.name = name;
     }
 
+    public String getCertificateImageWatermark() {
+        return certificateImageWatermark;
+    }
+
+    public void setCertificateImageWatermark(String certificateImageWatermark) {
+        this.certificateImageWatermark = certificateImageWatermark;
+    }
+
+    public String getCertificateImage() {
+        return certificateImage;
+    }
+
+    public void setCertificateImage(String certificateImage) {
+        this.certificateImage = certificateImage;
+    }
+
     public Banner getBanner() {
         return banner;
     }
@@ -82,12 +107,12 @@ public class Goods extends DataEntity<Goods> {
         this.images = images;
     }
 
-    public GoodsBrand getGoodsBrand() {
-        return goodsBrand;
+    public GoodsBrand getFirstBrand() {
+        return firstBrand;
     }
 
-    public void setGoodsBrand(GoodsBrand goodsBrand) {
-        this.goodsBrand = goodsBrand;
+    public void setFirstBrand(GoodsBrand firstBrand) {
+        this.firstBrand = firstBrand;
     }
 
     public Integer getBrandId() {
@@ -96,6 +121,38 @@ public class Goods extends DataEntity<Goods> {
 
     public void setBrandId(Integer brandId) {
         this.brandId = brandId;
+    }
+
+    public GoodsBrand getSecondBrand() {
+        return secondBrand;
+    }
+
+    public void setSecondBrand(GoodsBrand secondBrand) {
+        this.secondBrand = secondBrand;
+    }
+
+    public Integer getSecondBrandId() {
+        return secondBrandId;
+    }
+
+    public void setSecondBrandId(Integer secondBrandId) {
+        this.secondBrandId = secondBrandId;
+    }
+
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
+    public Integer getFactoryId() {
+        return factoryId;
+    }
+
+    public void setFactoryId(Integer factoryId) {
+        this.factoryId = factoryId;
     }
 
     public GoodsTag getGoodsTag() {
@@ -114,7 +171,22 @@ public class Goods extends DataEntity<Goods> {
         this.tagId = tagId;
     }
 
-    @ExcelField(title = "进价", align = 2, sort = 2)
+    public GoodsType getGoodsType() {
+        return goodsType;
+    }
+
+    public void setGoodsType(GoodsType goodsType) {
+        this.goodsType = goodsType;
+    }
+
+    public String getGoodsTypeId() {
+        return goodsTypeId;
+    }
+
+    public void setGoodsTypeId(String goodsTypeId) {
+        this.goodsTypeId = goodsTypeId;
+    }
+
     public Double getPurchasingPrice() {
         return purchasingPrice;
     }
@@ -123,7 +195,6 @@ public class Goods extends DataEntity<Goods> {
         this.purchasingPrice = purchasingPrice;
     }
 
-    @ExcelField(title = "原价", align = 2, sort = 3)
     public Double getOriginalCost() {
         return originalCost;
     }
@@ -132,7 +203,6 @@ public class Goods extends DataEntity<Goods> {
         this.originalCost = originalCost;
     }
 
-    @ExcelField(title = "普通会员价", align = 2, sort = 4)
     public Double getSellingPrice() {
         return sellingPrice;
     }
@@ -141,7 +211,6 @@ public class Goods extends DataEntity<Goods> {
         this.sellingPrice = sellingPrice;
     }
 
-    @ExcelField(title = "会员价", align = 2, sort = 5)
     public Double getVipPrice() {
         return vipPrice;
     }
@@ -150,7 +219,6 @@ public class Goods extends DataEntity<Goods> {
         this.vipPrice = vipPrice;
     }
 
-    @ExcelField(title = "规格", align = 2, sort = 6)
     public String getSpecification() {
         return specification;
     }
@@ -159,7 +227,14 @@ public class Goods extends DataEntity<Goods> {
         this.specification = specification;
     }
 
-    @ExcelField(title = "数量", align = 2, sort = 7)
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
     public Integer getAmount() {
         return amount;
     }
@@ -184,7 +259,6 @@ public class Goods extends DataEntity<Goods> {
         this.stockAmount = stockAmount;
     }
 
-    @ExcelField(title = "销量", align = 2, sort = 8)
     public Integer getSalesVolume() {
         return salesVolume;
     }
@@ -193,7 +267,6 @@ public class Goods extends DataEntity<Goods> {
         this.salesVolume = salesVolume;
     }
 
-    @ExcelField(title = "功效", align = 2, sort = 9)
     public String getEffect() {
         return effect;
     }
@@ -202,7 +275,22 @@ public class Goods extends DataEntity<Goods> {
         this.effect = effect;
     }
 
-    @ExcelField(title = "好评率", align = 2, sort = 10)
+    public String getProductTime() {
+        return productTime;
+    }
+
+    public void setProductTime(String productTime) {
+        this.productTime = productTime;
+    }
+
+    public Integer getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(Integer expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
     public Integer getApplauseRate() {
         return applauseRate;
     }
@@ -219,7 +307,6 @@ public class Goods extends DataEntity<Goods> {
         this.comments = comments;
     }
 
-    @ExcelField(title = "健康豆", align = 2, sort = 11)
     public Integer getHealthBeans() {
         return healthBeans;
     }
@@ -228,7 +315,54 @@ public class Goods extends DataEntity<Goods> {
         this.healthBeans = healthBeans;
     }
 
-    @ExcelField(title = "是否在售", align = 2, sort = 12)
+    public Integer getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Integer integral) {
+        this.integral = integral;
+    }
+
+    public Integer getIsFreight() {
+        return isFreight;
+    }
+
+    public void setIsFreight(Integer isFreight) {
+        this.isFreight = isFreight;
+    }
+
+    public Double getAdministrativeFee() {
+        return administrativeFee;
+    }
+
+    public void setAdministrativeFee(Double administrativeFee) {
+        this.administrativeFee = administrativeFee;
+    }
+
+    public Double getProvinceRatio() {
+        return provinceRatio;
+    }
+
+    public void setProvinceRatio(Double provinceRatio) {
+        this.provinceRatio = provinceRatio;
+    }
+
+    public Double getCityRatio() {
+        return cityRatio;
+    }
+
+    public void setCityRatio(Double cityRatio) {
+        this.cityRatio = cityRatio;
+    }
+
+    public Double getDistrictRatio() {
+        return districtRatio;
+    }
+
+    public void setDistrictRatio(Double districtRatio) {
+        this.districtRatio = districtRatio;
+    }
+
     public Integer getIsMarket() {
         return isMarket;
     }
@@ -238,8 +372,8 @@ public class Goods extends DataEntity<Goods> {
     }
 
     public String getAccountId() {
-        if (this.updateBy != null && StringUtils.isNotBlank(updateBy.getId())) {
-            this.accountId = this.updateBy.getId();
+        if (updateBy != null && StringUtils.isNotBlank(updateBy.getId())){
+            this.accountId = updateBy.getId();
         }
         return accountId;
     }

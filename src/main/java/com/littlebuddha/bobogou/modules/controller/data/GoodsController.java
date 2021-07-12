@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -39,7 +41,7 @@ public class GoodsController extends BaseController {
     private GoodsBrandService goodsBrandService;
 
     @Autowired
-    private ClassifyService goodsTypeService;
+    private ClassifyService classifyService;
 
     @Autowired
     private GoodsInfoService goodsInfoService;
@@ -53,11 +55,26 @@ public class GoodsController extends BaseController {
     @Autowired
     private GoodsSpecificationService goodsSpecificationService;
 
+    @Autowired
+    private FactoryService factoryService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
-            goods = goodsService.get(id);
+            goods = goodsService.get(new Goods(id));
+            if (goods != null && StringUtils.isNotBlank(goods.getBrandId().toString())){
+                GoodsBrand firstBrand = goodsBrandService.get(new GoodsBrand(goods.getBrandId().toString()));
+                goods.setFirstBrand(firstBrand);
+            }
+            if (goods != null && StringUtils.isNotBlank(goods.getSecondBrandId().toString())){
+                GoodsBrand secondBrand = goodsBrandService.get(new GoodsBrand(goods.getSecondBrandId().toString()));
+                goods.setSecondBrand(secondBrand);
+            }
+            if (goods != null && StringUtils.isNotBlank(goods.getFactoryId().toString())){
+                Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
+                goods.setFactory(factory);
+            }
         }
         if (goods == null) {
             goods = new Goods();
@@ -124,7 +141,7 @@ public class GoodsController extends BaseController {
         List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
         model.addAttribute("commodityBrandList", commodityBrandList);
         //查询商品分类数据：分一级、二级、三级
-        List<Classify> goodsTypeLevelOne = goodsTypeService.findList(new Classify(1));//查询一级商品分类
+        List<Classify> goodsTypeLevelOne = classifyService.findList(new Classify(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
         //查询当前商品的商品分类详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
