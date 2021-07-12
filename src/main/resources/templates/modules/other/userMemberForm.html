@@ -135,18 +135,122 @@
                            th:id="endTime" class="layui-input" readonly>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="isEntrust">是否委托</label>
+                <div class="layui-input-inline">
+                    <select name="isEntrust" lay-verify="" lay-filter="type"
+                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == null}">
+                        <option th:value="0" th:text="否"/>
+                        <option th:value="1" th:text="是"/>
+                    </select>
+                    <select name="isEntrust" lay-verify="" lay-filter="type"
+                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == 0}">
+                        <option th:value="0" th:text="否"/>
+                        <option th:value="1" th:text="是"/>
+                    </select>
+                    <select name="isEntrust" lay-verify="" lay-filter="type"
+                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == 1}">
+                        <option th:value="1" th:text="是"/>
+                        <option th:value="0" th:text="否"/>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label" for="businessCertificate">经营许可证地址</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn">经营许可证地址</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                <button type="button" class="layui-btn" th:id="test1">经营许可证地址</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() != null}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
-                        <img  th:if="${userMember.getBusinessCertificate() != ''}"  th:each="image:${userMember.getBusinessCertificate().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img  th:each="image:${userMember.getBusinessCertificate().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() == null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+
                     </div>
                 </blockquote>
             </div>
+            <input type="hidden" th:id="businessCertificate" th:name="businessCertificate" th:value="${userMember.getBusinessCertificate()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="foodBusinessLicense">食品经营许可证</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test2">食品经营许可证</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test2">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() != null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo2">
+                        <img  th:each="image:${userMember.getFoodBusinessLicense().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() == null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo2">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="foodBusinessLicense" th:name="foodBusinessLicense" th:value="${userMember.getFoodBusinessLicense()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="authorityPurchase">采购委托书地址</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test3">采购委托书地址</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test3">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() != null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo3">
+                        <img  th:each="image:${userMember.getAuthorityPurchase().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() == null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo3">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="authorityPurchase" th:name="authorityPurchase" th:value="${userMember.getAuthorityPurchase()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="mandatary">被委托人身份证地址</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test4">被委托人身份证地址</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test4">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() != null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo4">
+                        <img  th:each="image:${userMember.getMandatary().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() == null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo4">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="mandatary" th:name="mandatary" th:value="${userMember.getMandatary()}">
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="groupPhoto">经理人和申请人的合照图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test5">经理人和申请人的合照图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test5">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() != null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo5">
+                        <img  th:each="image:${userMember.getGroupPhoto().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() == null}">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo5">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="groupPhoto" th:name="groupPhoto" th:value="${userMember.getGroupPhoto()}">
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
