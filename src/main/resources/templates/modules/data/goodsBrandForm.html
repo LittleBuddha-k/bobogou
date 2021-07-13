@@ -25,6 +25,25 @@
                            th:id="classifyName" autocomplete="off" class="layui-input required">
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="parentId">品牌父级</label>
+                <div class="layui-input-inline">
+                    <select name="parentId" lay-verify=""
+                            th:if="${goodsBrand.getParentId() == null}">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="list:${goodsBrandList}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
+                    </select>
+                    <select name="parentId" lay-verify=""
+                            th:if="${goodsBrand.getParentId() != null}">
+                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() == list.getId()}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
+                        <option th:value="0" th:text="请选择"/>
+                    </select>
+                    <select name="parentId" lay-verify=""
+                            th:if="${goodsBrand.getParentId() != null}">
+                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() != list.getId()}"  th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
+                    </select>
+                </div>
+            </div>
         </div>
     </form>
 </div>
@@ -63,6 +82,17 @@
             });
         }
     }
+
+    layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
+        var $ = layui.jquery
+            , form = layui.form
+            , layer = layui.layer
+            , layedit = layui.layedit
+            , laydate = layui.laydate
+            , upload = layui.upload
+            , element = layui.element;
+        //各种基于事件的操作，下面会有进一步介绍
+    })
 </script>
 </body>
 </html>

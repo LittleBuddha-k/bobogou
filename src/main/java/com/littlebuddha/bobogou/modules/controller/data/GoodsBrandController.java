@@ -84,6 +84,9 @@ public class GoodsBrandController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, GoodsBrand goodsBrand, Model model) {
+        //查询所有品牌
+        List<GoodsBrand> goodsBrandList = goodsBrandService.findList(new GoodsBrand());
+        model.addAttribute("goodsBrandList", goodsBrandList);
         model.addAttribute("goodsBrand", goodsBrand);
         return "modules/data/goodsBrandForm";
     }
