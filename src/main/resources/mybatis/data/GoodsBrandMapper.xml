@@ -32,6 +32,9 @@
             <if test="classifyName != null and classifyName != ''">
                 AND a.classify_name LIKE concat('%',#{classifyName},'%')
             </if>
+            <if test="parentId != null and parentId != ''">
+                AND a.parent_id = #{parentId}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -55,6 +58,9 @@
             </if>
             <if test="classifyName != null and classifyName != ''">
                 AND a.classify_name LIKE concat('%',#{classifyName},'%')
+            </if>
+            <if test="parentId != null and parentId != ''">
+                AND a.parent_id = #{parentId}
             </if>
         </where>
         <choose>

@@ -37,10 +37,7 @@
                             th:if="${goodsBrand.getParentId() != null}">
                         <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() == list.getId()}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
                         <option th:value="0" th:text="请选择"/>
-                    </select>
-                    <select name="parentId" lay-verify=""
-                            th:if="${goodsBrand.getParentId() != null}">
-                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() != list.getId()}"  th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
+                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() != list.getId()}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
                     </select>
                 </div>
             </div>
