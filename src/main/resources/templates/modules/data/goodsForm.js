@@ -24,6 +24,46 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         //console.log(data.othis); //得到美化后的DOM对象
     });
 
+    //对其他分类操作----点击时才生效
+    form.on('checkbox(goodsTypeId)', function(data){
+        let checked = data.elem.checked; //是否被选中，true或者false
+        if(checked){
+            let id = data.value; //复选框value值，也可以通过data.elem.value得到
+            let tagId = $("#goodsTypeId").val();
+            let get = tagId + "," + id;
+            $("#goodsTypeId").val(get);
+        }else {
+            $("#goodsTypeId").val("")
+        }
+    });
+
+    //品牌一级分类联动二级分类
+    form.on('select(brandId)', function(data){
+        let brandId = data.value;
+        $("#secondBrandId").empty();//清空二级选项
+        rc.post("/bobogou/data/goodsBrand/dataList",{"parentId":brandId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].brandName + "</option>";
+                }
+                $("#secondBrandId").html(tmp);
+                form.render();
+            }else {
+                var tmp='<option value="-1">请选择</option>';
+                $("#secondBrandId").html(tmp);
+                form.render();
+            }
+        })
+    });
+
+    //生产日期
+    laydate.render({
+        elem: '#productTime'
+        , type: 'datetime'
+    });
+
     //商品分类级联下拉框
     //下拉框选中后的时间
     form.on('select(levelOne)', function(data){
@@ -75,7 +115,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         })
     });
 
-    //多图片上传
+    //多图片上传药品资质证书（带水印）
     upload.render({
         elem: '#test1',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
@@ -98,14 +138,76 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             $("#certificateImageWatermark").val(upload_image_url);
         }
     });
+    //多图片上传药品资质证书（无水印）
+    upload.render({
+        elem: '#test2',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#certificateImage").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#certificateImage").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test3',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo3').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#images").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#images").val(upload_image_url);
+        }
+    });
 });
 
 /**
- * 多图清除按钮点击事件
+ * 多图清除按钮点击事件---有水印
  */
 $("#btn_image_clear_test1").click(function () {
     $('#demo1').html("");
     $("#certificateImageWatermark").val('');
+});
+
+/**
+ * 多图清除按钮点击事件--无水印
+ */
+$("#btn_image_clear_test2").click(function () {
+    $('#demo2').html("");
+    $("#certificateImage").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test3").click(function () {
+    $('#demo3').html("");
+    $("#images").val('');
 });
 
 //富文本编辑

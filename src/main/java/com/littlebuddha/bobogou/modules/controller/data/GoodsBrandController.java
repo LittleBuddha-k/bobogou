@@ -63,7 +63,7 @@ public class GoodsBrandController extends BaseController {
     }
 
     /**
-     * 返回数据
+     * 返回分页数据
      *
      * @return
      */
@@ -72,6 +72,17 @@ public class GoodsBrandController extends BaseController {
     public TreeResult data(GoodsBrand goodsBrand) {
         PageInfo<GoodsBrand> page = goodsBrandService.findPage(new Page<GoodsBrand>(), goodsBrand);
         return getLayUiData(page);
+    }
+    /**
+     * 返回没有分页的数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/dataList")
+    public List<GoodsBrand> dataList(GoodsBrand goodsBrand) {
+        List<GoodsBrand> list = goodsBrandService.findList(goodsBrand);
+        return list;
     }
 
     /**

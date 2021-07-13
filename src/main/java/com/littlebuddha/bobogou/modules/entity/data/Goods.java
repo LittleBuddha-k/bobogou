@@ -19,8 +19,10 @@ public class Goods extends DataEntity<Goods> {
 
     private GoodsBrand firstBrand;//商品品牌规格外键
     private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
+    private String brandName;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
     private GoodsBrand secondBrand;//商品品牌规格外键
     private Integer secondBrandId;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
+    private String secondBrandName;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
     private Factory factory;//
     private Integer factoryId;//厂商ID，关联厂商md_factory表
     private GoodsTag goodsTag;//商品标签外键
@@ -39,12 +41,12 @@ public class Goods extends DataEntity<Goods> {
     private Integer stockAmount;//库存数
     private Integer salesVolume;//销量
     private String effect;//功效
-    private String productTime;//生产日期
+    private String producedTime;//生产日期
     private Integer expirationDate;//保质期（单位：月）
-    private Integer applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
+    private Double applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments;//评论数
-    private Integer healthBeans;//健康豆，购买商品可获得的播播豆
-    private Integer integral;//积分，购买该商品可以获得的积分
+    private Double healthBeans;//健康豆，购买商品可获得的播播豆
+    private Double integral;//积分，购买该商品可以获得的积分
     private Integer isFreight;//是否需要运费哦：0--不需要，1=需要
     private Double administrativeFee;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，
     private Double provinceRatio;//省代理(经理人)提成比例，单位：100%，最多三位小数
@@ -123,6 +125,17 @@ public class Goods extends DataEntity<Goods> {
         this.brandId = brandId;
     }
 
+    public String getBrandName() {
+        if (firstBrand != null && StringUtils.isNotBlank(firstBrand.getBrandName())){
+            this.brandName = firstBrand.getBrandName();
+        }
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
     public GoodsBrand getSecondBrand() {
         return secondBrand;
     }
@@ -137,6 +150,17 @@ public class Goods extends DataEntity<Goods> {
 
     public void setSecondBrandId(Integer secondBrandId) {
         this.secondBrandId = secondBrandId;
+    }
+
+    public String getSecondBrandName() {
+        if (secondBrand != null && StringUtils.isNotBlank(secondBrand.getBrandName())){
+            this.secondBrandName = secondBrand.getBrandName();
+        }
+        return secondBrandName;
+    }
+
+    public void setSecondBrandName(String secondBrandName) {
+        this.secondBrandName = secondBrandName;
     }
 
     public Factory getFactory() {
@@ -275,12 +299,12 @@ public class Goods extends DataEntity<Goods> {
         this.effect = effect;
     }
 
-    public String getProductTime() {
-        return productTime;
+    public String getProducedTime() {
+        return producedTime;
     }
 
-    public void setProductTime(String productTime) {
-        this.productTime = productTime;
+    public void setProducedTime(String producedTime) {
+        this.producedTime = producedTime;
     }
 
     public Integer getExpirationDate() {
@@ -291,11 +315,11 @@ public class Goods extends DataEntity<Goods> {
         this.expirationDate = expirationDate;
     }
 
-    public Integer getApplauseRate() {
+    public Double getApplauseRate() {
         return applauseRate;
     }
 
-    public void setApplauseRate(Integer applauseRate) {
+    public void setApplauseRate(Double applauseRate) {
         this.applauseRate = applauseRate;
     }
 
@@ -307,19 +331,19 @@ public class Goods extends DataEntity<Goods> {
         this.comments = comments;
     }
 
-    public Integer getHealthBeans() {
+    public Double getHealthBeans() {
         return healthBeans;
     }
 
-    public void setHealthBeans(Integer healthBeans) {
+    public void setHealthBeans(Double healthBeans) {
         this.healthBeans = healthBeans;
     }
 
-    public Integer getIntegral() {
+    public Double getIntegral() {
         return integral;
     }
 
-    public void setIntegral(Integer integral) {
+    public void setIntegral(Double integral) {
         this.integral = integral;
     }
 

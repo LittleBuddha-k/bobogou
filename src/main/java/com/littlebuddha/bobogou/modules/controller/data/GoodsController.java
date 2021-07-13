@@ -58,17 +58,24 @@ public class GoodsController extends BaseController {
     @Autowired
     private FactoryService factoryService;
 
+    @Autowired
+    private GoodsTypeService goodsTypeService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
             goods = goodsService.get(new Goods(id));
             if (goods != null && goods.getBrandId()!= null && StringUtils.isNotBlank(goods.getBrandId().toString())){
-                GoodsBrand firstBrand = goodsBrandService.get(new GoodsBrand(goods.getBrandId().toString()));
+                GoodsBrand fbSelect = new GoodsBrand();
+                fbSelect.setId(goods.getBrandId().toString());
+                GoodsBrand firstBrand = goodsBrandService.get(fbSelect);
                 goods.setFirstBrand(firstBrand);
             }
             if (goods != null && goods.getSecondBrandId()!= null &&  StringUtils.isNotBlank(goods.getSecondBrandId().toString())){
-                GoodsBrand secondBrand = goodsBrandService.get(new GoodsBrand(goods.getSecondBrandId().toString()));
+                GoodsBrand sbSelect = new GoodsBrand();
+                sbSelect.setId(goods.getSecondBrandId().toString());
+                GoodsBrand secondBrand = goodsBrandService.get(sbSelect);
                 goods.setSecondBrand(secondBrand);
             }
             if (goods != null && goods.getFactoryId()!= null &&  StringUtils.isNotBlank(goods.getFactoryId().toString())){
@@ -149,12 +156,20 @@ public class GoodsController extends BaseController {
         //查询所有标签
         List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
         model.addAttribute("commodityTagList", commodityTagList);
-        //查询所有品牌分类
-        List<GoodsBrand> commodityBrandList = goodsBrandService.findList(new GoodsBrand());
-        model.addAttribute("commodityBrandList", commodityBrandList);
+        //查询品牌一级分类
+        GoodsBrand entity = new GoodsBrand();
+        entity.setParentId("0");
+        List<GoodsBrand> goodsBrandList = goodsBrandService.findList(entity);
+        model.addAttribute("goodsBrandList", goodsBrandList);
+        //查询所有厂商列表
+        List<Factory> factoryList = factoryService.findList(new Factory());
+        model.addAttribute("factoryList", factoryList);
         //查询商品分类数据：分一级、二级、三级
         List<Classify> goodsTypeLevelOne = classifyService.findList(new Classify(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
+        //查询所有其他分类---GoodsType数据
+        List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
+        model.addAttribute("goodsTypeList", goodsTypeList);
         //查询当前商品的商品分类详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
             GoodsClassify select = new GoodsClassify();

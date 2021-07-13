@@ -201,7 +201,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goods/form/add", "新建药品信息",'100%','100%')
+            var index = rc.openSaveDialog("/bobogou/data/goods/form/add", "新建药品信息",'1010px','100%')
         }
     });
 
@@ -209,7 +209,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goods/form/edit?id=' + id, "编辑药品信息",'100%','100%');
+            rc.openSaveDialog('/bobogou/data/goods/form/edit?id=' + id, "编辑药品信息",'1010px','100%');
         } else if (event === 'onShelves') {
             rc.confirm('是否确认上架商品？', function() {
                 rc.post("/bobogou/data/goods/onTheShelf",{"id":id,"isMarket":0} , function (data) {
@@ -247,7 +247,7 @@ layui.use(['form', 'table'], function () {
                 });
             })
         }else if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/goods/form/detail?id="+id, "查看药品信息",'100%','100%')
+            rc.openViewDialog("/bobogou/data/goods/form/detail?id="+id, "查看药品信息",'1010px','100%')
         }
     });
 });

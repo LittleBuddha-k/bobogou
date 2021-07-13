@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.MarkdownUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.*;
@@ -20,6 +21,9 @@ import java.util.List;
 public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Autowired
+    private GlobalSetting globalSetting;
+
+    @Autowired
     private GoodsMapper goodsMapper;
 
     @Autowired
@@ -33,7 +37,35 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     @Override
     public Goods get(Goods entity) {
-        return super.get(entity);
+        Goods goods = super.get(entity);
+        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImageWatermark())){
+            String certificateImageWatermark = goods.getCertificateImageWatermark();
+            String aa = "";
+            String[] split = certificateImageWatermark.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            goods.setCertificateImageWatermark(aa);
+        }
+        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())){
+            String certificateImage = goods.getCertificateImage();
+            String aa = "";
+            String[] split = certificateImage.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            goods.setCertificateImage(aa);
+        }
+        if (goods != null && StringUtils.isNotBlank(goods.getImages())){
+            String images = goods.getImages();
+            String aa = "";
+            String[] split = images.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            goods.setImages(aa);
+        }
+        return goods;
     }
 
     @Override
@@ -54,6 +86,16 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Transactional
     public int save(Goods entity) {
         entity.setIdType("AUTO");
+        //设置图片插入路径格式
+        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImageWatermark())){
+            entity.setCertificateImageWatermark(entity.getCertificateImageWatermark().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())){
+            entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getImages())){
+            entity.setImages(entity.getImages().replaceAll(globalSetting.getRootPath(),""));
+        }
         int save = super.save(entity);
         //插入商品详情
         if (entity != null && entity.getGoodsInfo() != null) {
