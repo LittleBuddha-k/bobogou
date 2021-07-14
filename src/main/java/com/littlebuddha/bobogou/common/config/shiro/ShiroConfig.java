@@ -31,6 +31,10 @@ public class ShiroConfig {
         shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
         Map<String, String> map = new HashMap<>();
         //配置系统公共资源
+        //map.put("/data/goods/list", "anon");
+        //map.put("/data/goods/data", "anon");
+        //map.put("/modules/data/**", "anon");
+        //map.put("/utils/**", "anon");
         map.put("/index.html", "anon");
         map.put("/system/loginPage", "anon");
         map.put("/system/login", "anon");

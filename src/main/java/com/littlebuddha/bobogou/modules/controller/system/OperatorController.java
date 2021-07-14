@@ -63,11 +63,11 @@ public class OperatorController extends BaseController {
                 Area area = areaService.get(new Area(operator.getAreaId()));
                 operator.setArea(area);
             }
-            if (operator.getPhone() != null && StringUtils.isNotBlank(operator.getPhone())){
+            if (operator != null && StringUtils.isNotBlank(operator.getId())){
                 CustomerUser selectOption = new CustomerUser();
-                selectOption.setPhone(operator.getPhone());
-                CustomerUser byPhone = customerUserService.getByPhone(selectOption);
-                operator.setCustomerUser(byPhone);
+                selectOption.setOperatorId(operator.getId());
+                CustomerUser byOperator = customerUserService.findByOperator(selectOption);
+                operator.setCustomerUser(byOperator);
             }
         }
         if (operator == null) {

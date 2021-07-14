@@ -22,7 +22,7 @@
         profit_amount AS "profitAmount",
         amount_withdrawn AS "amountWithdrawn",
         withdrawal_amount AS "withdrawalAmount",
-        operator AS "operator.id",
+        operator AS "operatorId",
         status AS "status",
         is_deleted AS "isDeleted",
         create_time AS "createTime",
@@ -41,6 +41,13 @@
         <include refid="customerUserColumns"/>
         FROM ud_user a
         WHERE a.phone = #{phone}
+    </select>
+
+    <select id="getByOperator" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
+        SELECT
+        <include refid="customerUserColumns"/>
+        FROM ud_user a
+        WHERE a.operator = #{operatorId}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">

@@ -38,6 +38,16 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         return byPhone;
     }
 
+    /**
+     * 通过operator查找
+     * @param selectOption
+     * @return
+     */
+    public CustomerUser findByOperator(CustomerUser selectOption) {
+        CustomerUser customerUser = customerUserMapper.getByOperator(selectOption);
+        return customerUser;
+    }
+
     @Override
     public List<CustomerUser> findList(CustomerUser entity) {
         return super.findList(entity);

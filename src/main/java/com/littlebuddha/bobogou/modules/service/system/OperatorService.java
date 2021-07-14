@@ -115,6 +115,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                     customerUser.preInsert();
                     customerUserMapper.insert(customerUser);
                 }else {
+                    customerUser.setPhone(operator.getPhone());
                     customerUser.setOperatorId(operator.getId());
                     customerUser.preUpdate();
                     customerUserMapper.update(customerUser);

@@ -14,4 +14,6 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
 
     //通过号码查询用户
     CustomerUser getByPhone(CustomerUser customerUser);
+
+    CustomerUser getByOperator(CustomerUser selectOption);
 }
