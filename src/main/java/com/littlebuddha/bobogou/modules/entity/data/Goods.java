@@ -61,6 +61,8 @@ public class Goods extends DataEntity<Goods> {
 
     private GoodsInfo goodsInfo;//商品详情外键
 
+    private GoodsNorm goodsNorm;//商品规范、关联新增
+
     public Goods() {
     }
 
@@ -428,5 +430,13 @@ public class Goods extends DataEntity<Goods> {
 
     public void setGoodsInfo(GoodsInfo goodsInfo) {
         this.goodsInfo = goodsInfo;
+    }
+
+    public GoodsNorm getGoodsNorm() {
+        return goodsNorm;
+    }
+
+    public void setGoodsNorm(GoodsNorm goodsNorm) {
+        this.goodsNorm = goodsNorm;
     }
 }

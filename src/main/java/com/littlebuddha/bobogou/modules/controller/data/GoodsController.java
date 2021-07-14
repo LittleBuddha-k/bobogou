@@ -61,6 +61,9 @@ public class GoodsController extends BaseController {
     @Autowired
     private GoodsTypeService goodsTypeService;
 
+    @Autowired
+    private GoodsNormService goodsNormService;
+
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
         Goods goods = null;
@@ -82,17 +85,21 @@ public class GoodsController extends BaseController {
                 Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
                 goods.setFactory(factory);
             }
-            if (goods != null){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())){
                 GoodsClassify goodsClassify = goodsClassifyService.get(new GoodsClassify(goods.getId()));
                 goods.setGoodsClassify(goodsClassify);
             }
-            if (goods != null){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())){
                 GoodsSpecification goodsSpecification = goodsSpecificationService.get(new GoodsSpecification(goods.getId().toString()));
                 goods.setGoodsSpecification(goodsSpecification);
             }
-            if (goods != null){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())){
                 GoodsInfo goodsInfo = goodsInfoService.get(new GoodsInfo(goods.getId().toString()));
                 goods.setGoodsInfo(goodsInfo);
+            }
+            if (goods != null && StringUtils.isNotBlank(goods.getId())){
+                GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
+                goods.setGoodsNorm(goodsNorm);
             }
         }
         if (goods == null) {
