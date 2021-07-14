@@ -178,6 +178,3 @@ function save(parentIndex) {
         }
     }
 }
-
-$(document).ready(function () {
-})

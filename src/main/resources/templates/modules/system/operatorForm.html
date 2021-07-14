@@ -47,7 +47,7 @@
                     <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
                            th:id="phone" class="layui-input" th:if="${mode == 'view'}" readonly>
                     <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
-                           th:id="phone" class="layui-input" th:if="${mode != 'view'}">
+                           th:id="phone" class="layui-input mobile" th:if="${mode != 'view'}">
                 </div>
             </div>
         </div>
@@ -430,11 +430,13 @@
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
-<!--引入工具js-->
-<script type="text/javascript" src="/bobogou/modules/system/operatorForm.js"></script>
 <!--引入表单验证-->
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--在表单验证基础上添加的自定义验证js-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/modules/system/operatorForm.js"></script>
 </body>
 </html>
