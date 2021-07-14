@@ -27,7 +27,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
     @Override
     public GoodsNorm get(GoodsNorm entity) {
         GoodsNorm goodsNorm = super.get(entity);
-        if (goodsNorm.getSampleBox() != null && StringUtils.isNotBlank(goodsNorm.getSampleBox())){
+        if (goodsNorm != null && goodsNorm.getSampleBox() != null && StringUtils.isNotBlank(goodsNorm.getSampleBox())){
             String sampleBox = goodsNorm.getSampleBox();
             String[] split = sampleBox.split(",");
             String aa = "";
@@ -36,7 +36,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setSampleBox(aa);
         }
-        if (goodsNorm.getOuterPackingBox() != null && StringUtils.isNotBlank(goodsNorm.getOuterPackingBox())){
+        if (goodsNorm != null && goodsNorm.getOuterPackingBox() != null && StringUtils.isNotBlank(goodsNorm.getOuterPackingBox())){
             String outerPackingBox = goodsNorm.getOuterPackingBox();
             String[] split = outerPackingBox.split(",");
             String aa = "";
@@ -45,7 +45,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setOuterPackingBox(aa);
         }
-        if (goodsNorm.getInstructionBook() != null && StringUtils.isNotBlank(goodsNorm.getInstructionBook())){
+        if (goodsNorm != null && goodsNorm.getInstructionBook() != null && StringUtils.isNotBlank(goodsNorm.getInstructionBook())){
             String instructionBook = goodsNorm.getInstructionBook();
             String[] split = instructionBook.split(",");
             String aa = "";
@@ -54,7 +54,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setInstructionBook(aa);
         }
-        if (goodsNorm.getOtherData() != null && StringUtils.isNotBlank(goodsNorm.getOtherData())){
+        if (goodsNorm != null && goodsNorm.getOtherData() != null && StringUtils.isNotBlank(goodsNorm.getOtherData())){
             String otherData = goodsNorm.getOtherData();
             String[] split = otherData.split(",");
             String aa = "";
@@ -63,7 +63,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setOtherData(aa);
         }
-        if (goodsNorm.getRelatedPictures() != null && StringUtils.isNotBlank(goodsNorm.getRelatedPictures())){
+        if (goodsNorm != null && goodsNorm.getRelatedPictures() != null && StringUtils.isNotBlank(goodsNorm.getRelatedPictures())){
             String relatedPictures = goodsNorm.getRelatedPictures();
             String[] split = relatedPictures.split(",");
             String aa = "";
@@ -72,7 +72,7 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setRelatedPictures(aa);
         }
-        if (goodsNorm.getInstructions() != null && StringUtils.isNotBlank(goodsNorm.getInstructions())){
+        if (goodsNorm != null && goodsNorm.getInstructions() != null && StringUtils.isNotBlank(goodsNorm.getInstructions())){
             String instructions = goodsNorm.getInstructions();
             String[] split = instructions.split(",");
             String aa = "";
