@@ -100,6 +100,15 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label" for="factoryName">厂商名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="factoryName" th:value="${factory.getFactoryName()}"
+                           th:id="factoryName" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>
+                    <input type="text" name="factoryName" th:value="${factory.getFactoryName()}"
+                           th:id="factoryName" autocomplete="off" class="layui-input required" th:if="${mode != 'view'}">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label" for="linkman">联系人</label>
                 <div class="layui-input-inline">
                     <input type="text" name="linkman" th:value="${factory.getLinkman()}"
@@ -411,48 +420,86 @@
             </div>
             <input type="hidden" th:id="billingInformation" th:name="billingInformation" th:value="${factory.getBillingInformation()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getSampleInvoiceTicket() != null}">
             <label class="layui-form-label" for="sampleInvoiceTicket">增值税发票票样</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">增值税发票票样</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo8"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img  th:if="${factory.getSampleInvoiceTicket() != null}"  th:each="image:${factory.getSampleInvoiceTicket().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getSampleInvoiceTicket().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getSampleInvoiceTicket() == null}" th:id="sampleInvoiceTicketShow">
             <label class="layui-form-label" for="sampleInvoiceTicket">增值税发票票样</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test8">增值税发票票样</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test8">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8"></div>
                 </blockquote>
+            </div>
+            <input type="hidden" th:id="sampleInvoiceTicket" th:name="sampleInvoiceTicket" th:value="${factory.getSampleInvoiceTicket()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getSampleInvoiceTicket() != null}" th:id="sampleInvoiceTicketShow">
+            <label class="layui-form-label" for="sampleInvoiceTicket">增值税发票票样</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test8">增值税发票票样</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test8">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img  th:if="${factory.getSampleInvoiceTicket() != null}"  th:each="image:${factory.getSampleInvoiceTicket().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getSampleInvoiceTicket().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="sampleInvoiceTicket" th:name="sampleInvoiceTicket" th:value="${factory.getSampleInvoiceTicket()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="sampleInvoiceTicketShow">
+            <label class="layui-form-label" for="sampleInvoiceTicket">增值税发票票样</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test8">增值税发票票样</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test8">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo8">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="sampleInvoiceTicket" th:name="sampleInvoiceTicket" th:value="${factory.getSampleInvoiceTicket()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getQualityGuarantee() != null}" th:id="qualityGuaranteeShow">
             <label class="layui-form-label" for="qualityGuarantee">质保协议</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">质保协议</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo9">
+                        <img th:each="image:${factory.getQualityGuarantee().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getQualityGuarantee() == null}" th:id="qualityGuaranteeShow">
+            <label class="layui-form-label" for="qualityGuarantee">质保协议</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test9">质保协议</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test9">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9"></div>
                 </blockquote>
+            </div>
+            <input type="hidden" th:id="qualityGuarantee" th:name="qualityGuarantee" th:value="${factory.getQualityGuarantee()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getQualityGuarantee() != null}" th:id="qualityGuaranteeShow">
+            <label class="layui-form-label" for="qualityGuarantee">质保协议</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test9">质保协议</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test9">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
@@ -460,20 +507,16 @@
                     </div>
                 </blockquote>
             </div>
+            <input type="hidden" th:id="qualityGuarantee" th:name="qualityGuarantee" th:value="${factory.getQualityGuarantee()}">
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="qualityGuaranteeShow">
             <label class="layui-form-label" for="qualityGuarantee">质保协议</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test9">质保协议</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test9">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo9"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
-                        <img  th:if="${factory.getQualityGuarantee() != null}"  th:each="image:${factory.getQualityGuarantee().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
@@ -547,138 +590,202 @@
             </div>
             <input type="hidden" th:id="powerAttorney" th:name="powerAttorney" th:value="${factory.getPowerAttorney()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getInvoiceCounterparts() != null}">
             <label class="layui-form-label" for="invoiceCounterparts">出货同行单样票</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">出货同行单样票</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo12"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img  th:if="${factory.getInvoiceCounterparts() != null}"  th:each="image:${factory.getInvoiceCounterparts().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getInvoiceCounterparts().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getInvoiceCounterparts() == null}" th:id="invoiceCounterpartsShow">
             <label class="layui-form-label" for="invoiceCounterparts">出货同行单样票</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test12">出货同行单样票</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test11">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test12">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12"></div>
                 </blockquote>
+            </div>
+            <input type="hidden" th:id="invoiceCounterparts" th:name="invoiceCounterparts" th:value="${factory.getInvoiceCounterparts()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getInvoiceCounterparts() != null}" th:id="invoiceCounterpartsShow">
+            <label class="layui-form-label" for="invoiceCounterparts">出货同行单样票</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test12">出货同行单样票</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test12">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img  th:if="${factory.getInvoiceCounterparts() != null}"  th:each="image:${factory.getInvoiceCounterparts().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getInvoiceCounterparts().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="invoiceCounterparts" th:name="invoiceCounterparts" th:value="${factory.getInvoiceCounterparts()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="invoiceCounterpartsShow">
+            <label class="layui-form-label" for="invoiceCounterparts">出货同行单样票</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test12">出货同行单样票</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test12">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo12"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="invoiceCounterparts" th:name="invoiceCounterparts" th:value="${factory.getInvoiceCounterparts()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getBailorCard() != null}">
             <label class="layui-form-label" for="bailorCard">委托人身份证复印件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">委托人身份证复印件</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo13"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13">
-                        <img  th:if="${factory.getBailorCard() != null}"  th:each="image:${factory.getBailorCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getBailorCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getBailorCard() == null}" th:id="bailorCardShow" style="display: none">
             <label class="layui-form-label" for="bailorCard">委托人身份证复印件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test13">委托人身份证复印件</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test11">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test13">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13"></div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+            </div>
+            <input type="hidden" th:id="bailorCard" th:name="bailorCard" th:value="${factory.getBailorCard()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getBailorCard() != null}" th:id="bailorCardShow">
+            <label class="layui-form-label" for="bailorCard">委托人身份证复印件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test13">委托人身份证复印件</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test13">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
-                    <div class="layui-upload-list" th:id="demo13">
-                        <img  th:if="${factory.getBailorCard() != null}"  th:each="image:${factory.getBailorCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    <div class="layui-upload-list required" th:id="demo13">
+                        <img th:each="image:${factory.getBailorCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="bailorCard" th:name="bailorCard" th:value="${factory.getBailorCard()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="bailorCardShow" style="display: none">
+            <label class="layui-form-label" for="bailorCard">委托人身份证复印件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test13">委托人身份证复印件</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test13">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo13"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="bailorCard" th:name="bailorCard" th:value="${factory.getBailorCard()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getMandataryCard() != null}" th:id="mandataryCardShow">
             <label class="layui-form-label" for="mandataryCard">被委托人身份证复印件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">被委托人身份证复印件</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo14"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo14">
-                        <img  th:if="${factory.getMandataryCard() != null}"  th:each="image:${factory.getMandataryCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getMandataryCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getMandataryCard() == null}" th:id="mandataryCardShow" style="display: none">
             <label class="layui-form-label" for="mandataryCard">被委托人身份证复印件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test14">被委托人身份证复印件</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test11">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test14">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo14"></div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+            </div>
+            <input type="hidden" th:id="mandataryCard" th:name="mandataryCard" th:value="${factory.getMandataryCard()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getMandataryCard() != null}" th:id="mandataryCardShow">
+            <label class="layui-form-label" for="mandataryCard">被委托人身份证复印件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test14">被委托人身份证复印件</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test14">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo14">
-                        <img  th:if="${factory.getMandataryCard() != null}"  th:each="image:${factory.getMandataryCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getMandataryCard().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="mandataryCard" th:name="mandataryCard" th:value="${factory.getMandataryCard()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="mandataryCardShow" style="display: none">
+            <label class="layui-form-label" for="mandataryCard">被委托人身份证复印件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test14">被委托人身份证复印件</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test14">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo14"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="mandataryCard" th:name="mandataryCard" th:value="${factory.getMandataryCard()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'view' && factory.getTakeDeliveryBailment() != null}">
             <label class="layui-form-label" for="takeDeliveryBailment">收货委托书</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">收货委托书</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo15"></div>
-                </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo15">
-                        <img  th:if="${factory.getTakeDeliveryBailment() != null}"  th:each="image:${factory.getTakeDeliveryBailment().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getTakeDeliveryBailment().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'view'}">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getTakeDeliveryBailment() == null}" th:id="takeDeliveryBailmentShow" style="display: none">
             <label class="layui-form-label" for="takeDeliveryBailment">收货委托书</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test15">收货委托书</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test11">清空</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test15">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo15"></div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
+            </div>
+            <input type="hidden" th:id="takeDeliveryBailment" th:name="takeDeliveryBailment" th:value="${factory.getTakeDeliveryBailment()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getTakeDeliveryBailment() != null}" th:id="takeDeliveryBailmentShow">
+            <label class="layui-form-label" for="takeDeliveryBailment">收货委托书</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test15">收货委托书</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test15">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo15">
-                        <img  th:if="${factory.getTakeDeliveryBailment() != null}"  th:each="image:${factory.getTakeDeliveryBailment().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:each="image:${factory.getTakeDeliveryBailment().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="takeDeliveryBailment" th:name="takeDeliveryBailment" th:value="${factory.getTakeDeliveryBailment()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'add'}" th:id="takeDeliveryBailmentShow" style="display: none">
+            <label class="layui-form-label" for="takeDeliveryBailment">收货委托书</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test15">收货委托书</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test15">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo15"></div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="takeDeliveryBailment" th:name="takeDeliveryBailment" th:value="${factory.getTakeDeliveryBailment()}">
@@ -699,7 +806,7 @@
             <label class="layui-form-label" for="foodBusinessLicense">食品经营许可证</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test16">食品经营许可证</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test11">清空</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test16">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo16"></div>

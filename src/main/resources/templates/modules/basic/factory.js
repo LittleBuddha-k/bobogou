@@ -37,10 +37,16 @@ layui.use(['form', 'table'], function () {
                     field: 'factoryType',
                     sort: true,
                     sortName: 'factoryType',
-                    width: '10%',
-                    templet:function(data){
-                        let factoryType = data.factoryType;
-                        return factoryType;
+                    width: '12.5%',
+                    templet: function (data) {
+                        var factoryType = data.factoryType;
+                        if (0 == factoryType){
+                            return "供货商";
+                        }else if (1 == factoryType){
+                            return "批发企业";
+                        }else {
+                            return "未知";
+                        }
                     }
                 },
                 {
@@ -48,36 +54,66 @@ layui.use(['form', 'table'], function () {
                     field: 'productType',
                     sort: true,
                     sortName: 'productType',
-                    width: '10%'
+                    width: '12.5%',
+                    templet: function (data) {
+                        var productType = data.productType;
+                        if (1 == productType){
+                            return "普通厂家";
+                        }else if (2 == productType){
+                            return "中药饮片";
+                        }else if (3 == productType){
+                            return "消毒产品";
+                        }else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
                     title: '厂商名称',
                     field: 'factoryName',
                     sort: true,
                     sortName: 'factoryName',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '联系人',
                     field: 'linkman',
                     sort: true,
                     sortName: 'linkman',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '联系人手机号',
                     field: 'phone',
                     sort: true,
                     sortName: 'phone',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '身份证号',
                     field: 'idNumber',
                     sort: true,
                     sortName: 'idNumber',
-                    width: '10%'
+                    width: '12.5%'
                 },
+                {
+                    title: '是否委托人采购或者销售',
+                    field: 'isBailor',
+                    sort: true,
+                    sortName: 'isBailor',
+                    width: '12.5%',
+                    templet: function (data) {
+                        var isBailor = data.isBailor;
+                        if (0 == isBailor){
+                            return "否";
+                        }else if (1 == isBailor){
+                            return "是";
+                        }else {
+                            return "未知";
+                        }
+                    }
+                },
+                /*
                 {
                     title: '身份证正面',
                     field: 'cardFront',
@@ -453,12 +489,12 @@ layui.use(['form', 'table'], function () {
                             return "未知";
                         }
                     }
-                },
+                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '12%'
+                    width: '12.5%'
                 }
             ]
         ],
@@ -486,7 +522,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(factoryTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建厂商信息",'100%','100%')
+            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建厂商信息",'720px','100%')
         }
     });
 
@@ -494,9 +530,9 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑厂商信息", '100%', '100%');
+            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑厂商信息", '720px', '100%');
         }else if (event === 'view') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/view?id=' + id, "查看厂商信息", '100%', '100%');
+            rc.openSaveDialog('/bobogou/basic/factory/form/view?id=' + id, "查看厂商信息", '720px', '100%');
         }else if (event === 'delete') {
             rc.confirm('确认要删除该厂商信息吗？', function () {
                 rc.post("/bobogou/basic/factory/delete?ids=" + id, '', function (data) {

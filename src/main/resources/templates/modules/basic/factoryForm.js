@@ -8,6 +8,39 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
+    //处理厂商类型不同时显示不同上传资料
+    form.on('select(factoryType)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
+        let factoryType = data.value;
+        if (1 == factoryType){
+            $("#sampleInvoiceTicketShow").show();
+            $("#qualityGuaranteeShow").show();
+            $("#invoiceCounterpartsShow").show();
+        }else if (2 == factoryType){
+            $("#sampleInvoiceTicketShow").hide();
+            $("#qualityGuaranteeShow").hide();
+            $("#invoiceCounterpartsShow").hide();
+        }
+    });
+    //处理厂商产品类型不同时显示不同上传资料
+    form.on('select(productType)', function(data){
+    });
+    //处理是否委托人采购或则销售不同时显示不同上传资料
+    form.on('select(isBailor)', function(data){
+        let isBailor = data.value;
+        if (1 == isBailor){
+            $("#bailorCardShow").show();
+            $("#mandataryCardShow").show();
+            $("#takeDeliveryBailmentShow").show();
+        }else if (0 == isBailor){
+            $("#bailorCardShow").hide();
+            $("#mandataryCardShow").hide();
+            $("#takeDeliveryBailmentShow").hide();
+        }
+    });
+
     //多图片上传
     upload.render({
         elem: '#test1',
@@ -447,7 +480,7 @@ $("#btn_image_clear_test8").click(function () {
  */
 $("#btn_image_clear_test9").click(function () {
     $('#demo9').html("");
-    $("#qualityGuarantee").val('');
+    $("#sampleInvoiceTicket").val('');
 });/**
  * 多图清除按钮点击事件
  */
@@ -465,35 +498,35 @@ $("#btn_image_clear_test11").click(function () {
 /**
  * 多图清除按钮点击事件
  */
-$("#btn_image_clear_test11").click(function () {
+$("#btn_image_clear_test12").click(function () {
     $('#demo12').html("");
     $("#invoiceCounterparts").val('');
 });
 /**
  * 多图清除按钮点击事件
  */
-$("#btn_image_clear_test11").click(function () {
+$("#btn_image_clear_test13").click(function () {
     $('#demo13').html("");
     $("#bailorCard").val('');
 });
 /**
  * 多图清除按钮点击事件
  */
-$("#btn_image_clear_test11").click(function () {
+$("#btn_image_clear_test14").click(function () {
     $('#demo14').html("");
     $("#mandataryCard").val('');
 });
 /**
  * 多图清除按钮点击事件
  */
-$("#btn_image_clear_test11").click(function () {
+$("#btn_image_clear_test15").click(function () {
     $('#demo15').html("");
     $("#takeDeliveryBailment").val('');
 });
 /**
  * 多图清除按钮点击事件
  */
-$("#btn_image_clear_test11").click(function () {
+$("#btn_image_clear_test16").click(function () {
     $('#demo16').html("");
     $("#foodBusinessLicense").val('');
 });
