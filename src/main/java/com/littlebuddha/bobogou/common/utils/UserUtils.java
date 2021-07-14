@@ -29,8 +29,6 @@ public class UserUtils {
     public static Operator getCurrentUser(){
         Subject subject = SecurityUtils.getSubject();
         Operator currentUser = (Operator) subject.getPrincipal();
-        //Role currentUserRole = getCurrentUserRole();
-        //currentUser.setRole(currentUserRole);
         return currentUser;
     }
 
@@ -60,11 +58,6 @@ public class UserUtils {
     public static Role getCurrentUserRole(){
         Operator currentUser = getCurrentUser();
         List<OperatorRole> byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
-        /*for (OperatorRole operatorRole : byOperatorAndRole) {
-            if (operatorRole != null && StringUtils.isNotBlank(operatorRole.getOperator().getId()) && StringUtils.isNotBlank(operatorRole.getRole().getId())){
-                Role role = roleService.get(new Role(operatorRole.getRole().getId()));
-            }
-        }*/
         /**
          * 当前暂且设置一个用户只有一个角色
          */
