@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,20 +10,34 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class OrderInfo extends DataEntity<OrderInfo> {
 
+    private CustomerUser customerUser;//用户外键
+    private String userId;//用户ID
+    private String userName;//
+
+    private Order order;//外键
     private String orderId;//订单ID
+
+    private Goods goods;//商品外键
     private String goodsId;//商品ID，兑换商品为cd_change_goods表ID
     private String goodsImage;//商品封面图片地址
     private String goodsName;//商品名称
+
+    private GoodsSpecification goodsSpecification;//商品规格外键
     private String specification;//商品规格
+
     private String amount;//购买数量
     private String price;//商品单价
     private String totalPrice;//总价
-    private String type;//类型，0=购买商品，1=兑换商品
-    private Integer status;//状态
-
-    private Order order;//外键
-
-    private Goods medicine;//商品外键
+    private Double integral;//单个商品的支付积分
+    private Double totalIntegral;//支付总积分
+    private Double weight;//单个商品重量，单位：g
+    private Double totalWeight;//总重量：单位：g
+    private Integer isFreight;//是否需要运费，0=不需要运费，1=要运费是否需要运费
+    private Double managementCost;//管理费，单位：分
+    private Double harvestIntegral;//购买收货后可获得的积分
+    private Double harvestHealthBeans;//购买收货后可获得的播播豆
+    private Integer type;//类型，0=购买商品，1=兑换商品
+    private Integer status;//状态，0=未评价，1=已评价
 
     public OrderInfo() {
     }
@@ -35,10 +50,42 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.order = order;
     }
 
-    public String getOrderId() {
-        if(order != null && StringUtils.isNotBlank(order.getId())){
-            this.orderId = order.getId();
+    public CustomerUser getCustomerUser() {
+        return customerUser;
+    }
+
+    public void setCustomerUser(CustomerUser customerUser) {
+        this.customerUser = customerUser;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getUserName() {
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+            this.userName = customerUser.getNickname();
         }
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public String getOrderId() {
         return orderId;
     }
 
@@ -46,10 +93,15 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.orderId = orderId;
     }
 
+    public Goods getGoods() {
+        return goods;
+    }
+
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
     public String getGoodsId() {
-        if(medicine != null && StringUtils.isNotBlank(medicine.getId())){
-           this.goodsId = medicine.getId();
-        }
         return goodsId;
     }
 
@@ -58,9 +110,6 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     }
 
     public String getGoodsImage() {
-        if(medicine != null && StringUtils.isNotBlank(medicine.getImages())){
-            this.goodsImage = medicine.getImages();
-        }
         return goodsImage;
     }
 
@@ -69,14 +118,19 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     }
 
     public String getGoodsName() {
-        if(medicine != null && StringUtils.isNotBlank(medicine.getName())){
-            this.goodsName = medicine.getName();
-        }
         return goodsName;
     }
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public GoodsSpecification getGoodsSpecification() {
+        return goodsSpecification;
+    }
+
+    public void setGoodsSpecification(GoodsSpecification goodsSpecification) {
+        this.goodsSpecification = goodsSpecification;
     }
 
     public String getSpecification() {
@@ -111,11 +165,75 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.totalPrice = totalPrice;
     }
 
-    public String getType() {
+    public Double getIntegral() {
+        return integral;
+    }
+
+    public void setIntegral(Double integral) {
+        this.integral = integral;
+    }
+
+    public Double getTotalIntegral() {
+        return totalIntegral;
+    }
+
+    public void setTotalIntegral(Double totalIntegral) {
+        this.totalIntegral = totalIntegral;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
+    }
+
+    public Double getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(Double totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public Integer getIsFreight() {
+        return isFreight;
+    }
+
+    public void setIsFreight(Integer isFreight) {
+        this.isFreight = isFreight;
+    }
+
+    public Double getManagementCost() {
+        return managementCost;
+    }
+
+    public void setManagementCost(Double managementCost) {
+        this.managementCost = managementCost;
+    }
+
+    public Double getHarvestIntegral() {
+        return harvestIntegral;
+    }
+
+    public void setHarvestIntegral(Double harvestIntegral) {
+        this.harvestIntegral = harvestIntegral;
+    }
+
+    public Double getHarvestHealthBeans() {
+        return harvestHealthBeans;
+    }
+
+    public void setHarvestHealthBeans(Double harvestHealthBeans) {
+        this.harvestHealthBeans = harvestHealthBeans;
+    }
+
+    public Integer getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
@@ -125,21 +243,5 @@ public class OrderInfo extends DataEntity<OrderInfo> {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public Goods getMedicine() {
-        return medicine;
-    }
-
-    public void setMedicine(Goods medicine) {
-        this.medicine = medicine;
     }
 }
