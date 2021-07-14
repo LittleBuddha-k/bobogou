@@ -2,20 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper">
     <sql id="orderInfoColumns">
-        a.id AS "id",
-        a.order_id AS "orderId",
-        a.goods_id AS "goodsId",
-        a.goods_image AS "goodsImage",
-        a.goods_name AS "goodsName",
-        a.specification AS "specification",
-        a.amount AS "amount",
-        a.price AS "price",
-        a.total_price AS "totalPrice",
-        a.type AS "type",
-        a.status AS "status",
-        a.is_deleted AS "isDeleted",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
+        id AS "id",
+        user_id AS "userId",
+        order_id AS "orderId",
+        goods_id AS "goodsId",
+        goods_image AS "goodsImage",
+        goods_name AS "goodsName",
+        specification AS "specification",
+        amount AS "amount",
+        price AS "price",
+        total_price AS "totalPrice",
+        integral AS "integral",
+        total_integral AS "totalIntegral",
+        weight AS "weight",
+        total_weight AS "totalWeight",
+        is_freight AS "isFreight",
+        management_cost AS "managementCost",
+        harvest_integral AS "harvestIntegral",
+        harvest_health_beans AS "harvestHealthBeans",
+        type AS "type",
+        status AS "status",
+        is_deleted AS "isDeleted",
+        create_time AS "createTime",
+        update_time AS "updateTime"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
@@ -32,10 +41,7 @@
         <where>
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
-                 a.order_id LIKE concat('%',#{orderId},'%')
-                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
-                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
-                <!--<if test="dbName == 'mysql'"></if>-->
+                and a.order_id = #{orderId}
             </if>
             <if test="goodsId != null and goodsId != ''">
                 and a.goodsId = #{goodsId}
@@ -79,9 +85,6 @@
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
                 a.order_id LIKE concat('%',#{orderId},'%')
-                <!--<if test="dbName == 'mssql'">'%'+#{number}+'%'</if>
-                <if test="dbName == 'oracle'">'%'||#{number}||'%'</if>-->
-                <!--<if test="dbName == 'mysql'"></if>-->
             </if>
             <if test="goodsId != null and goodsId != ''">
                 and a.goodsId = #{goodsId}
@@ -137,6 +140,7 @@
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sd_order_info(
+            user_id,
             order_id,
             goods_id,
             goods_image,
@@ -145,12 +149,21 @@
             amount,
             price,
             total_price,
+            integral,
+            total_integral,
+            weight,
+            total_weight,
+            is_freight,
+            management_cost,
+            harvest_integral,
+            harvest_health_beans,
             type,
             status,
             is_deleted,
             create_time,
             update_time
         )VALUES (
+            #{userId},
             #{orderId},
             #{goodsId},
             #{goodsImage},
@@ -159,6 +172,14 @@
             #{amount},
             #{price},
             #{totalPrice},
+            #{integral},
+            #{totalIntegral},
+            #{weight},
+            #{totalWeight},
+            #{isFreight},
+            #{managementCost},
+            #{harvestIntegral},
+            #{harvestHealthBeans},
             #{type},
             #{status},
             #{isDeleted},
@@ -169,6 +190,7 @@
 
     <update id="update">
         UPDATE sd_order_info SET
+            user_id = #{userId},
             order_id = #{orderId},
             goods_id = #{goodsId},
             goods_image = #{goodsImage},
@@ -177,6 +199,14 @@
             amount = #{amount},
             price = #{price},
             total_price = #{totalPrice},
+            integral = #{integral},
+            total_integral = #{totalIntegral},
+            weight = #{weight},
+            total_weight = #{totalWeight},
+            is_freight = #{isFreight},
+            management_cost = #{managementCost},
+            harvest_integral = #{harvestIntegral},
+            harvest_health_beans = #{harvestHealthBeans},
             type = #{type},
             status = #{status},
             is_deleted = #{isDeleted},

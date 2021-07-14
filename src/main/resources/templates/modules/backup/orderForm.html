@@ -14,13 +14,6 @@
         <input type="hidden" name="id" id="id" th:value="${order.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" for="userName">用户</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="userName" th:value="${order.getUserName()}"
-                           th:id="userName" autocomplete="off" class="layui-input required" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
                 <label class="layui-form-label" for="number">订单编号</label>
                 <div class="layui-input-inline">
                     <input type="text" name="number" th:value="${order.getNumber()}"
@@ -35,27 +28,6 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="paymentAmount">支付金额(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="paymentAmount" th:value="${order.getPaymentAmount()}" autocomplete="off"
-                           th:id="paymentAmount" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="actualAmountPaid">实际支付金额(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="actualAmountPaid" th:value="${order.getActualAmountPaid()}" autocomplete="off"
-                           th:id="actualAmountPaid" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="deductiona">抵扣金额(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="deductiona" th:value="${order.getDeductiona()}" autocomplete="off"
-                           th:id="deductiona" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
                 <label class="layui-form-label" for="integral">积分</label>
                 <div class="layui-input-inline">
                     <input type="text" name="integral" th:value="${order.getIntegral()}"
@@ -64,89 +36,19 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="healthBeans">健康豆</label>
+                <label class="layui-form-label" for="healthBeans">播播豆</label>
                 <div class="layui-input-inline">
                     <input type="text" name="healthBeans" th:value="${order.getHealthBeans()}" autocomplete="off"
                            th:id="healthBeans" class="layui-input number" readonly>
                 </div>
             </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="isFreight">是否需要运费</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="isFreight" th:value="${order.getIsFreight()}" autocomplete="off"
-                           th:id="isFreight" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="totalWeight">订单总重量</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="totalWeight" th:value="${order.getTotalWeight()}" autocomplete="off"
-                           th:id="totalWeight" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="freightWeight">付费重量</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="freightWeight" th:value="${order.getFreightWeight()}" autocomplete="off"
-                           th:id="freightWeight" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="freight">运费(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="freight" th:value="${order.getFreight()}" autocomplete="off"
-                           th:id="freight" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="managementCost">本订单管理费(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="managementCost" th:value="${order.getManagementCost()}" autocomplete="off"
-                           th:id="managementCost" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="provinceCost">省经理人提成(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="provinceCost" th:value="${order.getProvinceCost()}" autocomplete="off"
-                           th:id="provinceCost" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="cityCost">市经理人提成(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="cityCost" th:value="${order.getCityCost()}" autocomplete="off"
-                           th:id="cityCost" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="districtCost">区经理人提成(单位：分)</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="districtCost" th:value="${order.getDistrictCost()}" autocomplete="off"
-                           th:id="districtCost" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="harvestIntegral">订单完成积分</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="harvestIntegral" th:value="${order.getHarvestIntegral()}" autocomplete="off"
-                           th:id="harvestIntegral" class="layui-input number" readonly>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="harvestHealthBeans">订单完成播播豆</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="harvestHealthBeans" th:value="${order.getHarvestHealthBeans()}" autocomplete="off"
-                           th:id="harvestHealthBeans" class="layui-input number" readonly>
-                </div>
-            </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" for="address">配送地址</label>
+                <label class="layui-form-label" for="addressId">配送地址</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="address" th:value="${order.getAddress()}" autocomplete="off"
-                           th:id="address" class="layui-input" readonly>
+                    <input type="text" name="addressId" th:value="${order.getAddressId()}" autocomplete="off"
+                           th:id="addressId" class="layui-input" readonly>
                 </div>
             </div>
             <div class="layui-inline">
@@ -484,9 +386,17 @@
                 </div>
             </div>
         </div>
+        <input type="hidden" id="orderInfo" th:value="${orderInfo}">
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
-        </div>
+        </div><!--
+        <div class="layui-form-item">
+            <label class="layui-form-label">
+                <a href="#"
+                   onclick="addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl);orderInfoRowIdx = orderInfoRowIdx + 1;"><i
+                        class="layui-icon layui-icon-addition"></i>新建</a>
+            </label>
+        </div>-->
         <table class="layui-table">
             <colgroup>
                 <col width="150">
@@ -513,7 +423,7 @@
 					</td>
 
                     <td>
-						<input id="orderInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" readonly/>
+						<input id="orderInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" onclick="selectGoods('orderInfoList[{{idx}}].goodsId')" readonly/>
 						<input name="orderInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
 					</td>
 

@@ -116,7 +116,9 @@ public class OrderController extends BaseController {
     public List<OrderInfo> orderInfoList(String orderId) {
         List<OrderInfo> orderInfoList = null;
         if (StringUtils.isNotBlank(orderId)){
-            orderInfoList = orderInfoService.findList(new OrderInfo(new Order(orderId)));
+            OrderInfo entity = new OrderInfo();
+            entity.setOrderId(orderId);
+            orderInfoList = orderInfoService.findList(entity);
         }
         return orderInfoList;
     }

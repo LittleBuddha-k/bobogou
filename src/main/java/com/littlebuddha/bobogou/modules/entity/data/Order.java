@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,12 +14,29 @@ import java.util.List;
  * @date 2020/7/24 15:14
  */
 public class Order extends DataEntity<Order> {
+    private CustomerUser customerUser;//用户外键
     private Integer userId;//用户id
+    private String userName;//用户名称
+
     private String number;//订单编号
     private Double grossAmount;//总金额，单位：分
+    private Double paymentAmount;//商品支付金额，单位：分
+    private Double actualAmountPaid;//实际支付金额（商品实际支付金额 + 邮费)，单位：分
+    private Double deductiona;//抵扣金额，单位：分
     private Integer integral;//积分
     private Integer healthBeans;//健康豆
+    private Integer isFreight;//是否需要运费，0=不需要运费，1=要运费是否需要运费
+    private Double totalWeight;//订单总重量，单位：g
+    private Double freightWeight;//付费重量，单位：g
+    private Double freight;//运费，单位：分
+    private Double managementCost;//本订单收取的管理费，单位：分
+    private Double provinceCost;//省经理人提成费用，单位：分
+    private Double cityCost;//省经理人提成费用，单位：分
+    private Double districtCost;//省经理人提成费用，单位：分
+    private Double harvestIntegral;//订单完成可获取的积分，订单确认收货和自动确认收获后发放给用户
+    private Double harvestHealthBeans;//订单完成可获取的播播豆，订单确认收货和自动确认收获后发放给用户
     private Integer addressId;//配送地址ID
+    private String address;//
     private Integer distributionMode;//配送方式，1=顺丰，2=京东
     private String trackingNo;//物流单号
     private Integer payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
@@ -41,12 +59,31 @@ public class Order extends DataEntity<Order> {
         super(id);
     }
 
+    public CustomerUser getCustomerUser() {
+        return customerUser;
+    }
+
+    public void setCustomerUser(CustomerUser customerUser) {
+        this.customerUser = customerUser;
+    }
+
     public Integer getUserId() {
         return userId;
     }
 
     public void setUserId(Integer userId) {
         this.userId = userId;
+    }
+
+    public String getUserName() {
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+            this.userName = customerUser.getNickname();
+        }
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        userName = userName;
     }
 
     public String getNumber() {
@@ -65,6 +102,30 @@ public class Order extends DataEntity<Order> {
         this.grossAmount = grossAmount;
     }
 
+    public Double getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Double getActualAmountPaid() {
+        return actualAmountPaid;
+    }
+
+    public void setActualAmountPaid(Double actualAmountPaid) {
+        this.actualAmountPaid = actualAmountPaid;
+    }
+
+    public Double getDeductiona() {
+        return deductiona;
+    }
+
+    public void setDeductiona(Double deductiona) {
+        this.deductiona = deductiona;
+    }
+
     public Integer getIntegral() {
         return integral;
     }
@@ -81,12 +142,100 @@ public class Order extends DataEntity<Order> {
         this.healthBeans = healthBeans;
     }
 
+    public Integer getIsFreight() {
+        return isFreight;
+    }
+
+    public void setIsFreight(Integer isFreight) {
+        this.isFreight = isFreight;
+    }
+
+    public Double getTotalWeight() {
+        return totalWeight;
+    }
+
+    public void setTotalWeight(Double totalWeight) {
+        this.totalWeight = totalWeight;
+    }
+
+    public Double getFreightWeight() {
+        return freightWeight;
+    }
+
+    public void setFreightWeight(Double freightWeight) {
+        this.freightWeight = freightWeight;
+    }
+
+    public Double getFreight() {
+        return freight;
+    }
+
+    public void setFreight(Double freight) {
+        this.freight = freight;
+    }
+
+    public Double getManagementCost() {
+        return managementCost;
+    }
+
+    public void setManagementCost(Double managementCost) {
+        this.managementCost = managementCost;
+    }
+
+    public Double getProvinceCost() {
+        return provinceCost;
+    }
+
+    public void setProvinceCost(Double provinceCost) {
+        this.provinceCost = provinceCost;
+    }
+
+    public Double getCityCost() {
+        return cityCost;
+    }
+
+    public void setCityCost(Double cityCost) {
+        this.cityCost = cityCost;
+    }
+
+    public Double getDistrictCost() {
+        return districtCost;
+    }
+
+    public void setDistrictCost(Double districtCost) {
+        this.districtCost = districtCost;
+    }
+
+    public Double getHarvestIntegral() {
+        return harvestIntegral;
+    }
+
+    public void setHarvestIntegral(Double harvestIntegral) {
+        this.harvestIntegral = harvestIntegral;
+    }
+
+    public Double getHarvestHealthBeans() {
+        return harvestHealthBeans;
+    }
+
+    public void setHarvestHealthBeans(Double harvestHealthBeans) {
+        this.harvestHealthBeans = harvestHealthBeans;
+    }
+
     public Integer getAddressId() {
         return addressId;
     }
 
     public void setAddressId(Integer addressId) {
         this.addressId = addressId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Integer getDistributionMode() {
@@ -129,7 +278,6 @@ public class Order extends DataEntity<Order> {
         this.status = status;
     }
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     public String getOutTime() {
         return outTime;
     }

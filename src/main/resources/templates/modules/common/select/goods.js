@@ -33,7 +33,7 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '药名',
+                    title: '商品名',
                     field: 'name',
                     sort: true,
                     sortName: 'name',
@@ -79,7 +79,7 @@ layui.use(['form', 'table'], function () {
                     title: '规格',
                     field: 'specification',
                     sort: true
-                },
+                },/*
                 {
                     title: '数量',
                     field: 'amount',
@@ -109,7 +109,7 @@ layui.use(['form', 'table'], function () {
                     field: 'healthBeans',
                     sort: true,
                     align: 'center'
-                },
+                },*/
                 {
                     title: '是否销售',
                     field: 'isMarket',
