@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro"
+      xmlns:maxlength="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>兑付商品管理</title>
@@ -23,7 +24,9 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode != 'add'}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo2">
-                        <img  th:if="${goodsExchange.getImageUrl() != ''}"  th:each="image:${goodsExchange.getImageUrl().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                        <img th:if="${goodsExchange.getImageUrl() != ''}"
+                             th:each="image:${goodsExchange.getImageUrl().split(',')}" th:src="${image}" alt=""
+                             style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
@@ -47,8 +50,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="healthBeans">播播豆</label>
                 <div class="layui-input-inline">
-                    <input type="name" id="healthBeans" th:name="healthBeans" th:value="${goodsExchange.getHealthBeans()}"
-                           placeholder="播播豆" lay-verify="required|healthBeans" autocomplete="off" class="layui-input number">
+                    <input type="name" id="healthBeans" th:name="healthBeans"
+                           th:value="${goodsExchange.getHealthBeans()}"
+                           placeholder="播播豆" lay-verify="required|healthBeans" autocomplete="off"
+                           class="layui-input number">
                 </div>
             </div>
         </div>
@@ -57,14 +62,24 @@
                 <label class="layui-form-label" for="integral">积分</label>
                 <div class="layui-input-inline">
                     <input type="name" id="integral" th:name="integral" th:value="${goodsExchange.getIntegral()}"
-                           placeholder="积分" lay-verify="required|integral" autocomplete="off" class="layui-input number">
+                           placeholder="积分" lay-verify="required|integral" autocomplete="off"
+                           class="layui-input number">
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="specification">规格</label>
                 <div class="layui-input-inline">
-                    <input type="name" id="specification" th:name="specification" th:value="${goodsExchange.getSpecification()}"
-                           placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input">
+                    <input type="name" id="specification" th:name="specification"
+                           th:value="${goodsExchange.getSpecification()}"
+                           placeholder="规格" lay-verify="required|specification" autocomplete="off" class="layui-input"
+                           maxlength=100>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="weight">重量(g)</label>
+                <div class="layui-input-inline">
+                    <input type="name" id="weight" th:name="weight" th:value="${goodsExchange.getWeight()}"
+                           placeholder="重量(g)" lay-verify="required|weight" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -74,20 +89,13 @@
                            placeholder="数量" lay-verify="required|amount" autocomplete="off" class="layui-input number">
                 </div>
             </div>
-        </div>
-        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="changeAmount">兑换量</label>
                 <div class="layui-input-inline">
-                    <input type="name" id="changeAmount" th:name="changeAmount" th:value="${goodsExchange.getChangeAmount()}"
-                           placeholder="兑换量" lay-verify="required|changeAmount" autocomplete="off" class="layui-input number">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="content">详情</label>
-                <div class="layui-input-inline">
-                    <input type="name" id="content" th:name="content" th:value="${goodsExchange.getContent()}"
-                           placeholder="详情" lay-verify="required|content" autocomplete="off" class="layui-input">
+                    <input type="name" id="changeAmount" th:name="changeAmount"
+                           th:value="${goodsExchange.getChangeAmount()}"
+                           placeholder="兑换量" lay-verify="required|changeAmount" autocomplete="off"
+                           class="layui-input number">
                 </div>
             </div>
             <div class="layui-inline">
@@ -98,17 +106,26 @@
                         <option th:value="0" th:text="可兑换"/>
                         <option th:value="1" th:text="不可兑换"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 0}" lay-filter="status"
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 0}"
+                            lay-filter="status"
                             th:id="status">
                         <option th:value="0" th:text="可兑换"/>
                         <option th:value="1" th:text="不可兑换"/>
                     </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 1}" lay-filter="status"
+                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 1}"
+                            lay-filter="status"
                             th:id="status">
                         <option th:value="0" th:text="可兑换"/>
                         <option th:value="1" th:text="不可兑换"/>
                     </select>
                 </div>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">详情</label>
+            <div class="layui-input-block">
+                    <textarea placeholder="详情" id="content" th:name="content" th:text="${goodsExchange.getContent()}"
+                              class="layui-textarea"></textarea>
             </div>
         </div>
     </form>

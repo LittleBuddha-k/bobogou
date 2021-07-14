@@ -16,7 +16,7 @@ public class GoodsExchange extends DataEntity<GoodsExchange> {
     private Double integral;//积分
 
     private String specification;//规格
-
+    private Double weight;//单个规格重量，单位：g
     private Integer amount;//数量
     private Double changeAmount;//兑换量
     private String content;//详情
@@ -78,6 +78,14 @@ public class GoodsExchange extends DataEntity<GoodsExchange> {
 
     public void setSpecification(String specification) {
         this.specification = specification;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 
     public Integer getAmount() {
