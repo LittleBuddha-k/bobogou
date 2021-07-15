@@ -25,10 +25,15 @@ function save(parentIndex) {
             success: function (result) {
                 //假设这是iframe页
                 if (200 == result.code){
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
+                    //请求成功时处理
+                    // 刷新整个父窗口
                     parent.refresh();
-                    rc.alert(result.msg)
+                    //假设这是iframe页
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    rc.msg(result.msg)
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                    }, 1000);
                 }else {
                     rc.alert(result.msg)
                 }

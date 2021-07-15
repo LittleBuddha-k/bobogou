@@ -111,7 +111,12 @@ function save(ids) {
     $("#rolesId").val(ids);
     rc.post("/bobogou/system/operator/addRole",$("#hiddenForm").serializeJson(),function (data) {
         if(200 == data.code){
+            //当你在iframe页面关闭自身时
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             rc.msg("设置角色成功")
+            setTimeout(function(){
+                parent.layer.close(index); //再执行关闭
+            }, 1000);
         }else {
             rc.msg("设置角色失败")
         }

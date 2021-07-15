@@ -136,11 +136,17 @@ function save(parentIndex) {
                                         data: $("#operatorForm").serialize(),    //参数值
                                         type: "POST",   //请求方式
                                         success: function (result) {
-                                            //假设这是iframe页
-                                            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                                            parent.layer.close(index); //再执行关闭
-                                            parent.refresh();
-                                            rc.alert(result.msg)
+                                            if(200 == result.code){
+                                                parent.refresh();
+                                                //当你在iframe页面关闭自身时
+                                                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                                                rc.msg(result.msg)
+                                                setTimeout(function(){
+                                                    parent.layer.close(index); //再执行关闭
+                                                }, 1000);
+                                            }else {
+                                                rc.msg(result.msg)
+                                            }
                                         },
                                         error: function (result) {
                                             rc.alert(result.msg)
@@ -167,11 +173,16 @@ function save(parentIndex) {
                 data: $("#operatorForm").serialize(),    //参数值
                 type: "POST",   //请求方式
                 success: function (result) {
-                    //假设这是iframe页
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    parent.layer.close(index); //再执行关闭
-                    parent.refresh();
-                    rc.alert(result.msg)
+                    if(200 == result.code){
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        rc.msg(result.msg)
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                        }, 1000);
+                    }else {
+                        rc.msg(result.msg)
+                    }
                 },
                 error: function (result) {
                     rc.alert(result.msg)

@@ -291,7 +291,6 @@
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
                         let ids = iframeWin.getIdSelections();
                         iframeWin.save(ids,index);
-                        layer.close(index);
                     }
                     , btn2: function (index, layero) {
                         //按钮【按钮二】的回调

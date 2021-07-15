@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.controller.system;
 
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.Portal;
@@ -47,6 +48,8 @@ public class PortalController extends BaseController {
     public String list(HttpSession session, Model model) {
         Operator currentUser = UserUtils.getCurrentUser();
         session.setAttribute("currentUser", currentUser);
+        CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
+        session.setAttribute("currentCustomerUser", currentCustomerUser);
         //是否显示主页导航条的搜索框
         model.addAttribute("showNavSearch", true);
         return "modules/system/portal";

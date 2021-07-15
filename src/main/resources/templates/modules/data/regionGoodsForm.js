@@ -95,15 +95,17 @@ function save(parentIndex) {
             data: $("#regionGoodsForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
-                if (result.code == 200) {
-                    rc.alert(result.msg)
+                if (200 == result.code){
+                    //请求成功时处理
+                    // 刷新整个父窗口
+                    parent.refresh();
                     //假设这是iframe页
-                    setTimeout(function () {
-                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    rc.msg(result.msg)
+                    setTimeout(function(){
                         parent.layer.close(index); //再执行关闭
-                        parent.refresh();
                     }, 1000);
-                } else {
+                }else {
                     rc.alert(result.msg)
                 }
             },

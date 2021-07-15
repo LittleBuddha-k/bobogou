@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.base.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.pagehelper.Page;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 
 import javax.xml.bind.annotation.XmlTransient;
@@ -15,6 +16,7 @@ public abstract class BaseEntity<E> implements Serializable {
 
     private String id;
     protected Operator currentUser;
+    protected CustomerUser currentCustomerUser;
     //private String page;
 
     protected boolean isNewRecord = false;
@@ -64,6 +66,16 @@ public abstract class BaseEntity<E> implements Serializable {
 
     public void setCurrentUser(Operator currentUser) {
         this.currentUser = currentUser;
+    }
+
+    @JsonIgnore
+    @XmlTransient
+    public CustomerUser getCurrentCustomerUser() {
+        return currentCustomerUser;
+    }
+
+    public void setCurrentCustomerUser(CustomerUser currentCustomerUser) {
+        this.currentCustomerUser = currentCustomerUser;
     }
 
     @JsonIgnore

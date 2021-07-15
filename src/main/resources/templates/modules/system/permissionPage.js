@@ -172,7 +172,12 @@ function save(ids) {
     $("#menusId").val(ids);
     rc.post("/bobogou/system/role/addPermission",$("#hiddenForm").serializeJson(),function (data) {
         if(200 == data.code){
+            //当你在iframe页面关闭自身时
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
             rc.msg("设置权限成功")
+            setTimeout(function(){
+                parent.layer.close(index); //再执行关闭
+            }, 1000);
         }else {
             rc.msg("设置权限失败")
         }
