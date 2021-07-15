@@ -191,14 +191,8 @@ layui.use(['form', 'table'], function () {
                             return '\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">VIP审核</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
-                        }else if(2 == applyStatus){
-                            return "已同意"
-                        }else if(3 == applyStatus){
-                            return "已拒绝"
-                        }else if(0 == applyStatus){
-                            return "未申请"
                         }else {
-                            return "未知"
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
                         }
                     }
                 }

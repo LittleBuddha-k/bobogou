@@ -40,14 +40,16 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let goodsName = data.goodsName;
                         return goodsName;
-                    }
+                    },
+                    width: '10%'
                 },
                 {
                     title: '厂商名称',
                     field: 'factoryName',
                     sort: true,
-                    sortName: 'factoryName'
-                },
+                    sortName: 'factoryName',
+                    width: '10%'
+                },/*
                 {
                     title: '样盒图片地址',
                     field: 'sampleBox',
@@ -173,41 +175,47 @@ layui.use(['form', 'table'], function () {
                             return "无图片";
                         }
                     }
-                },
+                },*/
                 {
                     title: '质量标准',
                     field: 'qualityStandard',
                     sort: true,
-                    sortName: 'qualityStandard'
+                    sortName: 'qualityStandard',
+                    width: '10%'
                 },
                 {
                     title: '省检验报告',
                     field: 'surveyReport',
                     sort: true,
-                    sortName: 'surveyReport'
+                    sortName: 'surveyReport',
+                    width: '10%'
                 },
                 {
                     title: '物价',
                     field: 'prices',
                     sort: true,
-                    sortName: 'prices'
+                    sortName: 'prices',
+                    width: '10%'
                 },
                 {
                     title: '生产企业营业执照地址',
                     field: 'productionBusinessLicense',
                     sort: true,
-                    sortName: 'productionBusinessLicense'
+                    sortName: 'productionBusinessLicense',
+                    width: '20%'
                 },
                 {
                     title: '生产企业生产许可证地址',
                     field: 'productionCertificate',
                     sort: true,
-                    sortName: 'productionCertificate'
+                    sortName: 'productionCertificate',
+                    width: '20%'
                 },
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center"
+                    align: "center",
+                    width: '10%'
                 }
             ]
         ],
@@ -235,7 +243,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsNormTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/goodsNorm/form/add", "新建商品规范信息",'1010px','700px')
+            let index = rc.openSaveDialog("/bobogou/data/goodsNorm/form/add", "新建商品规范信息",'744px','700px')
         }
     });
 
@@ -243,7 +251,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goodsNorm/form/edit?id=' + id, "编辑商品规范信息", '1010px', '700px');
+            rc.openSaveDialog('/bobogou/data/goodsNorm/form/edit?id=' + id, "编辑商品规范信息", '744px', '700px');
         } else if (event === 'delete') {
             rc.confirm('确认要删除该商品规范信息吗？', function () {
                 rc.post("/bobogou/data/goodsNorm/delete?ids=" + id, '', function (data) {

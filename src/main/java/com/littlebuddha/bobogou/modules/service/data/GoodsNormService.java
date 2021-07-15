@@ -4,8 +4,11 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsNorm;
+import com.littlebuddha.bobogou.modules.mapper.basic.FactoryMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsNormMapper;
+import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -23,6 +26,9 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
 
     @Autowired
     private GlobalSetting globalSetting;
+
+    @Autowired
+    private FactoryMapper factoryMapper;
 
     @Override
     public GoodsNorm get(GoodsNorm entity) {
@@ -151,6 +157,10 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
         PageInfo<GoodsNorm> page1 = super.findPage(page, entity);
         List<GoodsNorm> list = page1.getList();
         for (GoodsNorm goodsNorm : list) {
+            if (goodsNorm != null && StringUtils.isNotBlank(goodsNorm.getFactoryId().toString())){
+                Factory factory = factoryMapper.get(new Factory(goodsNorm.getFactoryId().toString()));
+                goodsNorm.setFactory(factory);
+            }
             if (goodsNorm.getSampleBox() != null && StringUtils.isNotBlank(goodsNorm.getSampleBox())){
                 String sampleBox = goodsNorm.getSampleBox();
                 String[] split = sampleBox.split(",");

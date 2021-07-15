@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GoodsNorm extends DataEntity<GoodsNorm> {
 
+    private Factory factory;
     private Integer factoryId;//厂商ID
     private String factoryName;//厂商ID
     private Goods goods;//商品外键
@@ -33,6 +35,14 @@ public class GoodsNorm extends DataEntity<GoodsNorm> {
         super(id);
     }
 
+    public Factory getFactory() {
+        return factory;
+    }
+
+    public void setFactory(Factory factory) {
+        this.factory = factory;
+    }
+
     public Integer getFactoryId() {
         return factoryId;
     }
@@ -42,6 +52,9 @@ public class GoodsNorm extends DataEntity<GoodsNorm> {
     }
 
     public String getFactoryName() {
+        if (factory != null && StringUtils.isNotBlank(factory.getFactoryName())){
+            this.factoryName = factory.getFactoryName();
+        }
         return factoryName;
     }
 

@@ -8,8 +8,10 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsNorm;
+import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import com.littlebuddha.bobogou.modules.service.data.GoodsNormService;
 import com.littlebuddha.bobogou.modules.service.data.GoodsNormService;
 import com.littlebuddha.bobogou.modules.service.data.GoodsService;
@@ -41,11 +43,18 @@ public class GoodsNormController extends BaseController {
     @Autowired
     private GoodsService goodsService;
 
+    @Autowired
+    private FactoryService factoryService;
+
     @ModelAttribute
     public GoodsNorm get(@RequestParam(required = false) String id) {
         GoodsNorm goodsNorm = null;
         if (StringUtils.isNotBlank(id)) {
             goodsNorm = goodsNormService.get(new GoodsNorm(id));
+            if (goodsNorm != null && StringUtils.isNotBlank(goodsNorm.getFactoryId().toString())){
+                Factory factory = factoryService.get(new Factory(goodsNorm.getFactoryId().toString()));
+                goodsNorm.setFactory(factory);
+            }
         }
         if (goodsNorm == null) {
             goodsNorm = new GoodsNorm();
@@ -89,6 +98,8 @@ public class GoodsNormController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, GoodsNorm goodsNorm, Model model) {
+        List<Factory> factoryList = factoryService.findList(new Factory());
+        model.addAttribute("factoryList", factoryList);
         model.addAttribute("goodsNorm", goodsNorm);
         return "modules/data/goodsNormForm";
     }

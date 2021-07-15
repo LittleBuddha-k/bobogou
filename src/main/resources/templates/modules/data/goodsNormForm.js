@@ -151,6 +151,102 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
             $("#instructions").val(upload_image_url);
         }
     });
+
+    //多图片上传
+    upload.render({
+        elem: '#test7',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo7').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#qualityStandard").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#qualityStandard").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test8',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo8').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#surveyReport").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#surveyReport").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test9',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo9').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#productionBusinessLicense").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#productionBusinessLicense").val(upload_image_url);
+        }
+    });
+
+    //多图片上传
+    upload.render({
+        elem: '#test10',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo10').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#productionCertificate").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#productionCertificate").val(upload_image_url);
+        }
+    });
 });
 
 //保存方法
