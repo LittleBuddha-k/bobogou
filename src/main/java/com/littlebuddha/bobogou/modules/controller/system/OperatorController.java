@@ -69,6 +69,12 @@ public class OperatorController extends BaseController {
                 CustomerUser byOperator = customerUserService.findByOperator(selectOption);
                 operator.setCustomerUser(byOperator);
             }
+            if(operator != null && StringUtils.isNotBlank(operator.getParentId())){
+                Operator select = new Operator();
+                select.setId(operator.getParentId());
+                Operator parent = operatorService.get(select);
+                operator.setParent(parent);
+            }
         }
         if (operator == null) {
             operator = new Operator();
@@ -128,6 +134,21 @@ public class OperatorController extends BaseController {
         model.addAttribute("provinceList", provinceList);
         model.addAttribute("operator", operator);
         return "modules/system/operatorForm";
+    }
+
+    /**
+     * 返回选择用户页面
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/goods/list")
+    @GetMapping(value = {"/select"})
+    public String select(Operator operator, Model model, HttpSession session) {
+        model.addAttribute("operator", operator);
+        return "modules/common/select/operator";
     }
 
     /**

@@ -200,6 +200,17 @@
         </div>
         <div class="layui-form-item">
             <div class="layui-inline">
+                <label class="layui-form-label" for="parentId">上级用户</label>
+                <div class="layui-input-inline" th:if="${mode == 'view'}">
+                    <input type="text" th:id="parentId" th:value="${operator.getParentName()}" autocomplete="off" class="layui-input required" readonly>
+                    <input type="hidden" th:name="parentId" th:value="${operator.getParentId()}" autocomplete="off" class="layui-input required">
+                </div>
+                <div class="layui-input-inline" th:if="${mode != 'view'}">
+                    <input type="text" th:id="parentId" th:value="${operator.getParentName()}" autocomplete="off" class="layui-input required" onclick="selectUser('parentId')" readonly>
+                    <input type="hidden" th:name="parentId" th:value="${operator.getParentId()}" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label" for="provinceId">省</label>
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="" th:if="${mode == 'view' && operator.provinceId == null}" lay-filter="province"

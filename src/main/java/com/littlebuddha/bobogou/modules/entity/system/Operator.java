@@ -5,6 +5,7 @@ import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class Operator extends DataEntity<Operator> {
     private String rolesId; //工具使用变量，重新修改角色属性时使用
 
     private CustomerUser customerUser;//后台人员亦关联前APP用户
+
+    private Operator parent;//
+    private String parentId;//上级id
+    private String parentName;//上级名称
 
     public Operator() {
     }
@@ -229,5 +234,32 @@ public class Operator extends DataEntity<Operator> {
 
     public void setCustomerUser(CustomerUser customerUser) {
         this.customerUser = customerUser;
+    }
+
+    public Operator getParent() {
+        return parent;
+    }
+
+    public void setParent(Operator parent) {
+        this.parent = parent;
+    }
+
+    public String getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(String parentId) {
+        this.parentId = parentId;
+    }
+
+    public String getParentName() {
+        if (parent != null && StringUtils.isNotBlank(parent.getNickname())){
+            this.parentName = parent.getNickname();
+        }
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
     }
 }

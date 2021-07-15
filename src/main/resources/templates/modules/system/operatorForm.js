@@ -94,6 +94,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     })
 })
 
+function selectUser(id) {
+    let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择上级用户", '80%', '70%',id);
+}
 
 //保存方法
 function save(parentIndex) {
