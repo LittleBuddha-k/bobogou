@@ -5,14 +5,27 @@
     <title>角色管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
-    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/bobogou/utils/vendor.js"></script>
 </head>
 <body>
-<div>
+<div class="container">
     <form class="layui-form" id="roleForm">
         <input type="hidden" name="id" th:value="${role.getId()}">
         <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">上级角色</label>
+                <div class="layui-input-inline">
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode == 'view'}" disabled="true">
+                        <option th:value="${role.getParent().getId()}"
+                                th:text="${role.getParent().getName()}">
+                        </option>
+                    </select>
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode != 'view'}">
+                        <option th:value="${role.getParent().getId()}"
+                                th:text="${role.getParent().getName()}">
+                        </option>
+                    </select>
+                </div>
+            </div>
             <div class="layui-inline">
                 <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-inline">
@@ -40,6 +53,7 @@
         </div>
     </form>
 </div>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入工具js-->
@@ -48,9 +62,7 @@
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
-<!--引入本html的js文件-->
+<!--引入工具js-->
 <script type="text/javascript" src="/bobogou/modules/system/roleForm.js"></script>
 </body>
 </html>

@@ -95,14 +95,14 @@ public class RoleController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Role role, Model model) {
         //当点击新建时
-        if (role.getParentId() == null) {
-            role.setParent(roleService.getTopRole());
-        }
-        //当在当前行角色添加下级角色时
-        if (role.getParentId() != null ) {
-            Role entity = roleService.get(role.getParentId());
-            role.setParent(entity);
-        }
+        //if (role.getParentId() == null) {
+        //    role.setParent(roleService.getTopRole());
+        //}
+        ////当在当前行角色添加下级角色时
+        //if (role.getParentId() != null ) {
+        //    Role entity = roleService.get(role.getParentId());
+        //    role.setParent(entity);
+        //}
         model.addAttribute("role", role);
         return "modules/system/roleForm";
     }
