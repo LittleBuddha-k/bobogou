@@ -203,4 +203,14 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         int row = goodsMapper.onTheShelf(goods);
         return row;
     }
+
+    /**
+     * 根据厂商、商品名查询商品数据
+     * @param goods
+     * @return
+     */
+    public List<Goods> findByFactoryAndName(Goods goods) {
+        List<Goods> result = goodsMapper.getByFactoryAndName(goods);
+        return result;
+    }
 }

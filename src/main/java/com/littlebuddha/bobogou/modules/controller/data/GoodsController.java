@@ -151,6 +151,18 @@ public class GoodsController extends BaseController {
     }
 
     /**
+     * 根据厂商、商品名查询商品数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/findByFactoryAndName")
+    public List<Goods> findByFactoryAndName(Goods goods) {
+        List<Goods> result = goodsService.findByFactoryAndName(goods);
+        return result;
+    }
+
+    /**
      * 返回表单
      *
      * @param mode

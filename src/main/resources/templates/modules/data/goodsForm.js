@@ -184,6 +184,51 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             $("#images").val(upload_image_url);
         }
     });
+
+    //商品名改变时做查询，如果是新增的商品需要填写商品规范信息
+    $("#name").change(function () {
+        let name = $("#name").val();
+        $.ajax({
+            url: "/bobogou/data/goods/findByFactoryAndName",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: {"name":name},    //参数值
+            type: "GET",   //请求方式
+            success: function (result) {
+                //假设这是iframe页
+                if (result != null){
+                    alert('这里')
+                    //不做显示，不让修改
+                    $("#sampleBoxShow").hide();
+                    $("#outerPackingBoxShow").hide();
+                    $("#instructionBookShow").hide();
+                    $("#otherDataShow").hide();
+                    $("#relatedPicturesShow").hide();
+                    $("#instructionsShow").hide();
+                    $("#qualityStandardShow").hide();
+                    $("#surveyReportShow").hide();
+                    $("#productionBusinessLicenseShow").hide();
+                    $("#productionCertificateShow").hide();
+                }else {
+                    alert('黑恶hi欸黑')
+                    //表示商品第一次创建需要显示规范信息，在新建里面填写完善
+                    $("#sampleBoxShow").show();
+                    $("#outerPackingBoxShow").show();
+                    $("#instructionBookShow").show();
+                    $("#otherDataShow").show();
+                    $("#relatedPicturesShow").show();
+                    $("#instructionsShow").show();
+                    $("#qualityStandardShow").show();
+                    $("#surveyReportShow").show();
+                    $("#productionBusinessLicenseShow").show();
+                    $("#productionCertificateShow").show();
+                }
+            },
+            error: function (result) {
+                rc.alert(result.msg)
+            }
+        });
+    })
 });
 
 /**

@@ -5,6 +5,8 @@ import com.littlebuddha.bobogou.modules.base.mapper.BaseMapper;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  *药品mapper层
  */
@@ -22,4 +24,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
 
     //上下架操作
     int onTheShelf(Goods goods);
+
+    /**
+     * 根据厂商、商品名查询商品数据
+     * @param goods
+     * @return
+     */
+    List<Goods> getByFactoryAndName(Goods goods);
 }
