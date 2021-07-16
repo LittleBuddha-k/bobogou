@@ -5,6 +5,7 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
@@ -91,6 +92,10 @@ public class CustomerUserController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(CustomerUser customerUser) {
+        CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
+        if (currentCustomerUser != null && StringUtils.isNotBlank(currentCustomerUser.getAreaManager().toString())){
+            customerUser.setAreaManager(currentCustomerUser.getAreaManager());
+        }
         PageInfo<CustomerUser> page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);
     }
