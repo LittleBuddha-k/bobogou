@@ -196,8 +196,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             type: "GET",   //请求方式
             success: function (result) {
                 //假设这是iframe页
-                if (result != null){
-                    alert('这里')
+                if (result.length > 0){
                     //不做显示，不让修改
                     $("#sampleBoxShow").hide();
                     $("#outerPackingBoxShow").hide();
@@ -210,7 +209,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                     $("#productionBusinessLicenseShow").hide();
                     $("#productionCertificateShow").hide();
                 }else {
-                    alert('黑恶hi欸黑')
                     //表示商品第一次创建需要显示规范信息，在新建里面填写完善
                     $("#sampleBoxShow").show();
                     $("#outerPackingBoxShow").show();
