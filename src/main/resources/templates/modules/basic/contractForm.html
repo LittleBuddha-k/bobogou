@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>用户协议管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css"/>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="agreementForm">
+        <input type="hidden" name="id" id="id" th:value="${agreement.getId()}">
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型</label>
+            <div class="layui-input-block">
+                <select name="type" lay-verify="" th:if="${agreement.getType() == null}">
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="3" th:text="VIP规则"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 1}">
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="3" th:text="VIP规则"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 2}">
+                    <option th:value="2" th:text="积分规则"/>
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="3" th:text="VIP规则"/>
+                </select>
+                <select name="type" lay-verify="" th:if="${agreement.getType() == 3}">
+                    <option th:value="3" th:text="VIP规则"/>
+                    <option th:value="1" th:text="用户协议"/>
+                    <option th:value="2" th:text="积分规则"/>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="title">标题</label>
+            <div class="layui-input-block">
+                <input type="title" name="title" th:value="${agreement.getTitle()}" autocomplete="off"
+                       th:id="title" class="layui-input required">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="content">内容编辑：</label>
+            <div class="layui-input-block" id="content">
+                <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${agreement.getContent()}"
+                          th:id="content" ></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+</body>
+</html>
