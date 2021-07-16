@@ -59,7 +59,7 @@
         SELECT
         <include refid="goodsColumns"/>
         FROM mb_goods a
-        WHERE a.factory_id = #{factoryId} AND a.name = #{name}
+        WHERE a.name = #{name}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">

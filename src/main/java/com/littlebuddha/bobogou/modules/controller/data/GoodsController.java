@@ -210,6 +210,11 @@ public class GoodsController extends BaseController {
             GoodsSpecification goodsSpecification = goodsSpecificationService.get(select);
             goods.setGoodsSpecification(goodsSpecification);
         }
+        //查询商品规范
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
+            goods.setGoodsNorm(goodsNorm);
+        }
         return "modules/data/goodsForm";
     }
 

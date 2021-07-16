@@ -184,6 +184,236 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             $("#images").val(upload_image_url);
         }
     });
+    //轮播图
+    upload.render({
+        elem: '#test4',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo4').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormSampleBox").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormSampleBox").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test5',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo5').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormOuterPackingBox").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormOuterPackingBox").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test6',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo6').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormInstructionBook").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormInstructionBook").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test7',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo7').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormOtherData").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormOtherData").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test8',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo8').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormRelatedPictures").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormRelatedPictures").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test9',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo9').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormInstructions").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormInstructions").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test10',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo10').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormQualityStandard").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormQualityStandard").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test11',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo11').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormSurveyReport").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormSurveyReport").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test12',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo12').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormProductionBusinessLicense").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormProductionBusinessLicense").val(upload_image_url);
+        }
+    });
+    //轮播图
+    upload.render({
+        elem: '#test13',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo13').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#goodsNormProductionCertificate").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#goodsNormProductionCertificate").val(upload_image_url);
+        }
+    });
 
     //商品名改变时做查询，如果是新增的商品需要填写商品规范信息
     $("#name").change(function () {
@@ -196,8 +426,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             type: "GET",   //请求方式
             success: function (result) {
                 //假设这是iframe页
-                if (result.length > 0){
+                if (result.length >= 1){
                     //不做显示，不让修改
+                    $("#goodsNormPrices").hide();
                     $("#sampleBoxShow").hide();
                     $("#outerPackingBoxShow").hide();
                     $("#instructionBookShow").hide();
@@ -210,6 +441,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                     $("#productionCertificateShow").hide();
                 }else {
                     //表示商品第一次创建需要显示规范信息，在新建里面填写完善
+                    $("#goodsNormPrices").show();
                     $("#sampleBoxShow").show();
                     $("#outerPackingBoxShow").show();
                     $("#instructionBookShow").show();
@@ -251,6 +483,86 @@ $("#btn_image_clear_test2").click(function () {
 $("#btn_image_clear_test3").click(function () {
     $('#demo3').html("");
     $("#images").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test4").click(function () {
+    $('#demo4').html("");
+    $("#goodsNormSampleBox").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test5").click(function () {
+    $('#demo5').html("");
+    $("#goodsNormOuterPackingBox").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test6").click(function () {
+    $('#demo6').html("");
+    $("#goodsNormInstructionBook").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test7").click(function () {
+    $('#demo7').html("");
+    $("#goodsNormOtherData").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test8").click(function () {
+    $('#demo8').html("");
+    $("#goodsNormRelatedPictures").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test9").click(function () {
+    $('#demo9').html("");
+    $("#goodsNormInstructions").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test10").click(function () {
+    $('#demo10').html("");
+    $("#goodsNormQualityStandard").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test11").click(function () {
+    $('#demo11').html("");
+    $("#goodsNormSurveyReport").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test12").click(function () {
+    $('#demo12').html("");
+    $("#goodsNormProductionBusinessLicense").val('');
+});
+
+/**
+ * 多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test13").click(function () {
+    $('#demo13').html("");
+    $("#goodsNormProductionCertificate").val('');
 });
 
 //富文本编辑

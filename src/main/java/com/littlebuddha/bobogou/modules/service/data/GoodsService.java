@@ -35,6 +35,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Autowired
     private GoodsSpecificationMapper goodsSpecificationMapper;
 
+    @Autowired
+    private GoodsNormMapper goodsNormMapper;
+
     @Override
     public Goods get(Goods entity) {
         Goods goods = super.get(entity);
@@ -154,6 +157,50 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goodsSpecificationMapper.deleteByLogic(goodsSpecification);
             }
         }
+
+        //插入商品规范
+        if (entity != null && entity.getGoodsNorm() != null) {
+            GoodsNorm goodsNorm = entity.getGoodsNorm();
+            if (goodsNorm.DEL_FLAG_NORMAL.equals(goodsNorm.getIsDeleted())) {
+                if (StringUtils.isBlank(goodsNorm.getId())) {
+                    goodsNorm.setIdType("AUTO");
+                    goodsNorm.setId(entity.getId());
+                    goodsNorm.setFactoryId(entity.getFactoryId());
+                    goodsNorm.setGoodsName(entity.getName());
+                    //设置图片路径保存格式
+                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.preInsert();
+                    goodsNormMapper.insert(goodsNorm);
+                }else {
+                    goodsNorm.setFactoryId(entity.getFactoryId());
+                    goodsNorm.setGoodsName(entity.getName());
+                    //设置图片路径保存格式
+                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.preUpdate();
+                    goodsNormMapper.update(goodsNorm);
+                }
+            }else {
+                goodsNormMapper.deleteByLogic(goodsNorm);
+            }
+        }
         return save;
     }
 
@@ -174,6 +221,10 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             GoodsInfo goodsInfo = new GoodsInfo();
             goodsInfo.setId(entity.getId());
             goodsInfoMapper.deleteByLogic(goodsInfo);
+            //删除商品规范
+            GoodsNorm goodsNorm = new GoodsNorm();
+            goodsNorm.setId(entity.getId());
+            goodsNormMapper.deleteByLogic(goodsNorm);
         }
         return row;
     }

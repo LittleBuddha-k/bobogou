@@ -76,9 +76,10 @@
         </choose>
     </select>
 
-    <!--正常新增没有关联，首次创建-->
+    <!--正常关联商品，首次创建-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO md_goods_norm(
+            id,
             factory_id,
             goods_name,
             sample_box,
@@ -96,6 +97,7 @@
             create_time,
             update_time
         )VALUES (
+            #{id},
             #{factoryId},
             #{goodsName},
             #{sampleBox},
