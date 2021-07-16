@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>用户协议管理</title>
+    <title>合同管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <!--markdown富文本编辑-->
@@ -12,44 +12,24 @@
 <body>
 <div>
     <form class="layui-form" id="agreementForm">
-        <input type="hidden" name="id" id="id" th:value="${agreement.getId()}">
+        <input type="hidden" name="id" id="id" th:value="${contract.getId()}">
         <div class="layui-form-item">
-            <label class="layui-form-label">类型</label>
-            <div class="layui-input-block">
-                <select name="type" lay-verify="" th:if="${agreement.getType() == null}">
-                    <option th:value="1" th:text="用户协议"/>
-                    <option th:value="2" th:text="积分规则"/>
-                    <option th:value="3" th:text="VIP规则"/>
-                </select>
-                <select name="type" lay-verify="" th:if="${agreement.getType() == 1}">
-                    <option th:value="1" th:text="用户协议"/>
-                    <option th:value="2" th:text="积分规则"/>
-                    <option th:value="3" th:text="VIP规则"/>
-                </select>
-                <select name="type" lay-verify="" th:if="${agreement.getType() == 2}">
-                    <option th:value="2" th:text="积分规则"/>
-                    <option th:value="1" th:text="用户协议"/>
-                    <option th:value="3" th:text="VIP规则"/>
-                </select>
-                <select name="type" lay-verify="" th:if="${agreement.getType() == 3}">
-                    <option th:value="3" th:text="VIP规则"/>
-                    <option th:value="1" th:text="用户协议"/>
-                    <option th:value="2" th:text="积分规则"/>
-                </select>
+            <div class="layui-inline">
+                <label class="layui-form-label">合同名称</label>
+                <div class="layui-input-inline">
+                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                </div>
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label" for="title">标题</label>
-            <div class="layui-input-block">
-                <input type="title" name="title" th:value="${agreement.getTitle()}" autocomplete="off"
-                       th:id="title" class="layui-input required">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label" for="content">内容编辑：</label>
-            <div class="layui-input-block" id="content">
-                <textarea placeholder="请输入内容" class="layui-textarea required" name="content" th:text="${agreement.getContent()}"
-                          th:id="content" ></textarea>
+            <label class="layui-form-label">合同文件</label>
+            <div class="layui-upload-drag" id="test10">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="layui-hide" id="uploadDemoView">
+                    <hr>
+                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
+                </div>
             </div>
         </div>
     </form>
@@ -65,11 +45,11 @@
 <script src="/bobogou/plugins/markdown/js/editormd.js"></script>
 <script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
 <script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/other/agreementForm.js"></script>
 <!--引入表单验证-->
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/basic/contractForm.js"></script>
 </body>
 </html>

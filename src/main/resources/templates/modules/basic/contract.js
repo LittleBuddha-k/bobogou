@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     table.render({
-        elem: '#agreementTable',
-        url: '/bobogou/other/agreement/data',
+        elem: '#contractTable',
+        url: '/bobogou/basic/contract/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -30,37 +30,13 @@ layui.use(['form', 'table'], function () {
         cols: [
             [
                 {
-                    type: "checkbox"
+                    type: "radio"
                 },
                 {
-                    title: '协议',
-                    field: 'type',
+                    title: '合同名称',
+                    field: 'name',
                     sort: true,
-                    sortName: 'type',
-                    templet:function(data){
-                        var type = data.type;
-                        if(1 == type){
-                            return "用户协议";
-                        }else if (2 == type){
-                            return "积分规则";
-                        }else if (3 == type){
-                            return "VIP规则";
-                        }else {
-                            return "未知";
-                        }
-                    }
-                },
-                {
-                    title: '标题',
-                    field: 'title',
-                    sort: true,
-                    sortName: 'title'
-                },
-                {
-                    title: '内容',
-                    field: 'content',
-                    sort: true,
-                    sortName: 'content'
+                    sortName: 'type'
                 },
                 {
                     title: '操作',
@@ -74,8 +50,6 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            type: $("#type").val(),
-            title: $("#title").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -83,10 +57,8 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(other-search-btn)', function (other) {
         //执行搜索重载
-        table.reload('agreementTable', {
+        table.reload('contractTable', {
             where: {
-                type: $("#type").val(),
-                title: $("#title").val()
             }
         });
         return false;
@@ -95,25 +67,25 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(agreementTableFilter)', function (obj) {
+    table.on('toolbar(contractTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/agreement/form/add", "新建协议信息",'65%','70%')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/add", "新建合同信息",'65%','70%')
         }
     });
 
-    table.on('tool(agreementTableFilter)', function (obj) {
+    table.on('tool(contractTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/other/agreement/form/edit?id="+ids, "编辑协议信息",'65%','70%')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/edit?id="+ids, "编辑合同信息",'65%','70%')
         }else if (obj.event === 'delete') {
-            rc.confirm('确认要删除该信息吗？', function () {
-                rc.post("/bobogou/other/agreement/delete?ids=" + ids, '', function (data) {
+            rc.confirm('确认要删除该合同信息吗？', function () {
+                rc.post("/bobogou/basic/contract/delete?ids=" + ids, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();
-                        rc.alert(data.msg);
+                        rc.success(data.msg);
                     } else {
-                        rc.alert(data.msg);
+                        rc.error(data.msg);
                     }
                 });
             })
@@ -128,7 +100,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('agreementTable'),
+    var checkStatus = table.checkStatus('contractTable'),
         other = checkStatus.other;
     let ids = "";
     for (let i = 0; i < other.length; i++) {
@@ -145,7 +117,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('agreementTable', {
+        table.reload('contractTable', {
             page: {
                 curr: 1
             }

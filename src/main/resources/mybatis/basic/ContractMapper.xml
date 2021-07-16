@@ -16,23 +16,23 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.Contract">
         SELECT
         <include refid="contractColumns"/>
-        FROM bobogou_basic_contrct a
+        FROM bobogou_basic_contract a
         WHERE id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Contract">
         SELECT
         <include refid="contractColumns"/>
-        FROM bobogou_basic_contrct a
+        FROM bobogou_basic_contract a
         <where>
-            a.del_falg = #{DEL_FLAG_NORMAL}
+            a.del_flag = #{DEL_FLAG_NORMAL}
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
                 ORDER BY ${orderBy}
             </when>
             <otherwise>
-                ORDER BY a.create_time DESC
+                ORDER BY a.create_date DESC
             </otherwise>
         </choose>
     </select>
@@ -40,23 +40,23 @@
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Contract">
         SELECT
         <include refid="contractColumns"/>
-        FROM bobogou_basic_contrct a
+        FROM bobogou_basic_contract a
         <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
+            a.del_flag = #{DEL_FLAG_DELETE}
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
                 ORDER BY ${orderBy}
             </when>
             <otherwise>
-                ORDER BY a.create_time DESC
+                ORDER BY a.create_date DESC
             </otherwise>
         </choose>
     </select>
 
     <!--新增-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO bobogou_basic_contrct(
+        INSERT INTO bobogou_basic_contract(
             id,
             name,
             address,
@@ -80,7 +80,7 @@
     </insert>
 
     <update id="update">
-        UPDATE bobogou_basic_contrct SET
+        UPDATE bobogou_basic_contract SET
             name = #{name},
             address = #{address},
             remarks = #{remarks},
@@ -93,17 +93,17 @@
     </update>
 
     <update id="deleteByLogic">
-        UPDATE bobogou_basic_contrct SET is_deleted = #{DEL_FLAG_DELETE}
+        UPDATE bobogou_basic_contract SET del_flag = #{DEL_FLAG_DELETE}
         WHERE id=#{id}
     </update>
 
     <update id="recovery">
-        UPDATE bobogou_basic_contrct SET is_deleted = #{DEL_FLAG_NORMAL}
+        UPDATE bobogou_basic_contract SET del_flag = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
     </update>
 
     <delete id="deleteByPhysics">
-        DELETE FROM bobogou_basic_contrct
+        DELETE FROM bobogou_basic_contract
         WHERE id=#{id}
     </delete>
 </mapper>
