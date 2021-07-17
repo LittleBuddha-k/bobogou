@@ -33,7 +33,9 @@ layui.use(['form', 'table'], function () {
                     // $('tr[data-index=' + index + '] input[type="checkbox"]').prop('checked', true);
                     // $('tr[data-index=' + index + '] input[type="checkbox"]').next().addClass('layui-form-checked');
                     //二：点击去属性 lay-id='table'==表格id ； index：需要回显的行数下标-从0开始
-                    $("div[lay-id='roleTable'] td .layui-form-checkbox").eq(index).click();
+                    //$("div[lay-id='roleTable'] td .layui-form-checkbox").eq(index).click();
+                    $('tr[data-index=' + index + '] input[type="radio"]').prop('checked', true);
+                    $('tr[data-index=' + index + '] input[type="radio"]').next().addClass('layui-form-checked').click();
                 }
             })
         },
@@ -51,7 +53,7 @@ layui.use(['form', 'table'], function () {
         cols: [
             [
                 {
-                    type: "checkbox"
+                    type: "radio"
                 },
                 {
                     title: '角色名称',

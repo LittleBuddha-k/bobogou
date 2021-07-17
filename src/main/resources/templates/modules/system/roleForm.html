@@ -14,6 +14,32 @@
         <input type="hidden" name="id" th:value="${role.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
+                <label class="layui-form-label">上级角色</label>
+                <div class="layui-input-inline">
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode == 'view'}" disabled="true">
+                        <option th:each="parent:${roleList}" th:if="${role.getParentId() == parent.getId()}" th:value="${role.getId()}"
+                                th:text="${role.getName()}">
+                        </option>
+                        <option th:each="parent:${roleList}" th:if="${role.getParentId() != parent.getId()}" th:value="${parent.getId()}"
+                                th:text="${parent.getName()}">
+                        </option>
+                    </select>
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode != 'view' && role.getParentId() != null}">
+                        <option th:each="parent:${roleList}" th:if="${role.getParentId() == parent.getId()}" th:value="${parent.getId()}"
+                                th:text="${parent.getName()}">
+                        </option>
+                        <option th:each="parent:${roleList}" th:if="${role.getParentId() != parent.getId()}" th:value="${parent.getId()}"
+                                th:text="${parent.getName()}">
+                        </option>
+                    </select>
+                    <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode != 'view' && role.getParentId() == null}">
+                        <option th:each="parent:${roleList}" th:value="${parent.getId()}"
+                                th:text="${parent.getName()}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-inline">
                     <input type="name" th:name="name" th:value="${role.getName()}" placeholder="角色名称"

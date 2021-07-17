@@ -48,7 +48,7 @@ layui.use(['form', 'table'], function () {
                     title: '电话',
                     field: 'phone',
                     sort: true,
-                    width: '20%'
+                    width: '15%'
                 },
                 {
                     title: '性别',
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '15%'
+                    width: '20%'
                 }
             ]
         ],
