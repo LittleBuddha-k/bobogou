@@ -160,6 +160,20 @@ public class CustomerUserController extends BaseController {
         return commonResult;
     }
 
+    @GetMapping("/toDoList")
+    public String toDoList(CustomerUser customerUser,Model model){
+        model.addAttribute("customerUser", customerUser);
+        return "modules/other/customerUserToDoList";
+    }
+
+    @ResponseBody
+    @GetMapping("/toDoData")
+    public TreeResult toDoData(CustomerUser customerUser,Model model){
+        model.addAttribute("customerUser", customerUser);
+        PageInfo<CustomerUser> page = customerUserService.findToDoDataPage(new Page<CustomerUser>(), customerUser);
+        return getLayUiData(page);
+    }
+
     /**
      * 数据保存
      *

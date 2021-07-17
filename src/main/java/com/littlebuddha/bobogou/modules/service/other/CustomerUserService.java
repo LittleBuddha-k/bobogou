@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.other;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -106,5 +107,28 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         }
         int row = customerUserMapper.beVip(customerUser);
         return row;
+    }
+
+    /**
+     * 查询待办数据
+     * @param customerUsers
+     * @param customerUser
+     * @return
+     */
+    public PageInfo<CustomerUser> findToDoDataPage(Page<CustomerUser> page, CustomerUser entity) {
+        //if(entity != null){
+        //    String phone = StringUtils.deleteWhitespace(entity.getPhone());
+        //    entity.setPhone(phone);
+        //    String nickname = StringUtils.deleteWhitespace(entity.getNickname());
+        //    entity.setNickname(nickname);
+        //}
+        PageInfo<CustomerUser> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<CustomerUser> list = customerUserMapper.getToDoList(entity);
+            pageInfo = new PageInfo<CustomerUser>(list);
+        }
+        return pageInfo;
     }
 }

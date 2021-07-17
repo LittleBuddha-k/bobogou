@@ -5,6 +5,8 @@ import com.littlebuddha.bobogou.modules.base.mapper.BaseMapper;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 图标mapper层
  */
@@ -16,4 +18,6 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
     CustomerUser getByPhone(CustomerUser customerUser);
 
     CustomerUser getByOperator(CustomerUser selectOption);
+
+    List<CustomerUser> getToDoList(CustomerUser entity);
 }

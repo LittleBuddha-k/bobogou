@@ -4,10 +4,12 @@
     <sql id="userMemberUserColumns">
         a.id AS "id",
         a.user_id AS "userId",
+        a.step AS "step",
         a.real_name AS "realName",
         a.phone AS "phone",
         a.card_no AS "cardNo",
         a.name AS "name",
+        a.shop_address AS "shopAddress",
         a.type AS "type",
         a.province_id AS "provinceId",
         a.province AS "province",
@@ -111,10 +113,12 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ud_user_member(
             user_id,
+            step,
             real_name,
             phone,
             card_no,
             name,
+            shop_ddress,
             type,
             province_id,
             province,
@@ -152,10 +156,12 @@
             account_id
         )VALUES (
             #{userId},
+            #{step},
             #{realName},
             #{phone},
             #{cardNo},
             #{name},
+            #{shopAddress},
             #{type},
             #{provinceId},
             #{province},
@@ -197,10 +203,12 @@
     <update id="update">
         UPDATE ud_user_member SET
             user_id = #{userId},
+            step = #{step},
             real_name = #{realName},
             phone = #{phone},
             card_no = #{cardNo},
             name = #{name},
+            shop_address = #{shopAddress},
             type = #{type},
             province_id = #{provinceId},
             province = #{province},

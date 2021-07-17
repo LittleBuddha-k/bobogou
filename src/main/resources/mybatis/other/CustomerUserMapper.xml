@@ -106,6 +106,28 @@
         </choose>
     </select>
 
+    <!--查询代办审核数据-->
+    <select id="getToDoList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
+        SELECT
+        <include refid="customerUserColumns"/>
+        FROM ud_user a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            AND a.apply_status = '1'
+            <!--<if test="areaManager != null">
+                AND a.area_manager = #{areaManager} + 1
+            </if>-->
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>

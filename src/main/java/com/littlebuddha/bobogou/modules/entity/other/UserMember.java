@@ -20,10 +20,12 @@ import java.util.Date;
 public class UserMember extends DataEntity<UserMember> {
 
     private Integer userId;//用户ID
+    private Integer step;//
     private String realName;//真实姓名
     private String phone;//联系电话
     private String cardNo;//身份证号
     private String name;//医院诊所药房名称
+    private String shopAddress;//
     private Integer type;//类型，1=药房，2=诊所，3=医院
     private Integer provinceId;//省ID
     private String province;//省
@@ -78,6 +80,14 @@ public class UserMember extends DataEntity<UserMember> {
         return userId;
     }
 
+    public Integer getStep() {
+        return step;
+    }
+
+    public void setStep(Integer step) {
+        this.step = step;
+    }
+
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
@@ -112,6 +122,14 @@ public class UserMember extends DataEntity<UserMember> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
     }
 
     public Integer getType() {
