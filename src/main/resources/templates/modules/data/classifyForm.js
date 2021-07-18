@@ -21,14 +21,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
 
     //下拉框选中后的时间
     form.on('select(level)', function(data){
-        //console.log(data.elem); //得到select原始DOM对象
-        //console.log(data.value); //得到被选中的值
-        //console.log(data.othis); //得到美化后的DOM对象
         let level = data.value;
         if(3 == level){
+            $("#administrativeFee").show();
             $("#addProvinceRatio").show();
             $("#addCityRatio").show();
             $("#addDistrictRatio").show();
+        }else {
+            $("#administrativeFee").hide();
+            $("#addProvinceRatio").hide();
+            $("#addCityRatio").hide();
+            $("#addDistrictRatio").hide();
         }
     });
 });

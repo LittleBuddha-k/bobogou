@@ -14,6 +14,8 @@ public class Classify extends DataEntity<Classify> {
     private String parentId;//父级分类ID，顶级=0
     private Integer level;//级别分类字段
 
+    private Double administrativeFee;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，只有第三级的时候需要填
+
     private Double provinceRatio;//省代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
     private Double cityRatio;//市代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
     private Double districtRatio;//区代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
@@ -70,6 +72,14 @@ public class Classify extends DataEntity<Classify> {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Double getAdministrativeFee() {
+        return administrativeFee;
+    }
+
+    public void setAdministrativeFee(Double administrativeFee) {
+        this.administrativeFee = administrativeFee;
     }
 
     public Double getProvinceRatio() {

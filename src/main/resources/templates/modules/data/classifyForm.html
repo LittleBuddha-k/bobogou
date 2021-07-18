@@ -84,6 +84,20 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="administrativeFee">
+                <label class="layui-form-label" for="administrativeFee">类型商品管理费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="administrativeFee" th:value="${classify.getAdministrativeFee()}"
+                           th:id="administrativeFee" autocomplete="off" class="layui-input number">
+                </div>
+            </div>
+            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="administrativeFee">
+                <label class="layui-form-label" for="administrativeFee">类型商品管理费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="administrativeFee" th:value="${classify.getAdministrativeFee()}"
+                           th:id="administrativeFee" autocomplete="off" class="layui-input number">
+                </div>
+            </div>
             <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addProvinceRatio">
                 <label class="layui-form-label" for="provinceRatio">省代理提成比例</label>
                 <div class="layui-input-inline">
