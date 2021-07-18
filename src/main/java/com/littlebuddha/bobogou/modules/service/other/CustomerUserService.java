@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
@@ -98,7 +99,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Transactional
     public int beVip(CustomerUser customerUser) {
-        if (customerUser.getUserMember() != null && customerUser.getUserMember().getType() != null){
+        if (customerUser.getUserMember() != null && customerUser.getUserMember() != null){
             //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
             Integer type = customerUser.getUserMember().getType();
             Vip vip = new Vip();
@@ -109,9 +110,19 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                 String fullDate = DateUtils.getFullDate(specifyDate);
                 customerUser.setVipExpire(fullDate);
             }
-            //这里执行更新userMem数据
-            UserMember userMember = customerUser.getUserMember();
-            userMemberMapper.insert(userMember);
+            //获取当前角色的父级角色
+            String currentUserParentRoleId = UserUtils.getCurrentUserParentRoleId();
+            customerUser.setNextRole(currentUserParentRoleId);
+            //这里同意过后执行更新userMember数据
+            UserMember userMember = userMemberMapper.get(customerUser.getUserMember());
+            userMember.setStatus(customerUser.getUserMember().getStatus());
+            userMember.setProvinceRefuseReason(customerUser.getUserMember().getProvinceRefuseReason());
+            userMember.setProvincePassReason(customerUser.getUserMember().getProvincePassReason());
+            userMember.setCityRefuseReason(customerUser.getUserMember().getCityRefuseReason());
+            userMember.setCityPassReason(customerUser.getUserMember().getCityPassReason());
+            userMember.setDistrictRefuseReason(customerUser.getUserMember().getDistrictRefuseReason());
+            userMember.setDistrictPassReason(customerUser.getUserMember().getDistrictPassReason());
+            userMemberMapper.update(userMember);
         }
         int row = customerUserMapper.beVip(customerUser);
         return row;

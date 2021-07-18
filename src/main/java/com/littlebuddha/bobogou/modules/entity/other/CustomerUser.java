@@ -39,7 +39,6 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private Operator operator;//后台管理员ID，区域管理员ID，关联system_operator表
     private String operatorId;//
     private String nextRole;//审核时提交到的下一角色id
-    private String actStatus;//判定当前审核状态 1：已通过 2：已拒绝
     private Integer status;//状态，0=app未注册，1=app已注册
 
     private Role currentUserRole;//当前用户角色------查询列表数据时使用
@@ -231,14 +230,6 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setNextRole(String nextRole) {
         this.nextRole = nextRole;
-    }
-
-    public String getActStatus() {
-        return actStatus;
-    }
-
-    public void setActStatus(String actStatus) {
-        this.actStatus = actStatus;
     }
 
     public Integer getStatus() {

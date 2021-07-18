@@ -341,42 +341,42 @@
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 1}">
                 <label class="layui-form-label" for="provinceRefuseReason">省级拒绝原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:value="${userMember.getProvinceRefuseReason()}" autocomplete="off"
+                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:text="${userMember.getProvinceRefuseReason()}" autocomplete="off"
                               th:id="provinceRefuseReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser == null}">
                 <label class="layui-form-label" for="provinceRefuseReason">省级拒绝原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:value="${userMember.getProvinceRefuseReason()}" autocomplete="off"
+                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:text="${userMember.getProvinceRefuseReason()}" autocomplete="off"
                               th:id="provinceRefuseReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 1}">
                 <label class="layui-form-label" for="provincePassReason">省级通过原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="省级通过原因" name="provincePassReason" th:value="${userMember.getProvincePassReason()}" autocomplete="off"
+                    <textarea placeholder="省级通过原因" name="provincePassReason" th:text="${userMember.getProvincePassReason()}" autocomplete="off"
                               th:id="provincePassReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 2}">
                 <label class="layui-form-label" for="cityRefuseReason">市级拒绝原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="市级拒绝原因" name="cityRefuseReason" th:value="${userMember.getCityRefuseReason()}" autocomplete="off"
+                    <textarea placeholder="市级拒绝原因" name="cityRefuseReason" th:text="${userMember.getCityRefuseReason()}" autocomplete="off"
                               th:id="cityRefuseReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 2}">
                 <label class="layui-form-label" for="cityPassReason">市级通过原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="市级通过原因" name="cityPassReason" th:value="${userMember.getCityPassReason()}" autocomplete="off"
+                    <textarea placeholder="市级通过原因" name="cityPassReason" th:text="${userMember.getCityPassReason()}" autocomplete="off"
                               th:id="cityPassReason" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 3}">
                 <label class="layui-form-label" for="districtRefuseReason">区级拒绝原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="区级拒绝原因" name="districtRefuseReason" th:value="${userMember.getDistrictRefuseReason()}" autocomplete="off"
+                    <textarea placeholder="区级拒绝原因" name="districtRefuseReason" th:text="${userMember.getDistrictRefuseReason()}" autocomplete="off"
                               th:id="districtRefuseReason" class="layui-textarea"></textarea>
                 </div>
             </div>

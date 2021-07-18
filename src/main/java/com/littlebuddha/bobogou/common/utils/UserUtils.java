@@ -15,6 +15,7 @@ import org.apache.shiro.UnavailableSecurityManagerException;
 import org.apache.shiro.session.InvalidSessionException;
 import org.apache.shiro.subject.Subject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,6 +47,22 @@ public class UserUtils {
             byPhone = customerUserService.getByPhone(select);
         }
         return byPhone;
+    }
+
+    public static String getCurrentUserParentRoleId(){
+        Operator currentUser = UserUtils.getCurrentUser();
+        String roleId = null;
+        String parentRoleId = null;
+        List<OperatorRole> byOperatorAndRole = new ArrayList<>();
+        if (currentUser != null){
+            byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
+        }
+        if (!byOperatorAndRole.isEmpty()){
+            roleId = byOperatorAndRole.get(0).getRole().getId();
+            Role parent = roleService.get(new Role(roleId));
+            parentRoleId = parent.getParentId();
+        }
+        return parentRoleId;
     }
 
     /**

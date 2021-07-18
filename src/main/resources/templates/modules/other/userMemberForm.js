@@ -159,32 +159,23 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         let nextRole = null;
         let status = 0;
         //获取意见
-        let provinceRefuseReason = $("#provinceRefuseReason").val();
         let provincePassReason = $("#provincePassReason").val();
-        let cityRefuseReason = $("#cityRefuseReason").val();
         let cityPassReason = $("#cityPassReason").val();
-        let districtRefuseReason = $("#districtRefuseReason").val();
         let districtPassReason = $("#districtPassReason").val();
-        if (districtRefuseReason){
-            status = 1;
-        }
+        let provinceRefuseReason = $("#provinceRefuseReason").val();
+        let cityRefuseReason = $("#cityRefuseReason").val();
+        let districtRefuseReason = $("#districtRefuseReason").val();
         if (districtPassReason){
             status = 2;
         }
-        if (cityRefuseReason){
-            status = 3;
-        }
         if (cityPassReason){
             status = 4;
-        }
-        if (provinceRefuseReason){
-            status = 5;
         }
         if (provincePassReason){
             status = 6;
         }
         //修改当前customerUser的会员状态
-        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":1,"userMember.id":userMember,"member":1,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status,"applyStatus":2},function (data) {
+        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":1,"applyStatus":2,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
             if (200 == data.code){
                 //关闭当前页面
                 var index = parent.layer.getFrameIndex(window.name);
@@ -202,15 +193,27 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         let type = $("#type").val();
         //获取customerUser表单中的id信息
         let id = $("#userId").val();
+        let userMember = $("#id").val();
+        let nextRole = null;
+        let status = 0;
         //获取意见
-        let provinceRefuseReason = $("#provinceRefuseReason").val();
         let provincePassReason = $("#provincePassReason").val();
-        let cityRefuseReason = $("#cityRefuseReason").val();
         let cityPassReason = $("#cityPassReason").val();
-        let districtRefuseReason = $("#districtRefuseReason").val();
         let districtPassReason = $("#districtPassReason").val();
+        let provinceRefuseReason = $("#provinceRefuseReason").val();
+        let cityRefuseReason = $("#cityRefuseReason").val();
+        let districtRefuseReason = $("#districtRefuseReason").val();
+        if (districtRefuseReason){
+            status = 1;
+        }
+        if (cityRefuseReason){
+            status = 3;
+        }
+        if (provinceRefuseReason){
+            status = 5;
+        }
         //修改当前customerUser的会员状态
-        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":0,"userMember.type":type,"applyStatus":3},function (data) {
+        rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":1,"applyStatus":2,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
             if (200 == data.code){
                 //关闭当前页面
                 var index = parent.layer.getFrameIndex(window.name);
