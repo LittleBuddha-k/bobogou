@@ -182,9 +182,9 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    //toolbar: '#operation',
+                    toolbar: '#operation',
                     align: "center",
-                    width: '10%',
+                    width: '10%'/*,
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
@@ -194,7 +194,7 @@ layui.use(['form', 'table'], function () {
                         }else {
                             return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
                         }
-                    }
+                    }*/
                 }
             ]
         ],

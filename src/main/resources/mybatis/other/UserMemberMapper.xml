@@ -118,7 +118,7 @@
             phone,
             card_no,
             name,
-            shop_ddress,
+            shop_address,
             type,
             province_id,
             province,

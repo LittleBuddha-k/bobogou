@@ -345,6 +345,13 @@
                               th:id="provinceRefuseReason" class="layui-textarea"></textarea>
                 </div>
             </div>
+            <div class="layui-inline" th:if="${session.currentCustomerUser == null}">
+                <label class="layui-form-label" for="provinceRefuseReason">省级拒绝原因</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="省级拒绝原因" name="provinceRefuseReason" th:value="${userMember.getProvinceRefuseReason()}" autocomplete="off"
+                              th:id="provinceRefuseReason" class="layui-textarea"></textarea>
+                </div>
+            </div>
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 1}">
                 <label class="layui-form-label" for="provincePassReason">省级通过原因</label>
                 <div class="layui-input-inline">

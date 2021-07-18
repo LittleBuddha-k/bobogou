@@ -11,8 +11,13 @@ import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
 import com.littlebuddha.bobogou.modules.service.other.UserMemberService;
+import com.littlebuddha.bobogou.modules.service.system.OperatorRoleService;
+import com.littlebuddha.bobogou.modules.service.system.RoleService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +42,12 @@ public class CustomerUserController extends BaseController {
 
     @Autowired
     private UserMemberService userMemberService;
+
+    @Autowired
+    private OperatorRoleService operatorRoleService;
+
+    @Autowired
+    private RoleService roleService;
 
     @ModelAttribute
     public CustomerUser get(@RequestParam(required = false) String id) {
@@ -92,10 +103,6 @@ public class CustomerUserController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(CustomerUser customerUser) {
-        CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
-        if (currentCustomerUser != null && StringUtils.isNotBlank(currentCustomerUser.getAreaManager().toString())){
-            customerUser.setAreaManager(currentCustomerUser.getAreaManager());
-        }
         PageInfo<CustomerUser> page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);
     }
@@ -169,6 +176,14 @@ public class CustomerUserController extends BaseController {
     @ResponseBody
     @GetMapping("/toDoData")
     public TreeResult toDoData(CustomerUser customerUser,Model model){
+        CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
+        if (currentCustomerUser != null && StringUtils.isNotBlank(currentCustomerUser.getAreaManager().toString())){
+            customerUser.setAreaManager(currentCustomerUser.getAreaManager());
+        }
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
+        Role role = roleService.get(byOperatorAndRole.get(0).getRole().getId());
+        customerUser.setCurrentUserRole(role);
         model.addAttribute("customerUser", customerUser);
         PageInfo<CustomerUser> page = customerUserService.findToDoDataPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);

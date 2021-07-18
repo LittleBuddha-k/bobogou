@@ -71,6 +71,9 @@ public abstract class BaseEntity<E> implements Serializable {
     @JsonIgnore
     @XmlTransient
     public CustomerUser getCurrentCustomerUser() {
+        //if(currentCustomerUser == null){
+        //    currentCustomerUser = UserUtils.getCurrentCustomerUser();
+        //}
         return currentCustomerUser;
     }
 

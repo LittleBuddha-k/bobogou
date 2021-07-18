@@ -1,15 +1,16 @@
 package com.littlebuddha.bobogou.modules.controller.system;
 
+import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
-import com.littlebuddha.bobogou.modules.entity.system.Menu;
-import com.littlebuddha.bobogou.modules.entity.system.Operator;
-import com.littlebuddha.bobogou.modules.entity.system.Portal;
+import com.littlebuddha.bobogou.modules.entity.system.*;
 import com.littlebuddha.bobogou.modules.entity.system.utils.HomeInfo;
 import com.littlebuddha.bobogou.modules.entity.system.utils.LogoInfo;
 import com.littlebuddha.bobogou.modules.service.system.MenuService;
+import com.littlebuddha.bobogou.modules.service.system.OperatorRoleService;
 import com.littlebuddha.bobogou.modules.service.system.PortalService;
+import com.littlebuddha.bobogou.modules.service.system.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -38,6 +40,12 @@ public class PortalController extends BaseController {
 
     @Autowired
     private HomeInfo homeInfo;//home信息--保存在配置文件中
+
+    @Autowired
+    private OperatorRoleService operatorRoleService;
+
+    @Autowired
+    private RoleService roleService;
 
     /**
      * 门户页面
@@ -73,5 +81,57 @@ public class PortalController extends BaseController {
     public String importTemplate() {
 
         return "modules/common/import";
+    }
+
+    /**
+     * 获取当前用户角色id----供审核流程时使用
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/currentUserRole")
+    public String getCurrentUserRole(){
+        Operator currentUser = UserUtils.getCurrentUser();
+        String roleId = null;
+        List<OperatorRole> byOperatorAndRole = new ArrayList<>();
+        if (currentUser != null){
+            byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
+        }
+        if (!byOperatorAndRole.isEmpty()){
+            roleId = byOperatorAndRole.get(0).getRole().getId();
+        }
+        return roleId;
+    }
+
+    /**
+     * 获取当前用户上级角色id----供审核流程时使用
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/currentUserParentRole")
+    public String getCurrentUserParentRole(){
+        Result result = new Result();
+        Operator currentUser = UserUtils.getCurrentUser();
+        String parentRoleId = null;
+        List<OperatorRole> byOperatorAndRole = new ArrayList<>();
+        if (currentUser != null){
+            byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
+        }
+        if (!byOperatorAndRole.isEmpty()){
+            OperatorRole operatorRole = byOperatorAndRole.get(0);
+            if (operatorRole != null){
+                Role role = operatorRole.getRole();
+                if (role != null){
+                    String roleId = role.getId();
+                    Role parent = roleService.get(new Role(roleId));
+                    parentRoleId = parent.getParentId();
+                    result.setCode("200");
+                    result.setMsg(parentRoleId);
+                }
+            }
+        }else {
+            result.setCode("444");
+            result.setMsg("当前用户角色设置不当");
+        }
+        return parentRoleId;
     }
 }

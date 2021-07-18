@@ -6,8 +6,10 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
+import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
+import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Autowired
     private VipMapper vipMapper;
+
+    @Autowired
+    private UserMemberMapper userMemberMapper;
 
     @Override
     public CustomerUser get(CustomerUser entity) {
@@ -104,6 +109,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                 String fullDate = DateUtils.getFullDate(specifyDate);
                 customerUser.setVipExpire(fullDate);
             }
+            //这里执行更新userMem数据
+            UserMember userMember = customerUser.getUserMember();
+            userMemberMapper.insert(userMember);
         }
         int row = customerUserMapper.beVip(customerUser);
         return row;
