@@ -73,6 +73,9 @@ public class ClassifyService extends CrudService<Classify, ClassifyMapper> {
     @Override
     public int save(Classify entity) {
         entity.setIdType("AUTO");
+        if (entity != null && StringUtils.isNotBlank(entity.getIcon())){
+            entity.setIcon(entity.getIcon().replaceAll(globalSetting.getRootPath(),""));
+        }
         return super.save(entity);
     }
 
