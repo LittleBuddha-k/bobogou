@@ -80,6 +80,7 @@
     <!--与商品做关联插入id=商品id-->
     <insert id="insert">
         INSERT INTO md_goods_classify(
+            id,
             classify_id,
             second_classify_id,
             reclassify_id,
@@ -88,6 +89,7 @@
             create_time,
             update_time
         )VALUES (
+            #{id},
             #{classifyId},
             #{secondClassifyId},
             #{reclassifyId},

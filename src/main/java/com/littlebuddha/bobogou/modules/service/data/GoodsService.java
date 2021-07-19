@@ -128,7 +128,8 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             GoodsClassify goodsClassify = entity.getGoodsClassify();
             if (goodsClassify.DEL_FLAG_NORMAL.equals(goodsClassify.getIsDeleted())) {
                     if (StringUtils.isBlank(goodsClassify.getId())) {
-                        goodsClassify.setGoodsId(entity.getId());
+                        goodsClassify.setIdType("AUTO");
+                        goodsClassify.setId(entity.getId());
                         goodsClassify.preInsert();
                         goodsClassifyMapper.insert(goodsClassify);
                     }else {
