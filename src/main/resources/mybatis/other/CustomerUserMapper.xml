@@ -124,9 +124,6 @@
             <if test="currentUserRole != null and currentUserRole.id != null and currentUserRole.id != '' ">
                 AND a.next_role = #{currentUserRole.id}
             </if>
-            <if test="areaManager != null">
-                AND a.area_manager = #{areaManager} + 1
-            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
