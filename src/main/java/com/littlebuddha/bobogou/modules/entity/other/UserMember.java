@@ -52,9 +52,9 @@ public class UserMember extends DataEntity<UserMember> {
     private String groupPhoto;//经理人和申请人的合照图片地址（药房或者医疗机构的门店名），一张
 
     private String contractUrl;//合同文件地址
-    private Integer provinceUserId;//省审核人ID
-    private Integer cityUserId;//市审核人ID
-    private Integer districtUserId;//区审核人ID
+    private String provinceUserId;//省审核人ID
+    private String cityUserId;//市审核人ID
+    private String districtUserId;//区审核人ID
 
     private Integer status;//审核状态，0=未审核，1=区代理已审核通过，2=区代理审核已经拒绝，3=市代理已审核通过，4=市代理审核已拒绝，5=省代理已审核通过，6=省代理已经拒绝
 
@@ -294,27 +294,27 @@ public class UserMember extends DataEntity<UserMember> {
         this.contractUrl = contractUrl;
     }
 
-    public Integer getProvinceUserId() {
+    public String getProvinceUserId() {
         return provinceUserId;
     }
 
-    public void setProvinceUserId(Integer provinceUserId) {
+    public void setProvinceUserId(String provinceUserId) {
         this.provinceUserId = provinceUserId;
     }
 
-    public Integer getCityUserId() {
+    public String getCityUserId() {
         return cityUserId;
     }
 
-    public void setCityUserId(Integer cityUserId) {
+    public void setCityUserId(String cityUserId) {
         this.cityUserId = cityUserId;
     }
 
-    public Integer getDistrictUserId() {
+    public String getDistrictUserId() {
         return districtUserId;
     }
 
-    public void setDistrictUserId(Integer districtUserId) {
+    public void setDistrictUserId(String districtUserId) {
         this.districtUserId = districtUserId;
     }
 

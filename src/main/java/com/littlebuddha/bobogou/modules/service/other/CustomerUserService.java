@@ -9,6 +9,7 @@ import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
@@ -100,22 +101,43 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     @Transactional
     public int beVip(CustomerUser customerUser) {
         if (customerUser.getUserMember() != null && customerUser.getUserMember() != null){
-            //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
-            Integer type = customerUser.getUserMember().getType();
-            Vip vip = new Vip();
-            vip.setType(type);
-            Vip byType = vipMapper.getByType(vip);
-            if (byType != null && byType.getTime() != null){
-                Date specifyDate = DateUtils.getSpecifyDate(byType.getTime());
-                String fullDate = DateUtils.getFullDate(specifyDate);
-                customerUser.setVipExpire(fullDate);
+            //当省级通过之后才表示vip生效，再去设置VIP时效
+            if (customerUser != null && customerUser.getUserMember() != null && StringUtils.isNotBlank(customerUser.getUserMember().getProvincePassReason())){
+                //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
+                Integer type = customerUser.getUserMember().getType();
+                Vip vip = new Vip();
+                vip.setType(type);
+                Vip byType = vipMapper.getByType(vip);
+                if (byType != null && byType.getTime() != null){
+                    Date specifyDate = DateUtils.getSpecifyDate(byType.getTime());
+                    String fullDate = DateUtils.getFullDate(specifyDate);
+                    customerUser.setVipExpire(fullDate);
+                }
             }
             //获取当前角色的父级角色
             String currentUserParentRoleId = UserUtils.getCurrentUserParentRoleId();
             customerUser.setNextRole(currentUserParentRoleId);
             //这里同意过后执行更新userMember数据
             UserMember userMember = userMemberMapper.get(customerUser.getUserMember());
+            //根据当前审核人的areaManager设置对应的审核人id
+            Operator currentUser = UserUtils.getCurrentUser();
+            //根据currentUser查询当前用户在前端表的数据
+            CustomerUser selectOption = new CustomerUser();
+            selectOption.setOperatorId(currentUser.getId());
+            CustomerUser byOperator = customerUserMapper.getByOperator(selectOption);
+            if (byOperator != null){
+                if (byOperator.getAreaManager() == 1){
+                    userMember.setProvinceUserId(currentUser.getId());
+                }else if (byOperator.getAreaManager() == 2){
+                    userMember.setCityUserId(currentUser.getId());
+                }else if (byOperator.getAreaManager() == 3){
+                    userMember.setDistrictUserId(currentUser.getId());
+                }
+            }
+            //获取当前用户的CustomerUser
+            //设置对应审核状态
             userMember.setStatus(customerUser.getUserMember().getStatus());
+            //设置对应审核意见
             userMember.setProvinceRefuseReason(customerUser.getUserMember().getProvinceRefuseReason());
             userMember.setProvincePassReason(customerUser.getUserMember().getProvincePassReason());
             userMember.setCityRefuseReason(customerUser.getUserMember().getCityRefuseReason());
@@ -130,8 +152,8 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     /**
      * 查询待办数据
-     * @param customerUsers
-     * @param customerUser
+     * @param
+     * @param
      * @return
      */
     public PageInfo<CustomerUser> findToDoDataPage(Page<CustomerUser> page, CustomerUser entity) {

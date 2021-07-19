@@ -83,6 +83,13 @@ public class PortalController extends BaseController {
         return "modules/common/import";
     }
 
+    @ResponseBody
+    @GetMapping("/getCurrentCustomerUser")
+    public CustomerUser getCurrentCustomerUser(){
+        CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
+        return currentCustomerUser;
+    }
+
     /**
      * 获取当前用户角色id----供审核流程时使用
      * @return
