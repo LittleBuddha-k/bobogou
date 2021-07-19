@@ -2,9 +2,11 @@ package com.littlebuddha.bobogou.modules.service.basic;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.basic.Contract;
 import com.littlebuddha.bobogou.modules.mapper.basic.ContractMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -19,10 +21,22 @@ public class ContractService extends CrudService<Contract, ContractMapper> {
     @Autowired
     private ContractMapper contractMapper;
 
+    @Autowired
+    private GlobalSetting globalSetting;
+
     @Override
     public Contract get(Contract entity) {
-        Contract Contract = contractMapper.get(entity);
-        return Contract;
+        Contract contract = contractMapper.get(entity);
+        if (contract != null && StringUtils.isNotBlank(contract.getContent())){
+            String content = contract.getContent();
+            String aa = "";
+            String[] split = content.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            contract.setContent(aa);
+        }
+        return contract;
     }
 
     @Override
@@ -39,7 +53,11 @@ public class ContractService extends CrudService<Contract, ContractMapper> {
 
     @Override
     public int save(Contract entity) {
-        return super.save(entity);
+        if (entity != null && StringUtils.isNotBlank(entity.getContent())){
+            entity.setContent(entity.getContent().replaceAll(globalSetting.getRootPath(),""));
+        }
+        int save = super.save(entity);
+        return save;
     }
 
     @Override

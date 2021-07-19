@@ -7,16 +7,36 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,upload = layui.upload
         ,element = layui.element;
 
-    //拖拽上传
+    //多图片上传
     upload.render({
-        elem: '#test10'
-        ,url: 'https://httpbin.org/post' //改成您自己的上传接口
-        ,accept: 'images、file、video、audio'
-        ,done: function(res){
-            layer.msg('上传成功');
-            layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.files.file);
-            console.log(res)
+        elem: '#test1',
+        url: '/bobogou/file/picture',
+        multiple: true,
+        before: function(obj){
+            //预读本地文件示例，不支持ie8---------base64
+            obj.preview(function(index, file, result){
+                $('#demo1').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#content").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#content").val(upload_image_url);
         }
+    });
+
+    /**
+     * 多图清除按钮点击事件
+     */
+    $("#btn_image_clear_test1").click(function () {
+        $('#demo1').html("");
+        $("#content").val('');
     });
 })
 
@@ -27,7 +47,7 @@ function save(parentIndex) {
         return false;
     }else {
         $.ajax({
-            url: "/bobogou/other/contract/save",    //请求的url地址
+            url: "/bobogou/basic/contract/save",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
             data: $("#contractForm").serialize(),    //参数值

@@ -149,4 +149,74 @@ public class PictureUploadController {
         }*/
         return result;
     }
+
+    /**
+     * 上传文件时
+     * @param request
+     * @param response
+     * @param file
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/upload")
+    public Result upload(HttpServletRequest request, HttpServletResponse response, MultipartFile file, Model model) {
+        Result result = new Result();
+        //String uploadPath = request.getParameter("uploadPath");
+        String fileName = file.getOriginalFilename();  // 文件名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+        //String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        String filePath = "D://temp-rainy//"; // 上传后的路径
+        //fileName = UUID.randomUUID() + suffixName; // 新文件名
+        File dest = new File(filePath + fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String domainName = globalSetting.getRootPath();
+        result.put("name",fileName);
+        String filename = "/temp-rainy/" + fileName;
+        result.put("url","/bobogou" +filename);
+        return result;
+    }
+
+    /**
+     * 下载文件时
+     * @param request
+     * @param response
+     * @param file
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/download")
+    public Result download(HttpServletRequest request, HttpServletResponse response, MultipartFile file, Model model) {
+        Result result = new Result();
+        //String uploadPath = request.getParameter("uploadPath");
+        String fileName = file.getOriginalFilename();  // 文件名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+        //String filePath = globalSetting.getUploadImage(); // 上传后的路径
+        String filePath = "D://temp-rainy//"; // 上传后的路径
+        //fileName = UUID.randomUUID() + suffixName; // 新文件名
+        File dest = new File(filePath + fileName);
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String domainName = globalSetting.getRootPath();
+        result.put("name",fileName);
+        String filename = "/temp-rainy/" + fileName;
+        result.put("url","/bobogou" +filename);
+        return result;
+    }
 }

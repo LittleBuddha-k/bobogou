@@ -33,10 +33,22 @@ layui.use(['form', 'table'], function () {
                     type: "radio"
                 },
                 {
-                    title: '合同名称',
-                    field: 'name',
+                    title: '类型',
+                    field: 'type',
                     sort: true,
-                    sortName: 'type'
+                    sortName: 'type',
+                    templet: function (data) {
+                        var type = data.type;
+                        if (1 == type){
+                            return "药房合同";
+                        }else if (2 == type){
+                            return "诊所合同";
+                        }else if (3 == type){
+                            return "医院合同";
+                        }else {
+                            return "未知";
+                        }
+                    }
                 },
                 {
                     title: '操作',
@@ -69,14 +81,14 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(contractTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/contract/form/add", "新建合同信息",'65%','70%')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/add", "新建合同信息",'650px','400px')
         }
     });
 
     table.on('tool(contractTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/contract/form/edit?id="+ids, "编辑合同信息",'65%','70%')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/edit?id="+ids, "编辑合同信息",'650px','400px')
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该合同信息吗？', function () {
                 rc.post("/bobogou/basic/contract/delete?ids=" + ids, '', function (data) {

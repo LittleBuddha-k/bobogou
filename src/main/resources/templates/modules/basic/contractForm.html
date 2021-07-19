@@ -11,26 +11,88 @@
 </head>
 <body>
 <div>
-    <form class="layui-form" id="agreementForm">
+    <form class="layui-form" id="contractForm">
         <input type="hidden" name="id" id="id" th:value="${contract.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">合同名称</label>
+                <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
-                    <input type="tel" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode == 'view' && contract.getType() == null}" disabled="true">
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode == 'view' && contract.getType() == 1}" disabled="true">
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode == 'view' && contract.getType() == 2}" disabled="true">
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode == 'view' && contract.getType() == 3}" disabled="true">
+                        <option th:value="3" th:text="医院合同"/>
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode != 'view' && contract.getType() == null}">
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode != 'view' && contract.getType() == 1}">
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode != 'view' && contract.getType() == 2}">
+                        <option th:value="2" th:text="诊所合同"/>
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="3" th:text="医院合同"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:if="${mode != 'view' && contract.getType() == 3}">
+                        <option th:value="3" th:text="医院合同"/>
+                        <option th:value="1" th:text="药房合同"/>
+                        <option th:value="2" th:text="诊所合同"/>
+                    </select>
                 </div>
             </div>
         </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">合同文件</label>
-            <div class="layui-upload-drag" id="test10">
-                <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide" id="uploadDemoView">
-                    <hr>
-                    <img src="" alt="上传成功后渲染" style="max-width: 196px">
-                </div>
+        <div class="layui-form-item" th:if="${contract.getContent() != null}" >
+            <label class="layui-form-label" for="cardFront">合同图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">合同图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img th:each="image:${contract.getContent().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
             </div>
+            <input type="hidden" th:id="content" th:name="content" th:value="${contract.getContent()}">
+        </div>
+        <div class="layui-form-item" th:if="${contract.getContent() == null}" >
+            <label class="layui-form-label" for="cardFront">合同图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">合同图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="content" th:name="content">
         </div>
     </form>
 </div>
@@ -39,8 +101,6 @@
 <script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
-<!--引入工具js-->
-<script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--markdown富文本编辑js-->
 <script src="/bobogou/plugins/markdown/js/editormd.js"></script>
 <script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
@@ -49,6 +109,8 @@
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/basic/contractForm.js"></script>
 </body>
