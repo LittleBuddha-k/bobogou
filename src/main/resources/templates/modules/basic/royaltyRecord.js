@@ -37,7 +37,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userName',
                     sort: true,
                     sortName: 'userName',
-                    width: '10%',
+                    width: '12.5%',
                     templet:function(data){
                         let userName = data.userName;
                         return userName;
@@ -48,28 +48,28 @@ layui.use(['form', 'table'], function () {
                     field: 'title',
                     sort: true,
                     sortName: 'title',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '提成金额',
                     field: 'money',
                     sort: true,
                     sortName: 'money',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '提成比例',
                     field: 'atio',
                     sort: true,
                     sortName: 'atio',
-                    width: '10%'
+                    width: '12.5%'
                 },
                 {
                     title: '类型',
                     field: 'type',
                     sort: true,
                     sortName: 'type',
-                    width: '10%',
+                    width: '12.5%',
                     templet:function(data){
                         let type = data.type;
                         if (1 == type){
@@ -93,7 +93,7 @@ layui.use(['form', 'table'], function () {
                     field: 'status',
                     sort: true,
                     sortName: 'status',
-                    width: '10%',
+                    width: '12.5%',
                     templet:function(data){
                         let status = data.status;
                         if (1 == status){
@@ -110,18 +110,18 @@ layui.use(['form', 'table'], function () {
                     field: 'successfulTime',
                     sort: true,
                     sortName: 'successfulTime',
-                    width: '10%',
+                    width: '12.5%',
                     templet:function(data){
                         let successfulTime = data.successfulTime;
                         return rc.dateFormat(successfulTime);
                     }
-                },
+                }/*,
                 {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
                     width: '12%'
-                }
+                }*/
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
