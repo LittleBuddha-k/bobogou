@@ -40,6 +40,7 @@ public class Operator extends DataEntity<Operator> {
     private String rolesId; //工具使用变量，重新修改角色属性时使用
 
     private CustomerUser customerUser;//后台人员亦关联前APP用户
+    private String userId;//后台人员亦关联前APP用户
 
     private Operator parent;//
     private String parentId;//上级id
@@ -237,6 +238,14 @@ public class Operator extends DataEntity<Operator> {
 
     public void setCustomerUser(CustomerUser customerUser) {
         this.customerUser = customerUser;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public Operator getParent() {

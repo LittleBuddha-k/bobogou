@@ -19,6 +19,7 @@
         province_id AS "provinceId",
         city_id AS "cityId",
         area_id AS "areaId",
+        user_id AS "userId",
         area_manager AS "areaManager",
         status AS "status",
         create_by AS "createBy.id",
@@ -163,6 +164,7 @@
             province_id,
             city_id,
             area_id,
+            user_id,
             area_manager,
             status,
             create_by,
@@ -189,6 +191,7 @@
             #{provinceId},
             #{cityId},
             #{areaId},
+            #{userId},
             #{areaManager},
             #{status},
             #{createBy.id},
@@ -218,6 +221,7 @@
             province_id = #{provinceId},
             city_id = #{cityId},
             area_id = #{areaId},
+            user_id = #{userId},
             area_manager = #{areaManager},
             status = #{status},
             create_by = #{createBy.id},
@@ -226,6 +230,11 @@
             update_date = #{updateDate},
             del_flag = #{delFlag},
             remarks = #{remarks}
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateUserId">
+        UPDATE system_operator SET user_id = #{userId}
         WHERE id=#{id}
     </update>
 

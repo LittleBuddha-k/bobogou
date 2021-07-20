@@ -53,4 +53,6 @@ public interface OperatorMapper extends BaseMapper<Operator> {
      * @return
      */
     List<RoleMenu> getRoleMenusByRole(RoleMenu roleMenu);
+
+    void updateUserId(Operator operator);
 }

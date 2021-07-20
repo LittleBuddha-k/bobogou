@@ -131,6 +131,11 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                     customerUser.preUpdate();
                     customerUserMapper.update(customerUser);
                 }
+                //更新operator表关联前端用户的user_id字段
+                Operator updateUserId = new Operator();
+                updateUserId.setId(operator.getId());
+                updateUserId.setUserId(customerUser.getId());
+                operatorMapper.updateUserId(updateUserId);
             } else {
                 customerUserMapper.deleteByLogic(customerUser);
             }

@@ -250,7 +250,7 @@
                 <div class="layui-input-inline">
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
                             th:if="${mode != 'detail' && goods.getGoodsClassify() == null}">
-                        <option value="0">1</option>
+                        <option value="0">请选择</option>
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
                             th:if="${mode != 'detail' && goods.getGoodsClassify() != null}">
