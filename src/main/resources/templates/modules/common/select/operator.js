@@ -18,14 +18,14 @@ layui.use(['form', 'table'], function () {
         },
         toolbar: '#toolBar',
         defaultToolbar: [
-            'filter',
+            /*'filter',
             'exports',
             'print',
             {
                 title: '提示',
                 layEvent: 'test',
                 icon: 'layui-icon-tips'
-            }
+            }*/
         ],
         cols: [
             [
@@ -35,21 +35,19 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '登录名',
                     field: 'loginName',
-                    sort: true,
-                    width: '25%'
+                    sort: true
                 },
                 {
                     title: '昵称',
                     field: 'nickname',
-                    sort: true,
-                    width: '25%'
+                    sort: true
                 },
                 {
                     title: '电话',
                     field: 'phone',
-                    sort: true,
-                    width: '25%'
+                    sort: true
                 },
+                /*
                 {
                     title: '性别',
                     field: 'sex',
@@ -65,8 +63,7 @@ layui.use(['form', 'table'], function () {
                             return "女";
                         }
                     }
-                },
-                /*{
+                },{
                     title: '消息状态',
                     field: 'messageStatus',
                     sort: true,

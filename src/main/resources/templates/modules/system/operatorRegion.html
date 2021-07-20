@@ -19,52 +19,81 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">用户</label>
+                            <label class="layui-form-label">后台用户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="loginName" th:value="${operator.getLoginName()}"
-                                       th:id="loginName" autocomplete="off" class="layui-input">
+                                <input type="text" name="operatorName" th:value="${operatorRegion.getOperatorName()}"
+                                       th:id="operatorName" autocomplete="off" class="layui-input">
+                                <input type="hidden" name="operatorId" th:id="operatorId" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">管理员昵称</label>
+                            <label class="layui-form-label">前端用户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="nickname" th:value="${operator.getNickname()}"
-                                       th:id="nickname" autocomplete="off" class="layui-input">
+                                <input type="text" name="userName" th:value="${operatorRegion.getUserName()}"
+                                       th:id="userName" autocomplete="off" class="layui-input">
+                                <input type="hidden" name="userId" th:value="${operatorRegion.getUserName()}"
+                                       th:id="userId" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">管理员电话</label>
+                            <label class="layui-form-label">类型</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
-                                       th:id="phone" class="layui-input">
+                                <select name="type" th:id="type" lay-verify="" th:if="${operatorRegion.getType() == null}">
+                                    <option th:value="1" th:text="超级管理员助理"/>
+                                    <option th:value="2" th:text="省级经纪人"/>
+                                    <option th:value="3" th:text="市级经纪人"/>
+                                    <option th:value="4" th:text="区级经纪人"/>
+                                </select>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="layui-inline">
+                            <label class="layui-form-label" for="province">省</label>
+                            <div class="layui-input-inline">
+                                <select name="provinceId" lay-verify="" th:if="${mode == 'add'}" lay-filter="province"
+                                        th:id="province">
+                                    <option th:text="请选择"/>
+                                    <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                                            th:text="${province.getName()}"/>
+                                </select>
+                                <select name="provinceId" lay-verify="" th:if="${mode != 'add'}" lay-filter="province"
+                                        th:id="province">
+                                    <option th:each="province:${provinceList}"
+                                            th:if="${province.getId() == operatorRegion.getProvinceId()}"
+                                            th:value="${province.getId()}" th:text="${province.getName()}"/>
+                                    <option th:each="province:${provinceList}"
+                                            th:if="${province.getId() != operatorRegion.getProvinceId()}"
+                                            th:value="${province.getId()}" th:text="${province.getName()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">管理员性别</label>
+                            <label class="layui-form-label">市</label>
                             <div class="layui-input-inline">
-                                <select name="sex" th:id="sex" lay-verify="" th:if="${operator.getSex() == null}">
-                                    <option th:text="请选择" th:value="''"/>
-                                    <option th:value="0" th:text="未知"/>
-                                    <option th:value="1" th:text="男"/>
-                                    <option th:value="2" th:text="女"/>
-                                </select>
-                                <select name="sex" th:id="sex" lay-verify="" th:if="${operator.getSex() == 0}">
-                                    <option th:value="0" th:text="未知"/>
-                                    <option th:value="1" th:text="男"/>
-                                    <option th:value="2" th:text="女"/>
-                                </select>
-                                <select name="sex" th:id="sex" lay-verify="" th:if="${operator.getSex() == 1}">
-                                    <option th:value="1" th:text="男"/>
-                                    <option th:value="0" th:text="未知"/>
-                                    <option th:value="2" th:text="女"/>
-                                </select>
-                                <select name="sex" th:id="sex" lay-verify="" th:if="${operator.getSex() == 2}">
-                                    <option th:value="2" th:text="女"/>
-                                    <option th:value="0" th:text="未知"/>
-                                    <option th:value="1" th:text="男"/>
+                                <select name="cityId" lay-verify="" lay-filter="city" th:id="city">
+                                    <option th:if="${operatorRegion.getCity() != null}" th:value="${operatorRegion.getCityId()}"
+                                            th:text="${operatorRegion.getCity().getName()}"/>
                                 </select>
                             </div>
                         </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">区</label>
+                            <div class="layui-input-inline">
+                                <select name="districtId" lay-verify="" lay-filter="area" th:id="area">
+                                    <option th:if="${operatorRegion.getArea() != null}" th:value="${operatorRegion.districtId}"
+                                            th:text="${operatorRegion.getArea().getName()}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">街道</label>
+                            <div class="layui-input-inline">
+                                <select name="streetId" lay-verify="" th:id="street" lay-filter="street">
+                                    <option th:if="${operatorRegion.getStreet() != null}" th:value="${operatorRegion.getStreetId()}"
+                                            th:text="${operatorRegion.getStreet().getName()}"/>
+                                </select>
+                            </div>
+                        </div>-->
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -78,32 +107,14 @@
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                <!--<shiro:hasPermission name="system:operator:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="system:operator:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="system:operator:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="system:operator:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="system:operator:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>-->
             </div>
         </script>
 
-        <table class="layui-hide" id="operatorTable" lay-filter="operatorTableFilter"></table>
+        <table class="layui-hide" id="operatorRegionTable" lay-filter="operatorRegionTableFilter"></table>
 
         <script type="text/html" id="operation">
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="view">查看</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>
-            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="setRole">设置角色</a>
         </script>
 
     </div>
@@ -112,7 +123,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/system/operator.js"></script>
+<script type="text/javascript" src="/bobogou/modules/system/operatorRegion.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

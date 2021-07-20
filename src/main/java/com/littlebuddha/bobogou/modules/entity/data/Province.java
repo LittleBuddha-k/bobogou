@@ -16,6 +16,13 @@ public class Province extends DataEntity<Province> {
     private Integer status;//状态
     private String tenantCode;//租户ID
 
+    public Province() {
+    }
+
+    public Province(String id) {
+        super(id);
+    }
+
     public String getCode() {
         return code;
     }

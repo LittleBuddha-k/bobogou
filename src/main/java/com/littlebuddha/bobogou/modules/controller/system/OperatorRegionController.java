@@ -5,7 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
+import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorRegionService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -22,6 +25,9 @@ public class OperatorRegionController extends BaseController {
 
     @Autowired
     private OperatorRegionService operatorRegionService;
+
+    @Autowired
+    private ProvinceService provinceService;
 
     @ModelAttribute
     public OperatorRegion get(@RequestParam(required = false) String id) {
@@ -45,8 +51,11 @@ public class OperatorRegionController extends BaseController {
      */
     @GetMapping(value = {"/", "/list"})
     public String list(OperatorRegion operatorRegion, Model model, HttpSession session) {
+        //查询省级数据
+        List<Province> provinceList = provinceService.findList(new Province());
+        model.addAttribute("provinceList", provinceList);
         model.addAttribute("operatorRegion", operatorRegion);
-        return "modules/data/operatorRegion";
+        return "modules/system/operatorRegion";
     }
 
     /**
@@ -71,8 +80,11 @@ public class OperatorRegionController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, OperatorRegion operatorRegion, Model model) {
+        //查询省级数据
+        List<Province> provinceList = provinceService.findList(new Province());
+        model.addAttribute("provinceList", provinceList);
         model.addAttribute("operatorRegion", operatorRegion);
-        return "modules/data/operatorRegionForm";
+        return "modules/system/operatorRegionForm";
     }
 
     /**
@@ -93,20 +105,6 @@ public class OperatorRegionController extends BaseController {
     }
 
     @ResponseBody
-    @PostMapping("/delete")
-    public Result delete(String ids) {
-        String[] split = ids.split(",");
-        for (String s : split) {
-            OperatorRegion operatorRegion = operatorRegionService.get(s);
-            if (operatorRegion == null) {
-                return new Result("311", "数据不存在,或已被删除，请刷新试试！");
-            }
-            int i = operatorRegionService.deleteByLogic(operatorRegion);
-        }
-        return new Result("200", "数据清除成功");
-    }
-
-    @ResponseBody
     @PostMapping("/deleteByPhysics")
     public Result deleteByPhysics(String ids) {
         String[] split = ids.split(",");
@@ -118,30 +116,5 @@ public class OperatorRegionController extends BaseController {
             int i = operatorRegionService.deleteByPhysics(operatorRegion);
         }
         return new Result("200", "数据清除成功");
-    }
-
-    @GetMapping("/recoveryList")
-    public String recoveryList(OperatorRegion operatorRegion, Model model) {
-        model.addAttribute("operatorRegion", operatorRegion);
-        return "modules/recovery/operatorRegionRecovery";
-    }
-
-    @ResponseBody
-    @PostMapping("/recoveryData")
-    public Map recoveryData(OperatorRegion operatorRegion, Model model) {
-        model.addAttribute("operatorRegion", operatorRegion);
-        PageInfo<OperatorRegion> page = operatorRegionService.findRecoveryPage(new Page<OperatorRegion>(), operatorRegion);
-        return getBootstrapData(page);
-    }
-
-    @ResponseBody
-    @PostMapping("/recovery")
-    public Result recovery(OperatorRegion operatorRegion) {
-        int recovery = operatorRegionService.recovery(operatorRegion);
-        if (recovery > 0) {
-            return new Result("200", "数据已恢复");
-        } else {
-            return new Result("322", "未知错误，数据恢复失败");
-        }
     }
 }

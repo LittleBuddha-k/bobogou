@@ -3,9 +3,58 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
+    /*//下拉框选中后的时间
+    form.on('select(province)', function(data){
+        let provinceId = data.value;
+        $("#city").empty();//清空城市选项
+        rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#city").html(tmp);
+                form.render();
+            }
+        })
+    });
+    //下拉框选中后的时间
+    form.on('select(city)', function(data){
+        let cityId = data.value;
+        $("#area").empty();//清空城市选项
+        rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#area").html(tmp);
+                form.render();
+            }
+        })
+    });
+    //下拉框选中后的时间
+    form.on('select(area)', function(data){
+        let streetId = data.value;
+        $("#street").empty();//清空城市选项
+        rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
+            if(data.length>0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp='<option value="">请选择</option>';
+                for(let i=0;i<data.length;i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#street").html(tmp);
+                form.render();
+            }
+        })
+    });*/
+
     table.render({
-        elem: '#operatorTable',
-        url: '/bobogou/system/operator/data',
+        elem: '#operatorRegionTable',
+        url: '/bobogou/system/operatorRegion/data',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -33,82 +82,58 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '登录名',
-                    field: 'loginName',
-                    sort: true,
-                    width: '15%'
+                    title: '后台用户名',
+                    field: 'operatorName',
+                    sort: true
                 },
                 {
-                    title: '昵称',
-                    field: 'nickname',
-                    sort: true,
-                    width: '15%'
+                    title: '前端用户名',
+                    field: 'userName',
+                    sort: true
                 },
                 {
-                    title: '电话',
-                    field: 'phone',
+                    title: '类型',
+                    field: 'type',
                     sort: true,
-                    width: '20%'
-                },
-                {
-                    title: '性别',
-                    field: 'sex',
-                    sort: true,
-                    width: '5%',
                     templet: function (data) {
-                        var sex = data.sex;
-                        if (0 == sex) {
-                            return "未知";
-                        } else if (1 == sex) {
-                            return "男";
+                        var type = data.type;
+                        if (1 == type) {
+                            return "超级管理员助理";
                         } else if (2 == sex) {
-                            return "女";
-                        }
-                    }
-                },
-                {
-                    title: '消息状态',
-                    field: 'messageStatus',
-                    sort: true,
-                    width: '10%',
-                    templet: function (data) {
-                        var messageStatus = data.messageStatus;
-                        if (0 == messageStatus) {
-                            return "关闭";
-                        } else if (1 == messageStatus) {
-                            return "打开";
-                        } else {
+                            return "省级经纪人";
+                        } else if (3 == sex) {
+                            return "市级经纪人";
+                        } else if (4 == sex) {
+                            return "区级经纪人";
+                        }else {
                             return "未知";
                         }
                     }
                 },
                 {
-                    title: '工号',
-                    field: 'workNumber',
+                    title: '省',
+                    field: 'provinceName',
                     sort: true,
-                    width: '10%'
                 },
                 {
-                    title: '登录标识',
-                    field: 'loginFlag',
-                    sort: true,
-                    width: '10%',
-                    templet: function (data) {
-                        var loginFlag = data.loginFlag;
-                        if (0 == loginFlag) {
-                            return "不允许登录";
-                        } else if (1 == loginFlag) {
-                            return "允许登录";
-                        } else {
-                            return "未知";
-                        }
-                    }
+                    title: '市',
+                    field: 'cityName',
+                    sort: true
+                },
+                {
+                    title: '区',
+                    field: 'areaName',
+                    sort: true
+                },
+                {
+                    title: '乡镇街道',
+                    field: 'streetName',
+                    sort: true
                 },
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center",
-                    width: '15%'
+                    align: "center"
                 }
             ]
         ],
@@ -117,10 +142,9 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            loginName: $("#loginName").val(),
-            nickname: $("#nickname").val(),
-            phone: $("#phone").val(),
-            sex: $("#sex").val()
+            operatorId: $("#operatorId").val(),
+            userId: $("#userId").val(),
+            type: $("#type").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -128,12 +152,11 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('operatorTable', {
+        table.reload('operatorRegionTable', {
             where: {
-                loginName: $("#loginName").val(),
-                nickname: $("#nickname").val(),
-                phone: $("#phone").val(),
-                sex: $("#sex").val()
+                operatorId: $("#operatorId").val(),
+                userId: $("#userId").val(),
+                type: $("#type").val()
             }
         });
         return false;
@@ -142,21 +165,19 @@ layui.use(['form', 'table'], function () {
     /**
      * toolbar监听事件
      */
-    table.on('toolbar(operatorTableFilter)', function (obj) {
+    table.on('toolbar(operatorRegionTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/operator/form/add", "新建用户信息", '730px', '680px')
+            var index = rc.openSaveDialog("/bobogou/system/operatorRegion/form/add", "新建用户区域信息", '763px', '50%')
         }
     });
 
-    table.on('tool(operatorTableFilter)', function (obj) {
+    table.on('tool(operatorRegionTableFilter)', function (obj) {
         var id = obj.data.id;
         if (obj.event === 'edit') {  // 监听修改操作
-            rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + id, "编辑用户信息", '730px', '680px');
-        } else if (obj.event === 'view') {  // 监听查看操作
-            rc.openViewDialog('/bobogou/system/operator/form/view?id=' + id, "查看用户信息", '730px', '680px');
+            rc.openSaveDialog('/bobogou/system/operatorRegion/form/edit?id=' + id, "编辑用户区域信息", '763px', '50%');
         } else if (obj.event === 'delete') {  // 监听删除操作
-            rc.confirm('确认要删除该信息吗？', function () {
-                rc.post("/bobogou/system/operator/delete?ids=" + id, '', function (data) {
+            rc.confirm('确认要删除该用户区域信息吗？', function () {
+                rc.post("/bobogou/system/operatorRegion/deleteByPhysics?ids=" + id, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();
@@ -165,8 +186,6 @@ layui.use(['form', 'table'], function () {
                     }
                 });
             })
-        } else if (obj.event === 'setRole') {
-            var index = rc.openSelectionDialog("/bobogou/system/operator/addRolePage?id=" + id, "设置角色", '100%', '100%')
         }
     });
 });
@@ -178,7 +197,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('operatorTable'),
+    var checkStatus = table.checkStatus('operatorRegionTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -195,7 +214,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('operatorTable', {
+        table.reload('operatorRegionTable', {
             page: {
                 curr: 1
             }

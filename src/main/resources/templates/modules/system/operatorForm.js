@@ -143,7 +143,7 @@ function save(parentIndex) {
                                                 rc.msg(result.msg)
                                                 setTimeout(function(){
                                                     parent.layer.close(index); //再执行关闭
-                                                }, 1000);
+                                                }, 500);
                                             }else {
                                                 rc.msg(result.msg)
                                             }
@@ -180,7 +180,7 @@ function save(parentIndex) {
                         rc.msg(result.msg)
                         setTimeout(function(){
                             parent.layer.close(index); //再执行关闭
-                        }, 1000);
+                        }, 500);
                     }else {
                         rc.msg(result.msg)
                     }

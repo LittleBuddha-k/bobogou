@@ -6,6 +6,7 @@ import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.data.Street;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -50,6 +51,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getOperatorId() {
+        if (operator != null && StringUtils.isNotBlank(operator.getId())){
+            operatorId = operator.getId();
+        }
         return operatorId;
     }
 
@@ -58,6 +62,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getOperatorName() {
+        if (operator != null && StringUtils.isNotBlank(operator.getNickname())){
+            operatorName = operator.getNickname();
+        }
         return operatorName;
     }
 
@@ -74,6 +81,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getUserId() {
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getId())){
+            userId = customerUser.getId();
+        }
         return userId;
     }
 
@@ -82,6 +92,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getUserName() {
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+            userName = customerUser.getNickname();
+        }
         return userName;
     }
 
@@ -106,6 +119,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getProvinceId() {
+        if (province != null && StringUtils.isNotBlank(province.getId())){
+            provinceId = province.getId();
+        }
         return provinceId;
     }
 
@@ -114,6 +130,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getProvinceName() {
+        if (province != null && StringUtils.isNotBlank(province.getName())){
+            provinceName = province.getName();
+        }
         return provinceName;
     }
 
@@ -130,6 +149,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getCityId() {
+        if (city != null && StringUtils.isNotBlank(city.getId())){
+            cityId = city.getId();
+        }
         return cityId;
     }
 
@@ -138,6 +160,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getCityName() {
+        if (city != null && StringUtils.isNotBlank(city.getName())){
+            cityName = city.getName();
+        }
         return cityName;
     }
 
@@ -154,6 +179,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getAreaId() {
+        if (area != null && StringUtils.isNotBlank(area.getId())){
+            areaId = area.getId();
+        }
         return areaId;
     }
 
@@ -162,6 +190,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getAreaName() {
+        if (area != null && StringUtils.isNotBlank(area.getName())){
+            areaName = area.getName();
+        }
         return areaName;
     }
 
@@ -178,6 +209,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getStreetId() {
+        if (street != null && StringUtils.isNotBlank(street.getId())){
+            streetId = street.getId();
+        }
         return streetId;
     }
 
@@ -186,6 +220,9 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getStreetName() {
+        if (street != null && StringUtils.isNotBlank(street.getName())){
+            streetName = street.getName();
+        }
         return streetName;
     }
 

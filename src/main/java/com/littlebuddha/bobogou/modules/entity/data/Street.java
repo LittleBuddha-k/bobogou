@@ -20,6 +20,13 @@ public class Street extends DataEntity<Street> {
     private Integer status;
     private String tenantCode;
 
+    public Street() {
+    }
+
+    public Street(String id) {
+        super(id);
+    }
+
     public String getCode() {
         return code;
     }
