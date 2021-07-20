@@ -192,9 +192,16 @@ public class GoodsController extends BaseController {
         //查询当前商品的商品分类详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
             GoodsClassify select = new GoodsClassify();
-            select.setGoodsId(goods.getId());
-            GoodsClassify goodsClassify = goodsClassifyService.getByGoods(select);
-            goods.setGoodsClassify(goodsClassify);
+            select.setId(goods.getId());
+            GoodsClassify goodsClassify = goodsClassifyService.get(select);
+            if (goodsClassify != null){
+                Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
+                Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
+                Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
+                goods.setClassify(classify);
+                goods.setSecondClassify(secondClassify);
+                goods.setReclassify(reclassify);
+            }
         }
         //查询商品详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
