@@ -45,6 +45,9 @@ public class Operator extends DataEntity<Operator> {
     private String parentId;//上级id
     private String parentName;//上级名称
 
+    private Integer areaManager;//区域经理等级
+    private Integer status;//是否APP上注册
+
     public Operator() {
     }
 
@@ -261,5 +264,21 @@ public class Operator extends DataEntity<Operator> {
 
     public void setParentName(String parentName) {
         this.parentName = parentName;
+    }
+
+    public Integer getAreaManager() {
+        return areaManager;
+    }
+
+    public void setAreaManager(Integer areaManager) {
+        this.areaManager = areaManager;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

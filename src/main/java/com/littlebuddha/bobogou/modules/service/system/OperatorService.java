@@ -61,7 +61,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             Md5Hash md5Hash = new Md5Hash(operator.getPassword(), splicing, 1024);
             operator.setSalt(splicing);
             operator.setPassword(md5Hash.toHex());
-            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(),""));
+            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(), ""));
             operatorRow = operatorMapper.insert(operator);
 
             //这里应该将operator form填写的roles数据单独保存到operator-role表格
@@ -77,12 +77,12 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         } else {
             //如果前端传回的密码与原本数据库密码不匹配，执行修改密码
             Operator initOperator = operatorMapper.get(operator);
-            if(StringUtils.isNotBlank(operator.getPassword()) && initOperator != null && !operator.getPassword().equals(initOperator.getPassword())){
+            if (StringUtils.isNotBlank(operator.getPassword()) && initOperator != null && !operator.getPassword().equals(initOperator.getPassword())) {
                 Md5Hash md5Hash = new Md5Hash(operator.getPassword(), initOperator.getSalt(), 1024);
                 operator.setPassword(md5Hash.toHex());
             }
             operator.preUpdate();
-            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(),""));
+            operator.setPicture(operator.getPicture().replaceAll(globalSetting.getRootPath(), ""));
             operatorRow = operatorMapper.update(operator);
 
             //这里应该将operator form填写的roles数据单独保存到operator-role表格
@@ -105,27 +105,34 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             }
         }
         //关联保存app用户
-        if(operator.getCustomerUser() != null){
+        if (operator.getAreaManager() != null || operator.getStatus() != null) {
             CustomerUser customerUser = operator.getCustomerUser();
-            if (CustomerUser.DEL_FLAG_NORMAL.equals(customerUser.getDelFlag())){
+            if (customerUser == null) {
+                customerUser = new CustomerUser();
+            }
+            if (CustomerUser.DEL_FLAG_NORMAL.equals(customerUser.getDelFlag())) {
                 if (!StringUtils.isNotBlank(customerUser.getId())) {
                     customerUser.setIdType("AUTO");
                     customerUser.setNickname(operator.getNickname());
                     customerUser.setSex(operator.getSex());
                     customerUser.setPhone(operator.getPhone());
                     customerUser.setOperatorId(operator.getId());
+                    customerUser.setAreaManager(operator.getAreaManager());
+                    customerUser.setStatus(operator.getStatus());
                     customerUser.preInsert();
                     customerUserMapper.insert(customerUser);
-                }else {
+                } else {
                     customerUser.setNickname(operator.getNickname());
                     customerUser.setSex(operator.getSex());
                     customerUser.setPhone(operator.getPhone());
                     customerUser.setOperatorId(operator.getId());
+                    customerUser.setAreaManager(operator.getAreaManager());
+                    customerUser.setStatus(operator.getStatus());
                     customerUser.preUpdate();
                     customerUserMapper.update(customerUser);
                 }
-            }else {
-
+            } else {
+                customerUserMapper.deleteByLogic(customerUser);
             }
         }
         return operatorRow;
@@ -161,7 +168,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Override
     public Operator get(String id) {
         Operator operator = super.get(id);
-        if (operator != null){
+        if (operator != null) {
             operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
         }
         return operator;
@@ -170,7 +177,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Override
     public Operator get(Operator entity) {
         Operator operator = super.get(entity);
-        if (operator != null){
+        if (operator != null) {
             operator.setPicture(globalSetting.getRootPath() + operator.getPicture());
         }
         return operator;
@@ -187,7 +194,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
 
     @Override
     public PageInfo<Operator> findPage(Page<Operator> page, Operator entity) {
-        if (entity != null){
+        if (entity != null) {
             String loginName = StringUtils.deleteWhitespace(entity.getLoginName());
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
             String phone = StringUtils.deleteWhitespace(entity.getPhone());
@@ -207,7 +214,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Transactional
     public int deleteByPhysics(Operator entity) {
         int i = super.deleteByPhysics(entity);
-        if(entity != null && StringUtils.isNotBlank(entity.getId())){
+        if (entity != null && StringUtils.isNotBlank(entity.getId())) {
             operatorRoleMapper.deleteByOperatorPhysics(new OperatorRole(entity));
         }
         return i;
@@ -217,7 +224,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
     @Transactional
     public int deleteByLogic(Operator entity) {
         int i = super.deleteByLogic(entity);
-        if(entity != null && StringUtils.isNotBlank(entity.getId())){
+        if (entity != null && StringUtils.isNotBlank(entity.getId())) {
             operatorRoleMapper.deleteByOperatorLogic(new OperatorRole(entity));
         }
         return i;
@@ -248,7 +255,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         List<Menu> menusByRole = new ArrayList<>();
         //1.查询当前用户的所有角色菜单信息
         for (OperatorRole operatorRole : rolesByOperator) {
-            if (operatorRole != null && operatorRole.getRole() !=  null &&StringUtils.isNotBlank(operatorRole.getRole().getId())) {
+            if (operatorRole != null && operatorRole.getRole() != null && StringUtils.isNotBlank(operatorRole.getRole().getId())) {
                 List<Menu> menus = menuMapper.findList(new Menu(operatorRole.getRole()));
                 if (menus != null && menus.size() > 0) {
                     menusByRole.addAll(menus);
