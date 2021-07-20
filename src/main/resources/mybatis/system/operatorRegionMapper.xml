@@ -27,9 +27,12 @@
         FROM system_operator_region a
         <where>
             <!-- 判断条件参数是否为空 -->
-            <!--<if test="name != null and name != ''">
-                and a.name = #{name}
-            </if>-->
+            <if test="operatorId != null and operatorId != ''">
+                a.operator_id = #{operatorId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

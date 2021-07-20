@@ -114,7 +114,17 @@ layui.use(['form', 'table'], function () {
                     title: '是否销售',
                     field: 'isMarket',
                     sort: true,
-                    align: 'center'
+                    align: 'center',
+                    templet: function (data) {
+                        var isMarket = data.isMarket;
+                        if (0 == isMarket) {
+                            return "在售";
+                        } else if (1 == isMarket) {
+                            return "停售";
+                        } else {
+                            return "未知";
+                        }
+                    }
                 }
             ]
         ],

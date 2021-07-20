@@ -4,17 +4,17 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     //下拉框选中后的时间
-    form.on('select(province)', function(data){
+    form.on('select(province)', function (data) {
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
         let provinceId = data.value;
         $("#cityId").empty();//清空城市选项
-        rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/city/all", {"province.id": provinceId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#cityId").html(tmp);
@@ -23,17 +23,17 @@ layui.use(['form', 'table'], function () {
         })
     });
     //下拉框选中后的时间
-    form.on('select(city)', function(data){
+    form.on('select(city)', function (data) {
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
         let cityId = data.value;
         $("#districtId").empty();//清空城市选项
-        rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#districtId").html(tmp);
@@ -42,17 +42,17 @@ layui.use(['form', 'table'], function () {
         })
     });
     //下拉框选中后的时间
-    form.on('select(area)', function(data){
+    form.on('select(area)', function (data) {
         //console.log(data.elem); //得到select原始DOM对象
         //console.log(data.value); //得到被选中的值
         //console.log(data.othis); //得到美化后的DOM对象
         let streetId = data.value;
         $("#streetId").empty();//清空城市选项
-        rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/street/all", {"area.id": streetId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#streetId").html(tmp);
@@ -61,7 +61,7 @@ layui.use(['form', 'table'], function () {
         })
     });
 
-    table.render({
+    var init = table.render({
         elem: '#regionGoodsTable',
         url: '/bobogou/data/regionGoods/data',
         method: 'GET',
@@ -149,13 +149,13 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     width: '10%',
                     sortName: 'isMarket',
-                    templet:function(data){
+                    templet: function (data) {
                         let isMarket = data.isMarket;
-                        if(0 == isMarket){
+                        if (0 == isMarket) {
                             return "在售";
-                        }else if(1 == isMarket){
+                        } else if (1 == isMarket) {
                             return "停售";
-                        }else {
+                        } else {
                             return ""
                         }
                     }
@@ -206,7 +206,16 @@ layui.use(['form', 'table'], function () {
     });
 
     // 监听重置操作
-    form.on('submit(data-reset-btn)', function (data) {
+    $("#reset").click(function () {
+        provinceId: $("#provinceId").val("");
+        cityId: $("#cityId").val("");
+        districtId: $("#districtId").val("");
+        streetId: $("#streetId").val("");
+        goodsId: $("#goods").val("");
+        isMarket: $("#isMarket").val("");
+        init();
+    })
+    /*form.on('submit(data-reset-btn)', function (data) {
         //执行搜索重载
         table.reload('regionGoodsTable', {
             where: {
@@ -219,14 +228,14 @@ layui.use(['form', 'table'], function () {
             }
         });
         return false;
-    });
+    });*/
 
     /**
      * toolbar监听事件
      */
     table.on('toolbar(regionGoodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息",'1320px','450px')
+            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息", '1320px', '450px')
         }
     });
 
@@ -234,10 +243,10 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
 
-        if('edit' == event){
-            rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息",'1320px','450px');
-        }else if ('delete' == event){
-            rc.confirm('确认要删除该信息吗？', function() {
+        if ('edit' == event) {
+            rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息", '1320px', '450px');
+        } else if ('delete' == event) {
+            rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/data/regionGoods/delete?ids=" + id, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
@@ -280,13 +289,11 @@ function refresh() {
             page: {
                 curr: 1
             }
-            , where: {
-
-            }
+            , where: {}
         }, 'data');
     })
 }
 
 function selectGoods(id) {
-    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
+    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '50%', '50%', id);
 }

@@ -21,11 +21,11 @@
                         <div class="layui-inline">
                             <label class="layui-form-label">后台用户</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="operatorName" th:value="${operatorRegion.getOperatorName()}"
-                                       th:id="operatorName" autocomplete="off" class="layui-input">
-                                <input type="hidden" name="operatorId" th:id="operatorId" autocomplete="off" class="layui-input">
+                                <input type="text" th:id="operatorId" th:value="${operatorRegion.getOperatorName()}"
+                                       autocomplete="off" class="layui-input" readonly onclick="selectOperator('operatorId')">
+                                <input type="hidden" th:id="selectOperatorId" th:name="operatorId" autocomplete="off" class="layui-input">
                             </div>
-                        </div>
+                        </div><!--
                         <div class="layui-inline">
                             <label class="layui-form-label">前端用户</label>
                             <div class="layui-input-inline">
@@ -34,11 +34,12 @@
                                 <input type="hidden" name="userId" th:value="${operatorRegion.getUserName()}"
                                        th:id="userId" autocomplete="off" class="layui-input">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="layui-inline">
                             <label class="layui-form-label">类型</label>
                             <div class="layui-input-inline">
                                 <select name="type" th:id="type" lay-verify="" th:if="${operatorRegion.getType() == null}">
+                                    <option th:value="0" th:text="请选择"/>
                                     <option th:value="1" th:text="超级管理员助理"/>
                                     <option th:value="2" th:text="省级经纪人"/>
                                     <option th:value="3" th:text="市级经纪人"/>
@@ -97,6 +98,9 @@
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-reset-btn" th:id="reset"><i class="layui-icon"></i> 重 置
                             </button>
                         </div>
                     </div>

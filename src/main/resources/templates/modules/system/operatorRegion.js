@@ -52,7 +52,7 @@ layui.use(['form', 'table'], function () {
         })
     });*/
 
-    table.render({
+    var init = table.render({
         elem: '#operatorRegionTable',
         url: '/bobogou/system/operatorRegion/data',
         method: 'GET',
@@ -142,8 +142,7 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            operatorId: $("#operatorId").val(),
-            userId: $("#userId").val(),
+            operatorId: $("#selectOperatorId").val(),
             type: $("#type").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
@@ -154,13 +153,19 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('operatorRegionTable', {
             where: {
-                operatorId: $("#operatorId").val(),
-                userId: $("#userId").val(),
+                operatorId: $("#selectOperatorId").val(),
                 type: $("#type").val()
             }
         });
         return false;
     });
+
+    // 监听重置操作
+    $("#reset").click(function () {
+        $("#selectOperatorId").val("");
+        $("#type").val("");
+        init();
+    })
 
     /**
      * toolbar监听事件
@@ -189,6 +194,10 @@ layui.use(['form', 'table'], function () {
         }
     });
 });
+
+function selectOperator(id) {
+    let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择用户", '50%', '45%',id);
+}
 
 /**
  * 获取layui table 复选框的id
