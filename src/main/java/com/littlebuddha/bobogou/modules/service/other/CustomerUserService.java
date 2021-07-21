@@ -10,9 +10,11 @@ import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -35,6 +37,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Autowired
     private UserMemberMapper userMemberMapper;
+
+    @Autowired
+    private OperatorRegionMapper operatorRegionMapper;
 
     @Override
     public CustomerUser get(CustomerUser entity) {
@@ -151,7 +156,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     }
 
     /**
-     * 查询待办数据
+     * 查询待办数据(区级管理以外的数据)
      * @param
      * @param
      * @return
@@ -168,6 +173,49 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             entity.setPage(page);
             PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
             List<CustomerUser> list = customerUserMapper.getToDoList(entity);
+            pageInfo = new PageInfo<CustomerUser>(list);
+        }
+        return pageInfo;
+    }
+
+    /**
+     * 查询待办数据(区级管理数据)
+     * @param
+     * @param
+     * @return
+     */
+    public PageInfo<CustomerUser> findVipApplyForAreaManager(Page<CustomerUser> page, CustomerUser entity) {
+        //if(entity != null){
+        //    String phone = StringUtils.deleteWhitespace(entity.getPhone());
+        //    entity.setPhone(phone);
+        //    String nickname = StringUtils.deleteWhitespace(entity.getNickname());
+        //    entity.setNickname(nickname);
+        //}
+        Operator currentUser = UserUtils.getCurrentUser();
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        List<OperatorRegion> operatorRegions = operatorRegionMapper.findList(operatorRegion);
+        String provinceIds = "";
+        String cityIds = "";
+        String areaIds = "";
+        String streetIds = "";
+        if (operatorRegions != null){
+            for (OperatorRegion region : operatorRegions) {
+                provinceIds = region.getProvinceId() + "," + provinceIds;
+                cityIds = region.getCityId() + "," + cityIds;
+                areaIds = region.getAreaId() + "," + areaIds;
+                streetIds = region.getStreetId() + "," + streetIds;
+            }
+            provinceIds = provinceIds.substring(0,provinceIds.length() - 1);
+            cityIds = cityIds.substring(0,cityIds.length() - 1);
+            areaIds = areaIds.substring(0,areaIds.length() - 1);
+            streetIds = streetIds.substring(0,streetIds.length() - 1);
+        }
+        PageInfo<CustomerUser> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<CustomerUser> list = customerUserMapper.getVipApplyForAreaManager(provinceIds,cityIds,areaIds,streetIds);
             pageInfo = new PageInfo<CustomerUser>(list);
         }
         return pageInfo;

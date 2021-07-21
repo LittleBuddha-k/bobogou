@@ -123,7 +123,6 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             AND a.apply_status = '1'
@@ -146,16 +145,16 @@
 
                 </otherwise>
             </choose>-->
-            <if test="currentUser.areaManager != null and currentUser.areaManager == 3"><!--当前用户为区域经理时，只查询当前区域vip的提交 -->
+            <!--<if test="currentUser.areaManager != null and currentUser.areaManager == 3">&lt;!&ndash;当前用户为区域经理时，只查询当前区域vip的提交 &ndash;&gt;
                 AND b.province_id = c.province_id
                 AND b.city_id = c.city_id
                 AND b.district_id = c.area_id
                 AND b.street_id = c.street_id
-            </if>
+            </if>-->
             <if test="currentUser.areaManager != null and currentUser.areaManager == 4"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
                 AND a.next_role = 1
             </if>
-            <if test="currentUser.areaManager != null and currentUser.areaManager != 4 and currentUser.areaManager != 3"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
+            <if test="currentUser.areaManager != null and currentUser.areaManager != 4 and currentUser.areaManager != 3"><!--既不是区级也不是超级管理员助理时的数据-->
                 AND a.next_role = #{currentUserRole.id}
             </if>
         </where>
@@ -163,6 +162,38 @@
             <when test="orderBy !=null and orderBy != ''">
                 ORDER BY ${orderBy}
             </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--查询代办审核数据-->
+    <select id="getVipApplyForAreaManager" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
+        SELECT
+        <include refid="customerUserColumns"/>
+        FROM ud_user a
+        <include refid="customerUserJoins"/>
+        <where>
+            a.is_deleted = 0
+            AND a.apply_status = '1'
+            <if test="provinceIds != null and provinceIds != ''">
+                AND #{provinceIds} LIKE concat('%',b.province_id,'%')
+            </if>
+            <if test="cityIds != null and cityIds != ''">
+                AND #{cityIds} LIKE concat('%',b.city_id,'%')
+            </if>
+            <if test="areaIds != null and areaIds != ''">
+                AND #{areaIds} LIKE concat('%',b.district_id,'%')
+            </if>
+            <if test="streetIds != null and streetIds != ''">
+                AND #{streetIds} LIKE concat('%',b.street_id,'%')
+            </if>
+        </where>
+        <choose>
+            <!--<when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>-->
             <otherwise>
                 ORDER BY a.create_time DESC
             </otherwise>

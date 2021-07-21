@@ -180,12 +180,18 @@ public class CustomerUserController extends BaseController {
         if (currentCustomerUser != null && StringUtils.isNotBlank(currentCustomerUser.getAreaManager().toString())){
             customerUser.setAreaManager(currentCustomerUser.getAreaManager());
         }*/
+        PageInfo<CustomerUser> page = null;
         Operator currentUser = UserUtils.getCurrentUser();
-        List<OperatorRole> byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
-        Role role = roleService.get(byOperatorAndRole.get(0).getRole().getId());
-        customerUser.setCurrentUserRole(role);
+        if(currentUser.getAreaManager() != 3){
+            List<OperatorRole> byOperatorAndRole = operatorRoleService.findByOperatorAndRole(new OperatorRole(currentUser));
+            Role role = roleService.get(byOperatorAndRole.get(0).getRole().getId());
+            customerUser.setCurrentUserRole(role);
+            page = customerUserService.findToDoDataPage(new Page<CustomerUser>(), customerUser);
+        }else {
+            //查询当前区级管理员所在区域的VIP提交的申请数据
+            page = customerUserService.findVipApplyForAreaManager(new Page<CustomerUser>(), customerUser);
+        }
         model.addAttribute("customerUser", customerUser);
-        PageInfo<CustomerUser> page = customerUserService.findToDoDataPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);
     }
 

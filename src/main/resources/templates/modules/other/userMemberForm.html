@@ -383,7 +383,7 @@
             <div class="layui-inline" th:if="${session.currentCustomerUser != null && session.currentCustomerUser.areaManager <= 3}">
                 <label class="layui-form-label" for="districtPassReason">区级通过原因</label>
                 <div class="layui-input-inline">
-                    <textarea placeholder="区级通过原因" name="districtPassReason" th:value="${userMember.getDistrictPassReason()}" autocomplete="off"
+                    <textarea placeholder="区级通过原因" name="districtPassReason" th:text="${userMember.getDistrictPassReason()}" autocomplete="off"
                               th:id="districtPassReason" class="layui-textarea"></textarea>
                 </div>
             </div>
