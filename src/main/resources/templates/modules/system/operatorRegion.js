@@ -99,11 +99,11 @@ layui.use(['form', 'table'], function () {
                         var type = data.type;
                         if (1 == type) {
                             return "超级管理员助理";
-                        } else if (2 == sex) {
+                        } else if (2 == type) {
                             return "省级经纪人";
-                        } else if (3 == sex) {
+                        } else if (3 == type) {
                             return "市级经纪人";
-                        } else if (4 == sex) {
+                        } else if (4 == type) {
                             return "区级经纪人";
                         }else {
                             return "未知";

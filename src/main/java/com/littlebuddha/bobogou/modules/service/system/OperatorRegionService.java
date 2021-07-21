@@ -113,9 +113,9 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
 
     @Override
     public int save(OperatorRegion entity) {
-        if (entity != null && StringUtils.isNotBlank(entity.getUserId())){
-            CustomerUser customerUser = customerUserMapper.get(entity.getUserId());
-            entity.setCustomerUser(customerUser);
+        if (entity != null && StringUtils.isNotBlank(entity.getOperatorId())){
+            Operator operator = operatorMapper.get(entity.getOperatorId());
+            entity.setUserId(operator.getUserId());
         }
         int save = super.save(entity);
         return save;
