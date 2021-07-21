@@ -249,11 +249,10 @@
                 <!--二级分类-->
                 <div class="layui-input-inline">
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() == null}">
-                        <option value="0">请选择</option>
+                            th:if="${mode != 'detail' && goods.getSecondClassify() == null}">
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() != null}">
+                            th:if="${mode != 'detail' && goods.getSecondClassify() != null}">
                         <option th:value="${goods.getSecondClassifyId()}" th:text="${goods.getSecondClassifyName()}"></option>
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
@@ -261,24 +260,24 @@
                         </option>
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() != null}" disabled="true">
+                            th:if="${mode == 'detail' && goods.getSecondClassify() != null}" disabled="true">
                         <option th:value="${goods.getSecondClassifyId()}" th:text="${goods.getSecondClassifyName()}"></option>
                     </select>
                 </div>
                 <!--三级分类-->
                 <div class="layui-input-inline">
                     <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() == null}">
+                            th:if="${mode != 'detail' && goods.getReclassify() == null}">
                     </select>
                     <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() != null}">
+                            th:if="${mode != 'detail' && goods.getReclassify() != null}">
                         <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
                     </select>
                     <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() == null}" disabled="true">
+                            th:if="${mode == 'detail' && goods.getReclassify() == null}" disabled="true">
                     </select>
                     <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() != null}" disabled="true">
+                            th:if="${mode == 'detail' && goods.getReclassify() != null}" disabled="true">
                         <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
                     </select>
                 </div>

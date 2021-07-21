@@ -20,7 +20,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     });
 
     //下拉框选中后的时间
-    form.on('select(level)', function(data){
+    /*form.on('select(level)', function(data){
         let level = data.value;
         if(3 == level){
             $("#administrativeFee").show();
@@ -33,7 +33,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
             $("#addCityRatio").hide();
             $("#addDistrictRatio").hide();
         }
-    });
+    });*/
 });
 
 //保存方法
@@ -59,7 +59,7 @@ function save(parentIndex) {
                     rc.msg(result.msg)
                     setTimeout(function(){
                         parent.layer.close(index); //再执行关闭
-                    }, 1000);
+                    }, 500);
                 }else {
                     rc.alert(result.msg)
                 }
