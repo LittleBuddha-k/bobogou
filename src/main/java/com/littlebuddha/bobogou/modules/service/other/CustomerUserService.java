@@ -106,8 +106,10 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     @Transactional
     public int beVip(CustomerUser customerUser) {
         if (customerUser.getUserMember() != null && customerUser.getUserMember() != null){
-            //当省级通过之后才表示vip生效，再去设置VIP时效
-            if (customerUser != null && customerUser.getUserMember() != null && StringUtils.isNotBlank(customerUser.getUserMember().getProvincePassReason())){
+            //当超级管理员或者超级管理员助理通过之后才表示vip生效，再去设置VIP时效
+            //根据当前审核人的areaManager设置对应的审核人id
+            Operator currentUser = UserUtils.getCurrentUser();
+            if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 && customerUser.getApplyStatus() == 2){
                 //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
                 Integer type = customerUser.getUserMember().getType();
                 Vip vip = new Vip();
@@ -124,8 +126,6 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             customerUser.setNextRole(currentUserParentRoleId);
             //这里同意过后执行更新userMember数据
             UserMember userMember = userMemberMapper.get(customerUser.getUserMember());
-            //根据当前审核人的areaManager设置对应的审核人id
-            Operator currentUser = UserUtils.getCurrentUser();
             //根据currentUser查询当前用户在前端表的数据
             CustomerUser selectOption = new CustomerUser();
             selectOption.setOperatorId(currentUser.getId());

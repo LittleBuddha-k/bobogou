@@ -200,9 +200,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
                     }else if (result.areaManager == 2){
                         //成功
                         if (cityPassReason){
-                            status = 4;
+                            status = 3;
                             applyStatus = 1;
-                            member = 3;
+                            member = 0;
                         }
                         if (cityPassReason != null && cityPassReason != ''){
                             //修改当前customerUser的会员状态
@@ -221,7 +221,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
                         }else {
                             rc.error("请填写市级级通过原因")
                         }
-                    }else if (result.areaManager == 1){
+                    }else if (result.areaManager == 4 || result.areaManager == 5){//由最终超级管理员或者超级管理员助理审核通过后
                         //成功
                         if (provincePassReason){
                             status = 5;
