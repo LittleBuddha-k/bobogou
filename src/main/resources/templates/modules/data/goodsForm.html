@@ -411,10 +411,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="producedTime">生产日期</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="producedTime" th:value="${goods.getProducedTime()}" autocomplete="off"
+                    <input type="text" name="producedTime" th:value="${#dates.format(goods.getProducedTime(),'yyyy-MM-dd HH:mm:ss')}" autocomplete="off"
                            class="layui-input" readonly th:if="${mode == 'detail'}">
-                    <input type="text" name="producedTime" th:value="${goods.getProducedTime()}" autocomplete="off"
-                           th:id="productTime" class="layui-input required" readonly th:if="${mode != 'detail'}">
+                    <input type="text" name="producedTime" th:value="${#dates.format(goods.getProducedTime(),'yyyy-MM-dd HH:mm:ss')}" autocomplete="off"
+                           th:id="productTime" class="layui-input" readonly th:if="${mode != 'detail'}">
                 </div>
             </div>
             <div class="layui-inline">

@@ -1,9 +1,13 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.littlebuddha.bobogou.common.utils.excel.ExcelField;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * 药品实体类
@@ -41,7 +45,9 @@ public class Goods extends DataEntity<Goods> {
     private Integer stockAmount;//库存数
     private Integer salesVolume;//销量
     private String effect;//功效
-    private String producedTime;//生产日期
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date producedTime;//生产日期
     private String expirationDate;//保质期（单位：月）
     private Double applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments;//评论数
@@ -310,11 +316,12 @@ public class Goods extends DataEntity<Goods> {
         this.effect = effect;
     }
 
-    public String getProducedTime() {
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getProducedTime() {
         return producedTime;
     }
 
-    public void setProducedTime(String producedTime) {
+    public void setProducedTime(Date producedTime) {
         this.producedTime = producedTime;
     }
 
