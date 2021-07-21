@@ -119,6 +119,9 @@ public class GoodsController extends BaseController {
     //@RequiresPermissions("system/goods/list")
     @GetMapping(value = {"/", "/list"})
     public String list(Goods goods, Model model, HttpSession session) {
+        //查询所有厂商列表
+        List<Factory> factoryList = factoryService.findList(new Factory());
+        model.addAttribute("factoryList", factoryList);
         model.addAttribute("goods", goods);
         return "modules/data/goods";
     }

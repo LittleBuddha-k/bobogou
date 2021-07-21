@@ -3,7 +3,7 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
-    table.render({
+    var init = table.render({
         elem: '#goodsTable',
         url: '/bobogou/data/goods/data',
         method: 'GET',
@@ -180,7 +180,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            name: $("#name").val()
+            name: $("#name").val(),
+            factoryId: $("#factoryId").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -190,11 +191,18 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('goodsTable', {
             where: {
-                name: $("#name").val()
+                name: $("#name").val(),
+                factoryId: $("#factoryId").val()
             }
         });
         return false;
     });
+
+    $("#reset").click(function () {
+        $("#name").val("");
+        $("#factoryId").val("");
+        init();
+    })
 
     /**
      * toolbar监听事件

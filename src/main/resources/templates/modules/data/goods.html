@@ -26,8 +26,21 @@
                             </div>
                         </div>
                         <div class="layui-inline">
+                            <label class="layui-form-label">厂商</label>
+                            <div class="layui-input-inline">
+                                <select name="factoryId" th:id="factoryId" lay-verify="" lay-filter="factory">
+                                    <option th:value="0" th:text="请选择"/>
+                                    <option th:each="factory:${factoryList}" th:value="${factory.getId()}"
+                                            th:text="${factory.getFactoryName()}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit th:id="reset"
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 重 置
                             </button>
                         </div>
                     </div>

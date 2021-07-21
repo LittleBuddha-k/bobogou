@@ -72,6 +72,9 @@
             <if test="name != null and name != ''">
                 AND a.name LIKE concat('%',#{name},'%')
             </if>
+            <if test="factoryId != null and factoryId != ''">
+                AND a.factory_id LIKE concat('%',#{factoryId},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
