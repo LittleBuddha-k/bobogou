@@ -2,32 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper">
     <sql id="customerUserColumns">
-        id AS "id",
-        phone AS "phone",
-        pssword AS "password",
-        header AS "header",
-        nickname AS "nickname",
-        sex AS "sex",
-        member AS "member",
-        integral AS "integral",
-        health_beans AS "healthBeans",
-        collect_number AS "collectNumber",
-        sigin_in_time AS "signInTime",
-        purchase_amount AS "purchaseAmount",
-        message_status AS "messageStatus",
-        user_agreement AS "userAgreement",
-        apply_status AS "applyStatus",
-        vip_expire AS "vipExpire",
-        area_manager AS "areaManager",
-        profit_amount AS "profitAmount",
-        amount_withdrawn AS "amountWithdrawn",
-        withdrawal_amount AS "withdrawalAmount",
-        operator AS "operatorId",
-        next_role AS "nextRole",
-        status AS "status",
-        is_deleted AS "isDeleted",
-        create_time AS "createTime",
-        update_time AS "updateTime"
+        a.id AS "id",
+        a.phone AS "phone",
+        a.pssword AS "password",
+        a.header AS "header",
+        a.nickname AS "nickname",
+        a.sex AS "sex",
+        a.member AS "member",
+        a.integral AS "integral",
+        a.health_beans AS "healthBeans",
+        a.collect_number AS "collectNumber",
+        a.sigin_in_time AS "signInTime",
+        a.purchase_amount AS "purchaseAmount",
+        a.message_status AS "messageStatus",
+        a.user_agreement AS "userAgreement",
+        a.apply_status AS "applyStatus",
+        a.vip_expire AS "vipExpire",
+        a.area_manager AS "areaManager",
+        a.profit_amount AS "profitAmount",
+        a.amount_withdrawn AS "amountWithdrawn",
+        a.withdrawal_amount AS "withdrawalAmount",
+        a.operator AS "operatorId",
+        a.next_role AS "nextRole",
+        a.status AS "status",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="customerUserJoins">
+        LEFT JOIN ud_user_member b ON a.id = b.user_id
+        LEFT JOIN system_operator_region c ON a.operator = c.operator_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
@@ -118,10 +123,39 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
+        <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             AND a.apply_status = '1'
-            <if test="currentUserRole != null and currentUserRole.id != null and currentUserRole.id != '' ">
+            <!--<choose>
+                <when test="currentUser.areaManager != null and currentUser.areaManager == 0">&lt;!&ndash;当前用户为区域经理时，只查询当前区域vip的提交&ndash;&gt;
+                    AND b.province_id = c.province_id
+                    AND b.city_id = c.city_id
+                    AND b.district_id = c.area_id
+                    AND b.street_id = c.street_id
+                </when>
+                <otherwise>
+                    AND a.next_role = #{currentUserRole.id}
+                </otherwise>
+            </choose>
+            <choose>
+                <when test="currentUser.areaManager != null and currentUser.areaManager == 4">&lt;!&ndash;当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据&ndash;&gt;
+                    AND a.next_role = 1
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>-->
+            <if test="currentUser.areaManager != null and currentUser.areaManager == 0"><!--当前用户为区域经理时，只查询当前区域vip的提交 -->
+                AND b.province_id = c.province_id
+                AND b.city_id = c.city_id
+                AND b.district_id = c.area_id
+                AND b.street_id = c.street_id
+            </if>
+            <if test="currentUser.areaManager != null and currentUser.areaManager == 4"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
+                AND a.next_role = 1
+            </if>
+            <if test="currentUser.areaManager != null and currentUser.areaManager != 4 and currentUser.areaManager != 0"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
                 AND a.next_role = #{currentUserRole.id}
             </if>
         </where>
