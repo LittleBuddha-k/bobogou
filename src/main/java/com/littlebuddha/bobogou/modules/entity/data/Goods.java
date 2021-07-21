@@ -42,7 +42,7 @@ public class Goods extends DataEntity<Goods> {
     private Integer salesVolume;//销量
     private String effect;//功效
     private String producedTime;//生产日期
-    private Integer expirationDate;//保质期（单位：月）
+    private String expirationDate;//保质期（单位：月）
     private Double applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments;//评论数
     private Double healthBeans;//健康豆，购买商品可获得的播播豆
@@ -318,11 +318,11 @@ public class Goods extends DataEntity<Goods> {
         this.producedTime = producedTime;
     }
 
-    public Integer getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Integer expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 

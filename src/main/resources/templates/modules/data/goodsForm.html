@@ -296,14 +296,14 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="originalCost">原价</label>
+                <label class="layui-form-label" for="originalCost">零售价</label>
                 <div class="layui-input-inline">
                     <input type="originalCost" th:id="originalCost" th:name="originalCost"
                            th:value="${goods.getOriginalCost()}"
-                           placeholder="原价" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
+                           placeholder="零售价" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
                     <input type="originalCost" th:id="originalCost" th:name="originalCost"
                            th:value="${goods.getOriginalCost()}"
-                           placeholder="原价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
+                           placeholder="零售价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
             </div>
@@ -420,12 +420,17 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="expirationDate">保质期(月)</label>
                 <div class="layui-input-inline">
+                    <select name="isFreight" lay-verify="">
+                        <option th:value="0" th:text="18个月"/>
+                        <option th:value="0" th:text="24个月"/>
+                        <option th:value="0" th:text="36个月"/>
+                    </select><!--
                     <input type="text" name="expirationDate" th:value="${goods.getExpirationDate()}"
                            placeholder="保质期(月)" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
                            readonly>
                     <input type="text" name="expirationDate" th:value="${goods.getExpirationDate()}"
                            placeholder="保质期(月)" autocomplete="off" th:id="expirationDate" class="layui-input number"
-                           th:if="${mode != 'detail'}">
+                           th:if="${mode != 'detail'}">-->
                 </div>
             </div>
             <div class="layui-inline">

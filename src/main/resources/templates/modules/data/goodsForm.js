@@ -64,6 +64,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         , type: 'datetime'
     });
 
+    /*//保质期
+    laydate.render({
+        elem: '#expirationDate'
+        , type: 'datetime'
+    });*/
+
     //商品分类级联下拉框
     //下拉框选中后的时间
     form.on('select(levelOne)', function(data){
