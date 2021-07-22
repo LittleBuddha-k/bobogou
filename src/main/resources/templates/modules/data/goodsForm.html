@@ -73,7 +73,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline" th:if="${mode != 'detail'}">
+            <!--<div class="layui-inline" th:if="${mode != 'detail'}">
                 <label class="layui-form-label" for="brandId">品牌一级</label>
                 <div class="layui-input-inline">
                     <select name="brandId" lay-verify="" th:if="${goods.getBrandId() == null}" lay-filter="brandId">
@@ -128,7 +128,7 @@
                                 th:text="${goods.getSecondBrandName()}"/>
                     </select>
                 </div>
-            </div>
+            </div>-->
             <div class="layui-inline" th:if="${mode == 'detail' && goods.getGoodsNorm() != null}"
                  th:id="goodsNormPrices">
                 <label class="layui-form-label" for="goodsNormPrices">物价</label>
@@ -280,6 +280,30 @@
                             th:if="${mode == 'detail' && goods.getReclassify() != null}" disabled="true">
                         <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
                     </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="electronicCode">电子监管码</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="electronicCode" th:name="electronicCode"
+                           th:value="${goods.getElectronicCode()}"
+                           placeholder="电子监管码" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                    <input type="electronicCode" th:id="electronicCode" th:name="electronicCode"
+                           th:value="${goods.getElectronicCode()}"
+                           placeholder="电子监管码" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
+                           readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="barCode">条形码</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="barCode" th:name="barCode"
+                           th:value="${goods.getBarCode()}"
+                           placeholder="条形码" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                    <input type="text" th:id="barCode" th:name="barCode"
+                           th:value="${goods.getBarCode()}"
+                           placeholder="条形码" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
+                           readonly>
                 </div>
             </div>
             <div class="layui-inline">

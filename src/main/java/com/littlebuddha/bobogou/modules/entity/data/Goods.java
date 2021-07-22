@@ -21,18 +21,21 @@ public class Goods extends DataEntity<Goods> {
     private Banner banner;//轮播图外键
     private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
 
-    private GoodsBrand firstBrand;//商品品牌规格外键
-    private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
-    private String brandName;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
-    private GoodsBrand secondBrand;//商品品牌规格外键
-    private Integer secondBrandId;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
-    private String secondBrandName;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
+    //private GoodsBrand firstBrand;//商品品牌规格外键
+    //private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
+    //private String brandName;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
+    //private GoodsBrand secondBrand;//商品品牌规格外键
+    //private Integer secondBrandId;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
+    //private String secondBrandName;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
     private Factory factory;//
     private Integer factoryId;//厂商ID，关联厂商md_factory表
     private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔，关联md_tag表
     private GoodsType goodsType;//其他分类外键
     private String goodsTypeId;//药品其它分类ID，多个使用英文逗号分隔，在开始和结尾也需要加英文逗号
+
+    private String electronicCode;//电子监管码
+    private String barCode;//条形码
 
     private Double purchasingPrice;//进价，单位：分
     private Double originalCost;//原价，单位：分
@@ -126,7 +129,7 @@ public class Goods extends DataEntity<Goods> {
         this.images = images;
     }
 
-    public GoodsBrand getFirstBrand() {
+    /*public GoodsBrand getFirstBrand() {
         return firstBrand;
     }
 
@@ -178,7 +181,7 @@ public class Goods extends DataEntity<Goods> {
 
     public void setSecondBrandName(String secondBrandName) {
         this.secondBrandName = secondBrandName;
-    }
+    }*/
 
     public Factory getFactory() {
         return factory;
@@ -226,6 +229,22 @@ public class Goods extends DataEntity<Goods> {
 
     public void setGoodsTypeId(String goodsTypeId) {
         this.goodsTypeId = goodsTypeId;
+    }
+
+    public String getElectronicCode() {
+        return electronicCode;
+    }
+
+    public void setElectronicCode(String electronicCode) {
+        this.electronicCode = electronicCode;
+    }
+
+    public String getBarCode() {
+        return barCode;
+    }
+
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
     }
 
     public Double getPurchasingPrice() {

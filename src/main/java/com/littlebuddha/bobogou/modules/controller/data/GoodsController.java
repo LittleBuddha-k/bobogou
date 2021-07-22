@@ -69,7 +69,7 @@ public class GoodsController extends BaseController {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
             goods = goodsService.get(new Goods(id));
-            if (goods != null && goods.getBrandId()!= null && StringUtils.isNotBlank(goods.getBrandId().toString())){
+            /*if (goods != null && goods.getBrandId()!= null && StringUtils.isNotBlank(goods.getBrandId().toString())){
                 GoodsBrand fbSelect = new GoodsBrand();
                 fbSelect.setId(goods.getBrandId().toString());
                 GoodsBrand firstBrand = goodsBrandService.get(fbSelect);
@@ -80,7 +80,7 @@ public class GoodsController extends BaseController {
                 sbSelect.setId(goods.getSecondBrandId().toString());
                 GoodsBrand secondBrand = goodsBrandService.get(sbSelect);
                 goods.setSecondBrand(secondBrand);
-            }
+            }*/
             if (goods != null && goods.getFactoryId()!= null &&  StringUtils.isNotBlank(goods.getFactoryId().toString())){
                 Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
                 goods.setFactory(factory);
@@ -179,10 +179,10 @@ public class GoodsController extends BaseController {
         List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
         model.addAttribute("commodityTagList", commodityTagList);
         //查询品牌一级分类
-        GoodsBrand entity = new GoodsBrand();
+        /*GoodsBrand entity = new GoodsBrand();
         entity.setParentId("0");
         List<GoodsBrand> goodsBrandList = goodsBrandService.findList(entity);
-        model.addAttribute("goodsBrandList", goodsBrandList);
+        model.addAttribute("goodsBrandList", goodsBrandList);*/
         //查询所有厂商列表
         List<Factory> factoryList = factoryService.findList(new Factory());
         model.addAttribute("factoryList", factoryList);
