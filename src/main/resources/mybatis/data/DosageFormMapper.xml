@@ -10,6 +10,16 @@
         a.update_date AS "updateDate"
     </sql>
 
+    <sql id="shelfLifeColumns">
+        a.id AS "id",
+        a.value AS "value",
+        a.name AS "name",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate"
+    </sql>
+
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.DosageForm">
         SELECT
         <include refid="dosageFormColumns"/>
@@ -33,16 +43,18 @@
         </choose>
     </select>
 
-    <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.DosageForm">
+    <select id="findShelfLifeList" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.ShelfLife">
         SELECT
-        <include refid="dosageFormColumns"/>
-        FROM bobogou_goods_dosage_form a
+        <include refid="shelfLifeColumns"/>
+        FROM bobogou_goods_shelf_life a
+        <where>
+        </where>
         <choose>
-            <when test="page !=null and page.orderBy != null and page.orderBy != ''">
-
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
             </when>
             <otherwise>
-
+                ORDER BY a.create_date DESC
             </otherwise>
         </choose>
     </select>

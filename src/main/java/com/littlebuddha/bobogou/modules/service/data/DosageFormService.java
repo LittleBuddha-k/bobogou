@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.utils.DosageForm;
+import com.littlebuddha.bobogou.modules.entity.data.utils.ShelfLife;
 import com.littlebuddha.bobogou.modules.mapper.data.DosageFormMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DosageFormService extends CrudService<DosageForm, DosageFormMapper> {
 
+    @Autowired
+    private DosageFormMapper dosageFormMapper;
+
     @Override
     public DosageForm get(DosageForm entity) {
         return super.get(entity);
@@ -23,6 +28,10 @@ public class DosageFormService extends CrudService<DosageForm, DosageFormMapper>
     @Override
     public List<DosageForm> findList(DosageForm entity) {
         return super.findList(entity);
+    }
+
+    public List<ShelfLife> findShelfLifeList() {
+        return dosageFormMapper.findShelfLifeList();
     }
 
     @Override

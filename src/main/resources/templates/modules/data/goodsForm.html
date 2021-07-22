@@ -440,20 +440,44 @@
                            th:id="productTime" class="layui-input" readonly th:if="${mode != 'detail'}">
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-inline" th:if="${mode == 'detail'}">
                 <label class="layui-form-label" for="expirationDate">保质期(月)</label>
                 <div class="layui-input-inline">
-                    <select name="expirationDate" lay-verify="">
-                        <option th:value="0" th:text="18个月"/>
-                        <option th:value="0" th:text="24个月"/>
-                        <option th:value="0" th:text="36个月"/>
-                    </select><!--
-                    <input type="text" name="expirationDate" th:value="${goods.getExpirationDate()}"
-                           placeholder="保质期(月)" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
-                           readonly>
-                    <input type="text" name="expirationDate" th:value="${goods.getExpirationDate()}"
-                           placeholder="保质期(月)" autocomplete="off" th:id="expirationDate" class="layui-input number"
-                           th:if="${mode != 'detail'}">-->
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
+                            lay-filter="factoryId" disabled="true">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}" th:value="${shelfLife.getValue()}"
+                                th:text="${shelfLife.getName()}"/>
+                    </select>
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() != null}" disabled="true">
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() == shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() != shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" th:if="${mode != 'detail'}">
+                <label class="layui-form-label" for="expirationDate">保质期(月)</label>
+                <div class="layui-input-inline">
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
+                            lay-filter="factoryId">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}" th:value="${shelfLife.getValue()}"
+                                th:text="${shelfLife.getName()}"/>
+                    </select>
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() != null}">
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() == shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() != shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
