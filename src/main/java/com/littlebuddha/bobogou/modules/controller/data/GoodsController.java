@@ -10,6 +10,7 @@ import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.entity.data.utils.DosageForm;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
@@ -63,6 +64,9 @@ public class GoodsController extends BaseController {
 
     @Autowired
     private GoodsNormService goodsNormService;
+
+    @Autowired
+    private DosageFormService dosageFormService;
 
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
@@ -192,6 +196,9 @@ public class GoodsController extends BaseController {
         //查询所有其他分类---GoodsType数据
         List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
         model.addAttribute("goodsTypeList", goodsTypeList);
+        //查询商品剂型数据
+        List<DosageForm> dosageFormList = dosageFormService.findList(new DosageForm());
+        model.addAttribute("dosageFormList", dosageFormList);
         //查询当前商品的商品分类详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())){
             GoodsClassify select = new GoodsClassify();

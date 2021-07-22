@@ -51,6 +51,7 @@
                         <option th:each="type:${classifyList}"
                                 th:if="${type.getId() == classify.getParentId()}"
                                 th:value="${type.getId()}" th:text="${type.getName()}"/>
+                        <option th:value="0" th:text="请选择"/>
                         <option th:each="type:${classifyList}"
                                 th:if="${type.getId() != classify.getParentId()}"
                                 th:value="${type.getId()}" th:text="${type.getName()}"/>

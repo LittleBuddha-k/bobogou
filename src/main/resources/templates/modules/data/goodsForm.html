@@ -1271,7 +1271,7 @@
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
                            placeholder="生产企业" autocomplete="off" class="layui-input">
                 </div>
-            </div>
+            </div><!--
             <div class="layui-inline">
                 <label class="layui-form-label" for="specification">产品规格</label>
                 <div class="layui-input-inline">
@@ -1290,7 +1290,7 @@
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
                            placeholder="产品规格" autocomplete="off" class="layui-input">
                 </div>
-            </div>
+            </div>-->
             <div class="layui-inline">
                 <label class="layui-form-label" for="dosage">用法用量</label>
                 <div class="layui-input-inline">
@@ -1610,20 +1610,24 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="dosageForm">剂型</label>
                 <div class="layui-input-inline">
-                    <input type="text" th:id="dosageForm" th:name="goodsSpecification.dosageForm"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getDosageForm()}"
-                           placeholder="剂型" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="dosageForm" th:name="goodsSpecification.dosageForm"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="剂型" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="dosageForm" th:name="goodsSpecification.dosageForm"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getDosageForm()}"
-                           placeholder="剂型" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="dosageForm" th:name="goodsSpecification.dosageForm"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="剂型" autocomplete="off" class="layui-input">
+                    <select name="goodsSpecification.dosageForm" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
+                            lay-filter="factoryId" disabled="true">
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
+                            lay-filter="factoryId" disabled="true">
+                        <option th:value="${goods.getGoodsSpecification().getDosageForm()}" th:text="${goods.getGoodsSpecification().getDosageForm()}"/>
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
+                            lay-filter="factoryId">
+                        <option th:each="dosageForm:${dosageFormList}" th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify="" th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
+                            lay-filter="factoryId">
+                        <option th:each="dosageForm:${dosageFormList}" th:if="${goods.getGoodsSpecification().getDosageForm() == dosageForm.getName()}" th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
+                        <option th:each="dosageForm:${dosageFormList}"
+                                th:if="${goods.getGoodsSpecification().getDosageForm() != dosageForm.getName()}"
+                                th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
