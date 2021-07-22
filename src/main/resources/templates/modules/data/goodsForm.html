@@ -256,8 +256,7 @@
                         <option th:value="${goods.getSecondClassifyId()}" th:text="${goods.getSecondClassifyName()}"></option>
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() == null}" disabled="true">
-                        </option>
+                            th:if="${mode == 'detail' && goods.getSecondClassify() == null}" disabled="true">
                     </select>
                     <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
                             th:if="${mode == 'detail' && goods.getSecondClassify() != null}" disabled="true">
@@ -287,7 +286,7 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="electronicCode" th:name="electronicCode"
                            th:value="${goods.getElectronicCode()}"
-                           placeholder="电子监管码" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                           placeholder="电子监管码" autocomplete="off" class="layui-input required" th:if="${mode != 'detail'}">
                     <input type="electronicCode" th:id="electronicCode" th:name="electronicCode"
                            th:value="${goods.getElectronicCode()}"
                            placeholder="电子监管码" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
@@ -299,10 +298,22 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="barCode" th:name="barCode"
                            th:value="${goods.getBarCode()}"
-                           placeholder="条形码" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                           placeholder="条形码" autocomplete="off" class="layui-input required" th:if="${mode != 'detail'}">
                     <input type="text" th:id="barCode" th:name="barCode"
                            th:value="${goods.getBarCode()}"
                            placeholder="条形码" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
+                           readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="approvalPeriod">药品批文有效期</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="approvalPeriod" th:name="approvalPeriod"
+                           th:value="${goods.getApprovalPeriod()}"
+                           placeholder="药品批文有效期" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                    <input type="text" th:id="approvalPeriod" th:name="approvalPeriod"
+                           th:value="${goods.getApprovalPeriod()}"
+                           placeholder="药品批文有效期" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
             </div>
@@ -331,15 +342,15 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="sellingPrice">普通会员价</label>
+                <label class="layui-form-label" for="sellingPrice">会员价</label>
                 <div class="layui-input-inline">
                     <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
                            th:value="${goods.getSellingPrice()}"
-                           placeholder="普通会员价" autocomplete="off" class="layui-input number"
+                           placeholder="会员价" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
                     <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
                            th:value="${goods.getSellingPrice()}"
-                           placeholder="普通会员价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
+                           placeholder="会员价" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}"
                            readonly>
                 </div>
             </div>
@@ -1235,7 +1246,7 @@
 
         <!--商品规格部份-->
         <div class="layui-form-item">
-            <div class="layui-inline">
+            <!--<div class="layui-inline">
                 <label class="layui-form-label" for="commonName">通用名称</label>
                 <div class="layui-input-inline">
                     <input type="text" th:id="commonName" th:name="goodsSpecification.commonName"
@@ -1253,7 +1264,7 @@
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
                            placeholder="通用名称" autocomplete="off" class="layui-input">
                 </div>
-            </div>
+            </div>-->
             <div class="layui-inline">
                 <label class="layui-form-label" for="authorization">批准号</label>
                 <div class="layui-input-inline">
@@ -1332,25 +1343,6 @@
                     <input type="text" th:id="dosage" th:name="goodsSpecification.dosage"
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
                            placeholder="用法用量" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="attending">使用症/功能主治</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="attending" th:name="goodsSpecification.attending"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getAttending()}"
-                           placeholder="使用症/功能主治" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="attending" th:name="goodsSpecification.attending"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="使用症/功能主治" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="attending" th:name="goodsSpecification.attending"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getAttending()}"
-                           placeholder="使用症/功能主治" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="attending" th:name="goodsSpecification.attending"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="使用症/功能主治" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-inline">
@@ -1613,25 +1605,6 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="fitPeople">适用人群</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="fitPeople" th:name="goodsSpecification.fitPeople"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getFitPeople()}"
-                           placeholder="适用人群" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="fitPeople" th:name="goodsSpecification.fitPeople"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="适用人群" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="fitPeople" th:name="goodsSpecification.fitPeople"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getFitPeople()}"
-                           placeholder="适用人群" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="fitPeople" th:name="goodsSpecification.fitPeople"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="适用人群" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
                 <label class="layui-form-label" for="dosageForm">剂型</label>
                 <div class="layui-input-inline">
                     <select name="goodsSpecification.dosageForm" lay-verify="" th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
@@ -1652,63 +1625,6 @@
                                 th:if="${goods.getGoodsSpecification().getDosageForm() != dosageForm.getName()}"
                                 th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
                     </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="indications">适用症状</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="indications" th:name="goodsSpecification.indications"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getIndications()}"
-                           placeholder="适用症状" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="indications" th:name="goodsSpecification.indications"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="适用症状" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="indications" th:name="goodsSpecification.indications"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getIndications()}"
-                           placeholder="适用症状" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="indications" th:name="goodsSpecification.indications"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="适用症状" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="directions">使用方法</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="directions" th:name="goodsSpecification.directions"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getDirections()}"
-                           placeholder="使用方法" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="directions" th:name="goodsSpecification.directions"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="使用方法" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="directions" th:name="goodsSpecification.directions"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getDirections()}"
-                           placeholder="使用方法" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="directions" th:name="goodsSpecification.directions"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="使用方法" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="takingCycle">服用周期</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="takingCycle" th:name="goodsSpecification.takingCycle"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getTakingCycle()}"
-                           placeholder="服用周期" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="takingCycle" th:name="goodsSpecification.takingCycle"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="服用周期" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="takingCycle" th:name="goodsSpecification.takingCycle"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getTakingCycle()}"
-                           placeholder="服用周期" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="takingCycle" th:name="goodsSpecification.takingCycle"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="服用周期" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>

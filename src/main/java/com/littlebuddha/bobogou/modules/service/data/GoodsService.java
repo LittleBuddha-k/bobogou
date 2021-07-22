@@ -148,11 +148,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 if (StringUtils.isBlank(goodsSpecification.getId())) {
                     goodsSpecification.setIdType("AUTO");
                     goodsSpecification.setId(entity.getId());
-                    goodsSpecification.setSpecification(entity.getSpecification());
                     goodsSpecification.preInsert();
                     goodsSpecificationMapper.insert(goodsSpecification);
                 }else {
-                    goodsSpecification.setSpecification(entity.getSpecification());
                     goodsSpecification.preUpdate();
                     goodsSpecificationMapper.update(goodsSpecification);
                 }

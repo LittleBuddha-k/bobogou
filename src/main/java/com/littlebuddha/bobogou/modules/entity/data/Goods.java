@@ -37,10 +37,12 @@ public class Goods extends DataEntity<Goods> {
     private String electronicCode;//电子监管码
     private String barCode;//条形码
 
+    private String approvalPeriod;//药品批文有效期
+
     private Double purchasingPrice;//进价，单位：分
-    private Double originalCost;//原价，单位：分
-    private Double sellingPrice;//普通会员价，单位：分
-    private Double vipPrice;//会员价，单位：分
+    private Double originalCost;//零售价，单位：分
+    private Double sellingPrice;//会员价，单位：分
+    private Double vipPrice;//集采价，单位：分
     private String specification;//规格
     private Double weight;//重量，单位：g，在需要运费的时候需要通过重量来计算运费，同一订单会计算订单所有商品的重量，小数点向上取整计算重量，运费按kg计算
     private Integer amount;//数量
@@ -245,6 +247,14 @@ public class Goods extends DataEntity<Goods> {
 
     public void setBarCode(String barCode) {
         this.barCode = barCode;
+    }
+
+    public String getApprovalPeriod() {
+        return approvalPeriod;
+    }
+
+    public void setApprovalPeriod(String approvalPeriod) {
+        this.approvalPeriod = approvalPeriod;
     }
 
     public Double getPurchasingPrice() {
