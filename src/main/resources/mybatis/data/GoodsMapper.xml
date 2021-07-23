@@ -4,6 +4,7 @@
     <sql id="goodsColumns">
         a.id AS "id",
         a.name AS "name",
+        a.common_name AS "commonName",
         a.certificate_image_watermark AS "certificateImageWatermark",
         a.certificate_image AS "certificateImage",
         a.images AS "images",
@@ -125,6 +126,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO mb_goods(
             name,
+            common_name,
             certificate_image_watermark,
             certificate_image,
             images,
@@ -163,6 +165,7 @@
             account_id
         )VALUES (
             #{name},
+            #{commonName},
             #{certificateImageWatermark},
             #{certificateImage},
             #{images},
@@ -205,6 +208,7 @@
     <update id="update">
         UPDATE mb_goods SET
             name = #{name},
+            common_name = #{commonName},
             certificate_image_watermark = #{certificateImageWatermark},
             certificate_image = #{certificateImage},
             images = #{images},

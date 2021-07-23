@@ -37,10 +37,10 @@
                 <label class="layui-form-label" for="commonName">通用名称</label>
                 <div class="layui-input-inline">
                     <input type="name" th:id="commonName" th:name="commonName" th:value="${goods.getCommonName()}"
-                           placeholder="通用名称" autocomplete="off" class="layui-input required"
+                           placeholder="通用名称" autocomplete="off" class="layui-input"
                            th:if="${mode != 'detail'}">
                     <input type="name" th:id="commonName" th:name="commonName" th:value="${goods.getCommonName()}"
-                           placeholder="通用名称" autocomplete="off" class="layui-input required"
+                           placeholder="通用名称" autocomplete="off" class="layui-input"
                            th:if="${mode == 'detail'}"
                            readonly>
                 </div>
