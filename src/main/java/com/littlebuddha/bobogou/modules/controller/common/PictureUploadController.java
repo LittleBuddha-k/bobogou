@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.controller.common;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.*;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +39,7 @@ public class PictureUploadController {
         //保存特殊名字
         String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
         //将tif格式转化为jpg
-        saveFileName = saveFileName.replaceAll(".tif",".jpg");
+        //saveFileName = saveFileName.replaceAll(".tif",".jpg");
         //年月日文件夹
         String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
         rootPath += data;
@@ -50,7 +51,12 @@ public class PictureUploadController {
         if (!file.isEmpty()) {
             try {
                 file.transferTo(tempFile);
-                String url = globalSetting.getRootPath() + data + "/" + saveFileName;
+                String tifToJpg = TiffToJpg.tifToJpg(rootPath + "/" + saveFileName);
+                String url = "";
+                if (tifToJpg != null && StringUtils.isNotBlank(tifToJpg)){
+                    url = tifToJpg.replaceAll(globalSetting.getUploadImage(),globalSetting.getRootPath());
+                }
+                //String url = globalSetting.getRootPath() + data + "/" + saveFileName;
                 result.put("url",url);
             } catch (IOException | RuntimeException e) {
                 e.printStackTrace();
