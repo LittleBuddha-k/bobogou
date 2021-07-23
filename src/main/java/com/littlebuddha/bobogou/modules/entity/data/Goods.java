@@ -15,6 +15,7 @@ import java.util.Date;
 public class Goods extends DataEntity<Goods> {
 
     private String name;//商品名称
+    private String commonName;//商品通用名称
     private String certificateImageWatermark;//药品资质证书图片地址，一张，带水印
     private String certificateImage;//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
 
@@ -29,6 +30,7 @@ public class Goods extends DataEntity<Goods> {
     //private String secondBrandName;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
     private Factory factory;//
     private Integer factoryId;//厂商ID，关联厂商md_factory表
+    private String factoryName;//厂商名称，关联厂商md_factory表
     private GoodsTag goodsTag;//商品标签外键
     private String tagId;//商品标签ID,多个标签使用英文逗号分隔，关联md_tag表
     private GoodsType goodsType;//其他分类外键
@@ -97,6 +99,15 @@ public class Goods extends DataEntity<Goods> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @ExcelField(title = "通用名称", align = 2, sort = 2)
+    public String getCommonName() {
+        return commonName;
+    }
+
+    public void setCommonName(String commonName) {
+        this.commonName = commonName;
     }
 
     public String getCertificateImageWatermark() {
@@ -201,6 +212,15 @@ public class Goods extends DataEntity<Goods> {
         this.factoryId = factoryId;
     }
 
+    @ExcelField(title = "厂商", align = 2, sort = 3)
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
+    }
+
     public GoodsTag getGoodsTag() {
         return goodsTag;
     }
@@ -233,6 +253,7 @@ public class Goods extends DataEntity<Goods> {
         this.goodsTypeId = goodsTypeId;
     }
 
+    @ExcelField(title = "电子监管码", align = 2, sort = 4)
     public String getElectronicCode() {
         return electronicCode;
     }
@@ -241,6 +262,7 @@ public class Goods extends DataEntity<Goods> {
         this.electronicCode = electronicCode;
     }
 
+    @ExcelField(title = "条形码", align = 2, sort = 5)
     public String getBarCode() {
         return barCode;
     }
@@ -249,6 +271,7 @@ public class Goods extends DataEntity<Goods> {
         this.barCode = barCode;
     }
 
+    @ExcelField(title = "药品批文有效期", align = 2, sort = 6)
     public String getApprovalPeriod() {
         return approvalPeriod;
     }
