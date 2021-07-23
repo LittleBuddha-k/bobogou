@@ -87,6 +87,42 @@ public class GoodsNormService extends CrudService<GoodsNorm, GoodsNormMapper> {
             }
             goodsNorm.setInstructions(aa);
         }
+        if (goodsNorm != null && goodsNorm.getQualityStandard() != null && StringUtils.isNotBlank(goodsNorm.getQualityStandard())){
+            String qualityStandard = goodsNorm.getQualityStandard();
+            String[] split = qualityStandard.split(",");
+            String aa = "";
+            for (String st : split) {
+                aa = aa + globalSetting.getRootPath() + st + ",";
+            }
+            goodsNorm.setQualityStandard(aa);
+        }
+        if (goodsNorm != null && goodsNorm.getSurveyReport() != null && StringUtils.isNotBlank(goodsNorm.getSurveyReport())){
+            String surveyReport = goodsNorm.getSurveyReport();
+            String[] split = surveyReport.split(",");
+            String aa = "";
+            for (String st : split) {
+                aa = aa + globalSetting.getRootPath() + st + ",";
+            }
+            goodsNorm.setSurveyReport(aa);
+        }
+        if (goodsNorm != null && goodsNorm.getProductionBusinessLicense() != null && StringUtils.isNotBlank(goodsNorm.getProductionBusinessLicense())){
+            String productionBusinessLicense = goodsNorm.getProductionBusinessLicense();
+            String[] split = productionBusinessLicense.split(",");
+            String aa = "";
+            for (String st : split) {
+                aa = aa + globalSetting.getRootPath() + st + ",";
+            }
+            goodsNorm.setProductionBusinessLicense(aa);
+        }
+        if (goodsNorm != null && goodsNorm.getProductionCertificate() != null && StringUtils.isNotBlank(goodsNorm.getProductionCertificate())){
+            String productionCertificate = goodsNorm.getProductionCertificate();
+            String[] split = productionCertificate.split(",");
+            String aa = "";
+            for (String st : split) {
+                aa = aa + globalSetting.getRootPath() + st + ",";
+            }
+            goodsNorm.setProductionCertificate(aa);
+        }
         return goodsNorm;
     }
 

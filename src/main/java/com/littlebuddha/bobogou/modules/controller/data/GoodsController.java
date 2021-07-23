@@ -74,18 +74,6 @@ public class GoodsController extends BaseController {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
             goods = goodsService.get(new Goods(id));
-            /*if (goods != null && goods.getBrandId()!= null && StringUtils.isNotBlank(goods.getBrandId().toString())){
-                GoodsBrand fbSelect = new GoodsBrand();
-                fbSelect.setId(goods.getBrandId().toString());
-                GoodsBrand firstBrand = goodsBrandService.get(fbSelect);
-                goods.setFirstBrand(firstBrand);
-            }
-            if (goods != null && goods.getSecondBrandId()!= null &&  StringUtils.isNotBlank(goods.getSecondBrandId().toString())){
-                GoodsBrand sbSelect = new GoodsBrand();
-                sbSelect.setId(goods.getSecondBrandId().toString());
-                GoodsBrand secondBrand = goodsBrandService.get(sbSelect);
-                goods.setSecondBrand(secondBrand);
-            }*/
             if (goods != null && goods.getFactoryId()!= null &&  StringUtils.isNotBlank(goods.getFactoryId().toString())){
                 Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
                 goods.setFactory(factory);
