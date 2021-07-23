@@ -37,6 +37,8 @@ public class PictureUploadController {
         String fileName = file.getOriginalFilename();
         //保存特殊名字
         String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //将tif格式转化为jpg
+        saveFileName = saveFileName.replaceAll(".tif",".jpg");
         //年月日文件夹
         String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
         rootPath += data;

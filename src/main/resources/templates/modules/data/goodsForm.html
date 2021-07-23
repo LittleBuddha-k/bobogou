@@ -85,62 +85,6 @@
                     </select>
                 </div>
             </div>
-            <!--<div class="layui-inline" th:if="${mode != 'detail'}">
-                <label class="layui-form-label" for="brandId">品牌一级</label>
-                <div class="layui-input-inline">
-                    <select name="brandId" lay-verify="" th:if="${goods.getBrandId() == null}" lay-filter="brandId">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="firstBrand:${goodsBrandList}" th:value="${firstBrand.getId()}"
-                                th:text="${firstBrand.getBrandName()}"/>
-                    </select>
-                    <select name="brandId" lay-verify="" th:if="${goods.getBrandId() != null}" lay-filter="brandId">
-                        <option th:each="goodsBrand:${goodsBrandList}"
-                                th:if="${goodsBrand.getId() == goods.getBrandId().toString()}"
-                                th:value="${goodsBrand.getId()}" th:text="${goodsBrand.getBrandName()}"/>
-                        <option th:each="goodsBrand:${goodsBrandList}"
-                                th:if="${goodsBrand.getId() != goods.getBrandId().toString()}"
-                                th:value="${goodsBrand.getId()}" th:text="${goodsBrand.getBrandName()}"/>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline" th:if="${mode == 'detail'}">
-                <label class="layui-form-label" for="brandId">品牌一级</label>
-                <div class="layui-input-inline">
-                    <select name="brandId" lay-verify="" th:if="${goods.getBrandId() == null}" lay-filter="brandId"
-                            disabled="true">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="firstBrand:${goodsBrandList}" th:value="${firstBrand.getId()}"
-                                th:text="${firstBrand.getBrandName()}"/>
-                    </select>
-                    <select name="brandId" lay-verify="" th:if="${goods.getBrandId() != null}" lay-filter="brandId"
-                            disabled="true">
-                        <option th:each="goodsBrand:${goodsBrandList}"
-                                th:if="${goodsBrand.getId() == goods.getBrandId().toString()}"
-                                th:value="${goodsBrand.getId()}" th:text="${goodsBrand.getBrandName()}"/>
-                        <option th:each="goodsBrand:${goodsBrandList}"
-                                th:if="${goodsBrand.getId() != goods.getBrandId().toString()}"
-                                th:value="${goodsBrand.getId()}" th:text="${goodsBrand.getBrandName()}"/>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline" th:if="${mode != 'detail'}">
-                <label class="layui-form-label" for="secondBrandId">品牌二级</label>
-                <div class="layui-input-inline">
-                    <select name="secondBrandId" lay-verify="" th:id="secondBrandId">
-                        <option th:if="${goods.getSecondBrandId() != null}" th:value="${goods.getSecondBrandId()}"
-                                th:text="${goods.getSecondBrandName()}"/>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline" th:if="${mode == 'detail'}">
-                <label class="layui-form-label" for="secondBrandId">品牌二级</label>
-                <div class="layui-input-inline">
-                    <select name="secondBrandId" lay-verify="" th:id="secondBrandId" disabled="true">
-                        <option th:if="${goods.getSecondBrandId() != null}" th:value="${goods.getSecondBrandId()}"
-                                th:text="${goods.getSecondBrandName()}"/>
-                    </select>
-                </div>
-            </div>-->
             <div class="layui-inline" th:if="${mode == 'detail' && goods.getGoodsNorm() != null}"
                  th:id="goodsNormPrices">
                 <label class="layui-form-label" for="goodsNormPrices">物价</label>
@@ -900,7 +844,6 @@
             </div>
         </div>
 
-
         <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() == null}">
             <label class="layui-form-label" for="certificateImageWatermark">药品资质证书(带水印)</label>
             <div class="layui-upload">
@@ -914,7 +857,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
-                        <img th:if="${goods.getCertificateImageWatermark() != null}"
+                        <img th:if="${goods.getCertificateImageWatermark() != ''}"
                              th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
@@ -942,7 +885,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
-                        <img th:if="${goods.getCertificateImageWatermark() != null}"
+                        <img th:if="${goods.getCertificateImageWatermark() != ''}"
                              th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
@@ -964,7 +907,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo2">
-                        <img th:if="${goods.getCertificateImage() != null}"
+                        <img th:if="${goods.getCertificateImage() != ''}"
                              th:each="image:${goods.getCertificateImage().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
@@ -992,7 +935,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo2">
-                        <img th:if="${goods.getCertificateImage() != null}"
+                        <img th:if="${goods.getCertificateImage() != ''}"
                              th:each="image:${goods.getCertificateImage().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
@@ -1014,7 +957,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getImages() != null}" th:each="image:${goods.getImages().split(',')}"
+                        <img th:if="${goods.getImages() != ''}" th:each="image:${goods.getImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1040,7 +983,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getImages() != null}" th:each="image:${goods.getImages().split(',')}"
+                        <img th:if="${goods.getImages() != ''}" th:each="image:${goods.getImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1056,7 +999,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
-                        <img th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}" th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1083,7 +1026,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
-                        <img th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}" th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1098,7 +1041,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo5">
-                        <img th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}" th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1125,7 +1068,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo5">
-                        <img th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}" th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1140,7 +1083,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo6">
-                        <img th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}" th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1167,7 +1110,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo6">
-                        <img th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}" th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1182,7 +1125,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo7">
-                        <img th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}" th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1209,7 +1152,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo7">
-                        <img th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}" th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1224,7 +1167,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}" th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1251,7 +1194,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}" th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1267,7 +1210,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
-                        <img th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}" th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1294,7 +1237,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
-                        <img th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}" th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1309,7 +1252,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo10">
-                        <img th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}" th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1336,7 +1279,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo10">
-                        <img th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}" th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1351,7 +1294,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo11">
-                        <img th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}" th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1378,7 +1321,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo11">
-                        <img th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}" th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1393,7 +1336,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}" th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1420,7 +1363,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}" th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1436,7 +1379,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13">
-                        <img th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}" th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1463,7 +1406,7 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13">
-                        <img th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}" th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>

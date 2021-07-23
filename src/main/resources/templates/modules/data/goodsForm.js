@@ -64,12 +64,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         , type: 'datetime'
     });
 
-    /*//保质期
-    laydate.render({
-        elem: '#expirationDate'
-        , type: 'datetime'
-    });*/
-
     //商品分类级联下拉框
     //下拉框选中后的时间
     form.on('select(levelOne)', function(data){
@@ -126,12 +120,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test1',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo1').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#certificateImageWatermark").val();
@@ -142,6 +132,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#certificateImageWatermark").val(upload_image_url);
+            $('#demo1').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //多图片上传药品资质证书（无水印）
@@ -149,12 +140,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test2',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#certificateImage").val();
@@ -165,6 +152,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#certificateImage").val(upload_image_url);
+            $('#demo2').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -172,12 +160,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test3',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo3').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#images").val();
@@ -188,6 +172,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#images").val(upload_image_url);
+            $('#demo3').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -195,12 +180,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test4',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo4').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormSampleBox").val();
@@ -211,6 +192,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormSampleBox").val(upload_image_url);
+            $('#demo4').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -218,12 +200,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test5',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo5').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormOuterPackingBox").val();
@@ -234,6 +212,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormOuterPackingBox").val(upload_image_url);
+            $('#demo5').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -241,12 +220,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test6',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo6').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormInstructionBook").val();
@@ -257,6 +232,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormInstructionBook").val(upload_image_url);
+            $('#demo6').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -264,12 +240,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test7',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo7').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormOtherData").val();
@@ -280,6 +252,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormOtherData").val(upload_image_url);
+            $('#demo7').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -287,12 +260,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test8',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo8').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormRelatedPictures").val();
@@ -303,6 +272,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormRelatedPictures").val(upload_image_url);
+            $('#demo8').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -310,12 +280,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test9',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo9').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormInstructions").val();
@@ -326,6 +292,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormInstructions").val(upload_image_url);
+            $('#demo9').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -333,12 +300,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test10',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo10').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormQualityStandard").val();
@@ -349,6 +312,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormQualityStandard").val(upload_image_url);
+            $('#demo10').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -356,12 +320,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test11',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo11').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormSurveyReport").val();
@@ -372,6 +332,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormSurveyReport").val(upload_image_url);
+            $('#demo11').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -379,12 +340,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test12',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo12').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormProductionBusinessLicense").val();
@@ -395,6 +352,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormProductionBusinessLicense").val(upload_image_url);
+            $('#demo12').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -402,12 +360,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         elem: '#test13',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo13').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|gif|bmp|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormProductionCertificate").val();
@@ -418,6 +372,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 upload_image_url = res.body.url;
             }
             $("#goodsNormProductionCertificate").val(upload_image_url);
+            $('#demo13').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
 
@@ -622,13 +577,13 @@ function save(parentIndex) {
                     rc.msg(result.msg)
                     setTimeout(function(){
                         parent.layer.close(index); //再执行关闭
-                    }, 1000);
+                    }, 500);
                 }else {
                     rc.alert(result.msg)
                 }
             },
             error: function (result) {
-                rc.alert(result.msg)
+                rc.alert("请求出错，请联系管理员")
             }
         });
     }
