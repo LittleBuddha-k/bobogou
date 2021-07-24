@@ -4,6 +4,7 @@ import com.sun.media.jai.codec.ImageCodec;
 import com.sun.media.jai.codec.ImageEncoder;
 import com.sun.media.jai.codec.JPEGEncodeParam;
 
+import javax.imageio.ImageIO;
 import javax.media.jai.JAI;
 import javax.media.jai.RenderedOp;
 import java.io.*;
@@ -38,9 +39,10 @@ public class TiffToJpg {
             try {
                 ops = new FileOutputStream(turnJpgFile);
                 //文件存储输出流
-                JPEGEncodeParam param = new JPEGEncodeParam();
-                ImageEncoder image = ImageCodec.createImageEncoder("JPEG", ops, param); //指定输出格式
-                image.encode(rd );
+                //JPEGEncodeParam param = new JPEGEncodeParam();
+                //ImageEncoder image = ImageCodec.createImageEncoder("JPEG", ops, param); //指定输出格式
+                //image.encode(rd );
+                ImageIO.write(rd, "jpg", ops);
                 //解析输出流进行输出
                 ops.close();
                 //System.out.println("tiff转换jpg成功:"+filePath);
