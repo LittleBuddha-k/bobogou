@@ -3,7 +3,6 @@ package com.littlebuddha.bobogou.modules.controller.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
-import com.littlebuddha.bobogou.common.utils.JsonMapper;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
@@ -100,8 +99,6 @@ public class OrderController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Order order, Model model) {
         List<OrderInfo> orderInfoList = orderInfoService.findList(new OrderInfo(order));
-        String orderInfo = JsonMapper.getInstance().toJson(orderInfoList);
-        model.addAttribute("orderInfo", orderInfo);
         model.addAttribute("order", order);
         return "modules/data/orderForm";
     }
