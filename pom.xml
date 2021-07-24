@@ -231,6 +231,47 @@
             <artifactId>commonmark-ext-heading-anchor</artifactId>
             <version>0.14.0</version>
         </dependency>
+
+        <!--引入外部jar包-->
+        <!--<dependency>
+            <groupId>com.littlebuddha</groupId>
+            <artifactId>jai-codec</artifactId>
+            <version>1.1.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/jai-codec-1.1.3.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.littlebuddha</groupId>
+            <artifactId>jai_core</artifactId>
+            <version>1.1.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/jai_core-1.1.3.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.littlebuddha</groupId>
+            <artifactId>jai_imageio</artifactId>
+            <version>1.1.3</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/jai_imageio.jar</systemPath>
+        </dependency>-->
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.sun.media/jai-codec &ndash;&gt;
+        <dependency>
+            <groupId>com.sun.media</groupId>
+            <artifactId>jai-codec</artifactId>
+            <version>1.1.3</version>
+        </dependency>
+        &lt;!&ndash; https://mvnrepository.com/artifact/com.sun/jai_core &ndash;&gt;
+        <dependency>
+            <groupId>com.sun</groupId>
+            <artifactId>jai_core</artifactId>
+            <version>1.1.3</version>
+        </dependency>
+        &lt;!&ndash; https://mvnrepository.com/artifact/com.sun.media/jai_imageio &ndash;&gt;
+        <dependency>
+            <groupId>com.sun.media</groupId>
+            <artifactId>jai_imageio</artifactId>
+            <version>1.1</version>
+        </dependency>-->
     </dependencies>
 
     <build>
@@ -238,8 +279,29 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!--这里写上main方法所在类的路径-->
+                <!--<configuration>
+                    <mainClass>com.littlebuddha.bobogou.BobogouApplication</mainClass>
+                    <includeSystemScope>true</includeSystemScope>&lt;!&ndash;外部进行打包&ndash;&gt;
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>-->
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>${project.basedir}/src/main/resources/lib</directory>
+                <targetPath>BOOT-INF/lib/</targetPath>
+                <includes>
+                    <include>**/*.jar</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 
 </project>
