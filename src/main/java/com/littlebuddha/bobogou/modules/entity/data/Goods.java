@@ -50,7 +50,7 @@ public class Goods extends DataEntity<Goods> {
     private String effect = "";//功效
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date producedTime = new Date();//生产日期
+    private Date producedTime;//生产日期
     private String expirationDate = "";//保质期（单位：月）
     private Double applauseRate = 0.0;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments = 0;//评论数

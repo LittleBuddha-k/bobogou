@@ -9,29 +9,29 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GoodsSpecification extends DataEntity<GoodsSpecification> {
 
-    private String commonName;//通用名称
-    private String authorization;//批准号
-    private String manufacturingEnterprise;//生产企业
-    private String specification;//产品规格
-    private String dosage;//用法用量
-    private String attending;//使用症/功能主治
-    private String adverseReaction;//不良反应
-    private Integer prescriptionType;//药品分类，0=处方药，1=（非处方药）中成药，2=（非处方药）化学药剂
-    private String storageCondition;//储存条件
-    private String component;//成分
-    private Integer validity;//有效期
-    private String productName;//产品名称
-    private String companies;//持有企业
-    private String taboo;//用药禁忌
-    private String matterAttention;//注意事项
-    private String applicationType;//适用类型
-    private String type;//类别，比如：中药、西药等
-    private String fitPeople;//适用人群
-    private String dosageForm;//剂型
-    private String indications;//适用症状
-    private String directions;//使用方法
-    private String takingCycle;//服用周期
-    private Integer accountId;//操作人员ID
+    private String commonName = "";//通用名称
+    private String authorization = "";//批准号
+    private String manufacturingEnterprise = "";//生产企业
+    private String specification = "";//产品规格
+    private String dosage = "";//用法用量
+    private String attending = "";//使用症/功能主治
+    private String adverseReaction = "";//不良反应
+    private Integer prescriptionType = 0;//药品分类，0=处方药，1=（非处方药）中成药，2=（非处方药）化学药剂
+    private String storageCondition = "";//储存条件
+    private String component = "";//成分
+    private Integer validity = 0;//有效期
+    private String productName = "";//产品名称
+    private String companies = "";//持有企业
+    private String taboo = "";//用药禁忌
+    private String matterAttention = "";//注意事项
+    private String applicationType = "";//适用类型
+    private String type = "";//类别，比如：中药、西药等
+    private String fitPeople = "";//适用人群
+    private String dosageForm = "";//剂型
+    private String indications = "";//适用症状
+    private String directions = "";//使用方法
+    private String takingCycle = "";//服用周期
+    private Integer accountId = 0;//操作人员ID
 
     public GoodsSpecification() {
     }
