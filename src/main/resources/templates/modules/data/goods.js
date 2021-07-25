@@ -39,14 +39,16 @@ layui.use(['form', 'table'], function () {
                     sortName: 'name',
                     align: 'center',
                     width: '8%'
-                }/*,
-                {
-                    title: '图片',
-                    field: 'images',
-                    sort: true,
-                    sortName: 'images'
                 },
                 {
+                    title: '商品通用名称',
+                    field: 'commonName',
+                    sort: true,
+                    sortName: 'commonName',
+                    align: 'center',
+                    width: '8%'
+                },
+                /*{
                     title: '品牌分类ID',
                     field: 'brandId',
                     sort: true,
@@ -65,17 +67,17 @@ layui.use(['form', 'table'], function () {
                     width: '8%'
                 },
                 {
-                    title: '原价',
+                    title: '零售价',
                     field: 'originalCost',
                     width: '8%'
                 },
                 {
-                    title: '普通会员价',
+                    title: '会员价',
                     field: 'sellingPrice',
                     width: '8%'
                 },
                 {
-                    title: '会员价',
+                    title: '集采价',
                     field: 'vipPrice',
                     sort: true,
                     width: '8%'
