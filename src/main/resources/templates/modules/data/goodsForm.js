@@ -157,6 +157,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     });
 
     var posterWidth = 233, posterHeight = 108;
+    var flag = true;
     //商品正图
     upload.render({
         elem: '#test3',
