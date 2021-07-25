@@ -15,70 +15,64 @@ import java.util.Date;
 public class Goods extends DataEntity<Goods> {
 
     private String name;//商品名称
-    private String commonName;//商品通用名称
-    private String certificateImageWatermark;//药品资质证书图片地址，一张，带水印
-    private String certificateImage;//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
+    private String commonName = "";//商品通用名称
+    private String certificateImageWatermark = "";//药品资质证书图片地址，一张，带水印
+    private String certificateImage = "";//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
 
     private Banner banner;//轮播图外键
-    private String frontImages;//商品展示轮播图，最多六张，使用英文逗号分隔
-    private String backImages;//商品展示轮播图，最多六张，使用英文逗号分隔
-    private String bottomImages;//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String frontImages = "";//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String backImages = "";//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String bottomImages = "";//商品展示轮播图，最多六张，使用英文逗号分隔
 
-    //private GoodsBrand firstBrand;//商品品牌规格外键
-    //private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
-    //private String brandName;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
-    //private GoodsBrand secondBrand;//商品品牌规格外键
-    //private Integer secondBrandId;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
-    //private String secondBrandName;//品牌二级分类ID，关联md_goods_brand表，购买时同类查询使用
     private Factory factory;//
-    private Integer factoryId;//厂商ID，关联厂商md_factory表
+    private Integer factoryId = 0;//厂商ID，关联厂商md_factory表
     private String factoryName;//厂商名称，关联厂商md_factory表
     private GoodsTag goodsTag;//商品标签外键
-    private String tagId;//商品标签ID,多个标签使用英文逗号分隔，关联md_tag表
+    private String tagId = "";//商品标签ID,多个标签使用英文逗号分隔，关联md_tag表
     private GoodsType goodsType;//其他分类外键
-    private String goodsTypeId;//药品其它分类ID，多个使用英文逗号分隔，在开始和结尾也需要加英文逗号
+    private String goodsTypeId = "";//药品其它分类ID，多个使用英文逗号分隔，在开始和结尾也需要加英文逗号
 
-    private String electronicCode;//电子监管码
+    private String electronicCode = "";//电子监管码
     private String barCode;//条形码
 
-    private String approvalPeriod;//药品批文有效期
+    private String approvalPeriod = "";//药品批文有效期
 
-    private Double purchasingPrice;//进价，单位：分
-    private Double originalCost;//零售价，单位：分
-    private Double sellingPrice;//会员价，单位：分
-    private Double vipPrice;//集采价，单位：分
-    private String specification;//规格
-    private Double weight;//重量，单位：g，在需要运费的时候需要通过重量来计算运费，同一订单会计算订单所有商品的重量，小数点向上取整计算重量，运费按kg计算
-    private Integer amount;//数量
-    private Integer usedAmount;//已分配
-    private Integer stockAmount;//库存数
-    private Integer salesVolume;//销量
-    private String effect;//功效
+    private Double purchasingPrice = 0.0;//进价，单位：分
+    private Double originalCost = 0.0;//零售价，单位：分
+    private Double sellingPrice = 0.0;//会员价，单位：分
+    private Double vipPrice = 0.0;//集采价，单位：分
+    private String specification = "";//规格
+    private Double weight = 0.0;//重量，单位：g，在需要运费的时候需要通过重量来计算运费，同一订单会计算订单所有商品的重量，小数点向上取整计算重量，运费按kg计算
+    private Integer amount = 0;//数量
+    private Integer usedAmount = 0;//已分配
+    private Integer stockAmount = 0;//库存数
+    private Integer salesVolume = 0;//销量
+    private String effect = "";//功效
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date producedTime;//生产日期
-    private String expirationDate;//保质期（单位：月）
-    private Double applauseRate;//好评率，单位：%，好评率大于90%为推荐商品
-    private Integer comments;//评论数
-    private Double healthBeans;//健康豆，购买商品可获得的播播豆
-    private Double integral;//积分，购买该商品可以获得的积分
-    private Integer isFreight;//是否需要运费哦：0--不需要，1=需要
-    private Double administrativeFee;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，
-    private Double provinceRatio;//省代理(经理人)提成比例，单位：100%，最多三位小数
-    private Double cityRatio;//市代理(经理人)提成比例，单位：100%，最多三位小数
-    private Double districtRatio;//区代理(经纪人)提成比例，单位：100%，最多三位小数
-    private Integer isMarket;//是否销售，0=在售，2停售
-    private String accountId;//最后操作人ID
+    private Date producedTime = new Date();//生产日期
+    private String expirationDate = "";//保质期（单位：月）
+    private Double applauseRate = 0.0;//好评率，单位：%，好评率大于90%为推荐商品
+    private Integer comments = 0;//评论数
+    private Double healthBeans = 0.0;//健康豆，购买商品可获得的播播豆
+    private Double integral = 0.0;//积分，购买该商品可以获得的积分
+    private Integer isFreight = 0;//是否需要运费哦：0--不需要，1=需要
+    private Double administrativeFee = 0.0;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，
+    private Double provinceRatio = 0.0;//省代理(经理人)提成比例，单位：100%，最多三位小数
+    private Double cityRatio = 0.0;//市代理(经理人)提成比例，单位：100%，最多三位小数
+    private Double districtRatio = 0.0;//区代理(经纪人)提成比例，单位：100%，最多三位小数
+    private Integer isMarket = 0;//是否销售，0=在售，2停售
+    private String accountId = "";//最后操作人ID
 
     private GoodsClassify goodsClassify;//商品分类外键
     private Classify classify;//一级分类
-    private String classifyId;//一级分类
+    private String classifyId = "";//一级分类
     private String classifyName;//一级分类
     private Classify secondClassify;//二级分类
-    private String secondClassifyId;//二级分类
+    private String secondClassifyId = "";//二级分类
     private String secondClassifyName;//二级分类
     private Classify reclassify;//三级分类
-    private String reclassifyId;//三级分类
+    private String reclassifyId = "";//三级分类
     private String reclassifyName;//三级分类
 
     private GoodsSpecification goodsSpecification;//商品规格外键
@@ -159,60 +153,6 @@ public class Goods extends DataEntity<Goods> {
     public void setBottomImages(String bottomImages) {
         this.bottomImages = bottomImages;
     }
-
-    /*public GoodsBrand getFirstBrand() {
-        return firstBrand;
-    }
-
-    public void setFirstBrand(GoodsBrand firstBrand) {
-        this.firstBrand = firstBrand;
-    }
-
-    public Integer getBrandId() {
-        return brandId;
-    }
-
-    public void setBrandId(Integer brandId) {
-        this.brandId = brandId;
-    }
-
-    public String getBrandName() {
-        if (firstBrand != null && StringUtils.isNotBlank(firstBrand.getBrandName())){
-            this.brandName = firstBrand.getBrandName();
-        }
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public GoodsBrand getSecondBrand() {
-        return secondBrand;
-    }
-
-    public void setSecondBrand(GoodsBrand secondBrand) {
-        this.secondBrand = secondBrand;
-    }
-
-    public Integer getSecondBrandId() {
-        return secondBrandId;
-    }
-
-    public void setSecondBrandId(Integer secondBrandId) {
-        this.secondBrandId = secondBrandId;
-    }
-
-    public String getSecondBrandName() {
-        if (secondBrand != null && StringUtils.isNotBlank(secondBrand.getBrandName())){
-            this.secondBrandName = secondBrand.getBrandName();
-        }
-        return secondBrandName;
-    }
-
-    public void setSecondBrandName(String secondBrandName) {
-        this.secondBrandName = secondBrandName;
-    }*/
 
     public Factory getFactory() {
         return factory;

@@ -86,6 +86,11 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setBottomImages(aa);
         }
+        goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
+        goods.setOriginalCost(goods.getOriginalCost() / 100);
+        goods.setSellingPrice(goods.getSellingPrice() / 100);
+        goods.setVipPrice(goods.getVipPrice() / 100);
+        goods.setWeight(goods.getVipPrice() / 1000);
         return goods;
     }
 
@@ -100,7 +105,16 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             String name = StringUtils.deleteWhitespace(entity.getName());
             entity.setName(name);
         }
-        return super.findPage(page, entity);
+        PageInfo<Goods> page1 = super.findPage(page, entity);
+        List<Goods> list = page1.getList();
+        for (Goods goods : list) {
+            goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
+            goods.setOriginalCost(goods.getOriginalCost() / 100);
+            goods.setSellingPrice(goods.getSellingPrice() / 100);
+            goods.setVipPrice(goods.getVipPrice() / 100);
+            goods.setWeight(goods.getVipPrice() / 1000);
+        }
+        return page1;
     }
 
     @Override
@@ -122,6 +136,21 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         }
         if (entity != null && StringUtils.isNotBlank(entity.getBottomImages())){
             entity.setBottomImages(entity.getBottomImages().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if (entity != null && entity.getPurchasingPrice() != null){
+            entity.setPurchasingPrice(entity.getPurchasingPrice() * 100);//数据库以分为单位保存
+        }
+        if (entity != null && entity.getOriginalCost() != null){
+            entity.setOriginalCost(entity.getOriginalCost() * 100);//数据库以分为单位保存
+        }
+        if (entity != null && entity.getSellingPrice() != null){
+            entity.setSellingPrice(entity.getSellingPrice() * 100);//数据库以分为单位保存
+        }
+        if (entity != null && entity.getVipPrice() != null){
+            entity.setVipPrice(entity.getVipPrice() * 100);//数据库以分为单位保存
+        }
+        if (entity != null && entity.getWeight() != null){
+            entity.setWeight(entity.getWeight() * 1000);//数据库以g为单位保存
         }
         int save = super.save(entity);
         //插入商品详情
