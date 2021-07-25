@@ -46,7 +46,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'commonName',
                     align: 'center',
-                    width: '8%'
+                    width: '10%'
                 },
                 /*{
                     title: '品牌分类ID',
