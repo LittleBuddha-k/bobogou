@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>公司资质管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css"/>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="qualificationForm">
+        <input type="hidden" name="id" id="id" th:value="${qualification.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${qualification.getName()}"
+                           th:id="name" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${qualification.getQualification() != null}">
+            <label class="layui-form-label" for="qualification">公司资质图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">公司资质图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1">
+                        <img th:each="image:${qualification.getQualification().split(',')}" th:src="${image}" alt=""
+                             style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="qualification" th:name="qualification"
+                   th:value="${qualification.getQualification()}">
+        </div>
+        <div class="layui-form-item" th:if="${qualification.getQualification() == null}">
+            <label class="layui-form-label" for="qualification">公司资质图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test1">公司资质图片</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo1"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="qualification" th:name="qualification">
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/basic/qualificationForm.js"></script>
+</body>
+</html>
