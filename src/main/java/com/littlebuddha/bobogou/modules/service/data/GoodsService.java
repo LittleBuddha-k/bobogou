@@ -59,14 +59,32 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setCertificateImage(aa);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getImages())){
-            String images = goods.getImages();
+        if (goods != null && StringUtils.isNotBlank(goods.getFrontImages())){
+            String frontImages = goods.getFrontImages();
             String aa = "";
-            String[] split = images.split(",");
+            String[] split = frontImages.split(",");
             for (String image : split) {
                 aa = aa + globalSetting.getRootPath() + image + ",";
             }
-            goods.setImages(aa);
+            goods.setFrontImages(aa);
+        }
+        if (goods != null && StringUtils.isNotBlank(goods.getBackImages())){
+            String backImages = goods.getBackImages();
+            String aa = "";
+            String[] split = backImages.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            goods.setBackImages(aa);
+        }
+        if (goods != null && StringUtils.isNotBlank(goods.getBottomImages())){
+            String bottomImages = goods.getBottomImages();
+            String aa = "";
+            String[] split = bottomImages.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            goods.setBottomImages(aa);
         }
         return goods;
     }
@@ -96,8 +114,14 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())){
             entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(),""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getImages())){
-            entity.setImages(entity.getImages().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getFrontImages())){
+            entity.setFrontImages(entity.getFrontImages().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getBackImages())){
+            entity.setBackImages(entity.getBackImages().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getBottomImages())){
+            entity.setBottomImages(entity.getBottomImages().replaceAll(globalSetting.getRootPath(),""));
         }
         int save = super.save(entity);
         //插入商品详情

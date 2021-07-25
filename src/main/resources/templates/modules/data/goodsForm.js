@@ -155,24 +155,123 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             $('#demo2').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
-    //轮播图
+
+    var posterWidth = 233, posterHeight = 108;
+    //商品正图
     upload.render({
         elem: '#test3',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
+        size: 10240,
+        choose: function (obj) {
+            flag = true;
+            //读取本地文件
+            obj.preview(function (index, file, result) {
+                var img = new Image();
+                img.onload = function () {
+                    if (posterWidth == img.width && posterHeight == img.height) {
+                    } else {
+                        layer.msg('商品正面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        flag = false;
+                    }
+                };
+                if (!flag) {
+                    return false;
+                }
+                img.src = result;
+            });
+        },
         done: function(res){
             //上传完毕
-            var last_url = $("#images").val();
+            var last_url = $("#frontImages").val();
             var upload_image_url = "";
             if(last_url){
                 upload_image_url = last_url+","+res.body.url;
             }else {
                 upload_image_url = res.body.url;
             }
-            $("#images").val(upload_image_url);
+            $("#frontImages").val(upload_image_url);
             $('#demo3').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+        }
+    });
+    //商品背图
+    upload.render({
+        elem: '#test14',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        accept: 'images',
+        exts: 'jpg|png|jpeg|tif',
+        size: 10240,
+        choose: function (obj) {
+            flag = true;
+            //读取本地文件
+            obj.preview(function (index, file, result) {
+                var img = new Image();
+                img.onload = function () {
+                    if (posterWidth == img.width && posterHeight == img.height) {
+                    } else {
+                        layer.msg('商品反面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        flag = false;
+                    }
+                };
+                if (!flag) {
+                    return false;
+                }
+                img.src = result;
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#backImages").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#backImages").val(upload_image_url);
+            $('#demo14').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+        }
+    });
+    //商品底图
+    upload.render({
+        elem: '#test15',
+        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        multiple: true,
+        accept: 'images',
+        exts: 'jpg|png|jpeg|tif',
+        size: 10240,
+        choose: function (obj) {
+            flag = true;
+            //读取本地文件
+            obj.preview(function (index, file, result) {
+                var img = new Image();
+                img.onload = function () {
+                    if (posterWidth == img.width && posterHeight == img.height) {
+                    } else {
+                        layer.msg('商品背面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        flag = false;
+                    }
+                };
+                if (!flag) {
+                    return false;
+                }
+                img.src = result;
+            });
+        },
+        done: function(res){
+            //上传完毕
+            var last_url = $("#bottomImages").val();
+            var upload_image_url = "";
+            if(last_url){
+                upload_image_url = last_url+","+res.body.url;
+            }else {
+                upload_image_url = res.body.url;
+            }
+            $("#bottomImages").val(upload_image_url);
+            $('#demo15').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -439,11 +538,27 @@ $("#btn_image_clear_test2").click(function () {
 });
 
 /**
- * 多图清除按钮点击事件---轮播图
+ * 正面多图清除按钮点击事件---轮播图
  */
 $("#btn_image_clear_test3").click(function () {
     $('#demo3').html("");
-    $("#images").val('');
+    $("#frontImages").val('');
+});
+
+/**
+ * 反面多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test14").click(function () {
+    $('#demo14').html("");
+    $("#backImages").val('');
+});
+
+/**
+ * 底面多图清除按钮点击事件---轮播图
+ */
+$("#btn_image_clear_test15").click(function () {
+    $('#demo15').html("");
+    $("#bottomImages").val('');
 });
 
 /**

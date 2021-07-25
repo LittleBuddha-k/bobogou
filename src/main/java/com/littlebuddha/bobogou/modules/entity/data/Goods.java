@@ -20,7 +20,9 @@ public class Goods extends DataEntity<Goods> {
     private String certificateImage;//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
 
     private Banner banner;//轮播图外键
-    private String images;//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String frontImages;//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String backImages;//商品展示轮播图，最多六张，使用英文逗号分隔
+    private String bottomImages;//商品展示轮播图，最多六张，使用英文逗号分隔
 
     //private GoodsBrand firstBrand;//商品品牌规格外键
     //private Integer brandId;//品牌一级分类ID，关联md_goods_brand表，列表筛选使用
@@ -134,12 +136,28 @@ public class Goods extends DataEntity<Goods> {
         this.banner = banner;
     }
 
-    public String getImages() {
-        return images;
+    public String getFrontImages() {
+        return frontImages;
     }
 
-    public void setImages(String images) {
-        this.images = images;
+    public void setFrontImages(String frontImages) {
+        this.frontImages = frontImages;
+    }
+
+    public String getBackImages() {
+        return backImages;
+    }
+
+    public void setBackImages(String backImages) {
+        this.backImages = backImages;
+    }
+
+    public String getBottomImages() {
+        return bottomImages;
+    }
+
+    public void setBottomImages(String bottomImages) {
+        this.bottomImages = bottomImages;
     }
 
     /*public GoodsBrand getFirstBrand() {

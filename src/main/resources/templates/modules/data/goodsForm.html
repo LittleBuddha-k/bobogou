@@ -944,51 +944,143 @@
             <input type="hidden" th:id="certificateImage" th:name="certificateImage"
                    th:value="${goods.getCertificateImage()}">
         </div>
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getImages() == null}">
-            <label class="layui-form-label" for="images">轮播图</label>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getFrontImages() == null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn">轮播图</button>
+                <button type="button" class="layui-btn">商品正面图</button>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getImages() != null}">
-            <label class="layui-form-label" for="images">轮播图</label>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getFrontImages() != null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn">轮播图</button>
+                <button type="button" class="layui-btn">商品正面图</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getImages() != ''}" th:each="image:${goods.getImages().split(',')}"
+                        <img th:if="${goods.getFrontImages() != ''}" th:each="image:${goods.getFrontImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getImages() == null}">
-            <label class="layui-form-label" for="images">轮播图</label>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getFrontImages() == null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test3">轮播图</button>
+                <button type="button" class="layui-btn" th:id="test3">商品正面图</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test3">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3"></div>
                 </blockquote>
             </div>
-            <input type="hidden" th:id="images" th:name="images" th:value="${goods.getImages()}">
+            <input type="hidden" th:id="frontImages" th:name="frontImages" th:value="${goods.getFrontImages()}">
         </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getImages() != null}">
-            <label class="layui-form-label" for="images">轮播图</label>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getFrontImages() != null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test3">轮播图</button>
+                <button type="button" class="layui-btn" th:id="test3">商品正面图</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test3">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getImages() != ''}" th:each="image:${goods.getImages().split(',')}"
+                        <img th:if="${goods.getFrontImages() != ''}" th:each="image:${goods.getFrontImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
-            <input type="hidden" th:id="images" th:name="images" th:value="${goods.getImages()}">
+            <input type="hidden" th:id="frontImages" th:name="frontImages" th:value="${goods.getFrontImages()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getBackImages() == null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品反面图</button>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getBackImages() != null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品反面图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo14">
+                        <img th:if="${goods.getBackImages() != ''}" th:each="image:${goods.getBackImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getBackImages() == null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test14">商品反面图</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test14">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo14"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="backImages" th:name="backImages" th:value="${goods.getBackImages()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getBackImages() != null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test14">商品反面图</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test14">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo14">
+                        <img th:if="${goods.getBackImages() != ''}" th:each="image:${goods.getBackImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="backImages" th:name="backImages" th:value="${goods.getBackImages()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getBottomImages() == null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品底面图</button>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getBottomImages() != null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品底面图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo15">
+                        <img th:if="${goods.getBottomImages() != ''}" th:each="image:${goods.getBottomImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getBottomImages() == null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test15">商品底面图</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test15">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo15"></div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="bottomImages" th:name="bottomImages" th:value="${goods.getBottomImages()}">
+        </div>
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getBottomImages() != null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test15">商品底面图</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test15">清空</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo15">
+                        <img th:if="${goods.getBottomImages() != ''}" th:each="image:${goods.getBottomImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="bottomImages" th:name="bottomImages" th:value="${goods.getBottomImages()}">
         </div>
 
         <!--商品规范部分-->

@@ -69,17 +69,20 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '零售价',
                     field: 'originalCost',
+                    align: 'center',
                     width: '8%'
                 },
                 {
                     title: '会员价',
                     field: 'sellingPrice',
+                    align: 'center',
                     width: '8%'
                 },
                 {
                     title: '集采价',
                     field: 'vipPrice',
                     sort: true,
+                    align: 'center',
                     width: '8%'
                 },
                 {
@@ -157,6 +160,7 @@ layui.use(['form', 'table'], function () {
                     //toolbar: '#operation',
                     align: 'left',
                     width: '20%',
+                    align: 'center',
                     templet:function(data){
                         let isMarket = data.isMarket;
                         if(0 == isMarket){
