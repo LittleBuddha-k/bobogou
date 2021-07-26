@@ -177,6 +177,9 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     @ExcelField(title = "商品", align = 2, sort = 5)
     public String getGoodsName() {
+        if (medicine != null && StringUtils.isNotBlank(medicine.getName())){
+            goodsName = medicine.getName();
+        }
         return goodsName;
     }
 

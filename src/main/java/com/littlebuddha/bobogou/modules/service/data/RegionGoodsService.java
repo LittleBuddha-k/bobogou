@@ -37,7 +37,12 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
 
     @Override
     public RegionGoods get(RegionGoods entity) {
-        return super.get(entity);
+        RegionGoods regionGoods = super.get(entity);
+        if (regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())){
+            Goods goods = goodsMapper.get(new Goods(regionGoods.getGoodsId()));
+            regionGoods.setMedicine(goods);
+        }
+        return regionGoods;
     }
 
     @Override

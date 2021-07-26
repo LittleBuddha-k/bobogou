@@ -56,7 +56,7 @@ public class RegionGoodsController extends BaseController {
     public RegionGoods get(@RequestParam(required = false) String id) {
         RegionGoods regionGoods = null;
         if (StringUtils.isNotBlank(id)) {
-            regionGoods = regionGoodsService.get(id);
+            regionGoods = regionGoodsService.get(new RegionGoods(id));
         }
         if (regionGoods == null) {
             regionGoods = new RegionGoods();
