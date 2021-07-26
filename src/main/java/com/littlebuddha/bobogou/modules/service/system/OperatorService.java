@@ -113,8 +113,6 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             if (CustomerUser.DEL_FLAG_NORMAL.equals(customerUser.getDelFlag())) {
                 if (!StringUtils.isNotBlank(customerUser.getId())) {
                     customerUser.setIdType("AUTO");
-                    customerUser.setNickname(operator.getNickname());
-                    customerUser.setSex(operator.getSex());
                     customerUser.setPhone(operator.getPhone());
                     customerUser.setOperatorId(operator.getId());
                     customerUser.setAreaManager(operator.getAreaManager());
@@ -122,8 +120,6 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                     customerUser.preInsert();
                     customerUserMapper.insert(customerUser);
                 } else {
-                    customerUser.setNickname(operator.getNickname());
-                    customerUser.setSex(operator.getSex());
                     customerUser.setPhone(operator.getPhone());
                     customerUser.setOperatorId(operator.getId());
                     customerUser.setAreaManager(operator.getAreaManager());
