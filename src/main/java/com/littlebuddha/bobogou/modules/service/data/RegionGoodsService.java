@@ -72,7 +72,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             //所选商品列表
             if (RegionGoods.DEL_FLAG_NORMAL.equals(entity.getIsDeleted())) {
                 if (StringUtils.isBlank(entity.getId())) {
-                    //插入数据的同时对商品库存进行操作
+                    //插入数据的同时对商品库存进行查询操作
                     Goods stock = goodsMapper.getStock(new Goods(entity.getGoodsId()));
                     if (stock != null && stock.getStockAmount() < entity.getAmount()) {
                         //如果分配数量大于库存量
