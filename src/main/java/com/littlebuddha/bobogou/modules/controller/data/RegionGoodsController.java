@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +49,9 @@ public class RegionGoodsController extends BaseController {
     @Autowired
     private GoodsService medicineService;
 
+    @Autowired
+    private DictDataService dictDataService;
+
     @ModelAttribute
     public RegionGoods get(@RequestParam(required = false) String id) {
         RegionGoods regionGoods = null;
@@ -73,15 +78,6 @@ public class RegionGoodsController extends BaseController {
         //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
-        /*//查询省级数据
-        List<City> cityList = cityService.findList(new City());
-        model.addAttribute("cityList", cityList);
-        //查询省级数据
-        List<Area> areaList = areaService.findList(new Area());
-        model.addAttribute("areaList", areaList);
-        //查询省级数据
-        List<Street> streetList = streetService.findList(new Street());
-        model.addAttribute("streetList", streetList);*/
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoods";
     }
@@ -114,6 +110,10 @@ public class RegionGoodsController extends BaseController {
         if (regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())) {
             regionGoods.setMedicine(medicineService.get(new Goods(regionGoods.getGoodsId())));
         }
+        DictData select = new DictData();
+        select.setType("region_goods_is_market");
+        List<DictData> isMarketList = dictDataService.findList(select);
+        model.addAttribute("isMarketList", isMarketList);
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoodsForm";
     }

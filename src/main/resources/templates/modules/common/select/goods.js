@@ -38,7 +38,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'name',
                     align: 'center'
-                }/*,
+                },/*
                 {
                     title: '图片',
                     field: 'images',
@@ -56,7 +56,7 @@ layui.use(['form', 'table'], function () {
                     field: 'tagId',
                     sort: true,
                     sortName: 'tagId'
-                }*/,
+                },
                 {
                     title: '进价',
                     field: 'purchasingPrice',
@@ -79,7 +79,7 @@ layui.use(['form', 'table'], function () {
                     title: '规格',
                     field: 'specification',
                     sort: true
-                },/*
+                },*/
                 {
                     title: '数量',
                     field: 'amount',
@@ -91,7 +91,7 @@ layui.use(['form', 'table'], function () {
                     field: 'salesVolume',
                     sort: true,
                     align: 'center'
-                },
+                },/*
                 {
                     title: '功效',
                     field: 'effect',

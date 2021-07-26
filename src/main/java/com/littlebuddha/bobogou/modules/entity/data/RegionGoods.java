@@ -204,16 +204,6 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     @ExcelField(title = "是否销售", align = 2, sort = 8)
     public String getIsMarket() {
-        if ("是".equals(isMarket)){
-            isMarket = "0";
-        }else if ("否".equals(isMarket)){
-            isMarket = "0";
-        }
-        if ("0".equals(isMarket)){
-            isMarket = "在售";
-        }else if ("1".equals(isMarket)){
-            isMarket = "停售";
-        }
         return isMarket;
     }
 

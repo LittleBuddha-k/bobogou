@@ -4,6 +4,9 @@ layui.use('form', function(){
 
     //下拉框选中后的时间
     form.on('select(province)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
         $("#area").empty();//清空城市选项
@@ -22,6 +25,9 @@ layui.use('form', function(){
     });
     //下拉框选中后的时间
     form.on('select(city)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
         let cityId = data.value;
         $("#area").empty();//清空城市选项
         $("#street").empty();//清空城市选项
@@ -39,6 +45,9 @@ layui.use('form', function(){
     });
     //下拉框选中后的时间
     form.on('select(area)', function(data){
+        //console.log(data.elem); //得到select原始DOM对象
+        //console.log(data.value); //得到被选中的值
+        //console.log(data.othis); //得到美化后的DOM对象
         let streetId = data.value;
         $("#street").empty();//清空城市选项
         rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
@@ -53,6 +62,12 @@ layui.use('form', function(){
             }
         })
     });
+
+    /*form.on('radio(isMarket)', function(data){
+        alert("选择了")
+        console.log(data.elem); //得到radio原始DOM对象
+        console.log(data.value); //被点击的radio的value值
+    });*/
 });
 
 $(document).ready(function () {
@@ -103,4 +118,42 @@ function save(parentIndex) {
 
 function selectGoods(id) {
     let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
+}
+
+function addRow(list, idx, tpl, row) {
+    $(list).append(Mustache.render(tpl, {
+        idx: idx, delBtn: true, row: row
+    }));
+    $(list + idx).find("select").each(function () {
+        $(this).val($(this).attr("data-value"));
+    });
+    $(list + idx).find("input[type='checkbox'], input[type='radio']").each(function () {
+        var ss = $(this).attr("data-value").split(',');
+        for (var i = 0; i < ss.length; i++) {
+            if ($(this).val() == ss[i]) {
+                $(this).attr("checked", "checked");
+            }
+        }
+    });
+    $(list + idx).find(".form_datetime").each(function () {
+        $(this).datetimepicker({
+            format: "YYYY-MM-DD HH:mm:ss"
+        });
+    });
+}
+
+function delRow(obj, prefix) {
+    var id = $(prefix + "_id");
+    var delFlag = $(prefix + "_delFlag");
+    if (id.val() == "") {
+        $(obj).parent().parent().remove();
+    } else if (delFlag.val() == "0") {
+        delFlag.val("1");
+        $(obj).html("&divide;").attr("title", "撤销删除");
+        $(obj).parent().parent().addClass("error");
+    } else if (delFlag.val() == "1") {
+        delFlag.val("0");
+        $(obj).html("&times;").attr("title", "删除");
+        $(obj).parent().parent().removeClass("error");
+    }
 }

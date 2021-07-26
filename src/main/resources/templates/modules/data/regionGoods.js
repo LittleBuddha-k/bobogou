@@ -235,7 +235,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(regionGoodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息", '1320px', '450px')
+            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息", '795px', '450px')
         }
     });
 
@@ -244,7 +244,7 @@ layui.use(['form', 'table'], function () {
         let event = obj.event;
 
         if ('edit' == event) {
-            rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息", '1320px', '450px');
+            rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息", '795px', '450px');
         } else if ('delete' == event) {
             rc.confirm('确认要删除该信息吗？', function () {
                 rc.post("/bobogou/data/regionGoods/delete?ids=" + id, '', function (data) {
