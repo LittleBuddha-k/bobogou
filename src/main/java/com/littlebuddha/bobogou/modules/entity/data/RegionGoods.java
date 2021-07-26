@@ -33,7 +33,7 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     private Integer amount;//商品数量
     private Integer salesVolume;//销量
-    private Integer isMarket;//是否销售，0=在售，1=停售
+    private String isMarket;//是否销售，0=在售，1=停售
 
     private String accountId;//最后操作人ID
     private String updateByName;//
@@ -203,11 +203,21 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     }
 
     @ExcelField(title = "是否销售", align = 2, sort = 8)
-    public Integer getIsMarket() {
+    public String getIsMarket() {
+        if ("是".equals(isMarket)){
+            isMarket = "0";
+        }else if ("否".equals(isMarket)){
+            isMarket = "0";
+        }
+        if ("0".equals(isMarket)){
+            isMarket = "在售";
+        }else if ("1".equals(isMarket)){
+            isMarket = "停售";
+        }
         return isMarket;
     }
 
-    public void setIsMarket(Integer isMarket) {
+    public void setIsMarket(String isMarket) {
         this.isMarket = isMarket;
     }
 

@@ -258,11 +258,11 @@ public class GoodsController extends BaseController {
             RegionGoods regionGoods = new RegionGoods();
             if (goods.getIsMarket() == 0){
                 //在售
-                regionGoods.setIsMarket(0);
+                regionGoods.setIsMarket("0");
                 regionGoods.setGoodsId(goods.getId());
             }else if (goods.getIsMarket() == 2){
                 //停售
-                regionGoods.setIsMarket(1);
+                regionGoods.setIsMarket("1");
                 regionGoods.setGoodsId(goods.getId());
             }
             regionGoodsService.updateIsMarket(regionGoods);
