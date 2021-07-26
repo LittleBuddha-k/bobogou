@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.other.Agreement;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.other.AgreementService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,9 @@ public class AgreementController extends BaseController {
 
     @Autowired
     private AgreementService agreementService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public Agreement get(@RequestParam(required = false) String id) {
@@ -93,6 +98,10 @@ public class AgreementController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Agreement agreement, Model model) {
+        DictData select = new DictData();
+        select.setType("protocol");
+        List<DictData> typeList = dictDataService.findList(select);
+        model.addAttribute("typeList", typeList);
         model.addAttribute("agreement", agreement);
         return "modules/other/agreementForm";
     }

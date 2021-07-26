@@ -45,6 +45,10 @@ layui.use(['form', 'table'], function () {
                             return "积分规则";
                         }else if (3 == type){
                             return "VIP规则";
+                        }else if (4 == type){
+                            return "播播豆协议";
+                        }else if (5 == type){
+                            return "提现规则";
                         }else {
                             return "未知";
                         }
