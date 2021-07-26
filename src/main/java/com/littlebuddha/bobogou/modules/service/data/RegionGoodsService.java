@@ -62,89 +62,60 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Transactional
     public int save(RegionGoods entity) {
         int row = 0;
-        RegionGoods regionGoods = null;
         entity.setIdType("AUTO");
-        if (entity != null && entity.getRegionGoodsList() != null && entity.getRegionGoodsList().size() > 0){
+        if (entity != null) {
             //所选商品列表
-            List<RegionGoods> regionGoodsList = entity.getRegionGoodsList();
-            for (RegionGoods goods : regionGoodsList) {
-                if (RegionGoods.DEL_FLAG_NORMAL.equals(goods.getIsDeleted())) {
-                    if (StringUtils.isBlank(goods.getId())) {
-                        regionGoods = new RegionGoods();
-                        BeanUtils.copyProperties(entity, regionGoods);
-                        regionGoods.setId(goods.getId());
-                        regionGoods.setGoodsId(goods.getGoodsId());
-                        regionGoods.setAmount(goods.getAmount());
-                        regionGoods.setSalesVolume(goods.getSalesVolume());
-                        regionGoods.setIsMarket(goods.getIsMarket());
-                        //插入数据的同时对商品库存进行操作
-                        Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
-                        if(stock != null && stock.getStockAmount() < goods.getAmount()){
-                            //如果分配数量大于库存量
-                            return row = -1;
-                        }else if (stock != null && stock.getStockAmount() >= goods.getAmount()){
-                            Goods goodsStock = new Goods();
-                            goodsStock.setId(goods.getGoodsId());
-                            goodsStock.setUsedAmount(goods.getAmount());
-                            goodsStock.setStockAmount(goods.getAmount());
-                            goodsMapper.updateStock(goodsStock);
-                            regionGoods.preInsert();
-                            row = regionGoodsMapper.insert(regionGoods);
-                        }
-                    }else {
-                        regionGoods = new RegionGoods();
-                        BeanUtils.copyProperties(entity, regionGoods);
-                        regionGoods.setId(goods.getId());
-                        regionGoods.setGoodsId(goods.getGoodsId());
-                        regionGoods.setAmount(goods.getAmount());
-                        regionGoods.setSalesVolume(goods.getSalesVolume());
-                        regionGoods.setIsMarket(goods.getIsMarket());
-                        //先将本条商品区域的分配数量恢复到原本的样子
-                        RegionGoods startingValue = regionGoodsMapper.get(regionGoods);
-                        if (startingValue != null){
-                            Goods startingStock = new Goods();
-                            startingStock.setUsedAmount(startingValue.getAmount());
-                            startingStock.setStockAmount(startingValue.getAmount());
-                            startingStock.setId(goods.getGoodsId());
-                            goodsMapper.recoveryStock(startingStock);
-                        }else {
-
-                        }
-                        //更新数据的同时对商品库存进行操作
-                        Goods stock = goodsMapper.getStock(new Goods(goods.getGoodsId()));
-                        if(stock != null && stock.getStockAmount() < goods.getAmount()){
-                            //如果分配数量大于库存量
-                            return row = -1;
-                        }else if (stock != null && stock.getStockAmount() >= goods.getAmount()){
-                            Goods goodsStock = new Goods();
-                            goodsStock.setId(goods.getGoodsId());
-                            goodsStock.setUsedAmount(goods.getAmount());
-                            goodsStock.setStockAmount(goods.getAmount());
-                            goodsMapper.updateStock(goodsStock);
-                            regionGoods.preUpdate();
-                            row = regionGoodsMapper.update(regionGoods);
-                        }
-                    }
-                }else {
-                    regionGoodsMapper.deleteByLogic(goods);
-                }
-            }
-        }else if (entity != null && entity.getRegionGoodsList() == null){
             if (RegionGoods.DEL_FLAG_NORMAL.equals(entity.getIsDeleted())) {
                 if (StringUtils.isBlank(entity.getId())) {
-                    entity.setIdType("AUTO");
-                    entity.preInsert();
-                    row = regionGoodsMapper.insert(entity);
-                }else {
-                    entity.preUpdate();
-                    row = regionGoodsMapper.update(entity);
+                    //插入数据的同时对商品库存进行操作
+                    Goods stock = goodsMapper.getStock(new Goods(entity.getGoodsId()));
+                    if (stock != null && stock.getStockAmount() < entity.getAmount()) {
+                        //如果分配数量大于库存量
+                        return row = -1;
+                    } else if (stock != null && stock.getStockAmount() >= entity.getAmount()) {
+                        Goods goodsStock = new Goods();
+                        goodsStock.setId(entity.getGoodsId());
+                        goodsStock.setUsedAmount(entity.getAmount());
+                        goodsStock.setStockAmount(entity.getAmount());
+                        goodsMapper.updateStock(goodsStock);
+                        entity.preInsert();
+                        row = regionGoodsMapper.insert(entity);
+                    }
+                } else {
+                    //先将本条商品区域的分配数量恢复到原本的样子
+                    RegionGoods startingValue = regionGoodsMapper.get(entity);
+                    if (startingValue != null) {
+                        Goods startingStock = new Goods();
+                        startingStock.setUsedAmount(startingValue.getAmount());
+                        startingStock.setStockAmount(startingValue.getAmount());
+                        startingStock.setId(entity.getGoodsId());
+                        goodsMapper.recoveryStock(startingStock);
+                    } else {
+
+                    }
+                    //更新数据的同时对商品库存进行操作
+                    Goods stock = goodsMapper.getStock(new Goods(entity.getGoodsId()));
+                    if (stock != null && stock.getStockAmount() < entity.getAmount()) {
+                        //如果分配数量大于库存量
+                        return row = -1;
+                    } else if (stock != null && stock.getStockAmount() >= entity.getAmount()) {
+                        Goods goodsStock = new Goods();
+                        goodsStock.setId(entity.getGoodsId());
+                        goodsStock.setUsedAmount(entity.getAmount());
+                        goodsStock.setStockAmount(entity.getAmount());
+                        goodsMapper.updateStock(goodsStock);
+                        entity.preUpdate();
+                        row = regionGoodsMapper.update(entity);
+                    }
                 }
+            } else {
+                regionGoodsMapper.deleteByLogic(entity);
             }
         }
         return row;
     }
 
-    public int updateIsMarket(RegionGoods regionGoods){
+    public int updateIsMarket(RegionGoods regionGoods) {
         int row = regionGoodsMapper.updateIsMarket(regionGoods);
         return row;
     }
