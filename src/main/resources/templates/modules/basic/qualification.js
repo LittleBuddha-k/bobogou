@@ -77,6 +77,8 @@ layui.use(['form', 'table'], function () {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
             var index = rc.openSaveDialog("/bobogou/basic/qualification/form/edit?id="+ids, "编辑资质信息",'650px','400px')
+        }else if (obj.event === 'download') {  // 监听下载操作
+            rc.downloadFile("/bobogou/basic/qualification/download?id=" + ids);
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该资质信息吗？', function () {
                 rc.post("/bobogou/basic/qualification/delete?ids=" + ids, '', function (data) {

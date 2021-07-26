@@ -44,6 +44,9 @@ public class QualificationService extends CrudService<Qualification, Qualificati
 
     @Override
     public int save(Qualification entity) {
+        if (entity != null && entity.getQualification() != null){
+            entity.setQualification(entity.getQualification().replaceAll(globalSetting.getRootPath(),""));
+        }
         int save = super.save(entity);
         return save;
     }

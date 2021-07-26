@@ -2,8 +2,10 @@ package com.littlebuddha.bobogou.modules.controller.basic;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.file.FileUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Qualification;
 import com.littlebuddha.bobogou.modules.service.basic.QualificationService;
@@ -12,8 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.activation.MimetypesFileTypeMap;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +31,9 @@ import java.util.Map;
 @Controller
 @RequestMapping("/basic/qualification")
 public class QualificationController extends BaseController {
+
+    @Autowired
+    private GlobalSetting globalSetting;
 
     @Autowired
     private QualificationService qualificationService;
@@ -93,6 +105,33 @@ public class QualificationController extends BaseController {
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }
+
+    /**
+     * 资质下载
+     */
+    @ResponseBody
+    @RequestMapping(value = "/download")
+    public Result download(Qualification qualification,HttpServletResponse response) throws IOException {
+        Result result = new Result();
+        if (qualification != null && StringUtils.isNotBlank(qualification.getQualification())) {
+            String [] filename = qualification.getQualification().split(",");
+            String [] path = qualification.getQualification().split(",");
+            if (path != null && path.length > 0){
+                String [] realPath = new String[path.length];
+                for (int i =0;i<path.length;i++) {
+                    realPath[i] = "E:/usr/image/" + path[i];
+                }
+                FileUtils.imgDownload(response,filename, realPath);
+            }else {
+
+            }
+        }else {
+            result.setSuccess(false);
+            result.setMsg("无资质图片");
+            return result;
+        }
+        return null;
     }
 
     @ResponseBody
