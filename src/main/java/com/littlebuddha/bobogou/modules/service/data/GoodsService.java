@@ -86,11 +86,21 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setBottomImages(aa);
         }
-        goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
-        goods.setOriginalCost(goods.getOriginalCost() / 100);
-        goods.setSellingPrice(goods.getSellingPrice() / 100);
-        goods.setVipPrice(goods.getVipPrice() / 100);
-        goods.setWeight(goods.getVipPrice() / 1000);
+        if (goods != null && goods.getPurchasingPrice() != null){
+            goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
+        }
+        if (goods != null && goods.getOriginalCost() != null){
+            goods.setOriginalCost(goods.getOriginalCost() / 100);
+        }
+        if (goods != null && goods.getSellingPrice() != null){
+            goods.setSellingPrice(goods.getSellingPrice() / 100);
+        }
+        if (goods != null && goods.getVipPrice() != null){
+            goods.setVipPrice(goods.getVipPrice() / 100);
+        }
+        if (goods != null && goods.getWeight() != null){
+            goods.setWeight(goods.getWeight() / 1000);
+        }
         return goods;
     }
 
