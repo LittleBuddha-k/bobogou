@@ -485,6 +485,16 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
+                        th:if="${order.getStatus() == 5}" th:id="pass" style="margin-left: 140px"> 通 过
+                </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
+                        th:if="${order.getStatus() == 5}"th:id="refuse" > 拒 绝
+                </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
         </div>
         <table class="layui-table">
@@ -500,8 +510,8 @@
                 <th>购买数量</th>
                 <th>商品单价</th>
                 <th>总价</th>
-                <th>类型</th>
-                <th>状态</th>
+                <!--<th>类型</th>
+                <th>状态</th>-->
             </tr>
             </thead>
             <tbody id="orderInfoList">
@@ -533,13 +543,13 @@
 						<input id="orderInfoList{{idx}}_totalPrice" name="orderInfoList[{{idx}}].totalPrice" type="text" value="{{row.totalPrice}}"    class="layui-input" readonly/>
 					</td>
 
-                    <td>
+                    <!--<td>
 						<input id="orderInfoList{{idx}}_type" name="orderInfoList[{{idx}}].type" type="text" value="{{row.type}}"    class="layui-input" readonly/>
 					</td>
 
                     <td>
 						<input id="orderInfoList{{idx}}_status" name="orderInfoList[{{idx}}].status" type="text" value="{{row.status}}"    class="layui-input" readonly/>
-					</td>
+					</td>-->
 				</tr>//-->
             </script>
             <script type="text/javascript">
@@ -574,11 +584,11 @@
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/orderForm.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
 <!--引入表单验证-->
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
 </body>
 </html>

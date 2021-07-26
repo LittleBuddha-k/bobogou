@@ -286,10 +286,17 @@ layui.use(['form', 'table'], function () {
         } else if (obj.event === 'edit') {
             rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '85%', '70%');
         } else if (obj.event === 'chargeback') {
-
+            rc.openViewDialogNoClose('/bobogou/data/order/form/detail?id=' + id, "退单处理","700px","580px")
         }
     });
-
+    $("#pass").click(function(data) {
+        rc.success("待支付完善做处理")
+        //return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    })
+    $("#refuse").click(function(data) {
+        rc.success("待支付完善做处理")
+        //return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    })
     //监视列表查找单选框
     form.on('radio(status)', function (data) {
         //console.log(data.value); //被点击的radio的value值
