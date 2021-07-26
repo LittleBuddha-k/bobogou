@@ -176,10 +176,6 @@ public class CustomerUserController extends BaseController {
     @ResponseBody
     @GetMapping("/toDoData")
     public TreeResult toDoData(CustomerUser customerUser,Model model){
-        /*CustomerUser currentCustomerUser = UserUtils.getCurrentCustomerUser();
-        if (currentCustomerUser != null && StringUtils.isNotBlank(currentCustomerUser.getAreaManager().toString())){
-            customerUser.setAreaManager(currentCustomerUser.getAreaManager());
-        }*/
         PageInfo<CustomerUser> page = null;
         Operator currentUser = UserUtils.getCurrentUser();
         if(currentUser.getAreaManager() != 3){

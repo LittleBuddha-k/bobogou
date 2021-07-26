@@ -185,12 +185,6 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
      * @return
      */
     public PageInfo<CustomerUser> findVipApplyForAreaManager(Page<CustomerUser> page, CustomerUser entity) {
-        //if(entity != null){
-        //    String phone = StringUtils.deleteWhitespace(entity.getPhone());
-        //    entity.setPhone(phone);
-        //    String nickname = StringUtils.deleteWhitespace(entity.getNickname());
-        //    entity.setNickname(nickname);
-        //}
         Operator currentUser = UserUtils.getCurrentUser();
         OperatorRegion operatorRegion = new OperatorRegion();
         operatorRegion.setOperatorId(currentUser.getId());
