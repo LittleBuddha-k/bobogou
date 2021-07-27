@@ -10,7 +10,7 @@
 <div>
     <form class="layui-form" id="operatorForm">
         <input type="hidden" name="id" th:value="${operator.getId()}" id="id">
-        <input type="hidden" th:if="${operator.getCustomerUser() != null}" id="customerUserId" name="customerUser.id" th:value="${operator.getCustomerUser().getId()}">
+        <input type="hidden" th:id="userId" name="userId" th:value="${operator.getUserId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="loginName">登录名称</label>

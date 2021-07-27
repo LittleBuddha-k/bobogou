@@ -105,7 +105,7 @@ function save(parentIndex) {
         return false;
     } else {
         let id = $("#id").val();
-        let customerUserId = $("#customerUserId").val();
+        let userId = $("#userId").val();
         let loginName = $("#loginName").val();
         let phone = $("#phone").val();
         if (id == '' || id == null) {
@@ -138,7 +138,7 @@ function save(parentIndex) {
                                         success: function (result) {
                                             let data = result.data;
                                             if (data != null) {
-                                                $("#customerUserId").val(data.id);
+                                                $("#userId").val(data.id);
                                                 $.ajax({
                                                     url: "/bobogou/system/operator/save",    //请求的url地址
                                                     dataType: "json",   //返回格式为json
