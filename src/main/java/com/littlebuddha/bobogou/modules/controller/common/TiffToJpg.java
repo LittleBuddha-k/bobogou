@@ -1,5 +1,7 @@
 package com.littlebuddha.bobogou.modules.controller.common;
 
+import com.littlebuddha.bobogou.common.exception.errorcode.CustomizeErrorCode;
+import com.littlebuddha.bobogou.common.exception.serviceexception.CustomizeException;
 import com.sun.media.jai.codec.ImageCodec;
 import com.sun.media.jai.codec.ImageEncoder;
 import com.sun.media.jai.codec.JPEGEncodeParam;
@@ -48,8 +50,10 @@ public class TiffToJpg {
                 //System.out.println("tiff转换jpg成功:"+filePath);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
+                throw new CustomizeException(CustomizeErrorCode.FILE_EMPTY);
             } catch (IOException e) {
                 e.printStackTrace();
+                throw new CustomizeException(CustomizeErrorCode.UPLOAD_ERROR);
             }
         }
         return turnJpgFile;

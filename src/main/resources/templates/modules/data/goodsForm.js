@@ -67,9 +67,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //商品分类级联下拉框
     //下拉框选中后的时间
     form.on('select(levelOne)', function(data){
-        //console.log(data.elem); //得到select原始DOM对象
-        //console.log(data.value); //得到被选中的值
-        //console.log(data.othis); //得到美化后的DOM对象
         let parentId = data.value;
         $("#levelTwo").empty();//清空二级
         $("#levelThree").empty();//清空三级
@@ -92,9 +89,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     });
     //下拉框选中后的时间
     form.on('select(levelTwo)', function(data){
-        //console.log(data.elem); //得到select原始DOM对象
-        //console.log(data.value); //得到被选中的值
-        //console.log(data.othis); //得到美化后的DOM对象
         let parentId = data.value;
         $("#levelThree").empty();//清空城市选项
         rc.post("/bobogou/data/classify/all",{"parentId":parentId},function(data){
@@ -118,10 +112,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //多图片上传药品资质证书（带水印）
     upload.render({
         elem: '#test1',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/upload-watermark',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#certificateImageWatermark").val();
@@ -138,10 +132,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //多图片上传药品资质证书（无水印）
     upload.render({
         elem: '#test2',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#certificateImage").val();
@@ -161,7 +155,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //商品正图
     upload.render({
         elem: '#test3',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
@@ -200,7 +194,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //商品背图
     upload.render({
         elem: '#test14',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
@@ -239,7 +233,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //商品底图
     upload.render({
         elem: '#test15',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
@@ -278,10 +272,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test4',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormSampleBox").val();
@@ -298,10 +292,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test5',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormOuterPackingBox").val();
@@ -318,10 +312,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test6',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormInstructionBook").val();
@@ -338,10 +332,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test7',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormOtherData").val();
@@ -358,10 +352,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test8',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormRelatedPictures").val();
@@ -378,10 +372,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test9',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormInstructions").val();
@@ -398,10 +392,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test10',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormQualityStandard").val();
@@ -418,10 +412,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test11',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormSurveyReport").val();
@@ -438,10 +432,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test12',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormProductionBusinessLicense").val();
@@ -458,10 +452,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     //轮播图
     upload.render({
         elem: '#test13',
-        url: '/bobogou/file/picture?uploadPath='+"/data/banner",
+        url: '/bobogou/file/picture',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|gif|bmp|jpeg|tif',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#goodsNormProductionCertificate").val();
