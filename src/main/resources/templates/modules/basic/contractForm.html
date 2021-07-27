@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>合同管理</title>
+    <title>合同上传管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <!--markdown富文本编辑-->
@@ -15,84 +15,40 @@
         <input type="hidden" name="id" id="id" th:value="${contract.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
+                <label class="layui-form-label" for="name">合同名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${contract.getName()}"
+                           th:id="contract" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode == 'view' && contract.getType() == null}" disabled="true">
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode == 'view' && contract.getType() == 1}" disabled="true">
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode == 'view' && contract.getType() == 2}" disabled="true">
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode == 'view' && contract.getType() == 3}" disabled="true">
-                        <option th:value="3" th:text="医院合同"/>
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode != 'view' && contract.getType() == null}">
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode != 'view' && contract.getType() == 1}">
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode != 'view' && contract.getType() == 2}">
-                        <option th:value="2" th:text="诊所合同"/>
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="3" th:text="医院合同"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${mode != 'view' && contract.getType() == 3}">
-                        <option th:value="3" th:text="医院合同"/>
-                        <option th:value="1" th:text="药房合同"/>
-                        <option th:value="2" th:text="诊所合同"/>
+                            th:id="type">
+                        <option th:each="type:${contractType}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${contract.getType()}"/>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${contract.getContent() != null}" >
-            <label class="layui-form-label" for="cardFront">合同图片</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test1">合同图片</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1">
-                        <img th:each="image:${contract.getContent().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>
-                </blockquote>
+        <div class="layui-form-item">
+            <label class="layui-form-label">合同文件</label>
+            <div class="layui-upload-drag" id="test10">
+                <i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>
+                <div class="" id="uploadDemoView">
+                    <hr>
+                    <input type="text" th:id="name" th:value="${contract.getName()}" autocomplete="off" class="layui-input" readonly>
+                </div>
             </div>
-            <input type="hidden" th:id="content" th:name="content" th:value="${contract.getContent()}">
+            <input type="hidden" th:id="address" th:name="address" th:value="${contract.getAddress()}">
         </div>
-        <div class="layui-form-item" th:if="${contract.getContent() == null}" >
-            <label class="layui-form-label" for="cardFront">合同图片</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test1">合同图片</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1"></div>
-                </blockquote>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label">备注</label>
+            <div class="layui-input-block">
+                <textarea placeholder="备注" class="layui-textarea" th:name="remarks"></textarea>
             </div>
-            <input type="hidden" th:id="content" th:name="content">
         </div>
     </form>
 </div>

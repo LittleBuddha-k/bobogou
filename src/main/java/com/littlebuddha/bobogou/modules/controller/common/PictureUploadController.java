@@ -66,6 +66,49 @@ public class PictureUploadController {
             } catch (IOException | RuntimeException e) {
                 e.printStackTrace();
             }
+        }else {
+            throw new CustomizeException(CustomizeErrorCode.FILE_EMPTY);
+        }
+        return result;
+    }
+
+    /**
+     * 文件的上传
+     * @param request
+     * @param response
+     * @param file
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/upload")
+    public Result upload(HttpServletRequest request, HttpServletResponse response, MultipartFile file, Model model) throws IOException {
+        Result result = new Result();
+        String uploadImage = globalSetting.getUploadImage();
+        //上传文件名字
+        String fileName = file.getOriginalFilename();
+        //保存特殊名字
+        String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //年月日文件夹
+        String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
+        uploadImage += data;
+        File typeDir = new File(Paths.get(uploadImage).toUri());
+        if (!typeDir.exists() && !typeDir.isDirectory()) {
+            typeDir.mkdirs();
+        }
+        File tempFile = new File(Paths.get(uploadImage, saveFileName).toUri());
+        if (!file.isEmpty()) {
+            try {
+                file.transferTo(tempFile);
+                String url = globalSetting.getRootPath() + data + "/" +saveFileName;
+                result.put("name",fileName);
+                result.put("url",url);
+            } catch (IOException | RuntimeException e) {
+                e.printStackTrace();
+            }
+        }else {
+            throw new CustomizeException(CustomizeErrorCode.FILE_EMPTY);
         }
         return result;
     }
@@ -111,6 +154,8 @@ public class PictureUploadController {
                 result.setUrl("");
                 result.setMessage("上传失败:"+e.getMessage());
             }
+        }else {
+            throw new CustomizeException(CustomizeErrorCode.FILE_EMPTY);
         }
         return result;
     }

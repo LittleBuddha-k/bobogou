@@ -33,6 +33,12 @@ layui.use(['form', 'table'], function () {
                     type: "radio"
                 },
                 {
+                    title: '名称',
+                    field: 'name',
+                    sort: true,
+                    sortName: 'name'
+                },
+                {
                     title: '类型',
                     field: 'type',
                     sort: true,
@@ -81,14 +87,14 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(contractTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/contract/form/add", "新建合同信息",'650px','400px')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/add", "新建合同信息",'718px','500px')
         }
     });
 
     table.on('tool(contractTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/contract/form/edit?id="+ids, "编辑合同信息",'650px','400px')
+            var index = rc.openSaveDialog("/bobogou/basic/contract/form/edit?id="+ids, "编辑合同信息",'718px','500px')
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该合同信息吗？', function () {
                 rc.post("/bobogou/basic/contract/delete?ids=" + ids, '', function (data) {

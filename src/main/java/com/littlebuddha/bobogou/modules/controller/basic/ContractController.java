@@ -6,7 +6,9 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Contract;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.service.basic.ContractService;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +28,9 @@ public class ContractController extends BaseController {
 
     @Autowired
     private ContractService contractService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public Contract get(@RequestParam(required = false) String id) {
@@ -74,6 +80,10 @@ public class ContractController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Contract contract, Model model) {
+        DictData select = new DictData();
+        select.setType("basic_contract_type");
+        List<DictData> contractType = dictDataService.findList(select);
+        model.addAttribute("contractType", contractType);
         model.addAttribute("contract", contract);
         return "modules/basic/contractForm";
     }

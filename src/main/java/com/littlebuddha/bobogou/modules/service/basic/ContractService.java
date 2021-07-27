@@ -27,15 +27,6 @@ public class ContractService extends CrudService<Contract, ContractMapper> {
     @Override
     public Contract get(Contract entity) {
         Contract contract = contractMapper.get(entity);
-        if (contract != null && StringUtils.isNotBlank(contract.getContent())){
-            String content = contract.getContent();
-            String aa = "";
-            String[] split = content.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
-            }
-            contract.setContent(aa);
-        }
         return contract;
     }
 
@@ -53,8 +44,8 @@ public class ContractService extends CrudService<Contract, ContractMapper> {
 
     @Override
     public int save(Contract entity) {
-        if (entity != null && StringUtils.isNotBlank(entity.getContent())){
-            entity.setContent(entity.getContent().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getAddress())){
+            entity.setAddress(entity.getAddress().replaceAll(globalSetting.getRootPath(),""));
         }
         int save = super.save(entity);
         return save;

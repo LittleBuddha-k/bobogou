@@ -9,8 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 public class Contract extends DataEntity<Contract> {
 
     private Integer type;//类型，1=药房合同，2=诊所合同，3=医院合同
-    private String content;//合同内容，富文本
-    private String operatorId;//操作人ID
+    private String name = "";//合同内容，富文本
+    private String address = "";//合同保存路径
 
     public Contract() {
     }
@@ -27,22 +27,19 @@ public class Contract extends DataEntity<Contract> {
         this.type = type;
     }
 
-    public String getContent() {
-        return content;
+    public String getName() {
+        return name;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getOperatorId() {
-        if (createBy != null && StringUtils.isNotBlank(createBy.getId())){
-            operatorId = createBy.getId();
-        }
-        return operatorId;
+    public String getAddress() {
+        return address;
     }
 
-    public void setOperatorId(String operatorId) {
-        this.operatorId = operatorId;
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
