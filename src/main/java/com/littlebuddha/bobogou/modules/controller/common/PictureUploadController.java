@@ -122,6 +122,7 @@ public class PictureUploadController {
         //先加水印
         String path = uploadWatermarkFile(file);
         String tifToJpg = TiffToJpg.tifToJpg(path.replaceAll(globalSetting.getRootPath(),globalSetting.getUploadImage()));
+        tifToJpg = tifToJpg.replaceAll(globalSetting.getUploadImage(),globalSetting.getRootPath());
         result.put("url",tifToJpg);
         return result;
     }

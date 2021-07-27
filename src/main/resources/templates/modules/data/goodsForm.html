@@ -460,7 +460,7 @@
                 <div class="layui-input-inline">
                     <input type="applauseRate" th:id="applauseRate" th:name="applauseRate"
                            th:value="${goods.getApplauseRate()}"
-                           placeholder="好评率(%)" autocomplete="off" class="layui-input number"
+                           placeholder="好评率(%)" autocomplete="off" class="layui-input number" range="[0,100]"
                            th:if="${mode != 'detail'}">
                     <input type="applauseRate" th:id="applauseRate" th:name="applauseRate"
                            th:value="${goods.getApplauseRate()}"
@@ -547,11 +547,11 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="administrativeFee" th:name="administrativeFee"
                            th:value="${goods.getAdministrativeFee()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
                     <input type="text" th:id="administrativeFee" th:name="administrativeFee"
                            th:value="${goods.getAdministrativeFee()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -561,11 +561,11 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="provinceRatio" th:name="provinceRatio"
                            th:value="${goods.getProvinceRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
                     <input type="text" th:id="provinceRatio" th:name="provinceRatio"
                            th:value="${goods.getProvinceRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -575,11 +575,11 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="cityRatio" th:name="cityRatio"
                            th:value="${goods.getCityRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
                     <input type="text" th:id="cityRatio" th:name="cityRatio"
                            th:value="${goods.getCityRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -589,11 +589,11 @@
                 <div class="layui-input-inline">
                     <input type="text" th:id="districtRatio" th:name="districtRatio"
                            th:value="${goods.getDistrictRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode != 'detail'}">
                     <input type="text" th:id="districtRatio" th:name="districtRatio"
                            th:value="${goods.getDistrictRatio()}"
-                           placeholder="(单位：100%)" autocomplete="off" class="layui-input number"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number"
                            th:if="${mode == 'detail'}"
                            readonly>
                 </div>
@@ -844,105 +844,102 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() == null}">
-            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书(带水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn">药品资质证书(带水印)</button>
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() == '' || goods.getCertificateImageWatermark() == null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide" th:id="uploadDemoView">
+                    <hr>
+                </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() != null}">
-            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书(带水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn">药品资质证书图片(带水印)</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1">
-                        <img th:if="${goods.getCertificateImageWatermark() != ''}"
-                             th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt=""
-                             style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>
-                </blockquote>
+
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() != '' && goods.getCertificateImageWatermark() != null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="">
+                    <hr>
+                    <img th:src="${goods.getCertificateImageWatermark()}" alt="已保存数据的回显" style="max-width: 196px" >
+                </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() == null}">
-            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书(带水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test1">药品资质证书(带水印)</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1"></div>
-                </blockquote>
-            </div>
-            <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark"
-                   th:value="${goods.getCertificateImageWatermark()}">
-        </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() != null}">
-            <label class="layui-form-label" for="certificateImageWatermark">药品资质证书(带水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test1">药品资质证书(带水印)</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1">
-                        <img th:if="${goods.getCertificateImageWatermark() != ''}"
-                             th:each="image:${goods.getCertificateImageWatermark().split(',')}" th:src="${image}" alt=""
-                             style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>
-                </blockquote>
-            </div>
-            <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark"
-                   th:value="${goods.getCertificateImageWatermark()}">
-        </div>
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() == null}">
-            <label class="layui-form-label" for="certificateImage">药品资质证书(无水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn">药品资质证书(无水印)</button>
+
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() == '' || goods.getCertificateImageWatermark() == null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag" th:id="test1">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide" th:id="uploadDemoView">
+                    <hr>
+                    <img >
+                </div>
+                <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" >
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() != null}">
-            <label class="layui-form-label" for="certificateImage">药品资质证书(无水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn">药品资质证书(无水印)</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo2">
-                        <img th:if="${goods.getCertificateImage() != ''}"
-                             th:each="image:${goods.getCertificateImage().split(',')}" th:src="${image}" alt=""
-                             style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>
-                </blockquote>
+
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImageWatermark() != '' && goods.getCertificateImageWatermark() != null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag" th:id="test1">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="" th:id="uploadDemoView">
+                    <hr>
+                    <img th:src="${goods.getCertificateImageWatermark()}">
+                </div>
+                <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" th:value="${goods.getCertificateImageWatermark()}">
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() == null}">
-            <label class="layui-form-label" for="certificateImage">药品资质证书(无水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test2">药品资质证书(无水印)</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test2">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo2"></div>
-                </blockquote>
+
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
+            <label class="layui-form-label">药品资质证书(无水印)1</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide">
+                    <hr>
+                </div>
             </div>
-            <input type="hidden" th:id="certificateImage" th:name="certificateImage"
-                   th:value="${goods.getCertificateImage()}">
         </div>
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() != null}">
-            <label class="layui-form-label" for="certificateImage">药品资质证书(无水印)</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test2">药品资质证书(无水印)</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test2">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo2">
-                        <img th:if="${goods.getCertificateImage() != ''}"
-                             th:each="image:${goods.getCertificateImage().split(',')}" th:src="${image}" alt=""
-                             style="width: 92px;height: 92px;" class="layui-upload-img">
-                    </div>
-                </blockquote>
+
+        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
+            <label class="layui-form-label">药品资质证书(无水印)2</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="">
+                    <hr>
+                    <img th:src="${goods.getCertificateImage()}" alt="已保存数据的回显" style="max-width: 196px">
+                </div>
             </div>
-            <input type="hidden" th:id="certificateImage" th:name="certificateImage"
-                   th:value="${goods.getCertificateImage()}">
+        </div>
+
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
+            <label class="layui-form-label">药品资质证书(无水印)3</label>
+            <div class="layui-upload-drag" th:id="test2">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide" th:id="uploadDemoView2">
+                    <hr>
+                    <img >
+                </div>
+                <input type="hidden" th:id="certificateImage" th:name="certificateImage" >
+            </div>
+        </div>
+
+        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
+            <label class="layui-form-label">药品资质证书(无水印)4</label>
+            <div class="layui-upload-drag" th:id="test2">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="" th:id="uploadDemoView2">
+                    <hr>
+                    <img th:src="${goods.getCertificateImage()}">
+                </div>
+                <input type="hidden" th:id="certificateImage" th:name="certificateImage" th:value="${goods.getCertificateImage()}">
+            </div>
         </div>
         <div class="layui-form-item" th:if="${mode == 'detail' && goods.getFrontImages() == null}">
             <label class="layui-form-label" for="frontImages">商品正面图</label>
@@ -957,7 +954,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getFrontImages() != ''}" th:each="image:${goods.getFrontImages().split(',')}"
+                        <img th:if="${goods.getFrontImages() != ''}"
+                             th:each="image:${goods.getFrontImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -983,7 +981,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
-                        <img th:if="${goods.getFrontImages() != ''}" th:each="image:${goods.getFrontImages().split(',')}"
+                        <img th:if="${goods.getFrontImages() != ''}"
+                             th:each="image:${goods.getFrontImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1049,7 +1048,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo15">
-                        <img th:if="${goods.getBottomImages() != ''}" th:each="image:${goods.getBottomImages().split(',')}"
+                        <img th:if="${goods.getBottomImages() != ''}"
+                             th:each="image:${goods.getBottomImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1075,7 +1075,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo15">
-                        <img th:if="${goods.getBottomImages() != ''}" th:each="image:${goods.getBottomImages().split(',')}"
+                        <img th:if="${goods.getBottomImages() != ''}"
+                             th:each="image:${goods.getBottomImages().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1091,7 +1092,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
-                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}" th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1118,7 +1120,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
-                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}" th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1133,7 +1136,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo5">
-                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}" th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1160,7 +1164,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo5">
-                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}" th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1175,7 +1180,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo6">
-                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}" th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1202,7 +1208,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo6">
-                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}" th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1217,7 +1224,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo7">
-                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}" th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1244,7 +1252,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo7">
-                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}" th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
+                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1259,7 +1268,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}" th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1286,7 +1296,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo8">
-                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}" th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1302,7 +1313,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
-                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}" th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1329,7 +1341,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo9">
-                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}" th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1344,7 +1357,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo10">
-                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}" th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1371,7 +1385,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo10">
-                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}" th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1386,7 +1401,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo11">
-                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}" th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1413,7 +1429,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo11">
-                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}" th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
+                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
                              alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1428,7 +1445,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}" th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1455,7 +1473,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo12">
-                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}" th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1471,7 +1490,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13">
-                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}" th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1498,7 +1518,8 @@
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo13">
-                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}" th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
+                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
                              th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
@@ -1549,11 +1570,13 @@
 <script src="/bobogou/plugins/markdown/js/editormd.js"></script>
 <script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
 <script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
-<!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/goodsForm.js"></script>
 <!--引入表单验证-->
 <script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
 <script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入自定义文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/goodsForm.js"></script>
 </body>
 </html>

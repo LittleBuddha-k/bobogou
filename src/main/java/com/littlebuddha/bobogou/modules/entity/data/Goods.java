@@ -52,7 +52,7 @@ public class Goods extends DataEntity<Goods> {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date producedTime;//生产日期
     private String expirationDate = "";//保质期（单位：月）
-    private Double applauseRate = 0.0;//好评率，单位：%，好评率大于90%为推荐商品
+    private Double applauseRate = 0.000;//好评率，单位：%，好评率大于90%为推荐商品
     private Integer comments = 0;//评论数
     private Double healthBeans = 0.0;//健康豆，购买商品可获得的播播豆
     private Double integral = 0.0;//积分，购买该商品可以获得的积分

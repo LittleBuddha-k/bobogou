@@ -43,21 +43,11 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         Goods goods = super.get(entity);
         if (goods != null && StringUtils.isNotBlank(goods.getCertificateImageWatermark())){
             String certificateImageWatermark = goods.getCertificateImageWatermark();
-            String aa = "";
-            String[] split = certificateImageWatermark.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
-            }
-            goods.setCertificateImageWatermark(aa);
+            goods.setCertificateImageWatermark(globalSetting.getRootPath() + certificateImageWatermark);
         }
         if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())){
             String certificateImage = goods.getCertificateImage();
-            String aa = "";
-            String[] split = certificateImage.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
-            }
-            goods.setCertificateImage(aa);
+            goods.setCertificateImage(globalSetting.getRootPath() + certificateImage);
         }
         if (goods != null && StringUtils.isNotBlank(goods.getFrontImages())){
             String frontImages = goods.getFrontImages();

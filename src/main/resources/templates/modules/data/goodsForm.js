@@ -110,27 +110,53 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     });
 
     //多图片上传药品资质证书（带水印）
+    //拖拽上传
     upload.render({
         elem: '#test1',
-        url: '/bobogou/file/upload-watermark',
+        url: '/bobogou/file/upload-watermark', //改成您自己的上传接口
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
         done: function(res){
-            //上传完毕
-            var last_url = $("#certificateImageWatermark").val();
-            var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
-                upload_image_url = res.body.url;
-            }
-            $("#certificateImageWatermark").val(upload_image_url);
-            $('#demo1').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            layer.msg('上传成功');
+            layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.body.url);
+            $("#certificateImageWatermark").val(res.body.url)
         }
     });
+    //upload.render({
+    //    elem: '#test1',
+    //    url: '/bobogou/file/upload-watermark',
+    //    multiple: true,
+    //    accept: 'images',
+    //    exts: 'jpg|png|jpeg|tif',
+    //    done: function(res){
+    //        //上传完毕
+    //        var last_url = $("#certificateImageWatermark").val();
+    //        var upload_image_url = "";
+    //        if(last_url){
+    //            upload_image_url = last_url+","+res.body.url;
+    //        }else {
+    //            upload_image_url = res.body.url;
+    //        }
+    //        $("#certificateImageWatermark").val(upload_image_url);
+    //        $('#demo1').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+    //    }
+    //});
     //多图片上传药品资质证书（无水印）
+    //拖拽上传
     upload.render({
+        elem: '#test2',
+        url: '/bobogou/file/picture', //改成您自己的上传接口
+        multiple: true,
+        accept: 'images',
+        exts: 'jpg|png|jpeg|tif',
+        done: function(res){
+            layer.msg('上传成功');
+            layui.$('#uploadDemoView2').removeClass('layui-hide').find('img').attr('src', res.body.url);
+            $("#certificateImage").val(res.body.url)
+        }
+    });
+    /*upload.render({
         elem: '#test2',
         url: '/bobogou/file/picture',
         multiple: true,
@@ -148,7 +174,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             $("#certificateImage").val(upload_image_url);
             $('#demo2').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
-    });
+    });*/
 
     var posterWidth = 233, posterHeight = 108;
     var flag = true;
