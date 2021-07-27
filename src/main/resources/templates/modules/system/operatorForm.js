@@ -222,11 +222,11 @@ function save(parentIndex) {
                             parent.layer.close(index); //再执行关闭
                         }, 500);
                     } else {
-                        rc.msg(result.msg)
+                        rc.msg("新增时出错")
                     }
                 },
                 error: function (result) {
-                    rc.alert(result.msg)
+                    rc.alert("请求出错")
                 }
             });
 

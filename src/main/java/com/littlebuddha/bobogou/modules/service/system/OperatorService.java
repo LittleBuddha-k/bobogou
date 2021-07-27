@@ -106,7 +106,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         }
         //关联保存app用户
         if (operator.getUserId() == null || !StringUtils.isNotBlank(operator.getUserId())) {
-            CustomerUser customerUser = operator.getCustomerUser();
+            CustomerUser customerUser = new CustomerUser();
             customerUser.setIdType("AUTO");
             customerUser.setPhone(operator.getPhone());
             customerUser.setOperatorId(operator.getId());
@@ -121,10 +121,8 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             operatorMapper.updateUserId(updateUserId);
         }
         if (operator.getUserId() != null || StringUtils.isNotBlank(operator.getUserId())) {
-            CustomerUser customerUser = operator.getCustomerUser();
+            CustomerUser customerUser = customerUserMapper.get(new CustomerUser(operator.getUserId()));
             customerUser.setId(operator.getUserId());
-            customerUser.setPhone(operator.getPhone());
-            customerUser.setOperatorId(operator.getId());
             customerUser.setAreaManager(operator.getAreaManager());
             customerUser.setStatus(operator.getStatus());
             customerUser.preUpdate();
