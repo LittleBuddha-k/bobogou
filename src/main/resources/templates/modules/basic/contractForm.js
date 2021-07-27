@@ -12,6 +12,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         elem: '#test10'
         ,url: '/bobogou/file/upload' //改成您自己的上传接口
         ,accept: 'file'
+        ,exts: 'xls|xlsx|doc|docx'
         ,done: function(res){
             layer.msg('上传成功');
             layui.$('#uploadDemoView').removeClass('layui-hide');
