@@ -105,36 +105,35 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             }
         }
         //关联保存app用户
-        if (operator.getAreaManager() != null || operator.getStatus() != null) {
+        if (operator.getUserId() == null || !StringUtils.isNotBlank(operator.getUserId())) {
             CustomerUser customerUser = operator.getCustomerUser();
-            if (customerUser == null) {
-                customerUser = new CustomerUser();
-            }
-            if (CustomerUser.DEL_FLAG_NORMAL.equals(customerUser.getDelFlag())) {
-                if (!StringUtils.isNotBlank(customerUser.getId())) {
-                    customerUser.setIdType("AUTO");
-                    customerUser.setPhone(operator.getPhone());
-                    customerUser.setOperatorId(operator.getId());
-                    customerUser.setAreaManager(operator.getAreaManager());
-                    customerUser.setStatus(operator.getStatus());
-                    customerUser.preInsert();
-                    customerUserMapper.insert(customerUser);
-                } else {
-                    customerUser.setPhone(operator.getPhone());
-                    customerUser.setOperatorId(operator.getId());
-                    customerUser.setAreaManager(operator.getAreaManager());
-                    customerUser.setStatus(operator.getStatus());
-                    customerUser.preUpdate();
-                    customerUserMapper.update(customerUser);
-                }
-                //更新operator表关联前端用户的user_id字段
-                Operator updateUserId = new Operator();
-                updateUserId.setId(operator.getId());
-                updateUserId.setUserId(customerUser.getId());
-                operatorMapper.updateUserId(updateUserId);
-            } else {
-                customerUserMapper.deleteByLogic(customerUser);
-            }
+            customerUser.setIdType("AUTO");
+            customerUser.setPhone(operator.getPhone());
+            customerUser.setOperatorId(operator.getId());
+            customerUser.setAreaManager(operator.getAreaManager());
+            customerUser.setStatus(operator.getStatus());
+            customerUser.preInsert();
+            customerUserMapper.insert(customerUser);
+            //更新operator表关联前端用户的user_id字段
+            Operator updateUserId = new Operator();
+            updateUserId.setId(operator.getId());
+            updateUserId.setUserId(customerUser.getId());
+            operatorMapper.updateUserId(updateUserId);
+        }
+        if (operator.getUserId() != null || StringUtils.isNotBlank(operator.getUserId())) {
+            CustomerUser customerUser = operator.getCustomerUser();
+            customerUser.setId(operator.getUserId());
+            customerUser.setPhone(operator.getPhone());
+            customerUser.setOperatorId(operator.getId());
+            customerUser.setAreaManager(operator.getAreaManager());
+            customerUser.setStatus(operator.getStatus());
+            customerUser.preUpdate();
+            customerUserMapper.update(customerUser);
+            //更新operator表关联前端用户的user_id字段
+            Operator updateUserId = new Operator();
+            updateUserId.setId(operator.getId());
+            updateUserId.setUserId(customerUser.getId());
+            operatorMapper.updateUserId(updateUserId);
         }
         return operatorRow;
     }
