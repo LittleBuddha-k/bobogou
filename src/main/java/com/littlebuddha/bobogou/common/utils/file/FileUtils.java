@@ -1,5 +1,7 @@
 package com.littlebuddha.bobogou.common.utils.file;
 
+import com.littlebuddha.bobogou.common.exception.errorcode.CustomizeErrorCode;
+import com.littlebuddha.bobogou.common.exception.serviceexception.CustomizeException;
 import org.apache.logging.log4j.util.Base64Util;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,10 +55,11 @@ public class FileUtils {
                         os.write(buffer,0,len);
                     }
                 }else{
-                    String error = Base64Util.encode("下载的文件资源不存在");
+                    throw new CustomizeException(CustomizeErrorCode.FILE_NOT_EXIST);
                 }
             }catch(IOException ex){
                 ex.printStackTrace();
+                throw new CustomizeException(CustomizeErrorCode.DOWNLOAD_ERROR);
             }finally {
                 try{
                     if(is != null){

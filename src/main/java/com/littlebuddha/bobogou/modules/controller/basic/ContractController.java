@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.file.FileUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Contract;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +58,46 @@ public class ContractController extends BaseController {
     public String list(Contract contract, Model model, HttpSession session) {
         model.addAttribute("contract", contract);
         return "modules/basic/contract";
+    }
+
+    /**
+     * 返回药品列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    @GetMapping(value = {"/downloadList"})
+    public String downloadList(Contract contract, Model model, HttpSession session) {
+        model.addAttribute("contract", contract);
+        return "modules/basic/contractDownloadList";
+    }
+
+    /**
+     * 返回药品列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @GetMapping(value = {"/download"})
+    public Result download(Contract contract, Model model, HttpSession session, HttpServletResponse response) {
+        Result result = new Result();
+        if (contract != null && StringUtils.isNotBlank(contract.getAddress())) {
+            String address = contract.getAddress();
+            String suffix = address.substring(contract.getAddress().lastIndexOf("."));
+            String filename = contract.getName() + suffix;
+            String path = "E:/usr/image/" + address;
+            FileUtils.download(response, filename, path);
+        } else {
+            result.setSuccess(false);
+            result.setMsg("无合同文件");
+            return result;
+        }
+        return null;
     }
 
     /**

@@ -12,7 +12,9 @@ public enum CustomizeErrorCode implements IErrorCode {
     QUESTION_NOT_EXIST(207, "当前问题不存在"),
     COMMENT_NOT_EMPTY(208, "回复内容不能为空"),
     UPLOAD_ERROR(500, "上传出错"),
-    FILE_EMPTY(500, "文件为空");
+    DOWNLOAD_ERROR(500, "下载出错"),
+    FILE_EMPTY(500, "文件为空"),
+    FILE_NOT_EXIST(500, "文件不存在");
 
     private String message;
 
