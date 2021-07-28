@@ -104,8 +104,8 @@ layui.use(['form', 'table'], function () {
         if (obj.event === 'edit') {  // 监听添加操作
             var index = rc.openSaveDialog("/bobogou/basic/signContract/form/edit?id="+ids, "编辑合同签署信息",'718px','600px')
         }else if (obj.event === 'subTask') {
-            rc.confirm('确认要删除该合同签署信息吗？', function () {
-                rc.post("/bobogou/basic/signContract/delete?ids=" + ids, '', function (data) {
+            rc.confirm('是否提交处理？', function () {
+                rc.post("/bobogou/basic/signContract/subTask?id=" + ids, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();

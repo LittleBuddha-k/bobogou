@@ -105,6 +105,18 @@ public class SignContractController extends BaseController {
         }
     }
 
+    /**
+     * 提交审核
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/subTask")
+    public Result subTask(SignContract signContract) {
+        return null;
+    }
+
     @ResponseBody
     @PostMapping("/delete")
     public Result delete(String ids) {
