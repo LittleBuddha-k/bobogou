@@ -3,7 +3,7 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
-    table.render({
+    var init = table.render({
         elem: '#signContractTable',
         url: '/bobogou/basic/signContract/data',
         method: 'GET',
@@ -66,6 +66,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
+            partAName: $("#partAName").val(),
+            partBName: $("#partBName").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -75,10 +77,18 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('signContractTable', {
             where: {
+                partAName: $("#partAName").val(),
+                partBName: $("#partBName").val()
             }
         });
         return false;
     });
+
+    $("#reset").click(function () {
+        $("#partAName").val("");
+        $("#partBName").val("");
+        init();
+    })
 
     /**
      * toolbar监听事件
@@ -93,6 +103,18 @@ layui.use(['form', 'table'], function () {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
             var index = rc.openSaveDialog("/bobogou/basic/signContract/form/edit?id="+ids, "编辑合同签署信息",'718px','600px')
+        }else if (obj.event === 'subTask') {
+            rc.confirm('确认要删除该合同签署信息吗？', function () {
+                rc.post("/bobogou/basic/signContract/delete?ids=" + ids, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.success(data.msg);
+                    } else {
+                        rc.error(data.msg);
+                    }
+                });
+            })
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该合同签署信息吗？', function () {
                 rc.post("/bobogou/basic/signContract/delete?ids=" + ids, '', function (data) {

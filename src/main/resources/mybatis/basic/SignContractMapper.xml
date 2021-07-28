@@ -31,6 +31,12 @@
         FROM bobogou_basic_sign_contract a
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test="partAName != null and partAName != ''">
+                AND a.part_a_name LIKE concat('%',#{partAName},'%')
+            </if>
+            <if test="partBName != null and partBName != ''">
+                AND a.part_b_name LIKE concat('%',#{partBName},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

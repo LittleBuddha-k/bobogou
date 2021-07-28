@@ -12,7 +12,39 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        
+
+        <fieldset class="table-search-fieldset">
+            <legend></legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" id="searchForm">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label" for="partAName">甲方</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="partAName" th:value="${signContract.getPartAName()}"
+                                       th:id="partAName" autocomplete="off" class="layui-input required">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label" for="partBName">乙方</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="partBName" th:value="${signContract.getPartBName()}"
+                                       th:id="partBName" autocomplete="off" class="layui-input required">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit th:id="reset"
+                                    lay-filter="data-search-btn"><i class="layui-icon"></i> 重 置
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
                 <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add">上传合同信息</button>
@@ -22,6 +54,7 @@
         <table class="layui-hide" id="signContractTable" lay-filter="signContractTableFilter"></table>
 
         <script type="text/html" id="operation">
+            <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="subTask">提交</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="delete">删除</a>
         </script>

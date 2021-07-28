@@ -63,6 +63,12 @@ public class SignContractService extends CrudService<SignContract, SignContractM
 
     @Override
     public PageInfo<SignContract> findPage(Page<SignContract> page, SignContract entity) {
+        if (entity != null && StringUtils.isNotBlank(entity.getPartAName())){
+            entity.setPartAName(StringUtils.deleteWhitespace(entity.getPartAName()));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getPartBName())){
+            entity.setPartBName(StringUtils.deleteWhitespace(entity.getPartBName()));
+        }
         PageInfo<SignContract> page1 = super.findPage(page, entity);
         return page1;
     }
