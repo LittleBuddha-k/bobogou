@@ -1530,18 +1530,16 @@
         <div class="layui-form-item" th:if="${mode != 'detail'}">
             <label class="layui-form-label" for="name">详 情 :</label>
             <div class="layui-input-block" th:id="goodsInfoAdd" th:if="${mode == 'add'}">
-            <textarea style="display:none;" name="goodsInfo.content">
-            </textarea>
+            <textarea style="display:none;" name="goodsInfo.content"></textarea>
             </div>
             <div class="layui-input-block" th:id="goodsInfoAdd"
                  th:if="${mode == 'edit' && goods.getGoodsInfo() == null}">
-            <textarea style="display:none;" name="goodsInfo.content">
-            </textarea>
+            <textarea style="display:none;" name="goodsInfo.content"></textarea>
             </div>
             <div class="layui-input-block" th:id="goodsInfoAdd"
                  th:if="${mode == 'edit' && goods.getGoodsInfo() != null}">
-            <textarea style="display:none;" name="goodsInfo.content" th:text="${goods.getGoodsInfo().getContent()}">
-            </textarea>
+            <textarea style="display:none;" th:if="${goods.getGoodsInfo().getContent() != ''}" name="goodsInfo.content" th:text="${goods.getGoodsInfo().getContent()}"></textarea>
+            <textarea style="display:none;" th:if="${goods.getGoodsInfo().getContent() == ''}" name="goodsInfo.content"></textarea>
             </div>
         </div>
         <div class="layui-form-item" th:if="${mode == 'detail'}">

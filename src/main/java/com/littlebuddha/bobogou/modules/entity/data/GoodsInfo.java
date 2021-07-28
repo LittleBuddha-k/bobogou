@@ -8,12 +8,12 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GoodsInfo extends DataEntity<GoodsInfo> {
 
-    private String content;//商品详情内容
-    private String contentHtml;//商品详情内容
+    private String content = "";//商品详情内容
+    private String contentHtml = "";//商品详情内容
     private String accountId;//更新人
 
     private Goods medicine;//商品外键
-    private String goodsId;//
+    private String goodsId = "";//
 
     public GoodsInfo() {
     }

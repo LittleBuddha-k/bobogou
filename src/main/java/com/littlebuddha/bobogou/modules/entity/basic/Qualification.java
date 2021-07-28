@@ -8,8 +8,8 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Qualification extends DataEntity<Qualification> {
 
-    private String name;//名称
-    private String qualification;//资质图片
+    private String name = "";//名称
+    private String qualification = "";//资质图片
 
     public Qualification() {
     }

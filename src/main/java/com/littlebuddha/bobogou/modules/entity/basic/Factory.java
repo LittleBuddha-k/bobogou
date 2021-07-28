@@ -8,30 +8,30 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Factory extends DataEntity<Factory> {
 
-    private Integer factoryType;//厂商类型，1=供货商，2=批发企业
-    private Integer productType;//厂商产品类型，1=普通厂家，2=中药饮片，3=消毒产品
-    private String factoryName;//厂商名称/批发企业名称
-    private String linkman;//联系人
-    private String phone;//联系人手机号
-    private String idNumber;//身份证号
-    private String cardFront;//身份证正面地址
-    private String cardBack;//身份证背面地址
-    private String address;//厂商/企业联系地址
-    private String businessLicense;//营业执照复印件，图片地址
-    private String annualReport;//上一年度报告，图片地址，多张使用英文逗号分隔
-    private String businessPermit;//经营许可证复印件，图片地址，多张使用英文逗号分隔
-    private String basicAccount;//基本户复印件，图片地址，多张使用英文逗号分隔
-    private String billingInformation;//开票信息
-    private String sampleInvoiceTicket;//增值税发票票样（供货商填），图片地址，批发企业不填
-    private String qualityGuarantee;//质保协议（供货商填），图片地址，批发企业不填
-    private String sealImpression;//印章模板（公章、法人章、财务专用章、合同专用章、发票专用章、质管章、收货专用章、出库专用章），图片地址
-    private String powerAttorney;//销售委托书（供货商填）/采购委托书（药房填），图片地址
-    private String invoiceCounterparts;//出货同行单样票（供货商填），图片地址，批发企业不填
-    private String bailorCard;//委托人身份证复印件（医院填），图片地址，如果诊所药房是委托人采购也需要填，委托人采购或则销售必填
-    private String mandataryCard;//被委托人身份证复印件，图片地址，委托人采购或则销售必填
-    private String takeDeliveryBailment;//收货委托书（批发企业填），图片地址，委托人采购或则销售必填
-    private String foodBusinessLicense;//食品经营许可证图片地址，保健食品传，
-    private Integer isBailor;//是否委托人采购或则销售，0=否，1=是
+    private Integer factoryType = 1;//厂商类型，1=供货商，2=批发企业
+    private Integer productType = 1;//厂商产品类型，1=普通厂家，2=中药饮片，3=消毒产品
+    private String factoryName = "";//厂商名称/批发企业名称
+    private String linkman = "";//联系人
+    private String phone = "";//联系人手机号
+    private String idNumber = "";//身份证号
+    private String cardFront = "";//身份证正面地址
+    private String cardBack = "";//身份证背面地址
+    private String address = "";//厂商/企业联系地址
+    private String businessLicense = "";//营业执照复印件，图片地址
+    private String annualReport = "";//上一年度报告，图片地址，多张使用英文逗号分隔
+    private String businessPermit = "";//经营许可证复印件，图片地址，多张使用英文逗号分隔
+    private String basicAccount = "";//基本户复印件，图片地址，多张使用英文逗号分隔
+    private String billingInformation = "";//开票信息
+    private String sampleInvoiceTicket = "";//增值税发票票样（供货商填），图片地址，批发企业不填
+    private String qualityGuarantee = "";//质保协议（供货商填），图片地址，批发企业不填
+    private String sealImpression = "";//印章模板（公章、法人章、财务专用章、合同专用章、发票专用章、质管章、收货专用章、出库专用章），图片地址
+    private String powerAttorney = "";//销售委托书（供货商填）/采购委托书（药房填），图片地址
+    private String invoiceCounterparts = "";//出货同行单样票（供货商填），图片地址，批发企业不填
+    private String bailorCard = "";//委托人身份证复印件（医院填），图片地址，如果诊所药房是委托人采购也需要填，委托人采购或则销售必填
+    private String mandataryCard = "";//被委托人身份证复印件，图片地址，委托人采购或则销售必填
+    private String takeDeliveryBailment = "";//收货委托书（批发企业填），图片地址，委托人采购或则销售必填
+    private String foodBusinessLicense = "";//食品经营许可证图片地址，保健食品传，
+    private Integer isBailor = 0;//是否委托人采购或则销售，0=否，1=是
     private String operatorId;//操作人ID
 
     public Factory() {

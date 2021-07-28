@@ -12,28 +12,28 @@ import java.util.List;
 public class RegionGoods extends DataEntity<RegionGoods> {
 
     private Province province;
-    private String provinceId;//省ID
+    private String provinceId = "";//省ID
     private String provinceName;
 
     private City city;
-    private String cityId;//市ID
+    private String cityId = "";//市ID
     private String cityName;
 
     private Area area;
-    private String districtId;//区ID
+    private String districtId = "";//区ID
     private String areaName;
 
     private Street street;//
-    private String streetId;//乡镇街道ID
+    private String streetId = "";//乡镇街道ID
     private String streetName;
 
     private Goods medicine;
-    private String goodsId;//商品ID
+    private String goodsId = "";//商品ID
     private String goodsName;
 
     private Integer amount;//商品数量
-    private Integer salesVolume;//销量
-    private String isMarket;//是否销售，0=在售，1=停售
+    private Integer salesVolume = 0;//销量
+    private String isMarket = "0";//是否销售，0=在售，1=停售
 
     private String accountId;//最后操作人ID
     private String updateByName;//
