@@ -160,6 +160,60 @@ public class PictureUploadController {
         return result;
     }
 
+    /**
+     * markdown上传
+     * @param request
+     * @param response
+     * @param file
+     * @param model
+     * @return
+     * @throws IOException
+     */
+    @ResponseBody
+    @PostMapping("/goodsInfoMarkdownUpload")
+    public MarkdownResult goodsInfoMarkdownUpload(HttpServletRequest request, HttpServletResponse response, MultipartFile file, Model model) {
+        MarkdownResult result = new MarkdownResult();
+        MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
+        MultipartFile multipartFile = multipartHttpServletRequest.getFile("editormd-image-file");
+        String uploadImage = globalSetting.getUploadImage();
+        //上传文件名字
+        String fileName = multipartFile.getOriginalFilename();
+        //保存特殊名字
+        String saveFileName = System.currentTimeMillis() + fileName.substring(fileName.lastIndexOf("."));
+        //年月日文件夹
+        String data = DateUtils.localDateTimeToString(LocalDateTime.now(), DateUtils.FORMAT_FILE_NAME);
+        uploadImage += data;
+        File typeDir = new File(Paths.get(uploadImage).toUri());
+        if (!typeDir.exists() && !typeDir.isDirectory()) {
+            typeDir.mkdirs();
+        }
+        File tempFile = new File(Paths.get(uploadImage, saveFileName).toUri());
+        if (!multipartFile.isEmpty()) {
+            try {
+                multipartFile.transferTo(tempFile);
+                boolean size = FileUtils.checkImageElement(tempFile, 375, 375);
+                if (size){
+                    String url = globalSetting.getRootPath() + data + "/" + saveFileName;
+                    result.setSuccess(1);
+                    result.setUrl(url);
+                    result.setMessage("上传成功");
+                }else {
+                    result.setSuccess(0);
+                    result.setUrl("");
+                    result.setMessage("商品详情必须为：" + 375 + "px " + " * " + 375 + " px,请重新确认图片分辨率正确后再次上传");
+                }
+            } catch (IOException | RuntimeException e) {
+                e.printStackTrace();
+                result.setSuccess(0);
+                result.setUrl("");
+                result.setMessage("上传失败:"+e.getMessage());
+            }
+        }else {
+            throw new CustomizeException(CustomizeErrorCode.FILE_EMPTY);
+        }
+        return result;
+    }
+
     @ResponseBody
     @PostMapping(value = "/upload-watermark")
     public Result uploadWatermark(MultipartFile file) {

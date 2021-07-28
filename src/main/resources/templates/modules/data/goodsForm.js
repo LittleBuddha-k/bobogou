@@ -673,6 +673,7 @@ $("#btn_image_clear_test13").click(function () {
 
 //富文本编辑
 $(document).ready(function () {
+    var markdownWidth = 120, markdownHeight = 120;
     //编辑时
     $(function () {
         var editor = editormd("goodsInfoAdd", {
@@ -684,7 +685,7 @@ $(document).ready(function () {
             placeholder: "请确认商品详情图片插入之前应满足要求(长:宽):375:375或者1:1比例",
             imageUpload: true,          // Enable/disable upload
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL: "/bobogou/file/markdownUpload",             // Upload url
+            imageUploadURL: "/bobogou/file/goodsInfoMarkdownUpload",             // Upload url
             crossDomainUpload: false,          // Enable/disable Cross-domain upload
             uploadCallbackURL: "",             // Cross-domain upload callback url
         });
