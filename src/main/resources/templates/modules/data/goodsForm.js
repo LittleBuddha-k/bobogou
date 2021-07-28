@@ -683,7 +683,7 @@ $(document).ready(function () {
             delay: 0,
             placeholder: "请编辑商品详情",
             imageUpload: true,          // Enable/disable upload
-            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageFormats: ["jpg", "jpeg", "png"],
             imageUploadURL: "/bobogou/file/markdownUpload",             // Upload url
             crossDomainUpload: false,          // Enable/disable Cross-domain upload
             uploadCallbackURL: "",             // Cross-domain upload callback url
