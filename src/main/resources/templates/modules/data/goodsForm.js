@@ -1,23 +1,23 @@
-layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
+layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     var $ = layui.jquery
         , form = layui.form
         , layer = layui.layer
         , layedit = layui.layedit
         , laydate = layui.laydate
-        ,upload = layui.upload
-        ,element = layui.element;
+        , upload = layui.upload
+        , element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
     //对标签的操作----点击时才生效
-    form.on('checkbox(tag)', function(data){
+    form.on('checkbox(tag)', function (data) {
         //console.log(data.elem); //得到checkbox原始DOM对象
         let checked = data.elem.checked; //是否被选中，true或者false
-        if(checked){
+        if (checked) {
             let id = data.value; //复选框value值，也可以通过data.elem.value得到
             let tagId = $("#tagId").val();
             let get = tagId + "," + id;
             $("#tagId").val(get);
-        }else {
+        } else {
             $("#tagId").val("")
         }
         //console.log($("#tagId").val())
@@ -25,33 +25,33 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
     });
 
     //对其他分类操作----点击时才生效
-    form.on('checkbox(goodsTypeId)', function(data){
+    form.on('checkbox(goodsTypeId)', function (data) {
         let checked = data.elem.checked; //是否被选中，true或者false
-        if(checked){
+        if (checked) {
             let id = data.value; //复选框value值，也可以通过data.elem.value得到
             let tagId = $("#goodsTypeId").val();
             let get = tagId + "," + id;
             $("#goodsTypeId").val(get);
-        }else {
+        } else {
             $("#goodsTypeId").val("")
         }
     });
 
     //品牌一级分类联动二级分类
-    form.on('select(brandId)', function(data){
+    form.on('select(brandId)', function (data) {
         let brandId = data.value;
         $("#secondBrandId").empty();//清空二级选项
-        rc.post("/bobogou/data/goodsBrand/dataList",{"parentId":brandId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/goodsBrand/dataList", {"parentId": brandId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].brandName + "</option>";
                 }
                 $("#secondBrandId").html(tmp);
                 form.render();
-            }else {
-                var tmp='<option value="-1">请选择</option>';
+            } else {
+                var tmp = '<option value="-1">请选择</option>';
                 $("#secondBrandId").html(tmp);
                 form.render();
             }
@@ -66,43 +66,43 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
 
     //商品分类级联下拉框
     //下拉框选中后的时间
-    form.on('select(levelOne)', function(data){
+    form.on('select(levelOne)', function (data) {
         let parentId = data.value;
         $("#levelTwo").empty();//清空二级
         $("#levelThree").empty();//清空三级
-        rc.post("/bobogou/data/classify/all",{"parentId":parentId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/classify/all", {"parentId": parentId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="0">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="0">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#levelTwo").html(tmp);
                 form.render();
-            }else {
+            } else {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="0">请选择</option>';
+                var tmp = '<option value="0">请选择</option>';
                 $("#levelTwo").html(tmp);
                 form.render();
             }
         })
     });
     //下拉框选中后的时间
-    form.on('select(levelTwo)', function(data){
+    form.on('select(levelTwo)', function (data) {
         let parentId = data.value;
         $("#levelThree").empty();//清空城市选项
-        rc.post("/bobogou/data/classify/all",{"parentId":parentId},function(data){
-            if(data.length>0) {
+        rc.post("/bobogou/data/classify/all", {"parentId": parentId}, function (data) {
+            if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="0">请选择</option>';
-                for(let i=0;i<data.length;i++) {
+                var tmp = '<option value="0">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#levelThree").html(tmp);
                 form.render();
-            }else {
+            } else {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="0">请选择</option>';
+                var tmp = '<option value="0">请选择</option>';
                 $("#levelThree").html(tmp);
                 form.render();
             }
@@ -117,7 +117,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             layer.msg('上传成功');
             layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.body.url);
             $("#certificateImageWatermark").val(res.body.url)
@@ -150,7 +150,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             layer.msg('上传成功');
             layui.$('#uploadDemoView2').removeClass('layui-hide').find('img').attr('src', res.body.url);
             $("#certificateImage").val(res.body.url)
@@ -205,17 +205,19 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 img.src = result;
             });
         },
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#frontImages").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
-            $("#frontImages").val(upload_image_url);
-            $('#demo3').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            if (flag) {
+                $("#frontImages").val(upload_image_url);
+                $('#demo3').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            }
         }
     });
     //商品背图
@@ -245,17 +247,19 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 img.src = result;
             });
         },
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#backImages").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
-            $("#backImages").val(upload_image_url);
-            $('#demo14').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            if (flag) {
+                $("#backImages").val(upload_image_url);
+                $('#demo14').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            }
         }
     });
     //商品底图
@@ -285,17 +289,19 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                 img.src = result;
             });
         },
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#bottomImages").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
-            $("#bottomImages").val(upload_image_url);
-            $('#demo15').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            if (flag) {
+                $("#bottomImages").val(upload_image_url);
+                $('#demo15').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            }
         }
     });
     //轮播图
@@ -305,17 +311,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormSampleBox").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormSampleBox").val(upload_image_url);
-            $('#demo4').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo4').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -325,17 +331,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormOuterPackingBox").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormOuterPackingBox").val(upload_image_url);
-            $('#demo5').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo5').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -345,17 +351,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormInstructionBook").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormInstructionBook").val(upload_image_url);
-            $('#demo6').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo6').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -365,17 +371,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormOtherData").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormOtherData").val(upload_image_url);
-            $('#demo7').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo7').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -385,17 +391,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormRelatedPictures").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormRelatedPictures").val(upload_image_url);
-            $('#demo8').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo8').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -405,17 +411,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormInstructions").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormInstructions").val(upload_image_url);
-            $('#demo9').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo9').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -425,17 +431,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormQualityStandard").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormQualityStandard").val(upload_image_url);
-            $('#demo10').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo10').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -445,17 +451,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormSurveyReport").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormSurveyReport").val(upload_image_url);
-            $('#demo11').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo11').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -465,17 +471,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormProductionBusinessLicense").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormProductionBusinessLicense").val(upload_image_url);
-            $('#demo12').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo12').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
     //轮播图
@@ -485,17 +491,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
-        done: function(res){
+        done: function (res) {
             //上传完毕
             var last_url = $("#goodsNormProductionCertificate").val();
             var upload_image_url = "";
-            if(last_url){
-                upload_image_url = last_url+","+res.body.url;
-            }else {
+            if (last_url) {
+                upload_image_url = last_url + "," + res.body.url;
+            } else {
                 upload_image_url = res.body.url;
             }
             $("#goodsNormProductionCertificate").val(upload_image_url);
-            $('#demo13').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
+            $('#demo13').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
 
@@ -506,11 +512,11 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
             url: "/bobogou/data/goods/findByFactoryAndName",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: {"name":name},    //参数值
+            data: {"name": name},    //参数值
             type: "GET",   //请求方式
             success: function (result) {
                 //假设这是iframe页
-                if (result.length >= 1){
+                if (result.length >= 1) {
                     //不做显示，不让修改
                     $("#goodsNormPrices").hide();
                     $("#sampleBoxShow").hide();
@@ -523,7 +529,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function(){
                     $("#surveyReportShow").hide();
                     $("#productionBusinessLicenseShow").hide();
                     $("#productionCertificateShow").hide();
-                }else {
+                } else {
                     //表示商品第一次创建需要显示规范信息，在新建里面填写完善
                     $("#goodsNormPrices").show();
                     $("#sampleBoxShow").show();
@@ -668,24 +674,24 @@ $("#btn_image_clear_test13").click(function () {
 //富文本编辑
 $(document).ready(function () {
     //编辑时
-    $(function() {
+    $(function () {
         var editor = editormd("goodsInfoAdd", {
-            width  : "100%",
-            height : "400px",
-            path   : "/bobogou/plugins/markdown/lib/",
-            watch  : false,
-            delay  : 0,
+            width: "100%",
+            height: "400px",
+            path: "/bobogou/plugins/markdown/lib/",
+            watch: false,
+            delay: 0,
             placeholder: "请编辑商品详情",
-            imageUpload          : true,          // Enable/disable upload
-            imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
-            imageUploadURL       : "/bobogou/file/markdownUpload",             // Upload url
-            crossDomainUpload    : false,          // Enable/disable Cross-domain upload
-            uploadCallbackURL    : "",             // Cross-domain upload callback url
+            imageUpload: true,          // Enable/disable upload
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/bobogou/file/markdownUpload",             // Upload url
+            crossDomainUpload: false,          // Enable/disable Cross-domain upload
+            uploadCallbackURL: "",             // Cross-domain upload callback url
         });
     });
 
     //查看时
-    $(function() {
+    $(function () {
         var testView = editormd.markdownToHTML("goodsInfoOther", {
             // markdown : "[TOC]\n### Hello world!\n## Heading 2", // Also, you can dynamic set Markdown text
             // htmlDecode : true,  // Enable / disable HTML tag encode.
@@ -696,9 +702,9 @@ $(document).ready(function () {
 
 function save(parentIndex) {
     var isValidate = rc.validateForm('#goodsForm');//校验表单
-    if(!isValidate){
+    if (!isValidate) {
         return false;
-    }else {
+    } else {
         $.ajax({
             url: "/bobogou/data/goods/save",    //请求的url地址
             dataType: "json",   //返回格式为json
@@ -707,17 +713,17 @@ function save(parentIndex) {
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页
-                if (200 == result.code){
+                if (200 == result.code) {
                     //请求成功时处理
                     // 刷新整个父窗口
                     parent.refresh();
                     //假设这是iframe页
                     var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                     rc.msg(result.msg)
-                    setTimeout(function(){
+                    setTimeout(function () {
                         parent.layer.close(index); //再执行关闭
                     }, 500);
-                }else {
+                } else {
                     rc.alert(result.msg)
                 }
             },

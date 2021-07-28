@@ -9,6 +9,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     //各种基于事件的操作，下面会有进一步介绍
 
     var posterWidth = 55, posterHeight = 55;
+    var flag = true;
     //拖拽上传
     upload.render({
         elem: '#test10'
@@ -34,8 +35,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         }
         ,done: function(res){
             //layer.msg('上传成功');
-            layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
-            $("#icon").val(res.body.url);
+            if (flag){
+                layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
+                $("#icon").val(res.body.url);
+            }
         }
     });
 
