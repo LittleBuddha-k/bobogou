@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.SignContractMapper">
+    <sql id="signContractColumns">
+        a.id AS "id",
+        a.part_a_name AS "partAName",
+        a.part_b_name AS "partBName",
+        a.front_id_card AS "frontIdCard",
+        a.back_id_card AS "backIdCard",
+        a.qualification AS "qualification",
+        a.contract AS "contract",
+        a.status AS "status",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.SignContract">
+        SELECT
+        <include refid="signContractColumns"/>
+        FROM bobogou_basic_sign_contract a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.basic.SignContract">
+        SELECT
+        <include refid="signContractColumns"/>
+        FROM bobogou_basic_sign_contract a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--新增-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bobogou_basic_sign_contract(
+            part_a_name,
+            part_b_name,
+            front_id_card,
+            back_id_card,
+            qualification,
+            contract,
+            status,
+            create_by,
+            create_date,
+            update_by,
+            update_date,
+            remarks,
+            del_flag
+        )VALUES (
+            #{partAName},
+            #{partBName},
+            #{frontIdCard},
+            #{backIdCard},
+            #{qualification},
+            #{contract},
+            #{status},
+            #{createBy.id},
+            #{createDate},
+            #{updateBy.id},
+            #{updateDate},
+            #{remarks},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE bobogou_basic_sign_contract SET
+            part_a_name = #{partAName},
+            part_b_name = #{partBName},
+            front_id_card = #{frontIdCard},
+            back_id_card = #{backIdCard},
+            qualification = #{qualification},
+            contract = #{contract},
+            status = #{status},
+            create_by = #{createBy.id},
+            create_date = #{createDate},
+            update_by = #{updateBy.id},
+            update_date = #{updateDate},
+            remarks = #{remarks},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE bobogou_basic_sign_contract SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM bobogou_basic_sign_contract
+        WHERE id=#{id}
+    </delete>
+</mapper>
