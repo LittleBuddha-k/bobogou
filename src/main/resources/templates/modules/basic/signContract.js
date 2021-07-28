@@ -51,13 +51,30 @@ layui.use(['form', 'table'], function () {
                     align: "left",
                     templet: function (data) {
                         var status = data.status;
+                        if(0 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
+                                    '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else{
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n';
+                        }
                         return 0;
                     }
                 },
                 {
                     title: '操作',
-                    toolbar: '#operation',
-                    align: "left"
+                    align: "left",
+                    templet: function (data) {
+                        var status = data.status;
+                        if(0 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else{
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n';
+                        }
+                        return 0;
+                    }
                 }
             ]
         ],

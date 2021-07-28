@@ -114,7 +114,22 @@ public class SignContractController extends BaseController {
     @ResponseBody
     @PostMapping("/subTask")
     public Result subTask(SignContract signContract) {
-        return null;
+        Result result = new Result();
+        //走到这里来 设置初始审核状态、设置下一个审核角色id
+        //初始保存的时候设置初始状态----进入审核
+        if (signContract.getIsNewData()){
+            signContract.setStatus("1");
+        }
+        //设置下一个审核角色
+        int save = signContractService.save(signContract);
+        if (save > 0){
+            result.setCode("200");
+            result.setMsg("提交审核成功");
+        }else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交审核失败");
+        }
+        return result;
     }
 
     @ResponseBody

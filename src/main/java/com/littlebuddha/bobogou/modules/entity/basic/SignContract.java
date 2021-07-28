@@ -18,7 +18,7 @@ public class SignContract extends DataEntity<SignContract> {
     private String backIdCard = "";//身份证反面
     private String qualification = "";//资质文件
     private String contract = "";//合同文件
-    private String status;//审核状态
+    private String status = "0";//审核状态
 
     public SignContract() {
     }
