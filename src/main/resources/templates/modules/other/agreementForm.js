@@ -51,13 +51,13 @@ $(document).ready(function () {
     $(function() {
         var editor = editormd("content", {
             width  : "100%",
-            height : "400px",
+            height : "500px",
             path   : "/bobogou/plugins/markdown/lib/",
             watch  : false,
             delay  : 0,
             placeholder: "协议详情编辑",
             imageUpload          : true,          // Enable/disable upload
-            imageFormats         : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageFormats         : ["jpg", "jpeg", "png"],
             imageUploadURL       : "/bobogou/file/markdownUpload",             // Upload url
             crossDomainUpload    : false,          // Enable/disable Cross-domain upload
             uploadCallbackURL    : "",             // Cross-domain upload callback url

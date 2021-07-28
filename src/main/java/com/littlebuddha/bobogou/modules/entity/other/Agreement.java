@@ -17,7 +17,8 @@ public class Agreement extends DataEntity<Agreement> {
 
     private Integer type;//类型，1=用户协议，2=积分规则，3=VIP规则
     private String title;//标题
-    private String content;//内容
+    private String content = "";//内容----已转化为html
+    private String contentEdit = "";//回显编辑时需要使用
     private String accountId;//最后操作人ID
 
     public Agreement() {
@@ -49,6 +50,14 @@ public class Agreement extends DataEntity<Agreement> {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getContentEdit() {
+        return contentEdit;
+    }
+
+    public void setContentEdit(String contentEdit) {
+        this.contentEdit = contentEdit;
     }
 
     public String getAccountId() {

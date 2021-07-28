@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.service.other;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.MarkdownUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.Agreement;
 import com.littlebuddha.bobogou.modules.mapper.other.AgreementMapper;
@@ -53,6 +54,9 @@ public class AgreementService extends CrudService<Agreement, AgreementMapper> {
                 save = -1;
             }else if (entity.getType() != null && findByType == null){
                 //1.2若不存在，则执行新增
+                entity.setContentEdit(entity.getContent());
+                String contentHtml = MarkdownUtils.markdownToHtmlExtensions(entity.getContent());
+                entity.setContent(contentHtml);
                 save = super.save(entity);
             }
         }
@@ -63,9 +67,15 @@ public class AgreementService extends CrudService<Agreement, AgreementMapper> {
                 save = -1;
             }else if (findByType != null && findByType.getId().equals(entity.getId())){
                 //2.2根据编辑的类型找到了一条，且找到的一条数据id与我编辑的一条数据id一致
+                entity.setContentEdit(entity.getContent());
+                String contentHtml = MarkdownUtils.markdownToHtmlExtensions(entity.getContent());
+                entity.setContent(contentHtml);
                 save = super.save(entity);
             }else if (findByType == null){
                 //2.2如果并不存在此类型数据，则继续执行修改
+                entity.setContentEdit(entity.getContent());
+                String contentHtml = MarkdownUtils.markdownToHtmlExtensions(entity.getContent());
+                entity.setContent(contentHtml);
                 save = super.save(entity);
             }
         }
