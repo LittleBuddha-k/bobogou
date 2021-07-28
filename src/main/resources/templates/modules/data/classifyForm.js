@@ -8,12 +8,32 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
+    var posterWidth = 55, posterHeight = 55;
     //拖拽上传
     upload.render({
         elem: '#test10'
         ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
+        ,choose: function (obj) {
+            flag = true;
+            //读取本地文件
+            obj.preview(function (index, file, result) {
+                var img = new Image();
+                img.onload = function () {
+                    if (posterWidth == img.width && posterHeight == img.height) {
+                        obj.upload(index, file); //满足条件调用上传方法
+                    } else {
+                        rc.error('商品分类图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请重新上传分辨率正确分类图标图片');
+                        flag = false;
+                    }
+                };
+                if (!flag) {
+                    return false;
+                }
+                img.src = result;
+            });
+        }
         ,done: function(res){
-            layer.msg('上传成功');
+            //layer.msg('上传成功');
             layui.$('#upload').removeClass('layui-hide').find('img').attr('src', res.body.url);
             $("#icon").val(res.body.url);
         }
