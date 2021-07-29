@@ -83,6 +83,20 @@ public class QualificationController extends BaseController {
     }
 
     /**
+     * 返回资质下载列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    @GetMapping(value = {"/downloadList"})
+    public String downloadList(Qualification qualification, Model model, HttpSession session) {
+        model.addAttribute("qualification", qualification);
+        return "modules/basic/qualification";
+    }
+
+    /**
      * 返回数据
      *
      * @return

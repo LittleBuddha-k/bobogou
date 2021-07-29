@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -28,6 +29,14 @@ public class QualificationService extends CrudService<Qualification, Qualificati
     @Override
     public Qualification get(Qualification entity) {
         Qualification qualification = qualificationMapper.get(entity);
+        StringJoiner sj = new StringJoiner(",");
+        if (qualification != null && StringUtils.isNotBlank(qualification.getQualification())){
+            String[] split = qualification.getQualification().split(",");
+            for (String s : split) {
+                sj.add(globalSetting.getRootPath() + s);
+            }
+            qualification.setQualification(sj.toString());
+        }
         return qualification;
     }
 
