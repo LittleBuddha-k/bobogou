@@ -91,11 +91,14 @@ layui.use(['form', 'table'], function () {
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else if (3 == status || 5 == status || 7 == status || 9 == status || 11 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已拒绝</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">重新提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
                         }else{
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
                         }
-                        return 0;
                     }
                 }
             ]
