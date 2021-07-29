@@ -252,7 +252,7 @@ public class SignContractController extends BaseController {
                         reason = "通过";
                     }
                     if ("3".equals(signContract.getStatus()) || "5".equals(signContract.getStatus()) || "7".equals(signContract.getStatus()) || "9".equals(signContract.getStatus()) || "11".equals(signContract.getStatus())) {
-                        reason = "通过";
+                        reason = "拒绝";
                     }
                     actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
                 }
