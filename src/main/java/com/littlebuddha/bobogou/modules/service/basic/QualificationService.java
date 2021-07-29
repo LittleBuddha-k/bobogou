@@ -69,6 +69,17 @@ public class QualificationService extends CrudService<Qualification, Qualificati
         return pageInfo;
     }
 
+    public PageInfo<Qualification> findDownloadDataPage(Page<Qualification> page, Qualification entity) {
+        PageInfo<Qualification> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<Qualification> list = qualificationMapper.findDownloadDataPage(entity);
+            pageInfo = new PageInfo<Qualification>(list);
+        }
+        return pageInfo;
+    }
+
     @Override
     public int save(Qualification entity) {
         if (entity != null && entity.getQualification() != null){

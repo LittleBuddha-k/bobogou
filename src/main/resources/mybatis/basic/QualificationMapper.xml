@@ -74,6 +74,28 @@
         </choose>
     </select>
 
+    <!--查找已通过审核的下载数据-->
+    <select id="findDownloadDataPage" resultType="com.littlebuddha.bobogou.modules.entity.basic.Qualification">
+        SELECT
+        <include refid="qualificationColumns"/>
+        FROM bobogou_basic_qualification a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
+                AND a.status = 8
+                OR a.status = 10
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Qualification">
         SELECT
         <include refid="qualificationColumns"/>

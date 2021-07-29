@@ -93,7 +93,7 @@ public class QualificationController extends BaseController {
     @GetMapping(value = {"/downloadList"})
     public String downloadList(Qualification qualification, Model model, HttpSession session) {
         model.addAttribute("qualification", qualification);
-        return "modules/basic/qualification";
+        return "modules/basic/qualificationDownloadList";
     }
 
     /**
@@ -105,6 +105,22 @@ public class QualificationController extends BaseController {
     @GetMapping("/data")
     public TreeResult data(Qualification qualification) {
         PageInfo<Qualification> page = qualificationService.findPage(new Page<Qualification>(), qualification);
+        return getLayUiData(page);
+    }
+
+    /**
+     * 返回数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/downloadData")
+    public TreeResult downloadData(Qualification qualification) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        qualification.setCurrentUser(currentUser);
+        qualification.setCurrentUserRole(currentUserRole);
+        PageInfo<Qualification> page = qualificationService.findDownloadDataPage(new Page<Qualification>(), qualification);
         return getLayUiData(page);
     }
 

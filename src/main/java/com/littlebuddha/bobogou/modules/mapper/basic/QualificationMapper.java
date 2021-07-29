@@ -19,4 +19,11 @@ public interface QualificationMapper extends BaseMapper<Qualification> {
      * @return
      */
     List<Qualification> findTodoList(Qualification entity);
+
+    /**
+     * 查询可下载数据--对应已通过审核的数据
+     * @param entity
+     * @return
+     */
+    List<Qualification> findDownloadDataPage(Qualification entity);
 }

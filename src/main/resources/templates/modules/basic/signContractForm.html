@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${signContract.getFrontIdCard() != null && signContract.getFrontIdCard() != ''}">
+        <div class="layui-form-item" th:id="uploadDemoView1" th:if="${signContract.getFrontIdCard() != null && signContract.getFrontIdCard() != ''}">
             <label class="layui-form-label" for="frontIdCard">身份证正面照</label>
             <div class="layui-upload-drag" th:id="test1">
                 <i class="layui-icon"></i>
@@ -54,7 +54,7 @@
             </div>
             <input type="hidden" th:id="frontIdCard" th:name="frontIdCard" th:value="${signContract.getFrontIdCard()}">
         </div>
-        <div class="layui-form-item" th:if="${signContract.getBackIdCard() != null && signContract.getBackIdCard() != ''}">
+        <div class="layui-form-item" th:id="uploadDemoView2" th:if="${signContract.getBackIdCard() != null && signContract.getBackIdCard() != ''}">
             <label class="layui-form-label" for="backIdCard">身份证反面照</label>
             <div class="layui-upload-drag" th:id="test2">
                 <i class="layui-icon"></i>
