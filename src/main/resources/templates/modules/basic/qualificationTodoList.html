@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="utf-8">
-    <title>合同签署列表</title>
+    <title>待办资质列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -13,7 +13,7 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
 
-        <fieldset class="table-search-fieldset">
+        <!--<fieldset class="table-search-fieldset">
             <legend></legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" id="searchForm">
@@ -21,17 +21,17 @@
                         <div class="layui-inline">
                             <label class="layui-form-label" for="partAName">甲方</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="partAName" th:value="${signContract.getPartAName()}"
+                                <input type="text" name="partAName" th:value="${qualification.getPartAName()}"
                                        th:id="partAName" autocomplete="off" class="layui-input required">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label" for="partBName">乙方</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="partBName" th:value="${signContract.getPartBName()}"
+                                <input type="text" name="partBName" th:value="${qualification.getPartBName()}"
                                        th:id="partBName" autocomplete="off" class="layui-input required">
                             </div>
-                        </div><!--
+                        </div>&lt;!&ndash;
                         <div class="layui-inline">
                             <label class="layui-form-label" for="producedTime">签约日期</label>
                             <div class="layui-input-inline">
@@ -53,7 +53,7 @@
                                        th:value="${#dates.format(goods.getProducedTime(),'yyyy-MM-dd HH:mm:ss')}" autocomplete="off"
                                        th:id="productTime" class="layui-input" readonly th:if="${mode != 'detail'}">
                             </div>
-                        </div>-->
+                        </div>&ndash;&gt;
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
@@ -65,9 +65,9 @@
                     </div>
                 </form>
             </div>
-        </fieldset>
+        </fieldset>-->
         
-        <table class="layui-hide" id="signContractTodoListTable" lay-filter="signContractTodoListTableFilter"></table>
+        <table class="layui-hide" id="qualificationTodoListTable" lay-filter="qualificationTodoListTableFilter"></table>
 
         <script type="text/html" id="operation">
             <a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="doTask">【任务办理】</a>
@@ -78,7 +78,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/basic/signContractTodoList.js"></script>
+<script type="text/javascript" src="/bobogou/modules/basic/qualificationTodoList.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>

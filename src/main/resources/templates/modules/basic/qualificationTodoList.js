@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     var init = table.render({
-        elem: '#signContractTodoListTable',
-        url: '/bobogou/basic/signContract/todoData',
+        elem: '#qualificationTodoListTable',
+        url: '/bobogou/basic/qualification/todoData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -33,16 +33,10 @@ layui.use(['form', 'table'], function () {
                     type: "radio"
                 },
                 {
-                    title: '甲方',
-                    field: 'partAName',
-                    align: "left",
-                    sortName: 'partAName'
-                },
-                {
-                    title: '乙方',
-                    field: 'partBName',
-                    align: "left",
-                    sortName: 'partBName'
+                    title: '名称',
+                    field: 'name',
+                    sort: true,
+                    sortName: 'name'
                 },
                 {
                     title: '审核状态',
@@ -102,8 +96,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            partAName: $("#partAName").val(),
-            partBName: $("#partBName").val()
+            /*partAName: $("#partAName").val(),
+            partBName: $("#partBName").val()*/
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -111,27 +105,27 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(other-search-btn)', function (other) {
         //执行搜索重载
-        table.reload('signContractTable', {
+        table.reload('qualificationTable', {
             where: {
-                partAName: $("#partAName").val(),
-                partBName: $("#partBName").val()
+                /*partAName: $("#partAName").val(),
+                partBName: $("#partBName").val()*/
             }
         });
         return false;
     });
 
     $("#reset").click(function () {
-        $("#partAName").val("");
-        $("#partBName").val("");
+        /*$("#partAName").val("");
+        $("#partBName").val("");*/
         init();
     })
 
-    table.on('tool(signContractTodoListTableFilter)', function (obj) {
+    table.on('tool(qualificationTodoListTableFilter)', function (obj) {
         let ids = obj.data.id;
         if (obj.event === 'doTask') {  // 监听添加操作
-            var index = rc.openViewDialogNoClose("/bobogou/basic/signContract/todoListForm?id=" + ids, "合同签署审核办理", '718px', '90%')
+            var index = rc.openViewDialogNoClose("/bobogou/basic/qualification/todoListForm?id=" + ids, "资质审核办理", '718px', '90%')
         } else if (obj.event === 'flow') {  // 监听添加操作
-            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id=" + ids, "合同签署审核历史信息", '1000px', '90%')
+            var index = rc.openViewDialog("/bobogou/basic/qualification/flow?id=" + ids, "资质审核历史信息", '1000px', '90%')
         }
     });
 });
@@ -143,7 +137,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('signContractTableTodoList'),
+    var checkStatus = table.checkStatus('qualificationTableTodoList'),
         other = checkStatus.other;
     let ids = "";
     for (let i = 0; i < other.length; i++) {
@@ -160,7 +154,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('signContractTodoListTable', {
+        table.reload('qualificationTodoListTable', {
             page: {
                 curr: 1
             }

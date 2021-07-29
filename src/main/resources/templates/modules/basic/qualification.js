@@ -86,9 +86,10 @@ layui.use(['form', 'table'], function () {
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if (3 == status || 5 == status || 7 == status || 9 == status || 11 == status){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已拒绝</a>\n' +
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">重新提交</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n'+
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if (8 == status || 10 == status){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="download">下载资质</a>\n';
                         }else{

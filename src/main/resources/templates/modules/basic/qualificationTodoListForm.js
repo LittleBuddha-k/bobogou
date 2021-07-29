@@ -45,15 +45,15 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
 
 //保存方法
 function save(parentIndex) {
-    var isValidate = rc.validateForm('#signContractTodoListForm');//校验表单
+    var isValidate = rc.validateForm('#qualificationTodoListForm');//校验表单
     if(!isValidate){
         return false;
     }else {
         $.ajax({
-            url: "/bobogou/basic/signContract/doTask",    //请求的url地址
+            url: "/bobogou/basic/qualification/doTask",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#signContractTodoListForm").serialize(),    //参数值
+            data: $("#qualificationTodoListForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页
