@@ -320,7 +320,7 @@ public class QualificationController extends BaseController {
             if (path != null && path.length > 0){
                 String [] realPath = new String[path.length];
                 for (int i =0;i<path.length;i++) {
-                    realPath[i] = globalSetting.getUploadImage() + path[i];
+                    realPath[i] = (globalSetting.getUploadImage() + path[i]).replaceAll(globalSetting.getRootPath(),"");
                 }
                 FileUtils.imgDownload(response,filename, realPath);
             }else {
