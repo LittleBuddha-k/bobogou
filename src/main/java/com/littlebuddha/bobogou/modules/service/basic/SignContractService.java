@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.basic;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -71,6 +72,23 @@ public class SignContractService extends CrudService<SignContract, SignContractM
         }
         PageInfo<SignContract> page1 = super.findPage(page, entity);
         return page1;
+    }
+
+    public PageInfo<SignContract> findTodoPage(Page<SignContract> page, SignContract entity) {
+        if (entity != null && StringUtils.isNotBlank(entity.getPartAName())){
+            entity.setPartAName(StringUtils.deleteWhitespace(entity.getPartAName()));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getPartBName())){
+            entity.setPartBName(StringUtils.deleteWhitespace(entity.getPartBName()));
+        }
+        PageInfo<SignContract> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<SignContract> list = signContractMapper.findTodoList(entity);
+            pageInfo = new PageInfo<SignContract>(list);
+        }
+        return pageInfo;
     }
 
     @Override

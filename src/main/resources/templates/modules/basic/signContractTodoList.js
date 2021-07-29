@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     var init = table.render({
-        elem: '#signContractTable',
-        url: '/bobogou/basic/signContract/data',
+        elem: '#signContractTodoListTable',
+        url: '/bobogou/basic/signContract/todoData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -51,33 +51,31 @@ layui.use(['form', 'table'], function () {
                     align: "left",
                     templet: function (data) {
                         var status = data.status;
-                        if(0 == status){
+                        if (0 == status) {
                             return "未提交";
-                        }else if(1 == status){
+                        } else if (1 == status) {
                             return "已提交";
-                        }else if(2 == status){
+                        } else if (2 == status) {
                             return "区级经纪人已通过";
-                        }else if(3 == status){
+                        } else if (3 == status) {
                             return "区级经纪人已拒绝";
-                        }else if(4 == status){
+                        } else if (4 == status) {
                             return "市级经纪人已通过";
-                        }else if(5 == status){
-                            return "市级经纪人已拒绝";
-                        }else if(6 == status){
+                        } else if (5 == status) {
+                            return "市级经纪人已通过";
+                        } else if (6 == status) {
                             return "省级经纪人已通过";
-                        }else if(7 == status){
-                            return "省级经纪人已拒绝";
-                        }else if(8 == status){
+                        } else if (7 == status) {
+                            return "省级经纪人已通过";
+                        } else if (8 == status) {
                             return "超级管理员助理已通过";
-                        }else if(9 == status){
+                        } else if (9 == status) {
                             return "超级管理员助理已拒绝";
-                        }else if(10 == status){
+                        } else if (10 == status) {
                             return "超级管理员已通过";
-                        }else if(11 == status){
+                        } else if (11 == status) {
                             return "超级管理员已拒绝";
-                        }else if(12 == status){
-                            return "已通过";
-                        }else {
+                        } else {
                             return "未知";
                         }
                     }
@@ -87,15 +85,15 @@ layui.use(['form', 'table'], function () {
                     align: "left",
                     templet: function (data) {
                         var status = data.status;
-                        if(0 == status){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
-                        }else{
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                        if (1 == status || 2 == status || 4 == status || 6 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="doTask">【任务办理】</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【跟踪】</a>\n';
+                        }else if (3 == status || 5 == status || 7 == status || 9 == status || 11 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已拒绝】</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【跟踪】</a>\n';
+                        }else if (8 == status || 10 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已通过】</a>\n';
                         }
-                        return 0;
                     }
                 }
             ]
@@ -129,45 +127,12 @@ layui.use(['form', 'table'], function () {
         init();
     })
 
-    /**
-     * toolbar监听事件
-     */
-    table.on('toolbar(signContractTableFilter)', function (obj) {
-        if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/signContract/form/add", "新建合同签署信息",'718px','600px')
-        }
-    });
-
-    table.on('tool(signContractTableFilter)', function (obj) {
+    table.on('tool(signContractTodoListTableFilter)', function (obj) {
         let ids = obj.data.id;
-        if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/basic/signContract/form/edit?id="+ids, "编辑合同签署信息",'718px','600px')
-        }else if (obj.event === 'flow') {  // 监听添加操作
-            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id="+ids, "合同签署审核历史信息",'1000px','600px')
-        }else if (obj.event === 'subTask') {
-            rc.confirm('是否提交处理？', function () {
-                rc.post("/bobogou/basic/signContract/subTask?id=" + ids, '', function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.success(data.msg);
-                    } else {
-                        rc.error(data.msg);
-                    }
-                });
-            })
-        }else if (obj.event === 'delete') {
-            rc.confirm('确认要删除该合同签署信息吗？', function () {
-                rc.post("/bobogou/basic/signContract/delete?ids=" + ids, '', function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.success(data.msg);
-                    } else {
-                        rc.error(data.msg);
-                    }
-                });
-            })
+        if (obj.event === 'doTask') {  // 监听添加操作
+            var index = rc.openViewDialogNoClose("/bobogou/basic/signContract/todoListForm?id=" + ids, "合同签署审核办理", '718px', '90%')
+        } else if (obj.event === 'flow') {  // 监听添加操作
+            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id=" + ids, "合同签署审核历史信息", '1000px', '90%')
         }
     });
 });
@@ -179,7 +144,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('signContractTable'),
+    var checkStatus = table.checkStatus('signContractTableTodoList'),
         other = checkStatus.other;
     let ids = "";
     for (let i = 0; i < other.length; i++) {
@@ -196,13 +161,11 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('signContractTable', {
+        table.reload('signContractTableTodoList', {
             page: {
                 curr: 1
             }
-            , where: {
-
-            }
+            , where: {}
         }, 'other');
     })
 }

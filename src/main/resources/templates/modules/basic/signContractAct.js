@@ -76,6 +76,7 @@ layui.use(['form', 'table'], function () {
         page: false,
         skin: 'line',
         where: {
+            dataId: $("#id").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });

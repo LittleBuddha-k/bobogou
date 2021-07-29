@@ -37,59 +37,59 @@
             return times
         },
 
-        post:function(url,data,callback){
+        post: function (url, data, callback) {
             $.ajax({
-                url:url,
-                method:"post",
-                data:data,
-                error:function(xhr,textStatus){
-                    if(xhr.status == 0){
+                url: url,
+                method: "post",
+                data: data,
+                error: function (xhr, textStatus) {
+                    if (xhr.status == 0) {
                         rc.msg("连接失败，请检查网络!")
-                    }else if(xhr.status == 404){
-                        var errDetail ="<font color='red'>404,请求地址不存在！</font>";
+                    } else if (xhr.status == 404) {
+                        var errDetail = "<font color='red'>404,请求地址不存在！</font>";
                         rc.alert("请求出错")
-                    }else if(xhr.status && xhr.responseText){
-                        var errDetail ="<font color='red'>"+ xhr.responseText.replace(/[\r\n]/g,"<br>").replace(/[\r]/g,"<br>").replace(/[\n]/g,"<br>")+"</font>";
-                        rc.alert(xhr.status+"错误")
-                    }else{
-                        var errDetail ="<font color='red'>未知错误!</font>";
+                    } else if (xhr.status && xhr.responseText) {
+                        var errDetail = "<font color='red'>" + xhr.responseText.replace(/[\r\n]/g, "<br>").replace(/[\r]/g, "<br>").replace(/[\n]/g, "<br>") + "</font>";
+                        rc.alert(xhr.status + "错误")
+                    } else {
+                        var errDetail = "<font color='red'>未知错误!</font>";
                         rc.alert("真悲剧，后台抛出异常了")
                     }
                 },
-                success:function(data,textStatus,jqXHR){
-                    if(data.indexOf == "_login_page_"){//登录超时
+                success: function (data, textStatus, jqXHR) {
+                    if (data.indexOf == "_login_page_") {//登录超时
                         location.reload(true);
-                    }else{
+                    } else {
                         callback(data);
                     }
                 }
             });
         },
 
-        get:function(url,callback){
+        get: function (url, callback) {
             $.ajax({
-                url:url,
-                method:"get",
-                error:function(xhr,textStatus){
-                    if(xhr.status == 0){
+                url: url,
+                method: "get",
+                error: function (xhr, textStatus) {
+                    if (xhr.status == 0) {
                         rc.msg("连接失败，请检查网络!")
-                    }else if(xhr.status == 404){
-                        var errDetail ="<font color='red'>404,请求地址不存在！</font>";
+                    } else if (xhr.status == 404) {
+                        var errDetail = "<font color='red'>404,请求地址不存在！</font>";
                         rc.alert("请求出错")
-                    }else if(xhr.status && xhr.responseText){
-                        var errDetail ="<font color='red'>"+ xhr.responseText.replace(/[\r\n]/g,"<br>").replace(/[\r]/g,"<br>").replace(/[\n]/g,"<br>")+"</font>";
-                        rc.alert(xhr.status+"错误")
-                    }else{
-                        var errDetail ="<font color='red'>未知错误!</font>";
+                    } else if (xhr.status && xhr.responseText) {
+                        var errDetail = "<font color='red'>" + xhr.responseText.replace(/[\r\n]/g, "<br>").replace(/[\r]/g, "<br>").replace(/[\n]/g, "<br>") + "</font>";
+                        rc.alert(xhr.status + "错误")
+                    } else {
+                        var errDetail = "<font color='red'>未知错误!</font>";
                         rc.alert("真悲剧，后台抛出异常了")
                     }
 
                 },
-                success:function(data,textStatus,jqXHR){
-                    if(data.indexOf == "_login_page_"){//返回首页内容代表登录超时
+                success: function (data, textStatus, jqXHR) {
+                    if (data.indexOf == "_login_page_") {//返回首页内容代表登录超时
                         rc.alert("登录超时！")
                         location.reload(true);
-                    }else{
+                    } else {
                         callback(data);
                     }
 
@@ -110,68 +110,69 @@
                 }
             });
         },
-        info:function(msg){
+        info: function (msg) {
             layui.use('layer', function () {
-            return layer.msg(msg);
+                return layer.msg(msg);
             });
         },
 
-        warning: function(msg){//通知
+        warning: function (msg) {//通知
             layui.use('layer', function () {
-            return layer.msg(msg, {icon:0});
+                return layer.msg(msg, {icon: 0});
             });
         },
 
-        success:function(msg){
+        success: function (msg) {
             layui.use('layer', function () {
-            return layer.msg(msg, {icon:1});
+                return layer.msg(msg, {icon: 1});
             });
         },
 
-        error:function(msg){
-            return layer.msg(msg, {icon:2});
+        error: function (msg) {
+            return layer.msg(msg, {icon: 2});
         },
         /**加载层，一直阻塞浏览器窗口，必须手动调用close方法关闭*/
-        loading:function(msg){
-            if(!msg){
+        loading: function (msg) {
+            if (!msg) {
                 msg = '正在提交，请稍等...';
             }
 
             var index = top.layer.msg(msg, {
                 icon: 16
-                ,shade: 0.01,
-                time:999999999//设置超长时间
+                , shade: 0.01,
+                time: 999999999//设置超长时间
             });
 
             return index;
         },
         /**alert弹出框，阻塞浏览器窗口*/
-        alert:function(msg){
+        alert: function (msg) {
             layui.use('layer', function () {
-            layer.alert(msg, {
-                skin: 'layui-layer-lan'
-                ,area:['auto', 'auto']
-                ,icon: 0
-                ,closeBtn: 0
-                ,anim: 4 //动画类型
-            });
+                layer.alert(msg, {
+                    skin: 'layui-layer-lan'
+                    , area: ['auto', 'auto']
+                    , icon: 0
+                    , closeBtn: 0
+                    , anim: 4 //动画类型
+                });
             });
         },
         confirm: function confirm(msg, succFuc, cancelFuc) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.confirm(msg,
-                    {icon: 3, title:'系统提示', btn: ['是','否'] //按钮
-                    }, function(index){
+                    {
+                        icon: 3, title: '系统提示', btn: ['是', '否'] //按钮
+                    }, function (index) {
                         if (typeof succFuc == 'function') {
                             succFuc();
-                        }else{
+                        } else {
                             location = succFuc;
-                            rc.alert("操作成功！", {icon:1});
+                            rc.alert("操作成功！", {icon: 1});
                         }
                         layer.close(index);
-                    }, function(index){
-                        if(cancelFuc)
+                    }, function (index) {
+                        if (cancelFuc)
                             cancelFuc();
                         layer.close(index);
                     });
@@ -190,7 +191,7 @@
                 });
             });
         },
-        openSaveDialog: function open(url, title,width,height) {
+        openSaveDialog: function open(url, title, width, height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -223,7 +224,7 @@
                 });
             });
         },
-        openViewDialog: function open(url, title,width,height) {
+        openViewDialog: function open(url, title, width, height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -231,7 +232,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['关闭'],
                     cancel: function (index) {
@@ -249,7 +250,7 @@
                 });
             });
         },
-        openViewDialogNoClose: function open(url, title,width,height) {
+        openViewDialogNoClose: function open(url, title, width, height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -257,7 +258,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',/*
                     btn: ['关闭'],
                     cancel: function (index) {
@@ -275,7 +276,7 @@
                 });
             });
         },
-        openSelectionDialog: function open(url, title,width,height) {
+        openSelectionDialog: function open(url, title, width, height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -283,14 +284,14 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
                         //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
                         let ids = iframeWin.getIdSelections();
-                        iframeWin.save(ids,index);
+                        iframeWin.save(ids, index);
                     }
                     , btn2: function (index, layero) {
                         //按钮【按钮二】的回调
@@ -309,8 +310,8 @@
                 });
             });
         },
-        openSelector: function open(url, title,width,height) {
-            layui.use(['layer', 'form'],function () {
+        openSelector: function open(url, title, width, height) {
+            layui.use(['layer', 'form'], function () {
                 var layer = layui.layer;
                 var form = layui.form;
                 layer.open({
@@ -318,7 +319,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -350,51 +351,8 @@
                 });
             });
         },
-        openGoodsSelect: function open(url, title,width,height,id) {
-        layui.use(['layer', 'form'],function () {
-            var layer = layui.layer;
-            var form = layui.form;
-            layer.open({
-                type: 2,
-                title: title,
-                content: url,
-                skin: 'demo-class',
-                area: [width,height],
-                offset: 'auto',
-                btn: ['确定', '关闭'],
-                yes: function (index, layero) {
-                    //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
-                    var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
-                    let ids = iframeWin.getSelector();
-                    let split = ids.split(",");
-                    //放显示名称
-                    let elementById = document.getElementById(id);
-                    elementById.value = split[1];
-                    //放隐藏id
-                    let elementsByName = document.getElementsByName(id);
-                    elementsByName[0].value = split[0];
-                    form.render();
-                    layer.close(index);
-                }
-                , btn2: function (index, layero) {
-                    //按钮【按钮二】的回调
-                    layer.close(index);
-                },
-                //按钮1、2、3的位置
-                btnAlign: 'c',
-                //关闭按钮的风格
-                closeBtn: 0,
-                shade: [0.8, '#393D49'],
-                //设置延时关闭时间
-                //time: 5000,
-                shift: 4,
-                //配置最大化最小化按钮
-                maxmin: false
-            });
-        });
-    },
-        openUserSelect: function open(url, title,width,height,id) {
-            layui.use(['layer', 'form'],function () {
+        openGoodsSelect: function open(url, title, width, height, id) {
+            layui.use(['layer', 'form'], function () {
                 var layer = layui.layer;
                 var form = layui.form;
                 layer.open({
@@ -402,7 +360,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -436,7 +394,50 @@
                 });
             });
         },
-        openTreeSaveDialog: function open(url, title,width,height) {
+        openUserSelect: function open(url, title, width, height, id) {
+            layui.use(['layer', 'form'], function () {
+                var layer = layui.layer;
+                var form = layui.form;
+                layer.open({
+                    type: 2,
+                    title: title,
+                    content: url,
+                    skin: 'demo-class',
+                    area: [width, height],
+                    offset: 'auto',
+                    btn: ['确定', '关闭'],
+                    yes: function (index, layero) {
+                        //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                        let ids = iframeWin.getSelector();
+                        let split = ids.split(",");
+                        //放显示名称
+                        let elementById = document.getElementById(id);
+                        elementById.value = split[1];
+                        //放隐藏id
+                        let elementsByName = document.getElementsByName(id);
+                        elementsByName[0].value = split[0];
+                        form.render();
+                        layer.close(index);
+                    }
+                    , btn2: function (index, layero) {
+                        //按钮【按钮二】的回调
+                        layer.close(index);
+                    },
+                    //按钮1、2、3的位置
+                    btnAlign: 'c',
+                    //关闭按钮的风格
+                    closeBtn: 0,
+                    shade: [0.8, '#393D49'],
+                    //设置延时关闭时间
+                    //time: 5000,
+                    shift: 4,
+                    //配置最大化最小化按钮
+                    maxmin: false
+                });
+            });
+        },
+        openTreeSaveDialog: function open(url, title, width, height) {
             layui.use('layer', function () {
                 var layer = layui.layer;
                 layer.open({
@@ -444,7 +445,7 @@
                     title: title,
                     content: url,
                     skin: 'demo-class',
-                    area: [width,height],
+                    area: [width, height],
                     offset: 'auto',
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
@@ -560,7 +561,7 @@
             $a[0].click();
         },
 
-        close:function(index){
+        close: function (index) {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);//关闭当前页
             /*if(index){
@@ -578,23 +579,75 @@
             return rc.getActiveTab()[0].contentWindow;
         },
 
-        getActiveTab:function(){
+        getActiveTab: function () {
             return $(".J_iframe:visible");
         },
         //表单验证控件
         validateForm: function (id) {
             return $(id).validate({
-                errorPlacement: function(error, element) {
-                    if (element.is(":checkbox")||element.is(":radio")){
+                errorPlacement: function (error, element) {
+                    if (element.is(":checkbox") || element.is(":radio")) {
                         error.appendTo(element.parent().parent().parent().parent());
-                    }else  if (element.parent().is(".form_datetime") ||element.parent().is(".input-append") || element.is(".mydatepicker")){
+                    } else if (element.parent().is(".form_datetime") || element.parent().is(".input-append") || element.is(".mydatepicker")) {
                         error.appendTo(element.parent().parent());
-                    }else{
+                    } else {
                         error.insertAfter(element);
                     }
                 }
             }).form();
 
         },
+        //单击放大照片
+        maxPic: function (event) {
+            var clickTimer = null;
+            var maxWidth = 1000;
+            var event = window.event || event;
+            var img = event.target || event.srcElement;
+            if (clickTimer) {
+                window.clearTimeout(clickTimer);
+                clickTimer = null;
+            }
+            clickTimer = window.setTimeout(function () {
+                var endWidth = img.width * 1.3; //每次点击后的宽度
+                var endHeight = img.height * 1.3; //每次点击后的高度
+                var maxTimer = setInterval(function () {
+                    if (img.width < endWidth) {
+                        if (img.width < maxWidth) {
+                            img.width = img.width * 1.05;
+                            img.height = img.height * 1.05;
+                        } else {
+                            clearInterval(maxTimer);
+                        }
+                    } else {
+                        clearInterval(maxTimer);
+                    }
+                }, 20);
+            }, 300);
+        },
+        // 双击缩小照片
+        minPic: function minPic(event) {
+            var clickTimer = null;
+            var minWidth = 1000;
+            var event = window.event || event;
+            var img = event.target || event.srcElement;
+            if (clickTimer) {
+                window.clearTimeout(clickTimer);
+                clickTimer = null;
+            }
+            var endWidth = img.width * 0.7; //每次点击后的宽度
+            var endHeight = img.height * 0.7; //每次点击后的高度
+            var maxTimer = setInterval(function () {
+                if (img.width > endWidth) {
+                    if (img.width > minWidth) {
+                        img.width = img.width * 0.95;
+                        img.height = img.height * 0.95;
+                    } else {
+                        clearInterval(maxTimer);
+                    }
+                } else {
+                    clearInterval(maxTimer);
+                }
+            }, 20);
+        }
     }
 })(jQuery);

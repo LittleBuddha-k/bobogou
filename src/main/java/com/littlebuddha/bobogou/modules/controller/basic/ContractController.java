@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.controller.basic;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.file.FileUtils;
@@ -33,6 +34,9 @@ public class ContractController extends BaseController {
 
     @Autowired
     private DictDataService dictDataService;
+
+    @Autowired
+    private GlobalSetting globalSetting;
 
     @ModelAttribute
     public Contract get(@RequestParam(required = false) String id) {
@@ -90,7 +94,7 @@ public class ContractController extends BaseController {
             String address = contract.getAddress();
             String suffix = address.substring(contract.getAddress().lastIndexOf("."));
             String filename = contract.getName() + suffix;
-            String path = "E:/usr/image/" + address;
+            String path = globalSetting.getUploadImage() + address;
             FileUtils.download(response, filename, path);
         } else {
             result.setSuccess(false);

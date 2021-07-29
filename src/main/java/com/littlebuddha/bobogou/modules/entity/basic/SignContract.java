@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.entity.basic;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *合同签署实体类
@@ -25,6 +26,9 @@ public class SignContract extends DataEntity<SignContract> {
     private String nextRoleId;//执行人角色id
     private String roleName;//执行人角色名称
     private String status = "0";//审核状态
+
+    private Role currentUserRole;//当前用户角色
+    private String currentUserRoleId;//当前用户角色id
 
     public SignContract() {
     }
@@ -143,5 +147,24 @@ public class SignContract extends DataEntity<SignContract> {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Role getCurrentUserRole() {
+        return currentUserRole;
+    }
+
+    public void setCurrentUserRole(Role currentUserRole) {
+        this.currentUserRole = currentUserRole;
+    }
+
+    public String getCurrentUserRoleId() {
+        if(currentUserRole != null && StringUtils.isNotBlank(currentUserRole.getId())){
+            currentUserRoleId = currentUserRole.getId();
+        }
+        return currentUserRoleId;
+    }
+
+    public void setCurrentUserRoleId(String currentUserRoleId) {
+        this.currentUserRoleId = currentUserRoleId;
     }
 }

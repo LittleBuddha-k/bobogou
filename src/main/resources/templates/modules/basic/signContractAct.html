@@ -12,7 +12,9 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-
+        <form>
+            <input type="hidden" id="id" th:value="${signContract.getId()}">
+        </form>
         <table class="layui-hide" id="signContractActTable" lay-filter="signContractActTableFilter"></table>
 
     </div>

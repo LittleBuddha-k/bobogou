@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>合同签署管理</title>
+    <title>合同签署审核管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
     <!--markdown富文本编辑-->
@@ -13,19 +13,21 @@
 <div>
     <form class="layui-form" id="signContractForm">
         <input type="hidden" name="id" id="id" th:value="${signContract.getId()}">
+        <input type="hidden" id="currentUserAreaManager" th:value="${currentUserAreaManager}">
+        <input type="hidden" id="status" name="status" th:value="${signContract.getStatus()}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="partAName">甲方</label>
                 <div class="layui-input-inline">
                     <input type="text" name="partAName" th:value="${signContract.getPartAName()}"
-                           th:id="partAName" autocomplete="off" class="layui-input required">
+                           th:id="partAName" autocomplete="off" class="layui-input required" readonly>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="partBName">乙方</label>
                 <div class="layui-input-inline">
                     <input type="text" name="partBName" th:value="${signContract.getPartBName()}"
-                           th:id="partBName" autocomplete="off" class="layui-input required">
+                           th:id="partBName" autocomplete="off" class="layui-input required" readonly>
                 </div>
             </div>
         </div>
@@ -33,11 +35,10 @@
             <label class="layui-form-label" for="frontIdCard">身份证正面照</label>
             <div class="layui-upload-drag" th:id="test1">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
                 <div class="" th:id="uploadDemoView1">
                     <hr>
                     <img th:src="${signContract.getFrontIdCard()}" alt="上传成功后渲染" style="max-width: 196px">
-                    <img th:if="${signContract.getFrontIdCard() == null || signContract.getFrontIdCard() == ''}" alt="上传成功后渲染" style="max-width: 196px">
+                    <img th:if="${signContract.getFrontIdCard() == null || signContract.getFrontIdCard() == ''}" alt="上传成功后渲染" style="max-width: 300px">
                 </div>
             </div>
             <input type="hidden" th:id="frontIdCard" th:name="frontIdCard" th:value="${signContract.getFrontIdCard()}">
@@ -46,10 +47,9 @@
             <label class="layui-form-label" for="frontIdCard">身份证正面照</label>
             <div class="layui-upload-drag" th:id="test1">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
                 <div class="layui-hide">
                     <hr>
-                    <img alt="上传成功后渲染" style="max-width: 196px">
+                    <img alt="上传成功后渲染" style="max-width: 300px">
                 </div>
             </div>
             <input type="hidden" th:id="frontIdCard" th:name="frontIdCard" th:value="${signContract.getFrontIdCard()}">
@@ -58,10 +58,9 @@
             <label class="layui-form-label" for="backIdCard">身份证反面照</label>
             <div class="layui-upload-drag" th:id="test2">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
                 <div class="" th:id="uploadDemoView2">
                     <hr>
-                    <img th:src="${signContract.getBackIdCard()}" alt="上传成功后渲染" style="max-width: 196px">
+                    <img th:src="${signContract.getBackIdCard()}" alt="上传成功后渲染" style="max-width: 300px">
                 </div>
             </div>
             <input type="hidden" th:id="backIdCard" th:name="backIdCard" th:value="${signContract.getBackIdCard()}">
@@ -70,10 +69,9 @@
             <label class="layui-form-label" for="backIdCard">身份证反面照</label>
             <div class="layui-upload-drag" th:id="test2">
                 <i class="layui-icon"></i>
-                <p>点击上传，或将文件拖拽到此处</p>
                 <div class="layui-hide" >
                     <hr>
-                    <img alt="上传成功后渲染" style="max-width: 196px">
+                    <img alt="上传成功后渲染" style="max-width: 300px">
                 </div>
             </div>
             <input type="hidden" th:id="backIdCard" th:name="backIdCard" th:value="${signContract.getBackIdCard()}">
@@ -81,14 +79,12 @@
         <div class="layui-form-item">
             <label class="layui-form-label" for="qualification">资质文件</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test3">资质文件</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test3">清空多图</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
                         <img th:if="${signContract.getQualification() != null && signContract.getQualification() != ''}"
                              th:each="image:${signContract.getQualification().split(',')}"
-                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                             th:src="${image}" alt="" style="width: 300px;height: 300px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
@@ -97,14 +93,12 @@
         <div class="layui-form-item">
             <label class="layui-form-label" for="contract">合同文件</label>
             <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test4">合同文件</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test4">清空多图</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
                         <img th:if="${signContract.getContract() != null && signContract.getContract() != ''}"
                              th:each="image:${signContract.getContract().split(',')}"
-                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                             th:src="${image}" alt="" style="width: 300px;height: 300px;" class="layui-upload-img">
                     </div>
                 </blockquote>
             </div>
@@ -114,6 +108,15 @@
             <label class="layui-form-label">备注</label>
             <div class="layui-input-block">
                 <textarea placeholder="备注" class="layui-textarea" th:name="remarks" th:text="${signContract.getRemarks()}"></textarea>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass" style="margin-left: 140px"> 通 过
+                </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"> 拒 绝
+                </button>
             </div>
         </div>
     </form>
@@ -134,6 +137,6 @@
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/basic/signContractForm.js"></script>
+<script type="text/javascript" src="/bobogou/modules/basic/signContractTodoListForm.js"></script>
 </body>
 </html>

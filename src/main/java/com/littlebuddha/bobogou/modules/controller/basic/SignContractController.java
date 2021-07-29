@@ -140,12 +140,12 @@ public class SignContractController extends BaseController {
         //获取当前角色
         Operator currentUser = UserUtils.getCurrentUser();
         List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
-        if (byOperatorAndRole != null){
-            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())){
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
                 Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
                 //设置下一个审核角色
                 signContract.setNextRoleId(currentRole.getParentId());
-                if (StringUtils.isNotBlank(currentRole.getName())){
+                if (StringUtils.isNotBlank(currentRole.getName())) {
                     actHistory.setExecutionLink(currentRole.getName() + "提交审核");
                 }
                 actHistory.setRoleId(currentRole.getId());
@@ -160,14 +160,14 @@ public class SignContractController extends BaseController {
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核
-        if ("0".equals(signContract.getStatus())){
+        if ("0".equals(signContract.getStatus())) {
             signContract.setStatus("1");
         }
         int save = signContractService.save(signContract);
-        if (save > 0){
+        if (save > 0) {
             result.setCode("200");
             result.setMsg("提交审核成功");
-        }else {
+        } else {
             result.setCode("500");
             result.setMsg("系统保存时出错，提交审核失败");
         }
@@ -175,24 +175,106 @@ public class SignContractController extends BaseController {
     }
 
     /**
-     *
      * @return
      */
     @GetMapping("/flow")
-    public String flow(SignContract signContract,Model model){
+    public String flow(SignContract signContract, Model model) {
         model.addAttribute("signContract", signContract);
         return "modules/basic/signContractAct";
     }
 
     /**
-     *
      * @return
      */
     @ResponseBody
     @GetMapping("/flowData")
-    public TreeResult flowData(ActHistory actHistory,Model model){
+    public TreeResult flowData(ActHistory actHistory, Model model) {
         PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
         return getLayUiData(page);
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/todoList")
+    public String todoList(SignContract signContract, Model model) {
+        model.addAttribute("signContract", signContract);
+        return "modules/basic/signContractTodoList";
+    }
+
+    /**
+     * 查询审核数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/todoData")
+    public TreeResult todoData(SignContract signContract) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        signContract.setCurrentUser(currentUser);
+        signContract.setCurrentUserRole(currentUserRole);
+        PageInfo<SignContract> page = signContractService.findTodoPage(new Page<SignContract>(), signContract);
+        return getLayUiData(page);
+    }
+
+    /**
+     * 审核通过或者拒绝时
+     *
+     * @return
+     */
+    @GetMapping("/todoListForm")
+    public String todoListForm(SignContract signContract, Model model) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
+        model.addAttribute("signContract", signContract);
+        return "modules/basic/signContractTodoListForm";
+    }
+
+    @ResponseBody
+    @PostMapping("/doTask")
+    public Result doTask(SignContract signContract) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        String reason = "";
+        actHistory.setDataId(signContract.getId());
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                signContract.setNextRoleId(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    if ("2".equals(signContract.getStatus()) || "4".equals(signContract.getStatus()) || "6".equals(signContract.getStatus()) || "8".equals(signContract.getStatus()) || "10".equals(signContract.getStatus())) {
+                        reason = "通过";
+                    }
+                    if ("3".equals(signContract.getStatus()) || "5".equals(signContract.getStatus()) || "7".equals(signContract.getStatus()) || "9".equals(signContract.getStatus()) || "11".equals(signContract.getStatus())) {
+                        reason = "通过";
+                    }
+                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        int save = signContractService.save(signContract);
+        if (save > 0) {
+            result.setCode("200");
+            result.setMsg("提交审核成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交审核失败");
+        }
+        return result;
     }
 
     @ResponseBody
