@@ -2,6 +2,7 @@ package com.littlebuddha.bobogou.modules.entity.basic;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 
 /**
  *合同签署实体类
@@ -18,6 +19,11 @@ public class SignContract extends DataEntity<SignContract> {
     private String backIdCard = "";//身份证反面
     private String qualification = "";//资质文件
     private String contract = "";//合同文件
+
+
+    private Role role;//执行人角色Id
+    private String nextRoleId;//执行人角色id
+    private String roleName;//执行人角色名称
     private String status = "0";//审核状态
 
     public SignContract() {
@@ -105,6 +111,30 @@ public class SignContract extends DataEntity<SignContract> {
 
     public void setContract(String contract) {
         this.contract = contract;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getNextRoleId() {
+        return nextRoleId;
+    }
+
+    public void setNextRoleId(String nextRoleId) {
+        this.nextRoleId = nextRoleId;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public String getStatus() {

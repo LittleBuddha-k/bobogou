@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.common.ActHistoryMapper">
+    <sql id="dictDataColumns">
+        id AS "id",
+        data_id AS "dataId",
+        execution_link AS "executionLink",
+        execution_id AS "executionId",
+        execution_name AS "executionName",
+        role_id AS "roleId",
+        role_name AS "roleName",
+        begin_date AS "beginDate",
+        end_date AS "endDate",
+        total_time AS "totalTime"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.common.ActHistory">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM bobogou_act_history a
+        WHERE id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.common.ActHistory">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM bobogou_act_history a
+        <where>
+            <if test="dataId != null and dataId != ''">
+                a.data_id = #{dataId}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.begin_Date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--新增-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bobogou_act_history(
+            data_id,
+            execution_link,
+            execution_id,
+            execution_name,
+            role_id,
+            role_name,
+            begin_date,
+            end_date,
+            total_time
+        )VALUES (
+            #{dataId},
+            #{executionLink},
+            #{executionId},
+            #{executionName},
+            #{roleId},
+            #{roleName},
+            #{beginDate},
+            #{endDate},
+            #{totalTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE bobogou_act_history SET
+            data_id = #{dataId},
+            execution_link = #{executionLink},
+            execution_id = #{executionId},
+            execution_name = #{executionName},
+            role_id = #{roleId},
+            role_name = #{roleName},
+            begin_date = #{beginDate},
+            end_date = #{endDate},
+            total_time = #{totalTime}
+        WHERE id=#{id}
+    </update>
+</mapper>

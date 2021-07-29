@@ -4,14 +4,23 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.file.FileUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Contract;
 import com.littlebuddha.bobogou.modules.entity.basic.SignContract;
+import com.littlebuddha.bobogou.modules.entity.common.ActHistory;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
 import com.littlebuddha.bobogou.modules.service.basic.ContractService;
 import com.littlebuddha.bobogou.modules.service.basic.SignContractService;
+import com.littlebuddha.bobogou.modules.service.common.ActHistoryService;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
+import com.littlebuddha.bobogou.modules.service.system.RoleService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +45,15 @@ public class SignContractController extends BaseController {
 
     @Autowired
     private DictDataService dictDataService;
+
+    @Autowired
+    private ActHistoryService actHistoryService;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private OperatorRoleMapper operatorRoleMapper;
 
     @ModelAttribute
     public SignContract get(@RequestParam(required = false) String id) {
@@ -115,12 +134,35 @@ public class SignContractController extends BaseController {
     @PostMapping("/subTask")
     public Result subTask(SignContract signContract) {
         Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        actHistory.setDataId(signContract.getId());
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        if (byOperatorAndRole != null){
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())){
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                signContract.setNextRoleId(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())){
+                    actHistory.setExecutionLink(currentRole.getName() + "提交审核");
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核
-        if (signContract.getIsNewData()){
+        if ("0".equals(signContract.getStatus())){
             signContract.setStatus("1");
         }
-        //设置下一个审核角色
         int save = signContractService.save(signContract);
         if (save > 0){
             result.setCode("200");
@@ -130,6 +172,27 @@ public class SignContractController extends BaseController {
             result.setMsg("系统保存时出错，提交审核失败");
         }
         return result;
+    }
+
+    /**
+     *
+     * @return
+     */
+    @GetMapping("/flow")
+    public String flow(SignContract signContract,Model model){
+        model.addAttribute("signContract", signContract);
+        return "modules/basic/signContractAct";
+    }
+
+    /**
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/flowData")
+    public TreeResult flowData(ActHistory actHistory,Model model){
+        PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
+        return getLayUiData(page);
     }
 
     @ResponseBody

@@ -52,13 +52,32 @@ layui.use(['form', 'table'], function () {
                     templet: function (data) {
                         var status = data.status;
                         if(0 == status){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
-                                    '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
-                        }else{
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n';
+                            return "未提交";
+                        }else if(1 == status){
+                            return "已提交";
+                        }else if(2 == status){
+                            return "区级经纪人已通过";
+                        }else if(3 == status){
+                            return "区级经纪人已拒绝";
+                        }else if(4 == status){
+                            return "市级经纪人已通过";
+                        }else if(5 == status){
+                            return "市级经纪人已通过";
+                        }else if(6 == status){
+                            return "省级经纪人已通过";
+                        }else if(7 == status){
+                            return "省级经纪人已通过";
+                        }else if(8 == status){
+                            return "超级管理员助理已通过";
+                        }else if(9 == status){
+                            return "超级管理员助理已拒绝";
+                        }else if(10 == status){
+                            return "超级管理员已通过";
+                        }else if(11 == status){
+                            return "超级管理员已拒绝";
+                        }else {
+                            return "未知";
                         }
-                        return 0;
                     }
                 },
                 {
@@ -71,7 +90,8 @@ layui.use(['form', 'table'], function () {
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else{
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n';
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
                         }
                         return 0;
                     }
@@ -120,6 +140,8 @@ layui.use(['form', 'table'], function () {
         let ids = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
             var index = rc.openSaveDialog("/bobogou/basic/signContract/form/edit?id="+ids, "编辑合同签署信息",'718px','600px')
+        }else if (obj.event === 'flow') {  // 监听添加操作
+            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?dataId="+ids, "合同签署审核历史信息",'1000px','600px')
         }else if (obj.event === 'subTask') {
             rc.confirm('是否提交处理？', function () {
                 rc.post("/bobogou/basic/signContract/subTask?id=" + ids, '', function (data) {
