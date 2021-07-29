@@ -89,8 +89,9 @@
     </select>
 
     <!--新增-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert">
         INSERT INTO bobogou_basic_sign_contract(
+            id,
             part_a_name,
             part_b_name,
             front_id_card,
@@ -106,6 +107,7 @@
             remarks,
             del_flag
         )VALUES (
+            #{id},
             #{partAName},
             #{partBName},
             #{frontIdCard},

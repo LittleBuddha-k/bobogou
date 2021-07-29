@@ -146,7 +146,7 @@ public class SignContractController extends BaseController {
                 //设置下一个审核角色
                 signContract.setNextRoleId(currentRole.getParentId());
                 if (StringUtils.isNotBlank(currentRole.getName())) {
-                    actHistory.setExecutionLink(currentRole.getName() + "提交审核");
+                    actHistory.setExecutionLink(currentRole.getName() + "提交合同审核");
                 }
                 actHistory.setRoleId(currentRole.getId());
                 actHistory.setRoleName(currentRole.getName());
@@ -166,10 +166,10 @@ public class SignContractController extends BaseController {
         int save = signContractService.save(signContract);
         if (save > 0) {
             result.setCode("200");
-            result.setMsg("提交审核成功");
+            result.setMsg("提交合同审核成功");
         } else {
             result.setCode("500");
-            result.setMsg("系统保存时出错，提交审核失败");
+            result.setMsg("系统保存时出错，提交合同审核失败");
         }
         return result;
     }
@@ -273,7 +273,7 @@ public class SignContractController extends BaseController {
             result.setCode("200");
         } else {
             result.setCode("500");
-            result.setMsg("系统保存时出错，提交审核失败");
+            result.setMsg("系统保存时出错，提交合同审核失败");
         }
         return result;
     }

@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.basic;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -40,6 +41,23 @@ public class QualificationService extends CrudService<Qualification, Qualificati
     public PageInfo<Qualification> findPage(Page<Qualification> page, Qualification entity) {
         PageInfo<Qualification> page1 = super.findPage(page, entity);
         return page1;
+    }
+
+    public PageInfo<Qualification> findTodoPage(Page<Qualification> page, Qualification entity) {
+        /*if (entity != null && StringUtils.isNotBlank(entity.getPartAName())){
+            entity.setPartAName(StringUtils.deleteWhitespace(entity.getPartAName()));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getPartBName())){
+            entity.setPartBName(StringUtils.deleteWhitespace(entity.getPartBName()));
+        }*/
+        PageInfo<Qualification> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<Qualification> list = qualificationMapper.findTodoList(entity);
+            pageInfo = new PageInfo<Qualification>(list);
+        }
+        return pageInfo;
     }
 
     @Override

@@ -5,10 +5,18 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.file.FileUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Qualification;
+import com.littlebuddha.bobogou.modules.entity.common.ActHistory;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
 import com.littlebuddha.bobogou.modules.service.basic.QualificationService;
+import com.littlebuddha.bobogou.modules.service.common.ActHistoryService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -37,6 +46,15 @@ public class QualificationController extends BaseController {
 
     @Autowired
     private QualificationService qualificationService;
+
+    @Autowired
+    private ActHistoryService actHistoryService;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private OperatorRoleMapper operatorRoleMapper;
 
     @ModelAttribute
     public Qualification get(@RequestParam(required = false) String id) {
@@ -105,6 +123,158 @@ public class QualificationController extends BaseController {
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }/**
+     * 提交审核
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/subTask")
+    public Result subTask(Qualification qualification) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        actHistory.setDataId(qualification.getId());
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                qualification.setNextRoleId(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    actHistory.setExecutionLink(currentRole.getName() + "提交资质审核");
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        //走到这里来 设置初始审核状态、设置下一个审核角色id
+        //初始保存的时候设置初始状态----进入审核
+        if ("0".equals(qualification.getStatus()) || "3".equals(qualification.getStatus()) || "5".equals(qualification.getStatus()) || "7".equals(qualification.getStatus()) || "9".equals(qualification.getStatus()) || "11".equals(qualification.getStatus())) {
+            qualification.setStatus("1");
+        }
+        int save = qualificationService.save(qualification);
+        if (save > 0) {
+            result.setCode("200");
+            result.setMsg("提交资质审核成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交资质审核失败");
+        }
+        return result;
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/flow")
+    public String flow(Qualification qualification, Model model) {
+        model.addAttribute("qualification", qualification);
+        return "modules/basic/qualificationAct";
+    }
+
+    /**
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/flowData")
+    public TreeResult flowData(ActHistory actHistory, Model model) {
+        PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
+        return getLayUiData(page);
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/todoList")
+    public String todoList(Qualification qualification, Model model) {
+        model.addAttribute("qualification", qualification);
+        return "modules/basic/qualificationTodoList";
+    }
+
+    /**
+     * 查询审核数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/todoData")
+    public TreeResult todoData(Qualification qualification) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        qualification.setCurrentUser(currentUser);
+        qualification.setCurrentUserRole(currentUserRole);
+        PageInfo<Qualification> page = qualificationService.findTodoPage(new Page<Qualification>(), qualification);
+        return getLayUiData(page);
+    }
+
+    /**
+     * 审核通过或者拒绝时
+     *
+     * @return
+     */
+    @GetMapping("/todoListForm")
+    public String todoListForm(Qualification qualification, Model model) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
+        model.addAttribute("qualification", qualification);
+        return "modules/basic/qualificationTodoListForm";
+    }
+
+    @ResponseBody
+    @PostMapping("/doTask")
+    public Result doTask(Qualification qualification) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        String reason = "";
+        actHistory.setDataId(qualification.getId());
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                qualification.setNextRoleId(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    if ("2".equals(qualification.getStatus()) || "4".equals(qualification.getStatus()) || "6".equals(qualification.getStatus()) || "8".equals(qualification.getStatus()) || "10".equals(qualification.getStatus())) {
+                        reason = "通过";
+                        result.setMsg("已通过审核");
+                    }
+                    if ("3".equals(qualification.getStatus()) || "5".equals(qualification.getStatus()) || "7".equals(qualification.getStatus()) || "9".equals(qualification.getStatus()) || "11".equals(qualification.getStatus())) {
+                        reason = "拒绝";
+                        result.setMsg("已拒绝审核");
+                    }
+                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        int save = qualificationService.save(qualification);
+        if (save > 0) {
+            result.setCode("200");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交审核失败");
+        }
+        return result;
     }
 
     /**

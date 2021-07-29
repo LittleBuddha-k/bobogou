@@ -22,14 +22,14 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${qualification.getQualification() != null}">
+        <div class="layui-form-item">
             <label class="layui-form-label" for="qualification">公司资质图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test1">公司资质图片</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
-                    <div class="layui-upload-list" th:id="demo1">
+                    <div class="layui-upload-list" th:id="demo1"  th:if="${qualification.getQualification() != null && qualification.getQualification() != ''}">
                         <img th:each="image:${qualification.getQualification().split(',')}" th:src="${image}" alt=""
                              style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
@@ -37,18 +37,6 @@
             </div>
             <input type="hidden" th:id="qualification" th:name="qualification"
                    th:value="${qualification.getQualification()}">
-        </div>
-        <div class="layui-form-item" th:if="${qualification.getQualification() == null}">
-            <label class="layui-form-label" for="qualification">公司资质图片</label>
-            <div class="layui-upload">
-                <button type="button" class="layui-btn" th:id="test1">公司资质图片</button>
-                <button type="button" class="layui-btn" th:id="btn_image_clear_test1">清空</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
-                    预览图：
-                    <div class="layui-upload-list" th:id="demo1"></div>
-                </blockquote>
-            </div>
-            <input type="hidden" th:id="qualification" th:name="qualification">
         </div>
     </form>
 </div>

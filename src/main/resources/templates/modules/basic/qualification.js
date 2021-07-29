@@ -39,9 +39,63 @@ layui.use(['form', 'table'], function () {
                     sortName: 'name'
                 },
                 {
+                    title: '审核状态',
+                    field: 'status',
+                    sortName: 'status',
+                    align: "left",
+                    templet: function (data) {
+                        var status = data.status;
+                        if(0 == status){
+                            return "未提交";
+                        }else if(1 == status){
+                            return "已提交";
+                        }else if(2 == status){
+                            return "区级经纪人已通过";
+                        }else if(3 == status){
+                            return "区级经纪人已拒绝";
+                        }else if(4 == status){
+                            return "市级经纪人已通过";
+                        }else if(5 == status){
+                            return "市级经纪人已拒绝";
+                        }else if(6 == status){
+                            return "省级经纪人已通过";
+                        }else if(7 == status){
+                            return "省级经纪人已拒绝";
+                        }else if(8 == status){
+                            return "超级管理员助理已通过";
+                        }else if(9 == status){
+                            return "超级管理员助理已拒绝";
+                        }else if(10 == status){
+                            return "超级管理员已通过";
+                        }else if(11 == status){
+                            return "超级管理员已拒绝";
+                        }else if(12 == status){
+                            return "已通过";
+                        }else {
+                            return "未知";
+                        }
+                    }
+                },
+                {
                     title: '操作',
-                    toolbar: '#operation',
-                    align: "center"
+                    align: "left",
+                    templet: function (data) {
+                        var status = data.status;
+                        if(0 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else if (3 == status || 5 == status || 7 == status || 9 == status || 11 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已拒绝</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">重新提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                        }else if (8 == status || 10 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="download">下载资质</a>\n';
+                        }else{
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                        }
+                    }
                 }
             ]
         ],
@@ -79,6 +133,20 @@ layui.use(['form', 'table'], function () {
             var index = rc.openSaveDialog("/bobogou/basic/qualification/form/edit?id="+ids, "编辑资质信息",'650px','400px')
         }else if (obj.event === 'download') {  // 监听下载操作
             rc.downloadFile("/bobogou/basic/qualification/download?id=" + ids);
+        }else if (obj.event === 'flow') {  // 监听添加操作
+            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id="+ids, "合同签署审核历史信息",'1000px','600px')
+        }else if (obj.event === 'subTask') {
+            rc.confirm('是否提交处理？', function () {
+                rc.post("/bobogou/basic/qualification/subTask?id=" + ids, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.success(data.msg);
+                    } else {
+                        rc.error(data.msg);
+                    }
+                });
+            })
         }else if (obj.event === 'delete') {
             rc.confirm('确认要删除该资质信息吗？', function () {
                 rc.post("/bobogou/basic/qualification/delete?ids=" + ids, '', function (data) {

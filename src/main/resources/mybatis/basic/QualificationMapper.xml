@@ -5,12 +5,18 @@
         id AS "id",
         qualification AS "qualification",
         name AS "name",
+        next_role_id AS "nextRoleId",
+        status AS "status",
         create_by AS "createBy.id",
         create_date AS "createDate",
         update_by AS "updateBy.id",
         update_date AS "updateDate",
         remarks AS "remarks",
         del_flag AS "delFlag"
+    </sql>
+
+    <sql id="qualificationJoins">
+        LEFT JOIN system_operator_role b ON a.next_role_id = b.role_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.Qualification">
@@ -26,6 +32,37 @@
         FROM bobogou_basic_qualification a
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据-->
+                AND a.create_by = #{currentUser.id}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findTodoList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Qualification">
+        SELECT
+        <include refid="qualificationColumns"/>
+        FROM bobogou_basic_qualification a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
+                <if test="currentUserRoleId != null and currentUserRoleId != ''">
+                    AND a.next_role_id=#{currentUserRoleId}
+                </if>
+            </if>
+            <if test='currentUser.id == "1"'><!--如果是管理员则查询所有已提交未审核数据-->
+                AND a.status != "1"
+                AND a.status != "2"
+                AND a.status != "4"
+                AND a.status != "6"
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -55,10 +92,13 @@
     </select>
 
     <!--新增-->
-    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert">
         INSERT INTO bobogou_basic_qualification(
+            id,
             qualification,
             name,
+            next_role_id,
+            status,
             create_by,
             create_date,
             update_by,
@@ -66,8 +106,11 @@
             remarks,
             del_flag
         )VALUES (
+            #{id},
             #{qualification},
             #{name},
+            #{nextRoleId},
+            #{status},
             #{createBy.id},
             #{createDate},
             #{updateBy.id},
@@ -81,6 +124,8 @@
         UPDATE bobogou_basic_qualification SET
             qualification = #{qualification},
             name = #{name},
+            next_role_id = #{nextRoleId},
+            status = #{status},
             create_by = #{createBy.id},
             create_date = #{createDate},
             update_by = #{updateBy.id},

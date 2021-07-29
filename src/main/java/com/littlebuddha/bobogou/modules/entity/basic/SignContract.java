@@ -25,7 +25,7 @@ public class SignContract extends DataEntity<SignContract> {
     private Role role;//执行人角色Id
     private String nextRoleId;//执行人角色id
     private String roleName;//执行人角色名称
-    private String status = "0";//审核状态
+    private String status = "0";//审核状态----0：未提交 1：已提交 2：省级同意 3：省级同意 4：市级同意 5：市级拒绝 6：区级同意 7：区级拒绝 8：超级管理员助理同意 9：超级管理员助理拒绝 10：超级管理员同意 11：超级管理员拒绝
 
     private Role currentUserRole;//当前用户角色
     private String currentUserRoleId;//当前用户角色id

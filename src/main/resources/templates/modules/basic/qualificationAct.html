@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="utf-8">
+    <title>资质审核历史记录列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/bobogou/plugins/layui/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form>
+            <input type="hidden" id="id" th:value="${qualification.getId()}">
+        </form>
+        <table class="layui-hide" id="qualificationActTable" lay-filter="qualificationActTableFilter"></table>
+
+    </div>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/basic/qualificationAct.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+</body>
+</html>
