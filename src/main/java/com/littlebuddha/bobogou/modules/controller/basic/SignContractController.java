@@ -160,7 +160,7 @@ public class SignContractController extends BaseController {
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核
-        if ("0".equals(signContract.getStatus())) {
+        if ("0".equals(signContract.getStatus()) || "3".equals(signContract.getStatus()) || "5".equals(signContract.getStatus()) || "7".equals(signContract.getStatus()) || "9".equals(signContract.getStatus()) || "11".equals(signContract.getStatus())) {
             signContract.setStatus("1");
         }
         int save = signContractService.save(signContract);
@@ -250,9 +250,11 @@ public class SignContractController extends BaseController {
                 if (StringUtils.isNotBlank(currentRole.getName())) {
                     if ("2".equals(signContract.getStatus()) || "4".equals(signContract.getStatus()) || "6".equals(signContract.getStatus()) || "8".equals(signContract.getStatus()) || "10".equals(signContract.getStatus())) {
                         reason = "通过";
+                        result.setMsg("已通过审核");
                     }
                     if ("3".equals(signContract.getStatus()) || "5".equals(signContract.getStatus()) || "7".equals(signContract.getStatus()) || "9".equals(signContract.getStatus()) || "11".equals(signContract.getStatus())) {
                         reason = "拒绝";
+                        result.setMsg("已拒绝审核");
                     }
                     actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
                 }
@@ -269,7 +271,6 @@ public class SignContractController extends BaseController {
         int save = signContractService.save(signContract);
         if (save > 0) {
             result.setCode("200");
-            result.setMsg("提交审核成功");
         } else {
             result.setCode("500");
             result.setMsg("系统保存时出错，提交审核失败");

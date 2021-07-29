@@ -89,8 +89,7 @@ layui.use(['form', 'table'], function () {
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="doTask">【任务办理】</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【跟踪】</a>\n';
                         }else if (3 == status || 5 == status || 7 == status || 9 == status || 11 == status){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已拒绝】</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【跟踪】</a>\n';
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已拒绝】</a>\n';
                         }else if (8 == status || 10 == status){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已通过】</a>\n';
                         }
@@ -161,7 +160,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('signContractTableTodoList', {
+        table.reload('signContractTodoListTable', {
             page: {
                 curr: 1
             }
