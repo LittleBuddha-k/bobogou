@@ -169,7 +169,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let districtRefuseReason = $("#districtRefuseReason").val();
         if (currentUserAreaManager == 3) {
             //成功
-            if (districtRefuseReason) {
+            if (districtPassReason) {
                 status = 1;
                 applyStatus = 1;
                 member = 0;
@@ -206,7 +206,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 2) {
             //成功
-            if (cityRefuseReason) {
+            if (cityPassReason) {
                 status = 3;
                 applyStatus = 1;
                 member = 0;
@@ -243,7 +243,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 1) {
             //成功
-            if (provinceRefuseReason) {
+            if (provincePassReason) {
                 status = 5;
                 applyStatus = 1;
                 member = 0;
