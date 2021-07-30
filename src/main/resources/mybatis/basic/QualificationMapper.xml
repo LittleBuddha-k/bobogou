@@ -2,21 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.QualificationMapper">
     <sql id="qualificationColumns">
-        id AS "id",
-        qualification AS "qualification",
-        name AS "name",
-        next_role_id AS "nextRoleId",
-        status AS "status",
-        create_by AS "createBy.id",
-        create_date AS "createDate",
-        update_by AS "updateBy.id",
-        update_date AS "updateDate",
-        remarks AS "remarks",
-        del_flag AS "delFlag"
+        a.id AS "id",
+        a.qualification AS "qualification",
+        a.name AS "name",
+        a.next_role_id AS "nextRoleId",
+        a.status AS "status",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.remarks AS "remarks",
+        a.del_flag AS "delFlag"
     </sql>
 
     <sql id="qualificationJoins">
-        LEFT JOIN system_operator_role b ON a.next_role_id = b.role_id
+        LEFT JOIN system_operator_role b ON a.create_by = b.operator_id
+        LEFT JOIN system_role c ON b.role_id = c.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.Qualification">
@@ -30,10 +31,14 @@
         SELECT
         <include refid="qualificationColumns"/>
         FROM bobogou_basic_qualification a
+        <include refid="qualificationJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据-->
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
                 AND a.create_by = #{currentUser.id}
+                <if test="currentUserRole != null">
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
             </if>
         </where>
         <choose>
@@ -53,15 +58,15 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
-                <if test="currentUserRoleId != null and currentUserRoleId != ''">
-                    AND a.next_role_id=#{currentUserRoleId}
+                <if test="currentUserRole != null and currentUserRole != ''">
+                    AND a.next_role_id=#{currentUserRole.id}
                 </if>
             </if>
             <if test='currentUser.id == "1"'><!--如果是管理员则查询所有已提交未审核数据-->
-                OR a.status = "1"
+                AND (a.status = "1"
                 OR a.status = "2"
                 OR a.status = "4"
-                OR a.status = "6"
+                OR a.status = "6")
             </if>
         </where>
         <choose>
@@ -79,11 +84,16 @@
         SELECT
         <include refid="qualificationColumns"/>
         FROM bobogou_basic_qualification a
+        <include refid="qualificationJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
-                AND a.status = 8
-                OR a.status = 10
+                    AND a.create_by = #{currentUser.id}
+                <if test="currentUserRole != null and currentUserRole != ''">
+                    OR c.parent_id=#{currentUserRole.id}
+                </if>
+                AND (a.status = 8
+                OR a.status = 10)
             </if>
         </where>
         <choose>

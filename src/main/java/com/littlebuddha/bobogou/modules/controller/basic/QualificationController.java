@@ -104,6 +104,10 @@ public class QualificationController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(Qualification qualification) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        qualification.setCurrentUser(currentUser);
+        qualification.setCurrentUserRole(currentUserRole);
         PageInfo<Qualification> page = qualificationService.findPage(new Page<Qualification>(), qualification);
         return getLayUiData(page);
     }
