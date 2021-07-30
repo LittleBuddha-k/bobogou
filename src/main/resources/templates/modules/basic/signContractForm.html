@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:id="uploadDemoView1" th:if="${signContract.getFrontIdCard() != null && signContract.getFrontIdCard() != ''}">
+        <div class="layui-form-item" th:if="${signContract.getFrontIdCard() != null && signContract.getFrontIdCard() != ''}">
             <label class="layui-form-label" for="frontIdCard">身份证正面照</label>
             <div class="layui-upload-drag" th:id="test1">
                 <i class="layui-icon"></i>
@@ -42,19 +42,19 @@
             </div>
             <input type="hidden" th:id="frontIdCard" th:name="frontIdCard" th:value="${signContract.getFrontIdCard()}">
         </div>
-        <div class="layui-form-item" th:id="uploadDemoView1" th:if="${signContract.getFrontIdCard() == null || signContract.getFrontIdCard() == ''}" >
+        <div class="layui-form-item" th:if="${signContract.getFrontIdCard() == null || signContract.getFrontIdCard() == ''}" >
             <label class="layui-form-label" for="frontIdCard">身份证正面照</label>
             <div class="layui-upload-drag" th:id="test1">
                 <i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide">
+                <div class="layui-hide" th:id="uploadDemoView1">
                     <hr>
                     <img alt="上传成功后渲染" style="max-width: 196px">
                 </div>
             </div>
             <input type="hidden" th:id="frontIdCard" th:name="frontIdCard" th:value="${signContract.getFrontIdCard()}">
         </div>
-        <div class="layui-form-item" th:id="uploadDemoView2" th:if="${signContract.getBackIdCard() != null && signContract.getBackIdCard() != ''}">
+        <div class="layui-form-item" th:if="${signContract.getBackIdCard() != null && signContract.getBackIdCard() != ''}">
             <label class="layui-form-label" for="backIdCard">身份证反面照</label>
             <div class="layui-upload-drag" th:id="test2">
                 <i class="layui-icon"></i>
@@ -66,12 +66,12 @@
             </div>
             <input type="hidden" th:id="backIdCard" th:name="backIdCard" th:value="${signContract.getBackIdCard()}">
         </div>
-        <div class="layui-form-item" th:id="uploadDemoView2" th:if="${signContract.getBackIdCard() == null || signContract.getBackIdCard() == ''}">
+        <div class="layui-form-item" th:if="${signContract.getBackIdCard() == null || signContract.getBackIdCard() == ''}">
             <label class="layui-form-label" for="backIdCard">身份证反面照</label>
             <div class="layui-upload-drag" th:id="test2">
                 <i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>
-                <div class="layui-hide" >
+                <div class="layui-hide" th:id="uploadDemoView2">
                     <hr>
                     <img alt="上传成功后渲染" style="max-width: 196px">
                 </div>
