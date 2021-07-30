@@ -5,6 +5,7 @@ import com.github.pagehelper.Page;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 
 import javax.xml.bind.annotation.XmlTransient;
 import java.io.Serializable;
@@ -17,6 +18,7 @@ public abstract class BaseEntity<E> implements Serializable {
     private String id;
     protected Operator currentUser;
     protected CustomerUser currentCustomerUser;
+    protected Role currentUserRole;
     //private String page;
 
     protected boolean isNewRecord = false;
@@ -79,6 +81,15 @@ public abstract class BaseEntity<E> implements Serializable {
 
     public void setCurrentCustomerUser(CustomerUser currentCustomerUser) {
         this.currentCustomerUser = currentCustomerUser;
+    }
+
+
+    public Role getCurrentUserRole() {
+        return currentUserRole;
+    }
+
+    public void setCurrentUserRole(Role currentUserRole) {
+        this.currentUserRole = currentUserRole;
     }
 
     @JsonIgnore

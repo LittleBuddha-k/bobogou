@@ -83,6 +83,8 @@ layui.use(['form', 'table'], function () {
                             return "顺丰";
                         }else if (2 == distributionMode){
                             return "京东";
+                        }else if (3 == distributionMode){
+                            return "其他物流";
                         }else if (0 == distributionMode){
                             return "未发货";
                         }
@@ -180,8 +182,7 @@ layui.use(['form', 'table'], function () {
                         if (5 == status){
                             return '\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="chargeback">退单处理</a>';
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>\n' ;
                         }else {
                             return '\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +

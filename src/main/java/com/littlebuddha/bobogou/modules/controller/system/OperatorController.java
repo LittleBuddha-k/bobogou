@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.City;
@@ -11,6 +12,7 @@ import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.data.AreaService;
 import com.littlebuddha.bobogou.modules.service.data.CityService;
 import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
@@ -105,6 +107,8 @@ public class OperatorController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(Operator operator) {
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        operator.setCurrentUserRole(currentUserRole);
         PageInfo<Operator> page = operatorService.findPage(new Page<Operator>(), operator);
         return getLayUiData(page);
     }

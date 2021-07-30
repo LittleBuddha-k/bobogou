@@ -63,7 +63,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             }
             if (entity.getDistributionMode() != null) {
                 String distributionMode = StringUtils.deleteWhitespace(entity.getDistributionMode().toString());
-                entity.setDistributionMode(Integer.valueOf(distributionMode));
+                entity.setDistributionMode(distributionMode);
             }
             String trackingNo = StringUtils.deleteWhitespace(entity.getTrackingNo());
             entity.setTrackingNo(trackingNo);

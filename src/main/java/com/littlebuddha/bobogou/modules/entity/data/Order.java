@@ -37,15 +37,15 @@ public class Order extends DataEntity<Order> {
     private Double harvestHealthBeans;//订单完成可获取的播播豆，订单确认收货和自动确认收获后发放给用户
     private Integer addressId;//配送地址ID
     private String address;//
-    private Integer distributionMode;//配送方式，1=顺丰，2=京东
+    private String distributionMode;//配送方式，1=顺丰，2=京东
     private String trackingNo;//物流单号
-    private Integer payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
-    private Integer type;//类型，0=购买，1=健康豆兑换，2=积分兑换
-    private Integer status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
+    private String payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
+    private String type;//类型，0=购买，1=健康豆兑换，2=积分兑换
+    private String status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String outTime;//出库时间
-    private Integer outStatus;//出库状态
+    private String outStatus;//出库状态
     private String payTime;//支付时间
     private String refundReason;//退款原因
     private String refundExplain;//退款原因
@@ -238,11 +238,11 @@ public class Order extends DataEntity<Order> {
         this.address = address;
     }
 
-    public Integer getDistributionMode() {
+    public String getDistributionMode() {
         return distributionMode;
     }
 
-    public void setDistributionMode(Integer distributionMode) {
+    public void setDistributionMode(String distributionMode) {
         this.distributionMode = distributionMode;
     }
 
@@ -254,27 +254,27 @@ public class Order extends DataEntity<Order> {
         this.trackingNo = trackingNo;
     }
 
-    public Integer getPayMode() {
+    public String getPayMode() {
         return payMode;
     }
 
-    public void setPayMode(Integer payMode) {
+    public void setPayMode(String payMode) {
         this.payMode = payMode;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -286,11 +286,11 @@ public class Order extends DataEntity<Order> {
         this.outTime = outTime;
     }
 
-    public Integer getOutStatus() {
+    public String getOutStatus() {
         return outStatus;
     }
 
-    public void setOutStatus(Integer outStatus) {
+    public void setOutStatus(String outStatus) {
         this.outStatus = outStatus;
     }
 

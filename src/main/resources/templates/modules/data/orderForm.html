@@ -152,33 +152,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="distributionMode">配送方式</label>
                 <div class="layui-input-inline">
-                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
-                            th:if="${order.distributionMode == null}"
-                            th:id="distributionMode" disabled="true">
-                        <option th:value="0" th:text="未发货"/>
-                        <option th:value="1" th:text="顺丰"/>
-                        <option th:value="2" th:text="京东"/>
-                    </select>
-                    <select name="distributionMode" lay-verify="" th:if="${order.distributionMode == 0}"
-                            lay-filter="distributionMode"
-                            th:id="distributionMode" disabled="true">
-                        <option th:value="0" th:text="未发货"/>
-                        <option th:value="1" th:text="顺丰"/>
-                        <option th:value="2" th:text="京东"/>
-                    </select>
-                    <select name="distributionMode" lay-verify="" th:if="${order.distributionMode == 1}"
-                            lay-filter="distributionMode"
-                            th:id="distributionMode" disabled="true">
-                        <option th:value="1" th:text="顺丰"/>
-                        <option th:value="0" th:text="未发货"/>
-                        <option th:value="2" th:text="京东"/>
-                    </select>
-                    <select name="distributionMode" lay-verify="" th:if="${order.distributionMode == 2}"
-                            lay-filter="distributionMode"
-                            th:id="distributionMode" disabled="true">
-                        <option th:value="2" th:text="京东"/>
-                        <option th:value="1" th:text="顺丰"/>
-                        <option th:value="0" th:text="未发货"/>
+                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:id="distributionMode" disabled="true">
+                        <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
+                                th:selected="${distributionMode.getValue()}==${order.getDistributionMode()}"/>
                     </select>
                 </div>
             </div>
@@ -194,40 +170,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="payMode">支付方式</label>
                 <div class="layui-input-inline">
-                    <select name="payMode" lay-verify="" th:if="${order.payMode == null}" lay-filter="payMode"
+                    <select name="payMode" lay-verify="" lay-filter="payMode"
                             th:id="payMode" disabled="true">
-                        <option th:value="0" th:text="兑换"/>
-                        <option th:value="1" th:text="微信"/>
-                        <option th:value="2" th:text="支付宝"/>
-                        <option th:value="3" th:text="银行卡"/>
-                    </select>
-                    <select name="payMode" lay-verify="" th:if="${order.payMode == 0}" lay-filter="payMode"
-                            th:id="payMode" disabled="true">
-                        <option th:value="0" th:text="兑换"/>
-                        <option th:value="1" th:text="微信"/>
-                        <option th:value="2" th:text="支付宝"/>
-                        <option th:value="3" th:text="银行卡"/>
-                    </select>
-                    <select name="payMode" lay-verify="" th:if="${order.payMode == 1}" lay-filter="payMode"
-                            th:id="payMode" disabled="true">
-                        <option th:value="1" th:text="微信"/>
-                        <option th:value="0" th:text="兑换"/>
-                        <option th:value="2" th:text="支付宝"/>
-                        <option th:value="3" th:text="银行卡"/>
-                    </select>
-                    <select name="payMode" lay-verify="" th:if="${order.payMode == 2}" lay-filter="payMode"
-                            th:id="payMode" disabled="true">
-                        <option th:value="2" th:text="支付宝"/>
-                        <option th:value="0" th:text="兑换"/>
-                        <option th:value="1" th:text="微信"/>
-                        <option th:value="3" th:text="银行卡"/>
-                    </select>
-                    <select name="payMode" lay-verify="" th:if="${order.payMode == 3}" lay-filter="payMode"
-                            th:id="payMode" disabled="true">
-                        <option th:value="3" th:text="银行卡"/>
-                        <option th:value="0" th:text="兑换"/>
-                        <option th:value="1" th:text="微信"/>
-                        <option th:value="2" th:text="支付宝"/>
+                        <option th:each="payMode:${payModeModeList}" th:value="${payMode.getValue()}" th:text="${payMode.getName()}"
+                                th:selected="${payMode.getValue()}==${order.getPayMode()}"/>
                     </select>
                 </div>
             </div>
@@ -236,97 +182,20 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="type">类型</label>
                 <div class="layui-input-inline">
-                    <select name="type" lay-verify="" th:if="${order.type == null}" lay-filter="type"
+                    <select name="type" lay-verify="" lay-filter="type"
                             th:id="type" disabled="true">
-                        <option th:value="0" th:text="购买"/>
-                        <option th:value="1" th:text="健康豆兑换"/>
-                        <option th:value="2" th:text="积分兑换"/>
-                    </select>
-                    <select name="type" lay-verify="" th:if="${order.type == 0}" lay-filter="type"
-                            th:id="type" disabled="true">
-                        <option th:value="0" th:text="购买"/>
-                        <option th:value="1" th:text="健康豆兑换"/>
-                        <option th:value="2" th:text="积分兑换"/>
-                    </select>
-                    <select name="type" lay-verify="" th:if="${order.type == 1}" lay-filter="type"
-                            th:id="type" disabled="true">
-                        <option th:value="1" th:text="健康豆兑换"/>
-                        <option th:value="0" th:text="购买"/>
-                        <option th:value="2" th:text="积分兑换"/>
-                    </select>
-                    <select name="type" lay-verify="" th:if="${order.type == 2}" lay-filter="type"
-                            th:id="type" disabled="true">
-                        <option th:value="2" th:text="积分兑换"/>
-                        <option th:value="0" th:text="购买"/>
-                        <option th:value="1" th:text="健康豆兑换"/>
+                        <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${order.getType()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="status">状态</label>
                 <div class="layui-input-inline">
-                    <select name="status" lay-verify="" th:if="${order.status == null}" lay-filter="status"
+                    <select name="status" lay-verify="" lay-filter="status"
                             th:id="status" disabled="true">
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 0}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 1}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 2}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 3}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 4}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="4" th:text="申请退款"/>
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="5" th:text="已退款"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${order.status == 5}" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:value="5" th:text="已退款"/>
-                        <option th:value="0" th:text="已取消"/>
-                        <option th:value="1" th:text="待付款"/>
-                        <option th:value="2" th:text="待收货"/>
-                        <option th:value="3" th:text="已完成"/>
-                        <option th:value="4" th:text="申请退款"/>
+                        <option th:each="status:${orderStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
+                                th:selected="${status.getValue()}==${order.getStatus()}"/>
                     </select>
                 </div>
             </div>
@@ -344,125 +213,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="outStatus">出库状态</label>
                 <div class="layui-input-inline">
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && order.getOutStatus() == null}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
+                    <select name="outStatus" lay-verify="" lay-filter="outStatus" th:id="outStatus" disabled="true" th:if="${mode == 'detail'}">
+                        <option th:each="outStatus:${orderOutStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
+                                th:selected="${outStatus.getValue()}==${order.getOutStatus()}"/>
                     </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 0==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 1==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 2==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 3==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode == 'detail' && 4==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="4" th:text="退货"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && order.getOutStatus() == null}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 0==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 1==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 2==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 3==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="3" th:text="已收货"/>
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="4" th:text="退货"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" th:if="${mode != 'detail' && 4==order.getOutStatus()}"
-                            lay-filter="outStatus"
-                            th:id="outStatus">
-                        <option th:value="-1" th:text="请选择"/>
-                        <option th:value="4" th:text="退货"/>
-                        <option th:value="0" th:text="备货"/>
-                        <option th:value="1" th:text="出库"/>
-                        <option th:value="2" th:text="运输中"/>
-                        <option th:value="3" th:text="已收货"/>
+                    <select name="outStatus" lay-verify="" lay-filter="outStatus" th:id="outStatus" th:if="${mode == 'edit'}">
+                        <option th:each="outStatus:${orderOutStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
+                                th:selected="${outStatus.getValue()}==${order.getOutStatus()}"/>
                     </select>
                 </div>
             </div>

@@ -8,8 +8,10 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.OrderInfoService;
 import com.littlebuddha.bobogou.modules.service.data.OrderService;
 import org.apache.commons.compress.utils.Lists;
@@ -36,6 +38,9 @@ public class OrderController extends BaseController {
 
     @Autowired
     private OrderInfoService orderInfoService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public Order get(@RequestParam(required = false) String id) {
@@ -98,7 +103,26 @@ public class OrderController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Order order, Model model) {
-        List<OrderInfo> orderInfoList = orderInfoService.findList(new OrderInfo(order));
+        DictData distributionMode = new DictData();
+        distributionMode.setType("order_distribution_mode");
+        List<DictData> distributionModeList = dictDataService.findList(distributionMode);
+        model.addAttribute("distributionModeList", distributionModeList);
+        DictData payModeMode = new DictData();
+        payModeMode.setType("order_pay_mode");
+        List<DictData> payModeModeList = dictDataService.findList(payModeMode);
+        model.addAttribute("payModeModeList", payModeModeList);
+        DictData type = new DictData();
+        type.setType("oder_type");
+        List<DictData> typeList = dictDataService.findList(type);
+        model.addAttribute("typeList", typeList);
+        DictData orderStatus = new DictData();
+        orderStatus.setType("order_status");
+        List<DictData> orderStatusList = dictDataService.findList(orderStatus);
+        model.addAttribute("orderStatusList", orderStatusList);
+        DictData orderOutStatus = new DictData();
+        orderOutStatus.setType("order_out_status");
+        List<DictData> orderOutStatusList = dictDataService.findList(orderOutStatus);
+        model.addAttribute("orderOutStatusList", orderOutStatusList);
         model.addAttribute("order", order);
         return "modules/data/orderForm";
     }
