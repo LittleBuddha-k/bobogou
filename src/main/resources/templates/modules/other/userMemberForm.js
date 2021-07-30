@@ -193,10 +193,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
                         //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -230,10 +232,11 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -267,10 +270,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
                         //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -301,10 +306,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 if (200 == data.code) {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(index);
                     //刷新父页面
-                    parent.location.reload();
-                    rc.msg(data.msg)
+                    rc.msg(data.msg);
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                        parent.location.reload();
+                    }, 1000);
                 } else {
                     rc.msg('因为后台原因，审核VIP失败')
                 }
@@ -332,10 +339,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 if (200 == data.code) {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(index);
                     //刷新父页面
-                    parent.location.reload();
-                    rc.msg(data.msg)
+                    rc.msg(data.msg);
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                        parent.location.reload();
+                    }, 1000);
                 } else {
                     rc.msg('因为后台原因，审核VIP失败')
                 }
@@ -385,10 +394,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -422,10 +433,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -459,10 +472,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (200 == data.code) {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
-                        parent.layer.close(index);
-                        //刷新父页面
-                        parent.location.reload();
-                        rc.msg(data.msg)
+                        rc.msg(data.msg);
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                            //刷新父页面
+                            parent.location.reload();
+                        }, 1000);
                     } else {
                         rc.msg('因为后台原因，审核VIP失败')
                     }
@@ -493,10 +508,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 if (200 == data.code) {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(index);
-                    //刷新父页面
-                    parent.location.reload();
-                    rc.msg(data.msg)
+                    rc.msg(data.msg);
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                        //刷新父页面
+                        parent.location.reload();
+                    }, 1000);
                 } else {
                     rc.msg('因为后台原因，审核VIP失败')
                 }
@@ -524,10 +541,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 if (200 == data.code) {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
-                    parent.layer.close(index);
-                    //刷新父页面
-                    parent.location.reload();
-                    rc.msg(data.msg)
+                    rc.msg(data.msg);
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                        //刷新父页面
+                        parent.location.reload();
+                    }, 1000);
                 } else {
                     rc.msg('因为后台原因，审核VIP失败')
                 }

@@ -184,6 +184,10 @@ public class CustomerUserController extends BaseController {
         isEntrust.setType("user_member_is_entrust");
         List<DictData> isEntrustList = dictDataService.findList(isEntrust);
         model.addAttribute("isEntrustList", isEntrustList);
+        DictData userMemberStatus = new DictData();
+        userMemberStatus.setType("user_member_status");
+        List<DictData> userMemberStatusList = dictDataService.findList(userMemberStatus);
+        model.addAttribute("userMemberStatusList", userMemberStatusList);
         return "modules/other/userMemberForm";
     }
 

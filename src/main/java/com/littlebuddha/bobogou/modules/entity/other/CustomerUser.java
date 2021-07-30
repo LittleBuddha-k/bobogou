@@ -43,6 +43,8 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     private Role currentUserRole;//当前用户角色------查询列表数据时使用
 
+    private String actStatus;//关联查询usermember的审核状态
+
     //会员表 外键
     private UserMember userMember;//
 
@@ -238,6 +240,14 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getActStatus() {
+        return actStatus;
+    }
+
+    public void setActStatus(String actStatus) {
+        this.actStatus = actStatus;
     }
 
     public UserMember getUserMember() {

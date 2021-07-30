@@ -56,7 +56,7 @@ public class UserMember extends DataEntity<UserMember> {
     private String cityUserId;//市审核人ID
     private String districtUserId;//区审核人ID
 
-    private Integer status;//审核状态，0=未审核，1=区代理已审核通过，2=区代理审核已经拒绝，3=市代理已审核通过，4=市代理审核已拒绝，5=省代理已审核通过，6=省代理已经拒绝，7=超级管理员助理已审核通过，8=超级管理员助理已经拒绝，9=超级管理员已审核通过，10=超级管理员已经拒绝
+    private String status;//审核状态，0=未审核，1=区代理已审核通过，2=区代理审核已经拒绝，3=市代理已审核通过，4=市代理审核已拒绝，5=省代理已审核通过，6=省代理已经拒绝，7=超级管理员助理已审核通过，8=超级管理员助理已经拒绝，9=超级管理员已审核通过，10=超级管理员已经拒绝
 
     private String provinceRefuseReason;//省级拒绝原因
     private String provincePassReason;//省级通过原因
@@ -318,11 +318,11 @@ public class UserMember extends DataEntity<UserMember> {
         this.districtUserId = districtUserId;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
