@@ -208,11 +208,11 @@ public class CustomerUserController extends BaseController {
                 //设置下一个审核角色
                 customerUser.setNextRole(currentRole.getParentId());
                 if (StringUtils.isNotBlank(currentRole.getName())) {
-                    if (2 == customerUser.getApplyStatus()) {
+                    if (2 == customerUser.getApplyStatus() || "1".equals(customerUser.getUserMember().getStatus()) || "3".equals(customerUser.getUserMember().getStatus()) || "5".equals(customerUser.getUserMember().getStatus())) {
                         reason = "通过";
                         result.setMsg("已通过审核");
                     }
-                    if (3 == customerUser.getApplyStatus()) {
+                    if (3 == customerUser.getApplyStatus() ||  "2".equals(customerUser.getUserMember().getStatus()) || "4".equals(customerUser.getUserMember().getStatus()) || "6".equals(customerUser.getUserMember().getStatus())) {
                         reason = "拒绝";
                         result.setMsg("已拒绝审核");
                     }
