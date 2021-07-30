@@ -12,12 +12,8 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         elem: '#test1',
         url: '/bobogou/file/picture',
         multiple: true,
-        before: function(obj){
-            //预读本地文件示例，不支持ie8---------base64
-            obj.preview(function(index, file, result){
-                $('#demo1').append('<img src="'+ result +'" alt="'+ file.name +'" style="width: 92px;height: 92px;" class="layui-upload-img">')
-            });
-        },
+        accept: 'images',
+        exts: 'jpg|png|jpeg|tif',
         done: function(res){
             //上传完毕
             var last_url = $("#qualification").val();
@@ -28,6 +24,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
                 upload_image_url = res.body.url;
             }
             $("#qualification").val(upload_image_url);
+            $('#demo1').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
         }
     });
 
