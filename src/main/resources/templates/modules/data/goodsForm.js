@@ -8,17 +8,53 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
+    //数组对象定义一个函数
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i] == val) return i;
+        }
+        return -1;
+    };
+    //得到这个元素的索引,数组自己固有的函数去删除这个元素
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+
     //对标签的操作----点击时才生效
     form.on('checkbox(tag)', function (data) {
         //console.log(data.elem); //得到checkbox原始DOM对象
         let checked = data.elem.checked; //是否被选中，true或者false
+        let id = data.value; //复选框value值，也可以通过data.elem.value得到
         if (checked) {
-            let id = data.value; //复选框value值，也可以通过data.elem.value得到
-            let tagId = $("#tagId").val();
+            /*let tagId = $("#tagId").val();
             let get = tagId + "," + id;
-            $("#tagId").val(get);
+            $("#tagId").val(get);*/
+            let tagId = $("#tagId").val();
+            var select = "";
+            if (tagId) {
+                select = tagId + "," + id;
+            } else {
+                select = id;
+            }
+            $("#tagId").val(select);
         } else {
-            $("#tagId").val("")
+            let tagId = $("#tagId").val();
+            let split = tagId.split(",");
+            var select = "";
+            if (tagId) {
+                select = id;
+                for(var i = 0;i<split.length;i++){
+                    if (select == split[i]){
+                        split.remove(select);
+                        $("#tagId").val(split);
+                    }
+                }
+            } else {
+
+            }
         }
         //console.log($("#tagId").val())
         //console.log(data.othis); //得到美化后的DOM对象
@@ -27,13 +63,32 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     //对其他分类操作----点击时才生效
     form.on('checkbox(goodsTypeId)', function (data) {
         let checked = data.elem.checked; //是否被选中，true或者false
+        let id = data.value; //复选框value值，也可以通过data.elem.value得到
         if (checked) {
-            let id = data.value; //复选框value值，也可以通过data.elem.value得到
-            let tagId = $("#goodsTypeId").val();
-            let get = tagId + "," + id;
-            $("#goodsTypeId").val(get);
+            let goodsType = $("#goodsTypeId").val();
+            /*let get = tagId + "," + id;*/
+            var select = "";
+            if (goodsType) {
+                select = goodsType + "," + id;
+            } else {
+                select = id;
+            }
+            $("#goodsTypeId").val(select);
         } else {
-            $("#goodsTypeId").val("")
+            let goodsType = $("#goodsTypeId").val();
+            let split = goodsType.split(",");
+            var select = "";
+            if (goodsType) {
+                select = id;
+                for(var i = 0;i<split.length;i++){
+                    if (select == split[i]){
+                        split.remove(select);
+                        $("#goodsTypeId").val(split);
+                    }
+                }
+            } else {
+
+            }
         }
     });
 
