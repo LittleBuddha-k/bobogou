@@ -31,6 +31,35 @@
         a.update_time AS "updateTime"
     </sql>
 
+    <sql id="customerUserNoColumns">
+        a.id AS "id",
+        a.phone AS "phone",
+        a.pssword AS "password",
+        a.header AS "header",
+        a.nickname AS "nickname",
+        a.sex AS "sex",
+        a.member AS "member",
+        a.integral AS "integral",
+        a.health_beans AS "healthBeans",
+        a.collect_number AS "collectNumber",
+        a.sigin_in_time AS "signInTime",
+        a.purchase_amount AS "purchaseAmount",
+        a.message_status AS "messageStatus",
+        a.user_agreement AS "userAgreement",
+        a.apply_status AS "applyStatus",
+        a.vip_expire AS "vipExpire",
+        a.area_manager AS "areaManager",
+        a.profit_amount AS "profitAmount",
+        a.amount_withdrawn AS "amountWithdrawn",
+        a.withdrawal_amount AS "withdrawalAmount",
+        a.operator AS "operatorId",
+        a.next_role AS "nextRole",
+        a.status AS "status",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
     <sql id="customerUserJoins">
         LEFT JOIN ud_user_member b ON a.id = b.user_id
         LEFT JOIN system_operator_region c ON a.operator = c.operator_id
@@ -38,25 +67,22 @@
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserColumns"/>
-        FROM ud_user a
         <include refid="customerUserJoins"/>
+        FROM ud_user a
         WHERE a.id=#{id}
     </select>
 
     <select id="getByPhone" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserColumns"/>
+        <include refid="customerUserNoColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
         WHERE a.phone = #{phone}
     </select>
 
     <select id="getByOperator" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserColumns"/>
+        <include refid="customerUserNoColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
         WHERE a.operator = #{operatorId}
     </select>
 
