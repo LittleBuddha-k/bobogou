@@ -19,20 +19,20 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     private String operatorId;//后台账号ID，关联system_operator表
     private String operatorName;
     private CustomerUser customerUser;//关联前端用户
-    private String userId;//前端账号ID，关联ud_user表
+    private String userId = "";//前端账号ID，关联ud_user表
     private String userName;
     private Integer type;//类型，1=超级管理员助理，2=省级经纪人，3=市级经济人，4=区级经济人
     private Province province;
-    private String provinceId;//省ID，关联system_province表，超级管理助力分配
+    private String provinceId = "";//省ID，关联system_province表，超级管理助力分配
     private String provinceName;
     private City city;
-    private String cityId;//市ID，关联system_city表，超级管理员助力不填，分配给省级经济人管理的市
+    private String cityId = "";//市ID，关联system_city表，超级管理员助力不填，分配给省级经济人管理的市
     private String cityName;
     private Area area;
-    private String areaId;//区县ID，关联system_area表，超级管理员助力和省级经济人不填，分配给市级经纪人管理的区县
+    private String areaId = "";//区县ID，关联system_area表，超级管理员助力和省级经济人不填，分配给市级经纪人管理的区县
     private String areaName;
     private Street street;
-    private String streetId;//乡镇街道ID，关联system_street，超级管理员助力和省级经纪人以及市级经济人不填，分配给区级经济人管理的乡镇街道
+    private String streetId = "";//乡镇街道ID，关联system_street，超级管理员助力和省级经纪人以及市级经济人不填，分配给区级经济人管理的乡镇街道
     private String streetName;
 
     public OperatorRegion() {
