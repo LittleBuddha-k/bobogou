@@ -11,8 +11,10 @@
     <form class="layui-form" id="userMemberForm">
         <input type="hidden" name="id" id="id" th:value="${userMember.getId()}">
         <input type="hidden" name="userId" id="userId" th:value="${userMember.getUserId()}">
-        <input type="hidden" name="step" id="step" th:value="${userMember.getStep()}">
         <input type="hidden" id="currentUserAreaManager" th:value="${currentUserAreaManager}">
+        <input type="hidden" id="userMember.type" th:value="${userMember.getType()}">
+        <input type="hidden" id="member" th:value="${customerUser.getMember()}">
+        <input type="hidden" id="applyStatus" th:value="${customerUser.getApplyStatus()}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="realName">真实姓名</label>
