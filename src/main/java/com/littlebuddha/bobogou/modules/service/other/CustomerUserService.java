@@ -107,7 +107,6 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     public int beVip(CustomerUser customerUser) {
         if (customerUser.getUserMember() != null && customerUser.getUserMember() != null){
             //当超级管理员或者超级管理员助理通过之后才表示vip生效，再去设置VIP时效
-            //根据当前审核人的areaManager设置对应的审核人id
             Operator currentUser = UserUtils.getCurrentUser();
             if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 && customerUser.getApplyStatus() == 2){
                 //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
@@ -122,6 +121,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                 }
             }
             //获取当前角色的父级角色
+            //根据当前审核人的areaManager设置对应的审核人id
             String currentUserParentRoleId = UserUtils.getCurrentUserParentRoleId();
             customerUser.setNextRole(currentUserParentRoleId);
             //这里同意过后执行更新userMember数据
