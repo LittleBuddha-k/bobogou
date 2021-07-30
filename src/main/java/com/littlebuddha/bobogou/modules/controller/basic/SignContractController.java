@@ -89,6 +89,10 @@ public class SignContractController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(SignContract signContract) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        signContract.setCurrentUser(currentUser);
+        signContract.setCurrentUserRole(currentUserRole);
         PageInfo<SignContract> page = signContractService.findPage(new Page<SignContract>(), signContract);
         return getLayUiData(page);
     }

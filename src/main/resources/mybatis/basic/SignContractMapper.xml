@@ -20,7 +20,8 @@
     </sql>
 
     <sql id="signContractJoins">
-        LEFT JOIN system_operator_role b ON a.next_role_id = b.role_id
+        LEFT JOIN system_operator_role b ON a.create_by = b.operator_id
+        LEFT JOIN system_role c ON b.role_id = c.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.SignContract">
@@ -37,8 +38,11 @@
         <include refid="signContractJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据-->
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
                 AND a.create_by = #{currentUser.id}
+                <if test="currentUserRole != null">
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
             </if>
             <if test="partAName != null and partAName != ''">
                 AND a.part_a_name LIKE concat('%',#{partAName},'%')
