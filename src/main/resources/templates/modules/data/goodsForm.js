@@ -737,7 +737,7 @@ $(document).ready(function () {
             path: "/bobogou/plugins/markdown/lib/",
             watch: false,
             delay: 0,
-            placeholder: "请确认商品详情图片插入之前应满足要求(长:宽):375:375或者1:1比例",
+            placeholder: "请确认商品详情图片插入之前应满足要求(长:宽):375:375",
             imageUpload: true,          // Enable/disable upload
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL: "/bobogou/file/goodsInfoMarkdownUpload",             // Upload url
