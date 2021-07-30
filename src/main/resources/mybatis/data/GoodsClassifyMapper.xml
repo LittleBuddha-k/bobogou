@@ -57,7 +57,36 @@
                 ORDER BY ${orderBy}
             </when>
             <otherwise>
-                ORDER BY a.create_date DESC
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--删除的时候查询商品分类关联表中是否有关联的分类数据如果有则不能删除-->
+    <select id="findByClassify" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
+        SELECT
+        <include refid="goodsClassifyColumns"/>
+        FROM md_goods_classify a
+        <include refid="goodsClassifyJoins"/>
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="classifyId != null and classifyId != ''">
+                AND a.classify_id = #{classifyId}
+            </if>
+            <if test="secondClassifyId != null and secondClassifyId != ''">
+                OR a.second_classify_id = #{secondClassifyId}
+            </if>
+            <if test="reclassifyId != null and reclassifyId != ''">
+                OR a.reclassify_id = #{reclassifyId}
+        </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
             </otherwise>
         </choose>
     </select>

@@ -9,6 +9,10 @@ import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.data.Classify;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
+import com.littlebuddha.bobogou.modules.entity.data.GoodsClassify;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsClassifyMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.service.data.ClassifyService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +35,9 @@ public class ClassifyController extends BaseController {
 
     @Autowired
     private ClassifyService classifyService;
+
+    @Autowired
+    private GoodsClassifyMapper goodsClassifyMapper;
 
     @ModelAttribute
     public Classify get(@RequestParam(required = false) String id) {
@@ -208,6 +215,15 @@ public class ClassifyController extends BaseController {
             Classify classify = classifyService.get(s);
             if (classify == null) {
                 return new Result("311", "数据不存在,或已被删除，请刷新试试！");
+            }
+            //删除的时候查询商品分类关联表中是否有关联的分类数据--如果有则不能删除
+            GoodsClassify findByClassify = new GoodsClassify();
+            findByClassify.setClassifyId(s);
+            findByClassify.setSecondClassifyId(s);
+            findByClassify.setReclassifyId(s);
+            List<GoodsClassify> byClassify = goodsClassifyMapper.findByClassify(findByClassify);
+            if (byClassify != null && !byClassify.isEmpty()){
+                return new Result("355", "已有商品数据中使用了此项分类，分类数据不能删除");
             }
             int i = classifyService.deleteByLogic(classify);
         }
