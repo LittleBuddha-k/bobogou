@@ -10,4 +10,18 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface DictDataMapper extends BaseMapper<DictData> {
+
+    /**
+     * 通过值查名字
+     * @param dictData
+     * @return
+     */
+    DictData getByValue(DictData dictData);
+
+    /**
+     * 通过名字查值
+     * @param dictData
+     * @return
+     */
+    DictData getByName(DictData dictData);
 }

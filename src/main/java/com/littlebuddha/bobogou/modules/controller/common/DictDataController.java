@@ -37,6 +37,20 @@ public class DictDataController extends BaseController {
         return dictData;
     }
 
+    @ResponseBody
+    @GetMapping("/getByValue")
+    public DictData getByValue(DictData dictData) {
+        DictData value = dictDataService.getByValue(dictData);
+        return value;
+    }
+
+    @ResponseBody
+    @GetMapping("/getByName")
+    public DictData getByName(DictData dictData) {
+        DictData name = dictDataService.getByName(dictData);
+        return name;
+    }
+
     /**
      * 返回药品列表
      *

@@ -20,6 +20,20 @@
         WHERE id=#{id}
     </select>
 
+    <select id="getByValue" resultType="com.littlebuddha.bobogou.modules.entity.common.DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM bobogou_dict_data a
+        WHERE type = #{type} AND value = #{value}
+    </select>
+
+    <select id="getByName" resultType="com.littlebuddha.bobogou.modules.entity.common.DictData">
+        SELECT
+        <include refid="dictDataColumns"/>
+        FROM bobogou_dict_data a
+        WHERE type = #{type} AND name = #{name}
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.common.DictData">
         SELECT
         <include refid="dictDataColumns"/>
@@ -28,6 +42,12 @@
             a.del_flag = #{DEL_FLAG_NORMAL}
             <if test="type != null and type != ''">
                 AND a.type = #{type}
+            </if>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+            <if test="value != null and value != ''">
+                AND a.value = #{value}
             </if>
         </where>
         <choose>

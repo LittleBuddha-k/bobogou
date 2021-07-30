@@ -29,6 +29,16 @@ public class DictDataService extends CrudService<DictData, DictDataMapper> {
         return dictData;
     }
 
+    public DictData getByValue(DictData entity) {
+        DictData dictData = dictDataMapper.getByValue(entity);
+        return dictData;
+    }
+
+    public DictData getByName(DictData entity) {
+        DictData dictData = dictDataMapper.getByName(entity);
+        return dictData;
+    }
+
     @Override
     public List<DictData> findList(DictData entity) {
         List<DictData> list = super.findList(entity);
