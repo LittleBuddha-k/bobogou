@@ -2,16 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper">
     <sql id="operatorRegionColumns">
-        id AS "id",
-        operator_id AS "operatorId",
-        user_id AS "userId",
-        type AS "type",
-        province_id AS "provinceId",
-        city_id AS "cityId",
-        area_id AS "areaId",
-        street_id AS "streetId",
-        create_time AS "createTime",
-        update_time AS "updateTime"
+        a.id AS "id",
+        a.operator_id AS "operatorId",
+        a.user_id AS "userId",
+        a.type AS "type",
+        a.province_id AS "provinceId",
+        a.city_id AS "cityId",
+        a.area_id AS "areaId",
+        a.street_id AS "streetId",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="operatorRegionJoins">
+        LEFT JOIN system_operator_role b ON a.operator_id=b.operator_id
+        LEFT JOIN system_role c ON b.role_id=c.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
@@ -25,10 +30,18 @@
         SELECT
         <include refid="operatorRegionColumns"/>
         FROM system_operator_region a
+        <include refid="operatorRegionJoins"/>
         <where>
             <!-- 判断条件参数是否为空 -->
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员-->
+                a.id != "1"
+                <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
+                    AND b.role_id = #{currentUserRole.id}
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
+            </if>
             <if test="operatorId != null and operatorId != ''">
-                a.operator_id = #{operatorId}
+                AND a.operator_id = #{operatorId}
             </if>
             <if test="type != null and type != ''">
                 and a.type = #{type}

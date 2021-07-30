@@ -7,6 +7,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
@@ -67,6 +68,8 @@ public class RoleController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(Role role) {
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        role.setCurrentUserRole(currentUserRole);
         PageInfo<Role> page = roleService.findPage(new Page<Role>(), role);
         return getLayUiData(page);
     }

@@ -2,37 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper">
     <sql id="operatorColumns">
-        id AS "id",
-        login_name AS "loginName",
-        nickname AS "nickname",
-        password AS "password",
-        salt AS "salt",
-        picture AS "picture",
-        phone AS "phone",
-        sex AS "sex",
-        message_status AS "messageStatus",
-        department AS "department",
-        work_number AS "workNumber",
-        login_flag AS "loginFlag",
-        login_ip AS "loginIp",
-        login_address AS "loginAddress",
-        province_id AS "provinceId",
-        city_id AS "cityId",
-        area_id AS "areaId",
-        user_id AS "userId",
-        area_manager AS "areaManager",
-        status AS "status",
-        create_by AS "createBy.id",
-        create_date AS "createDate",
-        update_by AS "updateBy.id",
-        update_date AS "updateDate",
-        del_flag AS "delFlag",
-        remarks AS "remarks"
+        a.id AS "id",
+        a.login_name AS "loginName",
+        a.nickname AS "nickname",
+        a.password AS "password",
+        a.salt AS "salt",
+        a.picture AS "picture",
+        a.phone AS "phone",
+        a.sex AS "sex",
+        a.message_status AS "messageStatus",
+        a.department AS "department",
+        a.work_number AS "workNumber",
+        a.login_flag AS "loginFlag",
+        a.login_ip AS "loginIp",
+        a.login_address AS "loginAddress",
+        a.province_id AS "provinceId",
+        a.city_id AS "cityId",
+        a.area_id AS "areaId",
+        a.user_id AS "userId",
+        a.area_manager AS "areaManager",
+        a.status AS "status",
+        a.create_by AS "createBy.id",
+        a.create_date AS "createDate",
+        a.update_by AS "updateBy.id",
+        a.update_date AS "updateDate",
+        a.del_flag AS "delFlag",
+        a.remarks AS "remarks"
     </sql>
 
     <sql id="operatorJoins">
-        LEFT JOIN recruit_operator_role b ON a.id=b.operator_id
-        LEFT JOIN recruit_system_role c ON b.role_id=c.id
+        LEFT JOIN system_operator_role b ON a.id=b.operator_id
+        LEFT JOIN system_role c ON b.role_id=c.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
@@ -72,11 +72,16 @@
         SELECT
         <include refid="operatorColumns"/>
         FROM system_operator a
+        <include refid="operatorJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员-->
                 AND a.id != "1"
+                <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
+                    AND b.role_id = #{currentUserRole.id}
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
             </if>
             <if test="loginName != null and loginName != ''">
                 AND a.login_name LIKE concat('%',#{loginName},'%')
