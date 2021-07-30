@@ -1,13 +1,13 @@
-layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
+layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     var $ = layui.jquery
         , form = layui.form
         , layer = layui.layer
         , layedit = layui.layedit
         , laydate = layui.laydate
-        ,upload = layui.upload
-        ,element = layui.element;
+        , upload = layui.upload
+        , element = layui.element;
 
-    //多图片上传
+    /*//多图片上传
     upload.render({
         elem: '#test1',
         url: '/bobogou/file/picture?uploadPath='+"/data/banner",
@@ -119,144 +119,44 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         }
     });
 
-    /**
+    /!**
      * 多图清除按钮点击事件
-     */
+     *!/
     $("#btn_image_clear_test1").click(function () {
         $('#demo1').html("");
         $("#businessCertificate").val('');
-    });/**
+    });/!**
      * 多图清除按钮点击事件
-     */
+     *!/
     $("#btn_image_clear_test2").click(function () {
         $('#demo2').html("");
         $("#foodBusinessLicense").val('');
-    });/**
+    });/!**
      * 多图清除按钮点击事件
-     */
+     *!/
     $("#btn_image_clear_test3").click(function () {
         $('#demo3').html("");
         $("#authorityPurchase").val('');
-    });/**
+    });/!**
      * 多图清除按钮点击事件
-     */
+     *!/
     $("#btn_image_clear_test4").click(function () {
         $('#demo4').html("");
         $("#mandatary").val('');
-    });/**
+    });/!**
      * 多图清除按钮点击事件
-     */
+     *!/
     $("#btn_image_clear_test5").click(function () {
         $('#demo5').html("");
         $("#groupPhoto").val('');
-    });
+    });*/
 
-    form.on('submit(pass)', function(data){
-        let type = $("#type").val();
-        //获取customerUser表单中的id信息
-        let id = $("#userId").val();
-        let member = 0;
-        let applyStatus = 0;
-        let userMember = $("#id").val();
-        let status = 0;
-        //获取意见
-        let provincePassReason = $("#provincePassReason").val();
-        let cityPassReason = $("#cityPassReason").val();
-        let districtPassReason = $("#districtPassReason").val();
-        let provinceRefuseReason = $("#provinceRefuseReason").val();
-        let cityRefuseReason = $("#cityRefuseReason").val();
-        let districtRefuseReason = $("#districtRefuseReason").val();
-        $.ajax({
-            type:'GET',
-            url:"/bobogou/portal/getCurrentCustomerUser",
-            dataType:'json',
-            data:"",
-            success:function(result){
-                if(result != null){
-                    if (result.areaManager == 3){
-                        //成功
-                        if (districtPassReason){
-                            status = 1;
-                            applyStatus = 1;
-                            member = 0;
-                        }
-                        if (districtPassReason != null && districtPassReason != ''){
-                            //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
-                                    //关闭当前页面
-                                    var index = parent.layer.getFrameIndex(window.name);
-                                    parent.layer.close(index);
-                                    //刷新父页面
-                                    parent.location.reload();
-                                    rc.msg("审核通过");
-                                }else {
-                                    rc.msg('因为后台原因，审核VIP失败')
-                                }
-                            })
-                        }else {
-                            rc.error("请填写区级通过原因")
-                        }
-                    }else if (result.areaManager == 2){
-                        //成功
-                        if (cityPassReason){
-                            status = 3;
-                            applyStatus = 1;
-                            member = 0;
-                        }
-                        if (cityPassReason != null && cityPassReason != ''){
-                            //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
-                                    //关闭当前页面
-                                    var index = parent.layer.getFrameIndex(window.name);
-                                    parent.layer.close(index);
-                                    //刷新父页面
-                                    parent.location.reload();
-                                    rc.msg("审核通过");
-                                }else {
-                                    rc.msg('因为后台原因，审核VIP失败')
-                                }
-                            })
-                        }else {
-                            rc.error("请填写市级级通过原因")
-                        }
-                    }else if (result.areaManager == 4 || result.areaManager == 5){//由最终超级管理员或者超级管理员助理审核通过后
-                        //成功
-                        if (provincePassReason){
-                            status = 5;
-                            applyStatus = 2;
-                            member = 1;
-                        }
-                        if (provincePassReason != null && provincePassReason != ''){
-                            //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
-                                    //关闭当前页面
-                                    var index = parent.layer.getFrameIndex(window.name);
-                                    parent.layer.close(index);
-                                    //刷新父页面
-                                    parent.location.reload();
-                                    rc.msg("审核通过");
-                                }else {
-                                    rc.msg('因为后台原因，审核VIP失败')
-                                }
-                            })
-                        }else {
-                            rc.error("请填写省级通过原因")
-                        }
-                    }else{
-                        //出错
-                        rc.error("当前系统用户未设置区域管理员等级");
-                    }
-                }else {
-                    rc.error("当前系统用户未在APP端注册");
-                }
-            }
-        })
+    form.on('submit(pass)', function (data) {
+
+
         return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
     });
-    form.on('submit(refuse)', function(data){
+    form.on('submit(refuse)', function (data) {
         let type = $("#type").val();
         //获取customerUser表单中的id信息
         let id = $("#userId").val();
@@ -273,89 +173,128 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         let cityRefuseReason = $("#cityRefuseReason").val();
         let districtRefuseReason = $("#districtRefuseReason").val();
         $.ajax({
-            type:'GET',
-            url:"/bobogou/portal/getCurrentCustomerUser",
-            dataType:'json',
-            data:"",
-            success:function(result){
-                if(result != null){
-                    if (result.areaManager == 3){
+            type: 'GET',
+            url: "/bobogou/portal/getCurrentCustomerUser",
+            dataType: 'json',
+            data: "",
+            success: function (result) {
+                if (result != null) {
+                    if (result.areaManager == 3) {
                         //成功
-                        if (districtRefuseReason){
+                        if (districtRefuseReason) {
                             status = 2;
                             applyStatus = 3;
                             member = 0;
                         }
-                        if (districtPassReason != null && districtPassReason != ''){
+                        if (districtPassReason != null && districtPassReason != '') {
                             //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
+                            rc.post("/bobogou/other/customerUser/vip", {
+                                "id": id,
+                                "member": member,
+                                "applyStatus": applyStatus,
+                                "userMember.id": userMember,
+                                "userMember.type": type,
+                                "userMember.provinceRefuseReason": provinceRefuseReason,
+                                "userMember.provincePassReason": provincePassReason,
+                                "userMember.cityRefuseReason": cityRefuseReason,
+                                "userMember.cityPassReason": cityPassReason,
+                                "userMember.districtRefuseReason": districtRefuseReason,
+                                "userMember.districtPassReason": districtPassReason,
+                                "userMember.status": status
+                            }, function (data) {
+                                if (200 == data.code) {
                                     //关闭当前页面
                                     var index = parent.layer.getFrameIndex(window.name);
                                     parent.layer.close(index);
                                     //刷新父页面
                                     parent.location.reload();
                                     rc.msg("已拒绝VIP升级")
-                                }else {
+                                } else {
                                     rc.msg('因为后台原因，审核VIP失败')
                                 }
                             })
-                        }else {
+                        } else {
                             rc.error("请填写区级拒绝原因")
                         }
-                    }else if (result.areaManager == 2){
+                    } else if (result.areaManager == 2) {
                         //成功
-                        if (cityRefuseReason){
+                        if (cityRefuseReason) {
                             status = 4;
                             applyStatus = 3;
                             member = 0;
                         }
-                        if (cityPassReason != null && cityPassReason != ''){
+                        if (cityPassReason != null && cityPassReason != '') {
                             //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
+                            rc.post("/bobogou/other/customerUser/vip", {
+                                "id": id,
+                                "member": member,
+                                "applyStatus": applyStatus,
+                                "userMember.id": userMember,
+                                "userMember.type": type,
+                                "userMember.provinceRefuseReason": provinceRefuseReason,
+                                "userMember.provincePassReason": provincePassReason,
+                                "userMember.cityRefuseReason": cityRefuseReason,
+                                "userMember.cityPassReason": cityPassReason,
+                                "userMember.districtRefuseReason": districtRefuseReason,
+                                "userMember.districtPassReason": districtPassReason,
+                                "userMember.status": status
+                            }, function (data) {
+                                if (200 == data.code) {
                                     //关闭当前页面
                                     var index = parent.layer.getFrameIndex(window.name);
                                     parent.layer.close(index);
                                     //刷新父页面
                                     parent.location.reload();
                                     rc.msg("已拒绝VIP升级")
-                                }else {
+                                } else {
                                     rc.msg('因为后台原因，审核VIP失败')
                                 }
                             })
-                        }else {
+                        } else {
                             rc.error("请填写市级级拒绝原因")
                         }
-                    }else if (result.areaManager == 1){
+                    } else if (result.areaManager == 1) {
                         //成功
-                        if (provinceRefuseReason){
+                        if (provinceRefuseReason) {
                             status = 6;
                             applyStatus = 3;
                             member = 0;
                         }
-                        if (provincePassReason != null && provincePassReason != ''){
+                        if (provincePassReason != null && provincePassReason != '') {
                             //修改当前customerUser的会员状态
-                            rc.post("/bobogou/other/customerUser/vip",{"id":id,"member":member,"applyStatus":applyStatus,"userMember.id":userMember,"userMember.type":type,"userMember.provinceRefuseReason":provinceRefuseReason,"userMember.provincePassReason":provincePassReason,"userMember.cityRefuseReason":cityRefuseReason,"userMember.cityPassReason":cityPassReason,"userMember.districtRefuseReason":districtRefuseReason,"userMember.districtPassReason":districtPassReason,"userMember.status":status},function (data) {
-                                if (200 == data.code){
+                            rc.post("/bobogou/other/customerUser/vip", {
+                                "id": id,
+                                "member": member,
+                                "applyStatus": applyStatus,
+                                "userMember.id": userMember,
+                                "userMember.type": type,
+                                "userMember.provinceRefuseReason": provinceRefuseReason,
+                                "userMember.provincePassReason": provincePassReason,
+                                "userMember.cityRefuseReason": cityRefuseReason,
+                                "userMember.cityPassReason": cityPassReason,
+                                "userMember.districtRefuseReason": districtRefuseReason,
+                                "userMember.districtPassReason": districtPassReason,
+                                "userMember.status": status
+                            }, function (data) {
+                                if (200 == data.code) {
                                     //关闭当前页面
                                     var index = parent.layer.getFrameIndex(window.name);
                                     parent.layer.close(index);
                                     //刷新父页面
                                     parent.location.reload();
                                     rc.msg("已拒绝VIP升级")
-                                }else {
+                                } else {
                                     rc.msg('因为后台原因，审核VIP失败')
                                 }
                             })
-                        }else {
+                        } else {
                             rc.error("请填写省级拒绝原因")
                         }
-                    }else{
+                    } else {
                         //出错
                         rc.error("当前系统用户未设置区域管理员等级");
                     }
-                }else {
+                } else {
                     rc.error("当前系统用户未在APP端注册");
                 }
             }

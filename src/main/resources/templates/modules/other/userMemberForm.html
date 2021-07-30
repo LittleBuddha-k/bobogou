@@ -11,6 +11,8 @@
     <form class="layui-form" id="userMemberForm">
         <input type="hidden" name="id" id="id" th:value="${userMember.getId()}">
         <input type="hidden" name="userId" id="userId" th:value="${userMember.getUserId()}">
+        <input type="hidden" name="step" id="step" th:value="${userMember.getStep()}">
+        <input type="hidden" id="currentUserAreaManager" th:value="${currentUserAreaManager}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="realName">真实姓名</label>
@@ -43,31 +45,19 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label" for="shopAddress">店铺地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="shopAddress" th:value="${userMember.getShopAddress()}" autocomplete="off"
+                           th:id="shopAddress" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label" for="type">机构类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true" th:if="${userMember.getType() == null}">
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="2" th:text="诊所"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true" th:if="${userMember.getType() == 1}">
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="2" th:text="诊所"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true" th:if="${userMember.getType() == 2}">
-                        <option th:value="2" th:text="药房"/>
-                        <option th:value="1" th:text="诊所"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true" th:if="${userMember.getType() == 3}">
-                        <option th:value="3" th:text="诊所"/>
-                        <option th:value="1" th:text="医院"/>
-                        <option th:value="2" th:text="药房"/>
+                            th:id="type" disabled="true">
+                        <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${userMember.getType()}"/>
                     </select>
                 </div>
             </div>
@@ -139,19 +129,9 @@
                 <label class="layui-form-label" for="isEntrust">是否委托</label>
                 <div class="layui-input-inline">
                     <select name="isEntrust" lay-verify="" lay-filter="type"
-                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == null}">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
-                    </select>
-                    <select name="isEntrust" lay-verify="" lay-filter="type"
-                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == 0}">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
-                    </select>
-                    <select name="isEntrust" lay-verify="" lay-filter="type"
-                            th:id="isEntrust" disabled="true" th:if="${userMember.getIsEntrust() == 1}">
-                        <option th:value="1" th:text="是"/>
-                        <option th:value="0" th:text="否"/>
+                            th:id="isEntrust" disabled="true">
+                        <option th:each="isEntrust:${isEntrustList}" th:value="${isEntrust.getValue()}" th:text="${isEntrust.getName()}"
+                                th:selected="${isEntrust.getValue()}==${userMember.getIsEntrust()}"/>
                     </select>
                 </div>
             </div>

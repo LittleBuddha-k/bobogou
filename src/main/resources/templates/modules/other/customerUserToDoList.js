@@ -189,10 +189,10 @@ layui.use(['form', 'table'], function () {
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
                             return '\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">VIP审核</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">【VIP审核】</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">【跟踪】</a>'
                         }else {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">【跟踪】</a>'
                         }
                     }
                 }
@@ -227,6 +227,8 @@ layui.use(['form', 'table'], function () {
             let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","700px","560px")
         } else if (obj.event === 'vip') {
             let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核","700px","580px")
+        } else if (obj.event === 'flow') {
+            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核历史记录","700px","580px")
         }
     });
 });

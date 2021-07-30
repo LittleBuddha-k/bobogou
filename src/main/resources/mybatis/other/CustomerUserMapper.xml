@@ -118,7 +118,7 @@
         </choose>
     </select>
 
-    <!--查询代办审核数据-->
+    <!--当areaManager不是区级时查询代办审核数据-->
     <select id="getToDoList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
@@ -126,36 +126,13 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             AND a.apply_status = '1'
-            <!--<choose>
-                <when test="currentUser.areaManager != null and currentUser.areaManager == 0">&lt;!&ndash;当前用户为区域经理时，只查询当前区域vip的提交&ndash;&gt;
-                    AND b.province_id = c.province_id
-                    AND b.city_id = c.city_id
-                    AND b.district_id = c.area_id
-                    AND b.street_id = c.street_id
-                </when>
-                <otherwise>
-                    AND a.next_role = #{currentUserRole.id}
-                </otherwise>
-            </choose>
-            <choose>
-                <when test="currentUser.areaManager != null and currentUser.areaManager == 4">&lt;!&ndash;当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据&ndash;&gt;
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
+                <if test="currentUser.areaManager != null and currentUser.areaManager == 4"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
                     AND a.next_role = 1
-                </when>
-                <otherwise>
-
-                </otherwise>
-            </choose>-->
-            <!--<if test="currentUser.areaManager != null and currentUser.areaManager == 3">&lt;!&ndash;当前用户为区域经理时，只查询当前区域vip的提交 &ndash;&gt;
-                AND b.province_id = c.province_id
-                AND b.city_id = c.city_id
-                AND b.district_id = c.area_id
-                AND b.street_id = c.street_id
-            </if>-->
-            <if test="currentUser.areaManager != null and currentUser.areaManager == 4"><!--当前用户为超级管理员助理时，查询下一角色是超级管理员角色的数据-->
-                AND a.next_role = 1
-            </if>
-            <if test="currentUser.areaManager != null and currentUser.areaManager != 4 and currentUser.areaManager != 3"><!--既不是区级也不是超级管理员助理时的数据-->
-                AND a.next_role = #{currentUserRole.id}
+                </if>
+                <if test="currentUser.areaManager != null and currentUser.areaManager != 4 and currentUser.areaManager != 3"><!--既不是区级也不是超级管理员助理时的数据-->
+                    AND a.next_role = #{currentUserRole.id}
+                </if>
             </if>
         </where>
         <choose>
@@ -168,7 +145,7 @@
         </choose>
     </select>
 
-    <!--查询代办审核数据-->
+    <!--当areaManager是区级时查询代办审核数据-->
     <select id="getVipApplyForAreaManager" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>

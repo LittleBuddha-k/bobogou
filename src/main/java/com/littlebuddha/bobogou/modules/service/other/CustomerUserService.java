@@ -11,6 +11,7 @@ import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
@@ -24,6 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -110,9 +112,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             Operator currentUser = UserUtils.getCurrentUser();
             if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 && customerUser.getApplyStatus() == 2){
                 //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
-                Integer type = customerUser.getUserMember().getType();
+                String type = customerUser.getUserMember().getType();
                 Vip vip = new Vip();
-                vip.setType(type);
+                vip.setType(Integer.valueOf(type));
                 Vip byType = vipMapper.getByType(vip);
                 if (byType != null && byType.getTime() != null){
                     Date specifyDate = DateUtils.getSpecifyDate(byType.getTime());
@@ -188,28 +190,24 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         Operator currentUser = UserUtils.getCurrentUser();
         OperatorRegion operatorRegion = new OperatorRegion();
         operatorRegion.setOperatorId(currentUser.getId());
-        List<OperatorRegion> operatorRegions = operatorRegionMapper.findList(operatorRegion);
-        String provinceIds = "";
-        String cityIds = "";
-        String areaIds = "";
-        String streetIds = "";
-        if (operatorRegions != null){
+        List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        StringJoiner provinceIds = new StringJoiner(",");
+        StringJoiner cityIds = new StringJoiner(",");
+        StringJoiner areaIds = new StringJoiner(",");
+        StringJoiner streetIds = new StringJoiner(",");
+        if (operatorRegions != null && !operatorRegions.isEmpty()){
             for (OperatorRegion region : operatorRegions) {
-                provinceIds = region.getProvinceId() + "," + provinceIds;
-                cityIds = region.getCityId() + "," + cityIds;
-                areaIds = region.getAreaId() + "," + areaIds;
-                streetIds = region.getStreetId() + "," + streetIds;
+                provinceIds.add(region.getProvinceId());
+                cityIds.add(region.getCityId());
+                areaIds.add(region.getAreaId());
+                streetIds.add(region.getStreetId());
             }
-            provinceIds = provinceIds.substring(0,provinceIds.length() - 1);
-            cityIds = cityIds.substring(0,cityIds.length() - 1);
-            areaIds = areaIds.substring(0,areaIds.length() - 1);
-            streetIds = streetIds.substring(0,streetIds.length() - 1);
         }
         PageInfo<CustomerUser> pageInfo = null;
         if(entity.getPageNo() != null && entity.getPageSize() != null){
             entity.setPage(page);
             PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
-            List<CustomerUser> list = customerUserMapper.getVipApplyForAreaManager(provinceIds,cityIds,areaIds,streetIds);
+            List<CustomerUser> list = customerUserMapper.getVipApplyForAreaManager(provinceIds.toString(),cityIds.toString(),areaIds.toString(),streetIds.toString());
             pageInfo = new PageInfo<CustomerUser>(list);
         }
         return pageInfo;

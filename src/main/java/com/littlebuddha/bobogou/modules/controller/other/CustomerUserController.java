@@ -9,11 +9,17 @@ import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.ActHistory;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
+import com.littlebuddha.bobogou.modules.service.common.ActHistoryService;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
 import com.littlebuddha.bobogou.modules.service.other.UserMemberService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorRoleService;
@@ -30,6 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,7 +54,19 @@ public class CustomerUserController extends BaseController {
     private OperatorRoleService operatorRoleService;
 
     @Autowired
+    private OperatorRoleMapper operatorRoleMapper;
+
+    @Autowired
     private RoleService roleService;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private ActHistoryService actHistoryService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public CustomerUser get(@RequestParam(required = false) String id) {
@@ -145,8 +164,8 @@ public class CustomerUserController extends BaseController {
             UserMember entity = userMemberService.getByUser(userMember);
             model.addAttribute("userMember", entity);
         }else {
-            userMember = new UserMember();
-            model.addAttribute("userMember", userMember);
+            UserMember userMember1 = new UserMember();
+            model.addAttribute("userMember", userMember1);
         }
         if (userMember != null && userMember.getUserId() != null){
             CustomerUser customerUser = customerUserService.get(userMember.getUserId().toString());
@@ -155,13 +174,56 @@ public class CustomerUserController extends BaseController {
             CustomerUser customerUser = new CustomerUser();
             model.addAttribute("customerUser", customerUser);
         }
+        Operator currentUser = UserUtils.getCurrentUser();
+        model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
+        DictData type = new DictData();
+        type.setType("user_member_type");
+        List<DictData> typeList = dictDataService.findList(type);
+        model.addAttribute("typeList", typeList);
+        DictData isEntrust = new DictData();
+        isEntrust.setType("user_member_is_entrust");
+        List<DictData> isEntrustList = dictDataService.findList(isEntrust);
+        model.addAttribute("isEntrustList", isEntrustList);
         return "modules/other/userMemberForm";
     }
 
     @ResponseBody
-    @PostMapping("/vip")
-    public Result vip(CustomerUser customerUser) {
+    @PostMapping("/doTask")
+    public Result doTask(CustomerUser customerUser) {
         Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        String reason = "";
+        actHistory.setDataId(customerUser.getId());
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                customerUser.setNextRole(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    if ("2".equals(customerUser.getApplyStatus())) {
+                        reason = "通过";
+                        result.setMsg("已通过审核");
+                    }
+                    if ("3".equals(customerUser.getStatus())) {
+                        reason = "拒绝";
+                        result.setMsg("已拒绝审核");
+                    }
+                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
         int row = customerUserService.beVip(customerUser);
         Result commonResult = getCommonResult(row);
         return commonResult;
@@ -188,6 +250,25 @@ public class CustomerUserController extends BaseController {
             page = customerUserService.findVipApplyForAreaManager(new Page<CustomerUser>(), customerUser);
         }
         model.addAttribute("customerUser", customerUser);
+        return getLayUiData(page);
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/flow")
+    public String flow(CustomerUser customerUser, Model model) {
+        model.addAttribute("customerUser", customerUser);
+        return "modules/basic/customerUserAct";
+    }
+
+    /**
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/flowData")
+    public TreeResult flowData(ActHistory actHistory, Model model) {
+        PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
         return getLayUiData(page);
     }
 

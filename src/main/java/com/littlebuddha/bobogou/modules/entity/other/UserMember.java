@@ -26,7 +26,7 @@ public class UserMember extends DataEntity<UserMember> {
     private String cardNo;//身份证号
     private String name;//医院诊所药房名称
     private String shopAddress;//
-    private Integer type;//类型，1=药房，2=诊所，3=医院
+    private String type;//类型，1=药房，2=诊所，3=医院
     private Integer provinceId;//省ID
     private String province;//省
     private Integer cityId;//市ID
@@ -46,7 +46,7 @@ public class UserMember extends DataEntity<UserMember> {
 
     private String businessCertificate;//经营许可证地址，多张使用英文逗号分隔，药房为药品经营许可证（包括副本），医疗机构为医疗机构执业许可证（包括变更页）
     private String foodBusinessLicense;//食品经营许可证，药房要经营食品时上传（选填）
-    private Integer isEntrust;//是否委托，0=否，1=是
+    private String isEntrust;//是否委托，0=否，1=是
     private String authorityPurchase;//采购委托书地址（委托必填），多张使用英文逗号分隔
     private String mandatary;//被委托人省份证地址（委托必填），正面在前，背面在后
     private String groupPhoto;//经理人和申请人的合照图片地址（药房或者医疗机构的门店名），一张
@@ -132,11 +132,11 @@ public class UserMember extends DataEntity<UserMember> {
         this.shopAddress = shopAddress;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -254,11 +254,11 @@ public class UserMember extends DataEntity<UserMember> {
         this.foodBusinessLicense = foodBusinessLicense;
     }
 
-    public Integer getIsEntrust() {
+    public String getIsEntrust() {
         return isEntrust;
     }
 
-    public void setIsEntrust(Integer isEntrust) {
+    public void setIsEntrust(String isEntrust) {
         this.isEntrust = isEntrust;
     }
 

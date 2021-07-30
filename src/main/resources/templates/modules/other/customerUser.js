@@ -182,19 +182,24 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    toolbar: '#operation',
+                    //toolbar: '#operation',
                     align: "center",
-                    width: '10%'/*,
+                    width: '10%',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
-                            return '\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="vip">VIP审核</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已申请</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">跟踪</a>';
+                        }else if(0 == applyStatus) {
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">未申请</a>';
+                        }else if(2 == applyStatus) {
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已同意</a>';
+                        }else if(3 == applyStatus) {
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已拒绝</a>';
                         }else {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="detail">详情</a>'
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">请完善信息</a>';
                         }
-                    }*/
+                    }
                 }
             ]
         ],
@@ -225,8 +230,8 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         if (obj.event === 'detail') {
             let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","700px","560px")
-        } else if (obj.event === 'vip') {
-            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核","700px","580px")
+        }else if (obj.event === 'flow') {  // 监听添加操作
+            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id="+id, "VIP申请审核历史信息",'1000px','600px')
         }
     });
 });
