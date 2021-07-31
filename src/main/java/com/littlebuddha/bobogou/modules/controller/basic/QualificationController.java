@@ -319,12 +319,13 @@ public class QualificationController extends BaseController {
     public Result download(Qualification qualification,HttpServletResponse response) throws IOException {
         Result result = new Result();
         if (qualification != null && StringUtils.isNotBlank(qualification.getQualification())) {
-            String [] filename = qualification.getQualification().split(",");
             String [] path = qualification.getQualification().split(",");
+            String [] filename = new String[path.length];
             if (path != null && path.length > 0){
                 String [] realPath = new String[path.length];
                 for (int i =0;i<path.length;i++) {
-                    realPath[i] = (globalSetting.getUploadImage() + path[i]).replaceAll(globalSetting.getRootPath(),"");
+                    realPath[i] = ("E:/usr/image/" + path[i]).replaceAll(globalSetting.getRootPath(),"");
+                    filename[i] = (path[i]).replaceAll(globalSetting.getRootPath(),"");
                 }
                 FileUtils.imgDownload(response,filename, realPath);
             }else {
