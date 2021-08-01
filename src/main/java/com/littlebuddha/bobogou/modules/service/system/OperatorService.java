@@ -297,4 +297,14 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
         }
         return row;
     }
+
+    /**
+     * 只是一个根据条件的查询
+     * @param operator
+     * @return
+     */
+    public List<Operator> findNoPageList(Operator operator) {
+        List<Operator>  findNoPageList = operatorMapper.findNoPageList(operator);
+        return findNoPageList;
+    }
 }

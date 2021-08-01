@@ -23,6 +23,13 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
     List<CustomerUser> getToDoList(CustomerUser entity);
 
     /**
+     * 查询列表显示数据
+     * @param entity
+     * @return
+     */
+    List<CustomerUser> findListData(CustomerUser entity);
+
+    /**
      * 当前用户为区级管理时，根据VIP提交的审核数据查询当前用户区域所在的VIP审核提交
      * @param provinceIds
      * @param cityIds

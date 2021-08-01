@@ -55,4 +55,6 @@ public interface OperatorMapper extends BaseMapper<Operator> {
     List<RoleMenu> getRoleMenusByRole(RoleMenu roleMenu);
 
     void updateUserId(Operator operator);
+
+    List<Operator> findNoPageList(Operator operator);
 }

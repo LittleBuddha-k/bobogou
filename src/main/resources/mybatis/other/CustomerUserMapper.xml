@@ -85,6 +85,56 @@
         WHERE a.operator = #{operatorId}
     </select>
 
+    <select id="findListData" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
+        SELECT
+        <include refid="customerUserColumns"/>
+        FROM ud_user a
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <if test="phone != null and phone != ''">
+                AND a.phone LIKE concat('%',#{phone},'%')
+            </if>
+            <if test="password != null and password != ''">
+                AND a.pssword LIKE concat('%',#{password},'%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                AND a.nickname LIKE concat('%',#{nickname},'%')
+            </if>
+            <if test="sex != null">
+                AND a.sex = #{sex}
+            </if>
+            <if test="member != null">
+                AND a.member = #{member}
+            </if>
+            <if test="integral != null">
+                AND a.integral = #{integral}
+            </if>
+            <if test="healthBeans != null">
+                AND a.health_beans = #{healthBeans}
+            </if>
+            <if test="signInTime != null">
+                AND a.signInTime = #{signInTime}
+            </if>
+            <if test="messageStatus != null">
+                AND a.message_status = #{messageStatus}
+            </if>
+            <if test="userAgreement != null">
+                and a.user_agreement = #{userAgreement}
+            </if>
+            <if test="applyStatus != null">
+                and a.apply_status = #{applyStatus}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>

@@ -106,6 +106,36 @@
         </choose>
     </select>
 
+    <select id="findNoPageList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
+        SELECT
+        <include refid="operatorColumns"/>
+        FROM system_operator a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="loginName != null and loginName != ''">
+                AND a.login_name LIKE concat('%',#{loginName},'%')
+            </if>
+            <if test="nickname != null and nickname != ''">
+                AND a.nickname LIKE concat('%',#{nickname},'%')
+            </if>
+            <if test="phone != null and phone != ''">
+                AND a.phone LIKE concat('%',#{phone},'%')
+            </if>
+            <if test="sex != null">
+                AND a.sex = #{sex}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                /*ORDER BY ${orderBy}*/
+            </when>
+            <otherwise>
+                /*ORDER BY a.create_date DESC*/
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.system.Operator">
         SELECT
         <include refid="operatorColumns"/>

@@ -76,7 +76,14 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
             entity.setNickname(nickname);
         }
-        return super.findPage(page, entity);
+        PageInfo<CustomerUser> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<CustomerUser> list = customerUserMapper.findListData(entity);
+            pageInfo = new PageInfo<CustomerUser>(list);
+        }
+        return pageInfo;
     }
 
     @Override
