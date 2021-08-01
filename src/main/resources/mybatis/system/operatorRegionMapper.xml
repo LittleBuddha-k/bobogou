@@ -22,7 +22,7 @@
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
         SELECT
         <include refid="operatorRegionColumns"/>
-        FROM system_operator_region
+        FROM system_operator_region a
         WHERE id=#{id}
     </select>
 
