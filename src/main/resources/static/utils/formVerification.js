@@ -1,7 +1,7 @@
 // 手机号码验证
 jQuery.validator.addMethod("mobile", function(value, element) {
     let length = value.length;
-    let mobile = /^(13[0-9]{9})|(18[0-9]{9})|(14[0-9]{9})|(17[0-9]{9})|(15[0-9]{9})$/;
+    let mobile = /^1[3|4|5|6|7|8|9][0-9]{9}$/;
     return this.optional(element) || (length == 11 && mobile.test(value));
 }, "手机号码格式错误");
 
