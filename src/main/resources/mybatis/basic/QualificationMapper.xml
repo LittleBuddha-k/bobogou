@@ -57,12 +57,12 @@
         FROM bobogou_basic_qualification a
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
-                <if test="currentUserRole != null and currentUserRole != ''">
+            <if test='currentUser.id != "1" or currentUser.areaManager != null and currentUser.areaManager != 4'><!--如果不是管理员或者管理员助理则查询自己及下级角色数据-->
+                <if test="currentUserRole != null and currentUserRole.id != null and currentUserRole.id != ''">
                     AND a.next_role_id=#{currentUserRole.id}
                 </if>
             </if>
-            <if test='currentUser.id == "1"'><!--如果是管理员则查询所有已提交未审核数据-->
+            <if test='currentUser.id == "1" or currentUser.areaManager != null and currentUser.areaManager == 4'><!--如果是管理员则查询所有已提交未审核数据-->
                 AND (a.status = "1"
                 OR a.status = "2"
                 OR a.status = "4"
