@@ -125,6 +125,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             CustomerUser customerUser = customerUserMapper.get(new CustomerUser(operator.getUserId()));
             if (customerUser != null){
                 customerUser.setId(operator.getUserId());
+                customerUser.setOperatorId(operator.getId());
                 customerUser.setAreaManager(operator.getAreaManager());
                 customerUser.setStatus(operator.getStatus());
                 customerUser.preUpdate();
