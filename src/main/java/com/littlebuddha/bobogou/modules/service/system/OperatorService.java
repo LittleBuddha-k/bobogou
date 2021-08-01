@@ -104,7 +104,7 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
                 }
             }
         }
-        //关联保存app用户
+        //关联保存app用户---后端新建前端app还未注册
         if (operator.getUserId() == null || !StringUtils.isNotBlank(operator.getUserId())) {
             CustomerUser customerUser = new CustomerUser();
             customerUser.setIdType("AUTO");
@@ -121,17 +121,35 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
             operatorMapper.updateUserId(updateUserId);
         }
         if (operator.getUserId() != null && StringUtils.isNotBlank(operator.getUserId())) {
+            //关联保存app用户---后端修改，前端app之前已注册
             CustomerUser customerUser = customerUserMapper.get(new CustomerUser(operator.getUserId()));
-            customerUser.setId(operator.getUserId());
-            customerUser.setAreaManager(operator.getAreaManager());
-            customerUser.setStatus(operator.getStatus());
-            customerUser.preUpdate();
-            customerUserMapper.update(customerUser);
-            //更新operator表关联前端用户的user_id字段
-            Operator updateUserId = new Operator();
-            updateUserId.setId(operator.getId());
-            updateUserId.setUserId(customerUser.getId());
-            operatorMapper.updateUserId(updateUserId);
+            if (customerUser != null){
+                customerUser.setId(operator.getUserId());
+                customerUser.setAreaManager(operator.getAreaManager());
+                customerUser.setStatus(operator.getStatus());
+                customerUser.preUpdate();
+                customerUserMapper.update(customerUser);
+                //更新operator表关联前端用户的user_id字段
+                Operator updateUserId = new Operator();
+                updateUserId.setId(operator.getId());
+                updateUserId.setUserId(customerUser.getId());
+                operatorMapper.updateUserId(updateUserId);
+            }else {
+                //关联保存app用户---后端修改，前端app之前已注册且后端已存在此电话号码，但是前端删除了这个号
+                customerUser = new CustomerUser();
+                customerUser.setIdType("AUTO");
+                customerUser.setPhone(operator.getPhone());
+                customerUser.setOperatorId(operator.getId());
+                customerUser.setAreaManager(operator.getAreaManager());
+                customerUser.setStatus(operator.getStatus());
+                customerUser.preInsert();
+                customerUserMapper.insert(customerUser);
+                //更新operator表关联前端用户的user_id字段
+                Operator updateUserId = new Operator();
+                updateUserId.setId(operator.getId());
+                updateUserId.setUserId(customerUser.getId());
+                operatorMapper.updateUserId(updateUserId);
+            }
         }
         return operatorRow;
     }

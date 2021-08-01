@@ -122,6 +122,8 @@ public class CustomerUserController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(CustomerUser customerUser) {
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        customerUser.setCurrentUserRole(currentUserRole);
         PageInfo<CustomerUser> page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);
     }

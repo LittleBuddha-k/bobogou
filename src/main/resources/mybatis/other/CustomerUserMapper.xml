@@ -63,6 +63,11 @@
         LEFT JOIN ud_user_member b ON a.id = b.user_id
     </sql>
 
+    <sql id="currentUserJoins">
+        LEFT JOIN system_operator_role b ON a.operator = b.operator_id
+        LEFT JOIN system_role c ON b.role_id = c.id
+    </sql>
+
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
@@ -84,12 +89,20 @@
         WHERE a.operator = #{operatorId}
     </select>
 
+    <!--根据当前人角色返回自己和其下级角色的数据-->
     <select id="findListData" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
+        <include refid="currentUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
+                AND a.operator = #{currentUser.id}
+                <if test="currentUserRole != null">
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
+            </if>
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
