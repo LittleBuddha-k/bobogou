@@ -113,7 +113,7 @@ public class OperatorController extends BaseController {
         return getLayUiData(page);
     }
     /**
-     * 返回不做分页的数据
+     * 返回不做分页的数据----页面在进行保存时通过登录名、手机号查找是否有重复
      * @return
      */
     @ResponseBody
