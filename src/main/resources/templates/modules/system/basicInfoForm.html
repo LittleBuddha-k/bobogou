@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>用户基本资料管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+</head>
+<body>
+<div>
+    <form class="layui-form" id="operatorForm">
+        <input type="hidden" name="id" th:value="${operator.getId()}" id="id">
+        <input type="hidden" th:id="userId" name="userId" th:value="${operator.getUserId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginName">登录名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="loginName" th:value="${operator.getLoginName()}"
+                           th:id="loginName" autocomplete="off" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="nickname">昵称</label>
+                <div class="layui-input-inline">
+                    <input type="nickname" name="nickname" th:value="${operator.getNickname()}" autocomplete="off"
+                           th:id="nickname" class="layui-input required">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="password">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="password" th:value="${operator.getPassword()}" autocomplete="off"
+                           th:id="password" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="phone">电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" th:value="${operator.getPhone()}" autocomplete="off"
+                           th:id="phone" class="layui-input mobile">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="picture">头像</label>
+            <div class="layui-upload-drag">
+                <!--<i class="layui-icon"></i>
+                <p>点击上传，或将文件拖拽到此处</p>-->
+                <div class="" th:id="upload">
+                    <hr>
+                    <img th:if="${operator.getPicture() == null}" alt="未设置头像" style="max-width: 196px">
+                    <img th:if="${operator.getPicture() != null}" th:src="${operator.getPicture()}" alt="111" style="max-width: 196px">
+                </div>
+                <input type="hidden" id="picture" name="picture">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="sex">性别</label>
+                <div class="layui-input-inline">
+                    <select name="sex" lay-verify="" th:if="${operator.getSex() == null}">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${operator.getSex() == 0}">
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${operator.getSex() == 1}">
+                        <option th:value="1" th:text="男"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="2" th:text="女"/>
+                    </select>
+                    <select name="sex" lay-verify="" th:if="${operator.getSex() == 2}">
+                        <option th:value="2" th:text="女"/>
+                        <option th:value="0" th:text="未知"/>
+                        <option th:value="1" th:text="男"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="messageStatus">消息状态</label>
+                <div class="layui-input-inline">
+                <select name="messageStatus" lay-verify="" th:if="${operator.getMessageStatus() == null}">
+                    <option th:value="0" th:text="关闭"/>
+                    <option th:value="1" th:text="打开"/>
+                </select>
+                    <select name="messageStatus" lay-verify="" th:if="${operator.getMessageStatus() == 0}">
+                        <option th:value="0" th:text="关闭"/>
+                        <option th:value="1" th:text="打开"/>
+                    </select>
+                    <select name="messageStatus" lay-verify="" th:if="${operator.getMessageStatus() == 1}">
+                        <option th:value="1" th:text="打开"/>
+                        <option th:value="0" th:text="关闭"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="workNumber">工号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="workNumber" th:value="${operator.getWorkNumber()}" autocomplete="off"
+                           th:id="workNumber" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="loginFlag">登录标识</label>
+                <div class="layui-input-inline">
+                <select name="loginFlag" lay-verify="" th:if="${operator.getLoginFlag() == null}">
+                    <option th:value="0" th:text="不允许登录"/>
+                    <option th:value="1" th:text="允许登录"/>
+                </select>
+                    <select name="loginFlag" lay-verify="" th:if="${operator.getLoginFlag() == 0}">
+                        <option th:value="0" th:text="不允许登录"/>
+                        <option th:value="1" th:text="允许登录"/>
+                    </select>
+                    <select name="loginFlag" lay-verify="" th:if="${operator.getLoginFlag() == 1}">
+                        <option th:value="1" th:text="允许登录"/>
+                        <option th:value="0" th:text="不允许登录"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="provinceId">省</label>
+                <div class="layui-input-inline">
+                    <select name="provinceId" lay-verify="" th:if="${operator.provinceId == null}" lay-filter="province"
+                            th:id="provinceId">
+                        <option th:value="''" th:text="请选择"/>
+                        <option th:each="province:${provinceList}" th:value="${province.getId()}"
+                                th:text="${province.getName()}"/>
+                    </select>
+                    <select name="provinceId" lay-verify="" th:if="${operator.provinceId != null}" lay-filter="province"
+                            th:id="province">
+                        <option th:each="province:${provinceList}"
+                                th:if="${province.getId() == operator.getProvinceId()}"
+                                th:value="${province.getId()}" th:text="${province.getName()}"/>
+                        <option th:each="province:${provinceList}"
+                                th:if="${province.getId() != operator.getProvinceId()}"
+                                th:value="${province.getId()}" th:text="${province.getName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">市</label>
+                <div class="layui-input-inline">
+                    <select name="cityId" lay-verify="" lay-filter="city" th:id="city">
+                        <option th:if="${operator.getCity() != null}" th:value="${operator.getCityId()}"
+                                th:text="${operator.getCity().getName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">区</label>
+                <div class="layui-input-inline">
+                    <select name="areaId" lay-verify="" lay-filter="area" th:id="area" disabled="true">
+                        <option th:if="${operator.getArea() != null}" th:value="${operator.areaId}"
+                                th:text="${operator.getArea().getName()}"/>
+                    </select>
+                    <select name="areaId" lay-verify="" lay-filter="area" th:id="area" th:if="${mode != 'view'}">
+                        <option th:if="${operator.getArea() != null}" th:value="${operator.areaId}"
+                                th:text="${operator.getArea().getName()}"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="areaManager">管理员等级</label>
+                <div class="layui-input-inline">
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${operator.getAreaManager() == null}">
+                        <option th:value="0" th:text="前端用户"/>
+                        <!--<option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                        <option th:value="4" th:text="超级管理员助理"/>-->
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${0 == operator.getAreaManager()}">
+                        <option th:value="0" th:text="前端用户"/>
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${1 == operator.getAreaManager()}">
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${2 == operator.getAreaManager()}">
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${3 == operator.getAreaManager()}">
+                        <option th:value="3" th:text="区管理员"/>
+                        <option th:value="0" th:text="前端用户"/>
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${4 == operator.getAreaManager()}">
+                        <option th:value="4" th:text="超级管理员助理"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                    </select>
+                    <select name="areaManager" lay-verify="" lay-filter=""
+                            th:id="areaManager" th:if="${5 == operator.getAreaManager()}">
+                        <option th:value="5" th:text="超级管理员"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                        <option th:value="4" th:text="超级管理员助理"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" th:id="status">
+                <label class="layui-form-label" for="status">状态</label>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" lay-filter=""
+                            th:id="status" th:if="${operator.getStatus() == null}">
+                        <option th:value="0" th:text="app未注册"/>
+                        <option th:value="1" th:text="app已注册"/>
+                    </select>
+                    <select name="status" lay-verify="" lay-filter=""
+                            th:id="status" th:if="${operator.getStatus() == 0}">
+                        <option th:value="0" th:text="app未注册"/>
+                        <option th:value="1" th:text="app已注册"/>
+                    </select>
+                    <select name="customerUser.status" lay-verify="" lay-filter=""
+                            th:id="status" th:if="${operator.getStatus() == 1}">
+                        <option th:value="1" th:text="app已注册"/>
+                        <option th:value="0" th:text="app未注册"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--在表单验证基础上添加的自定义验证js-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/modules/system/basicInfoForm.js"></script>
+</body>
+</html>

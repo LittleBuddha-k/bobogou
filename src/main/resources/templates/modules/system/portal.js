@@ -44,5 +44,5 @@ layui.use(['jquery', 'layer', 'miniAdmin', 'miniTongji'], function () {
 
 $("#information").click(function () {
     let currentUser = $("#currentUser").val();
-    rc.openSaveDialog('/bobogou/system/operator/form/edit?id=' + currentUser, "编辑用户信息",'75%','70%');
+    rc.openSaveDialog('/bobogou/system/operator/basicInfo?id=' + currentUser, "编辑用户信息",'730px', '680px');
 })
