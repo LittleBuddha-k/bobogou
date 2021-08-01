@@ -25,7 +25,6 @@
         a.operator AS "operatorId",
         a.next_role AS "nextRole",
         a.status AS "status",
-        b.status AS "actStatus",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
@@ -67,7 +66,7 @@
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserJoins"/>
+        <include refid="customerUserColumns"/>
         FROM ud_user a
         WHERE a.id=#{id}
     </select>
