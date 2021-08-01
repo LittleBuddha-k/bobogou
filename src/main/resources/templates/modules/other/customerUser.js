@@ -231,7 +231,7 @@ layui.use(['form', 'table'], function () {
         if (obj.event === 'detail') {
             let index = rc.openViewDialog("/bobogou/other/customerUser/form/detail?id=" + id, "详情","700px","560px")
         }else if (obj.event === 'flow') {  // 监听添加操作
-            var index = rc.openViewDialog("/bobogou/basic/signContract/flow?id="+id, "VIP申请审核历史信息",'1000px','600px')
+            var index = rc.openViewDialog("/bobogou/other/customerUser/flow?id="+id, "VIP申请审核历史信息",'1000px','600px')
         }
     });
 });

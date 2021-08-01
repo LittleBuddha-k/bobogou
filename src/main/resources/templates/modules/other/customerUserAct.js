@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     var init = table.render({
         elem: '#customerUserActTable',
-        url: '/bobogou/basic/customerUser/flowData',
+        url: '/bobogou/other/customerUser/flowData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page

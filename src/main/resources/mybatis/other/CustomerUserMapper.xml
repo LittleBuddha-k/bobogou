@@ -61,7 +61,6 @@
 
     <sql id="customerUserJoins">
         LEFT JOIN ud_user_member b ON a.id = b.user_id
-        LEFT JOIN system_operator_region c ON a.operator = c.operator_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">

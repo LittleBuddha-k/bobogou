@@ -263,7 +263,7 @@ public class CustomerUserController extends BaseController {
     @GetMapping("/flow")
     public String flow(CustomerUser customerUser, Model model) {
         model.addAttribute("customerUser", customerUser);
-        return "modules/basic/customerUserAct";
+        return "modules/other/customerUserAct";
     }
 
     /**

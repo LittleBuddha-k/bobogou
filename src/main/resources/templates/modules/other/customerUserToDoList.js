@@ -228,7 +228,7 @@ layui.use(['form', 'table'], function () {
         } else if (obj.event === 'vip') {
             let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核","700px","580px")
         } else if (obj.event === 'flow') {
-            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/vipPage?userId=" + id, "VIP审核历史记录","700px","580px")
+            let index = rc.openViewDialogNoClose("/bobogou/other/customerUser/flow?id=" + id, "VIP审核历史记录","700px","580px")
         }
     });
 });
