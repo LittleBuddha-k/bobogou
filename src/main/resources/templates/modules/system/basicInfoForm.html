@@ -161,11 +161,7 @@
             <div class="layui-inline">
                 <label class="layui-form-label">区</label>
                 <div class="layui-input-inline">
-                    <select name="areaId" lay-verify="" lay-filter="area" th:id="area" disabled="true">
-                        <option th:if="${operator.getArea() != null}" th:value="${operator.areaId}"
-                                th:text="${operator.getArea().getName()}"/>
-                    </select>
-                    <select name="areaId" lay-verify="" lay-filter="area" th:id="area" th:if="${mode != 'view'}">
+                    <select name="areaId" lay-verify="" lay-filter="area" th:id="area">
                         <option th:if="${operator.getArea() != null}" th:value="${operator.areaId}"
                                 th:text="${operator.getArea().getName()}"/>
                     </select>
