@@ -58,7 +58,7 @@ layui.use(['form', 'table'], function () {
                         var beginDate = data.beginDate;
                         return rc.dateFormat(beginDate);
                     }
-                },
+                }/*,
                 {
                     title: '结束时间',
                     field: 'endDate',
@@ -68,7 +68,7 @@ layui.use(['form', 'table'], function () {
                         var endDate = data.endDate;
                             return rc.dateFormat(endDate);
                     }
-                }
+                }*/
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
