@@ -97,8 +97,11 @@ public class RoleController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Role role, Model model) {
+        Role currentUserRole = UserUtils.getCurrentUserRole();
         //当点击新建时,查询所有角色
-        List<Role> roleList = roleService.findList(new Role());
+        Role entity = new Role();
+        entity.setCurrentUserRole(currentUserRole);
+        List<Role> roleList = roleService.findList(entity);
         model.addAttribute("roleList", roleList);
         model.addAttribute("role", role);
         return "modules/system/roleForm";
