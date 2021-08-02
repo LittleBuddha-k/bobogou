@@ -116,7 +116,7 @@ function save(parentIndex) {
                 data: {"loginName": loginName},    //参数值
                 type: "GET",   //请求方式
                 success: function (result) {
-                    if (result != null) {
+                    if (result.data != null) {
                         rc.alert("登录名已在系统中存在，请更换")
                     } else {
                         $.ajax({
@@ -126,7 +126,7 @@ function save(parentIndex) {
                             data: {"phone": phone},    //参数值
                             type: "GET",   //请求方式
                             success: function (result) {
-                                if (result != null) {
+                                if (result.data != null) {
                                     rc.alert("后台系统中已存在同号码用户，请更换")
                                 } else {
                                     $.ajax({
