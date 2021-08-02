@@ -46,7 +46,9 @@
         SELECT
         <include refid="operatorColumns"/>
         FROM system_operator a
-        WHERE a.login_name=#{loginName}
+        WHERE
+        a.del_flag = #{DEL_FLAG_NORMAL}
+        AND a.login_name=#{loginName}
     </select>
 
     <!--根据用户和角色查询是否有operator-role数据-->
