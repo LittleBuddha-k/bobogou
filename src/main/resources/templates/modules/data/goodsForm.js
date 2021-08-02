@@ -248,7 +248,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 var img = new Image();
                 img.onload = function () {
                     if (posterWidth == img.width && posterHeight == img.height) {
-                        obj.upload(index, file); //满足条件调用上传方法
+                        //obj.upload(index, file); //满足条件调用上传方法
                     } else {
                         rc.error('商品正面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
                         flag = false;
@@ -290,7 +290,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 var img = new Image();
                 img.onload = function () {
                     if (posterWidth == img.width && posterHeight == img.height) {
-                        obj.upload(index, file); //满足条件调用上传方法
+                        //obj.upload(index, file); //满足条件调用上传方法
                     } else {
                         rc.error('商品反面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
                         flag = false;
@@ -332,7 +332,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 var img = new Image();
                 img.onload = function () {
                     if (posterWidth == img.width && posterHeight == img.height) {
-                        obj.upload(index, file); //满足条件调用上传方法
+                        //obj.upload(index, file); //满足条件调用上传方法
                     } else {
                         rc.error('商品背面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
                         flag = false;
