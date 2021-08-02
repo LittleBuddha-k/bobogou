@@ -313,6 +313,7 @@
                 <div class="layui-input-inline">
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${operator.getAreaManager() == null}">
+                        <option th:value="-1" th:text="其他"/>
                         <option th:value="0" th:text="前端用户"/>
                         <option th:value="1" th:text="省管理员"/>
                         <option th:value="2" th:text="市管理员"/>
@@ -322,38 +323,33 @@
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${0 == operator.getAreaManager()}">
                         <option th:value="0" th:text="前端用户"/>
-                        <option th:value="1" th:text="省管理员"/>
-                        <option th:value="2" th:text="市管理员"/>
-                        <option th:value="3" th:text="区管理员"/>
-                        <option th:value="4" th:text="超级管理员助理"/>
+                        <option th:value="-1" th:text="其他"/>
                     </select>
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${1 == operator.getAreaManager()}">
                         <option th:value="1" th:text="省管理员"/>
+                        <option th:value="-1" th:text="其他"/>
                         <option th:value="0" th:text="前端用户"/>
                         <option th:value="2" th:text="市管理员"/>
                         <option th:value="3" th:text="区管理员"/>
-                        <option th:value="4" th:text="超级管理员助理"/>
                     </select>
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${2 == operator.getAreaManager()}">
                         <option th:value="2" th:text="市管理员"/>
+                        <option th:value="-1" th:text="其他"/>
                         <option th:value="0" th:text="前端用户"/>
-                        <option th:value="1" th:text="省管理员"/>
                         <option th:value="3" th:text="区管理员"/>
-                        <option th:value="4" th:text="超级管理员助理"/>
                     </select>
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${3 == operator.getAreaManager()}">
                         <option th:value="3" th:text="区管理员"/>
+                        <option th:value="-1" th:text="其他"/>
                         <option th:value="0" th:text="前端用户"/>
-                        <option th:value="1" th:text="省管理员"/>
-                        <option th:value="2" th:text="市管理员"/>
-                        <option th:value="4" th:text="超级管理员助理"/>
                     </select>
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${4 == operator.getAreaManager()}">
                         <option th:value="4" th:text="超级管理员助理"/>
+                        <option th:value="-1" th:text="其他"/>
                         <option th:value="0" th:text="前端用户"/>
                         <option th:value="1" th:text="省管理员"/>
                         <option th:value="2" th:text="市管理员"/>
@@ -362,6 +358,12 @@
                     <select name="areaManager" lay-verify="" lay-filter=""
                             th:id="areaManager" th:if="${5 == operator.getAreaManager()}">
                         <option th:value="5" th:text="超级管理员"/>
+                        <option th:value="-1" th:text="其他"/>
+                        <option th:value="0" th:text="前端用户"/>
+                        <option th:value="1" th:text="省管理员"/>
+                        <option th:value="2" th:text="市管理员"/>
+                        <option th:value="3" th:text="区管理员"/>
+                        <option th:value="4" th:text="超级管理员助理"/>
                     </select>
                 </div>
             </div>
