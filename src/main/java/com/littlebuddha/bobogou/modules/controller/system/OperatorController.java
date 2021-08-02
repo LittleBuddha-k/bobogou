@@ -118,11 +118,14 @@ public class OperatorController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/dataList")
-    public List<Operator> dataList(Operator operator) {
+    public Result dataList(Operator operator) {
+        Result result = new Result();
         Role currentUserRole = UserUtils.getCurrentUserRole();
         operator.setCurrentUserRole(currentUserRole);
-        List<Operator> list = operatorService.findNoPageList(operator);
-        return list;
+        Operator list = operatorService.findNoPageList(operator);
+        result.setCode("200");
+        result.setData(list);
+        return result;
     }
 
     /**

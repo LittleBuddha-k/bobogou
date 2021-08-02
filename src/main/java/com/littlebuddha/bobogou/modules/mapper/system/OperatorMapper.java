@@ -56,5 +56,5 @@ public interface OperatorMapper extends BaseMapper<Operator> {
 
     void updateUserId(Operator operator);
 
-    List<Operator> findNoPageList(Operator operator);
+    Operator findNoPageList(Operator operator);
 }

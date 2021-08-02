@@ -118,9 +118,6 @@
             <if test="phone != null and phone != ''">
                 AND a.phone = #{phone}
             </if>
-            <if test="sex != null">
-                AND a.sex = #{sex}
-            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

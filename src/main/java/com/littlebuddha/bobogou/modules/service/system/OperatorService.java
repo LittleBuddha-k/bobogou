@@ -322,8 +322,8 @@ public class OperatorService extends CrudService<Operator, OperatorMapper> {
      * @param operator
      * @return
      */
-    public List<Operator> findNoPageList(Operator operator) {
-        List<Operator>  findNoPageList = operatorMapper.findNoPageList(operator);
+    public Operator findNoPageList(Operator operator) {
+        Operator  findNoPageList = operatorMapper.findNoPageList(operator);
         return findNoPageList;
     }
 }
