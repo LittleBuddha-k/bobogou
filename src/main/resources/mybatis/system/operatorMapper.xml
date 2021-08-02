@@ -110,6 +110,7 @@
         <include refid="operatorColumns"/>
         FROM system_operator a
         <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="loginName != null and loginName != ''">
                 AND a.login_name = #{loginName}
