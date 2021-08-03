@@ -337,7 +337,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     if (posterWidth == img.width && posterHeight == img.height || img.width == img.height) {
                         obj.upload(index, file); //满足条件调用上传方法
                     } else {
-                        rc.error('商品背面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例,请清空确认图片分辨率正确后再次上传');
+                        rc.error('商品底面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例,请清空确认图片分辨率正确后再次上传');
                         flag = false;
                     }
                 };
