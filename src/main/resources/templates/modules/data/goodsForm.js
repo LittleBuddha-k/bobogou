@@ -270,7 +270,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             } else {
                 upload_image_url = res.body.url;
             }
-            alert(flag)
             if (flag) {
                 $("#frontImages").val(upload_image_url);
                 $('#demo3').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
