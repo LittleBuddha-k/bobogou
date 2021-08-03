@@ -31,4 +31,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @return
      */
     List<Goods> getByFactoryAndName(Goods goods);
+
+    /**
+     * 更新商品流程状态
+     * @param goods
+     * @return
+     */
+    int updateGoodsAct(Goods goods);
 }

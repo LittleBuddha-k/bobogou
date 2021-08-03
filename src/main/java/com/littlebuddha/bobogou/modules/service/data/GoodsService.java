@@ -318,4 +318,14 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         List<Goods> result = goodsMapper.getByFactoryAndName(goods);
         return result;
     }
+
+    /**
+     * 更新商品流程状态
+     * @param goods
+     * @return
+     */
+    public int updateGoodsAct(Goods goods) {
+        int row = goodsMapper.updateGoodsAct(goods);
+        return row;
+    }
 }

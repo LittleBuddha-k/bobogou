@@ -42,7 +42,9 @@
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
-        a.account_id AS "accountId"
+        a.account_id AS "accountId",
+        a.act_status AS "actStatus",
+        a.next_role AS "nextRole"
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
@@ -275,6 +277,14 @@
     <!--商品上下架-->
     <update id="onTheShelf">
         UPDATE mb_goods SET is_market = #{isMarket}
+        WHERE id=#{id}
+    </update>
+
+    <!--更新商品流程状态-->
+    <update id="updateGoodsAct">
+        UPDATE mb_goods SET
+            act_status = #{actStatus},
+            next_role = #{nextRole}
         WHERE id=#{id}
     </update>
 

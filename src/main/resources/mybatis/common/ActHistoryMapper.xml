@@ -4,6 +4,7 @@
     <sql id="dictDataColumns">
         id AS "id",
         data_id AS "dataId",
+        act_type AS "actType",
         execution_link AS "executionLink",
         execution_id AS "executionId",
         execution_name AS "executionName",
@@ -29,6 +30,9 @@
             <if test="dataId != null and dataId != ''">
                 a.data_id = #{dataId}
             </if>
+            <if test="actType != null and actType != ''">
+                AND a.act_type = #{actType}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -44,6 +48,7 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO bobogou_act_history(
             data_id,
+            act_type,
             execution_link,
             execution_id,
             execution_name,
@@ -54,6 +59,7 @@
             total_time
         )VALUES (
             #{dataId},
+            #{actType},
             #{executionLink},
             #{executionId},
             #{executionName},
@@ -68,6 +74,7 @@
     <update id="update">
         UPDATE bobogou_act_history SET
             data_id = #{dataId},
+            act_type = #{actType},
             execution_link = #{executionLink},
             execution_id = #{executionId},
             execution_name = #{executionName},

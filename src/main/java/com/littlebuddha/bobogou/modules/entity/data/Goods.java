@@ -81,6 +81,10 @@ public class Goods extends DataEntity<Goods> {
 
     private GoodsNorm goodsNorm;//商品规范、关联新增
 
+    private String actStatus = "0";//流程审核状态---0:默认未提交   1：已提交
+    private String nextRole = "";//下一审核角色
+    private String actType = "data_goods_act";//流程类型，用于记录审核历史记录
+
     public Goods() {
     }
 
@@ -554,5 +558,29 @@ public class Goods extends DataEntity<Goods> {
 
     public void setGoodsNorm(GoodsNorm goodsNorm) {
         this.goodsNorm = goodsNorm;
+    }
+
+    public String getActStatus() {
+        return actStatus;
+    }
+
+    public void setActStatus(String actStatus) {
+        this.actStatus = actStatus;
+    }
+
+    public String getNextRole() {
+        return nextRole;
+    }
+
+    public void setNextRole(String nextRole) {
+        this.nextRole = nextRole;
+    }
+
+    public String getActType() {
+        return actType;
+    }
+
+    public void setActType(String actType) {
+        this.actType = actType;
     }
 }

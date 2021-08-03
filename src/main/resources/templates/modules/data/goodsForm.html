@@ -436,7 +436,7 @@
                 </div>
             </div>
             <div class="layui-inline" th:if="${mode != 'detail'}">
-                <label class="layui-form-label" for="expirationDate">保质期(月)</label>
+                <label class="layui-form-label" for="expirationDate">有效期(月)</label>
                 <div class="layui-input-inline">
                     <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
                             lay-filter="factoryId">

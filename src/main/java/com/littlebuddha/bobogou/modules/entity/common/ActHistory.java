@@ -12,6 +12,7 @@ import java.util.Date;
 public class ActHistory extends DataEntity<ActHistory> {
 
     private String dataId;//流程数据id
+    private String actType;//流程类型
     private String executionLink;//执行环节
     private Operator executionOperator;//执行人
     private String executionId;//执行人名字
@@ -36,6 +37,14 @@ public class ActHistory extends DataEntity<ActHistory> {
 
     public void setDataId(String dataId) {
         this.dataId = dataId;
+    }
+
+    public String getActType() {
+        return actType;
+    }
+
+    public void setActType(String actType) {
+        this.actType = actType;
     }
 
     public String getExecutionLink() {

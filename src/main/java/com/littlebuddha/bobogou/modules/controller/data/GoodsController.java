@@ -5,14 +5,22 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
+import com.littlebuddha.bobogou.modules.entity.common.ActHistory;
 import com.littlebuddha.bobogou.modules.entity.data.*;
 import com.littlebuddha.bobogou.modules.entity.data.utils.DosageForm;
 import com.littlebuddha.bobogou.modules.entity.data.utils.ShelfLife;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
+import com.littlebuddha.bobogou.modules.service.common.ActHistoryService;
 import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -68,6 +77,15 @@ public class GoodsController extends BaseController {
 
     @Autowired
     private DosageFormService dosageFormService;
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Autowired
+    private OperatorRoleMapper operatorRoleMapper;
+
+    @Autowired
+    private ActHistoryService actHistoryService;
 
     @ModelAttribute
     public Goods get(@RequestParam(required = false) String id) {
@@ -224,6 +242,7 @@ public class GoodsController extends BaseController {
             GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
             goods.setGoodsNorm(goodsNorm);
         }
+        model.addAttribute("goods",goods);
         return "modules/data/goodsForm";
     }
 
@@ -242,6 +261,77 @@ public class GoodsController extends BaseController {
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }
+
+    /**
+     * 提交审核
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/subTask")
+    public Result subTask(Goods goods) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        actHistory.setDataId(goods.getId());
+        actHistory.setActType(goods.getActType());
+        //获取当前用户角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                goods.setNextRole(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    actHistory.setExecutionLink(currentRole.getName() + "提交商品数据审核");
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        //走到这里来 设置初始审核状态、设置下一个审核角色id
+        //初始保存的时候设置初始状态----进入审核
+        if ("0".equals(goods.getActStatus())) {
+            goods.setActStatus("1");
+        }
+        int save = goodsService.updateGoodsAct(goods);
+        if (save > 0) {
+            result.setCode("200");
+            result.setMsg("提交商品数据审核成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交商品数据审核失败");
+        }
+        return result;
+    }
+
+
+
+    /**
+     * @return
+     */
+    @GetMapping("/flow")
+    public String flow(Goods goods, Model model) {
+        return "modules/data/goodsAct";
+    }
+
+    /**
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/flowData")
+    public TreeResult flowData(ActHistory actHistory, Model model) {
+        PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
+        return getLayUiData(page);
     }
 
     /**

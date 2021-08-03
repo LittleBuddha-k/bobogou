@@ -163,11 +163,18 @@ layui.use(['form', 'table'], function () {
                     align: 'center',
                     templet:function(data){
                         let isMarket = data.isMarket;
-                        if(0 == isMarket){
+                        let actStatus = data.actStatus;
+                        if (0 == actStatus){
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else if(1 == actStatus){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                        }else if(0 == isMarket){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>';
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>';
                         }else if (2 == isMarket){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
                                    '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
@@ -224,7 +231,21 @@ layui.use(['form', 'table'], function () {
         let event = obj.event;
         if (event === 'edit') {
             rc.openSaveDialog('/bobogou/data/goods/form/edit?id=' + id, "编辑药品信息",'1010px','100%');
-        } else if (event === 'onShelves') {
+        } else if (event === 'subTask') {
+            rc.confirm('是否提交商品审核？', function() {
+                rc.post("/bobogou/data/goods/subTask",{"id":id} , function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        }else if (obj.event === 'flow') {  // 监听跟踪操作
+            var index = rc.openViewDialog("/bobogou/data/goods/flow?id="+id, "商品审核历史信息",'1000px','600px')
+        }else if (event === 'onShelves') {
             rc.confirm('是否确认上架商品？', function() {
                 rc.post("/bobogou/data/goods/onTheShelf",{"id":id,"isMarket":0} , function (data) {
                     if (data.code == 200) {

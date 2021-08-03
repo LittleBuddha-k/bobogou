@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>商品管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css"/>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="goodsForm">
+        <input type="hidden" name="id" th:value="${goods.getId()}">
+        <input type="hidden" th:if="${goods.getGoodsInfo() != null}" name="goodsInfo.id"
+               th:value="${goods.getGoodsInfo().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id"
+               th:value="${goods.getGoodsClassify().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsSpecification() != null}" name="goodsSpecification.id"
+               th:value="${goods.getGoodsSpecification().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsNorm() != null}" name="goodsNorm.id"
+               th:value="${goods.getGoodsNorm().getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">商品名</label>
+                <div class="layui-input-inline">
+                    <input type="name" th:id="name" th:name="name" th:value="${goods.getName()}"
+                           placeholder="商品名" autocomplete="off" class="layui-input required" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="commonName">通用名称</label>
+                <div class="layui-input-inline">
+                    <input type="name" th:id="commonName" th:name="commonName" th:value="${goods.getCommonName()}"
+                           placeholder="通用名称" autocomplete="off" class="layui-input"
+                           readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="factoryId">厂商</label>
+                <div class="layui-input-inline">
+                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() == null}"
+                            lay-filter="factoryId" disabled="true">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="factory:${factoryList}" th:value="${factory.getId()}"
+                                th:text="${factory.getFactoryName()}"/>
+                    </select>
+                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() != null}" disabled="true">
+                        <option th:each="factory:${factoryList}"
+                                th:if="${goods.getFactoryId().toString() == factory.getId()}"
+                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="factory:${factoryList}"
+                                th:if="${goods.getFactoryId().toString() != factory.getId()}"
+                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline" th:id="goodsNormPrices">
+                <label class="layui-form-label" for="goodsNormPrices">物价</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="goodsNormPrices" th:name="goodsNorm.prices"
+                           th:value="${goods.getGoodsNorm().getPrices()}"
+                           placeholder="物价" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">标签</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" th:if="${goods.getTagId().contains(commodityTag.getId())}"
+                           th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}"
+                           th:title="${commodityTag.getName()}" lay-filter="tag" checked disabled>
+                    <input type="hidden" name="tagId" th:id="tagId" th:value="${goods.getTagId()}" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">其他分类</label>
+                <div class="layui-input-block">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsTypeId().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeId" checked disabled>
+                    <input type="hidden" name="goodsTypeId" id="goodsTypeId" th:value="${goods.getGoodsTypeId()}">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品分类</label>
+                <div class="layui-input-inline">
+                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
+                            th:if="${goods.getGoodsClassify() == null}">
+                        <option value="0">请选择</option>
+                        <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
+                                th:text="${levelOne.getName()}">
+                        </option>
+                    </select>
+                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
+                            th:if="${goods.getGoodsClassify() != null}" disabled="true">
+                        <option th:each="levelOne:${goodsTypeLevelOne}"
+                                th:if="${goods.getClassifyId() == levelOne.getId()}"
+                                th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
+                        </option>
+                    </select>
+                </div>
+                <!--二级分类-->
+                <div class="layui-input-inline">
+                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
+                            th:if="${goods.getSecondClassify() == null}" disabled="true">
+                    </select>
+                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
+                            th:if="${goods.getSecondClassify() != null}" disabled="true">
+                        <option th:value="${goods.getSecondClassifyId()}"
+                                th:text="${goods.getSecondClassifyName()}"></option>
+                    </select>
+                </div>
+                <!--三级分类-->
+                <div class="layui-input-inline">
+                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
+                            th:if="${goods.getReclassify() == null}" disabled="true">
+                    </select>
+                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
+                            th:if="${goods.getReclassify() != null}" disabled="true">
+                        <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="electronicCode">电子监管码</label>
+                <div class="layui-input-inline">
+                    <input type="electronicCode" th:id="electronicCode" th:name="electronicCode"
+                           th:value="${goods.getElectronicCode()}"
+                           placeholder="电子监管码" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="barCode">条形码</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="barCode" th:name="barCode"
+                           th:value="${goods.getBarCode()}"
+                           placeholder="条形码" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="approvalPeriod">药品批文有效期</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="approvalPeriod" th:name="approvalPeriod"
+                           th:value="${goods.getApprovalPeriod()}"
+                           placeholder="药品批文有效期" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="purchasingPrice">进价</label>
+                <div class="layui-input-inline">
+                    <input type="purchasingPrice" th:id="purchasingPrice" th:name="purchasingPrice"
+                           th:value="${goods.getPurchasingPrice()}"
+                           placeholder="进价" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="originalCost">零售价</label>
+                <div class="layui-input-inline">
+                    <input type="originalCost" th:id="originalCost" th:name="originalCost"
+                           th:value="${goods.getOriginalCost()}"
+                           placeholder="零售价" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="sellingPrice">会员价</label>
+                <div class="layui-input-inline">
+                    <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
+                           th:value="${goods.getSellingPrice()}"
+                           placeholder="会员价" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="vipPrice">集采价</label>
+                <div class="layui-input-inline">
+                    <input type="vipPrice" th:id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
+                           placeholder="集采价" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">规格</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="规格" th:name="specification" th:text="${goods.getSpecification()}"
+                              autocomplete="off"
+                              th:id="specification" class="layui-textarea" readonly></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">重量</label>
+                <div class="layui-input-inline">
+                    <input type="specification" th:id="weight" th:name="weight"
+                           th:value="${goods.getWeight()}"
+                           placeholder="重量" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="amount">数量</label>
+                <div class="layui-input-inline">
+                    <input type="amount" th:id="amount" th:name="amount" th:value="${goods.getAmount()}"
+                           placeholder="数量" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="usedAmount">已分配</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="usedAmount" th:name="usedAmount" th:value="${goods.getUsedAmount()}"
+                           placeholder="已分配" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="stockAmount">库存</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="stockAmount" th:name="stockAmount" th:value="${goods.getStockAmount()}"
+                           placeholder="库存" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="salesVolume">销量</label>
+                <div class="layui-input-inline">
+                    <input type="salesVolume" th:id="salesVolume" th:name="salesVolume"
+                           th:value="${goods.getSalesVolume()}"
+                           placeholder="销量" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">功能主治</label>
+                <div class="layui-input-inline">
+                    <textarea placeholder="功能主治" th:name="effect" th:text="${goods.getEffect()}" autocomplete="off"
+                              th:id="effect" class="layui-textarea" readonly></textarea>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="producedTime">生产日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="producedTime"
+                           th:value="${#dates.format(goods.getProducedTime(),'yyyy-MM-dd HH:mm:ss')}" autocomplete="off"
+                           class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="expirationDate">有效期(月)</label>
+                <div class="layui-input-inline">
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
+                            lay-filter="factoryId" disabled="true">
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}" th:value="${shelfLife.getValue()}"
+                                th:text="${shelfLife.getName()}"/>
+                    </select>
+                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() != null}"
+                            disabled="true">
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() == shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                        <option th:value="0" th:text="请选择"/>
+                        <option th:each="shelfLife:${shelfLifeList}"
+                                th:if="${goods.getExpirationDate() != shelfLife.getValue()}"
+                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="applauseRate">好评率(%)</label>
+                <div class="layui-input-inline">
+                    <input type="applauseRate" th:id="applauseRate" th:name="applauseRate"
+                           th:value="${goods.getApplauseRate()}"
+                           placeholder="好评率(%)" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="comments">评论数</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="comments" th:name="comments"
+                           th:value="${goods.getComments()}"
+                           placeholder="评论数" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="healthBeans">播播豆</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="healthBeans" th:name="healthBeans"
+                           th:value="${goods.getHealthBeans()}"
+                           placeholder="播播豆" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="integral">积分</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="integral" th:name="integral"
+                           th:value="${goods.getIntegral()}"
+                           placeholder="积分" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否需要运费</label>
+                <div class="layui-input-inline">
+                    <select name="isFreight" lay-verify="" th:if="${null == goods.getIsFreight() || '' == goods.getIsFreight()}" lay-filter="isMarket"
+                            th:id="isFreight" disabled="true">
+                        <option th:value="0" th:text="不需要"/>
+                        <option th:value="1" th:text="需要"/>
+                    </select>
+                    <select name="isFreight" lay-verify=""
+                            th:if="${0 == goods.getIsFreight()}" disabled="true">
+                        <option th:value="0" th:text="不需要"/>
+                        <option th:value="1" th:text="需要"/>
+                    </select>
+                    <select name="isFreight" lay-verify=""
+                            th:if="${2 == goods.getIsFreight()}" disabled="true">
+                        <option th:value="0" th:text="不需要"/>
+                        <option th:value="1" th:text="需要"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="administrativeFee">商品管理费</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="administrativeFee" th:name="administrativeFee"
+                           th:value="${goods.getAdministrativeFee()}"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="provinceRatio">省代理(经理人)提成</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="provinceRatio" th:name="provinceRatio"
+                           th:value="${goods.getProvinceRatio()}"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="cityRatio">市代理(经理人)提成</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="cityRatio" th:name="cityRatio"
+                           th:value="${goods.getCityRatio()}"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="districtRatio">区代理(经纪人)提成</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="districtRatio" th:name="districtRatio"
+                           th:value="${goods.getDistrictRatio()}"
+                           placeholder="最多三位小数" autocomplete="off" class="layui-input number" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">是否在售</label>
+                <div class="layui-input-inline">
+                    <select name="isMarket" lay-verify="" th:if="${0 == goods.getIsMarket() || '' == goods.getIsMarket()}" lay-filter="isMarket"
+                            th:id="isMarket" disabled="true">
+                        <option th:value="0" th:text="在售"/>
+                        <option th:value="2" th:text="停售"/>
+                    </select>
+                    <select name="isMarket" lay-verify=""
+                            th:if="${0 == goods.getIsMarket()}" disabled="true">
+                        <option th:value="0" th:text="在售"/>
+                        <option th:value="2" th:text="停售"/>
+                    </select>
+                    <select name="isMarket" lay-verify=""
+                            th:if="${2 == goods.getIsMarket()}" disabled="true">
+                        <option th:value="2" th:text="停售"/>
+                        <option th:value="0" th:text="在售"/>
+                    </select>
+                </div>
+            </div>
+            <!--商品规格部份-->
+            <div class="layui-inline">
+                <label class="layui-form-label" for="authorization">批准号</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getAuthorization()}"
+                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="manufacturingEnterprise">生产企业</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="manufacturingEnterprise"
+                           th:name="goodsSpecification.manufacturingEnterprise"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getManufacturingEnterprise()}"
+                           placeholder="生产企业" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="manufacturingEnterprise"
+                           th:name="goodsSpecification.manufacturingEnterprise"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="生产企业" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="dosage">用法用量</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="dosage" th:name="goodsSpecification.dosage"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getDosage()}"
+                           placeholder="用法用量" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="dosage" th:name="goodsSpecification.dosage"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="用法用量" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="adverseReaction">不良反应</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="adverseReaction" th:name="goodsSpecification.adverseReaction"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getAdverseReaction()}"
+                           placeholder="不良反应" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="adverseReaction" th:name="goodsSpecification.adverseReaction"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="不良反应" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="storageCondition">储存条件</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="storageCondition" th:name="goodsSpecification.storageCondition"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getStorageCondition()}"
+                           placeholder="储存条件" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="storageCondition" th:name="goodsSpecification.storageCondition"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="储存条件" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="component">成分</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="component" th:name="goodsSpecification.component"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getComponent()}"
+                           placeholder="成分" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="component" th:name="goodsSpecification.component"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="成分" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="companies">持有企业</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="companies" th:name="goodsSpecification.companies"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getCompanies()}"
+                           placeholder="持有企业" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="companies" th:name="goodsSpecification.companies"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="持有企业" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="taboo">用药禁忌</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="taboo" th:name="goodsSpecification.taboo"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getTaboo()}"
+                           placeholder="用药禁忌" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="taboo" th:name="goodsSpecification.taboo"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="用药禁忌" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="matterAttention">注意事项</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="matterAttention" th:name="goodsSpecification.matterAttention"
+                           th:if="${goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getMatterAttention()}"
+                           placeholder="注意事项" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="matterAttention" th:name="goodsSpecification.matterAttention"
+                           th:if="${goods.getGoodsSpecification() == null}"
+                           placeholder="注意事项" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="dosageForm">剂型</label>
+                <div class="layui-input-inline">
+                    <select name="goodsSpecification.dosageForm" lay-verify=""
+                            th:if="${goods.getGoodsSpecification() == null}"
+                            lay-filter="factoryId" disabled="true">
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify=""
+                            th:if="${goods.getGoodsSpecification() != null}"
+                            lay-filter="factoryId" disabled="true">
+                        <option th:value="${goods.getGoodsSpecification().getDosageForm()}"
+                                th:text="${goods.getGoodsSpecification().getDosageForm()}"/>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() == '' || goods.getCertificateImageWatermark() == null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide" th:id="uploadDemoView">
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() != '' && goods.getCertificateImageWatermark() != null}">
+            <label class="layui-form-label">药品资质证书(带水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="">
+                    <hr>
+                    <img th:src="${goods.getCertificateImageWatermark()}" alt="已保存数据的回显" style="max-width: 196px" >
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item" th:if="${goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
+            <label class="layui-form-label">药品资质证书(无水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="layui-hide">
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item" th:if="${goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
+            <label class="layui-form-label">药品资质证书(无水印)</label>
+            <div class="layui-upload-drag">
+                <i class="layui-icon"></i>
+                <p>点击上传</p>
+                <div class="">
+                    <hr>
+                    <img th:src="${goods.getCertificateImage()}" alt="已保存数据的回显" style="max-width: 196px">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getFrontImages() == null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品正面图</button>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getFrontImages() != null}">
+            <label class="layui-form-label" for="frontImages">商品正面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品正面图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo3">
+                        <img th:if="${goods.getFrontImages() != ''}"
+                             th:each="image:${goods.getFrontImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getBackImages() == null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品反面图</button>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getBackImages() != null}">
+            <label class="layui-form-label" for="backImages">商品反面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品反面图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo14">
+                        <img th:if="${goods.getBackImages() != ''}" th:each="image:${goods.getBackImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getBottomImages() == null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品底面图</button>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getBottomImages() != null}">
+            <label class="layui-form-label" for="bottomImages">商品底面图</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">商品底面图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo15">
+                        <img th:if="${goods.getBottomImages() != ''}"
+                             th:each="image:${goods.getBottomImages().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+
+        <!--商品规范部分-->
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="sampleBox">样盒图片地址</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">样盒图片地址</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo4">
+                        <img th:if="${goods.getGoodsNorm().getSampleBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSampleBox().split(',')}" th:src="${image}" alt=""
+                             style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="outerPackingBox">外包装盒</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test5">外包装盒</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo5">
+                        <img th:if="${goods.getGoodsNorm().getOuterPackingBox() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOuterPackingBox().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="instructionBook">说明书图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test6">说明书图片</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo6">
+                        <img th:if="${goods.getGoodsNorm().getInstructionBook() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructionBook().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="otherData">其他药监批准</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test7">其他药监批准</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo7">
+                        <img th:if="${goods.getGoodsNorm().getOtherData() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getOtherData().split(',')}" th:src="${image}" alt=""
+                             style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="relatedPictures">其他必要</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test8">其他必要</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo8">
+                        <img th:if="${goods.getGoodsNorm().getRelatedPictures() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getRelatedPictures().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="instructions">批件</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test9">批件</button>
+                <button type="button" class="layui-btn" th:id="btn_image_clear_test9">清空多图</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo9">
+                        <img th:if="${goods.getGoodsNorm().getInstructions() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getInstructions().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="qualityStandard">质量标准</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test10">质量标准</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo10">
+                        <img th:if="${goods.getGoodsNorm().getQualityStandard() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getQualityStandard().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="surveyReport">省检验报告</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test11">省检验报告</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo11">
+                        <img th:if="${goods.getGoodsNorm().getSurveyReport() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getSurveyReport().split(',')}" th:src="${image}"
+                             alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="productionBusinessLicense">企业营业执照</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn" th:id="test12">企业营业执照</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo12">
+                        <img th:if="${goods.getGoodsNorm().getProductionBusinessLicense() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionBusinessLicense().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+        <div class="layui-form-item" th:if="${goods.getGoodsNorm() != null}">
+            <label class="layui-form-label" for="productionCertificate">企业生产许可证</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">企业生产许可证</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                    预览图：
+                    <div class="layui-upload-list" th:id="demo13">
+                        <img th:if="${goods.getGoodsNorm().getProductionCertificate() != ''}"
+                             th:each="image:${goods.getGoodsNorm().getProductionCertificate().split(',')}"
+                             th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="name">详 情 :</label>
+            <div class="layui-input-block" th:id="goodsInfoOther"
+                 th:if="${goods.getGoodsInfo() == null}">
+            <textarea style="display:none;" name="goodsInfo.content">
+            </textarea>
+            </div>
+            <div class="layui-input-block" th:id="goodsInfoOther"
+                 th:if="${goods.getGoodsInfo() != null}">
+            <textarea style="display:none;" name="goodsInfo.content" th:text="${goods.getGoodsInfo().getContent()}">
+            </textarea>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入jquery-->
+<script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入自定义文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/goodsTodoListForm.js"></script>
+</body>
+</html>
