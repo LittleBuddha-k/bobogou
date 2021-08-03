@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.MarkdownUtils;
@@ -327,5 +328,20 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     public int updateGoodsAct(Goods goods) {
         int row = goodsMapper.updateGoodsAct(goods);
         return row;
+    }
+
+    public PageInfo<Goods> findTodoPage(Page<Goods> page, Goods entity) {
+        if (entity != null) {
+            String name = StringUtils.deleteWhitespace(entity.getName());
+            entity.setName(name);
+        }
+        PageInfo<Goods> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<Goods> list = goodsMapper.findTodoList(entity);
+            pageInfo = new PageInfo<Goods>(list);
+        }
+        return pageInfo;
     }
 }

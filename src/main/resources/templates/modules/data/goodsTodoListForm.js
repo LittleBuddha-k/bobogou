@@ -8,7 +8,38 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
-    
+    form.on('submit(pass)', function(data){
+        let currentUserAreaManager = $("#currentUserAreaManager").val();
+        if (1 == currentUserAreaManager){
+            $("#actStatus").val(6);//省级同意
+        }else if (2 == currentUserAreaManager){
+            $("#actStatus").val(4);//市级同意
+        }else if (3 == currentUserAreaManager){
+            $("#actStatus").val(2);//区级同意
+        }else if (4 == currentUserAreaManager){
+            $("#actStatus").val(8);//超级管理员助理级同意
+        }else if (5 == currentUserAreaManager){
+            $("#actStatus").val(10);//超级管理员同意
+        }
+        save();
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
+    form.on('submit(refuse)', function(data){
+        let currentUserAreaManager = $("#currentUserAreaManager").val();
+        if (1 == currentUserAreaManager){
+            $("#actStatus").val(7);//省级同意
+        }else if (2 == currentUserAreaManager){
+            $("#actStatus").val(5);//市级同意
+        }else if (3 == currentUserAreaManager){
+            $("#actStatus").val(3);//区级同意
+        }else if (4 == currentUserAreaManager){
+            $("#actStatus").val(9);//超级管理员助理级同意
+        }else if (5 == currentUserAreaManager){
+            $("#actStatus").val(11);//超级管理员同意
+        }
+        save();
+        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    });
 });
 
 //富文本编辑
@@ -47,7 +78,7 @@ function save(parentIndex) {
         return false;
     } else {
         $.ajax({
-            url: "/bobogou/data/goods/save",    //请求的url地址
+            url: "/bobogou/data/goods/doTask",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
             data: $("#goodsForm").serialize(),    //参数值

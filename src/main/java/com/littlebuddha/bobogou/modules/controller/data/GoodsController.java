@@ -334,6 +334,149 @@ public class GoodsController extends BaseController {
         return getLayUiData(page);
     }
 
+
+
+    /**
+     * @return
+     */
+    @GetMapping("/todoList")
+    public String todoList(Goods goods, Model model) {
+        model.addAttribute("goods", goods);
+        return "modules/data/goodsTodoList";
+    }
+
+    /**
+     * 查询审核数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/todoData")
+    public TreeResult todoData(Goods goods) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        goods.setCurrentUser(currentUser);
+        goods.setCurrentUserRole(currentUserRole);
+        PageInfo<Goods> page = goodsService.findTodoPage(new Page<Goods>(), goods);
+        return getLayUiData(page);
+    }
+
+    /**
+     * 审核通过或者拒绝时
+     *
+     * @return
+     */
+    @GetMapping("/todoListForm")
+    public String todoListForm(Goods goods, Model model) {
+        //查询所有标签
+        List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
+        model.addAttribute("commodityTagList", commodityTagList);
+        //查询品牌一级分类
+        /*GoodsBrand entity = new GoodsBrand();
+        entity.setParentId("0");
+        List<GoodsBrand> goodsBrandList = goodsBrandService.findList(entity);
+        model.addAttribute("goodsBrandList", goodsBrandList);*/
+        //查询所有厂商列表
+        List<Factory> factoryList = factoryService.findList(new Factory());
+        model.addAttribute("factoryList", factoryList);
+        //查询商品分类数据：分一级、二级、三级
+        List<Classify> goodsTypeLevelOne = classifyService.findList(new Classify(1));//查询一级商品分类
+        model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);
+        //查询所有其他分类---GoodsType数据
+        List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
+        model.addAttribute("goodsTypeList", goodsTypeList);
+        //查询商品剂型数据
+        List<DosageForm> dosageFormList = dosageFormService.findList(new DosageForm());
+        model.addAttribute("dosageFormList", dosageFormList);
+        //查询保质期下拉选项数据
+        List<ShelfLife> shelfLifeList = dosageFormService.findShelfLifeList();
+        model.addAttribute("shelfLifeList", shelfLifeList);
+        //查询当前商品的商品分类详情
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsClassify select = new GoodsClassify();
+            select.setId(goods.getId());
+            GoodsClassify goodsClassify = goodsClassifyService.get(select);
+            if (goodsClassify != null){
+                Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
+                Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
+                Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
+                goods.setClassify(classify);
+                goods.setSecondClassify(secondClassify);
+                goods.setReclassify(reclassify);
+            }
+        }
+        //查询商品详情
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsInfo select = new GoodsInfo();
+            select.setGoodsId(goods.getId());
+            GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
+            goods.setGoodsInfo(goodsInfo);
+        }
+        //查询商品规格
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsSpecification select = new GoodsSpecification();
+            select.setId(goods.getId());
+            GoodsSpecification goodsSpecification = goodsSpecificationService.get(select);
+            goods.setGoodsSpecification(goodsSpecification);
+        }
+        //查询商品规范
+        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
+            goods.setGoodsNorm(goodsNorm);
+        }
+        Operator currentUser = UserUtils.getCurrentUser();
+        model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
+        model.addAttribute("goods", goods);
+        return "modules/data/goodsTodoListForm";
+    }
+
+    @ResponseBody
+    @PostMapping("/doTask")
+    public Result doTask(Goods goods) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        //获取当前角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        String reason = "";
+        actHistory.setDataId(goods.getId());
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                goods.setNextRole(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    if ("2".equals(goods.getActStatus()) || "4".equals(goods.getActStatus()) || "6".equals(goods.getActStatus()) || "8".equals(goods.getActStatus()) || "10".equals(goods.getActStatus())) {
+                        reason = "通过";
+                        result.setMsg("已通过商品审核");
+                    }
+                    if ("3".equals(goods.getActStatus()) || "5".equals(goods.getActStatus()) || "7".equals(goods.getActStatus()) || "9".equals(goods.getActStatus()) || "11".equals(goods.getActStatus())) {
+                        reason = "拒绝";
+                        result.setMsg("已拒绝商品审核");
+                    }
+                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        int save = goodsService.updateGoodsAct(goods);
+        if (save > 0) {
+            result.setCode("200");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，提交审核失败");
+        }
+        return result;
+    }
+
     /**
      * 进行上架or下架操作
      * @return

@@ -4,8 +4,8 @@ layui.use(['form', 'table'], function () {
         table = layui.table;
 
     var init = table.render({
-        elem: '#goodsTable',
-        url: '/bobogou/data/goods/data',
+        elem: '#goodsTodoTable',
+        url: '/bobogou/data/goods/todoData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -48,18 +48,6 @@ layui.use(['form', 'table'], function () {
                     align: 'center',
                     width: '10%'
                 },
-                /*{
-                    title: '品牌分类ID',
-                    field: 'brandId',
-                    sort: true,
-                    sortName: 'brandId'
-                },
-                {
-                    title: '商品标签ID',
-                    field: 'tagId',
-                    sort: true,
-                    sortName: 'tagId'
-                }*/,
                 {
                     title: '进价',
                     field: 'purchasingPrice',
@@ -111,33 +99,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     align: 'center',
                     width: '8%'
-                },/*
-                {
-                    title: '销量',
-                    field: 'salesVolume',
-                    sort: true,
-                    align: 'center'
                 },
-                {
-                    title: '功效',
-                    field: 'effect',
-                    sort: true,
-                    align: 'center'
-                },
-                {
-                    title: '好评率',
-                    field: 'applauseRate',
-                    sort: true,
-                    align: 'center',
-                    width: '8%'
-                },
-                {
-                    title: '健康豆',
-                    field: 'healthBeans',
-                    sort: true,
-                    align: 'center',
-                    width: '8%'
-                },*/
                 {
                     title: '是否销售',
                     field: 'isMarket',
@@ -164,24 +126,13 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let isMarket = data.isMarket;
                         let actStatus = data.actStatus;
-                        if (0 == actStatus){
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">提交</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
-                        }else if(1 == actStatus || 2 == actStatus || 4 == actStatus || 6 == actStatus || 8 == actStatus){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
-                        }/*else if(0 == isMarket){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>';
-                        }else if (2 == isMarket){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>\n'
-                        }*/else {
-                            return "未知";
+                        if (1 == actStatus || 2 == actStatus || 4 == actStatus || 6 == actStatus || 8 == actStatus){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="doTask">【任务办理】</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【跟踪】</a>\n';
+                        }else if (3 == actStatus || 5 == actStatus || 7 == actStatus || 9 == actStatus || 11 == actStatus){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已拒绝】</a>\n';
+                        }else if (10 == actStatus){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">【已通过】</a>\n';
                         }
                     }
 
@@ -217,72 +168,13 @@ layui.use(['form', 'table'], function () {
         init();
     })
 
-    /**
-     * toolbar监听事件
-     */
-    table.on('toolbar(goodsTableFilter)', function (obj) {
-        if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goods/form/add", "新建商品信息",'1010px','100%')
-        }
-    });
-
-    table.on('tool(goodsTableFilter)', function (obj) {
+    table.on('tool(goodsTodoTableFilter)', function (obj) {
         let id = obj.data.id;
         let event = obj.event;
-        if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/goods/form/edit?id=' + id, "编辑商品信息",'1010px','100%');
-        } else if (event === 'subTask') {
-            rc.confirm('是否提交商品审核？', function() {
-                rc.post("/bobogou/data/goods/subTask",{"id":id} , function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    } else {
-                        rc.alert(data.msg);
-                    }
-                });
-            })
-        }else if (obj.event === 'flow') {  // 监听跟踪操作
-            var index = rc.openViewDialog("/bobogou/data/goods/flow?id="+id, "商品审核历史信息",'1000px','600px')
-        }else if (event === 'onShelves') {
-            rc.confirm('是否确认上架商品？', function() {
-                rc.post("/bobogou/data/goods/onTheShelf",{"id":id,"isMarket":0} , function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    } else {
-                        rc.alert(data.msg);
-                    }
-                });
-            })
-        }else if (event === 'offShelf') {
-            rc.confirm('确认要下架该商品？', function() {
-                rc.post("/bobogou/data/goods/onTheShelf", {"id":id,"isMarket":2}, function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    } else {
-                        rc.alert(data.msg);
-                    }
-                });
-            })
-        } else if (event === 'delete') {
-            rc.confirm('确认要删除该商品信息吗？', function() {
-                rc.post("/bobogou/data/goods/delete?ids=" + id, '', function (data) {
-                    if (data.code == 200) {
-                        //执行搜索重载
-                        refresh();
-                        rc.alert(data.msg);
-                    } else {
-                        rc.alert(data.msg);
-                    }
-                });
-            })
-        }else if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/goods/form/detail?id="+id, "查看药品信息",'1010px','100%')
+        if (obj.event === 'doTask') {  // 监听添加操作
+            var index = rc.openViewDialogNoClose("/bobogou/data/goods/todoListForm?id=" + id, "商品审核办理", '1010px','100%')
+        } else if (obj.event === 'flow') {  // 监听添加操作
+            var index = rc.openViewDialog("/bobogou/data/goods/flow?id=" + id, "商品审核历史信息", '1000px', '90%')
         }
     });
 });
@@ -294,7 +186,7 @@ layui.use(['form', 'table'], function () {
  * @returns {string}
  */
 function getIdSelections(table) {
-    var checkStatus = table.checkStatus('goodsTable'),
+    var checkStatus = table.checkStatus('goodsTodoTable'),
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
@@ -312,7 +204,7 @@ function getSelector() {
             form = layui.form,
             table = layui.table;
 
-        var checkStatus = table.checkStatus('goodsTable'),
+        var checkStatus = table.checkStatus('goodsTodoTable'),
             data = checkStatus.data;
         let idArr = ids.toString().split(",");
         if (data.length > 1) {
@@ -337,7 +229,7 @@ function refresh() {
             table = layui.table;
 
         //执行搜索重载
-        table.reload('goodsTable', {
+        table.reload('goodsTodoTable', {
             page: {
                 curr: 1
             }

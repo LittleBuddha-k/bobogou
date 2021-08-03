@@ -13,6 +13,8 @@
 <div>
     <form class="layui-form" id="goodsForm">
         <input type="hidden" name="id" th:value="${goods.getId()}">
+        <input type="hidden" id="currentUserAreaManager" th:value="${currentUserAreaManager}">
+        <input type="hidden" id="actStatus" name="actStatus" th:value="${goods.getActStatus()}">
         <input type="hidden" th:if="${goods.getGoodsInfo() != null}" name="goodsInfo.id"
                th:value="${goods.getGoodsInfo().getId()}">
         <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id"
@@ -40,13 +42,13 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="factoryId">厂商</label>
                 <div class="layui-input-inline">
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() == null}"
+                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() == null || goods.getFactoryId() == 0}"
                             lay-filter="factoryId" disabled="true">
                         <option th:value="0" th:text="请选择"/>
                         <option th:each="factory:${factoryList}" th:value="${factory.getId()}"
                                 th:text="${factory.getFactoryName()}"/>
                     </select>
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() != null}" disabled="true">
+                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() != null && goods.getFactoryId() != 0}" disabled="true">
                         <option th:each="factory:${factoryList}"
                                 th:if="${goods.getFactoryId().toString() == factory.getId()}"
                                 th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
@@ -71,6 +73,9 @@
                     <input type="checkbox" th:if="${goods.getTagId().contains(commodityTag.getId())}"
                            th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}"
                            th:title="${commodityTag.getName()}" lay-filter="tag" checked disabled>
+                    <input type="checkbox" th:if="${!goods.getTagId().contains(commodityTag.getId())}"
+                           th:each="commodityTag:${commodityTagList}" th:value="${commodityTag.getId()}"
+                           th:title="${commodityTag.getName()}" lay-filter="tag" disabled>
                     <input type="hidden" name="tagId" th:id="tagId" th:value="${goods.getTagId()}" disabled>
                 </div>
             </div>
@@ -81,6 +86,10 @@
                            th:if="${goods.getGoodsTypeId().contains(goodsType.getId())}"
                            th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
                            th:title="${goodsType.getName()}" lay-filter="goodsTypeId" checked disabled>
+                    <input type="checkbox"
+                           th:if="${!goods.getGoodsTypeId().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeList}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeId" disabled>
                     <input type="hidden" name="goodsTypeId" id="goodsTypeId" th:value="${goods.getGoodsTypeId()}">
                 </div>
             </div>
@@ -739,7 +748,14 @@
                 </blockquote>
             </div>
         </div>
-
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass" style="margin-left: 140px"> 通 过
+                </button>
+                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"> 拒 绝
+                </button>
+            </div>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label" for="name">详 情 :</label>
             <div class="layui-input-block" th:id="goodsInfoOther"

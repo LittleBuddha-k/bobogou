@@ -38,4 +38,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @return
      */
     int updateGoodsAct(Goods goods);
+
+    /**
+     * 查找当前角色审核数据
+     * @param entity
+     * @return
+     */
+    List<Goods> findTodoList(Goods entity);
 }
