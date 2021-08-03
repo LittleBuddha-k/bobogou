@@ -92,23 +92,23 @@ public class GoodsController extends BaseController {
         Goods goods = null;
         if (StringUtils.isNotBlank(id)) {
             goods = goodsService.get(new Goods(id));
-            if (goods != null && goods.getFactoryId()!= null &&  StringUtils.isNotBlank(goods.getFactoryId().toString())){
+            if (goods != null && goods.getFactoryId() != null && StringUtils.isNotBlank(goods.getFactoryId().toString())) {
                 Factory factory = factoryService.get(new Factory(goods.getFactoryId().toString()));
                 goods.setFactory(factory);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsClassify goodsClassify = goodsClassifyService.get(new GoodsClassify(goods.getId()));
                 goods.setGoodsClassify(goodsClassify);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsSpecification goodsSpecification = goodsSpecificationService.get(new GoodsSpecification(goods.getId().toString()));
                 goods.setGoodsSpecification(goodsSpecification);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsInfo goodsInfo = goodsInfoService.get(new GoodsInfo(goods.getId().toString()));
                 goods.setGoodsInfo(goodsInfo);
             }
-            if (goods != null && StringUtils.isNotBlank(goods.getId())){
+            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
                 goods.setGoodsNorm(goodsNorm);
             }
@@ -210,11 +210,11 @@ public class GoodsController extends BaseController {
         List<ShelfLife> shelfLifeList = dosageFormService.findShelfLifeList();
         model.addAttribute("shelfLifeList", shelfLifeList);
         //查询当前商品的商品分类详情
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsClassify select = new GoodsClassify();
             select.setId(goods.getId());
             GoodsClassify goodsClassify = goodsClassifyService.get(select);
-            if (goodsClassify != null){
+            if (goodsClassify != null) {
                 Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
                 Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
                 Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
@@ -224,25 +224,25 @@ public class GoodsController extends BaseController {
             }
         }
         //查询商品详情
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsInfo select = new GoodsInfo();
             select.setGoodsId(goods.getId());
             GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
             goods.setGoodsInfo(goodsInfo);
         }
         //查询商品规格
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsSpecification select = new GoodsSpecification();
             select.setId(goods.getId());
             GoodsSpecification goodsSpecification = goodsSpecificationService.get(select);
             goods.setGoodsSpecification(goodsSpecification);
         }
         //查询商品规范
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
             goods.setGoodsNorm(goodsNorm);
         }
-        model.addAttribute("goods",goods);
+        model.addAttribute("goods", goods);
         return "modules/data/goodsForm";
     }
 
@@ -265,6 +265,7 @@ public class GoodsController extends BaseController {
 
     /**
      * 提交审核
+     * 只要走到这里来，就将状态改为已提交
      *
      * @param
      * @return
@@ -299,10 +300,8 @@ public class GoodsController extends BaseController {
         //保存提交审核的历史记录
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
-        //初始保存的时候设置初始状态----进入审核
-        if ("0".equals(goods.getActStatus())) {
-            goods.setActStatus("1");
-        }
+        //初始保存的时候设置初始状态----进入审核---状态改为已提交
+        goods.setActStatus("1");
         int save = goodsService.updateGoodsAct(goods);
         if (save > 0) {
             result.setCode("200");
@@ -313,7 +312,6 @@ public class GoodsController extends BaseController {
         }
         return result;
     }
-
 
 
     /**
@@ -333,7 +331,6 @@ public class GoodsController extends BaseController {
         PageInfo<ActHistory> page = actHistoryService.findPage(new Page<ActHistory>(), actHistory);
         return getLayUiData(page);
     }
-
 
 
     /**
@@ -392,11 +389,11 @@ public class GoodsController extends BaseController {
         List<ShelfLife> shelfLifeList = dosageFormService.findShelfLifeList();
         model.addAttribute("shelfLifeList", shelfLifeList);
         //查询当前商品的商品分类详情
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsClassify select = new GoodsClassify();
             select.setId(goods.getId());
             GoodsClassify goodsClassify = goodsClassifyService.get(select);
-            if (goodsClassify != null){
+            if (goodsClassify != null) {
                 Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
                 Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
                 Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
@@ -406,21 +403,21 @@ public class GoodsController extends BaseController {
             }
         }
         //查询商品详情
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsInfo select = new GoodsInfo();
             select.setGoodsId(goods.getId());
             GoodsInfo goodsInfo = goodsInfoService.getByGoods(new GoodsInfo(goods));
             goods.setGoodsInfo(goodsInfo);
         }
         //查询商品规格
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsSpecification select = new GoodsSpecification();
             select.setId(goods.getId());
             GoodsSpecification goodsSpecification = goodsSpecificationService.get(select);
             goods.setGoodsSpecification(goodsSpecification);
         }
         //查询商品规范
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
             goods.setGoodsNorm(goodsNorm);
         }
@@ -479,28 +476,29 @@ public class GoodsController extends BaseController {
 
     /**
      * 进行上架or下架操作
+     *
      * @return
      */
     @ResponseBody
     @PostMapping("/onTheShelf")
-    public Result onTheShelf(Goods goods){
+    public Result onTheShelf(Goods goods) {
         Result result = new Result();
-        if (goods != null && StringUtils.isNotBlank(goods.getId())){
+        if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             int row = goodsService.onTheShelf(goods);
             //修改区域商品上下架
             RegionGoods regionGoods = new RegionGoods();
-            if (goods.getIsMarket() == 0){
+            if (goods.getIsMarket() == 0) {
                 //在售
                 regionGoods.setIsMarket("0");
                 regionGoods.setGoodsId(goods.getId());
-            }else if (goods.getIsMarket() == 2){
+            } else if (goods.getIsMarket() == 2) {
                 //停售
                 regionGoods.setIsMarket("1");
                 regionGoods.setGoodsId(goods.getId());
             }
             regionGoodsService.updateIsMarket(regionGoods);
             result = getCommonResult(row);
-        }else {
+        } else {
             result.setCode("222");
             result.setMsg("未知原因，操作失败");
         }
