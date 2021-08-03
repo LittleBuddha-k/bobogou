@@ -874,7 +874,7 @@
                 <p>点击上传</p>
                 <div class="layui-hide" th:id="uploadDemoView">
                     <hr>
-                    <img >
+                    <img  style="max-width: 196px">
                 </div>
                 <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" >
             </div>
@@ -887,7 +887,7 @@
                 <p>点击上传</p>
                 <div class="" th:id="uploadDemoView">
                     <hr>
-                    <img th:src="${goods.getCertificateImageWatermark()}">
+                    <img th:src="${goods.getCertificateImageWatermark()}" style="max-width: 196px">
                 </div>
                 <input type="hidden" th:id="certificateImageWatermark" th:name="certificateImageWatermark" th:value="${goods.getCertificateImageWatermark()}">
             </div>
@@ -923,7 +923,7 @@
                 <p>点击上传</p>
                 <div class="layui-hide" th:id="uploadDemoView2">
                     <hr>
-                    <img >
+                    <img  style="max-width: 196px">
                 </div>
                 <input type="hidden" th:id="certificateImage" th:name="certificateImage" >
             </div>
@@ -936,7 +936,7 @@
                 <p>点击上传</p>
                 <div class="" th:id="uploadDemoView2">
                     <hr>
-                    <img th:src="${goods.getCertificateImage()}">
+                    <img th:src="${goods.getCertificateImage()}" style="max-width: 196px">
                 </div>
                 <input type="hidden" th:id="certificateImage" th:name="certificateImage" th:value="${goods.getCertificateImage()}">
             </div>

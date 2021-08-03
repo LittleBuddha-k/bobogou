@@ -14,16 +14,17 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     upload.render({
         elem: '#test10'
         ,url: '/bobogou/file/picture?uploadPath='+"/data/banner" //改成您自己的上传接口
+        ,auto: false
         ,choose: function (obj) {
             flag = true;
             //读取本地文件
             obj.preview(function (index, file, result) {
                 var img = new Image();
                 img.onload = function () {
-                    if (posterWidth == img.width && posterHeight == img.height) {
-                        //obj.upload(index, file); //满足条件调用上传方法
+                    if ((posterWidth == img.width && posterHeight == img.height) || (img.width == img.height)) {
+                        obj.upload(index, file); //满足条件调用上传方法
                     } else {
-                        rc.error('商品分类图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请重新上传分辨率正确分类图标图片');
+                        rc.error('商品分类图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例,请重新上传分辨率正确分类图标图片');
                         flag = false;
                     }
                 };

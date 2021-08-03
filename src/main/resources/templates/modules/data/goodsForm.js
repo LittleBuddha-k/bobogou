@@ -240,6 +240,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
+        auto: false,
         size: 10240,
         choose: function (obj) {
             flag = true;
@@ -247,10 +248,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             obj.preview(function (index, file, result) {
                 var img = new Image();
                 img.onload = function () {
-                    if (posterWidth == img.width && posterHeight == img.height) {
-                        //obj.upload(index, file); //满足条件调用上传方法
+                    if (posterWidth == img.width && posterHeight == img.height || img.width == img.height) {
+                        obj.upload(index, file); //满足条件调用上传方法
                     } else {
-                        rc.error('商品正面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        rc.error('商品正面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例，请清空确认图片分辨率正确后再次上传');
                         flag = false;
                     }
                 };
@@ -269,6 +270,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             } else {
                 upload_image_url = res.body.url;
             }
+            alert(flag)
             if (flag) {
                 $("#frontImages").val(upload_image_url);
                 $('#demo3').append('<img src="' + res.body.url + '" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
@@ -282,6 +284,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
+        auto: false,
         size: 10240,
         choose: function (obj) {
             flag = true;
@@ -289,10 +292,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             obj.preview(function (index, file, result) {
                 var img = new Image();
                 img.onload = function () {
-                    if (posterWidth == img.width && posterHeight == img.height) {
-                        //obj.upload(index, file); //满足条件调用上传方法
+                    if (posterWidth == img.width && posterHeight == img.height || img.width == img.height) {
+                        obj.upload(index, file); //满足条件调用上传方法
                     } else {
-                        rc.error('商品反面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        rc.error('商品反面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例,请清空确认图片分辨率正确后再次上传');
                         flag = false;
                     }
                 };
@@ -324,6 +327,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
+        auto: false,
         size: 10240,
         choose: function (obj) {
             flag = true;
@@ -331,10 +335,10 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             obj.preview(function (index, file, result) {
                 var img = new Image();
                 img.onload = function () {
-                    if (posterWidth == img.width && posterHeight == img.height) {
-                        //obj.upload(index, file); //满足条件调用上传方法
+                    if (posterWidth == img.width && posterHeight == img.height || img.width == img.height) {
+                        obj.upload(index, file); //满足条件调用上传方法
                     } else {
-                        rc.error('商品背面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,请清空确认图片分辨率正确后再次上传');
+                        rc.error('商品背面图片必须为：' + posterWidth + 'px  ' + 'x' + posterHeight + 'px,或者保持1：1比例,请清空确认图片分辨率正确后再次上传');
                         flag = false;
                     }
                 };

@@ -200,7 +200,7 @@ public class PictureUploadController {
                 }else {
                     result.setSuccess(0);
                     result.setUrl("");
-                    result.setMessage("商品详情必须为：" + 375 + "px " + " * " + 375 + " px,请重新确认图片分辨率正确后再次上传");
+                    result.setMessage("商品详情必须为：" + 375 + "px " + " * " + 375 + " px,或者保持1：1比例,请重新确认图片分辨率正确后再次上传");
                 }
             } catch (IOException | RuntimeException e) {
                 e.printStackTrace();

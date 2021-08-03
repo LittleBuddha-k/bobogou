@@ -660,7 +660,7 @@ public class FileUtils extends org.apache.commons.io.FileUtils {
 		BufferedImage bufferedImage = ImageIO.read(file);
 		int width = bufferedImage.getWidth();
 		int height = bufferedImage.getHeight();
-		if (bufferedImage != null && height == imageHeight && width == imageWidth) {
+		if (bufferedImage != null && height == imageHeight && width == imageWidth || width == height) {
 			result = true;
 		}
 		return result;
