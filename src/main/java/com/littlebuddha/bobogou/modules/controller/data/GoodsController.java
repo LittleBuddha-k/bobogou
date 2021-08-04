@@ -454,6 +454,7 @@ public class GoodsController extends BaseController {
         List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
         String reason = "";
         actHistory.setDataId(goods.getId());
+        actHistory.setActType(goods.getActType());
         if (byOperatorAndRole != null) {
             if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
                 Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
@@ -468,7 +469,7 @@ public class GoodsController extends BaseController {
                         reason = "拒绝";
                         result.setMsg("已拒绝商品审核");
                     }
-                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                    actHistory.setExecutionLink(currentRole.getName() + "商品审核" + reason);
                 }
                 actHistory.setRoleId(currentRole.getId());
                 actHistory.setRoleName(currentRole.getName());

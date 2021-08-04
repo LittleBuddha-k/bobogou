@@ -170,6 +170,7 @@ public class QualificationController extends BaseController {
         //点击提交时，新建审核历史记录
         ActHistory actHistory = new ActHistory();
         actHistory.setDataId(qualification.getId());
+        actHistory.setActType(qualification.getActType());
         //获取当前角色
         Operator currentUser = UserUtils.getCurrentUser();
         List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
@@ -275,6 +276,7 @@ public class QualificationController extends BaseController {
         List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
         String reason = "";
         actHistory.setDataId(qualification.getId());
+        actHistory.setActType(qualification.getActType());
         if (byOperatorAndRole != null) {
             if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
                 Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
@@ -283,13 +285,13 @@ public class QualificationController extends BaseController {
                 if (StringUtils.isNotBlank(currentRole.getName())) {
                     if ("2".equals(qualification.getStatus()) || "4".equals(qualification.getStatus()) || "6".equals(qualification.getStatus()) || "8".equals(qualification.getStatus()) || "10".equals(qualification.getStatus())) {
                         reason = "通过";
-                        result.setMsg("已通过审核");
+                        result.setMsg("已通过资质审核");
                     }
                     if ("3".equals(qualification.getStatus()) || "5".equals(qualification.getStatus()) || "7".equals(qualification.getStatus()) || "9".equals(qualification.getStatus()) || "11".equals(qualification.getStatus())) {
                         reason = "拒绝";
-                        result.setMsg("已拒绝审核");
+                        result.setMsg("已拒绝资质审核");
                     }
-                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                    actHistory.setExecutionLink(currentRole.getName() + "资质审核" + reason);
                 }
                 actHistory.setRoleId(currentRole.getId());
                 actHistory.setRoleName(currentRole.getName());

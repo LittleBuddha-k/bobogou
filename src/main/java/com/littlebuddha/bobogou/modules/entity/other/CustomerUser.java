@@ -38,6 +38,7 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private Double withdrawalAmount;//已提现金额，单位：分
     private Operator operator;//后台管理员ID，区域管理员ID，关联system_operator表
     private String operatorId;//
+    private String actType = "other_customer_user_act";//流程类型，用于记录审核历史记录
     private String nextRole;//审核时提交到的下一角色id
     private Integer status;//状态，0=app未注册，1=app已注册
 
@@ -224,6 +225,14 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setOperatorId(String operatorId) {
         this.operatorId = operatorId;
+    }
+
+    public String getActType() {
+        return actType;
+    }
+
+    public void setActType(String actType) {
+        this.actType = actType;
     }
 
     public String getNextRole() {

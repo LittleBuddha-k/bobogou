@@ -12,6 +12,7 @@ public class Qualification extends DataEntity<Qualification> {
     private String name = "";//名称
     private String qualification = "";//资质图片
 
+    private String actType = "basic_qualification";//流程类型
     private Role role;//执行人角色Id
     private String nextRoleId;//执行人角色id
     private String roleName;//执行人角色名称
@@ -41,6 +42,14 @@ public class Qualification extends DataEntity<Qualification> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getActType() {
+        return actType;
+    }
+
+    public void setActType(String actType) {
+        this.actType = actType;
     }
 
     public Role getRole() {

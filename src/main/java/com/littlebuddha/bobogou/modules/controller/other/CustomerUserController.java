@@ -204,6 +204,7 @@ public class CustomerUserController extends BaseController {
         List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
         String reason = "";
         actHistory.setDataId(customerUser.getId());
+        actHistory.setActType(customerUser.getActType());
         if (byOperatorAndRole != null) {
             if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
                 Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
@@ -212,13 +213,13 @@ public class CustomerUserController extends BaseController {
                 if (StringUtils.isNotBlank(currentRole.getName())) {
                     if (2 == customerUser.getApplyStatus() || "1".equals(customerUser.getUserMember().getStatus()) || "3".equals(customerUser.getUserMember().getStatus()) || "5".equals(customerUser.getUserMember().getStatus())) {
                         reason = "通过";
-                        result.setMsg("已通过审核");
+                        result.setMsg("已通过VIP审核");
                     }
                     if (3 == customerUser.getApplyStatus() ||  "2".equals(customerUser.getUserMember().getStatus()) || "4".equals(customerUser.getUserMember().getStatus()) || "6".equals(customerUser.getUserMember().getStatus())) {
                         reason = "拒绝";
-                        result.setMsg("已拒绝审核");
+                        result.setMsg("已拒绝VIP审核");
                     }
-                    actHistory.setExecutionLink(currentRole.getName() + "审核" + reason);
+                    actHistory.setExecutionLink(currentRole.getName() + "VIP审核" + reason);
                 }
                 actHistory.setRoleId(currentRole.getId());
                 actHistory.setRoleName(currentRole.getName());

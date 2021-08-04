@@ -21,7 +21,7 @@ public class SignContract extends DataEntity<SignContract> {
     private String qualification = "";//资质文件
     private String contract = "";//合同文件
 
-
+    private String actType = "basic_sign_contract";//流程分类
     private Role role;//执行人角色Id
     private String nextRoleId;//执行人角色id
     private String roleName;//执行人角色名称
@@ -115,6 +115,14 @@ public class SignContract extends DataEntity<SignContract> {
 
     public void setContract(String contract) {
         this.contract = contract;
+    }
+
+    public String getActType() {
+        return actType;
+    }
+
+    public void setActType(String actType) {
+        this.actType = actType;
     }
 
     public Role getRole() {
