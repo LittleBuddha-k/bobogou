@@ -14,36 +14,19 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="factoryId">厂商</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="factoryId" th:value="${factorySterilize.getFactoryId()}"
-                           th:id="factoryId" autocomplete="off" class="layui-input">
+                    <select name="factoryId" lay-verify="" lay-filter="factoryId">
+                        <option th:each="factory:${factoryList}" th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"
+                                th:selected="${factory.getId()}==${factorySterilize.getFactoryId()}"/>
+                    </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="productType">厂商产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'add'}">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'add' && factorySterilize.getProductType() == 1}">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'add' && factorySterilize.getProductType() == 2}">
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'add' && factorySterilize.getProductType() == 3}">
-                        <option th:value="3" th:text="消毒产品"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
+                            th:id="productType">
+                        <option th:each="productType:${productTypeList}" th:value="${productType.getValue()}" th:text="${productType.getName()}"
+                                th:selected="${productType.getValue()}==${factorySterilize.getProductType()}"/>
                     </select>
                 </div>
             </div>

@@ -8,20 +8,20 @@ import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
  */
 public class FactorySterilize extends DataEntity<FactorySterilize> {
 
-    private Integer factoryId;//厂商ID，关联md_factory表
-    private Integer factoryName;//厂商ID，关联md_factory表
-    private Integer productType;//厂商产品类型，（与md_factory表中的字段相同），1=普通厂家，2=中药饮片，3=消毒产品
-    private String safetyAssessmentReport;//安全评估报告地址，多张图片使用英文逗号分隔，消毒产品必填
-    private String filingSafetyEvaluation;//安全评价备案，消毒产品必填
-    private String companyStandard;//企业标准，消毒产品必填
-    private String provincialInspectionReport;//省检报告（注意检验菌范围），消毒产品必填
-    private String packagingRecord;//包装备案，消毒产品必填
-    private String productionBusinessLicense;//生产厂家营业执照，消毒产品必填
-    private String sanitaryLicenseDisinfectedProducts;//消毒产品卫生许可证，消毒产品必填
-    private String drugManufacturingErtificate;//药品生产许可证，中药必填
-    private String gmpErtificate;//药品GMP证书，中药必填
-    private String qualitySystem;//质量体系调查表，中药必填
-    private String qualifiedSupplier;//合格供货方档案表
+    private Integer factoryId = 0;//厂商ID，关联md_factory表
+    private String factoryName = "";//厂商ID，关联md_factory表
+    private String productType = "1";//厂商产品类型，（与md_factory表中的字段相同），1=普通厂家，2=中药饮片，3=消毒产品
+    private String safetyAssessmentReport = "";//安全评估报告地址，多张图片使用英文逗号分隔，消毒产品必填
+    private String filingSafetyEvaluation = "";//安全评价备案，消毒产品必填
+    private String companyStandard = "";//企业标准，消毒产品必填
+    private String provincialInspectionReport = "";//省检报告（注意检验菌范围），消毒产品必填
+    private String packagingRecord = "";//包装备案，消毒产品必填
+    private String productionBusinessLicense = "";//生产厂家营业执照，消毒产品必填
+    private String sanitaryLicenseDisinfectedProducts = "";//消毒产品卫生许可证，消毒产品必填
+    private String drugManufacturingErtificate = "";//药品生产许可证，中药必填
+    private String gmpErtificate = "";//药品GMP证书，中药必填
+    private String qualitySystem = "";//质量体系调查表，中药必填
+    private String qualifiedSupplier = "";//合格供货方档案表
 
     public FactorySterilize() {
     }
@@ -38,19 +38,19 @@ public class FactorySterilize extends DataEntity<FactorySterilize> {
         this.factoryId = factoryId;
     }
 
-    public Integer getFactoryName() {
+    public String getFactoryName() {
         return factoryName;
     }
 
-    public void setFactoryName(Integer factoryName) {
+    public void setFactoryName(String factoryName) {
         this.factoryName = factoryName;
     }
 
-    public Integer getProductType() {
+    public String getProductType() {
         return productType;
     }
 
-    public void setProductType(Integer productType) {
+    public void setProductType(String productType) {
         this.productType = productType;
     }
 
