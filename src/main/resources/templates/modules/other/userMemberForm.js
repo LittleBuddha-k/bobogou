@@ -25,11 +25,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let districtRefuseReason = $("#districtRefuseReason").val();
         if (currentUserAreaManager == 3) {
             //成功
-            if (districtPassReason) {
-                status = 1;
-                applyStatus = 1;
-                member = 0;
-            }
+            status = 1;
+            applyStatus = 1;
+            member = 0;
             if (districtPassReason != null && districtPassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -51,7 +49,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         //刷新父页面
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             parent.location.reload();
                         }, 1000);
@@ -64,11 +62,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 2) {
             //成功
-            if (cityPassReason) {
-                status = 3;
-                applyStatus = 1;
-                member = 0;
-            }
+            status = 3;
+            applyStatus = 1;
+            member = 0;
             if (cityPassReason != null && cityPassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -89,7 +85,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             parent.location.reload();
                         }, 1000);
@@ -102,11 +98,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 1) {
             //成功
-            if (provincePassReason) {
-                status = 5;
-                applyStatus = 1;
-                member = 0;
-            }
+            status = 5;
+            applyStatus = 1;
+            member = 0;
             if (provincePassReason != null && provincePassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -128,7 +122,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         var index = parent.layer.getFrameIndex(window.name);
                         //刷新父页面
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             parent.location.reload();
                         }, 1000);
@@ -164,7 +158,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     var index = parent.layer.getFrameIndex(window.name);
                     //刷新父页面
                     rc.msg(data.msg);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         parent.layer.close(index); //再执行关闭
                         parent.location.reload();
                     }, 1000);
@@ -197,7 +191,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     var index = parent.layer.getFrameIndex(window.name);
                     //刷新父页面
                     rc.msg(data.msg);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         parent.layer.close(index); //再执行关闭
                         parent.location.reload();
                     }, 1000);
@@ -226,11 +220,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let districtRefuseReason = $("#districtRefuseReason").val();
         if (currentUserAreaManager == 3) {
             //成功
-            if (districtRefuseReason) {
-                status = 2;
-                applyStatus = 3;
-                member = 0;
-            }
+            status = 2;
+            applyStatus = 3;
+            member = 0;
             if (districtPassReason != null && districtPassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -251,7 +243,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             //刷新父页面
                             parent.location.reload();
@@ -265,11 +257,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 2) {
             //成功
-            if (cityRefuseReason) {
-                status = 4;
-                applyStatus = 3;
-                member = 0;
-            }
+            status = 4;
+            applyStatus = 3;
+            member = 0;
             if (cityPassReason != null && cityPassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -290,7 +280,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             //刷新父页面
                             parent.location.reload();
@@ -304,11 +294,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             }
         } else if (currentUserAreaManager == 1) {
             //成功
-            if (provinceRefuseReason) {
-                status = 6;
-                applyStatus = 3;
-                member = 0;
-            }
+            status = 6;
+            applyStatus = 3;
+            member = 0;
             if (provincePassReason != null && provincePassReason != '') {
                 //修改当前customerUser的会员状态
                 rc.post("/bobogou/other/customerUser/doTask", {
@@ -329,7 +317,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                         //关闭当前页面
                         var index = parent.layer.getFrameIndex(window.name);
                         rc.msg(data.msg);
-                        setTimeout(function(){
+                        setTimeout(function () {
                             parent.layer.close(index); //再执行关闭
                             //刷新父页面
                             parent.location.reload();
@@ -365,7 +353,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
                     rc.msg(data.msg);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         parent.layer.close(index); //再执行关闭
                         //刷新父页面
                         parent.location.reload();
@@ -398,7 +386,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     //关闭当前页面
                     var index = parent.layer.getFrameIndex(window.name);
                     rc.msg(data.msg);
-                    setTimeout(function(){
+                    setTimeout(function () {
                         parent.layer.close(index); //再执行关闭
                         //刷新父页面
                         parent.location.reload();

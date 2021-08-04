@@ -38,7 +38,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'name',
                     align: 'center',
-                    width: '8%'
+                    width: '7%'
                 },
                 {
                     title: '商品通用名称',
@@ -46,7 +46,7 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'commonName',
                     align: 'center',
-                    width: '10%'
+                    width: '9%'
                 },
                 /*{
                     title: '品牌分类ID',
@@ -64,19 +64,19 @@ layui.use(['form', 'table'], function () {
                     title: '进价',
                     field: 'purchasingPrice',
                     sort: true,
-                    width: '8%'
+                    width: '7%'
                 },
                 {
                     title: '零售价',
                     field: 'originalCost',
                     align: 'center',
-                    width: '8%'
+                    width: '7%'
                 },
                 {
                     title: '会员价',
                     field: 'sellingPrice',
                     align: 'center',
-                    width: '8%'
+                    width: '7%'
                 },
                 {
                     title: '集采价',
@@ -156,10 +156,49 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
+                    title: '审核状态',
+                    field: 'actStatus',
+                    sortName: 'actStatus',
+                    align: "left",
+                    width: '9%',
+                    templet: function (data) {
+                        var actStatus = data.actStatus;
+                        if(0 == actStatus){
+                            return "未提交";
+                        }else if(1 == actStatus){
+                            return "已提交";
+                        }else if(2 == actStatus){
+                            return "区级经纪人已通过";
+                        }else if(3 == actStatus){
+                            return "区级经纪人已拒绝";
+                        }else if(4 == actStatus){
+                            return "市级经纪人已通过";
+                        }else if(5 == actStatus){
+                            return "市级经纪人已拒绝";
+                        }else if(6 == actStatus){
+                            return "省级经纪人已通过";
+                        }else if(7 == actStatus){
+                            return "省级经纪人已拒绝";
+                        }else if(8 == actStatus){
+                            return "超级管理员助理已通过";
+                        }else if(9 == actStatus){
+                            return "超级管理员助理已拒绝";
+                        }else if(10 == actStatus){
+                            return "超级管理员已通过";
+                        }else if(11 == actStatus){
+                            return "超级管理员已拒绝";
+                        }else if(12 == actStatus){
+                            return "已通过";
+                        }else {
+                            return "未知";
+                        }
+                    }
+                },
+                {
                     title: '操作',
                     //toolbar: '#operation',
                     align: 'left',
-                    width: '20%',
+                    width: '16%',
                     align: 'center',
                     templet:function(data){
                         let isMarket = data.isMarket;
