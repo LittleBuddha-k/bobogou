@@ -146,11 +146,8 @@
         <include refid="goodsJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}<!--查询当前登录者创建的数据及其下级角色创建的数据-->
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
-                AND a.create_by = #{currentUser.id}
-                <if test="currentUserRole != null">
-                    OR c.parent_id = #{currentUserRole.id}
-                </if>
+            <if test='currentUser.id != "1" and currentUserRole != null'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
+                AND (a.create_by = #{currentUser.id} OR c.parent_id = #{currentUserRole.id})
             </if>
         </where>
         <choose>
