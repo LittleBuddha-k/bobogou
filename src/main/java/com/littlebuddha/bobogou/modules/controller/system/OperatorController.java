@@ -70,6 +70,12 @@ public class OperatorController extends BaseController {
                 Area area = areaService.get(new Area(operator.getAreaId()));
                 operator.setArea(area);
             }
+            if (operator != null && StringUtils.isNotBlank(operator.getId())){
+                CustomerUser selectOption = new CustomerUser();
+                selectOption.setOperatorId(operator.getId());
+                CustomerUser byOperator = customerUserService.findByOperator(selectOption);
+                operator.setCustomerUser(byOperator);
+            }
             if(operator != null && StringUtils.isNotBlank(operator.getParentId())){
                 Operator select = new Operator();
                 select.setId(operator.getParentId());

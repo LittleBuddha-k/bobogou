@@ -79,14 +79,18 @@
         SELECT
         <include refid="customerUserNoColumns"/>
         FROM ud_user a
-        WHERE a.phone = #{phone}
+        WHERE
+        a.is_deleted = #{DEL_FLAG_NORMAL}
+        AND a.phone = #{phone}
     </select>
 
     <select id="getByOperator" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserNoColumns"/>
         FROM ud_user a
-        WHERE a.operator = #{operatorId}
+        WHERE
+        a.is_deleted = #{DEL_FLAG_NORMAL}
+        AND a.operator = #{operatorId}
     </select>
 
     <!--根据当前人角色返回自己和其下级角色的数据列表-->
