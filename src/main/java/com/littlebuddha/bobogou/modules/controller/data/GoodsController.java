@@ -165,6 +165,22 @@ public class GoodsController extends BaseController {
     }
 
     /**
+     * 商品列表数据，查询当前登录者创建的数据及其下级角色创建的数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/currentData")
+    public TreeResult currentData(Goods goods) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        goods.setCurrentUser(currentUser);
+        goods.setCurrentUserRole(currentUserRole);
+        PageInfo<Goods> page = goodsService.findCurrentDataPage(new Page<Goods>(), goods);
+        return getLayUiData(page);
+    }
+
+    /**
      * 根据厂商、商品名查询商品数据
      *
      * @return

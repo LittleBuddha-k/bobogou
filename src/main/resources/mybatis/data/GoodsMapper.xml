@@ -43,8 +43,14 @@
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
         a.account_id AS "accountId",
+        a.create_by AS "createBy.id",
         a.act_status AS "actStatus",
         a.next_role AS "nextRole"
+    </sql>
+
+    <sql id="goodsJoins">
+        LEFT JOIN system_operator_role b ON a.create_by = b.operator_id
+        LEFT JOIN system_role c ON b.role_id = c.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
@@ -133,6 +139,30 @@
         </choose>
     </select>
 
+    <select id="findCurrentDataList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
+        SELECT
+        <include refid="goodsColumns"/>
+        FROM mb_goods a
+        <include refid="goodsJoins"/>
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}<!--查询当前登录者创建的数据及其下级角色创建的数据-->
+            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
+                AND a.create_by = #{currentUser.id}
+                <if test="currentUserRole != null">
+                    OR c.parent_id = #{currentUserRole.id}
+                </if>
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Goods">
         SELECT
         <include refid="goodsColumns"/>
@@ -188,7 +218,8 @@
             is_deleted,
             create_time,
             update_time,
-            account_id
+            account_id,
+            create_by
         )VALUES (
             #{name},
             #{commonName},
@@ -229,7 +260,8 @@
             #{isDeleted},
             #{createTime},
             #{updateTime},
-            #{accountId}
+            #{accountId},
+            #{createBy.id}
         )
     </insert>
 

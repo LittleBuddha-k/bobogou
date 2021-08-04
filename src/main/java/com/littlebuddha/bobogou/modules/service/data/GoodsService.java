@@ -340,6 +340,40 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             entity.setPage(page);
             PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
             List<Goods> list = goodsMapper.findTodoList(entity);
+            for (Goods goods : list) {
+                goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
+                goods.setOriginalCost(goods.getOriginalCost() / 100);
+                goods.setSellingPrice(goods.getSellingPrice() / 100);
+                goods.setVipPrice(goods.getVipPrice() / 100);
+                goods.setWeight(goods.getVipPrice() / 1000);
+            }
+            pageInfo = new PageInfo<Goods>(list);
+        }
+        return pageInfo;
+    }
+
+    /**
+     * 商品列表数据，查询当前登录者创建的数据及其下级角色创建的数据
+     *
+     * @return
+     */
+    public PageInfo<Goods> findCurrentDataPage(Page<Goods> page, Goods entity) {
+        if (entity != null) {
+            String name = StringUtils.deleteWhitespace(entity.getName());
+            entity.setName(name);
+        }
+        PageInfo<Goods> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<Goods> list = goodsMapper.findCurrentDataList(entity);
+            for (Goods goods : list) {
+                goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
+                goods.setOriginalCost(goods.getOriginalCost() / 100);
+                goods.setSellingPrice(goods.getSellingPrice() / 100);
+                goods.setVipPrice(goods.getVipPrice() / 100);
+                goods.setWeight(goods.getVipPrice() / 1000);
+            }
             pageInfo = new PageInfo<Goods>(list);
         }
         return pageInfo;

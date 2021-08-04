@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     var init = table.render({
         elem: '#goodsTable',
-        url: '/bobogou/data/goods/data',
+        url: '/bobogou/data/goods/currentData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -170,17 +170,18 @@ layui.use(['form', 'table'], function () {
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if(1 == actStatus || 2 == actStatus || 4 == actStatus || 6 == actStatus || 8 == actStatus){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
-                        }/*else if(0 == isMarket){
+                        }else if (3 == actStatus || 5 == actStatus || 7 == actStatus || 9 == actStatus || 11 == actStatus){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">重新提交</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n'+
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                        }else if(10 == actStatus && 0 == isMarket){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>';
-                        }else if (2 == isMarket){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                        }else if (10 == actStatus && 2 == isMarket){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
                                    '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>\n'
-                        }*/else {
+                        }else {
                             return "未知";
                         }
                     }

@@ -95,6 +95,8 @@ layui.use(['form', 'table'], function () {
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已拒绝</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="subTask">重新提交</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
+                        }else if (8 == status || 10 == status){
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">审核通过</a>\n';
                         }else{
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';

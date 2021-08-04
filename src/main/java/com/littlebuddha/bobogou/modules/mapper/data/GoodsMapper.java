@@ -45,4 +45,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @return
      */
     List<Goods> findTodoList(Goods entity);
+
+    /**
+     * 商品列表数据，查询当前登录者创建的数据及其下级角色创建的数据
+     *
+     * @return
+     */
+    List<Goods> findCurrentDataList(Goods entity);
 }
