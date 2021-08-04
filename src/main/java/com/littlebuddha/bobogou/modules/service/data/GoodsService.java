@@ -266,8 +266,8 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         if (entity != null && StringUtils.isNotBlank(entity.getId())){
             //删除商品分类
             GoodsClassify goodsClassify = new GoodsClassify();
-            goodsClassify.setGoodsId(entity.getId());
-            goodsClassifyMapper.deleteLogicByGoods(goodsClassify);
+            goodsClassify.setId(entity.getId());
+            goodsClassifyMapper.deleteByLogic(goodsClassify);
             //删除商品规格
             GoodsSpecification specification = new GoodsSpecification();
             specification.setId(entity.getId());
