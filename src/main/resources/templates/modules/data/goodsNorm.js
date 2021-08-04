@@ -40,15 +40,13 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let goodsName = data.goodsName;
                         return goodsName;
-                    },
-                    width: '10%'
+                    }
                 },
                 {
                     title: '厂商名称',
                     field: 'factoryName',
                     sort: true,
-                    sortName: 'factoryName',
-                    width: '10%'
+                    sortName: 'factoryName'
                 },/*
                 {
                     title: '样盒图片地址',
@@ -175,7 +173,7 @@ layui.use(['form', 'table'], function () {
                             return "无图片";
                         }
                     }
-                },*/
+                },
                 {
                     title: '质量标准',
                     field: 'qualityStandard',
@@ -189,14 +187,13 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'surveyReport',
                     width: '10%'
-                },
+                },*/
                 {
                     title: '物价',
                     field: 'prices',
                     sort: true,
-                    sortName: 'prices',
-                    width: '10%'
-                },
+                    sortName: 'prices'
+                },/*
                 {
                     title: '生产企业营业执照地址',
                     field: 'productionBusinessLicense',
@@ -210,12 +207,11 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'productionCertificate',
                     width: '20%'
-                },
+                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center",
-                    width: '10%'
+                    align: "center"
                 }
             ]
         ],

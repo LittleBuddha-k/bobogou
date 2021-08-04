@@ -170,7 +170,11 @@ layui.use(['form', 'table'], function () {
                     sortName: 'payTime',
                     templet: function (data) {
                         var payTime = data.payTime;
-                        return payTime;
+                        if(payTime != null && payTime != ''){
+                            return payTime;
+                        }else {
+                            return "";
+                        }
                     }
                 },
                 {
