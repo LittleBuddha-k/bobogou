@@ -100,7 +100,7 @@ layui.use(['form', 'table'], function () {
                 rc.post("/bobogou/system/role/delete?ids=" + id, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
-                        renderTable();
+                        refresh();
                     } else {
                         rc.alert(data.msg);
                     }
