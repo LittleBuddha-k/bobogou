@@ -6,6 +6,7 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
@@ -13,6 +14,7 @@ import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.AreaService;
 import com.littlebuddha.bobogou.modules.service.data.CityService;
 import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
@@ -52,6 +54,9 @@ public class OperatorController extends BaseController {
     @Autowired
     private CustomerUserService customerUserService;
 
+    @Autowired
+    private DictDataService dictDataService;
+
     @ModelAttribute
     public Operator get(@RequestParam(required = false) String id) {
         Operator operator = null;
@@ -64,12 +69,6 @@ public class OperatorController extends BaseController {
             if (operator.getAreaId() != null && StringUtils.isNotBlank(operator.getAreaId())){
                 Area area = areaService.get(new Area(operator.getAreaId()));
                 operator.setArea(area);
-            }
-            if (operator != null && StringUtils.isNotBlank(operator.getId())){
-                CustomerUser selectOption = new CustomerUser();
-                selectOption.setOperatorId(operator.getId());
-                CustomerUser byOperator = customerUserService.findByOperator(selectOption);
-                operator.setCustomerUser(byOperator);
             }
             if(operator != null && StringUtils.isNotBlank(operator.getParentId())){
                 Operator select = new Operator();
@@ -141,6 +140,11 @@ public class OperatorController extends BaseController {
         //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
+        //查询词典数据
+        DictData select = new DictData();
+        select.setType("system_operator_area_manager");
+        List<DictData> areaManagerList = dictDataService.findList(select);
+        model.addAttribute("areaManagerList", areaManagerList);
         model.addAttribute("operator", operator);
         return "modules/system/operatorForm";
     }

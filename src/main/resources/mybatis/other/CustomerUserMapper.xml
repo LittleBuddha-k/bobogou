@@ -89,7 +89,7 @@
         WHERE a.operator = #{operatorId}
     </select>
 
-    <!--根据当前人角色返回自己和其下级角色的数据-->
+    <!--根据当前人角色返回自己和其下级角色的数据列表-->
     <select id="findListData" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
@@ -243,7 +243,7 @@
         <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = 0
-            AND b.status = '0'
+            AND a.apply_status = '1'
             <if test="provinceIds != null and provinceIds != ''">
                 AND #{provinceIds} LIKE concat('%',b.province_id,'%')
             </if>
