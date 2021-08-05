@@ -317,7 +317,12 @@ public class GoodsController extends BaseController {
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核---状态改为已提交
-        goods.setActStatus("1");
+        //如果超级管理员直接提交，则直接通过
+        if (5 == currentUser.getAreaManager()) {
+            goods.setActStatus("10");
+        } else {
+            goods.setActStatus("1");
+        }
         int save = goodsService.updateGoodsAct(goods);
         if (save > 0) {
             result.setCode("200");
