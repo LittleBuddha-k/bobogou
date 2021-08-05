@@ -17,8 +17,8 @@
                 <label class="layui-form-label">上级角色</label>
                 <div class="layui-input-inline">
                     <select name="parentId" th:id="parentId" lay-verify="" th:if="${mode == 'view'}" disabled="true">
-                        <option th:each="parent:${roleList}" th:if="${role.getParentId() == parent.getId()}" th:value="${role.getId()}"
-                                th:text="${role.getName()}">
+                        <option th:each="parent:${roleList}" th:if="${role.getParentId() == parent.getId()}" th:value="${parent.getId()}"
+                                th:text="${parent.getName()}">
                         </option>
                         <option th:each="parent:${roleList}" th:if="${role.getParentId() != parent.getId()}" th:value="${parent.getId()}"
                                 th:text="${parent.getName()}">

@@ -24,4 +24,11 @@ public interface RoleMapper extends BaseMapper<Role> {
     List<Role> findByParentIdsLike(Role update);
 
     void updateParentIds(Role role);
+
+    /**
+     * 角色编辑时为了显示当前角色的上级角色
+     * @param entity
+     * @return
+     */
+    List<Role> findNoAddList(Role entity);
 }

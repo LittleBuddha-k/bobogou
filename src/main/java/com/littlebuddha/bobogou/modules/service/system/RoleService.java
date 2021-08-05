@@ -155,4 +155,14 @@ public class RoleService extends CrudService<Role, RoleMapper> {
         List<Menu> menus = menuMapper.getMenusByRole(new Menu(role));
         return menus;
     }
+
+    /**
+     * 角色编辑时为了显示当前角色的上级角色
+     * @param entity
+     * @return
+     */
+    public List<Role> findNoAddList(Role entity) {
+        List<Role>  list = roleMapper.findNoAddList(entity);
+        return list;
+    }
 }

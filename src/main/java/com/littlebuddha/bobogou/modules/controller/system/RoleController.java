@@ -101,8 +101,13 @@ public class RoleController extends BaseController {
         //当点击新建时,查询所有角色
         Role entity = new Role();
         entity.setCurrentUserRole(currentUserRole);
-        List<Role> roleList = roleService.findList(entity);
-        model.addAttribute("roleList", roleList);
+        if (!"add".equals(mode)){
+            List<Role> roleList = roleService.findNoAddList(entity);
+            model.addAttribute("roleList", roleList);
+        }else {
+            List<Role> roleList = roleService.findList(entity);
+            model.addAttribute("roleList", roleList);
+        }
         model.addAttribute("role", role);
         return "modules/system/roleForm";
     }
