@@ -24,7 +24,7 @@ public class ImageUtils {
     /**
      * 水印字体
      */
-    private static final Font FONT = new Font("微软雅黑", Font.PLAIN, 22);
+    private static final Font FONT = new Font("Arial", Font.PLAIN, 22);
 
     /**
      * 水印字体颜色
