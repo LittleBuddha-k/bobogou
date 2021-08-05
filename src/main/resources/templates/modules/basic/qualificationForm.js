@@ -10,7 +10,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     //多图片上传
     upload.render({
         elem: '#test1',
-        url: '/bobogou/file/picture',
+        url: '/bobogou/file/upload-watermark',
         multiple: true,
         accept: 'images',
         exts: 'jpg|png|jpeg|tif',
