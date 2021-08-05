@@ -87,14 +87,7 @@
         <include refid="qualificationJoins"/>
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1"'><!--如果不是管理员则查询自己及下级角色数据-->
-                    AND a.create_by = #{currentUser.id}
-                <if test="currentUserRole != null and currentUserRole != ''">
-                    OR c.parent_id=#{currentUserRole.id}
-                </if>
-                AND (a.status = 8
-                OR a.status = 10)
-            </if>
+            AND (a.status = 8 OR a.status = 10)
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
