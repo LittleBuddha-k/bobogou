@@ -1,6 +1,10 @@
 package com.littlebuddha.bobogou.modules.entity.basic;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.data.Street;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -14,6 +18,15 @@ public class Factory extends DataEntity<Factory> {
     private String linkman = "";//联系人
     private String phone = "";//联系人手机号
     private String idNumber = "";//身份证号
+    private Province province;
+    private String provinceId = "0";//省id
+    private City city;
+    private String cityId = "0";//市id
+    private Area area;
+    private String areaId = "0";//区id
+    private Street street;
+    private String streetId = "0";//街道id
+    private String detailAddress = "";//详细地址
     private String cardFront = "";//身份证正面地址
     private String cardBack = "";//身份证背面地址
     private String address = "";//厂商/企业联系地址
@@ -87,6 +100,80 @@ public class Factory extends DataEntity<Factory> {
 
     public void setIdNumber(String idNumber) {
         this.idNumber = idNumber;
+    }
+
+    public Province getProvince() {
+        return province;
+    }
+
+    public void setProvince(Province province) {
+        this.province = province;
+    }
+
+    public String getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    public Street getStreet() {
+        return street;
+    }
+
+    public void setStreet(Street street) {
+        this.street = street;
+    }
+
+    public String getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(String streetId) {
+        this.streetId = streetId;
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress;
     }
 
     public String getCardFront() {

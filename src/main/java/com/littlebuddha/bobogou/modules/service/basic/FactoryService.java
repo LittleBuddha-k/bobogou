@@ -5,7 +5,15 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.data.Street;
 import com.littlebuddha.bobogou.modules.mapper.basic.FactoryMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.AreaMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.CityMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.ProvinceMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.StreetMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -24,9 +32,37 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
     @Autowired
     private FactoryMapper factoryMapper;
 
+    @Autowired
+    private ProvinceMapper provinceMapper;
+
+    @Autowired
+    private CityMapper cityMapper;
+
+    @Autowired
+    private AreaMapper areaMapper;
+
+    @Autowired
+    private StreetMapper streetMapper;
+
     @Override
     public Factory get(Factory entity) {
         Factory factory = factoryMapper.get(entity);
+        if (factory != null && StringUtils.isNotBlank(factory.getProvinceId())){
+            Province province = provinceMapper.get(new Province(factory.getProvinceId()));
+            factory.setProvince(province);
+        }
+        if (factory != null && StringUtils.isNotBlank(factory.getCityId())){
+            City city = cityMapper.get(new City(factory.getCityId()));
+            factory.setCity(city);
+        }
+        if (factory != null && StringUtils.isNotBlank(factory.getAreaId())){
+            Area area = areaMapper.get(new Area(factory.getAreaId()));
+            factory.setArea(area);
+        }
+        if (factory != null && StringUtils.isNotBlank(factory.getStreetId())){
+            Street street = streetMapper.get(new Street(factory.getStreetId()));
+            factory.setStreet(street);
+        }
         if (factory != null && StringUtils.isNotBlank(factory.getCardFront())){
             String cardFront = factory.getCardFront();
             String aa = "";

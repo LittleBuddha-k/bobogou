@@ -6,7 +6,9 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
+import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
+import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +28,9 @@ public class FactoryController extends BaseController {
 
     @Autowired
     private FactoryService factoryService;
+
+    @Autowired
+    private ProvinceService provinceService;
 
     @ModelAttribute
     public Factory get(@RequestParam(required = false) String id) {
@@ -74,6 +80,9 @@ public class FactoryController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Factory factory, Model model) {
+        //查询省级数据
+        List<Province> provinceList = provinceService.findList(new Province());
+        model.addAttribute("provinceList", provinceList);
         model.addAttribute("factory", factory);
         return "modules/basic/factoryForm";
     }
