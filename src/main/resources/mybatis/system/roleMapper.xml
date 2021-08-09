@@ -66,6 +66,7 @@
         </choose>
     </select>
 
+    <!--主要用在编辑、查看的时候显示上级角色-->
     <select id="findNoAddList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
