@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     table.render({
         elem: '#goodsTable',
-        url: '/bobogou/data/goods/data',
+        url: '/bobogou/data/goods/finishedData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page

@@ -52,4 +52,11 @@ public interface GoodsMapper extends BaseMapper<Goods> {
      * @return
      */
     List<Goods> findCurrentDataList(Goods entity);
+
+    /**
+     * 商品列表数据，查询当前登录者创建的数据及其下级角色创建的数据
+     * 查找通过审核的数据供商品区域分配
+     * @return
+     */
+    List<Goods> findFinishedDataPage(Goods entity);
 }
