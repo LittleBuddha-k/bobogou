@@ -78,9 +78,9 @@
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <if test='currentUser.id != "1" and currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则不显示超级管理员,只查询当前角色和其下一级角色用户-->
+            <if test='currentUser.id != "1" and currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则显示自己、下级角色当前创建创建的用户-->
                 AND (a.create_by = #{currentUser.id}
-                    OR b.role_id = #{currentUserRole.id}
+                    OR a.id = #{currentUser.id}
                     OR c.parent_id = #{currentUserRole.id})
             </if>
             <if test="loginName != null and loginName != ''">
