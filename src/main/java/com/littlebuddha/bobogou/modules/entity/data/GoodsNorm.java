@@ -11,22 +11,22 @@ import org.apache.commons.lang3.StringUtils;
 public class GoodsNorm extends DataEntity<GoodsNorm> {
 
     private Factory factory;
-    private Integer factoryId;//厂商ID
-    private String factoryName;//厂商ID
+    private Integer factoryId = 0;//厂商ID
+    private String factoryName = "";//厂商ID
     private Goods goods;//商品外键
-    private Integer goodsId;//商品ID
-    private String goodsName;//商品ID
-    private String sampleBox;//样盒图片地址
-    private String outerPackingBox;//产品外包装盒，使用英文逗号分隔，按照近景图、正面图、底面图、有文字的侧面图先后顺序保存
-    private String instructionBook;//说明书图片
-    private String otherData;//其他获得药监批准的图文广告、学术资料图片，多张使用英文逗号分隔
-    private String relatedPictures;//其他必要的，方便识别、了解产品的相关图片，多张使用英文逗号分隔
-    private String instructions;//批件
-    private String qualityStandard;//质量标准
-    private String surveyReport;//省检验报告
-    private String prices;//物价
-    private String productionBusinessLicense;//生产企业营业执照地址
-    private String productionCertificate;//生产企业生产许可证地址
+    private Integer goodsId = 0;//商品ID
+    private String goodsName = "";//商品ID
+    private String sampleBox = "";//样盒图片地址
+    private String outerPackingBox = "";//产品外包装盒，使用英文逗号分隔，按照近景图、正面图、底面图、有文字的侧面图先后顺序保存
+    private String instructionBook = "";//说明书图片
+    private String otherData = "";//其他获得药监批准的图文广告、学术资料图片，多张使用英文逗号分隔
+    private String relatedPictures = "";//其他必要的，方便识别、了解产品的相关图片，多张使用英文逗号分隔
+    private String instructions = "";//批件
+    private String qualityStandard = "";//质量标准
+    private String surveyReport = "";//省检验报告
+    private String prices = "";//物价
+    private String productionBusinessLicense = "";//生产企业营业执照地址
+    private String productionCertificate = "";//生产企业生产许可证地址
 
     public GoodsNorm() {
     }

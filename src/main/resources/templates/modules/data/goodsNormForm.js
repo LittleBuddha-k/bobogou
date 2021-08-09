@@ -331,3 +331,35 @@ $("#btn_image_clear_test6").click(function () {
     $('#demo6').html("");
     $("#instructions").val('');
 });
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test7").click(function () {
+    $('#demo7').html("");
+    $("#qualityStandard").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test8").click(function () {
+    $('#demo8').html("");
+    $("#surveyReport").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test9").click(function () {
+    $('#demo9').html("");
+    $("#productionBusinessLicense").val('');
+});
+
+/**
+ * 多图清除按钮点击事件
+ */
+$("#btn_image_clear_test10").click(function () {
+    $('#demo10').html("");
+    $("#productionCertificate").val('');
+});

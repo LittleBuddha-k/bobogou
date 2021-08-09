@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getSampleBox() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getSampleBox() != null && goodsNorm.getSampleBox() != ''}">
             <label class="layui-form-label" for="sampleBox">样盒图片地址</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test1">样盒图片地址</button>
@@ -56,7 +56,7 @@
             </div>
             <input type="hidden" th:id="sampleBox" th:name="sampleBox" th:value="${goodsNorm.getSampleBox()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getSampleBox() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getSampleBox() == null || goodsNorm.getSampleBox() == ''}">
             <label class="layui-form-label" for="sampleBox">样盒图片地址</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test1">样盒图片地址</button>
@@ -68,7 +68,7 @@
             </div>
             <input type="hidden" id="sampleBox" name="sampleBox" th:value="${goodsNorm.getSampleBox()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getOuterPackingBox() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getOuterPackingBox() == null || goodsNorm.getOuterPackingBox() == ''}">
             <label class="layui-form-label" for="outerPackingBox">产品外包装盒</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test2">产品外包装盒</button>
@@ -80,7 +80,7 @@
             </div>
             <input type="hidden" th:id="outerPackingBox" th:name="outerPackingBox" th:value="${goodsNorm.getOuterPackingBox()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getOuterPackingBox() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getOuterPackingBox() != null && goodsNorm.getOuterPackingBox() != ''}">
             <label class="layui-form-label" for="outerPackingBox">产品外包装盒</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test2">产品外包装盒</button>
@@ -94,7 +94,7 @@
             </div>
             <input type="hidden" id="outerPackingBox" name="outerPackingBox" th:value="${goodsNorm.getOuterPackingBox()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getInstructionBook() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getInstructionBook() == null || goodsNorm.getInstructionBook() == ''}">
             <label class="layui-form-label" for="instructionBook">说明书图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test3">说明书图片</button>
@@ -106,7 +106,7 @@
             </div>
             <input type="hidden" th:id="instructionBook" th:name="instructionBook" th:value="${goodsNorm.getInstructionBook()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getInstructionBook() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getInstructionBook() != null && goodsNorm.getInstructionBook() != ''}">
             <label class="layui-form-label" for="instructionBook">说明书图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test3">说明书图片</button>
@@ -120,19 +120,19 @@
             </div>
             <input type="hidden" th:id="instructionBook" th:name="instructionBook" th:value="${goodsNorm.getInstructionBook()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getOtherData() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getOtherData() == null || goodsNorm.getOtherData() == ''}">
             <label class="layui-form-label" for="otherData">其他获得药监批准文件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test4">其他获得药监批准文件</button>
                 <button type="button" class="layui-btn" th:id="btn_image_clear_test4">清空多图</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;" th:if="${mode == 'add'}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4"></div>
                 </blockquote>
             </div>
             <input type="hidden" th:id="otherData" th:name="otherData" th:value="${goodsNorm.getOtherData()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getOtherData() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getOtherData() != null && goodsNorm.getOtherData() != ''}">
             <label class="layui-form-label" for="otherData">其他获得药监批准文件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test4">其他获得药监批准文件</button>
@@ -146,7 +146,7 @@
             </div>
             <input type="hidden" th:id="otherData" th:name="otherData" th:value="${goodsNorm.getOtherData()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getRelatedPictures() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getRelatedPictures() == null || goodsNorm.getRelatedPictures() == ''}">
             <label class="layui-form-label" for="relatedPictures">其他相关图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test5">其他相关图片</button>
@@ -158,7 +158,7 @@
             </div>
             <input type="hidden" th:id="relatedPictures" th:name="relatedPictures" th:value="${goodsNorm.getRelatedPictures()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getRelatedPictures() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getRelatedPictures() != null && goodsNorm.getRelatedPictures() != ''}">
             <label class="layui-form-label" for="relatedPictures">其他相关图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test5">其他相关图片</button>
@@ -172,7 +172,7 @@
             </div>
             <input type="hidden" id="relatedPictures" name="relatedPictures" th:value="${goodsNorm.getRelatedPictures()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getInstructions() == null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getInstructions() == null || goodsNorm.getInstructions() == ''}">
             <label class="layui-form-label" for="instructions">批件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test6">批件</button>
@@ -184,7 +184,7 @@
             </div>
             <input type="hidden" th:id="instructions" th:name="instructions" th:value="${goodsNorm.getInstructions()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getInstructions() != null}">
+        <div class="layui-form-item" th:if="${goodsNorm.getInstructions() != null && goodsNorm.getInstructions() != ''}">
             <label class="layui-form-label" for="instructions">批件</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" id="test6">批件</button>
@@ -198,7 +198,7 @@
             </div>
             <input type="hidden" th:id="instructions" th:name="instructions" th:value="${goodsNorm.getInstructions()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getQualityStandard() == null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getQualityStandard() == null || goodsNorm.getQualityStandard() == ''}">
             <label class="layui-form-label" for="qualityStandard">质量标准</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test7">质量标准</button>
@@ -210,7 +210,7 @@
             </div>
             <input type="hidden" th:id="qualityStandard" th:name="qualityStandard" th:value="${goodsNorm.getQualityStandard()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getQualityStandard() != null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getQualityStandard() != null && goodsNorm.getQualityStandard() != ''}">
             <label class="layui-form-label" for="qualityStandard">质量标准</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test7">质量标准</button>
@@ -224,7 +224,7 @@
             </div>
             <input type="hidden" th:id="qualityStandard" th:name="qualityStandard" th:value="${goodsNorm.getQualityStandard()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getSurveyReport() == null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getSurveyReport() == null || goodsNorm.getSurveyReport() == ''}">
             <label class="layui-form-label" for="surveyReport">省检验报告</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test8">省检验报告</button>
@@ -236,7 +236,7 @@
             </div>
             <input type="hidden" th:id="surveyReport" th:name="surveyReport" th:value="${goodsNorm.getSurveyReport()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getSurveyReport() != null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getSurveyReport() != null && goodsNorm.getSurveyReport() != ''}">
             <label class="layui-form-label" for="surveyReport">省检验报告</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test8">省检验报告</button>
@@ -250,7 +250,7 @@
             </div>
             <input type="hidden" th:id="surveyReport" th:name="surveyReport" th:value="${goodsNorm.getSurveyReport()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getProductionBusinessLicense() == null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getProductionBusinessLicense() == null || goodsNorm.getProductionBusinessLicense() == ''}">
             <label class="layui-form-label" for="productionBusinessLicense">生产企业营业执照</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test9">生产企业营业执照</button>
@@ -262,7 +262,7 @@
             </div>
             <input type="hidden" th:id="productionBusinessLicense" th:name="productionBusinessLicense" th:value="${goodsNorm.getProductionBusinessLicense()}">
         </div>
-        <div class="layui-form-item"  th:if="${goodsNorm.getProductionBusinessLicense() != null}">
+        <div class="layui-form-item"  th:if="${goodsNorm.getProductionBusinessLicense() != null && goodsNorm.getProductionBusinessLicense() != ''}">
             <label class="layui-form-label" for="productionBusinessLicense">生产企业营业执照</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test9">生产企业营业执照</button>
@@ -276,7 +276,7 @@
             </div>
             <input type="hidden" th:id="productionBusinessLicense" th:name="productionBusinessLicense" th:value="${goodsNorm.getProductionBusinessLicense()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getProductionCertificate() == null}" >
+        <div class="layui-form-item" th:if="${goodsNorm.getProductionCertificate() == null || goodsNorm.getProductionCertificate() == ''}" >
             <label class="layui-form-label" for="productionCertificate">生产企业生产许可证</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test10">生产企业生产许可证</button>
@@ -288,7 +288,7 @@
             </div>
             <input type="hidden" th:id="productionCertificate" th:name="productionCertificate" th:value="${goodsNorm.getProductionCertificate()}">
         </div>
-        <div class="layui-form-item" th:if="${goodsNorm.getProductionCertificate() != null}" >
+        <div class="layui-form-item" th:if="${goodsNorm.getProductionCertificate() != null && goodsNorm.getProductionCertificate() != ''}" >
             <label class="layui-form-label" for="productionCertificate">生产企业生产许可证</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test10">生产企业生产许可证</button>
