@@ -33,6 +33,9 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
             }
             goodsExchange.setImageUrl(images);
         }
+        if(goodsExchange != null && goodsExchange.getPrice() != null){
+            goodsExchange.setPrice(goodsExchange.getPrice() / 100);
+        }
         return goodsExchange;
     }
 
@@ -47,6 +50,9 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
                     images = images + (globalSetting.getRootPath() + image) + ",";
                 }
                 goodsExchange.setImageUrl(images);
+            }
+            if(goodsExchange != null && goodsExchange.getPrice() != null){
+                goodsExchange.setPrice(goodsExchange.getPrice() / 100);
             }
         }
         return list;
@@ -69,6 +75,9 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
                 }
                 goodsExchange.setImageUrl(images);
             }
+            if(goodsExchange != null && goodsExchange.getPrice() != null){
+                goodsExchange.setPrice(goodsExchange.getPrice() / 100);
+            }
         }
         return page1;
     }
@@ -78,6 +87,9 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
         entity.setIdType("AUTO");
         if(entity != null && entity.getImageUrl() != null && StringUtils.isNotBlank(entity.getImageUrl())){
             entity.setImageUrl(entity.getImageUrl().replaceAll(globalSetting.getRootPath(),""));
+        }
+        if(entity != null && entity.getPrice() != null){
+            entity.setPrice(entity.getPrice() * 100);
         }
         return super.save(entity);
     }

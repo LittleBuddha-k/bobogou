@@ -53,7 +53,9 @@ layui.use(['form', 'table'], function () {
                         let html = "";
                         if (imageUrl != null || imageUrl != ''){
                             for (let i = 0;i<split.length;i++){
-                                html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                if (split[i] != null && split[i] != ''){
+                                    html += '<img src="'+ split[i] +'" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
+                                }
                             }
                             return html;
                         }else {
