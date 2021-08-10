@@ -66,12 +66,12 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'type',
                     templet:function(data){
-                        let type = data.type;
-                        if(0 == type){
-                            return "系统消息"
-                        }else if(1 == type){
-                            return "促销活动消息"
+                        var type = data.type;
+                        let dictName = rc.getDictName("other_prompt_message_type",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },/*
                 {
