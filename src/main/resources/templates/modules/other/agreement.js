@@ -39,19 +39,11 @@ layui.use(['form', 'table'], function () {
                     sortName: 'type',
                     templet:function(data){
                         var type = data.type;
-                        if(1 == type){
-                            return "用户协议";
-                        }else if (2 == type){
-                            return "积分规则";
-                        }else if (3 == type){
-                            return "VIP规则";
-                        }else if (4 == type){
-                            return "播播豆协议";
-                        }else if (5 == type){
-                            return "提现规则";
-                        }else {
+                        let dictName = rc.getDictName("protocol",type);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

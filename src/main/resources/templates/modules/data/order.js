@@ -78,16 +78,12 @@ layui.use(['form', 'table'], function () {
                     width: '7.5%',
                     sortName: 'distributionMode',
                     templet: function (data) {
-                        let distributionMode = data.distributionMode;
-                        if(1 == distributionMode){
-                            return "顺丰";
-                        }else if (2 == distributionMode){
-                            return "京东";
-                        }else if (3 == distributionMode){
-                            return "其他物流";
-                        }else if (0 == distributionMode){
-                            return "未发货";
+                        var type = data.distributionMode;
+                        let dictName = rc.getDictName("order_distribution_mode",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -104,18 +100,12 @@ layui.use(['form', 'table'], function () {
                     width: '7.5%',
                     sortName: 'payMode',
                     templet: function (data) {
-                        let payMode = data.payMode;
-                        if(0 == payMode){
-                            return "兑换";
-                        }else if (1 == payMode){
-                            return "微信";
-                        }else if (2 == payMode){
-                            return "支付宝";
-                        }else if (3 == payMode){
-                            return "银行卡";
-                        }else {
-                            return "其他";
+                        var type = data.payMode;
+                        let dictName = rc.getDictName("order_pay_mode",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -125,14 +115,12 @@ layui.use(['form', 'table'], function () {
                     width: '7.5%',
                     sortName: 'type',
                     templet: function (data) {
-                        let type = data.type;
-                        if(0 == type){
-                            return "购买";
-                        }else if (1 == type){
-                            return "健康豆兑换";
-                        }else if (2 == type){
-                            return "积分兑换";
+                        var type = data.type;
+                        let dictName = rc.getDictName("oder_type",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -142,24 +130,12 @@ layui.use(['form', 'table'], function () {
                     width: '7.5%',
                     sortName: 'status',
                     templet: function (data) {
-                        let status = data.status;
-                        if(0 == status){
-                            return "已取消";
-                        }else if (1 == status){
-                            return "待付款";
-                        }else if (2 == status){
-                            return "待发货";
-                        }else if (3 == status){
-                            return "待收货";
-                        }else if (4 == status){
-                            return "已完成";
-                        }else if (5 == status){
-                            return "申请退款";
-                        }else if (6 == status){
-                            return "已同意退款";
-                        }else if (7 == status){
-                            return "退款完成";
+                        var type = data.status;
+                        let dictName = rc.getDictName("order_status",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

@@ -45,21 +45,11 @@ layui.use(['form', 'table'], function () {
                     sortName: 'type',
                     templet: function (data) {
                         var type = data.type;
-                        if (1 == type){
-                            return "药房合同";
-                        }else if (2 == type){
-                            return "诊所合同";
-                        }else if (3 == type){
-                            return "医院合同";
-                        }else if (4 == type){
-                            return "经纪人合同";
-                        }else if (5 == type){
-                            return "经理人合同";
-                        }else if (6 == type){
-                            return "厂商合同";
-                        }else {
+                        let dictName = rc.getDictName("basic_contract_type",type);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
