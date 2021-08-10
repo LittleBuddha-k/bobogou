@@ -46,8 +46,8 @@
             <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员角色-->
                 AND a.id != "1"
                 <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
-                    AND a.id = #{currentUserRole.id}
-                    OR a.parent_id = #{currentUserRole.id}
+                    AND (a.id = #{currentUserRole.id}
+                    OR a.parent_id = #{currentUserRole.id})
                 </if>
             </if>
             <if test='currentUser.id == "1"'><!--如果当前登录用户是超级管理员，不显示超级管理员的上一角色角色-->
@@ -81,9 +81,9 @@
             <!-- 判断条件参数是否为空 -->
             <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员角色-->
                 <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
-                    AND a.id = #{currentUserRole.id}
+                    AND (a.id = #{currentUserRole.id}
                     OR a.parent_id = #{currentUserRole.id}
-                    OR a.id = #{currentUserRole.parentId}
+                    OR a.id = #{currentUserRole.parentId})
                 </if>
             </if>
             <if test="name != null and name != ''">
@@ -153,8 +153,8 @@
             <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员角色-->
                 AND a.id != "1"
                 <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
-                    AND a.id = #{currentUserRole.id}
-                    OR a.parent_id = #{currentUserRole.id}
+                    AND (a.id = #{currentUserRole.id}
+                    OR a.parent_id = #{currentUserRole.id})
                 </if>
             </if>
             <if test='currentUser.id == "1"'><!--如果当前登录用户是超级管理员，不显示超级管理员的上一角色角色-->
