@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.other.PromptMessage;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.other.PromptMessageService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,9 @@ public class PromptMessageController extends BaseController {
 
     @Autowired
     private PromptMessageService promptMessageService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public PromptMessage get(@RequestParam(required = false) String id) {
@@ -93,6 +98,10 @@ public class PromptMessageController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, PromptMessage promptMessage, Model model) {
+        DictData entity = new DictData();
+        entity.setType("other_prompt_message_type");
+        List<DictData> promptMessageTypeList = dictDataService.findList(entity);
+        model.addAttribute("promptMessageTypeList", promptMessageTypeList);
         model.addAttribute("promptMessage", promptMessage);
         return "modules/other/promptMessageForm";
     }
