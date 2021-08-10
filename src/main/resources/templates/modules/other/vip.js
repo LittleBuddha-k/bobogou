@@ -52,15 +52,11 @@ layui.use(['form', 'table'], function () {
                     sortName: 'type',
                     templet:function(data){
                         var type = data.type;
-                        if (1 == type){
-                            return "药房";
-                        }else if (2 == type){
-                            return "诊所";
-                        }else if (3 == type){
-                            return "医院";
-                        }else {
-                            return "未知"
+                        let dictName = rc.getDictName("other_vip_rule",type);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

@@ -96,6 +96,21 @@
                 }
             });
         },
+
+        getDictName: function (type,value) {
+            let name = "";
+            $.ajax({
+                url: "/bobogou/basic/dictData/getByValue?type="+type + "&value=" +value,
+                method: "get",
+                async: false,
+                success: function (data) {
+                    if (data != null && data.name != ''){
+                        name = data.name;
+                    }
+                }
+            });
+            return name;
+        },
         treeTablePost: function post(url, data) {
             $.ajax({
                 url: url,    //请求的url地址
