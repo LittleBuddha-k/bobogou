@@ -34,6 +34,7 @@
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.parent_ids LIKE #{parentIds}
 	</select>
 
+    <!--列表数据-->
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
         SELECT
         <include refid="roleColumns"/>
@@ -48,6 +49,9 @@
                     AND a.id = #{currentUserRole.id}
                     OR a.parent_id = #{currentUserRole.id}
                 </if>
+            </if>
+            <if test='currentUser.id == "1"'><!--如果当前登录用户是超级管理员，不显示超级管理员的上一角色角色-->
+                AND a.id != "-1"
             </if>
             <if test="name != null and name != ''">
                 and a.name = #{name}
@@ -152,6 +156,9 @@
                     AND a.id = #{currentUserRole.id}
                     OR a.parent_id = #{currentUserRole.id}
                 </if>
+            </if>
+            <if test='currentUser.id == "1"'><!--如果当前登录用户是超级管理员，不显示超级管理员的上一角色角色-->
+                AND a.id != "-1"
             </if>
             <if test="name != null and name != ''">
                 and a.name = #{name}
