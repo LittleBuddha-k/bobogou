@@ -137,6 +137,39 @@
         </choose>
     </select>
 
+    <!--设置角色按钮弹出的数据-->
+    <select id="findAllData" resultType="com.littlebuddha.bobogou.modules.entity.system.Role">
+        SELECT
+        <include refid="roleColumns"/>
+        FROM system_role a
+        <include refid="roleJoins"/>
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则不显示超级管理员角色-->
+                AND a.id != "1"
+                <if test='currentUserRole.id != null'><!--如果当前登录用户不是超级管理员，则只查询当前角色和其下一级角色用户-->
+                    AND a.id = #{currentUserRole.id}
+                    OR a.parent_id = #{currentUserRole.id}
+                </if>
+            </if>
+            <if test="name != null and name != ''">
+                and a.name = #{name}
+            </if>
+            <if test="englishName != null and englishName != ''">
+                and a.english_name = #{englishName}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <insert id="insert">
         INSERT INTO system_role(
             id,

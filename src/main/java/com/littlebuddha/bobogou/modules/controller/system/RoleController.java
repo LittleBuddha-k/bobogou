@@ -74,11 +74,18 @@ public class RoleController extends BaseController {
         return getLayUiData(page);
     }
 
+    /**
+     * 查询不分页数据
+     * @param role
+     * @return
+     */
     @ResponseBody
     @GetMapping("/allData")
     public TreeResult allData(Role role) {
         TreeResult result = null;
-        List<Role> allList = roleService.findList(new Role());
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        role.setCurrentUserRole(currentUserRole);
+        List<Role> allList = roleService.findAllData(role);
         if (allList != null && allList.size() > 0) {
             result = new TreeResult(0, "数据成功", allList, allList.size());
         } else {

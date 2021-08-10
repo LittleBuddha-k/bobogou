@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     table.render({
         elem: '#roleTable',
-        url: '/bobogou/system/role/data',
+        url: '/bobogou/system/role/allData',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page

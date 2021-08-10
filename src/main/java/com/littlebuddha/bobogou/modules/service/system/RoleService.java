@@ -165,4 +165,14 @@ public class RoleService extends CrudService<Role, RoleMapper> {
         List<Role>  list = roleMapper.findNoAddList(entity);
         return list;
     }
+
+    /**
+     * 根据当前用户查询所有不分页角色数据
+     * @param role
+     * @return
+     */
+    public List<Role> findAllData(Role role) {
+        List<Role> list = roleMapper.findAllData(role);
+        return list;
+    }
 }

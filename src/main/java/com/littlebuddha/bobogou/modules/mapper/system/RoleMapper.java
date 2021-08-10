@@ -31,4 +31,11 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      */
     List<Role> findNoAddList(Role entity);
+
+    /**
+     * 根据当前用户查询所有不分页角色数据
+     * @param role
+     * @return
+     */
+    List<Role> findAllData(Role role);
 }
