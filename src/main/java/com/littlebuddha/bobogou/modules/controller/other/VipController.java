@@ -8,7 +8,9 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.other.VipService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +33,9 @@ public class VipController extends BaseController {
 
     @Autowired
     private VipService vipService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public Vip get(@RequestParam(required = false) String id) {
@@ -93,6 +98,10 @@ public class VipController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Vip vip, Model model) {
+        DictData entity = new DictData();
+        entity.setType("other_vip_rule");
+        List<DictData> typeList = dictDataService.findList(entity);
+        model.addAttribute("typeList", typeList);
         model.addAttribute("vip", vip);
         return "modules/other/vipForm";
     }

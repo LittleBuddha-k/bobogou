@@ -29,28 +29,9 @@
                 <label class="layui-form-label" for="type">类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${vip.getType() == null}">
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="2" th:text="诊所"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${vip.getType() == 1}">
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="2" th:text="诊所"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${vip.getType() == 2}">
-                        <option th:value="2" th:text="诊所"/>
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="3" th:text="医院"/>
-                    </select>
-                    <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:if="${vip.getType() == 3}">
-                        <option th:value="3" th:text="医院"/>
-                        <option th:value="1" th:text="药房"/>
-                        <option th:value="2" th:text="诊所"/>
+                            th:id="type">
+                        <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${vip.getType()}"/>
                     </select>
                 </div>
             </div>
