@@ -116,7 +116,7 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
         if (entity != null && StringUtils.isNotBlank(entity.getOperatorId())){
             Operator operator = operatorMapper.get(entity.getOperatorId());
             String userId = operator.getUserId();
-            if (userId != null && StringUtils.isNotBlank()){
+            if (userId != null && StringUtils.isNotBlank(userId)){
                 entity.setUserId(userId);
             }else {
                 entity.setUserId("0");

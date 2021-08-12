@@ -51,9 +51,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getOperatorId() {
-        if (operator != null && StringUtils.isNotBlank(operator.getId())){
-            operatorId = operator.getId();
-        }
         return operatorId;
     }
 
@@ -81,9 +78,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getUserId() {
-        if (customerUser != null && StringUtils.isNotBlank(customerUser.getId())){
-            userId = customerUser.getId();
-        }
         return userId;
     }
 
@@ -119,9 +113,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getProvinceId() {
-        if (province != null && StringUtils.isNotBlank(province.getId())){
-            provinceId = province.getId();
-        }
         return provinceId;
     }
 
@@ -149,9 +140,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getCityId() {
-        if (city != null && StringUtils.isNotBlank(city.getId())){
-            cityId = city.getId();
-        }
         return cityId;
     }
 
@@ -179,9 +167,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getAreaId() {
-        if (area != null && StringUtils.isNotBlank(area.getId())){
-            areaId = area.getId();
-        }
         return areaId;
     }
 
@@ -209,9 +194,6 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     }
 
     public String getStreetId() {
-        if (street != null && StringUtils.isNotBlank(street.getId())){
-            streetId = street.getId();
-        }
         return streetId;
     }
 
