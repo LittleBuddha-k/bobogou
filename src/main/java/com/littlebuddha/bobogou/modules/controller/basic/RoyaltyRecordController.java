@@ -7,6 +7,7 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
+import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.service.basic.RoyaltyRecordService;
 import com.littlebuddha.bobogou.modules.service.other.CustomerUserService;
 import org.apache.commons.lang3.StringUtils;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +33,9 @@ public class RoyaltyRecordController extends BaseController {
 
     @Autowired
     private CustomerUserService customerUserService;
+
+    @Resource
+    private CustomerUserMapper customerUserMapper;
 
     @ModelAttribute
     public RoyaltyRecord get(@RequestParam(required = false) String id) {
@@ -55,7 +60,7 @@ public class RoyaltyRecordController extends BaseController {
     @GetMapping(value = {"/", "/list"})
     public String list(RoyaltyRecord royaltyRecord, Model model, HttpSession session) {
         //查询所有用户列表，前端作下拉显示
-        List<CustomerUser> customerUserList = customerUserService.findList(new CustomerUser());
+        List<CustomerUser> customerUserList = customerUserMapper.findAllList(new CustomerUser());
         model.addAttribute("customerUserList", customerUserList);
         model.addAttribute("royaltyRecord", royaltyRecord);
         return "modules/basic/royaltyRecord";
