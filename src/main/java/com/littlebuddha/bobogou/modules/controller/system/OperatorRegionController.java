@@ -6,9 +6,11 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
 import com.littlebuddha.bobogou.modules.service.system.OperatorRegionService;
 import org.apache.commons.lang3.StringUtils;
@@ -30,6 +32,9 @@ public class OperatorRegionController extends BaseController {
 
     @Autowired
     private ProvinceService provinceService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public OperatorRegion get(@RequestParam(required = false) String id) {
@@ -87,6 +92,10 @@ public class OperatorRegionController extends BaseController {
         //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
+        DictData entity = new DictData();
+        entity.setType("system_region_operator_type");
+        List<DictData> typeList = dictDataService.findList(entity);
+        model.addAttribute("typeList", typeList);
         model.addAttribute("operatorRegion", operatorRegion);
         return "modules/system/operatorRegionForm";
     }
