@@ -97,17 +97,11 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     templet: function (data) {
                         var type = data.type;
-                        if (1 == type) {
-                            return "超级管理员助理";
-                        } else if (2 == type) {
-                            return "省级经理";
-                        } else if (3 == type) {
-                            return "市级经理";
-                        } else if (4 == type) {
-                            return "区级经纪人";
-                        }else {
+                        let dictName = rc.getDictName("system_region_operator_type",type);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
