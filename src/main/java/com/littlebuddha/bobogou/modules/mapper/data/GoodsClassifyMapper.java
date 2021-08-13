@@ -14,7 +14,12 @@ import java.util.List;
 @Mapper
 public interface GoodsClassifyMapper extends BaseMapper<GoodsClassify> {
 
-    GoodsClassify getByGoods(GoodsClassify goodsClassify);
+    /**
+     * 根据商品id去查
+     * @param goodsClassify
+     * @return
+     */
+    List<GoodsClassify> getByGoods(GoodsClassify goodsClassify);
 
     //根据商品id逻辑删除
     void deleteLogicByGoods(GoodsClassify goodsClassify);
