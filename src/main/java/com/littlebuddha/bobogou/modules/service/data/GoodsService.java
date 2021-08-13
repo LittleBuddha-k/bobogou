@@ -189,12 +189,47 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             String[] levelOneList = goodsClassifyLevelOneIds.split(",");
             String[] levelTwoList = goodsClassifyLevelTwoIds.split(",");
             String[] levelThreeList = goodsClassifyLevelThreeIds.split(",");
-            if (entity.getGoodsClassify() != null && StringUtils.isNotBlank(entity.getGoodsClassify().getId())){
+            if (entity.getGoodsClassifyLevelOneIds() != null && StringUtils.isNotBlank(entity.getGoodsClassifyLevelOneIds())){
                 Classify classify = classifyMapper.get(entity.getGoodsClassify().getId());
-                GoodsClassify goodsClassify = goodsClassifyMapper.get(entity.getGoodsClassify().getId());
+                //先插入一级分类
+                for (String levelOne : levelOneList) {
+                    if (levelOne != null && StringUtils.isNotBlank(levelOne)) {
+
+                    }
+                }
             }else {
                 Classify classify = new Classify();
                 GoodsClassify goodsClassify = new GoodsClassify();
+                for (String levelOne : levelOneList) {
+                    if (levelOne != null && StringUtils.isNotBlank(levelOne)) {
+                        goodsClassify.setClassifyId(levelOne);
+                        goodsClassify.setId(entity.getId());
+                        goodsClassify.preInsert();
+                        goodsClassifyMapper.insert(goodsClassify);
+                    }
+                    for (String levelTwo : levelTwoList) {
+                        if (levelTwo != null && StringUtils.isNotBlank(levelTwo)) {
+                            Classify classifyTwo = classifyMapper.get(levelTwo);
+                            if (levelOne.equals(classifyTwo.getParentId())){
+                                goodsClassify.setSecondClassifyId(levelTwo);
+                                goodsClassify.setId(entity.getId());
+                                goodsClassify.preInsert();
+                                goodsClassifyMapper.insert(goodsClassify);
+                            }
+                        }
+                        for (String levelThree : levelThreeList) {
+                            if (levelThree != null && StringUtils.isNotBlank(levelThree)) {
+                                Classify classifyThree = classifyMapper.get(levelThree);
+                                if (levelTwo.equals(classifyThree.getParentId())){
+                                    goodsClassify.setSecondClassifyId(levelTwo);
+                                    goodsClassify.setId(entity.getId());
+                                    goodsClassify.preInsert();
+                                    goodsClassifyMapper.insert(goodsClassify);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
 
