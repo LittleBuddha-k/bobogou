@@ -75,8 +75,8 @@ public class GoodsClassifyService extends CrudService<GoodsClassify, GoodsClassi
         return super.recovery(entity);
     }
 
-    public GoodsClassify getByGoods(GoodsClassify entity) {
-        GoodsClassify goodsClassify = goodsClassifyMapper.getByGoods(entity);
-        return goodsClassify;
+    public List<GoodsClassify> getByGoods(GoodsClassify entity) {
+        List<GoodsClassify> byGoods = goodsClassifyMapper.getByGoods(entity);
+        return byGoods;
     }
 }
