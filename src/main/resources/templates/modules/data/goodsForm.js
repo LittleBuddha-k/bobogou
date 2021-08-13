@@ -159,6 +159,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     }
                 }
                 $("#goodsTypeLevelTwo").empty();
+                $("#goodsTypeLevelThree").empty();
             } else {
 
             }
