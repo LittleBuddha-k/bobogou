@@ -65,15 +65,9 @@ public class Goods extends DataEntity<Goods> {
     private String accountId = "";//最后操作人ID
 
     private GoodsClassify goodsClassify;//商品分类外键
-    private Classify classify;//一级分类
-    private String classifyId = "";//一级分类
-    private String classifyName;//一级分类
-    private Classify secondClassify;//二级分类
-    private String secondClassifyId = "";//二级分类
-    private String secondClassifyName;//二级分类
-    private Classify reclassify;//三级分类
-    private String reclassifyId = "";//三级分类
-    private String reclassifyName;//三级分类
+    private String goodsClassifyLevelOneIds = "";//商品一级分类
+    private String goodsClassifyLevelTwoIds = "";//商品二级分类
+    private String goodsClassifyLevelThreeIds = "";//商品三级分类
 
     private GoodsSpecification goodsSpecification;//商品规格外键
 
@@ -446,94 +440,28 @@ public class Goods extends DataEntity<Goods> {
         this.goodsClassify = goodsClassify;
     }
 
-    public Classify getClassify() {
-        return classify;
+    public String getGoodsClassifyLevelOneIds() {
+        return goodsClassifyLevelOneIds;
     }
 
-    public void setClassify(Classify classify) {
-        this.classify = classify;
+    public void setGoodsClassifyLevelOneIds(String goodsClassifyLevelOneIds) {
+        this.goodsClassifyLevelOneIds = goodsClassifyLevelOneIds;
     }
 
-    public String getClassifyId() {
-        if (classify != null && StringUtils.isNotBlank(classify.getId())){
-            classifyId =  classify.getId();
-        }
-        return classifyId;
+    public String getGoodsClassifyLevelTwoIds() {
+        return goodsClassifyLevelTwoIds;
     }
 
-    public void setClassifyId(String classifyId) {
-        this.classifyId = classifyId;
+    public void setGoodsClassifyLevelTwoIds(String goodsClassifyLevelTwoIds) {
+        this.goodsClassifyLevelTwoIds = goodsClassifyLevelTwoIds;
     }
 
-    public String getClassifyName() {
-        if (classify != null && StringUtils.isNotBlank(classify.getName())){
-            classifyId =  classify.getName();
-        }
-        return classifyName;
+    public String getGoodsClassifyLevelThreeIds() {
+        return goodsClassifyLevelThreeIds;
     }
 
-    public void setClassifyName(String classifyName) {
-        this.classifyName = classifyName;
-    }
-
-    public Classify getSecondClassify() {
-        return secondClassify;
-    }
-
-    public void setSecondClassify(Classify secondClassify) {
-        this.secondClassify = secondClassify;
-    }
-
-    public String getSecondClassifyId() {
-        if (secondClassify != null && StringUtils.isNotBlank(secondClassify.getId())){
-            secondClassifyId =  secondClassify.getId();
-        }
-        return secondClassifyId;
-    }
-
-    public void setSecondClassifyId(String secondClassifyId) {
-        this.secondClassifyId = secondClassifyId;
-    }
-
-    public String getSecondClassifyName() {
-        if (secondClassify != null && StringUtils.isNotBlank(secondClassify.getName())){
-            secondClassifyName =  secondClassify.getName();
-        }
-        return secondClassifyName;
-    }
-
-    public void setSecondClassifyName(String secondClassifyName) {
-        this.secondClassifyName = secondClassifyName;
-    }
-
-    public Classify getReclassify() {
-        return reclassify;
-    }
-
-    public void setReclassify(Classify reclassify) {
-        this.reclassify = reclassify;
-    }
-
-    public String getReclassifyId() {
-        if (reclassify != null && StringUtils.isNotBlank(reclassify.getId())){
-            reclassifyId =  reclassify.getId();
-        }
-        return reclassifyId;
-    }
-
-    public void setReclassifyId(String reclassifyId) {
-        this.reclassifyId = reclassifyId;
-    }
-
-    public String getReclassifyName() {
-        if (reclassify != null && StringUtils.isNotBlank(reclassify.getName())){
-            reclassifyName =  reclassify.getName();
-        }
-        return reclassifyName;
-    }
-
-    public void setReclassifyName(String reclassifyName) {
-        this.reclassifyName = reclassifyName;
+    public void setGoodsClassifyLevelThreeIds(String goodsClassifyLevelThreeIds) {
+        this.goodsClassifyLevelThreeIds = goodsClassifyLevelThreeIds;
     }
 
     public GoodsSpecification getGoodsSpecification() {

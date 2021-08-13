@@ -120,48 +120,123 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     });
 
     //商品分类级联下拉框
-    //下拉框选中后的时间
-    form.on('select(levelOne)', function (data) {
-        let parentId = data.value;
-        $("#levelTwo").empty();//清空二级
-        $("#levelThree").empty();//清空三级
-        rc.post("/bobogou/data/classify/all", {"parentId": parentId}, function (data) {
-            if (data.length > 0) {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                for (let i = 0; i < data.length; i++) {
-                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
-                }
-                $("#levelTwo").html(tmp);
-                form.render();
+    //下拉框选中后的事件
+    form.on('checkbox(goodsTypeLevelOneId)', function (data) {
+        let checked = data.elem.checked; //是否被选中，true或者false
+        let id = data.value; //复选框value值，也可以通过data.elem.value得到
+        if (checked) {
+            let goodsType = $("#goodsClassifyLevelOneIds").val();
+            var select = "";
+            if (goodsType) {
+                select = goodsType + "," + id;
             } else {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                $("#levelTwo").html(tmp);
-                form.render();
+                select = id;
             }
-        })
+            $("#goodsClassifyLevelOneIds").val(select);
+            rc.post("/bobogou/data/classify/all", {"parentId": id}, function (data) {
+                var tmp = "";
+                if (data.length > 0) {
+                    //对应的值传回，拼出html下拉框语句
+                    for (let i = 0; i < data.length; i++) {
+                        tmp += "<input type='checkbox' value=" + data[i].id + " title=" + data[i].name + " lay-filter='goodsTypeLevelTwoId'>";
+                    }
+                    $("#goodsTypeLevelTwo").append(tmp);
+                    form.render();
+                } else {
+                    //对应的值传回，拼出html下拉框语句
+                }
+            })
+        } else {
+            let goodsType = $("#goodsClassifyLevelOneIds").val();
+            let split = goodsType.split(",");
+            var select = "";
+            if (goodsType) {
+                select = id;
+                for(var i = 0;i<split.length;i++){
+                    if (select == split[i]){
+                        split.remove(select);
+                        $("#goodsClassifyLevelOneIds").val(split);
+                    }
+                }
+                $("#goodsTypeLevelTwo").empty();
+            } else {
+
+            }
+        }
     });
-    //下拉框选中后的时间
-    form.on('select(levelTwo)', function (data) {
-        let parentId = data.value;
-        $("#levelThree").empty();//清空城市选项
-        rc.post("/bobogou/data/classify/all", {"parentId": parentId}, function (data) {
-            if (data.length > 0) {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                for (let i = 0; i < data.length; i++) {
-                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
-                }
-                $("#levelThree").html(tmp);
-                form.render();
+    //下拉框选中后的事件
+    form.on('checkbox(goodsTypeLevelTwoId)', function (data) {
+        let checked = data.elem.checked; //是否被选中，true或者false
+        let id = data.value; //复选框value值，也可以通过data.elem.value得到
+        if (checked) {
+            let goodsType = $("#goodsClassifyLevelTwoIds").val();
+            var select = "";
+            if (goodsType) {
+                select = goodsType + "," + id;
             } else {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                $("#levelThree").html(tmp);
-                form.render();
+                select = id;
             }
-        })
+            $("#goodsClassifyLevelTwoIds").val(select);
+            rc.post("/bobogou/data/classify/all", {"parentId": id}, function (data) {
+                var tmp = "";
+                if (data.length > 0) {
+                    //对应的值传回，拼出html下拉框语句
+                    for (let i = 0; i < data.length; i++) {
+                        tmp += "<input type='checkbox' value=" + data[i].id + " title=" + data[i].name + " lay-filter='goodsTypeLevelThreeId'>";
+                    }
+                    $("#goodsTypeLevelThree").append(tmp);
+                    form.render();
+                } else {
+                    //对应的值传回，拼出html下拉框语句
+                }
+            })
+        } else {
+            let goodsType = $("#goodsClassifyLevelTwoIds").val();
+            let split = goodsType.split(",");
+            var select = "";
+            if (goodsType) {
+                select = id;
+                for(var i = 0;i<split.length;i++){
+                    if (select == split[i]){
+                        split.remove(select);
+                        $("#goodsClassifyLevelTwoIds").val(split);
+                    }
+                }
+                $("#goodsTypeLevelThree").empty();
+            } else {
+
+            }
+        }
+    });
+    //下拉框选中后的事件
+    form.on('checkbox(goodsTypeLevelThreeId)', function (data) {
+        let checked = data.elem.checked; //是否被选中，true或者false
+        let id = data.value; //复选框value值，也可以通过data.elem.value得到
+        if (checked) {
+            let goodsType = $("#goodsClassifyLevelThreeIds").val();
+            var select = "";
+            if (goodsType) {
+                select = goodsType + "," + id;
+            } else {
+                select = id;
+            }
+            $("#goodsClassifyLevelThreeIds").val(select);
+        } else {
+            let goodsType = $("#goodsClassifyLevelThreeIds").val();
+            let split = goodsType.split(",");
+            var select = "";
+            if (goodsType) {
+                select = id;
+                for(var i = 0;i<split.length;i++){
+                    if (select == split[i]){
+                        split.remove(select);
+                        $("#goodsClassifyLevelThreeIds").val(split);
+                    }
+                }
+            } else {
+
+            }
+        }
     });
 
     //多图片上传药品资质证书（带水印）

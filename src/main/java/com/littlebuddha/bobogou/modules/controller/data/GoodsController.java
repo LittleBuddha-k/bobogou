@@ -30,6 +30,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -78,10 +79,10 @@ public class GoodsController extends BaseController {
     @Autowired
     private DosageFormService dosageFormService;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private OperatorRoleMapper operatorRoleMapper;
 
     @Autowired
@@ -97,10 +98,6 @@ public class GoodsController extends BaseController {
                 goods.setFactory(factory);
             }
             if (goods != null && StringUtils.isNotBlank(goods.getId())) {
-                GoodsClassify goodsClassify = goodsClassifyService.get(new GoodsClassify(goods.getId()));
-                goods.setGoodsClassify(goodsClassify);
-            }
-            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsSpecification goodsSpecification = goodsSpecificationService.get(new GoodsSpecification(goods.getId().toString()));
                 goods.setGoodsSpecification(goodsSpecification);
             }
@@ -111,6 +108,10 @@ public class GoodsController extends BaseController {
             if (goods != null && StringUtils.isNotBlank(goods.getId())) {
                 GoodsNorm goodsNorm = goodsNormService.get(new GoodsNorm(goods.getId()));
                 goods.setGoodsNorm(goodsNorm);
+            }
+            if (goods != null && StringUtils.isNotBlank(goods.getId())) {
+                GoodsClassify goodsClassify = goodsClassifyService.get(new GoodsClassify(goods.getId()));
+                goods.setGoodsClassify(goodsClassify);
             }
         }
         if (goods == null) {
@@ -250,9 +251,6 @@ public class GoodsController extends BaseController {
                 Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
                 Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
                 Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
-                goods.setClassify(classify);
-                goods.setSecondClassify(secondClassify);
-                goods.setReclassify(reclassify);
             }
         }
         //查询商品详情
@@ -485,9 +483,6 @@ public class GoodsController extends BaseController {
                 Classify classify = classifyService.get(new Classify(goodsClassify.getClassifyId()));
                 Classify secondClassify = classifyService.get(new Classify(goodsClassify.getSecondClassifyId()));
                 Classify reclassify = classifyService.get(new Classify(goodsClassify.getReclassifyId()));
-                goods.setClassify(classify);
-                goods.setSecondClassify(secondClassify);
-                goods.setReclassify(reclassify);
             }
         }
         //查询商品详情

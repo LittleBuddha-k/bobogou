@@ -15,12 +15,12 @@
         <input type="hidden" name="id" th:value="${goods.getId()}">
         <input type="hidden" th:if="${goods.getGoodsInfo() != null}" name="goodsInfo.id"
                th:value="${goods.getGoodsInfo().getId()}">
-        <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id"
-               th:value="${goods.getGoodsClassify().getId()}">
         <input type="hidden" th:if="${goods.getGoodsSpecification() != null}" name="goodsSpecification.id"
                th:value="${goods.getGoodsSpecification().getId()}">
         <input type="hidden" th:if="${goods.getGoodsNorm() != null}" name="goodsNorm.id"
                th:value="${goods.getGoodsNorm().getId()}">
+        <input type="hidden" th:if="${goods.getGoodsClassify() != null}" name="goodsClassify.id"
+               th:value="${goods.getGoodsClassify().getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="name">商品名</label>
@@ -168,77 +168,32 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">商品分类</label>
-                <div class="layui-input-inline">
-                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() == null}">
-                        <option value="0">请选择</option>
-                        <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
-                                th:text="${levelOne.getName()}">
-                        </option>
-                    </select>
-                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
-                            th:if="${mode != 'detail' && goods.getGoodsClassify() != null}">
-                        <option th:each="levelOne:${goodsTypeLevelOne}"
-                                th:if="${goods.getClassifyId() == levelOne.getId()}"
-                                th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
-                        </option>
-                        <option th:each="levelOne:${goodsTypeLevelOne}"
-                                th:if="${goods.getClassifyId() != levelOne.getId()}"
-                                th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
-                        </option>
-                    </select>
-                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() == null}">
-                        <option value="0">请选择</option>
-                        <option th:each="levelOne:${goodsTypeLevelOne}" th:value="${levelOne.getId()}"
-                                th:text="${levelOne.getName()}">
-                        </option>
-                    </select>
-                    <select name="goodsClassify.classifyId" lay-filter="levelOne"
-                            th:if="${mode == 'detail' && goods.getGoodsClassify() != null}" disabled="true">
-                        <option th:each="levelOne:${goodsTypeLevelOne}"
-                                th:if="${goods.getClassifyId() == levelOne.getId()}"
-                                th:value="${levelOne.getId()}" th:text="${levelOne.getName()}">
-                        </option>
-                    </select>
+                <label class="layui-form-label">商品一级分类</label>
+                <div class="layui-input-block" th:if="${mode != 'detail'}" th:id="goodsTypeLevelOne">
+                    <input type="checkbox" th:if="${mode == 'add'}" th:each="goodsType:${goodsTypeLevelOne}"
+                           th:value="${goodsType.getId()}" th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelOneId">
+                    <input type="checkbox"
+                           th:if="${mode != 'add' && goods.getGoodsClassifyLevelOneIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelOne}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelOneId" checked>
+                    <input type="checkbox"
+                           th:if="${mode != 'add' && !goods.getGoodsClassifyLevelOneIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelOne}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelOneId">
                 </div>
-                <!--二级分类-->
-                <div class="layui-input-inline">
-                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode != 'detail' && goods.getSecondClassify() == null}">
-                    </select>
-                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode != 'detail' && goods.getSecondClassify() != null}">
-                        <option th:value="${goods.getSecondClassifyId()}"
-                                th:text="${goods.getSecondClassifyName()}"></option>
-                    </select>
-                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode == 'detail' && goods.getSecondClassify() == null}" disabled="true">
-                    </select>
-                    <select name="goodsClassify.secondClassifyId" lay-filter="levelTwo" th:id="levelTwo"
-                            th:if="${mode == 'detail' && goods.getSecondClassify() != null}" disabled="true">
-                        <option th:value="${goods.getSecondClassifyId()}"
-                                th:text="${goods.getSecondClassifyName()}"></option>
-                    </select>
+                <input type="hidden" name="goodsClassifyLevelOneIds" th:id="goodsClassifyLevelOneIds" th:value="${goods.getGoodsClassifyLevelOneIds()}">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品二级分类</label>
+                <div class="layui-input-block" th:if="${mode != 'detail'}" th:id="goodsTypeLevelTwo">
                 </div>
-                <!--三级分类-->
-                <div class="layui-input-inline">
-                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode != 'detail' && goods.getReclassify() == null}">
-                    </select>
-                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode != 'detail' && goods.getReclassify() != null}">
-                        <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
-                    </select>
-                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode == 'detail' && goods.getReclassify() == null}" disabled="true">
-                    </select>
-                    <select name="goodsClassify.reclassifyId" lay-verify="" lay-filter="levelThree" th:id="levelThree"
-                            th:if="${mode == 'detail' && goods.getReclassify() != null}" disabled="true">
-                        <option th:value="${goods.getReclassifyId()}" th:text="${goods.getReclassifyName()}"></option>
-                    </select>
+                <input type="hidden" name="goodsClassifyLevelTwoIds" th:id="goodsClassifyLevelTwoIds" th:value="${goods.getGoodsClassifyLevelTwoIds()}">
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">商品三级分类</label>
+                <div class="layui-input-block" th:if="${mode != 'detail'}" th:id="goodsTypeLevelThree">
                 </div>
+                <input type="hidden" name="goodsClassifyLevelThreeIds" th:id="goodsClassifyLevelThreeIds" th:value="${goods.getGoodsClassifyLevelThreeIds()}">
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="electronicCode">电子监管码</label>

@@ -15,6 +15,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -24,33 +25,36 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Autowired
     private GlobalSetting globalSetting;
 
-    @Autowired
+    @Resource
     private GoodsMapper goodsMapper;
 
-    @Autowired
+    @Resource
     private GoodsInfoMapper goodsInfoMapper;
 
-    @Autowired
+    @Resource
     private GoodsClassifyMapper goodsClassifyMapper;
 
-    @Autowired
+    @Resource
     private GoodsSpecificationMapper goodsSpecificationMapper;
 
-    @Autowired
+    @Resource
     private GoodsNormMapper goodsNormMapper;
+
+    @Resource
+    private ClassifyMapper classifyMapper;
 
     @Override
     public Goods get(Goods entity) {
         Goods goods = super.get(entity);
-        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImageWatermark())){
+        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImageWatermark())) {
             String certificateImageWatermark = goods.getCertificateImageWatermark();
             goods.setCertificateImageWatermark(globalSetting.getRootPath() + certificateImageWatermark);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())){
+        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())) {
             String certificateImage = goods.getCertificateImage();
             goods.setCertificateImage(globalSetting.getRootPath() + certificateImage);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getFrontImages())){
+        if (goods != null && StringUtils.isNotBlank(goods.getFrontImages())) {
             String frontImages = goods.getFrontImages();
             String aa = "";
             String[] split = frontImages.split(",");
@@ -59,7 +63,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setFrontImages(aa);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getBackImages())){
+        if (goods != null && StringUtils.isNotBlank(goods.getBackImages())) {
             String backImages = goods.getBackImages();
             String aa = "";
             String[] split = backImages.split(",");
@@ -68,7 +72,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setBackImages(aa);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getBottomImages())){
+        if (goods != null && StringUtils.isNotBlank(goods.getBottomImages())) {
             String bottomImages = goods.getBottomImages();
             String aa = "";
             String[] split = bottomImages.split(",");
@@ -77,19 +81,19 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             }
             goods.setBottomImages(aa);
         }
-        if (goods != null && goods.getPurchasingPrice() != null){
+        if (goods != null && goods.getPurchasingPrice() != null) {
             goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
         }
-        if (goods != null && goods.getOriginalCost() != null){
+        if (goods != null && goods.getOriginalCost() != null) {
             goods.setOriginalCost(goods.getOriginalCost() / 100);
         }
-        if (goods != null && goods.getSellingPrice() != null){
+        if (goods != null && goods.getSellingPrice() != null) {
             goods.setSellingPrice(goods.getSellingPrice() / 100);
         }
-        if (goods != null && goods.getVipPrice() != null){
+        if (goods != null && goods.getVipPrice() != null) {
             goods.setVipPrice(goods.getVipPrice() / 100);
         }
-        if (goods != null && goods.getWeight() != null){
+        if (goods != null && goods.getWeight() != null) {
             goods.setWeight(goods.getWeight() / 1000);
         }
         return goods;
@@ -123,34 +127,34 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     public int save(Goods entity) {
         entity.setIdType("AUTO");
         //设置图片插入路径格式
-        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImageWatermark())){
-            entity.setCertificateImageWatermark(entity.getCertificateImageWatermark().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImageWatermark())) {
+            entity.setCertificateImageWatermark(entity.getCertificateImageWatermark().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())){
-            entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())) {
+            entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getFrontImages())){
-            entity.setFrontImages(entity.getFrontImages().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getFrontImages())) {
+            entity.setFrontImages(entity.getFrontImages().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getBackImages())){
-            entity.setBackImages(entity.getBackImages().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getBackImages())) {
+            entity.setBackImages(entity.getBackImages().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getBottomImages())){
-            entity.setBottomImages(entity.getBottomImages().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getBottomImages())) {
+            entity.setBottomImages(entity.getBottomImages().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && entity.getPurchasingPrice() != null){
+        if (entity != null && entity.getPurchasingPrice() != null) {
             entity.setPurchasingPrice(entity.getPurchasingPrice() * 100);//数据库以分为单位保存
         }
-        if (entity != null && entity.getOriginalCost() != null){
+        if (entity != null && entity.getOriginalCost() != null) {
             entity.setOriginalCost(entity.getOriginalCost() * 100);//数据库以分为单位保存
         }
-        if (entity != null && entity.getSellingPrice() != null){
+        if (entity != null && entity.getSellingPrice() != null) {
             entity.setSellingPrice(entity.getSellingPrice() * 100);//数据库以分为单位保存
         }
-        if (entity != null && entity.getVipPrice() != null){
+        if (entity != null && entity.getVipPrice() != null) {
             entity.setVipPrice(entity.getVipPrice() * 100);//数据库以分为单位保存
         }
-        if (entity != null && entity.getWeight() != null){
+        if (entity != null && entity.getWeight() != null) {
             entity.setWeight(entity.getWeight() * 1000);//数据库以g为单位保存
         }
         int save = super.save(entity);
@@ -165,35 +169,34 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     goodsInfo.setContentHtml(contentHtml);
                     goodsInfo.preInsert();
                     goodsInfoMapper.insert(goodsInfo);
-                }else {
+                } else {
                     String contentHtml = MarkdownUtils.markdownToHtmlExtensions(goodsInfo.getContent());
                     goodsInfo.setContentHtml(contentHtml);
                     goodsInfo.preUpdate();
                     goodsInfoMapper.update(goodsInfo);
                 }
-            }else {
+            } else {
                 goodsInfoMapper.deleteByLogic(goodsInfo);
             }
         }
 
         //插入商品分类
-        if (entity != null && entity.getGoodsClassify() != null){
-            //所选商品列表
-            GoodsClassify goodsClassify = entity.getGoodsClassify();
-            if (goodsClassify.DEL_FLAG_NORMAL.equals(goodsClassify.getIsDeleted())) {
-                    if (StringUtils.isBlank(goodsClassify.getId())) {
-                        goodsClassify.setIdType("AUTO");
-                        goodsClassify.setId(entity.getId());
-                        goodsClassify.preInsert();
-                        goodsClassifyMapper.insert(goodsClassify);
-                    }else {
-                        goodsClassify.preUpdate();
-                        goodsClassifyMapper.update(goodsClassify);
-                    }
-                }else {
-                goodsClassifyMapper.deleteByLogic(goodsClassify);
-                }
+        if (entity != null) {
+            //所选商品的分类信息
+            String goodsClassifyLevelOneIds = entity.getGoodsClassifyLevelOneIds();
+            String goodsClassifyLevelTwoIds = entity.getGoodsClassifyLevelTwoIds();
+            String goodsClassifyLevelThreeIds = entity.getGoodsClassifyLevelThreeIds();
+            String[] levelOneList = goodsClassifyLevelOneIds.split(",");
+            String[] levelTwoList = goodsClassifyLevelTwoIds.split(",");
+            String[] levelThreeList = goodsClassifyLevelThreeIds.split(",");
+            if (entity.getGoodsClassify() != null && StringUtils.isNotBlank(entity.getGoodsClassify().getId())){
+                Classify classify = classifyMapper.get(entity.getGoodsClassify().getId());
+                GoodsClassify goodsClassify = goodsClassifyMapper.get(entity.getGoodsClassify().getId());
+            }else {
+                Classify classify = new Classify();
+                GoodsClassify goodsClassify = new GoodsClassify();
             }
+        }
 
         //插入商品规格
         if (entity != null && entity.getGoodsSpecification() != null) {
@@ -204,11 +207,11 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     goodsSpecification.setId(entity.getId());
                     goodsSpecification.preInsert();
                     goodsSpecificationMapper.insert(goodsSpecification);
-                }else {
+                } else {
                     goodsSpecification.preUpdate();
                     goodsSpecificationMapper.update(goodsSpecification);
                 }
-            }else {
+            } else {
                 goodsSpecificationMapper.deleteByLogic(goodsSpecification);
             }
         }
@@ -223,36 +226,36 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     goodsNorm.setFactoryId(entity.getFactoryId());
                     goodsNorm.setGoodsName(entity.getName());
                     //设置图片路径保存格式
-                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(), ""));
                     goodsNorm.preInsert();
                     goodsNormMapper.insert(goodsNorm);
-                }else {
+                } else {
                     goodsNorm.setFactoryId(entity.getFactoryId());
                     goodsNorm.setGoodsName(entity.getName());
                     //设置图片路径保存格式
-                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
-                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(),""));
+                    goodsNorm.setSampleBox(goodsNorm.getSampleBox().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setOuterPackingBox(goodsNorm.getOuterPackingBox().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setInstructionBook(goodsNorm.getInstructionBook().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setOtherData(goodsNorm.getOtherData().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setRelatedPictures(goodsNorm.getRelatedPictures().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setInstructions(goodsNorm.getInstructions().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setQualityStandard(goodsNorm.getQualityStandard().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setSurveyReport(goodsNorm.getSurveyReport().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setProductionBusinessLicense(goodsNorm.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
+                    goodsNorm.setProductionCertificate(goodsNorm.getProductionCertificate().replaceAll(globalSetting.getRootPath(), ""));
                     goodsNorm.preUpdate();
                     goodsNormMapper.update(goodsNorm);
                 }
-            }else {
+            } else {
                 goodsNormMapper.deleteByLogic(goodsNorm);
             }
         }
@@ -263,7 +266,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Transactional
     public int deleteByLogic(Goods entity) {
         int row = super.deleteByLogic(entity);
-        if (entity != null && StringUtils.isNotBlank(entity.getId())){
+        if (entity != null && StringUtils.isNotBlank(entity.getId())) {
             //删除商品分类
             GoodsClassify goodsClassify = new GoodsClassify();
             goodsClassify.setId(entity.getId());
@@ -288,7 +291,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     @Transactional
     public int deleteByPhysics(Goods entity) {
         int row = super.deleteByPhysics(entity);
-        if (entity != null && StringUtils.isNotBlank(entity.getId())){
+        if (entity != null && StringUtils.isNotBlank(entity.getId())) {
             //删除商品分类
             GoodsClassify goodsClassify = new GoodsClassify();
             goodsClassify.setGoodsId(entity.getId());
@@ -312,6 +315,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     /**
      * 根据厂商、商品名查询商品数据
+     *
      * @param goods
      * @return
      */
@@ -322,6 +326,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
     /**
      * 更新商品流程状态
+     *
      * @param goods
      * @return
      */
@@ -336,9 +341,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             entity.setName(name);
         }
         PageInfo<Goods> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<Goods> list = goodsMapper.findTodoList(entity);
             for (Goods goods : list) {
                 goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
@@ -363,9 +368,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             entity.setName(name);
         }
         PageInfo<Goods> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<Goods> list = goodsMapper.findCurrentDataList(entity);
             for (Goods goods : list) {
                 goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
@@ -382,6 +387,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
     /**
      * 商品列表数据，查询当前登录者创建的数据及其下级角色创建的数据
      * 查找通过审核的数据供商品区域分配
+     *
      * @return
      */
     public PageInfo<Goods> findFinishedDataPage(Page<Goods> page, Goods entity) {
@@ -390,9 +396,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             entity.setName(name);
         }
         PageInfo<Goods> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<Goods> list = goodsMapper.findFinishedDataPage(entity);
             for (Goods goods : list) {
                 goods.setPurchasingPrice(goods.getPurchasingPrice() / 100);
