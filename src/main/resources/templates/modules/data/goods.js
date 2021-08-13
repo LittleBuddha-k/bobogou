@@ -216,12 +216,14 @@ layui.use(['form', 'table'], function () {
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if(10 == actStatus && 0 == isMarket){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="reSubTask">重审</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="offShelf">商品下架</a>' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if (10 == actStatus && 2 == isMarket){
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                   '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>\n'+
-                                    '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="reSubTask">重审</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="onShelves">商品上架</a>\n'+
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else {
                             return "未知";
                         }
@@ -276,6 +278,18 @@ layui.use(['form', 'table'], function () {
         } else if (event === 'subTask') {
             rc.confirm('是否提交商品审核？', function() {
                 rc.post("/bobogou/data/goods/subTask",{"id":id} , function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.alert(data.msg);
+                    } else {
+                        rc.alert(data.msg);
+                    }
+                });
+            })
+        } else if (event === 'reSubTask') {
+            rc.confirm('是否驳回商品审核？', function() {
+                rc.post("/bobogou/data/goods/reSubTask",{"id":id} , function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();
