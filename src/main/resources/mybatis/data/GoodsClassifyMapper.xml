@@ -7,6 +7,7 @@
         a.second_classify_id AS "secondClassifyId",
         a.reclassify_id AS "reclassifyId",
         a.goods_id AS "goodsId",
+        a.level AS "level",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
@@ -114,6 +115,7 @@
             second_classify_id,
             reclassify_id,
             goods_id,
+            level,
             is_deleted,
             create_time,
             update_time
@@ -123,6 +125,7 @@
             #{secondClassifyId},
             #{reclassifyId},
             #{goodsId},
+            #{level},
             #{isDeleted},
             #{createTime},
             #{updateTime}
@@ -135,6 +138,7 @@
             second_classify_id = #{secondClassifyId},
             reclassify_id = #{reclassifyId},
             goods_id = #{goodsId},
+            level = #{level},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}

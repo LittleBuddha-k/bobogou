@@ -182,57 +182,55 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
 
         //插入商品分类
         if (entity != null) {
+            //先删除所有本商品原有的分类
+            GoodsClassify goodsClassify1 = new GoodsClassify();
+            goodsClassify1.setGoodsId(entity.getId());
+            goodsClassifyMapper.deletePhysicsByGoods(goodsClassify1);
             //所选商品的分类信息
             String goodsClassifyLevelOneIds = entity.getGoodsClassifyLevelOneIds();
             String goodsClassifyLevelTwoIds = entity.getGoodsClassifyLevelTwoIds();
             String goodsClassifyLevelThreeIds = entity.getGoodsClassifyLevelThreeIds();
-            String[] levelOneList = goodsClassifyLevelOneIds.split(",");
-            String[] levelTwoList = goodsClassifyLevelTwoIds.split(",");
-            String[] levelThreeList = goodsClassifyLevelThreeIds.split(",");
-            if (entity.getGoodsClassifyLevelOneIds() != null && StringUtils.isNotBlank(entity.getGoodsClassifyLevelOneIds())){
-                Classify classify = classifyMapper.get(entity.getGoodsClassify().getId());
-                //先插入一级分类
-                for (String levelOne : levelOneList) {
-                    if (levelOne != null && StringUtils.isNotBlank(levelOne)) {
-
-                    }
-                }
-            }else {
-                Classify classify = new Classify();
-                GoodsClassify goodsClassify = new GoodsClassify();
-                for (String levelOne : levelOneList) {
-                    if (levelOne != null && StringUtils.isNotBlank(levelOne)) {
+            GoodsClassify goodsClassify = new GoodsClassify();
+            if (goodsClassifyLevelOneIds != null){
+                String[] split = goodsClassifyLevelOneIds.split(",");
+                for (String levelOne : split) {
+                    if (levelOne != null){
+                        goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelOne);
-                        goodsClassify.setId(entity.getId());
+                        goodsClassify.setLevel(1);
                         goodsClassify.preInsert();
+                        goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
                     }
-                    for (String levelTwo : levelTwoList) {
-                        if (levelTwo != null && StringUtils.isNotBlank(levelTwo)) {
-                            Classify classifyTwo = classifyMapper.get(levelTwo);
-                            if (levelOne.equals(classifyTwo.getParentId())){
-                                goodsClassify.setSecondClassifyId(levelTwo);
-                                goodsClassify.setId(entity.getId());
-                                goodsClassify.preInsert();
-                                goodsClassifyMapper.insert(goodsClassify);
-                            }
-                        }
-                        for (String levelThree : levelThreeList) {
-                            if (levelThree != null && StringUtils.isNotBlank(levelThree)) {
-                                Classify classifyThree = classifyMapper.get(levelThree);
-                                if (levelTwo.equals(classifyThree.getParentId())){
-                                    goodsClassify.setSecondClassifyId(levelTwo);
-                                    goodsClassify.setId(entity.getId());
-                                    goodsClassify.preInsert();
-                                    goodsClassifyMapper.insert(goodsClassify);
-                                }
-                            }
-                        }
+                }
+            }
+            if (goodsClassifyLevelTwoIds != null){
+                String[] split = goodsClassifyLevelTwoIds.split(",");
+                for (String leveTwo : split) {
+                    if (leveTwo != null){
+                        goodsClassify.setIdType("AUTO");
+                        goodsClassify.setClassifyId(leveTwo);
+                        goodsClassify.setLevel(2);
+                        goodsClassify.preInsert();
+                        goodsClassify.setGoodsId(entity.getId());
+                        goodsClassifyMapper.insert(goodsClassify);
+                    }
+                }
+            }
+            if (goodsClassifyLevelThreeIds != null){
+                String[] split = goodsClassifyLevelThreeIds.split(",");
+                for (String levelThree : split) {
+                    if (levelThree != null){
+                        goodsClassify.setIdType("AUTO");
+                        goodsClassify.setClassifyId(levelThree);
+                        goodsClassify.setLevel(1);
+                        goodsClassify.preInsert();
+                        goodsClassify.setGoodsId(entity.getId());
+                        goodsClassifyMapper.insert(goodsClassify);
                     }
                 }
             }
         }
-
         //插入商品规格
         if (entity != null && entity.getGoodsSpecification() != null) {
             GoodsSpecification goodsSpecification = entity.getGoodsSpecification();
@@ -250,7 +248,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goodsSpecificationMapper.deleteByLogic(goodsSpecification);
             }
         }
-
         //插入商品规范
         if (entity != null && entity.getGoodsNorm() != null) {
             GoodsNorm goodsNorm = entity.getGoodsNorm();

@@ -9,14 +9,16 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class GoodsClassify extends DataEntity<GoodsClassify> {
 
-    private String classifyId;//一级分类ID
-    private String secondClassifyId;//二级分类ID
-    private String reclassifyId;//三级分类ID
-    private String goodsId;//商品ID
+    private String classifyId = "0";//一级分类ID
+    private String secondClassifyId = "0";//二级分类ID
+    private String reclassifyId = "0";//三级分类ID
+    private String goodsId = "0";//商品ID
 
     private String levelOneName;//一级分类名
     private String levelTwoName;//一级分类名
     private String levelThreeName;//一级分类名
+
+    private Integer level = 0;//分类等级
 
     public GoodsClassify() {
     }
@@ -79,5 +81,13 @@ public class GoodsClassify extends DataEntity<GoodsClassify> {
 
     public void setLevelThreeName(String levelThreeName) {
         this.levelThreeName = levelThreeName;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }
