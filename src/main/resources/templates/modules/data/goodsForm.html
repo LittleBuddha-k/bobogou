@@ -297,10 +297,10 @@
                 <div class="layui-input-inline">
                     <input type="specification" th:id="weight" th:name="weight"
                            th:value="${goods.getWeight()}"
-                           placeholder="重量(KG)" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                           placeholder="重量(KG)" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
                     <input type="specification" th:id="weight" th:name="weight"
                            th:value="${goods.getWeight()}"
-                           placeholder="重量(KG)" autocomplete="off" class="layui-input" th:if="${mode == 'detail'}" readonly>
+                           placeholder="重量(KG)" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}" readonly>
                 </div>
             </div>
             <div class="layui-inline">
