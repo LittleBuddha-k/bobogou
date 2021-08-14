@@ -181,17 +181,47 @@
                            th:each="goodsType:${goodsTypeLevelOne}" th:value="${goodsType.getId()}"
                            th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelOneId">
                 </div>
+                <div class="layui-input-block" th:if="${mode == 'detail'}">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsClassifyLevelOneIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelOne}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeId" checked disabled>
+                </div>
                 <input type="hidden" name="goodsClassifyLevelOneIds" th:id="goodsClassifyLevelOneIds" th:value="${goods.getGoodsClassifyLevelOneIds()}">
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">商品二级分类</label>
-                <div class="layui-input-block" th:if="${mode != 'detail'}" th:id="goodsTypeLevelTwo">
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelTwoIds() != ''}" th:id="goodsTypeLevelTwo">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsClassifyLevelTwoIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelTwo}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked>
+                </div>
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelTwoIds() == ''}" th:id="goodsTypeLevelTwo">
+                </div>
+                <div class="layui-input-block" th:if="${mode == 'detail' && goods.getGoodsClassifyLevelTwoIds() != ''}" th:id="goodsTypeLevelTwo">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsClassifyLevelTwoIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelTwo}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked disabled>
                 </div>
                 <input type="hidden" name="goodsClassifyLevelTwoIds" th:id="goodsClassifyLevelTwoIds" th:value="${goods.getGoodsClassifyLevelTwoIds()}">
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">商品三级分类</label>
-                <div class="layui-input-block" th:if="${mode != 'detail'}" th:id="goodsTypeLevelThree">
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelThreeIds() != ''}" th:id="goodsTypeLevelThree">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsClassifyLevelThreeIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelThree}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked>
+                </div>
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelThreeIds() == ''}" th:id="goodsTypeLevelThree">
+                </div>
+                <div class="layui-input-block" th:if="${mode == 'detail' && goods.getGoodsClassifyLevelThreeIds() != ''}" th:id="goodsTypeLevelThree">
+                    <input type="checkbox"
+                           th:if="${goods.getGoodsClassifyLevelThreeIds().contains(goodsType.getId())}"
+                           th:each="goodsType:${goodsTypeLevelThree}" th:value="${goodsType.getId()}"
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked disabled>
                 </div>
                 <input type="hidden" name="goodsClassifyLevelThreeIds" th:id="goodsClassifyLevelThreeIds" th:value="${goods.getGoodsClassifyLevelThreeIds()}">
             </div>

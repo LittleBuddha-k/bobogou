@@ -223,7 +223,7 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     if (levelThree != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelThree);
-                        goodsClassify.setLevel(1);
+                        goodsClassify.setLevel(3);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
@@ -301,8 +301,8 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         if (entity != null && StringUtils.isNotBlank(entity.getId())) {
             //删除商品分类
             GoodsClassify goodsClassify = new GoodsClassify();
-            goodsClassify.setId(entity.getId());
-            goodsClassifyMapper.deleteByLogic(goodsClassify);
+            goodsClassify.setGoodsId(entity.getId());
+            goodsClassifyMapper.deletePhysicsByGoods(goodsClassify);
             //删除商品规格
             GoodsSpecification specification = new GoodsSpecification();
             specification.setId(entity.getId());
