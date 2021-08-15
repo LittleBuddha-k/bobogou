@@ -196,7 +196,6 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    //toolbar: '#operation',
                     align: 'left',
                     width: '16%',
                     align: 'center',
