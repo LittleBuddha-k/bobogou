@@ -211,7 +211,7 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (obj.event === 'doTask') {  // 监听添加操作
-            var index = rc.openViewDialogNoClose("/bobogou/data/goods/todoListForm?id=" + id, "商品审核办理", '1010px','100%')
+            var index = rc.openViewDialogNoClose("/bobogou/data/goods/todoListForm?id=" + id, "商品审核办理", '1010px','90%')
         } else if (obj.event === 'flow') {  // 监听添加操作
             var index = rc.openViewDialog("/bobogou/data/goods/flow?id=" + id, "商品审核历史信息", '1000px', '90%')
         }
