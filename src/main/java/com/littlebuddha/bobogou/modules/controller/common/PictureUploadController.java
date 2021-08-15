@@ -220,9 +220,10 @@ public class PictureUploadController {
         Result result = new Result();
         //先加水印
         String path = uploadWatermarkFile(file);
-        String tifToJpg = TiffToJpg.tifToJpg(path.replaceAll(globalSetting.getRootPath(),globalSetting.getUploadImage()));
-        tifToJpg = tifToJpg.replaceAll(globalSetting.getUploadImage(),globalSetting.getRootPath());
-        result.put("url",tifToJpg);
+        path = path.replaceAll(globalSetting.getUploadImage(),globalSetting.getRootPath());
+        //String tifToJpg = TiffToJpg.tifToJpg(path.replaceAll(globalSetting.getRootPath(),globalSetting.getUploadImage()));
+        //tifToJpg = tifToJpg.replaceAll(globalSetting.getUploadImage(),globalSetting.getRootPath());
+        result.put("url",path);
         return result;
     }
 

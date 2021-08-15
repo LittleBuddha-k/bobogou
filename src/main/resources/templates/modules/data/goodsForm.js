@@ -247,7 +247,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         url: '/bobogou/file/upload-watermark', //改成您自己的上传接口
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|jpeg|tif',
+        exts: 'jpg|png|jpeg',
         done: function (res) {
             layer.msg('上传成功');
             layui.$('#uploadDemoView').removeClass('layui-hide').find('img').attr('src', res.body.url);

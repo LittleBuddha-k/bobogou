@@ -13,7 +13,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         url: '/bobogou/file/upload-watermark',
         multiple: true,
         accept: 'images',
-        exts: 'jpg|png|jpeg|tif',
+        exts: 'jpg|png|jpeg',
         done: function(res){
             //上传完毕
             var last_url = $("#qualification").val();

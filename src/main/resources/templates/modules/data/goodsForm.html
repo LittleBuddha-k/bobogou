@@ -323,14 +323,14 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">重量(KG)</label>
+                <label class="layui-form-label">重量(g)</label>
                 <div class="layui-input-inline">
                     <input type="specification" th:id="weight" th:name="weight"
                            th:value="${goods.getWeight()}"
-                           placeholder="重量(KG)" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
+                           placeholder="重量(g)" autocomplete="off" class="layui-input number" th:if="${mode != 'detail'}">
                     <input type="specification" th:id="weight" th:name="weight"
                            th:value="${goods.getWeight()}"
-                           placeholder="重量(KG)" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}" readonly>
+                           placeholder="重量(g)" autocomplete="off" class="layui-input number" th:if="${mode == 'detail'}" readonly>
                 </div>
             </div>
             <div class="layui-inline">
@@ -752,10 +752,10 @@
                     <input type="text" th:id="companies" th:name="goodsSpecification.companies"
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
                            th:value="${goods.getGoodsSpecification().getCompanies()}"
-                           placeholder="持有企业" autocomplete="off" class="layui-input">
+                           placeholder="持有企业" autocomplete="off" class="layui-input" maxlength = 60>
                     <input type="text" th:id="companies" th:name="goodsSpecification.companies"
                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="持有企业" autocomplete="off" class="layui-input">
+                           placeholder="持有企业" autocomplete="off" class="layui-input" maxlength = 60>
                 </div>
             </div>
             <div class="layui-inline">

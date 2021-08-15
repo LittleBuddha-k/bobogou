@@ -93,9 +93,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         if (goods != null && goods.getVipPrice() != null) {
             goods.setVipPrice(goods.getVipPrice() / 100);
         }
-        if (goods != null && goods.getWeight() != null) {
-            goods.setWeight(goods.getWeight() / 1000);
-        }
         return goods;
     }
 
@@ -117,7 +114,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             goods.setOriginalCost(goods.getOriginalCost() / 100);
             goods.setSellingPrice(goods.getSellingPrice() / 100);
             goods.setVipPrice(goods.getVipPrice() / 100);
-            goods.setWeight(goods.getVipPrice() / 1000);
         }
         return page1;
     }
@@ -153,9 +149,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         }
         if (entity != null && entity.getVipPrice() != null) {
             entity.setVipPrice(entity.getVipPrice() * 100);//数据库以分为单位保存
-        }
-        if (entity != null && entity.getWeight() != null) {
-            entity.setWeight(entity.getWeight() * 1000);//数据库以g为单位保存
         }
         int save = super.save(entity);
         //插入商品详情
