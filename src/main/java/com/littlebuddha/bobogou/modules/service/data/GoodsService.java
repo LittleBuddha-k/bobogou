@@ -375,7 +375,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goods.setOriginalCost(goods.getOriginalCost() / 100);
                 goods.setSellingPrice(goods.getSellingPrice() / 100);
                 goods.setVipPrice(goods.getVipPrice() / 100);
-                goods.setWeight(goods.getVipPrice() / 1000);
             }
             pageInfo = new PageInfo<Goods>(list);
         }
@@ -402,7 +401,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goods.setOriginalCost(goods.getOriginalCost() / 100);
                 goods.setSellingPrice(goods.getSellingPrice() / 100);
                 goods.setVipPrice(goods.getVipPrice() / 100);
-                goods.setWeight(goods.getVipPrice() / 1000);
             }
             pageInfo = new PageInfo<Goods>(list);
         }
@@ -430,7 +428,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                 goods.setOriginalCost(goods.getOriginalCost() / 100);
                 goods.setSellingPrice(goods.getSellingPrice() / 100);
                 goods.setVipPrice(goods.getVipPrice() / 100);
-                goods.setWeight(goods.getVipPrice() / 1000);
             }
             pageInfo = new PageInfo<Goods>(list);
         }
