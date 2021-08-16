@@ -60,7 +60,7 @@
                 </div>
             </div>
             <div class="layui-inline" th:id="goodsNormPrices">
-                <label class="layui-form-label" for="goodsNormPrices">物价</label>
+                <label class="layui-form-label" for="goodsNormPrices">物价(元)</label>
                 <div class="layui-input-inline">
                     <input type="text" th:id="goodsNormPrices" th:name="goodsNorm.prices"
                            th:value="${goods.getGoodsNorm().getPrices()}"
@@ -148,7 +148,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="purchasingPrice">进价</label>
+                <label class="layui-form-label" for="purchasingPrice">进价(元)</label>
                 <div class="layui-input-inline">
                     <input type="purchasingPrice" th:id="purchasingPrice" th:name="purchasingPrice"
                            th:value="${goods.getPurchasingPrice()}"
@@ -156,7 +156,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="originalCost">零售价</label>
+                <label class="layui-form-label" for="originalCost">零售价(元)</label>
                 <div class="layui-input-inline">
                     <input type="originalCost" th:id="originalCost" th:name="originalCost"
                            th:value="${goods.getOriginalCost()}"
@@ -164,7 +164,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="sellingPrice">会员价</label>
+                <label class="layui-form-label" for="sellingPrice">会员价(元)</label>
                 <div class="layui-input-inline">
                     <input type="sellingPrice" th:id="sellingPrice" th:name="sellingPrice"
                            th:value="${goods.getSellingPrice()}"
@@ -172,7 +172,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="vipPrice">集采价</label>
+                <label class="layui-form-label" for="vipPrice">集采价(元)</label>
                 <div class="layui-input-inline">
                     <input type="vipPrice" th:id="vipPrice" th:name="vipPrice" th:value="${goods.getVipPrice()}"
                            placeholder="集采价" autocomplete="off" class="layui-input number" readonly>
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label">重量</label>
+                <label class="layui-form-label">重量(g)</label>
                 <div class="layui-input-inline">
                     <input type="specification" th:id="weight" th:name="weight"
                            th:value="${goods.getWeight()}"
