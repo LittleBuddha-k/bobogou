@@ -191,7 +191,7 @@ layui.use(['form', 'table'], function () {
     // 监听搜索操作
     form.on('submit(data-search-btn)', function (data) {
         //执行搜索重载
-        table.reload('goodsTable', {
+        table.reload('goodsTodoTable', {
             where: {
                 name: $("#name").val(),
                 factoryId: $("#factoryId").val()

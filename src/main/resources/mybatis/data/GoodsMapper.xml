@@ -132,6 +132,13 @@
             <if test="currentUserRole != null and currentUserRole.id != null and currentUserRole.id != ''">
                 AND a.next_role = #{currentUserRole.id}
             </if>
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                AND a.name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="factoryId != null and factoryId != ''">
+                AND a.factory_id = #{factoryId}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -153,6 +160,13 @@
             a.is_deleted = #{DEL_FLAG_NORMAL}<!--查询当前登录者创建的数据及其下级角色创建的数据-->
             <if test='currentUser.id != "1" and currentUserRole != null'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
                 AND (a.create_by = #{currentUser.id} OR c.parent_id = #{currentUserRole.id})
+            </if>
+            <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                AND a.name LIKE concat('%',#{name},'%')
+            </if>
+            <if test="factoryId != null and factoryId != ''">
+                AND a.factory_id = #{factoryId}
             </if>
         </where>
         <choose>

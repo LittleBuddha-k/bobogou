@@ -414,6 +414,9 @@ public class GoodsController extends BaseController {
      */
     @GetMapping("/todoList")
     public String todoList(Goods goods, Model model) {
+        //查询所有厂商列表
+        List<Factory> factoryList = factoryService.findList(new Factory());
+        model.addAttribute("factoryList", factoryList);
         model.addAttribute("goods", goods);
         return "modules/data/goodsTodoList";
     }
