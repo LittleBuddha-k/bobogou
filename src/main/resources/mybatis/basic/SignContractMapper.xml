@@ -67,7 +67,7 @@
         FROM bobogou_basic_sign_contract a
         <where>
             a.del_flag = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1" or currentUser.areaManager != null and currentUser.areaManager != 4'><!--如果不是管理员或者管理员助理则查询自己及下级角色数据-->
+            <if test='currentUser.id != "1" and currentUser.areaManager != null and currentUser.areaManager != 4'><!--如果不是管理员或者管理员助理则查询自己及下级角色数据-->
                 <if test="currentUserRoleId != null and currentUserRole.id != null and currentUserRole.id != ''">
                     AND a.next_role_id=#{currentUserRoleId}
                 </if>

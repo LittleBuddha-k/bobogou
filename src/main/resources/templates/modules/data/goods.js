@@ -125,35 +125,11 @@ layui.use(['form', 'table'], function () {
                     width: '150',
                     templet: function (data) {
                         var actStatus = data.actStatus;
-                        if(0 == actStatus){
-                            return "未提交";
-                        }else if(1 == actStatus){
-                            return "已提交";
-                        }else if(2 == actStatus){
-                            return "区级经纪人已通过";
-                        }else if(3 == actStatus){
-                            return "区级经纪人已拒绝";
-                        }else if(4 == actStatus){
-                            return "市级经纪人已通过";
-                        }else if(5 == actStatus){
-                            return "市级经纪人已拒绝";
-                        }else if(6 == actStatus){
-                            return "省级经纪人已通过";
-                        }else if(7 == actStatus){
-                            return "省级经纪人已拒绝";
-                        }else if(8 == actStatus){
-                            return "超级管理员助理已通过";
-                        }else if(9 == actStatus){
-                            return "超级管理员助理已拒绝";
-                        }else if(10 == actStatus){
-                            return "超级管理员已通过";
-                        }else if(11 == actStatus){
-                            return "超级管理员已拒绝";
-                        }else if(12 == actStatus){
-                            return "已通过";
-                        }else {
+                        let dictName = rc.getDictName("act_status",actStatus);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

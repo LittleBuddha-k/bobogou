@@ -27,6 +27,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.Date;
@@ -49,10 +50,10 @@ public class SignContractController extends BaseController {
     @Autowired
     private ActHistoryService actHistoryService;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private OperatorRoleMapper operatorRoleMapper;
 
     @ModelAttribute
@@ -165,7 +166,12 @@ public class SignContractController extends BaseController {
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核
-        if ("0".equals(signContract.getStatus()) || "3".equals(signContract.getStatus()) || "5".equals(signContract.getStatus()) || "7".equals(signContract.getStatus()) || "9".equals(signContract.getStatus()) || "11".equals(signContract.getStatus())) {
+        //如果超级管理员直接提交，则直接通过
+        if (5 == currentUser.getAreaManager()) {
+            signContract.setStatus("10");
+        } else if (4 == currentUser.getAreaManager()) {
+            signContract.setStatus("8");
+        }else {
             signContract.setStatus("1");
         }
         int save = signContractService.save(signContract);

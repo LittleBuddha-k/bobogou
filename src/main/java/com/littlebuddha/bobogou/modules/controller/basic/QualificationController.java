@@ -26,6 +26,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.activation.MimetypesFileTypeMap;
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -50,10 +51,10 @@ public class QualificationController extends BaseController {
     @Autowired
     private ActHistoryService actHistoryService;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private OperatorRoleMapper operatorRoleMapper;
 
     @ModelAttribute
@@ -194,7 +195,12 @@ public class QualificationController extends BaseController {
         actHistoryService.save(actHistory);
         //走到这里来 设置初始审核状态、设置下一个审核角色id
         //初始保存的时候设置初始状态----进入审核
-        if ("0".equals(qualification.getStatus()) || "3".equals(qualification.getStatus()) || "5".equals(qualification.getStatus()) || "7".equals(qualification.getStatus()) || "9".equals(qualification.getStatus()) || "11".equals(qualification.getStatus())) {
+        //如果超级管理员直接提交，则直接通过
+        if (5 == currentUser.getAreaManager()) {
+            qualification.setStatus("10");
+        } else if (4 == currentUser.getAreaManager()) {
+            qualification.setStatus("8");
+        }else {
             qualification.setStatus("1");
         }
         int save = qualificationService.save(qualification);
