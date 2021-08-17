@@ -378,6 +378,7 @@ public class GoodsController extends BaseController {
         //初始保存的时候设置初始状态----进入审核---状态改为已提交
         //如果超级管理员直接提交，则直接通过
         goods.setActStatus("0");
+        goods.setNextRole("");
         int save = goodsService.updateGoodsAct(goods);
         if (save > 0) {
             result.setCode("200");
