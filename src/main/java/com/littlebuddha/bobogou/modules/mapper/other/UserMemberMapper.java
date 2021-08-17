@@ -11,5 +11,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface UserMemberMapper extends BaseMapper<UserMember> {
+
+    /**
+     * 通过用户userId查询申请信息
+     * @param userMember
+     * @return
+     */
     UserMember getByUser(UserMember userMember);
 }
