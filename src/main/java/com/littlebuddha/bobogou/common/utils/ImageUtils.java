@@ -34,7 +34,7 @@ public class ImageUtils {
     /**
      * 透明度
      */
-    private static final AlphaComposite COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.2f);
+    private static final AlphaComposite COMPOSITE = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f);
 
     /**
      * 水印横坐标之间的间隔
