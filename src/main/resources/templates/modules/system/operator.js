@@ -92,7 +92,7 @@ layui.use(['form', 'table'], function () {
                     title: '登录标识',
                     field: 'loginFlag',
                     sort: true,
-                    width: '80',
+                    width: '150',
                     templet: function (data) {
                         var loginFlag = data.loginFlag;
                         if (0 == loginFlag) {
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '200'
+                    width: '250'
                 }
             ]
         ],

@@ -112,7 +112,7 @@ layui.use(['form', 'table'], function () {
                     field: 'messageStatus',
                     sort: true,
                     sortName: 'messageStatus',
-                    width: '120',
+                    width: '180',
                     templet:function(data){
                         let messageStatus = data.messageStatus;
                         if(0 == messageStatus){
@@ -129,7 +129,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userAgreement',
                     sort: true,
                     sortName: 'userAgreement',
-                    width: '120',
+                    width: '180',
                     templet:function(data){
                         let userAgreement = data.userAgreement;
                         if(0 == userAgreement){
@@ -146,7 +146,7 @@ layui.use(['form', 'table'], function () {
                     field: 'applyStatus',
                     sort: true,
                     sortName: 'applyStatus',
-                    width: '120',
+                    width: '150',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(0 == applyStatus){

@@ -129,7 +129,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userAgreement',
                     sort: true,
                     sortName: 'userAgreement',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         let userAgreement = data.userAgreement;
                         if(0 == userAgreement){
