@@ -36,25 +36,25 @@ layui.use(['form', 'table'], function () {
                     title: '登录名',
                     field: 'loginName',
                     sort: true,
-                    width: '15%'
+                    width: '200'
                 },
                 {
                     title: '昵称',
                     field: 'nickname',
                     sort: true,
-                    width: '15%'
+                    width: '200'
                 },
                 {
                     title: '电话',
                     field: 'phone',
                     sort: true,
-                    width: '15%'
+                    width: '200'
                 },
                 {
                     title: '性别',
                     field: 'sex',
                     sort: true,
-                    width: '5%',
+                    width: '80',
                     templet: function (data) {
                         var sex = data.sex;
                         if (0 == sex) {
@@ -70,7 +70,7 @@ layui.use(['form', 'table'], function () {
                     title: '消息状态',
                     field: 'messageStatus',
                     sort: true,
-                    width: '10%',
+                    width: '200',
                     templet: function (data) {
                         var messageStatus = data.messageStatus;
                         if (0 == messageStatus) {
@@ -86,13 +86,13 @@ layui.use(['form', 'table'], function () {
                     title: '工号',
                     field: 'workNumber',
                     sort: true,
-                    width: '10%'
+                    width: '120'
                 },
                 {
                     title: '登录标识',
                     field: 'loginFlag',
                     sort: true,
-                    width: '10%',
+                    width: '80',
                     templet: function (data) {
                         var loginFlag = data.loginFlag;
                         if (0 == loginFlag) {
@@ -108,7 +108,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '20%'
+                    width: '200'
                 }
             ]
         ],
