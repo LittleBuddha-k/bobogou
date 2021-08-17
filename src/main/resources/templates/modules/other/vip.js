@@ -16,7 +16,7 @@ layui.use(['form', 'table'], function () {
             //如果是异步请求数据方式，res即为你接口返回的信息。
             //如果是直接赋值的方式，res即为：{other: [], count: 99} other为当前页数据、count为数据总长度
         },
-        toolbar: '#toolBar',
+        //toolbar: '#toolBar',
         defaultToolbar: [
 
         ],
