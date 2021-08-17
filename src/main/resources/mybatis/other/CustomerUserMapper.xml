@@ -98,6 +98,7 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
+        <include refid="currentUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test='currentUser.id != "1" and currentUserRole != null'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
