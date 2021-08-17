@@ -98,7 +98,6 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="currentUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test='currentUser.id != "1" and currentUserRole != null'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
@@ -107,35 +106,8 @@
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
-            <if test="password != null and password != ''">
-                AND a.pssword LIKE concat('%',#{password},'%')
-            </if>
             <if test="nickname != null and nickname != ''">
                 AND a.nickname LIKE concat('%',#{nickname},'%')
-            </if>
-            <if test="sex != null">
-                AND a.sex = #{sex}
-            </if>
-            <if test="member != null">
-                AND a.member = #{member}
-            </if>
-            <if test="integral != null">
-                AND a.integral = #{integral}
-            </if>
-            <if test="healthBeans != null">
-                AND a.health_beans = #{healthBeans}
-            </if>
-            <if test="signInTime != null">
-                AND a.signInTime = #{signInTime}
-            </if>
-            <if test="messageStatus != null">
-                AND a.message_status = #{messageStatus}
-            </if>
-            <if test="userAgreement != null">
-                and a.user_agreement = #{userAgreement}
-            </if>
-            <if test="applyStatus != null">
-                and a.apply_status = #{applyStatus}
             </if>
         </where>
         <choose>
@@ -155,15 +127,6 @@
         <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
-            <!--<if test='currentCustomerUser.id != "1"'>&lt;!&ndash;如果不是管理员则查询自己及下级部门数据&ndash;&gt;
-                AND (
-                a.create_by=#{currentUser.id}
-                OR office.parent_ids LIKE
-                <if test="dbName == 'oracle'">#{currentUser.office.parentIds}||#{currentUser.office.id}||'%'</if>
-                <if test="dbName == 'mssql'">#{currentUser.office.parentIds}+#{currentUser.office.id}+'%'</if>
-                <if test="dbName == 'mysql'">concat(#{currentUser.office.parentIds},#{currentUser.office.id},'%')</if>
-                )
-            </if>-->
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
@@ -188,9 +151,6 @@
             <if test="signInTime != null">
                 AND a.signInTime = #{signInTime}
             </if>
-            <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >
-                and a.create_date between #{beginDate} and #{endDate}
-            </if>-->
             <if test="messageStatus != null">
                 AND a.message_status = #{messageStatus}
             </if>
@@ -216,7 +176,6 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             AND a.apply_status = '1'
@@ -272,61 +231,6 @@
         FROM ud_user a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
-        SELECT
-        <include refid="customerUserColumns"/>
-        FROM ud_user a
-        <include refid="customerUserJoins"/>
-        <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
-
-            <if test="phone != null and phone != ''">
-                AND a.phone LIKE concat('%',#{phone},'%')
-            </if>
-            <if test="password != null and password != ''">
-                AND a.pssword LIKE concat('%',#{password},'%')
-            </if>
-            <if test="nickname != null and nickname != ''">
-                AND a.nickname LIKE concat('%',#{nickname},'%')
-            </if>
-            <if test="sex != null">
-                AND and a.sex = #{sex}
-            </if>
-            <if test="member != null">
-                AND a.member = #{member}
-            </if>
-            <if test="integral != null">
-                AND a.integral = #{integral}
-            </if>
-            <if test="healthBeans != null">
-                AND a.health_beans = #{healthBeans}
-            </if>
-            <if test="signInTime != null">
-                AND a.signInTime = #{signInTime}
-            </if>
-            <!--<if test="beginDate !=null and beginDate !='' and endDate !=null and endDate !='' " >
-                and a.create_date between #{beginDate} and #{endDate}
-            </if>-->
-            <if test="messageStatus != null">
-                AND a.message_status = #{messageStatus}
-            </if>
-            <if test="userAgreement != null">
-                AND a.user_agreement = #{userAgreement}
-            </if>
-            <if test="applyStatus != null">
-                AND a.apply_status = #{applyStatus}
-            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

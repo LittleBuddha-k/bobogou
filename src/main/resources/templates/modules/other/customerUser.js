@@ -37,37 +37,25 @@ layui.use(['form', 'table'], function () {
                     field: 'phone',
                     sort: true,
                     sortName: 'phone',
-                    width: '10%',
+                    width: '150',
                     templet:function(data){
                         var valueArray = data.phone;
                         return valueArray;
                     }
-                },/*
-                {
-                    title: '密码',
-                    field: 'password',
-                    sort: true,
-                    sortName: 'password'
                 },
-                {
-                    title: '头像地址',
-                    field: 'header',
-                    sort: true,
-                    sortName: 'header'
-                },*/
                 {
                     title: '昵称',
                     field: 'nickname',
                     sort: true,
                     sortName: 'nickname',
-                    width: '10%'
+                    width: '150'
                 },
                 {
                     title: '性别',
                     field: 'sex',
                     sort: true,
                     sortName: 'sex',
-                    width: '5%',
+                    width: '80',
                     templet:function(data){
                         let sex = data.sex;
                         if(0 == sex){
@@ -86,7 +74,7 @@ layui.use(['form', 'table'], function () {
                     field: 'member',
                     sort: true,
                     sortName: 'member',
-                    width: '10%',
+                    width: '150',
                     templet:function(data){
                         let member = data.member;
                         if(0 == member){
@@ -102,35 +90,29 @@ layui.use(['form', 'table'], function () {
                     title: '积分',
                     field: 'integral',
                     sort: true,
-                    width: '10%',
+                    width: '80',
                     sortName: 'integral'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
                     sort: true,
-                    width: '10%',
+                    width: '120',
                     sortName: 'healthBeans'
-                },/*
-                {
-                    title: '收藏数量',
-                    field: 'collectNumber',
-                    sort: true,
-                    sortName: 'collectNumber'
-                },*/
+                },
                 {
                     title: '签到时间',
                     field: 'signInTime',
                     sort: true,
                     sortName: 'signInTime',
-                    width: '10%',
+                    width: '150',
                 },
                 {
                     title: '消息接收状态',
                     field: 'messageStatus',
                     sort: true,
                     sortName: 'messageStatus',
-                    width: '10%',
+                    width: '150',
                     templet:function(data){
                         let messageStatus = data.messageStatus;
                         if(0 == messageStatus){
@@ -147,7 +129,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userAgreement',
                     sort: true,
                     sortName: 'userAgreement',
-                    width: '10%',
+                    width: '150',
                     templet:function(data){
                         let userAgreement = data.userAgreement;
                         if(0 == userAgreement){
@@ -164,7 +146,7 @@ layui.use(['form', 'table'], function () {
                     field: 'applyStatus',
                     sort: true,
                     sortName: 'applyStatus',
-                    width: '10%',
+                    width: '150',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(0 == applyStatus){
@@ -182,9 +164,8 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '操作',
-                    //toolbar: '#operation',
                     align: "center",
-                    width: '10%',
+                    width: '200',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
