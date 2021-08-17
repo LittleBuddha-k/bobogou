@@ -118,7 +118,9 @@ public class VipController extends BaseController {
         int save = vipService.save(vip);
         if (save > 0) {
             return new Result("200", "保存成功");
-        } else {
+        } else if (-1 == save){
+            return new Result("320", "已有同类型数据，不可再保存第二条同类型数据");
+        }else {
             return new Result("310", "未知错误！保存失败");
         }
     }
