@@ -4,9 +4,7 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
-import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,16 +27,16 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
     @Override
     public UserMember get(UserMember entity) {
         UserMember userMember = super.get(entity);
-        if (userMember != null && StringUtils.isNotBlank(userMember.getBusinessLicense())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getBusinessLicense())) {
             String businessLicense = userMember.getBusinessLicense();
             String aa = "";
             String[] split = businessLicense.split(",");
             for (String image : split) {
                 aa = aa + globalSetting.getRootPath() + image + ",";
             }
-            userMember.setFoodBusinessLicense(aa);
+            userMember.setBusinessLicense(aa);
         }
-        if (userMember != null && StringUtils.isNotBlank(userMember.getBusinessCertificate())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getBusinessCertificate())) {
             String businessCertificate = userMember.getBusinessCertificate();
             String aa = "";
             String[] split = businessCertificate.split(",");
@@ -47,7 +45,7 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
             }
             userMember.setBusinessCertificate(aa);
         }
-        if (userMember != null && StringUtils.isNotBlank(userMember.getFoodBusinessLicense())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getFoodBusinessLicense())) {
             String foodBusinessLicense = userMember.getFoodBusinessLicense();
             String aa = "";
             String[] split = foodBusinessLicense.split(",");
@@ -56,7 +54,7 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
             }
             userMember.setFoodBusinessLicense(aa);
         }
-        if (userMember != null && StringUtils.isNotBlank(userMember.getAuthorityPurchase())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getAuthorityPurchase())) {
             String authorityPurchase = userMember.getAuthorityPurchase();
             String aa = "";
             String[] split = authorityPurchase.split(",");
@@ -65,7 +63,7 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
             }
             userMember.setAuthorityPurchase(aa);
         }
-        if (userMember != null && StringUtils.isNotBlank(userMember.getMandatary())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getMandatary())) {
             String mandatary = userMember.getMandatary();
             String aa = "";
             String[] split = mandatary.split(",");
@@ -74,7 +72,7 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
             }
             userMember.setMandatary(aa);
         }
-        if (userMember != null && StringUtils.isNotBlank(userMember.getGroupPhoto())){
+        if (userMember != null && StringUtils.isNotBlank(userMember.getGroupPhoto())) {
             String groupPhoto = userMember.getGroupPhoto();
             String aa = "";
             String[] split = groupPhoto.split(",");
@@ -107,26 +105,26 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
 
     @Override
     public int save(UserMember entity) {
-        if (entity != null && StringUtils.isNotBlank(entity.getBusinessLicense())){
-            entity.setFoodBusinessLicense(entity.getBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getBusinessLicense())) {
+            entity.setBusinessLicense(entity.getBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getBusinessCertificate())){
-            entity.setBusinessCertificate(entity.getBusinessCertificate().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getBusinessCertificate())) {
+            entity.setBusinessCertificate(entity.getBusinessCertificate().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getFoodBusinessLicense())){
-            entity.setFoodBusinessLicense(entity.getFoodBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getFoodBusinessLicense())) {
+            entity.setFoodBusinessLicense(entity.getFoodBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getAuthorityPurchase())){
-            entity.setAuthorityPurchase(entity.getAuthorityPurchase().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getAuthorityPurchase())) {
+            entity.setAuthorityPurchase(entity.getAuthorityPurchase().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getMandatary())){
-            entity.setMandatary(entity.getMandatary().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getMandatary())) {
+            entity.setMandatary(entity.getMandatary().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getGroupPhoto())){
-            entity.setGroupPhoto(entity.getGroupPhoto().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getGroupPhoto())) {
+            entity.setGroupPhoto(entity.getGroupPhoto().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if (entity != null && StringUtils.isNotBlank(entity.getContractUrl())){
-            entity.setContractUrl(entity.getContractUrl().replaceAll(globalSetting.getRootPath(),""));
+        if (entity != null && StringUtils.isNotBlank(entity.getContractUrl())) {
+            entity.setContractUrl(entity.getContractUrl().replaceAll(globalSetting.getRootPath(), ""));
         }
         return super.save(entity);
     }
@@ -148,11 +146,75 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
 
     /**
      * 使用用户查找用户会员数据
+     *
      * @param userMember
      * @return
      */
     public UserMember getByUser(UserMember userMember) {
         UserMember entity = userMemberMapper.getByUser(userMember);
+        if (entity != null && StringUtils.isNotBlank(entity.getBusinessLicense())) {
+            String businessLicense = entity.getBusinessLicense();
+            String aa = "";
+            String[] split = businessLicense.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setBusinessLicense(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getBusinessCertificate())) {
+            String businessCertificate = entity.getBusinessCertificate();
+            String aa = "";
+            String[] split = businessCertificate.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setBusinessCertificate(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getFoodBusinessLicense())) {
+            String foodBusinessLicense = entity.getFoodBusinessLicense();
+            String aa = "";
+            String[] split = foodBusinessLicense.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setFoodBusinessLicense(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getAuthorityPurchase())) {
+            String authorityPurchase = entity.getAuthorityPurchase();
+            String aa = "";
+            String[] split = authorityPurchase.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setAuthorityPurchase(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getMandatary())) {
+            String mandatary = entity.getMandatary();
+            String aa = "";
+            String[] split = mandatary.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setMandatary(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getGroupPhoto())) {
+            String groupPhoto = entity.getGroupPhoto();
+            String aa = "";
+            String[] split = groupPhoto.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setGroupPhoto(aa);
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getContractUrl())) {
+            String contractUrl = entity.getContractUrl();
+            String aa = "";
+            String[] split = contractUrl.split(",");
+            for (String image : split) {
+                aa = aa + globalSetting.getRootPath() + image + ",";
+            }
+            entity.setContractUrl(aa);
+        }
         return entity;
     }
 }
