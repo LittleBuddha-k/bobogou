@@ -36,10 +36,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     @Override
     public Order get(Order entity) {
         Order order = super.get(entity);
-        if (order != null && StringUtils.isNotBlank(order.getUserId().toString())){
-            CustomerUser customerUser = customerUserMapper.get(new CustomerUser(order.getUserId().toString()));
-            order.setCustomerUser(customerUser);
-        }
         if (order != null && StringUtils.isNotBlank(order.getId())){
             List<OrderInfo> orderInfoList = orderInfoMapper.findList(new OrderInfo(order));
             order.setOrderInfoList(orderInfoList);

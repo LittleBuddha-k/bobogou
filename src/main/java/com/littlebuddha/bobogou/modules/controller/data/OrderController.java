@@ -46,7 +46,7 @@ public class OrderController extends BaseController {
     public Order get(@RequestParam(required = false) String id) {
         Order order = null;
         if (StringUtils.isNotBlank(id)) {
-            order = orderService.get(id);
+            order = orderService.get(new Order(id));
         }
         if (order == null) {
             order = new Order();

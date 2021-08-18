@@ -14,7 +14,6 @@ import java.util.List;
  * @date 2020/7/24 15:14
  */
 public class Order extends DataEntity<Order> {
-    private CustomerUser customerUser;//用户外键
     private Integer userId;//用户id
     private String userName;//用户名称
 
@@ -59,14 +58,6 @@ public class Order extends DataEntity<Order> {
         super(id);
     }
 
-    public CustomerUser getCustomerUser() {
-        return customerUser;
-    }
-
-    public void setCustomerUser(CustomerUser customerUser) {
-        this.customerUser = customerUser;
-    }
-
     public Integer getUserId() {
         return userId;
     }
@@ -76,9 +67,6 @@ public class Order extends DataEntity<Order> {
     }
 
     public String getUserName() {
-        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
-            this.userName = customerUser.getNickname();
-        }
         return userName;
     }
 
