@@ -51,20 +51,6 @@ layui.use(['form', 'table'], function () {
                     sortName: 'grossAmount'
                 },
                 {
-                    title: '积分',
-                    field: 'integral',
-                    sort: true,
-                    width: '7.5%',
-                    sortName: 'integral'
-                },
-                {
-                    title: '播播豆',
-                    field: 'healthBeans',
-                    sort: true,
-                    width: '7.5%',
-                    sortName: 'healthBeans'
-                },
-                {
                     title: '配送地址',
                     field: 'addressId',
                     sort: true,
