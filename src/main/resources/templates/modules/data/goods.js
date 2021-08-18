@@ -77,7 +77,7 @@ layui.use(['form', 'table'], function () {
                     title: '规格',
                     field: 'specification',
                     sort: true,
-                    width: '120'
+                    width: '180'
                 },
                 {
                     title: '数量',
