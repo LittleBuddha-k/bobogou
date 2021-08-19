@@ -6,46 +6,102 @@ import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
-import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class OrderService extends CrudService<Order, OrderMapper> {
 
-    @Autowired
+    @Resource
     private CustomerUserMapper customerUserMapper;
 
-    @Autowired
+    @Resource
     private OrderInfoMapper orderInfoMapper;
 
-    @Autowired
+    @Resource
     private GoodsMapper goodsMapper;
 
     @Override
     public Order get(Order entity) {
         Order order = super.get(entity);
-        if (order != null && StringUtils.isNotBlank(order.getId())){
+        if (order != null && StringUtils.isNotBlank(order.getId())) {
             List<OrderInfo> orderInfoList = orderInfoMapper.findList(new OrderInfo(order));
             order.setOrderInfoList(orderInfoList);
+        }
+        if (order != null && order.getGrossAmount() != null) {
+            order.setGrossAmount(order.getGrossAmount() / 100);
+        }
+        if (order != null && order.getPaymentAmount() != null) {
+            order.setPaymentAmount(order.getPaymentAmount() / 100);
+        }
+        if (order != null && order.getActualAmountPaid() != null) {
+            order.setActualAmountPaid(order.getActualAmountPaid() / 100);
+        }
+        if (order != null && order.getDeductiona() != null) {
+            order.setDeductiona(order.getDeductiona() / 100);
+        }
+        if (order != null && order.getFreight() != null) {
+            order.setFreight(order.getFreight() / 100);
+        }
+        if (order != null && order.getManagementCost() != null) {
+            order.setManagementCost(order.getManagementCost() / 100);
+        }
+        if (order != null && order.getProvinceCost() != null) {
+            order.setProvinceCost(order.getProvinceCost() / 100);
+        }
+        if (order != null && order.getCityCost() != null) {
+            order.setCityCost(order.getCityCost() / 100);
+        }
+        if (order != null && order.getDistrictCost() != null) {
+            order.setDistrictCost(order.getDistrictCost() / 100);
         }
         return order;
     }
 
     @Override
     public List<Order> findList(Order entity) {
-        return super.findList(entity);
+        List<Order> list = super.findList(entity);
+        for (Order order : list) {
+            if (order != null && order.getGrossAmount() != null) {
+                order.setGrossAmount(order.getGrossAmount() / 100);
+            }
+            if (order != null && order.getPaymentAmount() != null) {
+                order.setPaymentAmount(order.getPaymentAmount() / 100);
+            }
+            if (order != null && order.getActualAmountPaid() != null) {
+                order.setActualAmountPaid(order.getActualAmountPaid() / 100);
+            }
+            if (order != null && order.getDeductiona() != null) {
+                order.setDeductiona(order.getDeductiona() / 100);
+            }
+            if (order != null && order.getFreight() != null) {
+                order.setFreight(order.getFreight() / 100);
+            }
+            if (order != null && order.getManagementCost() != null) {
+                order.setManagementCost(order.getManagementCost() / 100);
+            }
+            if (order != null && order.getProvinceCost() != null) {
+                order.setProvinceCost(order.getProvinceCost() / 100);
+            }
+            if (order != null && order.getCityCost() != null) {
+                order.setCityCost(order.getCityCost() / 100);
+            }
+            if (order != null && order.getDistrictCost() != null) {
+                order.setDistrictCost(order.getDistrictCost() / 100);
+            }
+        }
+        return list;
     }
 
     @Override
@@ -64,7 +120,38 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             String trackingNo = StringUtils.deleteWhitespace(entity.getTrackingNo());
             entity.setTrackingNo(trackingNo);
         }
-        return super.findPage(page, entity);
+        PageInfo<Order> page1 = super.findPage(page, entity);
+        List<Order> list = page1.getList();
+        for (Order order : list) {
+            if (order != null && order.getGrossAmount() != null) {
+                order.setGrossAmount(order.getGrossAmount() / 100);
+            }
+            if (order != null && order.getPaymentAmount() != null) {
+                order.setPaymentAmount(order.getPaymentAmount() / 100);
+            }
+            if (order != null && order.getActualAmountPaid() != null) {
+                order.setActualAmountPaid(order.getActualAmountPaid() / 100);
+            }
+            if (order != null && order.getDeductiona() != null) {
+                order.setDeductiona(order.getDeductiona() / 100);
+            }
+            if (order != null && order.getFreight() != null) {
+                order.setFreight(order.getFreight() / 100);
+            }
+            if (order != null && order.getManagementCost() != null) {
+                order.setManagementCost(order.getManagementCost() / 100);
+            }
+            if (order != null && order.getProvinceCost() != null) {
+                order.setProvinceCost(order.getProvinceCost() / 100);
+            }
+            if (order != null && order.getCityCost() != null) {
+                order.setCityCost(order.getCityCost() / 100);
+            }
+            if (order != null && order.getDistrictCost() != null) {
+                order.setDistrictCost(order.getDistrictCost() / 100);
+            }
+        }
+        return page1;
     }
 
     @Override
