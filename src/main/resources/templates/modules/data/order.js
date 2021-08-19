@@ -130,15 +130,7 @@ layui.use(['form', 'table'], function () {
                     width: '180',
                     templet: function (data) {
                         var status = data.status;
-                        if (5 == status){
-                            return '\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>\n' ;
-                        }else {
-                            return '\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>\n'
-                        }
+                        return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>';
                     }
                 }
             ]
