@@ -26,6 +26,10 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     private String specification;//商品规格
 
     private String amount;//购买数量
+    private String stockAmount;//库存
+    private String authorization;//
+    private String factoryName;//
+    private String expirationDate;//
     private String price;//商品单价
     private String totalPrice;//总价
     private Double integral;//单个商品的支付积分
@@ -147,6 +151,38 @@ public class OrderInfo extends DataEntity<OrderInfo> {
 
     public void setAmount(String amount) {
         this.amount = amount;
+    }
+
+    public String getStockAmount() {
+        return stockAmount;
+    }
+
+    public void setStockAmount(String stockAmount) {
+        this.stockAmount = stockAmount;
+    }
+
+    public String getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(String authorization) {
+        this.authorization = authorization;
+    }
+
+    public String getFactoryName() {
+        return factoryName;
+    }
+
+    public void setFactoryName(String factoryName) {
+        this.factoryName = factoryName;
+    }
+
+    public String getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(String expirationDate) {
+        this.expirationDate = expirationDate;
     }
 
     public String getPrice() {

@@ -34,38 +34,26 @@
         WHERE a.id=#{id}
     </select>
 
+    <!--查看订单详情时查询的订单信息列表-->
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
         SELECT
-        <include refid="orderInfoColumns"/>
+        a.id AS "id",
+        a.goods_id AS "goodsId",
+        a.goods_name AS "goodsName",
+        a.specification AS "specification",
+        a.amount AS "amount",
+        b.stock_amount AS "stockAmount",
+        c.authorization AS "authorization",
+        d.factory_name AS "factoryName",
+        b.expiration_date AS "expirationDate"
         FROM sd_order_info a
+        LEFT JOIN mb_goods b ON a.goods_id = b.id
+        LEFT JOIN md_goods_specification c ON b.id = c.id
+        LEFT JOIN md_factory d ON b.factory_id = d.id
         <where>
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
                 and a.order_id = #{orderId}
-            </if>
-            <if test="goodsId != null and goodsId != ''">
-                and a.goodsId = #{goodsId}
-            </if>
-            <if test="goodsImage != null and goodsImage != ''">
-                and a.goodsImage = #{goodsImage}
-            </if>
-            <if test="goodsName != null and goodsName != ''">
-                and a.goodsName = #{goodsName}
-            </if>
-            <if test="specification != null and specification != ''">
-                and a.specification = #{specification}
-            </if>
-            <if test="amount != null and amount != ''">
-                and a.amount = #{amount}
-            </if>
-            <if test="price != null and price != ''">
-                and a.price = #{price}
-            </if>
-            <if test="totalPrice != null">
-                and a.totalPrice = #{totalPrice}
-            </if>
-            <if test="type != null">
-                and a.type = #{type}
             </if>
         </where>
         <choose>
