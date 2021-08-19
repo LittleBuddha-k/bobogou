@@ -240,7 +240,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         }
     });
 
-    //多图片上传药品资质证书（带水印）
+    //供货商营业执照（带水印）
     //拖拽上传
     upload.render({
         elem: '#test1',
@@ -273,6 +273,21 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     //        $('#demo1').append('<img src="'+ res.body.url +'" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">');
     //    }
     //});
+
+    //供货商经营许可证（带水印）
+    //拖拽上传
+    upload.render({
+        elem: '#test16',
+        url: '/bobogou/file/upload-watermark', //改成您自己的上传接口
+        multiple: true,
+        accept: 'images',
+        exts: 'jpg|png|jpeg',
+        done: function (res) {
+            layer.msg('上传成功');
+            layui.$('#uploadDemoView3').removeClass('layui-hide').find('img').attr('src', res.body.url);
+            $("#supplierBusinessLicense").val(res.body.url)
+        }
+    });
     //多图片上传药品资质证书（无水印）
     //拖拽上传
     upload.render({

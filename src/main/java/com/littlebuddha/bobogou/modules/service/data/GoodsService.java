@@ -50,6 +50,10 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             String certificateImageWatermark = goods.getCertificateImageWatermark();
             goods.setCertificateImageWatermark(globalSetting.getRootPath() + certificateImageWatermark);
         }
+        if (goods != null && StringUtils.isNotBlank(goods.getSupplierBusinessLicense())) {
+            String supplierBusinessLicense = goods.getSupplierBusinessLicense();
+            goods.setSupplierBusinessLicense(globalSetting.getRootPath() + supplierBusinessLicense);
+        }
         if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())) {
             String certificateImage = goods.getCertificateImage();
             goods.setCertificateImage(globalSetting.getRootPath() + certificateImage);
@@ -125,6 +129,9 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         //设置图片插入路径格式
         if (entity != null && StringUtils.isNotBlank(entity.getCertificateImageWatermark())) {
             entity.setCertificateImageWatermark(entity.getCertificateImageWatermark().replaceAll(globalSetting.getRootPath(), ""));
+        }
+        if (entity != null && StringUtils.isNotBlank(entity.getSupplierBusinessLicense())) {
+            entity.setSupplierBusinessLicense(entity.getSupplierBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
         }
         if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())) {
             entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(), ""));

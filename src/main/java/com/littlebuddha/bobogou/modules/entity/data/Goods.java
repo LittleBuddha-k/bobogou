@@ -17,6 +17,7 @@ public class Goods extends DataEntity<Goods> {
     private String name;//商品名称
     private String commonName = "";//商品通用名称
     private String certificateImageWatermark = "";//药品资质证书图片地址，一张，带水印
+    private String supplierBusinessLicense = "";//供货商经营许可证带水印
     private String certificateImage = "";//药品资质证书图片地址，一张，不带水印，不展示后期可能会用
 
     private Banner banner;//轮播图外键
@@ -110,6 +111,14 @@ public class Goods extends DataEntity<Goods> {
 
     public void setCertificateImageWatermark(String certificateImageWatermark) {
         this.certificateImageWatermark = certificateImageWatermark;
+    }
+
+    public String getSupplierBusinessLicense() {
+        return supplierBusinessLicense;
+    }
+
+    public void setSupplierBusinessLicense(String supplierBusinessLicense) {
+        this.supplierBusinessLicense = supplierBusinessLicense;
     }
 
     public String getCertificateImage() {
