@@ -16,6 +16,7 @@ import java.util.List;
 public class Order extends DataEntity<Order> {
     private Integer userId;//用户id
     private String userName;//用户名称
+    private String phone;//用户电话
 
     private String number;//订单编号
     private Double grossAmount;//总金额，单位：分
@@ -76,7 +77,15 @@ public class Order extends DataEntity<Order> {
     }
 
     public void setUserName(String userName) {
-        userName = userName;
+        this.userName = userName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getNumber() {

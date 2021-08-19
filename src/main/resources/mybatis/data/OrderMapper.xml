@@ -4,6 +4,8 @@
     <sql id="orderColumns">
         a.id AS "id",
         a.user_id AS "userId",
+        b.nickname AS "userName",
+        b.phone AS "phone",
         a.number AS "number",
         a.gross_amount AS "grossamount",
         a.payment_amount AS "paymentAmount",
@@ -43,6 +45,7 @@
     </sql>
 
     <sql id="orderJoins">
+        LEFT JOIN ud_user b ON a.user_id = b.id
         LEFT JOIN ud_address c ON a.address_id = c.id
     </sql>
 
