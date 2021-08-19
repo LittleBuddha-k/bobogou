@@ -31,7 +31,7 @@ public class RegionGoods extends DataEntity<RegionGoods> {
     private String goodsId = "";//商品ID
     private String goodsName;
 
-    private Integer amount;//商品数量
+    private Integer amount = 0;//商品数量
     private Integer salesVolume = 0;//销量
     private String isMarket = "0";//是否销售，0=在售，1=停售
 
