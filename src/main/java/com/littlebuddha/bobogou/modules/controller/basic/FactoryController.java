@@ -6,8 +6,10 @@ import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,9 @@ public class FactoryController extends BaseController {
 
     @Autowired
     private ProvinceService provinceService;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @ModelAttribute
     public Factory get(@RequestParam(required = false) String id) {
@@ -83,6 +88,15 @@ public class FactoryController extends BaseController {
         //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
+        //词典数据
+        DictData factoryType = new DictData();
+        factoryType.setType("basic_factory_type");
+        List<DictData> factoryTypeList = dictDataService.findList(factoryType);
+        model.addAttribute("factoryTypeList", factoryTypeList);
+        DictData factoryProductType = new DictData();
+        factoryProductType.setType("basic_factory_product_type");
+        List<DictData> factoryProductTypeList = dictDataService.findList(factoryProductType);
+        model.addAttribute("factoryProductTypeList", factoryProductTypeList);
         model.addAttribute("factory", factory);
         return "modules/basic/factoryForm";
     }

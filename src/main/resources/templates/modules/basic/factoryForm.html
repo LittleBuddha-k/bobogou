@@ -15,34 +15,14 @@
                 <label class="layui-form-label" for="factoryType">厂商类型</label>
                 <div class="layui-input-inline">
                     <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode == 'view' && factory.getFactoryType() == null}" disabled="true">
-                        <option th:value="1" th:text="供货商"/>
-                        <option th:value="2" th:text="批发企业"/>
+                            th:id="factoryType" th:if="${mode == 'view'}" disabled="true">
+                        <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
                     </select>
                     <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode == 'view' && factory.getFactoryType() == 1}" disabled="true">
-                        <option th:value="1" th:text="供货商"/>
-                        <option th:value="2" th:text="批发企业"/>
-                    </select>
-                    <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode == 'view' && factory.getFactoryType() == 2}" disabled="true">
-                        <option th:value="1" th:text="供货商"/>
-                        <option th:value="2" th:text="批发企业"/>
-                    </select>
-                    <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode != 'view' && factory.getFactoryType() == null}">
-                        <option th:value="1" th:text="供货商"/>
-                        <option th:value="2" th:text="批发企业"/>
-                    </select>
-                    <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode != 'view' && factory.getFactoryType() == 1}">
-                        <option th:value="1" th:text="供货商"/>
-                        <option th:value="2" th:text="批发企业"/>
-                    </select>
-                    <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode != 'view' && factory.getFactoryType() == 2}">
-                        <option th:value="2" th:text="批发企业"/>
-                        <option th:value="1" th:text="供货商"/>
+                            th:id="factoryType" th:if="${mode != 'view'}">
+                        <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
                     </select>
                 </div>
             </div>
@@ -50,52 +30,14 @@
                 <label class="layui-form-label" for="productType">厂商产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'view' && factory.getProductType() == null}" disabled="true">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
+                            th:id="productType" th:if="${mode == 'view'}" disabled="true">
+                        <option th:each="type:${factoryProductTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${factory.getProductType()}"/>
                     </select>
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'view' && factory.getProductType() == 1}" disabled="true">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'view' && factory.getProductType() == 2}" disabled="true">
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'view' && factory.getProductType() == 3}" disabled="true">
-                        <option th:value="3" th:text="消毒产品"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'view' && factory.getProductType() == null}">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'view' && factory.getProductType() == 1}">
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'view' && factory.getProductType() == 2}">
-                        <option th:value="2" th:text="中药饮片"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="3" th:text="消毒产品"/>
-                    </select>
-                    <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'view' && factory.getProductType() == 3}">
-                        <option th:value="3" th:text="消毒产品"/>
-                        <option th:value="1" th:text="普通厂家"/>
-                        <option th:value="2" th:text="中药饮片"/>
+                            th:id="productType" th:if="${mode != 'view'}">
+                        <option th:each="type:${factoryProductTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                th:selected="${type.getValue()}==${factory.getProductType()}"/>
                     </select>
                 </div>
             </div>
@@ -544,7 +486,7 @@
                 </blockquote>
             </div>
         </div>
-        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getQualityGuarantee() == null || factory.getQualityGuarantee() == ''}" th:id="qualityGuaranteeShow">
+        <div class="layui-form-item" th:if="${mode == 'edit' && factory.getQualityGuarantee() == null || factory.getQualityGuarantee() == ''}" th:id="qualityGuaranteeShow" style="display: none">
             <label class="layui-form-label" for="qualityGuarantee">质保协议</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn" th:id="test9">质保协议</button>
