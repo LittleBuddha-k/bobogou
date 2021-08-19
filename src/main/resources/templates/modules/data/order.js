@@ -52,10 +52,10 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '配送地址',
-                    field: 'addressId',
+                    field: 'address',
                     sort: true,
                     width: '250',
-                    sortName: 'addressId'
+                    sortName: 'address'
                 },
                 {
                     title: '配送方式',

@@ -22,6 +22,11 @@
         a.harvest_integral AS "harvestIntegral",
         a.harvest_health_beans AS "harvestHealthBeans",
         a.address_id AS "addressId",
+        c.province AS "province",
+        c.city AS "city",
+        c.district AS "district",
+        c.street AS "street",
+        c.detailed AS "detailed",
         a.distribution_mode AS "distributionMode",
         a.tracking_no AS "trackingNo",
         a.pay_mode AS "payMode",
@@ -37,10 +42,15 @@
         a.update_time AS "updateTime"
     </sql>
 
+    <sql id="orderJoins">
+        LEFT JOIN ud_address c ON a.address_id = c.id
+    </sql>
+
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
         SELECT
         <include refid="orderColumns"/>
         FROM sd_order a
+        <include refid="orderJoins"/>
         WHERE a.id=#{id}
     </select>
 
@@ -48,6 +58,7 @@
         SELECT
         <include refid="orderColumns"/>
         FROM sd_order a
+        <include refid="orderJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->

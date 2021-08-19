@@ -36,6 +36,11 @@ public class Order extends DataEntity<Order> {
     private Double harvestHealthBeans;//订单完成可获取的播播豆，订单确认收货和自动确认收获后发放给用户
     private Integer addressId;//配送地址ID
     private String address;//
+    private String province;//
+    private String city;//
+    private String district;//
+    private String street;//
+    private String detailed;//
     private String distributionMode;//配送方式，1=顺丰，2=京东
     private String trackingNo;//物流单号
     private String payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
@@ -219,11 +224,56 @@ public class Order extends DataEntity<Order> {
     }
 
     public String getAddress() {
+        if (getProvince() != null || getCity() != null || getDistrict() != null || getStreet() != null || getDetailed() != null) {
+            this.address = getProvince() + getCity() + getDistrict() + getStreet() + getDetailed();
+        }else if (getProvince() == null && getCity() == null && getDistrict() == null && getStreet() == null && getDetailed() == null){
+            this.address = "用户未填写地址·";
+        }
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getDetailed() {
+        return detailed;
+    }
+
+    public void setDetailed(String detailed) {
+        this.detailed = detailed;
     }
 
     public String getDistributionMode() {
