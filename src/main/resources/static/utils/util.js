@@ -325,6 +325,39 @@
                 });
             });
         },
+        openMenuSelectDialog: function open(url, title, width, height) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                layer.open({
+                    type: 2,
+                    title: title,
+                    content: url,
+                    skin: 'demo-class',
+                    area: [width, height],
+                    offset: 'auto',
+                    btn: ['确定', '关闭'],
+                    yes: function (index, layero) {
+                        //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
+                        var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                        iframeWin.save(index);
+                    }
+                    , btn2: function (index, layero) {
+                        //按钮【按钮二】的回调
+                        layer.close(index);
+                    },
+                    //按钮1、2、3的位置
+                    btnAlign: 'c',
+                    //关闭按钮的风格
+                    closeBtn: 0,
+                    shade: [0.8, '#393D49'],
+                    //设置延时关闭时间
+                    //time: 5000,
+                    shift: 4,
+                    //配置最大化最小化按钮
+                    maxmin: false
+                });
+            });
+        },
         openSelector: function open(url, title, width, height) {
             layui.use(['layer', 'form'], function () {
                 var layer = layui.layer;

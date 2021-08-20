@@ -92,7 +92,7 @@ layui.use(['form', 'table'], function () {
         } else if (obj.event === "edit") {
             rc.openSaveDialog("/bobogou/system/role/form/edit?id=" + id, "编辑角色信息", '670px', '340px')
         }  else if (layEvent === 'addPermission') {
-            let index = rc.openSelectionDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
+            let index = rc.openMenuSelectDialog("/bobogou/system/role/permissionPage?id=" + id, "设置权限",'75%','70%')
         }  else if (layEvent === 'addChildren') {
             rc.openSaveDialog("/bobogou/system/role/form/addChildren?parent.id=" + id, "添加下级角色", '670px', '340px')
         } else if (obj.event === "delete") {
