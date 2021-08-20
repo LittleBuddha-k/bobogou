@@ -694,7 +694,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 }
             },
             error: function (result) {
-                rc.alert(result.msg)
+                rc.alert("根据商品名查询时请求出错")
             }
         });
     })
