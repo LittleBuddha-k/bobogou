@@ -127,19 +127,21 @@ public class RoleService extends CrudService<Role, RoleMapper> {
             String[] menusId = role.getMenusId().split(",");
             //直接在每次保存前删除所有角色用户关联信息，然后再根据传参重新赋值
             if (StringUtils.isNotBlank(role.getId())) {
-                roleMenuMapper.deleteOutByRole(role.getId());
+                row = roleMenuMapper.deleteOutByRole(role.getId());
             }
             //循环得到每个关联关系，做插入处理
             for (String menuId : menusId) {
-                Menu menu = menuMapper.get(new Menu(menuId));
-                RoleMenu roleMenu = new RoleMenu(role, menu);
-                roleMenu.preInsert();
-                row = roleMenuMapper.insert(roleMenu);
+                if (menusId != null && StringUtils.isNotBlank(menuId)) {
+                    Menu menu = menuMapper.get(new Menu(menuId));
+                    RoleMenu roleMenu = new RoleMenu(role, menu);
+                    roleMenu.preInsert();
+                    row = roleMenuMapper.insert(roleMenu);
+                }
             }
-        } else if (role != null && StringUtils.isBlank(role.getMenusId())) {
+        } else if (role != null && role.getMenusId() == null || StringUtils.isBlank(role.getMenusId())) {
             //当角色设定id传参存在，menusId没有值，代表取消所有菜单
             if (StringUtils.isNotBlank(role.getId())) {
-                roleMenuMapper.deleteOutByRole(role.getId());
+                row = roleMenuMapper.deleteOutByRole(role.getId());
             }
         }
         return row;

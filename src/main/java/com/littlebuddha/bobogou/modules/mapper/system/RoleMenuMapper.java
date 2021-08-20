@@ -24,7 +24,7 @@ public interface RoleMenuMapper extends BaseMapper<RoleMenu> {
 
     List<Menu> getRoleMenu(RoleMenu roleMenu);
 
-    void deleteOutByRole(String roleId);
+    int deleteOutByRole(String roleId);
 
     //通过角色id逻辑删除相关数据
     int deleteLogicByRole(RoleMenu roleMenu);

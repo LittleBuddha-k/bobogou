@@ -150,7 +150,8 @@ public class RoleController extends BaseController {
             model.addAttribute("menusId", menusId);
         }
         model.addAttribute("role", role);
-        return "modules/system/permissionPage";
+        //return "modules/system/permissionPage";
+        return "modules/system/treePermission";
     }
 
     @ResponseBody
