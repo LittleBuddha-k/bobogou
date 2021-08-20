@@ -54,10 +54,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             String supplierBusinessLicense = goods.getSupplierBusinessLicense();
             goods.setSupplierBusinessLicense(globalSetting.getRootPath() + supplierBusinessLicense);
         }
-        if (goods != null && StringUtils.isNotBlank(goods.getCertificateImage())) {
-            String certificateImage = goods.getCertificateImage();
-            goods.setCertificateImage(globalSetting.getRootPath() + certificateImage);
-        }
         if (goods != null && StringUtils.isNotBlank(goods.getFrontImages())) {
             String frontImages = goods.getFrontImages();
             String aa = "";
@@ -132,9 +128,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
         }
         if (entity != null && StringUtils.isNotBlank(entity.getSupplierBusinessLicense())) {
             entity.setSupplierBusinessLicense(entity.getSupplierBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getCertificateImage())) {
-            entity.setCertificateImage(entity.getCertificateImage().replaceAll(globalSetting.getRootPath(), ""));
         }
         if (entity != null && StringUtils.isNotBlank(entity.getFrontImages())) {
             entity.setFrontImages(entity.getFrontImages().replaceAll(globalSetting.getRootPath(), ""));

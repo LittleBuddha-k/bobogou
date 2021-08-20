@@ -927,54 +927,6 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
-            <div class="layui-upload-drag">
-                <i class="layui-icon"></i>
-                <p>点击上传</p>
-                <div class="layui-hide">
-                    <hr>
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
-            <div class="layui-upload-drag">
-                <i class="layui-icon"></i>
-                <p>点击上传</p>
-                <div class="">
-                    <hr>
-                    <img th:src="${goods.getCertificateImage()}" alt="已保存数据的回显" style="max-width: 196px">
-                </div>
-            </div>
-        </div>
-
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
-            <div class="layui-upload-drag" th:id="test2">
-                <i class="layui-icon"></i>
-                <p>点击上传</p>
-                <div class="layui-hide" th:id="uploadDemoView2">
-                    <hr>
-                    <img  style="max-width: 196px">
-                </div>
-                <input type="hidden" th:id="certificateImage" th:name="certificateImage" >
-            </div>
-        </div>
-
-        <div class="layui-form-item" th:if="${mode != 'detail' && goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
-            <div class="layui-upload-drag" th:id="test2">
-                <i class="layui-icon"></i>
-                <p>点击上传</p>
-                <div class="" th:id="uploadDemoView2">
-                    <hr>
-                    <img th:src="${goods.getCertificateImage()}" style="max-width: 196px">
-                </div>
-                <input type="hidden" th:id="certificateImage" th:name="certificateImage" th:value="${goods.getCertificateImage()}">
-            </div>
-        </div>
         <div class="layui-form-item" th:if="${mode == 'detail' && goods.getFrontImages() == null}">
             <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">
