@@ -75,7 +75,7 @@
                 <div class="layui-input-inline">
                     <textarea th:id="streetId" th:text="${operatorRegion.getStreetName()}"
                               placeholder="街道" class="layui-textarea required" onclick="selectStreet('streetId')" readonly></textarea>
-                    <input type="hidden" th:name="streetId" th:value="${operatorRegion.getStreetId()}" autocomplete="off" class="layui-input required" readonly>
+                    <input type="hidden" th:id="street" th:name="streetId" th:value="${operatorRegion.getStreetId()}" autocomplete="off" class="layui-input required" readonly>
                 </div>
             </div>
         </div>

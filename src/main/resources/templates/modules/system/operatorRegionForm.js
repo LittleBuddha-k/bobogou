@@ -48,8 +48,6 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 }
                 $("#city").html(tmp);
                 $("#area").html(tmp);
-                $("#street").val(0);//清空城市选项
-                $("#streetId").val("");//清空城市选项
                 form.render();
             }
         })
@@ -58,7 +56,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     form.on('select(city)', function (data) {
         let cityId = data.value;
         $("#area").empty();//清空城市选项
-        $("#street").val(0);//清空城市选项
+        $("#street").val("");//清空城市选项
         $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
             if (data.length > 0) {
@@ -68,15 +66,14 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#area").html(tmp);
-                $("#street").html(tmp);
                 form.render();
             }
         })
     });
-    //下拉框选中后的时间
+    /*//下拉框选中后的时间
     form.on('select(area)', function (data) {
         let streetId = data.value;
-        $("#street").val(0);//清空城市选项
+        $("#street").val("");//清空城市选项
         $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/street/all", {"area.id": streetId}, function (data) {
             if (data.length > 0) {
@@ -89,7 +86,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 form.render();
             }
         })
-    });
+    });*/
 })
 
 //保存方法
