@@ -65,6 +65,21 @@ public class AreaController extends BaseController {
     }
 
     /**
+     * 返回区选择列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/area/list")
+    @GetMapping(value = {"/select"})
+    public String select(Area area, Model model, HttpSession session) {
+        model.addAttribute("area", area);
+        return "modules/common/select/area";
+    }
+
+    /**
      * 返回数据
      *
      * @return

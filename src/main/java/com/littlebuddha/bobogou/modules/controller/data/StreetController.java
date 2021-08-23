@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.controller.data;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.common.utils.Result;
@@ -65,6 +66,25 @@ public class StreetController extends BaseController {
     }
 
     /**
+     * 返回街道选择列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/area/list")
+    @GetMapping(value = {"/select"})
+    public String select(Street street, Model model, HttpSession session) {
+        if (street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
+            Area area = areaService.get(new Area(street.getArea().getId()));
+            street.setArea(area);
+        }
+        model.addAttribute("street", street);
+        return "modules/common/select/street";
+    }
+
+    /**
      * 返回数据
      *
      * @return
@@ -74,6 +94,28 @@ public class StreetController extends BaseController {
     public TreeResult data(Street street) {
         PageInfo<Street> page = streetService.findPage(new Page<Street>(), street);
         return getLayUiData(page);
+    }
+
+    /**
+     * 返回不分页数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/noPage")
+    public TreeResult noPage(Street street) {
+        if(street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
+            Area area = areaService.get(street.getArea().getId());
+            street.setAreaCode(area.getCode());
+        }
+        List<Street> list = streetService.findList(street);
+        TreeResult result = null;
+        if (list == null || list.size() <= 0){
+            result = new TreeResult(0,"无数据");
+        }else if(list != null || list.size() > 0){
+            result = new TreeResult(0,"查询成功",list, list.size());
+        }
+        return result;
     }
 
     /**

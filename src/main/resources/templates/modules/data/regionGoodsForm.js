@@ -104,3 +104,12 @@ function save(parentIndex) {
 function selectGoods(id) {
     let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
 }
+
+function selectStreet(id) {
+    let area = $("#area").val();
+    if (area != null && area != '' && area != undefined){
+        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择商品", '90%', '90%',id);
+    }else {
+        rc.error("请先选择区")
+    }
+}

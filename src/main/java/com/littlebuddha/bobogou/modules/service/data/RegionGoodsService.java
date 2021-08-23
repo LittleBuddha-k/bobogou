@@ -83,8 +83,21 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         goodsStock.setUsedAmount(entity.getAmount());
                         goodsStock.setStockAmount(entity.getAmount());
                         goodsMapper.updateStock(goodsStock);
-                        entity.preInsert();
-                        row = regionGoodsMapper.insert(entity);
+                        //保存商品区域数据
+                        if(entity.getStreetId() != null) {
+                            String[] split = entity.getStreetId().split(",");
+                            for (String streetId : split) {
+                                RegionGoods regionGoods = new RegionGoods();
+                                BeanUtils.copyProperties(entity, regionGoods);
+                                regionGoods.setIdType("AUTO");
+                                regionGoods.setStreetId(streetId);
+                                regionGoods.preInsert();
+                                row = regionGoodsMapper.insert(regionGoods);
+                            }
+                        }else {
+                            entity.preInsert();
+                            row = regionGoodsMapper.insert(entity);
+                        }
                     }
                 } else {
                     //先将本条商品区域的分配数量恢复到原本的样子
@@ -109,8 +122,20 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         goodsStock.setUsedAmount(entity.getAmount());
                         goodsStock.setStockAmount(entity.getAmount());
                         goodsMapper.updateStock(goodsStock);
-                        entity.preUpdate();
-                        row = regionGoodsMapper.update(entity);
+                        if(entity.getStreetId() != null) {
+                            String[] split = entity.getStreetId().split(",");
+                            for (String streetId : split) {
+                                RegionGoods regionGoods = new RegionGoods();
+                                BeanUtils.copyProperties(entity, regionGoods);
+                                regionGoods.setIdType("AUTO");
+                                regionGoods.setStreetId(streetId);
+                                regionGoods.preUpdate();
+                                row = regionGoodsMapper.update(regionGoods);
+                            }
+                        }else {
+                            entity.preUpdate();
+                            row = regionGoodsMapper.update(entity);
+                        }
                     }
                 }
             } else {
