@@ -7,7 +7,8 @@ layui.use('form', function(){
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
         $("#area").empty();//清空城市选项
-        $("#street").empty();//清空城市选项
+        $("#street").val("");//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
@@ -24,7 +25,8 @@ layui.use('form', function(){
     form.on('select(city)', function(data){
         let cityId = data.value;
         $("#area").empty();//清空城市选项
-        $("#street").empty();//清空城市选项
+        $("#street").val("");//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
@@ -40,7 +42,8 @@ layui.use('form', function(){
     //下拉框选中后的时间
     form.on('select(area)', function(data){
         let streetId = data.value;
-        $("#street").empty();//清空城市选项
+        $("#street").val("");//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句

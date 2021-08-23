@@ -18,34 +18,39 @@ import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class OperatorRegionService extends CrudService<OperatorRegion, OperatorRegionMapper> {
 
-    @Autowired
+    @Resource
     private OperatorMapper operatorMapper;
 
-    @Autowired
+    @Resource
     private CustomerUserMapper customerUserMapper;
 
-    @Autowired
+    @Resource
     private ProvinceMapper provinceMapper;
 
-    @Autowired
+    @Resource
     private CityMapper cityMapper;
 
-    @Autowired
+    @Resource
     private AreaMapper areaMapper;
 
-    @Autowired
+    @Resource
     private StreetMapper streetMapper;
+
+    @Resource
+    private OperatorRegionMapper operatorRegionMapper;
 
     @Override
     public OperatorRegion get(OperatorRegion entity) {
@@ -122,7 +127,43 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
                 entity.setUserId("0");
             }
         }
-        int save = super.save(entity);
+        //int save = super.save(entity);
+        int save = 0;
+        if (entity != null && StringUtils.isBlank(entity.getId())){
+            //新增
+            if (StringUtils.isNotBlank(entity.getStreetId())) {
+                String streetId = entity.getStreetId();
+                String[] street = streetId.split(",");
+                for (String streetsId : street) {
+                    OperatorRegion operatorRegion = new OperatorRegion();
+                    BeanUtils.copyProperties(entity, operatorRegion);
+                    operatorRegion.setIdType("AUTO");
+                    operatorRegion.setStreetId(streetsId);
+                    operatorRegion.preInsert();
+                    save = operatorRegionMapper.insert(operatorRegion);
+                }
+            }else {
+                entity.preInsert();
+                save = operatorRegionMapper.insert(entity);
+            }
+        }else {
+            //修改
+            if (StringUtils.isNotBlank(entity.getStreetId())) {
+                String streetId = entity.getStreetId();
+                String[] street = streetId.split(",");
+                for (String streetsId : street) {
+                    OperatorRegion operatorRegion = new OperatorRegion();
+                    BeanUtils.copyProperties(entity, operatorRegion);
+                    operatorRegion.setIdType("AUTO");
+                    operatorRegion.setStreetId(streetsId);
+                    operatorRegion.preUpdate();
+                    save = operatorRegionMapper.update(operatorRegion);
+                }
+            }else {
+                entity.preUpdate();
+                save = operatorRegionMapper.update(entity);
+            }
+        }
         return save;
     }
 

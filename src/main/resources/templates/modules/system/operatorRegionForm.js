@@ -36,16 +36,20 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     form.on('select(province)', function (data) {
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
+        $("#area").empty();//清空城市选项
+        $("#street").val("");//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/city/all", {"province.id": provinceId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
+                var tmp = '<option value="">请选择</option>';
                 for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#city").html(tmp);
                 $("#area").html(tmp);
-                $("#street").html(tmp);
+                $("#street").val(0);//清空城市选项
+                $("#streetId").val("");//清空城市选项
                 form.render();
             }
         })
@@ -54,10 +58,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     form.on('select(city)', function (data) {
         let cityId = data.value;
         $("#area").empty();//清空城市选项
+        $("#street").val(0);//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
+                var tmp = '<option value="">请选择</option>';
                 for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -70,11 +76,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     //下拉框选中后的时间
     form.on('select(area)', function (data) {
         let streetId = data.value;
-        $("#street").empty();//清空城市选项
+        $("#street").val(0);//清空城市选项
+        $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/street/all", {"area.id": streetId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
+                var tmp = '<option value="">请选择</option>';
                 for (let i = 0; i < data.length; i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -119,4 +126,13 @@ function save(parentIndex) {
 
 function selectOperator(id) {
     let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择用户", '90%', '80%',id);
+}
+
+function selectStreet(id) {
+    let area = $("#area").val();
+    if (area != null && area != '' && area != undefined){
+        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择商品", '90%', '90%',id);
+    }else {
+        rc.error("请先选择区")
+    }
 }
