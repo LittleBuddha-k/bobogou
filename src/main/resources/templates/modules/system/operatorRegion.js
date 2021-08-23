@@ -166,14 +166,14 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(operatorRegionTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/system/operatorRegion/form/add", "新建用户区域信息", '763px', '50%')
+            var index = rc.openSaveDialog("/bobogou/system/operatorRegion/form/add", "新建用户区域信息", '763px', '80%')
         }
     });
 
     table.on('tool(operatorRegionTableFilter)', function (obj) {
         var id = obj.data.id;
         if (obj.event === 'edit') {  // 监听修改操作
-            rc.openSaveDialog('/bobogou/system/operatorRegion/form/edit?id=' + id, "编辑用户区域信息", '763px', '50%');
+            rc.openSaveDialog('/bobogou/system/operatorRegion/form/edit?id=' + id, "编辑用户区域信息", '763px', '80%');
         } else if (obj.event === 'delete') {  // 监听删除操作
             rc.confirm('确认要删除该用户区域信息吗？', function () {
                 rc.post("/bobogou/system/operatorRegion/deleteByPhysics?ids=" + id, '', function (data) {

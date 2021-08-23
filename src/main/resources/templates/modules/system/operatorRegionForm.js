@@ -95,34 +95,74 @@ function save(parentIndex) {
     if (!isValidate) {
         return false;
     } else {
-        $.ajax({
-            url: "/bobogou/system/operatorRegion/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#operatorRegionForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                if(200 == result.code){
-                    parent.refresh();
-                    //当你在iframe页面关闭自身时
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    rc.msg(result.msg)
-                    setTimeout(function(){
-                        parent.layer.close(index); //再执行关闭
-                    }, 500);
-                }else {
-                    rc.msg(result.msg)
-                }
-            },
-            error: function (result) {
-                rc.alert(result.msg)
+        let flag = false;
+        let type = $("#type").val();
+        let province = $("#province").val();
+        let city = $("#city").val();
+        let area = $("#area").val();
+        let street = $("#street").val();
+        if (type == 0){
+            //超级管理员助理
+            rc.error("请选择类型")
+        }else if (type == 1){
+            //超级管理员助理
+            if (province != null && province != '' && province != undefined && province != 0){
+                flag = true;
+            }else if (province == null || province == '' || province == undefined || province == 0){
+                rc.error("请选择省级")
             }
-        });
+        }else if (type == 2){
+            //省级
+            if (city != null && city != '' && city != undefined && city != 0){
+                flag = true;
+            }else if (city == null || city == '' || city == undefined || city == 0) {
+                rc.error("请选择市级")
+            }
+        }else if (type == 3){
+            //市级
+            if (area != null && area != '' && area != undefined && area != 0){
+                flag = true;
+            }else if (area == null || area == '' || area == undefined || area == 0) {
+                rc.error("请选择区级")
+            }
+        }else if (type == 4){
+            //区级
+            if (street != null && street != '' && street != undefined && street != 0){
+                flag = true;
+            }else if (street == null || street == '' || street == undefined || street == 0) {
+                rc.error("请选择街道级")
+            }
+        }
+        if (flag){
+            $.ajax({
+                url: "/bobogou/system/operatorRegion/save",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: $("#operatorRegionForm").serialize(),    //参数值
+                type: "POST",   //请求方式
+                success: function (result) {
+                    if(200 == result.code){
+                        parent.refresh();
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        rc.msg(result.msg)
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                        }, 500);
+                    }else {
+                        rc.msg(result.msg)
+                    }
+                },
+                error: function (result) {
+                    rc.alert(result.msg)
+                }
+            });
+        }
     }
 }
 
 function selectOperator(id) {
-    let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择用户", '90%', '80%',id);
+    let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择用户", '90%', '90%',id);
 }
 
 function selectStreet(id) {
