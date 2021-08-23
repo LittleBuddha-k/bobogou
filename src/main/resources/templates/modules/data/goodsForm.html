@@ -1510,7 +1510,7 @@
                     </div>
                 </blockquote>
             </div>
-            <input type="hidden" th:id="goodsNormProductionCertificate" th:name="goodsNorm.productionCertificate">
+            <input type="hidden" th:id="goodsNormProductionCertificate" th:name="goodsNorm.productionCertificate" th:value="${goods.getGoodsNorm().getProductionCertificate()}">
         </div>
 
         <div class="layui-form-item" th:if="${mode != 'detail'}">

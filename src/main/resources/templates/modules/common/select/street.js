@@ -3,9 +3,11 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
+    let areaId = $("#areaId").val();
+
     table.render({
         elem: '#streetTable',
-        url: '/bobogou/data/street/data',
+        url: '/bobogou/data/street/noPage?area.id=' + areaId,
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -16,7 +18,7 @@ layui.use(['form', 'table'], function () {
             //如果是异步请求数据方式，res即为你接口返回的信息。
             //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
         },
-        toolbar: '#toolBar',
+        //toolbar: '#toolBar',
         defaultToolbar: [
             'filter',
             'exports',
@@ -33,16 +35,6 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '街道代码',
-                    field: 'code',
-                    sort: true,
-                    sortName: 'code',
-                    templet:function(data){
-                        var valueArray = data.code;
-                        return valueArray;
-                    }
-                },
-                {
                     title: '街道名称',
                     field: 'name',
                     sort: true,
@@ -53,65 +45,17 @@ layui.use(['form', 'table'], function () {
                     field: 'shortName',
                     sort: true,
                     sortName: 'shortName'
-                },
-                {
-                    title: '街道代码',
-                    field: 'areaCode',
-                    sort: true,
-                    sortName: 'areaCode'
-                },
-                {
-                    title: '经度',
-                    field: 'lng',
-                    sort: true,
-                    sortName: 'lng'
-                },
-                {
-                    title: '纬度',
-                    field: 'lat',
-                    sort: true,
-                    sortName: 'lat'
-                },
-                {
-                    title: '排序',
-                    field: 'sort',
-                    sort: true,
-                    sortName: 'sort'
-                },
-                {
-                    title: '状态',
-                    field: 'status',
-                    sort: true,
-                    sortName: 'status'
-                },
-                {
-                    title: '租户ID',
-                    field: 'tenantCode',
-                    sort: true,
-                    sortName: 'tenantCode'
-                },
-                {
-                    title: '操作',
-                    toolbar: '#operation',
-                    align: "center"
                 }
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
         limit: 10,
-        page: true,
+        page: false,
         skin: 'line',
         where: {
             code: $("#code").val(),
             name: $("#name").val(),
-            shortName: $("#shortName").val(),
-            areaCode: $("#areaCode").val(),
-            lng: $("#lng").val(),
-            lat: $("#lat").val(),
-            sort: $("#sort").val(),
-            remarks: $("#remarks").val(),
-            status: $("#status").val(),
-            tenantCode: $("#tenantCode").val()
+            shortName: $("#shortName").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -123,14 +67,7 @@ layui.use(['form', 'table'], function () {
             where: {
                 code: $("#code").val(),
                 name: $("#name").val(),
-                shortName: $("#shortName").val(),
-                areaCode: $("#areaCode").val(),
-                lng: $("#lng").val(),
-                lat: $("#lat").val(),
-                sort: $("#sort").val(),
-                remarks: $("#remarks").val(),
-                status: $("#status").val(),
-                tenantCode: $("#tenantCode").val()
+                shortName: $("#shortName").val()
             }
         });
         return false;
@@ -229,6 +166,35 @@ function getIdSelections(table) {
     }
     ;
     return ids;
+}
+
+function getSelector() {
+    let ids = "";
+    let name = "";
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        var checkStatus = table.checkStatus('streetTable'),
+            data = checkStatus.data;
+
+        if (data.length > 0){
+            for (let i = 0;i < data.length ; i++){
+                if (ids == ""){
+                    ids = data[i].id;
+                }else {
+                    ids = ids + "," + data[i].id;
+                }
+                if (name == ""){
+                    name = data[i].name;
+                }else {
+                    name = name + "," + data[i].name;
+                }
+            }
+        }
+    })
+    return ids + "w" + name;
 }
 
 function refresh() {

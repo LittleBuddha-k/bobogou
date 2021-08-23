@@ -491,8 +491,8 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() == '' || goods.getCertificateImageWatermark() == null}">
-            <label class="layui-form-label">药品资质证书(带水印)</label>
+        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() == null || goods.getCertificateImageWatermark() == ''}">
+            <label class="layui-form-label">供货商营业执照(带水印)</label>
             <div class="layui-upload-drag">
                 <i class="layui-icon"></i>
                 <p>点击上传</p>
@@ -502,8 +502,8 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() != '' && goods.getCertificateImageWatermark() != null}">
-            <label class="layui-form-label">药品资质证书(带水印)</label>
+        <div class="layui-form-item" th:if="${goods.getCertificateImageWatermark() != null && goods.getCertificateImageWatermark() != ''}">
+            <label class="layui-form-label">供货商营业执照(带水印)</label>
             <div class="layui-upload-drag">
                 <i class="layui-icon"></i>
                 <p>点击上传</p>
@@ -514,8 +514,8 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${goods.getCertificateImage() == '' || goods.getCertificateImage() == null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
+        <div class="layui-form-item" th:if="${goods.getSupplierBusinessLicense() == null || goods.getSupplierBusinessLicense() == ''}">
+            <label class="layui-form-label">供货商经营许可证(带水印)</label>
             <div class="layui-upload-drag">
                 <i class="layui-icon"></i>
                 <p>点击上传</p>
@@ -525,17 +525,18 @@
             </div>
         </div>
 
-        <div class="layui-form-item" th:if="${goods.getCertificateImage() != '' && goods.getCertificateImage() != null}">
-            <label class="layui-form-label">药品资质证书(无水印)</label>
+        <div class="layui-form-item" th:if="${goods.getSupplierBusinessLicense() != null && goods.getSupplierBusinessLicense() != ''}">
+            <label class="layui-form-label">供货商经营许可证(带水印)</label>
             <div class="layui-upload-drag">
                 <i class="layui-icon"></i>
                 <p>点击上传</p>
                 <div class="">
                     <hr>
-                    <img th:src="${goods.getCertificateImage()}" alt="已保存数据的回显" style="max-width: 196px">
+                    <img th:src="${goods.getSupplierBusinessLicense()}" alt="已保存数据的回显" style="max-width: 196px" >
                 </div>
             </div>
         </div>
+
         <div class="layui-form-item" th:if="${goods.getFrontImages() == null}">
             <label class="layui-form-label" for="frontImages">商品正面图</label>
             <div class="layui-upload">

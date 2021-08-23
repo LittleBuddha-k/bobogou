@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="utf-8">
-    <title>街道管理列表</title>
+    <title>区级管理列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -19,60 +19,52 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">街道代码</label>
+                            <label class="layui-form-label">区代码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="code" th:value="${street.getCode()}"
+                                <input type="text" name="code" th:value="${area.getCode()}"
                                        th:id="code" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">街道名称</label>
+                            <label class="layui-form-label">区名</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="name" th:value="${street.getName()}" autocomplete="off"
+                                <input type="text" name="name" th:value="${area.getName()}" autocomplete="off"
                                        th:id="name" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">街道简称</label>
+                            <label class="layui-form-label">简称</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="shortName" th:value="${street.getShortName()}"
-                                       autocomplete="off"
+                                <input type="text" name="shortName" th:value="${area.getShortName()}" autocomplete="off"
                                        th:id="shortName" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">区级代码</label>
+                            <label class="layui-form-label">市级代码</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="areaCode" th:value="${street.getAreaCode()}" autocomplete="off"
-                                       th:id="areaCode" class="layui-input">
+                                <input type="text" name="cityCode" th:value="${area.getCityCode()}" autocomplete="off"
+                                       th:id="cityCode" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">经度</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="lng" th:value="${street.getLng()}" autocomplete="off"
+                                <input type="text" name="lng" th:value="${area.getLng()}" autocomplete="off"
                                        th:id="lng" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">纬度</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="lat" th:value="${street.getLat()}" autocomplete="off"
+                                <input type="text" name="lat" th:value="${area.getLat()}" autocomplete="off"
                                        th:id="lat" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">排序</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="sort" th:value="${street.getSort()}" autocomplete="off"
+                                <input type="text" name="sort" th:value="${area.getSort()}" autocomplete="off"
                                        th:id="sort" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">备注</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="remarks" th:value="${street.getRemarks()}" autocomplete="off"
-                                       th:id="remarks" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -93,37 +85,37 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolBar">
+<!--        <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
-                <shiro:hasPermission name="data:street:add">
+                <shiro:hasPermission name="data:area:add">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:street:edit">
+                <shiro:hasPermission name="data:area:edit">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:street:view">
+                <shiro:hasPermission name="data:area:view">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:street:delete">
+                <shiro:hasPermission name="data:area:delete">
                     <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
                     </button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:street:import">
+                <shiro:hasPermission name="data:area:import">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
                 </shiro:hasPermission>
-                <shiro:hasPermission name="data:street:export">
+                <shiro:hasPermission name="data:area:export">
                     <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
                 </shiro:hasPermission>
             </div>
-        </script>
+        </script>-->
 
-        <table class="layui-hide" id="streetTable" lay-filter="streetTableFilter"></table>
-
+        <table class="layui-hide" id="areaTable" lay-filter="areaTableFilter"></table>
+<!--
         <script type="text/html" id="operation">
-            <shiro:hasPermission name="data:street:export">
+            <shiro:hasPermission name="data:area:export">
                 <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
             </shiro:hasPermission>
-        </script>
+        </script>-->
 
     </div>
 </div>
@@ -131,7 +123,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/street.js"></script>
+<script type="text/javascript" src="/bobogou/modules/common/select/area.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>
