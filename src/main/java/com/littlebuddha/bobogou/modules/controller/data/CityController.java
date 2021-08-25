@@ -85,7 +85,9 @@ public class CityController extends BaseController {
     public List<City> all(City city) {
         if(city != null && StringUtils.isNotBlank(city.getProvince().getId())){
             Province province = provinceService.get(city.getProvince().getId());
-            city.setProvinceCode(province.getCode());
+            if (province != null) {
+                city.setProvinceCode(province.getCode());
+            }
         }
         List<City> list = cityService.findList(city);
         return list;

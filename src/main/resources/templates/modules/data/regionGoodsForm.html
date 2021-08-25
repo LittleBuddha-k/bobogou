@@ -28,7 +28,7 @@
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="" th:if="${mode == 'add'}" lay-filter="province"
                             th:id="province">
-                        <option th:text="请选择"/>
+                        <option th:text="请选择" th:value="0"/>
                         <option th:each="province:${provinceList}" th:value="${province.getId()}"
                                 th:text="${province.getName()}"/>
                     </select>

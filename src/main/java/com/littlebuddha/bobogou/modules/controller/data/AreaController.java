@@ -100,7 +100,9 @@ public class AreaController extends BaseController {
     public List<Area> all(Area entity) {
         if(entity != null && entity.getCity() != null && StringUtils.isNotBlank(entity.getCity().getId())){
             City city = cityService.get(entity.getCity().getId());
-            entity.setCityCode(city.getCode());
+            if (city != null) {
+                entity.setCityCode(city.getCode());
+            }
         }
         List<Area> list = areaService.findList(entity);
         return list;
