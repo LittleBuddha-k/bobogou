@@ -5,7 +5,9 @@
         id AS "id",
         user_id AS "userId",
         order_id AS "orderId",
+        order_factory_id AS "orderFactoryId",
         goods_id AS "goodsId",
+        region_goods_id AS "regionGoodsId",
         goods_image AS "goodsImage",
         goods_name AS "goodsName",
         specification AS "specification",
@@ -65,53 +67,6 @@
         </choose>
     </select>
 
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
-        SELECT
-        <include refid="orderInfoColumns"/>
-        FROM sd_order_info a
-        <where>
-            <!-- 判断条件参数是否为空 -->
-            <if test="orderId != null and orderId != ''">
-                a.order_id LIKE concat('%',#{orderId},'%')
-            </if>
-            <if test="goodsId != null and goodsId != ''">
-                and a.goodsId = #{goodsId}
-            </if>
-            <if test="goodsImage != null and goodsImage != ''">
-                and a.goodsImage = #{goodsImage}
-            </if>
-            <if test="goodsName != null and goodsName != ''">
-                and a.goodsName = #{goodsName}
-            </if>
-            <if test="specification != null and specification != ''">
-                and a.specification = #{specification}
-            </if>
-            <if test="amount != null and amount != ''">
-                and a.amount = #{amount}
-            </if>
-            <if test="price != null and price != ''">
-                and a.price = #{price}
-            </if>
-            <if test="totalPrice != null">
-                and a.totalPrice = #{totalPrice}
-            </if>
-            <if test="type != null">
-                and a.type = #{type}
-            </if>
-            <if test="order != null and order.id != null and order.id != ''">
-                and a.order_id = #{order.id}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-
-            </when>
-            <otherwise>
-                Order BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderInfo">
         SELECT
         <include refid="orderInfoColumns"/>
@@ -130,7 +85,9 @@
         INSERT INTO sd_order_info(
             user_id,
             order_id,
+            order_factory_id,
             goods_id,
+            region_goods_id,
             goods_image,
             goods_name,
             specification,
@@ -153,7 +110,9 @@
         )VALUES (
             #{userId},
             #{orderId},
+            #{orderFactoryId},
             #{goodsId},
+            #{regionGoodsId},
             #{goodsImage},
             #{goodsName},
             #{specification},
@@ -180,7 +139,9 @@
         UPDATE sd_order_info SET
             user_id = #{userId},
             order_id = #{orderId},
+            order_factory_id = #{orderFactoryId},
             goods_id = #{goodsId},
+            region_goods_id = #{regionGoodsId},
             goods_image = #{goodsImage},
             goods_name = #{goodsName},
             specification = #{specification},

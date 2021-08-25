@@ -17,8 +17,11 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     private Order order;//外键
     private String orderId;//订单ID
 
+    private String orderFactoryId;//订单厂商表
+
     private Goods goods;//商品外键
     private String goodsId;//商品ID，兑换商品为cd_change_goods表ID
+    private String regionGoodsId;//
     private String goodsImage;//商品封面图片地址
     private String goodsName;//商品名称
 
@@ -97,6 +100,14 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.orderId = orderId;
     }
 
+    public String getOrderFactoryId() {
+        return orderFactoryId;
+    }
+
+    public void setOrderFactoryId(String orderFactoryId) {
+        this.orderFactoryId = orderFactoryId;
+    }
+
     public Goods getGoods() {
         return goods;
     }
@@ -111,6 +122,14 @@ public class OrderInfo extends DataEntity<OrderInfo> {
 
     public void setGoodsId(String goodsId) {
         this.goodsId = goodsId;
+    }
+
+    public String getRegionGoodsId() {
+        return regionGoodsId;
+    }
+
+    public void setRegionGoodsId(String regionGoodsId) {
+        this.regionGoodsId = regionGoodsId;
     }
 
     public String getGoodsImage() {
