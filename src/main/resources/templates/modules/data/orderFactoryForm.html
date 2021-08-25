@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/bobogou/utils/vendor.js"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="orderFactoryForm">
+        <input type="hidden" name="id" id="id" th:value="${orderFactory.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="orderId">订单编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="orderNumber" th:value="${orderFactory.getOrderNumber()}"
+                           th:id="orderNumber" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="factoryName">厂家</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="factoryName" th:value="${orderFactory.getFactoryName()}"
+                           th:id="factoryName" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="province">省</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="province" th:value="${orderFactory.getProvince()}"
+                           th:id="province" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="city">市</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="city" th:value="${orderFactory.getCity()}"
+                           th:id="city" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="area">区</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="area" th:value="${orderFactory.getArea()}"
+                           th:id="area" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="street">街道</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="street" th:value="${orderFactory.getStreet()}"
+                           th:id="street" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="detailAddress">详细地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="detailAddress" th:value="${orderFactory.getDetailAddress()}"
+                           th:id="detailAddress" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="receivingAddress">收货地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="receivingAddress" th:value="${orderFactory.getReceivingAddress()}"
+                           th:id="receivingAddress" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="totalWeight">总重量(g)</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="totalWeight" th:value="${orderFactory.getTotalWeight()}"
+                           th:id="totalWeight" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="freightWeight">付费重量(g)</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="freightWeight" th:value="${orderFactory.getFreightWeight()}"
+                           th:id="freightWeight" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="freight">运费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="freight" th:value="${orderFactory.getFreight()}"
+                           th:id="freight" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="distributionMode">配送方式</label>
+                <div class="layui-input-inline">
+                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
+                            th:id="distributionMode" disabled="true">
+                        <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
+                                th:selected="${distributionMode.getValue()}==${orderFactory.getDistributionMode()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="trackingNo">物流单号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
+                           th:id="trackingNo" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="outStatus">出库状态</label>
+                <div class="layui-input-inline">
+                    <select name="outStatus" lay-verify="" lay-filter="outStatus"
+                            th:id="outStatus" disabled="true">
+                        <option th:each="outStatus:${outStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
+                                th:selected="${outStatus.getValue()}==${orderFactory.getOutStatus()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="deliveryTime">确认发货时间</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deliveryTime" th:value="${orderFactory.getDeliveryTime()}"
+                           th:id="deliveryTime" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <!--<div class="layui-inline">
+                <label class="layui-form-label" for="status">状态</label>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" lay-filter="status"
+                            th:id="status" disabled="true">
+                        <option th:each="status:${orderFactoryStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
+                                th:selected="${status.getValue()}==${orderFactory.getStatus()}"/>
+                    </select>
+                </div>
+            </div>-->
+        </div>
+        <!--<div class="layui-form-item">
+            <label class="layui-form-label">订单商品：</label>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>商品规格</th>
+                <th>购买数量</th>
+                <th>商品库存</th>
+                <th>商品批号</th>
+                <th>生产厂家</th>
+                <th>有效期(月)</th>
+            </tr>
+            </thead>
+            <tbody id="orderFactoryInfoList">
+            </tbody>
+            <script type="text/template" id="orderFactoryInfoTpl">//&lt;!&ndash;
+				<tr id="orderFactoryInfoList{{idx}}">
+					<td class="layui-hide">
+						<input id="orderFactoryInfoList{{idx}}_id" name="orderFactoryInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+					</td>
+
+                    <td>
+						<input id="orderFactoryInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" readonly/>
+						<input name="orderFactoryInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
+					</td>
+
+                    <td>
+						<input id="orderFactoryInfoList{{idx}}_specification" name="orderFactoryInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderFactoryInfoList{{idx}}_amount" name="orderFactoryInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderFactoryInfoList{{idx}}_stockAmount" name="orderFactoryInfoList[{{idx}}].stockAmount" type="text" value="{{row.stockAmount}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderFactoryInfoList{{idx}}_authorization" name="orderFactoryInfoList[{{idx}}].authorization" type="text" value="{{row.authorization}}"    class="layui-input" readonly/>
+					</td>
+
+                    <td>
+						<input id="orderFactoryInfoList{{idx}}_factoryName" name="orderFactoryInfoList[{{idx}}].factoryName" type="text" value="{{row.factoryName}}"    class="layui-input" readonly/>
+					</td>
+
+                    <td>
+						<input id="orderFactoryInfoList{{idx}}_expirationDate" name="orderFactoryInfoList[{{idx}}].expirationDate" type="text" value="{{row.expirationDate}}"    class="layui-input" readonly/>
+					</td>&ndash;&gt;
+				</tr>//&ndash;&gt;
+            </script>
+            <script type="text/javascript">
+                var orderFactoryInfoRowIdx = 0,
+                    orderFactoryInfoTpl = $("#orderFactoryInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
+                $(document).ready(function () {
+                    let orderFactoryId = $("#id").val();
+                    $.ajax({
+                        type: "get",
+                        enctype: 'multipart/form-data',
+                        url: '/bobogou/data/orderFactory/orderFactoryInfoList?orderFactoryId=' + orderFactoryId,
+                        processData: false, //prevent jQuery from automatically transforming the data into a query string
+                        contentType: false,
+                        success: function (result) {
+                            let value = result;
+                            if (value != null && value != '') {
+                                for (var i = 0; i < value.length; i++) {
+                                    addRow('#orderFactoryInfoList', orderFactoryInfoRowIdx, orderFactoryInfoTpl, value[i]);
+                                    orderFactoryInfoRowIdx = orderFactoryInfoRowIdx + 1;
+                                }
+                            }
+                        },
+                    });
+                });
+            </script>
+        </table>-->
+    </form>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/orderFactoryForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+</body>
+</html>

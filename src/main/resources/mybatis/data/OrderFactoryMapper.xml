@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.OrderFactoryMapper">
+    <sql id="orderFactoryColumns">
+        a.id AS "id",
+        a.order_id AS "orderId",
+        b.number AS "orderNumber",
+        a.factory_id AS "factoryId",
+        a.factory_name AS "factoryName",
+        a.province_id AS "provinceId",
+        a.province AS "province",
+        a.city_id AS "cityId",
+        a.city AS "city",
+        a.area_id AS "areaId",
+        a.area AS "area",
+        a.street_id AS "streetId",
+        a.street AS "street",
+        a.detail_address AS "detailAddress",
+        a.address_id AS "addressId",
+        c.province AS "receivingProvince",
+        c.city AS "receivingCity",
+        c.district AS "receivingArea",
+        c.street AS "receivingStreet",
+        c.detailed AS "address",
+        a.total_weight AS "totalWeight",
+        a.freight_weight AS "freightWeight",
+        a.freight AS "freight",
+        a.distribution_mode AS "distributionMode",
+        a.tracking_no AS "trackingNo",
+        a.out_status AS "outStatus",
+        a.delivery_time AS "deliveryTime",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="orderFactoryJoins">
+        LEFT JOIN  sd_order b ON a.order_id = b.id
+        LEFT JOIN  ud_address c ON a.address_id = c.id
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderFactory">
+        SELECT
+        <include refid="orderFactoryColumns"/>
+        FROM sd_order_factory a
+        <include refid="orderFactoryJoins"/>
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderFactory">
+        SELECT
+        <include refid="orderFactoryColumns"/>
+        FROM sd_order_factory a
+        <include refid="orderFactoryJoins"/>
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="trackingNo != null and trackingNo != ''">
+                AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sd_order_factory(
+            order_id,
+            factory_id,
+            factory_name,
+            province_id,
+            province,
+            city_id,
+            city,
+            area_id,
+            area,
+            street_id,
+            street,
+            detail_address,
+            address_id,
+            total_weight,
+            freight_weight,
+            freight,
+            distribution_mode,
+            tracking_no,
+            out_status,
+            delivery_time,
+            is_deleted,
+            create_time,
+            update_time
+        )VALUES (
+            #{orderId},
+            #{factoryId},
+            #{factoryName},
+            #{provinceId},
+            #{province},
+            #{cityId},
+            #{city},
+            #{areaId},
+            #{area},
+            #{streetId},
+            #{street},
+            #{detailAddress},
+            #{addressId},
+            #{totalWeight},
+            #{freightWeight},
+            #{freight},
+            #{distributionMode},
+            #{trackingNo},
+            #{outStatus},
+            #{deliveryTime},
+            #{isDeleted},
+            #{createTime},
+            #{updateTime}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE sd_order_factory SET
+            order_id = #{orderId},
+            factory_id = #{factoryId},
+            factory_name = #{factoryName},
+            province_id = #{provinceId},
+            province = #{province},
+            city_id = #{cityId},
+            city = #{city},
+            area_id = #{areaId},
+            area = #{area},
+            street_id = #{streetId},
+            street = #{street},
+            detail_address = #{detailAddress},
+            address_id = #{addressId},
+            total_weight = #{totalWeight},
+            freight_weight = #{freightWeight},
+            freight = #{freight},
+            distribution_mode = #{distributionMode},
+            tracking_no = #{trackingNo},
+            out_status = #{outStatus},
+            delivery_time = #{deliveryTime},
+            is_deleted = #{isDeleted},
+            create_time = #{createTime},
+            update_time = #{updateTime}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE sd_order_factory SET is_deleted = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+</mapper>
