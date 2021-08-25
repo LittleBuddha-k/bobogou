@@ -190,7 +190,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     if (levelOne != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelOne);
-                        goodsClassify.setLevel(1);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
@@ -203,7 +202,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     if (leveTwo != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(leveTwo);
-                        goodsClassify.setLevel(2);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
@@ -216,7 +214,6 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
                     if (levelThree != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelThree);
-                        goodsClassify.setLevel(3);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);

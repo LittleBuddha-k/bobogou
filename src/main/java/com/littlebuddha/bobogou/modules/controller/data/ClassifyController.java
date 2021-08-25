@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -36,7 +37,7 @@ public class ClassifyController extends BaseController {
     @Autowired
     private ClassifyService classifyService;
 
-    @Autowired
+    @Resource
     private GoodsClassifyMapper goodsClassifyMapper;
 
     @ModelAttribute
@@ -209,7 +210,6 @@ public class ClassifyController extends BaseController {
     @ResponseBody
     @PostMapping("/delete")
     public Result delete(String ids) {
-        System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
             Classify classify = classifyService.get(s);
@@ -219,13 +219,12 @@ public class ClassifyController extends BaseController {
             //删除的时候查询商品分类关联表中是否有关联的分类数据--如果有则不能删除
             GoodsClassify findByClassify = new GoodsClassify();
             findByClassify.setClassifyId(s);
-            findByClassify.setSecondClassifyId(s);
-            findByClassify.setReclassifyId(s);
             List<GoodsClassify> byClassify = goodsClassifyMapper.findByClassify(findByClassify);
             if (byClassify != null && !byClassify.isEmpty()){
                 return new Result("355", "已有商品数据中使用了此项分类，分类数据不能删除");
+            }else {
+                int i = classifyService.deleteByLogic(classify);
             }
-            int i = classifyService.deleteByLogic(classify);
         }
         return new Result("200", "数据清除成功");
     }

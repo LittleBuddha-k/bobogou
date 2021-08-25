@@ -4,22 +4,15 @@
     <sql id="goodsClassifyColumns">
         a.id AS "id",
         a.classify_id AS "classifyId",
-        a.second_classify_id AS "secondClassifyId",
-        a.reclassify_id AS "reclassifyId",
         a.goods_id AS "goodsId",
-        a.level AS "level",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
-        b.name AS "levelOneName",
-        c.name AS "levelTwoName",
-        d.name AS "levelThreeName"
+        b.name AS "levelOneName"
     </sql>
 
     <sql id="goodsClassifyJoins">
         LEFT JOIN mb_classify b ON a.classify_id = b.id
-        LEFT JOIN mb_classify c ON a.second_classify_id = c.id
-        LEFT JOIN mb_classify d ON a.reclassify_id = d.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.GoodsClassify">
@@ -75,12 +68,6 @@
             <if test="classifyId != null and classifyId != ''">
                 AND a.classify_id = #{classifyId}
             </if>
-            <if test="secondClassifyId != null and secondClassifyId != ''">
-                OR a.second_classify_id = #{secondClassifyId}
-            </if>
-            <if test="reclassifyId != null and reclassifyId != ''">
-                OR a.reclassify_id = #{reclassifyId}
-        </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -112,20 +99,14 @@
         INSERT INTO md_goods_classify(
             id,
             classify_id,
-            second_classify_id,
-            reclassify_id,
             goods_id,
-            level,
             is_deleted,
             create_time,
             update_time
         )VALUES (
             #{id},
             #{classifyId},
-            #{secondClassifyId},
-            #{reclassifyId},
             #{goodsId},
-            #{level},
             #{isDeleted},
             #{createTime},
             #{updateTime}
@@ -135,10 +116,7 @@
     <update id="update">
         UPDATE md_goods_classify SET
             classify_id = #{classifyId},
-            second_classify_id = #{secondClassifyId},
-            reclassify_id = #{reclassifyId},
             goods_id = #{goodsId},
-            level = #{level},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}
