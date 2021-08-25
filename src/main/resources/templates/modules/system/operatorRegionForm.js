@@ -7,29 +7,39 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , upload = layui.upload
         , element = layui.element;
 
-    //根据管理员类型，展示不同的区域设置项
+    //根据类型不同禁用对应选项
     form.on('select(type)', function (data) {
         let type = data.value;
-        if (type == 1){
-            $("#provinceShow").show();
-            $("#cityShow").hide();
-            $("#areaShow").hide();
-            $("#streetShow").hide();
-        }if (type == 2){
-            $("#provinceShow").show();
-            $("#cityShow").show();
-            $("#areaShow").hide();
-            $("#streetShow").hide();
+        if (type == 0){
+            $("#province").attr("disabled","disabled");
+            $("#city").attr("disabled","disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 1){
+            $("#province").removeAttr("disabled");
+            $("#city").attr("disabled","disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 2){
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
         }else if (type == 3){
-            $("#provinceShow").show();
-            $("#cityShow").show();
-            $("#areaShow").show();
-            $("#streetShow").hide();
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").removeAttr("disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
         }else if (type == 4){
-            $("#provinceShow").show();
-            $("#cityShow").show();
-            $("#areaShow").show();
-            $("#streetShow").show();
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").removeAttr("disabled");
+            $("#street").removeAttr("disabled");
+            form.render();
         }
     });
 
@@ -72,9 +82,20 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     });
     //下拉框选中后的时间
     form.on('select(area)', function (data) {
-        let streetId = data.value;
+        let areaId = data.value;
         $("#street").val("0");//清空城市选项
         $("#streetId").val("");//清空城市选项
+        rc.post("/bobogou/data/street/all", {"area.id": areaId}, function (data) {
+            if (data.length > 0) {
+                //对应的值传回，拼出html下拉框语句
+                var tmp = '<option value="0">请选择</option>';
+                for (let i = 0; i < data.length; i++) {
+                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
+                }
+                $("#street").html(tmp);
+                form.render();
+            }
+        })
     });
 })
 
