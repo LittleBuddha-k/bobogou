@@ -86,7 +86,7 @@
             <if test="shortName != null and shortName != ''">
                 and a.short_name = #{shortName}
             </if>
-            <if test="cityCode != null and cityCode != ''">
+            <if test="cityCode != null and cityCode != '' and cityCode !=0">
                 and a.city_code = #{cityCode}
             </if>
             <if test="lng != null and lng != ''">

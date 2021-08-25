@@ -106,7 +106,9 @@ public class StreetController extends BaseController {
     public TreeResult noPage(Street street) {
         if(street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
             Area area = areaService.get(street.getArea().getId());
-            street.setAreaCode(area.getCode());
+            if(area != null) {
+                street.setAreaCode(area.getCode());
+            }
         }
         List<Street> list = streetService.findList(street);
         TreeResult result = null;

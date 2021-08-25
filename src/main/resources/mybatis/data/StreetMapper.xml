@@ -42,7 +42,7 @@
             <if test="shortName != null and shortName != ''">
                 and a.short_name = #{shortName}
             </if>
-            <if test="areaCode != null and areaCode != ''">
+            <if test="areaCode != null and areaCode != '' and areaCode != 0">
                 and a.area_code = #{areaCode}
             </if>
             <if test="lng != null and lng != ''">
