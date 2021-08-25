@@ -141,7 +141,7 @@ function save(parentIndex) {
 }
 
 function selectGoods(id) {
-    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '100%', '100%',id);
+    let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '95%', '88%',id);
 }
 
 function selectStreet(id) {
