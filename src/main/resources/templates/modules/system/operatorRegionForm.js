@@ -59,6 +59,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 }
                 $("#city").html(tmp);
                 $("#area").html(tmp);
+                $("#street").html(tmp);
                 form.render();
             }
         })
@@ -78,6 +79,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#area").html(tmp);
+                $("#street").html(tmp);
                 form.render();
             }
         })
