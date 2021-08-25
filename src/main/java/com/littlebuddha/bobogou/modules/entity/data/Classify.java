@@ -9,17 +9,10 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Classify extends DataEntity<Classify> {
 
-    private String name;//分类名称
-    private String icon;//分类图标地址
-    private String parentId;//父级分类ID，顶级=0
-    private Integer level;//级别分类字段
-
-    private Double administrativeFee;//类型商品管理费（商品实际价格的管理费用），单位：100%，最多三位小数，只有第三级的时候需要填
-
-    private Double provinceRatio;//省代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
-    private Double cityRatio;//市代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
-    private Double districtRatio;//区代理提成比例，单位：100%，最多三位小数，只有第三级的时候需要填
-
+    private String name = "";//分类名称
+    private String icon = "";//分类图标地址
+    private String parentId = "";//父级分类ID，顶级=0
+    private Integer level = 1;//级别分类字段----默认为一级分类
 
     private String accountId;//最后操作人ID
 
@@ -72,38 +65,6 @@ public class Classify extends DataEntity<Classify> {
 
     public void setLevel(Integer level) {
         this.level = level;
-    }
-
-    public Double getAdministrativeFee() {
-        return administrativeFee;
-    }
-
-    public void setAdministrativeFee(Double administrativeFee) {
-        this.administrativeFee = administrativeFee;
-    }
-
-    public Double getProvinceRatio() {
-        return provinceRatio;
-    }
-
-    public void setProvinceRatio(Double provinceRatio) {
-        this.provinceRatio = provinceRatio;
-    }
-
-    public Double getCityRatio() {
-        return cityRatio;
-    }
-
-    public void setCityRatio(Double cityRatio) {
-        this.cityRatio = cityRatio;
-    }
-
-    public Double getDistrictRatio() {
-        return districtRatio;
-    }
-
-    public void setDistrictRatio(Double districtRatio) {
-        this.districtRatio = districtRatio;
     }
 
     @ExcelField(title = "最后操作人ID", align = 2, sort = 1)

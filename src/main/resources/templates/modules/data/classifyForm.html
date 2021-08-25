@@ -12,10 +12,6 @@
         <input type="hidden" name="id" th:value="${classify.getId()}">
         <div class="layui-form-item">
             <label class="layui-form-label" for="icon">分类图标</label>
-            <!--<div class="layui-input-block">
-                <input type="url" id="url" th:name="url" th:value="${banner.getUrl()}"
-                       placeholder="图片地址" lay-verify="required|url" autocomplete="off" class="layui-input">
-            </div>-->
             <div class="layui-upload-drag" id="test10" name="file">
                 <i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>
@@ -83,62 +79,6 @@
                         <option th:value="1" th:text="一级分类"/>
                         <option th:value="2" th:text="二级分类"/>
                     </select>
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="administrativeFee">
-                <label class="layui-form-label" for="administrativeFee">类型商品管理费</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="administrativeFee" th:value="${classify.getAdministrativeFee()}"
-                           th:id="administrativeFee" autocomplete="off" class="layui-input number">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="administrativeFee">
-                <label class="layui-form-label" for="administrativeFee">类型商品管理费</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="administrativeFee" th:value="${classify.getAdministrativeFee()}"
-                           th:id="administrativeFee" autocomplete="off" class="layui-input number">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addProvinceRatio">
-                <label class="layui-form-label" for="provinceRatio">省代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="provinceRatio" th:value="${classify.getProvinceRatio()}"
-                           th:id="provinceRatio" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addProvinceRatio">
-                <label class="layui-form-label" for="provinceRatio">省代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="provinceRatio" th:value="${classify.getProvinceRatio()}"
-                           th:id="provinceRatio" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addCityRatio">
-                <label class="layui-form-label" for="cityRatio">市代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="cityRatio" th:value="${classify.getCityRatio()}"
-                           th:id="cityRatio" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addCityRatio">
-                <label class="layui-form-label" for="cityRatio">市代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="cityRatio" th:value="${classify.getCityRatio()}"
-                           th:id="cityRatio" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'add'}" th:id="addDistrictRatio">
-                <label class="layui-form-label" for="districtRatio">区代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="districtRatio" th:value="${classify.getDistrictRatio()}"
-                           th:id="districtRatio" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-inline" style="display:none;" th:if="${mode == 'edit' && 3 == classify.getLevel()}" th:id="addDistrictRatio">
-                <label class="layui-form-label" for="districtRatio">区代理提成比例</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="districtRatio" th:value="${classify.getDistrictRatio()}"
-                           th:id="districtRatio" autocomplete="off" class="layui-input">
                 </div>
             </div>
         </div>
