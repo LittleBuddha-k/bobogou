@@ -94,78 +94,37 @@ layui.use(['form', 'table'], function () {
                     title: '省',
                     field: 'provinceName',
                     sort: true,
-                    width: '10%',
-                    sortName: 'provinceName'/*,
-                    templet:function(data){
-                        var valueArray = data.provinceName;
-                        return valueArray;
-                    }*/
+                    width: '16%',
+                    sortName: 'provinceName'
                 },
                 {
                     title: '市',
                     field: 'cityName',
                     sort: true,
-                    width: '10%',
+                    width: '16%',
                     sortName: 'cityName'
                 },
                 {
                     title: '区',
                     field: 'areaName',
                     sort: true,
-                    width: '10%',
+                    width: '16%',
                     sortName: 'areaName'
                 },
                 {
                     title: '街道',
                     field: 'streetName',
                     sort: true,
-                    width: '10%',
+                    width: '16%',
                     sortName: 'streetName'
                 },
                 {
                     title: '商品',
                     field: 'goodsName',
                     sort: true,
-                    width: '10%',
+                    width: '16%',
                     sortName: 'goodsName'
                 },
-                {
-                    title: '商品数量',
-                    field: 'amount',
-                    sort: true,
-                    width: '10%',
-                    sortName: 'amount'
-                },
-                {
-                    title: '销量',
-                    field: 'salesVolume',
-                    sort: true,
-                    width: '10%',
-                    sortName: 'salesVolume'
-                },
-                {
-                    title: '是否在售',
-                    field: 'isMarket',
-                    sort: true,
-                    width: '10%',
-                    sortName: 'isMarket',
-                    templet: function (data) {
-                        let isMarket = data.isMarket;
-                        if (0 == isMarket) {
-                            return "在售";
-                        } else if (1 == isMarket) {
-                            return "停售";
-                        } else {
-                            return ""
-                        }
-                    }
-                },/*
-                {
-                    title: '修改人',
-                    field: 'updateByName',
-                    sort: true,
-                    sortName: 'updateByName'
-                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',
@@ -183,8 +142,7 @@ layui.use(['form', 'table'], function () {
             cityId: $("#cityId").val(),
             districtId: $("#districtId").val(),
             streetId: $("#streetId").val(),
-            goodsId: $("#goodsId").val(),
-            isMarket: $("#isMarket").val()
+            goodsId: $("#goodsId").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -198,8 +156,7 @@ layui.use(['form', 'table'], function () {
                 cityId: $("#cityId").val(),
                 districtId: $("#districtId").val(),
                 streetId: $("#streetId").val(),
-                goodsId: $("#goods").val(),
-                isMarket: $("#isMarket").val()
+                goodsId: $("#goods").val()
             }
         });
         return false;
@@ -212,23 +169,8 @@ layui.use(['form', 'table'], function () {
         districtId: $("#districtId").val("");
         streetId: $("#streetId").val("");
         goodsId: $("#goods").val("");
-        isMarket: $("#isMarket").val("");
         init();
     })
-    /*form.on('submit(data-reset-btn)', function (data) {
-        //执行搜索重载
-        table.reload('regionGoodsTable', {
-            where: {
-                provinceId: $("#provinceId").val(""),
-                cityId: $("#cityId").val(""),
-                districtId: $("#districtId").val(""),
-                streetId: $("#streetId").val(""),
-                goodsId: $("#goods").val(""),
-                isMarket: $("#isMarket").val("")
-            }
-        });
-        return false;
-    });*/
 
     /**
      * toolbar监听事件

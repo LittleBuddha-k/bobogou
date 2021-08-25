@@ -111,9 +111,9 @@ public class RegionGoodsController extends BaseController {
             regionGoods.setMedicine(medicineService.get(new Goods(regionGoods.getGoodsId())));
         }
         DictData select = new DictData();
-        select.setType("region_goods_is_market");
-        List<DictData> isMarketList = dictDataService.findList(select);
-        model.addAttribute("isMarketList", isMarketList);
+        select.setType("data_region_goods_type");
+        List<DictData> typeList = dictDataService.findList(select);
+        model.addAttribute("typeList", typeList);
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoodsForm";
     }

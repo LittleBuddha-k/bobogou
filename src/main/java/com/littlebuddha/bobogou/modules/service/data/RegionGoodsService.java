@@ -20,19 +20,20 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapper> {
 
-    @Autowired
+    @Resource
     private RegionGoodsMapper regionGoodsMapper;
 
-    @Autowired
+    @Resource
     private OperatorMapper operatorMapper;
 
-    @Autowired
+    @Resource
     private GoodsMapper goodsMapper;
 
     @Override
@@ -66,88 +67,9 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Override
     @Transactional
     public int save(RegionGoods entity) {
-        int row = 0;
         entity.setIdType("AUTO");
-        if (entity != null) {
-            //所选商品列表
-            if (RegionGoods.DEL_FLAG_NORMAL.equals(entity.getIsDeleted())) {
-                if (StringUtils.isBlank(entity.getId())) {
-                    //插入数据的同时对商品库存进行查询操作
-                    Goods stock = goodsMapper.getStock(new Goods(entity.getGoodsId()));
-                    if (stock != null && stock.getStockAmount() < entity.getAmount()) {
-                        //如果分配数量大于库存量
-                        return row = -1;
-                    } else if (stock != null && stock.getStockAmount() >= entity.getAmount()) {
-                        Goods goodsStock = new Goods();
-                        goodsStock.setId(entity.getGoodsId());
-                        goodsStock.setUsedAmount(entity.getAmount());
-                        goodsStock.setStockAmount(entity.getAmount());
-                        goodsMapper.updateStock(goodsStock);
-                        //保存商品区域数据
-                        if(entity.getStreetId() != null) {
-                            String[] split = entity.getStreetId().split(",");
-                            for (String streetId : split) {
-                                RegionGoods regionGoods = new RegionGoods();
-                                BeanUtils.copyProperties(entity, regionGoods);
-                                regionGoods.setIdType("AUTO");
-                                regionGoods.setStreetId(streetId);
-                                regionGoods.preInsert();
-                                row = regionGoodsMapper.insert(regionGoods);
-                            }
-                        }else {
-                            entity.preInsert();
-                            row = regionGoodsMapper.insert(entity);
-                        }
-                    }
-                } else {
-                    //先将本条商品区域的分配数量恢复到原本的样子
-                    RegionGoods startingValue = regionGoodsMapper.get(entity);
-                    if (startingValue != null) {
-                        Goods startingStock = new Goods();
-                        startingStock.setUsedAmount(startingValue.getAmount());
-                        startingStock.setStockAmount(startingValue.getAmount());
-                        startingStock.setId(entity.getGoodsId());
-                        goodsMapper.recoveryStock(startingStock);
-                    } else {
-
-                    }
-                    //更新数据的同时对商品库存进行操作
-                    Goods stock = goodsMapper.getStock(new Goods(entity.getGoodsId()));
-                    if (stock != null && stock.getStockAmount() < entity.getAmount()) {
-                        //如果分配数量大于库存量
-                        return row = -1;
-                    } else if (stock != null && stock.getStockAmount() >= entity.getAmount()) {
-                        Goods goodsStock = new Goods();
-                        goodsStock.setId(entity.getGoodsId());
-                        goodsStock.setUsedAmount(entity.getAmount());
-                        goodsStock.setStockAmount(entity.getAmount());
-                        goodsMapper.updateStock(goodsStock);
-                        if(entity.getStreetId() != null) {
-                            String[] split = entity.getStreetId().split(",");
-                            for (String streetId : split) {
-                                RegionGoods regionGoods = new RegionGoods();
-                                BeanUtils.copyProperties(entity, regionGoods);
-                                regionGoods.setIdType("AUTO");
-                                regionGoods.setStreetId(streetId);
-                                regionGoods.preUpdate();
-                                row = regionGoodsMapper.update(regionGoods);
-                            }
-                        }else {
-                            entity.preUpdate();
-                            row = regionGoodsMapper.update(entity);
-                        }
-                    }
-                }
-            } else {
-                regionGoodsMapper.deleteByLogic(entity);
-            }
-        }
-        return row;
-    }
-
-    public int updateIsMarket(RegionGoods regionGoods) {
-        int row = regionGoodsMapper.updateIsMarket(regionGoods);
-        return row;
+        int save = super.save(entity);
+        return save;
     }
 
     @Override

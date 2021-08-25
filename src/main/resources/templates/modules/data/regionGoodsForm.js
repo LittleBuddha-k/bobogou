@@ -2,6 +2,42 @@ layui.use('form', function(){
     var form = layui.form;
     //各种基于事件的操作，下面会有进一步介绍
 
+    //根据类型不同禁用对应选项
+    form.on('select(type)', function (data) {
+        let type = data.value;
+        if (type == 0){
+            $("#province").attr("disabled","disabled");
+            $("#city").attr("disabled","disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 1){
+            $("#province").removeAttr("disabled");
+            $("#city").attr("disabled","disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 2){
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").attr("disabled","disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 3){
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").removeAttr("disabled");
+            $("#street").attr("disabled","disabled");
+            form.render();
+        }else if (type == 4){
+            $("#province").removeAttr("disabled");
+            $("#city").removeAttr("disabled");
+            $("#area").removeAttr("disabled");
+            $("#street").removeAttr("disabled");
+            form.render();
+        }
+    });
+
     //下拉框选中后的时间
     form.on('select(province)', function(data){
         let provinceId = data.value;
@@ -12,7 +48,7 @@ layui.use('form', function(){
         rc.post("/bobogou/data/city/all",{"province.id":provinceId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -30,7 +66,7 @@ layui.use('form', function(){
         rc.post("/bobogou/data/area/all",{"city.id":cityId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
@@ -47,7 +83,7 @@ layui.use('form', function(){
         rc.post("/bobogou/data/street/all",{"area.id":streetId},function(data){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
-                var tmp='<option value="">请选择</option>';
+                var tmp='<option value="0">请选择</option>';
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }

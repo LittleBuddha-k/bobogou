@@ -12,28 +12,26 @@ import java.util.List;
 public class RegionGoods extends DataEntity<RegionGoods> {
 
     private Province province;
-    private String provinceId = "";//省ID
+    private String provinceId = "0";//省ID
     private String provinceName;
 
     private City city;
-    private String cityId = "";//市ID
+    private String cityId = "0";//市ID
     private String cityName;
 
     private Area area;
-    private String districtId = "";//区ID
+    private String districtId = "0";//区ID
     private String areaName;
 
     private Street street;//
-    private String streetId = "";//乡镇街道ID
+    private String streetId = "0";//乡镇街道ID
     private String streetName;
 
     private Goods medicine;
-    private String goodsId = "";//商品ID
+    private String goodsId = "0";//商品ID
     private String goodsName;
 
-    private Integer amount = 0;//商品数量
-    private Integer salesVolume = 0;//销量
-    private String isMarket = "0";//是否销售，0=在售，1=停售
+    private String type = "0";//
 
     private String accountId;//最后操作人ID
     private String updateByName;//
@@ -187,31 +185,12 @@ public class RegionGoods extends DataEntity<RegionGoods> {
         this.goodsName = goodsName;
     }
 
-    @ExcelField(title = "商品数量", align = 2, sort = 6)
-    public Integer getAmount() {
-        return amount;
+    public String getType() {
+        return type;
     }
 
-    public void setAmount(Integer amount) {
-        this.amount = amount;
-    }
-
-    @ExcelField(title = "销量", align = 2, sort = 7)
-    public Integer getSalesVolume() {
-        return salesVolume;
-    }
-
-    public void setSalesVolume(Integer salesVolume) {
-        this.salesVolume = salesVolume;
-    }
-
-    @ExcelField(title = "是否销售", align = 2, sort = 8)
-    public String getIsMarket() {
-        return isMarket;
-    }
-
-    public void setIsMarket(String isMarket) {
-        this.isMarket = isMarket;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getAccountId() {
