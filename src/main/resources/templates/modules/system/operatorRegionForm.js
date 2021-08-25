@@ -48,6 +48,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         $("#city").empty();//清空城市选项
         $("#area").empty();//清空城市选项
         $("#street").val("");//清空城市选项
+        $("#street").empty();//清空城市选项
         $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/city/all", {"province.id": provinceId}, function (data) {
             if (data.length > 0) {
@@ -67,6 +68,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let cityId = data.value;
         $("#area").empty();//清空城市选项
         $("#street").val("");//清空城市选项
+        $("#street").empty();//清空城市选项
         $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
             if (data.length > 0) {
@@ -84,6 +86,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     form.on('select(area)', function (data) {
         let areaId = data.value;
         $("#street").val("0");//清空城市选项
+        $("#street").empty();//清空城市选项
         $("#streetId").val("");//清空城市选项
         rc.post("/bobogou/data/street/all", {"area.id": areaId}, function (data) {
             if (data.length > 0) {
@@ -105,6 +108,11 @@ function save(parentIndex) {
     if (!isValidate) {
         return false;
     } else {
+        //提交前设置disabled失效
+        $("#province").removeAttr("disabled");
+        $("#city").removeAttr("disabled");
+        $("#area").removeAttr("disabled");
+        $("#street").removeAttr("disabled");
         let flag = false;
         let type = $("#type").val();
         let province = $("#province").val();
