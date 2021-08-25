@@ -45,12 +45,12 @@ layui.use(['form', 'table'], function () {
                     title: '总金额',
                     field: 'grossAmount',
                     sort: true,
-                    width: '120'
+                    width: '150',
                 },
                 {
                     title: '配送地址',
                     field: 'address',
-                    width: '280'
+                    width: '350',
                 },
                 {
                     title: '配送方式',
@@ -64,11 +64,6 @@ layui.use(['form', 'table'], function () {
                         }
                         return dictName;
                     }
-                },
-                {
-                    title: '物流单号',
-                    field: 'trackingNo',
-                    width: '200'
                 },
                 {
                     title: '支付方式',
@@ -99,7 +94,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '状态',
                     field: 'status',
-                    width: '150',
+                    width: '200',
                     templet: function (data) {
                         var type = data.status;
                         let dictName = rc.getDictName("order_status",type);
@@ -113,7 +108,7 @@ layui.use(['form', 'table'], function () {
                     title: '支付时间',
                     field: 'payTime',
                     sort: true,
-                    width: '200',
+                    width: '250',
                     sortName: 'payTime',
                     templet: function (data) {
                         var payTime = data.payTime;
@@ -142,8 +137,7 @@ layui.use(['form', 'table'], function () {
         where: {
             number: $("#number").val(),
             addressId: $("#addressId").val(),
-            distributionMode: $("#distributionMode").val(),
-            trackingNo: $("#trackingNo").val()
+            distributionMode: $("#distributionMode").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -155,8 +149,7 @@ layui.use(['form', 'table'], function () {
             where: {
                 number: $("#number").val(),
                 addressId: $("#addressId").val(),
-                distributionMode: $("#distributionMode").val(),
-                trackingNo: $("#trackingNo").val()
+                distributionMode: $("#distributionMode").val()
             }
         });
         return false;

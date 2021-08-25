@@ -10,7 +10,7 @@
         a.gross_amount AS "grossamount",
         a.payment_amount AS "paymentAmount",
         a.actual_amount_paid AS "actualAmountPaid",
-        a.deductiona AS "deductiona",
+        a.deduction AS "deduction",
         a.integral AS "integral",
         a.health_beans AS "healthBeans",
         a.is_freight AS "isFreight",
@@ -30,12 +30,9 @@
         c.street AS "street",
         c.detailed AS "detailed",
         a.distribution_mode AS "distributionMode",
-        a.tracking_no AS "trackingNo",
         a.pay_mode AS "payMode",
         a.type AS "type",
         a.status AS "status",
-        a.out_time AS "outTime",
-        a.out_status AS "outStatus",
         a.pay_time AS "payTime",
         a.refund_reason AS "refundReason",
         a.refund_explain AS "refundExplain",
@@ -86,9 +83,6 @@
             <if test="distributionMode != null and distributionMode != ''">
                 AND a.distribution_mode = #{distributionMode}
             </if>
-            <if test="trackingNo != null and trackingNo != ''">
-                AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
-            </if>
             <if test="payMode != null">
                 AND a.pay_mode = #{payMode}
             </if>
@@ -97,66 +91,6 @@
             </if>
             <if test="status != null and status != ''">
                 AND a.status = #{status}
-            </if>
-            <if test="payTime != null and payTime != ''">
-                AND a.pay_time = #{payTime}
-            </if>
-            <if test="refundReason != null and refundReason != ''">
-                AND a.refund_reason LIKE concat('%',#{refundReason},'%')
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
-        SELECT
-        <include refid="orderColumns"/>
-        FROM sd_order a
-        <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
-            <!-- 判断条件参数是否为空 -->
-            <if test="userId != null and userId != ''">
-                AND a.user_id = #{userId}
-            </if>
-            <if test="number != null and number != ''">
-                AND a.number LIKE concat('%',#{number},'%')
-            </if>
-            <if test="grossAmount != null and grossAmount != ''">
-                AND a.gross_amount = #{grossAmount}
-            </if>
-            <if test="integral != null and integral != ''">
-                AND a.integral = #{integral}
-            </if>
-            <if test="healthBeans != null and cityCohealthBeansde != ''">
-                AND a.health_beans = #{healthBeans}
-            </if>
-            <if test="addressId != null">
-                AND a.address_id = #{addressId}
-            </if>
-            <if test="distributionMode != null and distributionMode != ''">
-                AND a.distribution_mode = #{distributionMode}
-            </if>
-            <if test="trackingNo != null and trackingNo != ''">
-                AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
-            </if>
-            <if test="payMode != null">
-                AND a.pay_mode = #{payMode}
-            </if>
-            <if test="type != null and type != ''">
-                AND a.type = #{type}
-            </if>
-            <if test="status != null and status != ''">
-                AND a.status = #{status}
-            </if>
-            <if test="payTime != null and payTime != ''">
-                AND a.pay_time = #{payTime}
             </if>
             <if test="refundReason != null and refundReason != ''">
                 AND a.refund_reason LIKE concat('%',#{refundReason},'%')
@@ -193,7 +127,7 @@
             gross_amount,
             payment_amount,
             actual_amount_paid,
-            deductiona,
+            deduction,
             integral,
             health_beans,
             is_freight,
@@ -208,12 +142,9 @@
             harvest_health_beans,
             address_id,
             distribution_mode,
-            tracking_no,
             pay_mode,
             type,
             status,
-            out_time,
-            out_status,
             pay_time,
             refund_reason,
             refund_explain,
@@ -226,7 +157,7 @@
             #{grossAmount},
             #{paymentAmount},
             #{actualAmountPaid},
-            #{deductiona},
+            #{deduction},
             #{integral},
             #{healthBeans},
             #{isFreight},
@@ -241,12 +172,9 @@
             #{harvestHealthBeans},
             #{addressId},
             #{distributionMode},
-            #{trackingNo},
             #{payMode},
             #{type},
             #{status},
-            #{outTime},
-            #{outStatus},
             #{payTime},
             #{refundReason},
             #{refundExplain},
@@ -263,7 +191,7 @@
             gross_amount = #{grossAmount},
             payment_amount = #{paymentAmount},
             actual_amount_paid = #{actualAmountPaid},
-            deductiona = #{deductiona},
+            deduction = #{deduction},
             integral = #{integral},
             health_beans = #{healthBeans},
             is_freight = #{isFreight},
@@ -278,12 +206,9 @@
             harvest_health_beans = #{harvestHealthBeans},
             address_id = #{addressId},
             distribution_mode = #{distributionMode},
-            tracking_no = #{trackingNo},
             pay_mode = #{payMode},
             type = #{type},
             status = #{status},
-            out_time = #{outTime},
-            out_status = #{outStatus},
             pay_time = #{payTime},
             refund_reason = #{refundReason},
             refund_explain = #{refundExplain},

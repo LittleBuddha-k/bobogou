@@ -58,43 +58,12 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="trackingNo">物流单号</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="trackingNo" th:value="${order.getTrackingNo()}" autocomplete="off"
-                           th:id="trackingNo" class="layui-input" th:if="${mode == 'detail'}" readonly>
-                    <input type="text" name="trackingNo" th:value="${order.getTrackingNo()}" autocomplete="off"
-                           th:id="trackingNo" class="layui-input" th:if="${mode != 'detail'}">
-                </div>
-            </div>
-            <div class="layui-inline">
                 <label class="layui-form-label" for="status">状态</label>
                 <div class="layui-input-inline">
                     <select name="status" lay-verify="" lay-filter="status"
                             th:id="status" disabled="true">
                         <option th:each="status:${orderStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
                                 th:selected="${status.getValue()}==${order.getStatus()}"/>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="outTime">出库时间</label>
-                <div class="layui-input-inline">
-                    <input type="text" name="outTime" th:value="${order.getOutTime()}" autocomplete="off"
-                           class="layui-input" readonly th:if="${mode == 'detail'}">
-                    <input type="text" name="outTime" th:value="${order.getOutTime()}" autocomplete="off"
-                           th:id="outTime" class="layui-input" readonly th:if="${mode != 'detail'}">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label" for="outStatus">出库状态</label>
-                <div class="layui-input-inline">
-                    <select name="outStatus" lay-verify="" lay-filter="outStatus" th:id="outStatus" disabled="true" th:if="${mode == 'detail'}">
-                        <option th:each="outStatus:${orderOutStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
-                                th:selected="${outStatus.getValue()}==${order.getOutStatus()}"/>
-                    </select>
-                    <select name="outStatus" lay-verify="" lay-filter="outStatus" th:id="outStatus" th:if="${mode == 'edit'}">
-                        <option th:each="outStatus:${orderOutStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
-                                th:selected="${outStatus.getValue()}==${order.getOutStatus()}"/>
                     </select>
                 </div>
             </div>

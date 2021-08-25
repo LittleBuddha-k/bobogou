@@ -48,8 +48,8 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         if (order != null && order.getActualAmountPaid() != null) {
             order.setActualAmountPaid(order.getActualAmountPaid() / 100);
         }
-        if (order != null && order.getDeductiona() != null) {
-            order.setDeductiona(order.getDeductiona() / 100);
+        if (order != null && order.getDeduction() != null) {
+            order.setDeduction(order.getDeduction() / 100);
         }
         if (order != null && order.getFreight() != null) {
             order.setFreight(order.getFreight() / 100);
@@ -82,8 +82,8 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             if (order != null && order.getActualAmountPaid() != null) {
                 order.setActualAmountPaid(order.getActualAmountPaid() / 100);
             }
-            if (order != null && order.getDeductiona() != null) {
-                order.setDeductiona(order.getDeductiona() / 100);
+            if (order != null && order.getDeduction() != null) {
+                order.setDeduction(order.getDeduction() / 100);
             }
             if (order != null && order.getFreight() != null) {
                 order.setFreight(order.getFreight() / 100);
@@ -117,8 +117,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 String distributionMode = StringUtils.deleteWhitespace(entity.getDistributionMode().toString());
                 entity.setDistributionMode(distributionMode);
             }
-            String trackingNo = StringUtils.deleteWhitespace(entity.getTrackingNo());
-            entity.setTrackingNo(trackingNo);
         }
         PageInfo<Order> page1 = super.findPage(page, entity);
         List<Order> list = page1.getList();
@@ -132,8 +130,8 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             if (order != null && order.getActualAmountPaid() != null) {
                 order.setActualAmountPaid(order.getActualAmountPaid() / 100);
             }
-            if (order != null && order.getDeductiona() != null) {
-                order.setDeductiona(order.getDeductiona() / 100);
+            if (order != null && order.getDeduction() != null) {
+                order.setDeduction(order.getDeduction() / 100);
             }
             if (order != null && order.getFreight() != null) {
                 order.setFreight(order.getFreight() / 100);

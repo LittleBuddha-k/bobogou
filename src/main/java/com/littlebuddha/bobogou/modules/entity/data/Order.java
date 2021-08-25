@@ -1,12 +1,7 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
-import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -22,7 +17,7 @@ public class Order extends DataEntity<Order> {
     private Double grossAmount;//总金额，单位：分
     private Double paymentAmount;//商品支付金额，单位：分
     private Double actualAmountPaid;//实际支付金额（商品实际支付金额 + 邮费)，单位：分
-    private Double deductiona;//抵扣金额，单位：分
+    private Double deduction;//抵扣金额，单位：分
     private Integer integral;//积分
     private Integer healthBeans;//健康豆
     private Integer isFreight;//是否需要运费，0=不需要运费，1=要运费是否需要运费
@@ -42,15 +37,11 @@ public class Order extends DataEntity<Order> {
     private String district;//
     private String street;//
     private String detailed;//
-    private String distributionMode;//配送方式，1=顺丰，2=京东
-    private String trackingNo;//物流单号
+    private String distributionMode;//配送方式，1=顺丰，2=京东，3=麦康医药
     private String payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
     private String type;//类型，0=购买，1=健康豆兑换，2=积分兑换
     private String status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private String outTime;//出库时间
-    private String outStatus;//出库状态
     private String payTime;//支付时间
     private String refundReason;//退款原因
     private String refundExplain;//退款原因
@@ -120,12 +111,12 @@ public class Order extends DataEntity<Order> {
         this.actualAmountPaid = actualAmountPaid;
     }
 
-    public Double getDeductiona() {
-        return deductiona;
+    public Double getDeduction() {
+        return deduction;
     }
 
-    public void setDeductiona(Double deductiona) {
-        this.deductiona = deductiona;
+    public void setDeduction(Double deduction) {
+        this.deduction = deduction;
     }
 
     public Integer getIntegral() {
@@ -235,7 +226,7 @@ public class Order extends DataEntity<Order> {
     public String getAddress() {
         if (getProvince() != null || getCity() != null || getDistrict() != null || getStreet() != null || getDetailed() != null) {
             this.address = getProvince() + getCity() + getDistrict() + getStreet() + getDetailed();
-        }else if (getProvince() == null && getCity() == null && getDistrict() == null && getStreet() == null && getDetailed() == null){
+        } else if (getProvince() == null && getCity() == null && getDistrict() == null && getStreet() == null && getDetailed() == null) {
             this.address = "用户未填写地址·";
         }
         return address;
@@ -293,14 +284,6 @@ public class Order extends DataEntity<Order> {
         this.distributionMode = distributionMode;
     }
 
-    public String getTrackingNo() {
-        return trackingNo;
-    }
-
-    public void setTrackingNo(String trackingNo) {
-        this.trackingNo = trackingNo;
-    }
-
     public String getPayMode() {
         return payMode;
     }
@@ -323,22 +306,6 @@ public class Order extends DataEntity<Order> {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getOutTime() {
-        return outTime;
-    }
-
-    public void setOutTime(String outTime) {
-        this.outTime = outTime;
-    }
-
-    public String getOutStatus() {
-        return outStatus;
-    }
-
-    public void setOutStatus(String outStatus) {
-        this.outStatus = outStatus;
     }
 
     public String getPayTime() {
