@@ -43,6 +43,10 @@ public class OrderFactoryService extends CrudService<OrderFactory, OrderFactoryM
             String trackingNo = StringUtils.deleteWhitespace(entity.getTrackingNo());
             entity.setTrackingNo(trackingNo);
         }
+        if (entity != null && StringUtils.isNotBlank(entity.getOrderNumber())){
+            String orderNumber = StringUtils.deleteWhitespace(entity.getOrderNumber());
+            entity.setOrderNumber(orderNumber);
+        }
         PageInfo<OrderFactory> page1 = super.findPage(page, entity);
         List<OrderFactory> list = page1.getList();
         for (OrderFactory orderFactory : list) {

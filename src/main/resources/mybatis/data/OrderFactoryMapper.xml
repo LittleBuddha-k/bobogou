@@ -58,6 +58,9 @@
             <if test="trackingNo != null and trackingNo != ''">
                 AND a.tracking_no LIKE concat('%',#{trackingNo},'%')
             </if>
+            <if test="orderNumber != null and orderNumber != ''">
+                AND b.number LIKE concat('%',#{orderNumber},'%')
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

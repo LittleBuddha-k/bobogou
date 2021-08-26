@@ -20,6 +20,13 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
+                            <label class="layui-form-label">订单编号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="orderNumber" th:value="${orderFactory.getOrderNumber()}"
+                                       th:id="orderNumber" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
                             <label class="layui-form-label">物流单号</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
@@ -27,8 +34,11 @@
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                            <button type="submit" class="layui-btn" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-reset-btn" th:id="resetBtn"><i class="layui-icon layui-icon-refresh"></i> 重 置
                             </button>
                         </div>
                     </div>

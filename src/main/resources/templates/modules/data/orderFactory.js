@@ -3,7 +3,7 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
-    table.render({
+    let init = table.render({
         elem: '#orderFactoryTable',
         url: '/bobogou/data/orderFactory/data',
         method: 'GET',
@@ -137,7 +137,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            trackingNo: $("#trackingNo").val()
+            trackingNo: $("#trackingNo").val(),
+            orderNumber: $("#orderNumber").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -147,11 +148,19 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('orderFactoryTable', {
             where: {
-                trackingNo: $("#trackingNo").val()
+                trackingNo: $("#trackingNo").val(),
+                orderNumber: $("#orderNumber").val()
             }
         });
         return false;
     });
+
+    // 监听重置操作
+    $("#resetBtn").click(function () {
+        $("#trackingNo").val("");
+        $("#orderNumber").val("");
+        init();
+    })
     
     table.on('tool(orderFactoryTableFilter)', function (obj) {
         let id = obj.data.id;
