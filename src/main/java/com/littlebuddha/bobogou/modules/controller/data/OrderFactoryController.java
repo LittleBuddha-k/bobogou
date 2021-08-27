@@ -94,7 +94,7 @@ public class OrderFactoryController extends BaseController {
         List<DictData> distributionModeList = dictDataService.findList(dictData);
         model.addAttribute("distributionModeList", distributionModeList);
         DictData outStatusSelect = new DictData();
-        dictData.setType("data_order_factory_out_status");
+        outStatusSelect.setType("data_order_factory_out_status");
         List<DictData> outStatusList = dictDataService.findList(outStatusSelect);
         model.addAttribute("outStatusList", outStatusList);
         model.addAttribute("orderFactory", orderFactory);

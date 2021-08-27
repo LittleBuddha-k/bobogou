@@ -3,16 +3,18 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         , layer = layui.layer
         , laydate = layui.laydate;
 
-    //日期
-    laydate.render({
-        elem: '#outTime'
-        , type: 'datetime'
-    });
-    //日期
-    laydate.render({
-        elem: '#payTime'
-        , type: 'datetime'
-    });
+    let val = $("#distributionMode").val();
+    if (val == 3){
+        $("#trackingNo").removeAttr("readonly");
+        $("#outStatus").removeAttr("disabled");
+        $("#deliveryTime").removeAttr("readonly");
+        form.render();
+        //日期
+        laydate.render({
+            elem: '#deliveryTime'
+            , type: 'datetime'
+        });
+    }
 });
 
 function selectGoods(id) {
@@ -21,15 +23,15 @@ function selectGoods(id) {
 
 //保存方法
 function save(parentIndex) {
-    var isValidate = rc.validateForm('#orderForm');//校验表单
+    var isValidate = rc.validateForm('#orderFactoryForm');//校验表单
     if(!isValidate){
         return false;
     }else {
         $.ajax({
-            url: "/bobogou/data/order/save",    //请求的url地址
+            url: "/bobogou/data/orderFactory/save",    //请求的url地址
             dataType: "json",   //返回格式为json
             async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#orderForm").serialize(),    //参数值
+            data: $("#orderFactoryForm").serialize(),    //参数值
             type: "POST",   //请求方式
             success: function (result) {
                 //假设这是iframe页

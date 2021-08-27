@@ -104,14 +104,14 @@
                 <label class="layui-form-label" for="trackingNo">物流单号</label>
                 <div class="layui-input-inline">
                     <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
-                           th:id="trackingNo" autocomplete="off" class="layui-input" readonly>
+                           th:id="trackingNo" autocomplete="off" class="layui-input required" readonly>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="outStatus">出库状态</label>
                 <div class="layui-input-inline">
                     <select name="outStatus" lay-verify="" lay-filter="outStatus"
-                            th:id="outStatus" disabled="true">
+                            th:id="outStatus" disabled>
                         <option th:each="outStatus:${outStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
                                 th:selected="${outStatus.getValue()}==${orderFactory.getOutStatus()}"/>
                     </select>
@@ -121,102 +121,10 @@
                 <label class="layui-form-label" for="deliveryTime">确认发货时间</label>
                 <div class="layui-input-inline">
                     <input type="text" name="deliveryTime" th:value="${orderFactory.getDeliveryTime()}"
-                           th:id="deliveryTime" autocomplete="off" class="layui-input" readonly>
+                           th:id="deliveryTime" autocomplete="off" class="layui-input required" readonly>
                 </div>
             </div>
-            <!--<div class="layui-inline">
-                <label class="layui-form-label" for="status">状态</label>
-                <div class="layui-input-inline">
-                    <select name="status" lay-verify="" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:each="status:${orderFactoryStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
-                                th:selected="${status.getValue()}==${orderFactory.getStatus()}"/>
-                    </select>
-                </div>
-            </div>-->
         </div>
-        <!--<div class="layui-form-item">
-            <label class="layui-form-label">订单商品：</label>
-        </div>
-        <table class="layui-table">
-            <colgroup>
-                <col width="150">
-                <col width="200">
-                <col>
-            </colgroup>
-            <thead>
-            <tr>
-                <th>商品名称</th>
-                <th>商品规格</th>
-                <th>购买数量</th>
-                <th>商品库存</th>
-                <th>商品批号</th>
-                <th>生产厂家</th>
-                <th>有效期(月)</th>
-            </tr>
-            </thead>
-            <tbody id="orderFactoryInfoList">
-            </tbody>
-            <script type="text/template" id="orderFactoryInfoTpl">//&lt;!&ndash;
-				<tr id="orderFactoryInfoList{{idx}}">
-					<td class="layui-hide">
-						<input id="orderFactoryInfoList{{idx}}_id" name="orderFactoryInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
-					</td>
-
-                    <td>
-						<input id="orderFactoryInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" readonly/>
-						<input name="orderFactoryInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
-					</td>
-
-                    <td>
-						<input id="orderFactoryInfoList{{idx}}_specification" name="orderFactoryInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" readonly/>
-					</td>
-
-					<td>
-						<input id="orderFactoryInfoList{{idx}}_amount" name="orderFactoryInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input" readonly/>
-					</td>
-
-					<td>
-						<input id="orderFactoryInfoList{{idx}}_stockAmount" name="orderFactoryInfoList[{{idx}}].stockAmount" type="text" value="{{row.stockAmount}}"    class="layui-input" readonly/>
-					</td>
-
-					<td>
-						<input id="orderFactoryInfoList{{idx}}_authorization" name="orderFactoryInfoList[{{idx}}].authorization" type="text" value="{{row.authorization}}"    class="layui-input" readonly/>
-					</td>
-
-                    <td>
-						<input id="orderFactoryInfoList{{idx}}_factoryName" name="orderFactoryInfoList[{{idx}}].factoryName" type="text" value="{{row.factoryName}}"    class="layui-input" readonly/>
-					</td>
-
-                    <td>
-						<input id="orderFactoryInfoList{{idx}}_expirationDate" name="orderFactoryInfoList[{{idx}}].expirationDate" type="text" value="{{row.expirationDate}}"    class="layui-input" readonly/>
-					</td>&ndash;&gt;
-				</tr>//&ndash;&gt;
-            </script>
-            <script type="text/javascript">
-                var orderFactoryInfoRowIdx = 0,
-                    orderFactoryInfoTpl = $("#orderFactoryInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
-                $(document).ready(function () {
-                    let orderFactoryId = $("#id").val();
-                    $.ajax({
-                        type: "get",
-                        enctype: 'multipart/form-data',
-                        url: '/bobogou/data/orderFactory/orderFactoryInfoList?orderFactoryId=' + orderFactoryId,
-                        processData: false, //prevent jQuery from automatically transforming the data into a query string
-                        contentType: false,
-                        success: function (result) {
-                            let value = result;
-                            if (value != null && value != '') {
-                                for (var i = 0; i < value.length; i++) {
-                                    addRow('#orderFactoryInfoList', orderFactoryInfoRowIdx, orderFactoryInfoTpl, value[i]);
-                                    orderFactoryInfoRowIdx = orderFactoryInfoRowIdx + 1;
-                                }
-                            }
-                        },
-                    });
-                });
-            </script>
-        </table>-->
     </form>
 </div>
 <script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
