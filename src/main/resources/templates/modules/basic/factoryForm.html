@@ -134,7 +134,7 @@
                 <div class="layui-input-inline">
                     <input type="text" name="detailAddress" th:value="${factory.getDetailAddress()}"
                            th:id="detailAddress" autocomplete="off" class="layui-input" th:if="${mode == 'view'}" readonly>
-                    <input type="text" name="detailAddress" th:value="${factory.getDetailAddress()}"
+                    <input type="text" name="detailAddress" th:value="${factory.getDetailAddress()}" placeholder="请只填写小区楼栋详细"
                            th:id="detailAddress" autocomplete="off" class="layui-input" th:if="${mode != 'view'}">
                 </div>
             </div>
