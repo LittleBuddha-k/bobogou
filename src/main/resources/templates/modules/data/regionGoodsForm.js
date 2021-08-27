@@ -52,6 +52,8 @@ layui.use('form', function(){
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#city").html(tmp);
+                $("#area").html(tmp);
+                $("#street").html(tmp);
                 form.render();
             }
         })
@@ -69,6 +71,7 @@ layui.use('form', function(){
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#area").html(tmp);
+                $("#street").html(tmp);
                 form.render();
             }
         })
