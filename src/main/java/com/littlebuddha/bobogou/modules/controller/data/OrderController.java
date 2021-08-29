@@ -123,6 +123,10 @@ public class OrderController extends BaseController {
         orderOutStatus.setType("order_out_status");
         List<DictData> orderOutStatusList = dictDataService.findList(orderOutStatus);
         model.addAttribute("orderOutStatusList", orderOutStatusList);
+        DictData isInvoiceSelect = new DictData();
+        isInvoiceSelect.setType("data_order_is_invoice");
+        List<DictData> isInvoiceList = dictDataService.findList(isInvoiceSelect);
+        model.addAttribute("isInvoiceList", isInvoiceList);
         model.addAttribute("order", order);
         return "modules/data/orderForm";
     }

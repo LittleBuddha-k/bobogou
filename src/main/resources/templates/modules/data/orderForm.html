@@ -67,6 +67,16 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="isInvoice">是否开票</label>
+                <div class="layui-input-inline">
+                    <select name="isInvoice" lay-verify="" lay-filter="isInvoice"
+                            th:id="isInvoice" disabled="true">
+                        <option th:each="isInvoice:${isInvoiceList}" th:value="${isInvoice.getValue()}" th:text="${isInvoice.getName()}"
+                                th:selected="${isInvoice.getValue()}==${order.getIsInvoice()}"/>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>

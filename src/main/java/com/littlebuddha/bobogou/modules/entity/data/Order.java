@@ -42,6 +42,8 @@ public class Order extends DataEntity<Order> {
     private String type;//类型，0=购买，1=健康豆兑换，2=积分兑换
     private String status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
 
+    private String isInvoice;//是否开票
+
     private String payTime;//支付时间
     private String refundReason;//退款原因
     private String refundExplain;//退款原因
@@ -306,6 +308,14 @@ public class Order extends DataEntity<Order> {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getIsInvoice() {
+        return isInvoice;
+    }
+
+    public void setIsInvoice(String isInvoice) {
+        this.isInvoice = isInvoice;
     }
 
     public String getPayTime() {
