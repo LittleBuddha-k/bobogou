@@ -165,9 +165,9 @@ layui.use(['form', 'table'], function () {
     table.on('tool(orderFactoryTableFilter)', function (obj) {
         let id = obj.data.id;
         if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/orderFactory/form/detail?id=" + id, "商家订单详情",'85%','70%')
+            rc.openViewDialog("/bobogou/data/orderFactory/form/detail?id=" + id, "商家订单详情",'85%','85%')
         } else if (obj.event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/orderFactory/form/edit?id=' + id, "编辑商家订单信息", '85%', '70%');
+            rc.openSaveDialog('/bobogou/data/orderFactory/form/edit?id=' + id, "编辑商家订单信息", '85%', '85%');
         }
     });
 });
