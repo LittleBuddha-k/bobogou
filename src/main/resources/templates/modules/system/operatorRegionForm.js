@@ -47,9 +47,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
         $("#area").empty();//清空城市选项
-        $("#street").val("");//清空城市选项
+        $("#street").val("0");//清空城市选项
         $("#street").empty();//清空城市选项
-        $("#streetId").val("");//清空城市选项
+        $("#streetId").val("0");//清空城市选项
         rc.post("/bobogou/data/city/all", {"province.id": provinceId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
@@ -68,9 +68,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     form.on('select(city)', function (data) {
         let cityId = data.value;
         $("#area").empty();//清空城市选项
-        $("#street").val("");//清空城市选项
+        $("#street").val("0");//清空城市选项
         $("#street").empty();//清空城市选项
-        $("#streetId").val("");//清空城市选项
+        $("#streetId").val("0");//清空城市选项
         rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
@@ -89,7 +89,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         let areaId = data.value;
         $("#street").val("0");//清空城市选项
         $("#street").empty();//清空城市选项
-        $("#streetId").val("");//清空城市选项
+        $("#streetId").val("0");//清空城市选项
         rc.post("/bobogou/data/street/all", {"area.id": areaId}, function (data) {
             if (data.length > 0) {
                 //对应的值传回，拼出html下拉框语句
