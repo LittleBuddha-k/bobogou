@@ -48,12 +48,12 @@ layui.use('form', function(){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
                 var tmp='<option value="0">请选择</option>';
+                $("#area").html(tmp);
+                $("#street").html(tmp);
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#city").html(tmp);
-                $("#area").html(tmp);
-                $("#street").html(tmp);
                 form.render();
             }
         })
@@ -67,11 +67,11 @@ layui.use('form', function(){
             if(data.length>0) {
                 //对应的值传回，拼出html下拉框语句
                 var tmp='<option value="0">请选择</option>';
+                $("#street").html(tmp);
                 for(let i=0;i<data.length;i++) {
                     tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
                 }
                 $("#area").html(tmp);
-                $("#street").html(tmp);
                 form.render();
             }
         })
