@@ -197,7 +197,7 @@
                            th:each="goodsType:${goodsTypeLevelTwo}" th:value="${goodsType.getId()}"
                            th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked>
                 </div>
-                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelTwoIds() == ''}" th:id="goodsTypeLevelTwo">
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelTwoIds() == ''}" lay-filter="goodsTypeLevelTwoId" th:id="goodsTypeLevelTwo">
                 </div>
                 <div class="layui-input-block" th:if="${mode == 'detail' && goods.getGoodsClassifyLevelTwoIds() != ''}" th:id="goodsTypeLevelTwo">
                     <input type="checkbox"
@@ -213,15 +213,15 @@
                     <input type="checkbox"
                            th:if="${goods.getGoodsClassifyLevelThreeIds().contains(goodsType.getId())}"
                            th:each="goodsType:${goodsTypeLevelThree}" th:value="${goodsType.getId()}"
-                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked>
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelThreeId" checked>
                 </div>
-                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelThreeIds() == ''}" th:id="goodsTypeLevelThree">
+                <div class="layui-input-block" th:if="${mode != 'detail' && goods.getGoodsClassifyLevelThreeIds() == ''}" lay-filter="goodsTypeLevelThreeId" th:id="goodsTypeLevelThree">
                 </div>
                 <div class="layui-input-block" th:if="${mode == 'detail' && goods.getGoodsClassifyLevelThreeIds() != ''}" th:id="goodsTypeLevelThree">
                     <input type="checkbox"
                            th:if="${goods.getGoodsClassifyLevelThreeIds().contains(goodsType.getId())}"
                            th:each="goodsType:${goodsTypeLevelThree}" th:value="${goodsType.getId()}"
-                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelTwoId" checked disabled>
+                           th:title="${goodsType.getName()}" lay-filter="goodsTypeLevelThreeId" checked disabled>
                 </div>
                 <input type="hidden" name="goodsClassifyLevelThreeIds" th:id="goodsClassifyLevelThreeIds" th:value="${goods.getGoodsClassifyLevelThreeIds()}">
             </div>
