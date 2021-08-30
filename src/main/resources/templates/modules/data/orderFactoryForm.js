@@ -3,18 +3,21 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         , layer = layui.layer
         , laydate = layui.laydate;
 
-    let val = $("#distributionMode").val();
-    if (val == 3){
-        $("#trackingNo").removeAttr("readonly");
-        $("#outStatus").removeAttr("disabled");
-        $("#deliveryTime").removeAttr("readonly");
-        form.render();
-        //日期
-        laydate.render({
-            elem: '#deliveryTime'
-            , type: 'datetime'
-        });
-    }
+    form.on('select(distributionMode)', function (data) {
+        let distributionMode = data.value;
+        if(distributionMode == 3){
+            $("#trackingNo").removeAttr("readonly");
+            $("#outStatus").removeAttr("disabled");
+            //日期
+            laydate.render({
+                elem: '#deliveryTime'
+                , type: 'datetime'
+                ,trigger:'click'
+            });
+            form.render();
+        }else {
+        }
+    })
 });
 
 function selectGoods(id) {

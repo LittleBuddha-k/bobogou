@@ -94,7 +94,7 @@
                 <label class="layui-form-label" for="distributionMode">配送方式</label>
                 <div class="layui-input-inline">
                     <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
-                            th:id="distributionMode" disabled="true">
+                            th:id="distributionMode">
                         <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
                                 th:selected="${distributionMode.getValue()}==${orderFactory.getDistributionMode()}"/>
                     </select>
