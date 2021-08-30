@@ -12,7 +12,7 @@ public class Classify extends DataEntity<Classify> {
     private String name = "";//分类名称
     private String icon = "";//分类图标地址
     private String parentId = "";//父级分类ID，顶级=0
-    private Integer level = 1;//级别分类字段----默认为一级分类
+    private Integer level;//级别分类字段----默认为一级分类
 
     private String accountId;//最后操作人ID
 
