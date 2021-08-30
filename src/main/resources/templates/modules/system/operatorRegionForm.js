@@ -15,30 +15,37 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             $("#city").attr("disabled","disabled");
             $("#area").attr("disabled","disabled");
             $("#street").attr("disabled","disabled");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 1){
             $("#province").removeAttr("disabled");
             $("#city").attr("disabled","disabled");
             $("#area").attr("disabled","disabled");
             $("#street").attr("disabled","disabled");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 2){
             $("#province").removeAttr("disabled");
             $("#city").removeAttr("disabled");
             $("#area").attr("disabled","disabled");
             $("#street").attr("disabled","disabled");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 3){
             $("#province").removeAttr("disabled");
             $("#city").removeAttr("disabled");
             $("#area").removeAttr("disabled");
             $("#street").attr("disabled","disabled");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 4){
             $("#province").removeAttr("disabled");
             $("#city").removeAttr("disabled");
             $("#area").removeAttr("disabled");
             $("#street").removeAttr("disabled");
+            $("#streetId").bind("click", function() {
+                selectStreet('streetId');
+            });
             form.render();
         }
     });
