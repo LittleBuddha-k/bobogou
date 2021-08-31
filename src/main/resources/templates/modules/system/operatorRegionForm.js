@@ -43,6 +43,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
             $("#city").removeAttr("disabled");
             $("#area").removeAttr("disabled");
             $("#street").removeAttr("disabled");
+            $("#streetId").attr("onclick", "");
             $("#streetId").bind("click", function() {
                 selectStreet('streetId');
             });
@@ -193,9 +194,10 @@ function selectOperator(id) {
 }
 
 function selectStreet(id) {
+    alert("来")
     let area = $("#area").val();
     if (area != null && area != '' && area != undefined && area != 0){
-        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择商品", '90%', '90%',id);
+        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择街道", '90%', '90%',id);
     }else {
         rc.error("请先选择区")
     }
