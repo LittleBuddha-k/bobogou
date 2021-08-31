@@ -40,13 +40,11 @@ layui.use(['form', 'table'], function () {
                     width: '12.5%',
                     templet: function (data) {
                         var factoryType = data.factoryType;
-                        if (0 == factoryType){
-                            return "供货商";
-                        }else if (1 == factoryType){
-                            return "批发企业";
-                        }else {
+                        let dictName = rc.getDictName("basic_factory_type",factoryType);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -57,15 +55,11 @@ layui.use(['form', 'table'], function () {
                     width: '12.5%',
                     templet: function (data) {
                         var productType = data.productType;
-                        if (1 == productType){
-                            return "普通厂家";
-                        }else if (2 == productType){
-                            return "中药饮片";
-                        }else if (3 == productType){
-                            return "消毒产品";
-                        }else {
+                        let dictName = rc.getDictName("basic_factory_product_type",productType);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
