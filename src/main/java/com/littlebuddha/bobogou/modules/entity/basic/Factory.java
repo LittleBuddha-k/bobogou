@@ -12,7 +12,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class Factory extends DataEntity<Factory> {
 
-    private Integer factoryType = 1;//厂商类型，1=供货商，2=批发企业
+    private Integer factoryType;//厂商类型，1=供货商，2=批发企业
     private Integer productType = 1;//厂商产品类型，1=普通厂家，2=中药饮片，3=消毒产品
     private String factoryName = "";//厂商名称/批发企业名称
     private String linkman = "";//联系人

@@ -52,12 +52,12 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <!--<if test="brandName != null and brandName != ''">
-                AND a.brand_name LIKE concat('%',#{brandName},'%')
+            <if test="factoryName != null and factoryName != ''">
+                AND a.factory_name LIKE concat('%',#{factoryName},'%')
             </if>
-            <if test="classifyName != null and classifyName != ''">
-                AND a.classify_name LIKE concat('%',#{classifyName},'%')
-            </if>-->
+            <if test="factoryType != null and factoryType != ''">
+                AND a.factory_type = #{factoryType}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

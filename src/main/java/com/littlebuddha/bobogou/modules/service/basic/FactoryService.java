@@ -364,6 +364,9 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
 
     @Override
     public PageInfo<Factory> findPage(Page<Factory> page, Factory entity) {
+        if(entity != null){
+            entity.setFactoryName(StringUtils.deleteWhitespace(entity.getFactoryName()));
+        }
         PageInfo<Factory> page1 = super.findPage(page, entity);
         List<Factory> list = page1.getList();
         for (Factory factory : list) {

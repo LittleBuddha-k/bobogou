@@ -13,16 +13,26 @@
 <div class="layuimini-container">
     <div class="layuimini-main">
 
-        <!--<fieldset class="table-search-fieldset">
+        <fieldset class="table-search-fieldset">
             <legend></legend>
             <div style="margin: 10px 10px 10px 10px">
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">分类名称</label>
+                            <label class="layui-form-label">厂商名称</label>
                             <div class="layui-input-inline">
-                                <input type="name" name="name" th:value="${factory.getName()}"
-                                       th:id="name" autocomplete="off" class="layui-input">
+                                <input type="text" name="factoryName" th:value="${factory.getFactoryName()}"
+                                       th:id="factoryName" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">厂商类型</label>
+                            <div class="layui-input-inline">
+                                <select name="factoryType" lay-verify="" lay-filter="factoryType"
+                                        th:id="factoryType">
+                                    <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
+                                            th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
+                                </select>
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -30,10 +40,15 @@
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
                             </button>
                         </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-search-btn" id="reset"><i class="layui-icon layui-icon-refresh"></i> 重 置
+                            </button>
+                        </div>
                     </div>
                 </form>
             </div>
-        </fieldset>-->
+        </fieldset>
 
         <script type="text/html" id="toolBar">
             <div class="layui-btn-container">
