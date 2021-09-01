@@ -459,32 +459,41 @@ function save(parentIndex) {
     if(!isValidate){
         return false;
     }else {
-        $.ajax({
-            url: "/bobogou/basic/factory/save",    //请求的url地址
-            dataType: "json",   //返回格式为json
-            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-            data: $("#factoryForm").serialize(),    //参数值
-            type: "POST",   //请求方式
-            success: function (result) {
-                //假设这是iframe页
-                if (200 == result.code){
-                    //请求成功时处理
-                    // 刷新整个父窗口
-                    parent.refresh();
+        let province = $("#province").val();
+        let city = $("#city").val();
+        let area = $("#area").val();
+        let street = $("#street").val();
+        let detailAddress = $("#detailAddress").val();
+        if (province != null && province != '' && province != undefined && city != null && city != '' && city != undefined && area != null && area != '' && area != undefined && street != null && street != '' && street != undefined && detailAddress != null && detailAddress != '' && detailAddress != undefined){
+            $.ajax({
+                url: "/bobogou/basic/factory/save",    //请求的url地址
+                dataType: "json",   //返回格式为json
+                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+                data: $("#factoryForm").serialize(),    //参数值
+                type: "POST",   //请求方式
+                success: function (result) {
                     //假设这是iframe页
-                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                    rc.msg(result.msg)
-                    setTimeout(function(){
-                        parent.layer.close(index); //再执行关闭
-                    }, 1000);
-                }else {
+                    if (200 == result.code){
+                        //请求成功时处理
+                        // 刷新整个父窗口
+                        parent.refresh();
+                        //假设这是iframe页
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        rc.msg(result.msg)
+                        setTimeout(function(){
+                            parent.layer.close(index); //再执行关闭
+                        }, 1000);
+                    }else {
+                        rc.alert(result.msg)
+                    }
+                },
+                error: function (result) {
                     rc.alert(result.msg)
                 }
-            },
-            error: function (result) {
-                rc.alert(result.msg)
-            }
-        });
+            });
+        }else {
+            rc.error("请填入省市区街道和详细地址信息")
+        }
     }
 }
 
