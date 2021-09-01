@@ -49,25 +49,25 @@ layui.use(['form', 'table'], function () {
                     width: '200'
                 },
                 {
-                    title: '进价',
+                    title: '集采价',
                     field: 'purchasingPrice',
                     sort: true,
                     width: '100'
                 },
                 {
-                    title: '零售价',
+                    title: '进价',
                     field: 'originalCost',
                     align: 'center',
                     width: '100'
                 },
                 {
-                    title: '会员价',
+                    title: '零售价',
                     field: 'sellingPrice',
                     align: 'center',
                     width: '100'
                 },
                 {
-                    title: '集采价',
+                    title: '会员价',
                     field: 'vipPrice',
                     sort: true,
                     align: 'center',
