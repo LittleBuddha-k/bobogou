@@ -22,7 +22,15 @@ public class OrderInfoService extends CrudService<OrderInfo, OrderInfoMapper> {
 
     @Override
     public List<OrderInfo> findList(OrderInfo entity) {
-        return super.findList(entity);
+        List<OrderInfo> list = super.findList(entity);
+        if (list != null && !list.isEmpty()){
+            for (OrderInfo orderInfo : list) {
+                if (orderInfo != null && orderInfo.getPrice() != null){
+                    orderInfo.setPrice(Double.toString(Double.valueOf(orderInfo.getPrice()) / 100));
+                }
+            }
+        }
+        return list;
     }
 
     @Override

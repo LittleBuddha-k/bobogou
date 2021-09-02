@@ -42,6 +42,7 @@
         a.goods_id AS "goodsId",
         a.goods_name AS "goodsName",
         a.specification AS "specification",
+        a.price AS "price",
         a.amount AS "amount",
         b.stock_amount AS "stockAmount",
         c.authorization AS "authorization",

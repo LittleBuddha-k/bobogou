@@ -91,6 +91,7 @@
             <tr>
                 <th>商品名称</th>
                 <th>商品规格</th>
+                <th>集采价</th>
                 <th>购买数量</th>
                 <th>商品库存</th>
                 <th>商品批号</th>
@@ -113,6 +114,10 @@
 
                     <td>
 						<input id="orderInfoList{{idx}}_specification" name="orderInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderInfoList{{idx}}_price" name="orderInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input" readonly/>
 					</td>
 
 					<td>
