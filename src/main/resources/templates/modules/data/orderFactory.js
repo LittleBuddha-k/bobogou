@@ -111,8 +111,8 @@ layui.use(['form', 'table'], function () {
                     field: 'outStatus',
                     width: '120',
                     templet: function (data) {
-                        var type = data.distributionMode;
-                        let dictName = rc.getDictName("data_order_factory_out_status",type);
+                        var outStatus = data.outStatus;
+                        let dictName = rc.getDictName("data_order_factory_out_status",outStatus);
                         if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
@@ -123,6 +123,15 @@ layui.use(['form', 'table'], function () {
                     title: '确认发货时间',
                     field: 'deliveryTime',
                     width: '180',
+                    templet: function (data) {
+                        var deliveryTime = data.deliveryTime;
+                        if (deliveryTime != null && deliveryTime != '' && deliveryTime != undefined){
+                            deliveryTime = rc.dateFormat(deliveryTime);
+                        }else {
+                            deliveryTime = "未知";
+                        }
+                        return deliveryTime;
+                    }
                 },
                 {
                     title: '操作',

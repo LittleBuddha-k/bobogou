@@ -130,11 +130,11 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="deliveryTime">确认发货时间</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="deliveryTime" th:value="${orderFactory.getDeliveryTime()}"
+                    <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
                            th:id="deliveryTime" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}" style="display: none">
-                    <input type="text" name="deliveryTime" th:value="${orderFactory.getDeliveryTime()}"
+                    <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
                            th:id="deliveryTimeShow" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}" style="display: none">
-                    <input type="text" name="deliveryTime" th:value="${orderFactory.getDeliveryTime()}"
+                    <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
                            autocomplete="off" class="layui-input required" readonly th:if="${mode == 'detail'}">
                 </div>
             </div>

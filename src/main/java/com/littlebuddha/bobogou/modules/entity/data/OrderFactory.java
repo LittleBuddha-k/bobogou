@@ -1,7 +1,9 @@
 package com.littlebuddha.bobogou.modules.entity.data;
 
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +39,7 @@ public class OrderFactory extends DataEntity<OrderFactory> {
     private String distributionMode;//配送方式，0=未发货，1=顺丰，2=京东，3=其它物流
     private String trackingNo;//物流单号
     private String outStatus;//出库状态，0=已发货，1=未发货
-    private String deliveryTime;//确认发货时间
+    private Date deliveryTime;//确认发货时间
 
     public OrderFactory() {
     }
@@ -259,11 +261,12 @@ public class OrderFactory extends DataEntity<OrderFactory> {
         this.outStatus = outStatus;
     }
 
-    public String getDeliveryTime() {
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public Date getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(String deliveryTime) {
+    public void setDeliveryTime(Date deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 }
