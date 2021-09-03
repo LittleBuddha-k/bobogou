@@ -7,6 +7,8 @@ layui.use(['form', 'layedit', 'laydate'], function () {
     if (distributionMode == 3){
         $("#trackingNo").removeAttr("readonly");
         $("#outStatus").removeAttr("disabled");
+        $("#deliveryTime").show();
+        $("#deliveryTimeShow").hide();
         //日期
         laydate.render({
             elem: '#deliveryTime'
@@ -17,6 +19,8 @@ layui.use(['form', 'layedit', 'laydate'], function () {
     }else {
         $("#trackingNo").attr("readonly","readonly");
         $("#outStatus").attr("disabled","disabled");
+        $("#deliveryTime").hide();
+        $("#deliveryTimeShow").show();
         form.render();
     }
 
@@ -25,6 +29,8 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         if(distributionMode == 3){
             $("#trackingNo").removeAttr("readonly");
             $("#outStatus").removeAttr("disabled");
+            $("#deliveryTime").show();
+            $("#deliveryTimeShow").hide();
             //日期
             laydate.render({
                 elem: '#deliveryTime'
@@ -35,6 +41,8 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         }else {
             $("#trackingNo").attr("readonly","readonly");
             $("#outStatus").attr("disabled","disabled");
+            $("#deliveryTime").hide();
+            $("#deliveryTimeShow").show();
             form.render();
         }
     })
