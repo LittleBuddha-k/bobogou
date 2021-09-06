@@ -135,13 +135,13 @@
             <label class="layui-form-label" for="businessLicense">营业执照</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">营业执照</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessLicense() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessLicense() != null && userMember.getBusinessLicense() != ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
                         <img  th:each="image:${userMember.getBusinessLicense().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessLicense() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessLicense() == null || userMember.getBusinessLicense() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
 
@@ -154,13 +154,13 @@
             <label class="layui-form-label" for="businessCertificate">经营许可证地址</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">经营许可证地址</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() != null && userMember.getBusinessCertificate() != ''}">
                     预览图：
                     <div class="layui-upload-list">
                         <img  th:each="image:${userMember.getBusinessCertificate().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getBusinessCertificate() == null || userMember.getBusinessCertificate() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo1">
 
@@ -173,13 +173,13 @@
             <label class="layui-form-label" for="foodBusinessLicense">食品经营许可证</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">食品经营许可证</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() != null && userMember.getFoodBusinessLicense() != ''}">
                     预览图：
                     <div class="layui-upload-list">
                         <img  th:each="image:${userMember.getFoodBusinessLicense().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getFoodBusinessLicense() == null || userMember.getFoodBusinessLicense() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo2">
                     </div>
@@ -191,13 +191,13 @@
             <label class="layui-form-label" for="authorityPurchase">采购委托书</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">采购委托书</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() != null && userMember.getAuthorityPurchase() != ''}">
                     预览图：
                     <div class="layui-upload-list">
                         <img  th:each="image:${userMember.getAuthorityPurchase().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getAuthorityPurchase() == null || userMember.getAuthorityPurchase() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo3">
                     </div>
@@ -209,13 +209,13 @@
             <label class="layui-form-label" for="mandatary">被委托人身份证</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">被委托人身份证</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() != null && userMember.getMandatary() != ''}">
                     预览图：
                     <div class="layui-upload-list">
                         <img  th:each="image:${userMember.getMandatary().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getMandatary() == null || userMember.getMandatary() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo4">
                     </div>
@@ -227,13 +227,13 @@
             <label class="layui-form-label" for="groupPhoto">经理人和申请人的合照图片</label>
             <div class="layui-upload">
                 <button type="button" class="layui-btn">经理人和申请人的合照图片</button>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() != null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() != null && userMember.getGroupPhoto() != ''}">
                     预览图：
                     <div class="layui-upload-list">
                         <img  th:each="image:${userMember.getGroupPhoto().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
                     </div>
                 </blockquote>
-                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() == null}">
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getGroupPhoto() == null || userMember.getGroupPhoto() == ''}">
                     预览图：
                     <div class="layui-upload-list" th:id="demo5">
                     </div>
