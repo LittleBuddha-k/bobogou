@@ -69,33 +69,28 @@
             <if test="number != null and number != ''">
                 AND a.number LIKE concat('%',#{number},'%')
             </if>
-            <if test="grossAmount != null">
-                AND a.gross_amount = #{grossAmount}
-            </if>
-            <if test="integral != null">
-                AND a.integral = #{integral}
-            </if>
-            <if test="healthBeans != null">
-                AND a.health_beans = #{healthBeans}
-            </if>
-            <if test="addressId != null">
-                AND a.address_id = #{addressId}
-            </if>
             <if test="distributionMode != null and distributionMode != ''">
                 AND a.distribution_mode = #{distributionMode}
             </if>
-            <if test="payMode != null">
-                AND a.pay_mode = #{payMode}
-            </if>
-            <if test="type != null and type != ''">
-                AND a.type = #{type}
-            </if>
-            <if test="status != null and status != ''">
-                AND a.status = #{status}
-            </if>
-            <if test="refundReason != null and refundReason != ''">
-                AND a.refund_reason LIKE concat('%',#{refundReason},'%')
-            </if>
+            <choose>
+                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
+                    <if test="provinceIds != null and provinceIds != ''">
+                        AND #{provinceIds} LIKE concat('%',c.province_id,'%')
+                    </if>
+                    <if test="cityIds != null and cityIds != ''">
+                        AND #{cityIds} LIKE concat('%',c.city_id,'%')
+                    </if>
+                    <if test="areaIds != null and areaIds != ''">
+                        AND #{areaIds} LIKE concat('%',c.district_id,'%')
+                    </if>
+                    <if test="streetIds != null and streetIds != ''">
+                        AND #{streetIds} LIKE concat('%',street_id,'%')
+                    </if>
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

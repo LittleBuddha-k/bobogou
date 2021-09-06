@@ -2,15 +2,21 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
@@ -18,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.StringJoiner;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -31,6 +38,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Resource
     private GoodsMapper goodsMapper;
+
+    @Resource
+    private OperatorRegionMapper operatorRegionMapper;
 
     @Override
     public Order get(Order entity) {
@@ -118,35 +128,91 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 entity.setDistributionMode(distributionMode);
             }
         }
-        PageInfo<Order> page1 = super.findPage(page, entity);
-        List<Order> list = page1.getList();
-        for (Order order : list) {
-            if (order != null && order.getGrossAmount() != null) {
-                order.setGrossAmount(order.getGrossAmount() / 100);
+        //查询结果
+        PageInfo<Order> page1 = new PageInfo<>();
+        //根据当前用户等级查询对应订单数据
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        if (currentUser != null){
+            StringJoiner provinceIds = new StringJoiner(",");//查询条件
+            StringJoiner cityIds = new StringJoiner(",");//查询条件
+            StringJoiner areaIds = new StringJoiner(",");//查询条件
+            StringJoiner streetIds = new StringJoiner(",");//查询条件
+            OperatorRegion operatorRegion = new OperatorRegion();
+            operatorRegion.setOperatorId(currentUser.getId());
+            //查询当前用户的所有区域list
+            List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+            if (operatorRegions != null && !operatorRegions.isEmpty()) {
+                //1.如果当前用户是省管理员
+                if (currentUser.getAreaManager() == 1) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                }
+                //2.如果当前用户是市管理员
+                if (currentUser.getAreaManager() == 2) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                        areaIds.add(region.getAreaId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                    entity.setAreaIds(areaIds.toString());
+                }
+                //3.如果当前用户是区管理员
+                if (currentUser.getAreaManager() == 3) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                        areaIds.add(region.getAreaId());
+                        streetIds.add(region.getStreetId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                    entity.setAreaIds(areaIds.toString());
+                    entity.setStreetIds(streetIds.toString());
+                }
+            }else {
+                //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
+                entity.setProvinceIds("-1");
+                entity.setCityIds("-1");
+                entity.setAreaIds("-1");
+                entity.setStreetIds("-1");
             }
-            if (order != null && order.getPaymentAmount() != null) {
-                order.setPaymentAmount(order.getPaymentAmount() / 100);
-            }
-            if (order != null && order.getActualAmountPaid() != null) {
-                order.setActualAmountPaid(order.getActualAmountPaid() / 100);
-            }
-            if (order != null && order.getDeduction() != null) {
-                order.setDeduction(order.getDeduction() / 100);
-            }
-            if (order != null && order.getFreight() != null) {
-                order.setFreight(order.getFreight() / 100);
-            }
-            if (order != null && order.getManagementCost() != null) {
-                order.setManagementCost(order.getManagementCost() / 100);
-            }
-            if (order != null && order.getProvinceCost() != null) {
-                order.setProvinceCost(order.getProvinceCost() / 100);
-            }
-            if (order != null && order.getCityCost() != null) {
-                order.setCityCost(order.getCityCost() / 100);
-            }
-            if (order != null && order.getDistrictCost() != null) {
-                order.setDistrictCost(order.getDistrictCost() / 100);
+            page1 = super.findPage(page, entity);
+            List<Order> list = page1.getList();
+            for (Order order : list) {
+                if (order != null && order.getGrossAmount() != null) {
+                    order.setGrossAmount(order.getGrossAmount() / 100);
+                }
+                if (order != null && order.getPaymentAmount() != null) {
+                    order.setPaymentAmount(order.getPaymentAmount() / 100);
+                }
+                if (order != null && order.getActualAmountPaid() != null) {
+                    order.setActualAmountPaid(order.getActualAmountPaid() / 100);
+                }
+                if (order != null && order.getDeduction() != null) {
+                    order.setDeduction(order.getDeduction() / 100);
+                }
+                if (order != null && order.getFreight() != null) {
+                    order.setFreight(order.getFreight() / 100);
+                }
+                if (order != null && order.getManagementCost() != null) {
+                    order.setManagementCost(order.getManagementCost() / 100);
+                }
+                if (order != null && order.getProvinceCost() != null) {
+                    order.setProvinceCost(order.getProvinceCost() / 100);
+                }
+                if (order != null && order.getCityCost() != null) {
+                    order.setCityCost(order.getCityCost() / 100);
+                }
+                if (order != null && order.getDistrictCost() != null) {
+                    order.setDistrictCost(order.getDistrictCost() / 100);
+                }
             }
         }
         return page1;
