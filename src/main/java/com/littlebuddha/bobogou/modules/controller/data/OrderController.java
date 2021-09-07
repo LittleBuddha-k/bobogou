@@ -65,6 +65,10 @@ public class OrderController extends BaseController {
     //@RequiresPermissions("system/order/list")
     @GetMapping(value = {"/", "/list"})
     public String list(Order order, Model model, HttpSession session) {
+        DictData orderStatus = new DictData();
+        orderStatus.setType("order_status");
+        List<DictData> orderStatusList = dictDataService.findList(orderStatus);
+        model.addAttribute("orderStatusList", orderStatusList);
         model.addAttribute("order", order);
         return "modules/data/order";
     }

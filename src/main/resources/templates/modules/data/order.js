@@ -137,6 +137,7 @@ layui.use(['form', 'table'], function () {
         where: {
             number: $("#number").val(),
             addressId: $("#addressId").val(),
+            status: $("#status").val(),
             distributionMode: $("#distributionMode").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
@@ -149,6 +150,7 @@ layui.use(['form', 'table'], function () {
             where: {
                 number: $("#number").val(),
                 addressId: $("#addressId").val(),
+                status: $("#status").val(),
                 distributionMode: $("#distributionMode").val()
             }
         });

@@ -24,14 +24,17 @@
                                 <input type="text" name="number" th:value="${order.getNumber()}"
                                        th:id="number" autocomplete="off" class="layui-input">
                             </div>
-                        </div><!--
+                        </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">配送地址</label>
+                            <label class="layui-form-label" for="status">状态</label>
                             <div class="layui-input-inline">
-                                <input type="text" name="addressId" th:value="${order.getAddressId()}" autocomplete="off"
-                                       th:id="addressId" class="layui-input">
+                                <select name="status" lay-verify="" lay-filter="status"
+                                        th:id="status">
+                                    <option th:each="status:${orderStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
+                                            th:selected="${status.getValue()}==${order.getStatus()}"/>
+                                </select>
                             </div>
-                        </div>-->
+                        </div>
                         <div class="layui-inline">
                             <label class="layui-form-label">配送方式</label>
                             <div class="layui-input-inline">

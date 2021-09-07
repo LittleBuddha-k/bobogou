@@ -69,6 +69,9 @@
             <if test="number != null and number != ''">
                 AND a.number LIKE concat('%',#{number},'%')
             </if>
+            <if test="status != null">
+                AND a.status = #{status}
+            </if>
             <if test="distributionMode != null and distributionMode != ''">
                 AND a.distribution_mode = #{distributionMode}
             </if>
