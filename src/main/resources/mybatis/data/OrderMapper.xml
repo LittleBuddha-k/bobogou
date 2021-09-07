@@ -47,6 +47,15 @@
         LEFT JOIN ud_address c ON a.address_id = c.id
     </sql>
 
+    <sql id="orderExportJoins">
+        LEFT JOIN ud_user b ON a.user_id = b.id
+        LEFT JOIN ud_address c ON a.address_id = c.id
+        LEFT JOIN sd_order_info d ON d.order_id = a.id
+        LEFT JOIN mb_goods e ON d.goods_id = e.id
+        LEFT JOIN sd_order_factory g ON g.order_id = a.id
+        LEFT JOIN md_goods_specification h ON e.factory_id = h.id
+    </sql>
+
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
         SELECT
         <include refid="orderColumns"/>
@@ -66,6 +75,76 @@
             <if test="userId != null and userId != ''">
                 AND a.user_id = #{userId}
             </if>
+            <if test="number != null and number != ''">
+                AND a.number LIKE concat('%',#{number},'%')
+            </if>
+            <if test="status != null">
+                AND a.status = #{status}
+            </if>
+            <if test="distributionMode != null and distributionMode != ''">
+                AND a.distribution_mode = #{distributionMode}
+            </if>
+            <choose>
+                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
+                    <if test="provinceIds != null and provinceIds != ''">
+                        AND #{provinceIds} LIKE concat('%',c.province_id,'%')
+                    </if>
+                    <if test="cityIds != null and cityIds != ''">
+                        AND #{cityIds} LIKE concat('%',c.city_id,'%')
+                    </if>
+                    <if test="areaIds != null and areaIds != ''">
+                        AND #{areaIds} LIKE concat('%',c.district_id,'%')
+                    </if>
+                    <if test="streetIds != null and streetIds != ''">
+                        AND #{streetIds} LIKE concat('%',street_id,'%')
+                    </if>
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--查询导出数据-->
+    <select id="findOrderExportList" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO">
+        SELECT
+        b.nickname AS "userName",
+        b.phone AS "phone",
+        a.number AS "number",
+        a.gross_amount AS "grossamount",
+        c.province AS "province",
+        c.city AS "city",
+        c.district AS "district",
+        c.street AS "street",
+        c.detailed AS "detailed",
+        a.distribution_mode AS "distributionMode",
+        a.pay_mode AS "payMode",
+        a.type AS "type",
+        a.status AS "status",
+        a.pay_time AS "payTime",
+        a.is_invoice AS "isInvoice",
+        g.tracking_no AS "trackingNo",
+        e.name AS "goodsName",
+        e.specification AS "specification",
+        d.price AS "price",
+        d.amount AS "amount",
+        e.stock_amount AS "stockAmount",
+        h.authorization AS "authorization",
+        g.factory_name AS "factoryName",
+        e.expiration_date AS "expirationDate"
+        FROM sd_order a
+        <include refid="orderExportJoins"/>
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test="number != null and number != ''">
                 AND a.number LIKE concat('%',#{number},'%')
             </if>

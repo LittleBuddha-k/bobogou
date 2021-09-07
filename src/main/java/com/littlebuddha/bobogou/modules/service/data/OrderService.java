@@ -4,12 +4,15 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
+import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.common.DictDataMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -41,6 +45,12 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Resource
     private OperatorRegionMapper operatorRegionMapper;
+
+    @Resource
+    private OrderMapper orderMapper;
+
+    @Resource
+    private DictDataMapper dictDataMapper;
 
     @Override
     public Order get(Order entity) {
@@ -271,5 +281,126 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     @Override
     public int recovery(Order entity) {
         return super.recovery(entity);
+    }
+
+    /**
+     * 查询导出数据
+     * @param
+     * @return
+     */
+    public List<OrderExportDTO> findOrderExportList(Order entity) {
+        if (entity != null) {
+            String number = StringUtils.deleteWhitespace(entity.getNumber());
+            entity.setNumber(number);
+            if (entity.getAddressId() != null) {
+                String addressId = StringUtils.deleteWhitespace(entity.getAddressId().toString());
+                entity.setAddressId(Integer.valueOf(addressId));
+            }
+        }
+        //查询结果
+        List<OrderExportDTO> result = new ArrayList<>();
+        //根据当前用户等级查询对应订单数据
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        if (currentUser != null){
+            StringJoiner provinceIds = new StringJoiner(",");//查询条件
+            StringJoiner cityIds = new StringJoiner(",");//查询条件
+            StringJoiner areaIds = new StringJoiner(",");//查询条件
+            StringJoiner streetIds = new StringJoiner(",");//查询条件
+            OperatorRegion operatorRegion = new OperatorRegion();
+            operatorRegion.setOperatorId(currentUser.getId());
+            //查询当前用户的所有区域list
+            List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+            if (operatorRegions != null && !operatorRegions.isEmpty()) {
+                //1.如果当前用户是省管理员
+                if (currentUser.getAreaManager() == 1) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                }
+                //2.如果当前用户是市管理员
+                if (currentUser.getAreaManager() == 2) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                        areaIds.add(region.getAreaId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                    entity.setAreaIds(areaIds.toString());
+                }
+                //3.如果当前用户是区管理员
+                if (currentUser.getAreaManager() == 3) {
+                    for (OperatorRegion region : operatorRegions) {
+                        provinceIds.add(region.getProvinceId());
+                        cityIds.add(region.getCityId());
+                        areaIds.add(region.getAreaId());
+                        streetIds.add(region.getStreetId());
+                    }
+                    entity.setProvinceIds(provinceIds.toString());
+                    entity.setCityIds(cityIds.toString());
+                    entity.setAreaIds(areaIds.toString());
+                    entity.setStreetIds(streetIds.toString());
+                }
+                //来处理结果集合
+                result = orderMapper.findOrderExportList(entity);
+            }else {
+                //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
+                entity.setProvinceIds("-1");
+                entity.setCityIds("-1");
+                entity.setAreaIds("-1");
+                entity.setStreetIds("-1");
+            }
+            result = orderMapper.findOrderExportList(entity);
+            for (OrderExportDTO orderExportDTO : result) {
+                if (orderExportDTO != null){
+                    if (orderExportDTO.getGrossAmount() != null) {
+                        orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
+                    }
+                    if (orderExportDTO.getPrice() != null) {
+                        orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
+                    }
+                    if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())){
+                        DictData dictData = new DictData();
+                        dictData.setType("order_distribution_mode");
+                        dictData.setValue(orderExportDTO.getDistributionMode());
+                        DictData byValue = dictDataMapper.getByValue(dictData);
+                        orderExportDTO.setDistributionMode(byValue.getName());
+                    }
+                    if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())){
+                        DictData dictData = new DictData();
+                        dictData.setType("order_pay_mode");
+                        dictData.setValue(orderExportDTO.getPayMode());
+                        DictData byValue = dictDataMapper.getByValue(dictData);
+                        orderExportDTO.setPayMode(byValue.getName());
+                    }
+                    if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())){
+                        DictData dictData = new DictData();
+                        dictData.setType("oder_type");
+                        dictData.setValue(orderExportDTO.getType());
+                        DictData byValue = dictDataMapper.getByValue(dictData);
+                        orderExportDTO.setType(byValue.getName());
+                    }
+                    if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())){
+                        DictData dictData = new DictData();
+                        dictData.setType("order_status");
+                        dictData.setValue(orderExportDTO.getStatus());
+                        DictData byValue = dictDataMapper.getByValue(dictData);
+                        orderExportDTO.setStatus(byValue.getName());
+                    }
+                    if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())){
+                        DictData dictData = new DictData();
+                        dictData.setType("data_order_is_invoice");
+                        dictData.setValue(orderExportDTO.getIsInvoice());
+                        DictData byValue = dictDataMapper.getByValue(dictData);
+                        orderExportDTO.setIsInvoice(byValue.getName());
+                    }
+                }
+            }
+        }
+        return result;
     }
 }

@@ -11,6 +11,7 @@ import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
+import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.OrderInfoService;
 import com.littlebuddha.bobogou.modules.service.data.OrderService;
@@ -220,12 +221,12 @@ public class OrderController extends BaseController {
     public Result exportFile(Order order, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
-            String fileName = "订单管理" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<Order> list = orderService.findList(order);
+            String fileName = "订单信息" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
+            List<OrderExportDTO> list = orderService.findOrderExportList(order);
             if (list != null & list.size() > 0) {
-                new ExportExcel("订单管理", Order.class).setDataList(list).write(response, fileName).dispose();
+                new ExportExcel("订单管理", OrderExportDTO.class).setDataList(list).write(response, fileName).dispose();
             } else {
-                new ExportExcel("订单管理", Order.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
+                new ExportExcel("订单管理", OrderExportDTO.class).setDataList(new ArrayList<>()).write(response, fileName).dispose();
             }
             return null;
         } catch (Exception e) {
@@ -238,7 +239,6 @@ public class OrderController extends BaseController {
     @ResponseBody
     @PostMapping("/delete")
     public Result delete(String ids) {
-        System.out.println("ids:" + ids);
         String[] split = ids.split(",");
         for (String s : split) {
             Order order = orderService.get(s);
