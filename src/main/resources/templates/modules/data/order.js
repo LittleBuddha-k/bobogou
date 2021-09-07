@@ -214,7 +214,9 @@ layui.use(['form', 'table'], function () {
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/order/importTemplate", "/bobogou/data/order/importFile")
         } else if (obj.event === 'export') {  // 监听删除操作
-            rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
+            rc.confirm('导出时间可能较长，确认要导出订单信息吗？', function(){
+                rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
+            });
         }
     });
 
