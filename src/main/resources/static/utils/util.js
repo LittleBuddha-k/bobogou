@@ -152,7 +152,7 @@
                 msg = '正在提交，请稍等...';
             }
 
-            var index = top.layer.msg(msg, {
+            var index = layer.msg(msg, {
                 icon: 16
                 , shade: 0.01,
                 time: 999999999//设置超长时间

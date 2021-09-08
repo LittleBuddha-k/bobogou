@@ -215,7 +215,11 @@ layui.use(['form', 'table'], function () {
             rc.openImportDialog("/bobogou/data/order/importTemplate", "/bobogou/data/order/importFile")
         } else if (obj.event === 'export') {  // 监听删除操作
             rc.confirm('导出时间可能较长，确认要导出订单信息吗？', function(){
+                var index = rc.loading("正在下载，请稍后");
                 rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
+                setTimeout(function(){
+                    layer.close(index);
+                }, 10000);
             });
         }
     });
