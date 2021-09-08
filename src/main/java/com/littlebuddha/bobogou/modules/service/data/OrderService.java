@@ -4,14 +4,12 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
 import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
-import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.mapper.common.DictDataMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
@@ -148,7 +146,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         //根据当前用户等级查询对应订单数据
         Operator currentUser = UserUtils.getCurrentUser();
         entity.setCurrentUser(currentUser);
-        if (currentUser != null){
+        if (currentUser != null) {
             StringJoiner provinceIds = new StringJoiner(",");//查询条件
             StringJoiner cityIds = new StringJoiner(",");//查询条件
             StringJoiner areaIds = new StringJoiner(",");//查询条件
@@ -191,7 +189,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     entity.setAreaIds(areaIds.toString());
                     entity.setStreetIds(streetIds.toString());
                 }
-            }else {
+            } else {
                 //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
                 entity.setProvinceIds("-1");
                 entity.setCityIds("-1");
@@ -290,6 +288,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     /**
      * 查询导出数据
+     *
      * @param
      * @return
      */
@@ -307,7 +306,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         //根据当前用户等级查询对应订单数据
         Operator currentUser = UserUtils.getCurrentUser();
         entity.setCurrentUser(currentUser);
-        if (currentUser != null){
+        if (currentUser != null) {
             StringJoiner provinceIds = new StringJoiner(",");//查询条件
             StringJoiner cityIds = new StringJoiner(",");//查询条件
             StringJoiner areaIds = new StringJoiner(",");//查询条件
@@ -352,7 +351,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 }
                 //来处理结果集合
                 result = orderMapper.findOrderExportList(entity);
-            }else {
+            } else {
                 //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
                 entity.setProvinceIds("-1");
                 entity.setCityIds("-1");
@@ -366,36 +365,36 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             Map<String, String> orderStatusMap = dictDataService.getMap("order_status");
             Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
             for (OrderExportDTO orderExportDTO : result) {
-                if (orderExportDTO != null){
+                if (orderExportDTO != null) {
                     if (orderExportDTO.getGrossAmount() != null) {
                         orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
                     }
                     if (orderExportDTO.getPrice() != null) {
                         orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
                     }
-                    if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())){
+                    if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())) {
                         String distribution = distributionModeMap.get(orderExportDTO.getDistributionMode());
-                        String distributionMode = distribution ==null?"":distribution;
+                        String distributionMode = distribution == null ? "" : distribution;
                         orderExportDTO.setDistributionMode(distributionMode);
                     }
-                    if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())){
+                    if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())) {
                         String payMode = payModeMap.get(orderExportDTO.getPayMode());
-                        String pay = payMode ==null?"":payMode;
+                        String pay = payMode == null ? "" : payMode;
                         orderExportDTO.setPayMode(pay);
                     }
-                    if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())){
+                    if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())) {
                         String type = typeMap.get(orderExportDTO.getType());
-                        String orderType = type ==null?"":type;
+                        String orderType = type == null ? "" : type;
                         orderExportDTO.setType(orderType);
                     }
-                    if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())){
+                    if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())) {
                         String orderStatus = orderStatusMap.get(orderExportDTO.getStatus());
-                        String status = orderStatus ==null?"":orderStatus;
+                        String status = orderStatus == null ? "" : orderStatus;
                         orderExportDTO.setStatus(status);
                     }
-                    if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())){
+                    if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())) {
                         String isInvoice = orderIsInvoiceMap.get(orderExportDTO.getIsInvoice());
-                        String invoice = isInvoice ==null?"":isInvoice;
+                        String invoice = isInvoice == null ? "" : isInvoice;
                         orderExportDTO.setIsInvoice(invoice);
                     }
                 }

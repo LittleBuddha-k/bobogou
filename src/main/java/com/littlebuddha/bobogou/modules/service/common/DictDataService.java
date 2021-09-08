@@ -43,15 +43,16 @@ public class DictDataService extends CrudService<DictData, DictDataMapper> {
 
     /**
      * 根据type以map方式存放value、name属性
+     *
      * @return
      */
-    public Map<String,String> getMap(String type){
+    public Map<String, String> getMap(String type) {
         DictData entity = new DictData();
         entity.setType(type);
         List<DictData> list = super.findList(entity);
-        Map<String,String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         for (DictData dictData : list) {
-            map.put(dictData.getValue(),dictData.getName());
+            map.put(dictData.getValue(), dictData.getName());
         }
         return map;
     }
