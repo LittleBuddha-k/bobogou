@@ -655,12 +655,11 @@
         close: function (index) {
             var index = parent.layer.getFrameIndex(window.name);
             parent.layer.close(index);//关闭当前页
-            /*if(index){
-                top.layer.close(index);
+            if(index){
+                layer.close(index);
             }else{
-                top.layer.closeAll();
-            }*/
-
+                layer.closeAll();
+            }
         },
 
         /**
