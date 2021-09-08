@@ -76,6 +76,11 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
 
     @ExcelField(title = "配送地址", type = 1, sort = 5)
     public String getAddress() {
+        if (getProvince() != null || getCity() != null || getDistrict() != null || getStreet() != null || getDetailed() != null) {
+            this.address = getProvince() + getCity() + getDistrict() + getStreet() + getDetailed();
+        } else if (getProvince() == null && getCity() == null && getDistrict() == null && getStreet() == null && getDetailed() == null) {
+            this.address = "用户未填写地址·";
+        }
         return address;
     }
 

@@ -53,7 +53,7 @@
         LEFT JOIN sd_order_info d ON d.order_id = a.id
         LEFT JOIN mb_goods e ON d.goods_id = e.id
         LEFT JOIN sd_order_factory g ON g.order_id = a.id
-        LEFT JOIN md_goods_specification h ON e.factory_id = h.id
+        LEFT JOIN md_goods_specification h ON e.id = h.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">
@@ -133,8 +133,8 @@
         a.pay_time AS "payTime",
         a.is_invoice AS "isInvoice",
         g.tracking_no AS "trackingNo",
-        e.name AS "goodsName",
-        e.specification AS "specification",
+        d.goods_name AS "goodsName",
+        d.specification AS "specification",
         d.price AS "price",
         d.amount AS "amount",
         e.stock_amount AS "stockAmount",
