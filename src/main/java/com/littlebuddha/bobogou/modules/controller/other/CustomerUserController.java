@@ -32,6 +32,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -53,13 +54,13 @@ public class CustomerUserController extends BaseController {
     @Autowired
     private OperatorRoleService operatorRoleService;
 
-    @Autowired
+    @Resource
     private OperatorRoleMapper operatorRoleMapper;
 
     @Autowired
     private RoleService roleService;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
     @Autowired
@@ -164,6 +165,9 @@ public class CustomerUserController extends BaseController {
     public String vipPage(UserMember userMember, Model model) {
         if (userMember != null && userMember.getUserId() != null) {
             UserMember entity = userMemberService.getByUser(userMember);
+            if (entity == null) {
+                entity = new UserMember();
+            }
             model.addAttribute("userMember", entity);
         }else {
             UserMember userMember1 = new UserMember();

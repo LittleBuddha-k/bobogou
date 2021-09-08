@@ -6,6 +6,8 @@ import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * 图标mapper层
  */
@@ -17,5 +19,5 @@ public interface UserMemberMapper extends BaseMapper<UserMember> {
      * @param userMember
      * @return
      */
-    UserMember getByUser(UserMember userMember);
+    List<UserMember> getByUser(UserMember userMember);
 }

@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -21,7 +22,7 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
     @Autowired
     private GlobalSetting globalSetting;
 
-    @Autowired
+    @Resource
     private UserMemberMapper userMemberMapper;
 
     @Override
@@ -146,75 +147,81 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
 
     /**
      * 使用用户查找用户会员数据
-     *
+     *默认只取最新创建时间的userMember数据
      * @param userMember
      * @return
      */
     public UserMember getByUser(UserMember userMember) {
-        UserMember entity = userMemberMapper.getByUser(userMember);
-        if (entity != null && StringUtils.isNotBlank(entity.getBusinessLicense())) {
-            String businessLicense = entity.getBusinessLicense();
-            String aa = "";
-            String[] split = businessLicense.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+        //-----默认只取最新创建时间的一条数据
+        List<UserMember> memberList = userMemberMapper.getByUser(userMember);
+        if (memberList != null && !memberList.isEmpty()){
+            UserMember entity = memberList.get(0);
+            if (entity != null && StringUtils.isNotBlank(entity.getBusinessLicense())) {
+                String businessLicense = entity.getBusinessLicense();
+                String aa = "";
+                String[] split = businessLicense.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setBusinessLicense(aa);
             }
-            entity.setBusinessLicense(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getBusinessCertificate())) {
-            String businessCertificate = entity.getBusinessCertificate();
-            String aa = "";
-            String[] split = businessCertificate.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getBusinessCertificate())) {
+                String businessCertificate = entity.getBusinessCertificate();
+                String aa = "";
+                String[] split = businessCertificate.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setBusinessCertificate(aa);
             }
-            entity.setBusinessCertificate(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getFoodBusinessLicense())) {
-            String foodBusinessLicense = entity.getFoodBusinessLicense();
-            String aa = "";
-            String[] split = foodBusinessLicense.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getFoodBusinessLicense())) {
+                String foodBusinessLicense = entity.getFoodBusinessLicense();
+                String aa = "";
+                String[] split = foodBusinessLicense.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setFoodBusinessLicense(aa);
             }
-            entity.setFoodBusinessLicense(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getAuthorityPurchase())) {
-            String authorityPurchase = entity.getAuthorityPurchase();
-            String aa = "";
-            String[] split = authorityPurchase.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getAuthorityPurchase())) {
+                String authorityPurchase = entity.getAuthorityPurchase();
+                String aa = "";
+                String[] split = authorityPurchase.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setAuthorityPurchase(aa);
             }
-            entity.setAuthorityPurchase(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getMandatary())) {
-            String mandatary = entity.getMandatary();
-            String aa = "";
-            String[] split = mandatary.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getMandatary())) {
+                String mandatary = entity.getMandatary();
+                String aa = "";
+                String[] split = mandatary.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setMandatary(aa);
             }
-            entity.setMandatary(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getGroupPhoto())) {
-            String groupPhoto = entity.getGroupPhoto();
-            String aa = "";
-            String[] split = groupPhoto.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getGroupPhoto())) {
+                String groupPhoto = entity.getGroupPhoto();
+                String aa = "";
+                String[] split = groupPhoto.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setGroupPhoto(aa);
             }
-            entity.setGroupPhoto(aa);
-        }
-        if (entity != null && StringUtils.isNotBlank(entity.getContractUrl())) {
-            String contractUrl = entity.getContractUrl();
-            String aa = "";
-            String[] split = contractUrl.split(",");
-            for (String image : split) {
-                aa = aa + globalSetting.getRootPath() + image + ",";
+            if (entity != null && StringUtils.isNotBlank(entity.getContractUrl())) {
+                String contractUrl = entity.getContractUrl();
+                String aa = "";
+                String[] split = contractUrl.split(",");
+                for (String image : split) {
+                    aa = aa + globalSetting.getRootPath() + image + ",";
+                }
+                entity.setContractUrl(aa);
             }
-            entity.setContractUrl(aa);
+            return entity;
+        }else {
+            return null;
         }
-        return entity;
     }
 }

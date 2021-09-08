@@ -59,6 +59,7 @@
         <include refid="userMemberUserColumns"/>
         FROM ud_user_member a
         WHERE a.user_id=#{userId} AND a.is_deleted = #{DEL_FLAG_NORMAL}
+        ORDER BY a.create_time DESC
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.UserMember">
