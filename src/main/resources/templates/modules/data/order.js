@@ -219,7 +219,7 @@ layui.use(['form', 'table'], function () {
                 rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
                 setTimeout(function(){
                     layer.close(index);
-                }, 20000);
+                }, 10000);
             });
         }
     });
