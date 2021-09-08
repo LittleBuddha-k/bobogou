@@ -11,7 +11,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -37,6 +39,21 @@ public class DictDataService extends CrudService<DictData, DictDataMapper> {
     public DictData getByName(DictData entity) {
         DictData dictData = dictDataMapper.getByName(entity);
         return dictData;
+    }
+
+    /**
+     * 根据type以map方式存放value、name属性
+     * @return
+     */
+    public Map<String,String> getMap(String type){
+        DictData entity = new DictData();
+        entity.setType(type);
+        List<DictData> list = super.findList(entity);
+        Map<String,String> map = new HashMap<>();
+        for (DictData dictData : list) {
+            map.put(dictData.getValue(),dictData.getName());
+        }
+        return map;
     }
 
     @Override

@@ -18,6 +18,7 @@ import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
+import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -28,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.StringJoiner;
 
 @Service
@@ -51,6 +53,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Resource
     private DictDataMapper dictDataMapper;
+
+    @Autowired
+    private DictDataService dictDataService;
 
     @Override
     public Order get(Order entity) {
@@ -355,6 +360,11 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 entity.setStreetIds("-1");
             }
             result = orderMapper.findOrderExportList(entity);
+            Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
+            Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
+            Map<String, String> typeMap = dictDataService.getMap("oder_type");
+            Map<String, String> orderStatusMap = dictDataService.getMap("order_status");
+            Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
             for (OrderExportDTO orderExportDTO : result) {
                 if (orderExportDTO != null){
                     if (orderExportDTO.getGrossAmount() != null) {
@@ -364,39 +374,29 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                         orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
                     }
                     if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())){
-                        DictData dictData = new DictData();
-                        dictData.setType("order_distribution_mode");
-                        dictData.setValue(orderExportDTO.getDistributionMode());
-                        DictData byValue = dictDataMapper.getByValue(dictData);
-                        orderExportDTO.setDistributionMode(byValue.getName());
+                        String distribution = distributionModeMap.get(orderExportDTO.getDistributionMode());
+                        String distributionMode = distribution ==null?"":distribution;
+                        orderExportDTO.setDistributionMode(distributionMode);
                     }
                     if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())){
-                        DictData dictData = new DictData();
-                        dictData.setType("order_pay_mode");
-                        dictData.setValue(orderExportDTO.getPayMode());
-                        DictData byValue = dictDataMapper.getByValue(dictData);
-                        orderExportDTO.setPayMode(byValue.getName());
+                        String payMode = payModeMap.get(orderExportDTO.getPayMode());
+                        String pay = payMode ==null?"":payMode;
+                        orderExportDTO.setPayMode(pay);
                     }
                     if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())){
-                        DictData dictData = new DictData();
-                        dictData.setType("oder_type");
-                        dictData.setValue(orderExportDTO.getType());
-                        DictData byValue = dictDataMapper.getByValue(dictData);
-                        orderExportDTO.setType(byValue.getName());
+                        String type = typeMap.get(orderExportDTO.getType());
+                        String orderType = type ==null?"":type;
+                        orderExportDTO.setType(orderType);
                     }
                     if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())){
-                        DictData dictData = new DictData();
-                        dictData.setType("order_status");
-                        dictData.setValue(orderExportDTO.getStatus());
-                        DictData byValue = dictDataMapper.getByValue(dictData);
-                        orderExportDTO.setStatus(byValue.getName());
+                        String orderStatus = orderStatusMap.get(orderExportDTO.getStatus());
+                        String status = orderStatus ==null?"":orderStatus;
+                        orderExportDTO.setStatus(status);
                     }
                     if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())){
-                        DictData dictData = new DictData();
-                        dictData.setType("data_order_is_invoice");
-                        dictData.setValue(orderExportDTO.getIsInvoice());
-                        DictData byValue = dictDataMapper.getByValue(dictData);
-                        orderExportDTO.setIsInvoice(byValue.getName());
+                        String isInvoice = orderIsInvoiceMap.get(orderExportDTO.getIsInvoice());
+                        String invoice = isInvoice ==null?"":isInvoice;
+                        orderExportDTO.setIsInvoice(invoice);
                     }
                 }
             }
