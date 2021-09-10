@@ -222,10 +222,6 @@ public class GoodsController extends BaseController {
         //查询所有标签
         List<GoodsTag> commodityTagList = goodsTagService.findList(new GoodsTag());
         model.addAttribute("commodityTagList", commodityTagList);
-        //查询所有厂商列表
-        Factory entity = new Factory();
-        List<Factory> factoryList = factoryService.findList(entity);
-        model.addAttribute("factoryList", factoryList);
         //查询商品分类数据：分一级、二级、三级
         List<Classify> goodsTypeLevelOne = classifyService.findList(new Classify(1));//查询一级商品分类
         model.addAttribute("goodsTypeLevelOne", goodsTypeLevelOne);

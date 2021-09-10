@@ -715,14 +715,22 @@
                     <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId" disabled="true"
                             th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}">
                         <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
-                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
+                                th:selected="${dict.getValue()}==${goods.getGoodsSpecification().getDosageForm()}"/>
                     </select>
                 </div>
                 <div class="layui-input-inline" th:if="${mode != 'detail'}">
                     <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId"
-                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}">
+                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}" th:if="${mode == 'add'}">
+                        <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"/>
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId"
+                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}" th:if="${mode != 'add' && goods.getGoodsSpecification() == null}">
+                        <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"/>
+                    </select>
+                    <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId"
+                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}" th:if="${mode != 'add' && goods.getGoodsSpecification() != null}">
                         <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
-                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
+                                th:selected="${dict.getValue()}==${goods.getGoodsSpecification().getDosageForm()}"/>
                     </select>
                 </div>
             </div>
