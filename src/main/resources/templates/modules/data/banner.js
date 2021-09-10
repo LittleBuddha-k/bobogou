@@ -31,49 +31,33 @@ layui.use(['form', 'table'], function () {
             [
                 {
                     type: "checkbox"
-                },/*
-                {
-                    title: '地址',
-                    field: 'url',
-                    sort: true,
-                    sortName: 'url',
-                    templet:function(data){
-                        var valueArray = data.url;
-                        return valueArray;
-                    }
-                },*/
+                },
                 {
                     title: '展示位置',
                     field: 'type',
                     sort: true,
                     sortName: 'type',
-                    templet:function(data){
-                        let type = data.type;
-                        if(1 == type){
-                            return "首页";
-                        }else {
+                    templet: function (data) {
+                        var type = data.type;
+                        let dictName = rc.getDictName("data_banner_type",type);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
-                },/*
-                {
-                    title: '链接地址',
-                    field: 'link',
-                    sort: true,
-                    sortName: 'link'
-                },*/
+                },
                 {
                     title: '状态',
                     field: 'status',
                     sort: true,
                     sortName: 'status',
-                    templet:function(data){
-                        let status = data.status;
-                        if(0 == status){
-                            return "隐藏";
-                        }else if (1 == status){
-                            return "显示";
+                    templet: function (data) {
+                        var status = data.status;
+                        let dictName = rc.getDictName("data_banner_status",status);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

@@ -36,33 +36,18 @@
             <div class="layui-inline">
                 <label class="layui-form-label">展示位置</label>
                 <div class="layui-input-inline">
-                    <select name="type" lay-verify="" lay-filter="isMarket"
-                            th:id="type">
-                        <option th:value="1" th:text="首页"/>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:with="type=${@dictData.findByType('data_banner_type')}">
+                        <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">展示状态</label>
-                <div class="layui-input-inline"><select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
-                                                        th:id="status">
-                    <option th:value="0" th:text="隐藏"/>
-                    <option th:value="1" th:text="展示"/>
-                </select>
-                    <select name="status" lay-verify=""
-                            th:if="${mode != 'add' && banner.getStatus() == null}">
-                        <option th:value="0" th:text="隐藏"/>
-                        <option th:value="1" th:text="展示"/>
-                    </select>
-                    <select name="status" lay-verify=""
-                            th:if="${mode != 'add' && 0 == banner.getStatus()}">
-                        <option th:value="0" th:text="隐藏"/>
-                        <option th:value="1" th:text="展示"/>
-                    </select>
-                    <select name="status" lay-verify=""
-                            th:if="${mode != 'add' && 1 == banner.getStatus()}">
-                        <option th:value="1" th:text="展示"/>
-                        <option th:value="0" th:text="隐藏"/>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" lay-filter="status" th:id="status"
+                            th:with="status=${@dictData.findByType('data_banner_status')}">
+                        <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"/>
                     </select>
                 </div>
             </div>
