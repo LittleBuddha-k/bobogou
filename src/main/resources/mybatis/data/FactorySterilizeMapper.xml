@@ -2,29 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.FactorySterilizeMapper">
     <sql id="factorySterilizeColumns">
-        id AS "id",
-        factory_id AS "factoryId",
-        product_type AS "productType",
-        safety_assessment_report AS "safetyAssessmentReport",
-        filing_safety_evaluation AS "filingSafetyEvaluation",
-        company_standard AS "companyStandard",
-        provincial_inspection_report AS "provincialInspectionReport",
-        packaging_record AS "packagingRecord",
-        production_business_license AS "productionBusinessLicense",
-        sanitary_license_disinfected_products AS "sanitaryLicenseDisinfectedProducts",
-        drug_manufacturing_ertificate AS "drugManufacturingErtificate",
-        gmp_ertificate AS "gmpErtificate",
-        quality_system AS "qualitySystem",
-        qualified_supplier AS "qualifiedSupplier",
-        is_deleted AS "isDeleted",
-        create_time AS "createTime",
-        update_time AS "updateTime"
+        a.id AS "id",
+        a.factory_id AS "factoryId",
+        b.factory_name AS "factoryName",
+        a.product_type AS "productType",
+        a.safety_assessment_report AS "safetyAssessmentReport",
+        a.filing_safety_evaluation AS "filingSafetyEvaluation",
+        a.company_standard AS "companyStandard",
+        a.provincial_inspection_report AS "provincialInspectionReport",
+        a.packaging_record AS "packagingRecord",
+        a.production_business_license AS "productionBusinessLicense",
+        a.sanitary_license_disinfected_products AS "sanitaryLicenseDisinfectedProducts",
+        a.drug_manufacturing_ertificate AS "drugManufacturingErtificate",
+        a.gmp_ertificate AS "gmpErtificate",
+        a.quality_system AS "qualitySystem",
+        a.qualified_supplier AS "qualifiedSupplier",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
+    </sql>
+
+    <sql id="factorySterilizeJoins">
+        LEFT JOIN md_factory b ON a.factory_id = b.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
         SELECT
         <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
+        <include refid="factorySterilizeJoins"/>
         WHERE id=#{id}
     </select>
 
@@ -32,6 +38,7 @@
         SELECT
         <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
+        <include refid="factorySterilizeJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -56,6 +63,7 @@
         SELECT
         <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
+        <include refid="factorySterilizeJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->

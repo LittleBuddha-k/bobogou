@@ -5,9 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.basic.Factory;
-import com.littlebuddha.bobogou.modules.entity.common.DictData;
-import com.littlebuddha.bobogou.modules.entity.data.FactorySterilize;
 import com.littlebuddha.bobogou.modules.entity.data.FactorySterilize;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
@@ -19,7 +16,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,13 +82,6 @@ public class FactorySterilizeController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, FactorySterilize factorySterilize, Model model) {
-        DictData select = new DictData();
-        select.setType("data_factory_sterilize_product_type");
-        List<DictData> productTypeList = dictDataService.findList(select);
-        model.addAttribute("productTypeList", productTypeList);
-        //查询所有厂商列表
-        List<Factory> factoryList = factoryService.findList(new Factory());
-        model.addAttribute("factoryList", factoryList);
         model.addAttribute("factorySterilize", factorySterilize);
         return "modules/data/factorySterilizeForm";
     }

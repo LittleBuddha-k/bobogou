@@ -5,8 +5,6 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.FactorySterilize;
-import com.littlebuddha.bobogou.modules.entity.data.FactorySterilize;
-import com.littlebuddha.bobogou.modules.mapper.data.FactorySterilizeMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.FactorySterilizeMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
@@ -23,13 +22,13 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
     @Autowired
     private GlobalSetting globalSetting;
 
-    @Autowired
+    @Resource
     private FactorySterilizeMapper factorySterilizeMapper;
 
     @Override
     public FactorySterilize get(FactorySterilize entity) {
         FactorySterilize factorySterilize = factorySterilizeMapper.get(entity);
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())) {
             String safetyAssessmentReport = factorySterilize.getSafetyAssessmentReport();
             String aa = "";
             String[] split = safetyAssessmentReport.split(",");
@@ -38,7 +37,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setSafetyAssessmentReport(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())) {
             String filingSafetyEvaluation = factorySterilize.getFilingSafetyEvaluation();
             String aa = "";
             String[] split = filingSafetyEvaluation.split(",");
@@ -47,7 +46,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setFilingSafetyEvaluation(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())) {
             String companyStandard = factorySterilize.getCompanyStandard();
             String aa = "";
             String[] split = companyStandard.split(",");
@@ -56,7 +55,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setCompanyStandard(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())) {
             String provincialInspectionReport = factorySterilize.getProvincialInspectionReport();
             String aa = "";
             String[] split = provincialInspectionReport.split(",");
@@ -65,7 +64,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setProvincialInspectionReport(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())) {
             String packagingRecord = factorySterilize.getPackagingRecord();
             String aa = "";
             String[] split = packagingRecord.split(",");
@@ -74,7 +73,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setPackagingRecord(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())) {
             String productionBusinessLicense = factorySterilize.getProductionBusinessLicense();
             String aa = "";
             String[] split = productionBusinessLicense.split(",");
@@ -83,7 +82,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setProductionBusinessLicense(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())) {
             String sanitaryLicenseDisinfectedProducts = factorySterilize.getSanitaryLicenseDisinfectedProducts();
             String aa = "";
             String[] split = sanitaryLicenseDisinfectedProducts.split(",");
@@ -92,7 +91,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setSanitaryLicenseDisinfectedProducts(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())) {
             String drugManufacturingErtificate = factorySterilize.getDrugManufacturingErtificate();
             String aa = "";
             String[] split = drugManufacturingErtificate.split(",");
@@ -101,7 +100,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setDrugManufacturingErtificate(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())) {
             String gmpErtificate = factorySterilize.getGmpErtificate();
             String aa = "";
             String[] split = gmpErtificate.split(",");
@@ -110,7 +109,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setGmpErtificate(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())) {
             String qualitySystem = factorySterilize.getQualitySystem();
             String aa = "";
             String[] split = qualitySystem.split(",");
@@ -119,7 +118,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
             }
             factorySterilize.setQualitySystem(aa);
         }
-        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())){
+        if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())) {
             String qualifiedSupplier = factorySterilize.getQualifiedSupplier();
             String aa = "";
             String[] split = qualifiedSupplier.split(",");
@@ -135,7 +134,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
     public List<FactorySterilize> findList(FactorySterilize entity) {
         List<FactorySterilize> list = super.findList(entity);
         for (FactorySterilize factorySterilize : list) {
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())) {
                 String safetyAssessmentReport = factorySterilize.getSafetyAssessmentReport();
                 String aa = "";
                 String[] split = safetyAssessmentReport.split(",");
@@ -144,7 +143,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setSafetyAssessmentReport(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())) {
                 String filingSafetyEvaluation = factorySterilize.getFilingSafetyEvaluation();
                 String aa = "";
                 String[] split = filingSafetyEvaluation.split(",");
@@ -153,7 +152,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setFilingSafetyEvaluation(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())) {
                 String companyStandard = factorySterilize.getCompanyStandard();
                 String aa = "";
                 String[] split = companyStandard.split(",");
@@ -162,7 +161,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setCompanyStandard(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())) {
                 String provincialInspectionReport = factorySterilize.getProvincialInspectionReport();
                 String aa = "";
                 String[] split = provincialInspectionReport.split(",");
@@ -171,7 +170,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setProvincialInspectionReport(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())) {
                 String packagingRecord = factorySterilize.getPackagingRecord();
                 String aa = "";
                 String[] split = packagingRecord.split(",");
@@ -180,7 +179,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setPackagingRecord(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())) {
                 String productionBusinessLicense = factorySterilize.getProductionBusinessLicense();
                 String aa = "";
                 String[] split = productionBusinessLicense.split(",");
@@ -189,7 +188,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setProductionBusinessLicense(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())) {
                 String sanitaryLicenseDisinfectedProducts = factorySterilize.getSanitaryLicenseDisinfectedProducts();
                 String aa = "";
                 String[] split = sanitaryLicenseDisinfectedProducts.split(",");
@@ -198,7 +197,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setSanitaryLicenseDisinfectedProducts(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())) {
                 String drugManufacturingErtificate = factorySterilize.getDrugManufacturingErtificate();
                 String aa = "";
                 String[] split = drugManufacturingErtificate.split(",");
@@ -207,7 +206,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setDrugManufacturingErtificate(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())) {
                 String gmpErtificate = factorySterilize.getGmpErtificate();
                 String aa = "";
                 String[] split = gmpErtificate.split(",");
@@ -216,7 +215,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setGmpErtificate(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())) {
                 String qualitySystem = factorySterilize.getQualitySystem();
                 String aa = "";
                 String[] split = qualitySystem.split(",");
@@ -225,7 +224,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setQualitySystem(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())) {
                 String qualifiedSupplier = factorySterilize.getQualifiedSupplier();
                 String aa = "";
                 String[] split = qualifiedSupplier.split(",");
@@ -243,7 +242,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
         PageInfo<FactorySterilize> page1 = super.findPage(page, entity);
         List<FactorySterilize> list = page1.getList();
         for (FactorySterilize factorySterilize : list) {
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSafetyAssessmentReport())) {
                 String safetyAssessmentReport = factorySterilize.getSafetyAssessmentReport();
                 String aa = "";
                 String[] split = safetyAssessmentReport.split(",");
@@ -252,7 +251,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setSafetyAssessmentReport(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getFilingSafetyEvaluation())) {
                 String filingSafetyEvaluation = factorySterilize.getFilingSafetyEvaluation();
                 String aa = "";
                 String[] split = filingSafetyEvaluation.split(",");
@@ -261,7 +260,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setFilingSafetyEvaluation(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getCompanyStandard())) {
                 String companyStandard = factorySterilize.getCompanyStandard();
                 String aa = "";
                 String[] split = companyStandard.split(",");
@@ -270,7 +269,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setCompanyStandard(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProvincialInspectionReport())) {
                 String provincialInspectionReport = factorySterilize.getProvincialInspectionReport();
                 String aa = "";
                 String[] split = provincialInspectionReport.split(",");
@@ -279,7 +278,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setProvincialInspectionReport(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getPackagingRecord())) {
                 String packagingRecord = factorySterilize.getPackagingRecord();
                 String aa = "";
                 String[] split = packagingRecord.split(",");
@@ -288,7 +287,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setPackagingRecord(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getProductionBusinessLicense())) {
                 String productionBusinessLicense = factorySterilize.getProductionBusinessLicense();
                 String aa = "";
                 String[] split = productionBusinessLicense.split(",");
@@ -297,7 +296,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setProductionBusinessLicense(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getSanitaryLicenseDisinfectedProducts())) {
                 String sanitaryLicenseDisinfectedProducts = factorySterilize.getSanitaryLicenseDisinfectedProducts();
                 String aa = "";
                 String[] split = sanitaryLicenseDisinfectedProducts.split(",");
@@ -306,7 +305,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setSanitaryLicenseDisinfectedProducts(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getDrugManufacturingErtificate())) {
                 String drugManufacturingErtificate = factorySterilize.getDrugManufacturingErtificate();
                 String aa = "";
                 String[] split = drugManufacturingErtificate.split(",");
@@ -315,7 +314,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setDrugManufacturingErtificate(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getGmpErtificate())) {
                 String gmpErtificate = factorySterilize.getGmpErtificate();
                 String aa = "";
                 String[] split = gmpErtificate.split(",");
@@ -324,7 +323,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setGmpErtificate(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualitySystem())) {
                 String qualitySystem = factorySterilize.getQualitySystem();
                 String aa = "";
                 String[] split = qualitySystem.split(",");
@@ -333,7 +332,7 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
                 }
                 factorySterilize.setQualitySystem(aa);
             }
-            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())){
+            if (factorySterilize != null && StringUtils.isNotBlank(factorySterilize.getQualifiedSupplier())) {
                 String qualifiedSupplier = factorySterilize.getQualifiedSupplier();
                 String aa = "";
                 String[] split = qualifiedSupplier.split(",");
@@ -348,38 +347,38 @@ public class FactorySterilizeService extends CrudService<FactorySterilize, Facto
 
     @Override
     public int save(FactorySterilize entity) {
-        if(StringUtils.isNotBlank(entity.getSafetyAssessmentReport())){
-            entity.setSafetyAssessmentReport(entity.getSafetyAssessmentReport().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getSafetyAssessmentReport())) {
+            entity.setSafetyAssessmentReport(entity.getSafetyAssessmentReport().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getFilingSafetyEvaluation())){
-            entity.setFilingSafetyEvaluation(entity.getFilingSafetyEvaluation().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getFilingSafetyEvaluation())) {
+            entity.setFilingSafetyEvaluation(entity.getFilingSafetyEvaluation().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getCompanyStandard())){
-            entity.setCompanyStandard(entity.getCompanyStandard().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getCompanyStandard())) {
+            entity.setCompanyStandard(entity.getCompanyStandard().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getProvincialInspectionReport())){
-            entity.setProvincialInspectionReport(entity.getProvincialInspectionReport().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getProvincialInspectionReport())) {
+            entity.setProvincialInspectionReport(entity.getProvincialInspectionReport().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getPackagingRecord())){
-            entity.setPackagingRecord(entity.getPackagingRecord().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getPackagingRecord())) {
+            entity.setPackagingRecord(entity.getPackagingRecord().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getProductionBusinessLicense())){
-            entity.setProductionBusinessLicense(entity.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getProductionBusinessLicense())) {
+            entity.setProductionBusinessLicense(entity.getProductionBusinessLicense().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getSanitaryLicenseDisinfectedProducts())){
-            entity.setSanitaryLicenseDisinfectedProducts(entity.getSanitaryLicenseDisinfectedProducts().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getSanitaryLicenseDisinfectedProducts())) {
+            entity.setSanitaryLicenseDisinfectedProducts(entity.getSanitaryLicenseDisinfectedProducts().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getDrugManufacturingErtificate())){
-            entity.setDrugManufacturingErtificate(entity.getDrugManufacturingErtificate().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getDrugManufacturingErtificate())) {
+            entity.setDrugManufacturingErtificate(entity.getDrugManufacturingErtificate().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getGmpErtificate())){
-            entity.setGmpErtificate(entity.getGmpErtificate().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getGmpErtificate())) {
+            entity.setGmpErtificate(entity.getGmpErtificate().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getQualitySystem())){
-            entity.setQualitySystem(entity.getQualitySystem().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getQualitySystem())) {
+            entity.setQualitySystem(entity.getQualitySystem().replaceAll(globalSetting.getRootPath(), ""));
         }
-        if(StringUtils.isNotBlank(entity.getQualifiedSupplier())){
-            entity.setQualifiedSupplier(entity.getQualifiedSupplier().replaceAll(globalSetting.getRootPath(),""));
+        if (StringUtils.isNotBlank(entity.getQualifiedSupplier())) {
+            entity.setQualifiedSupplier(entity.getQualifiedSupplier().replaceAll(globalSetting.getRootPath(), ""));
         }
         return super.save(entity);
     }

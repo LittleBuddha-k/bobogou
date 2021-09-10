@@ -48,7 +48,15 @@ layui.use(['form', 'table'], function () {
                     field: 'productType',
                     sort: true,
                     sortName: 'productType',
-                    width: '10%'
+                    width: '10%',
+                    templet:function(data){
+                        var productType = data.productType;
+                        let dictName = rc.getDictName("data_factory_sterilize_product_type",productType);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
+                        }
+                        return dictName;
+                    }
                 },
                 {
                     title: '安全评估报告',

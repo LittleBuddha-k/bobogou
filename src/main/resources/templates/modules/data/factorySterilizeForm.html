@@ -14,8 +14,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="factoryId">厂商</label>
                 <div class="layui-input-inline">
-                    <select name="factoryId" lay-verify="" lay-filter="factoryId">
-                        <option th:each="factory:${factoryList}" th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"
+                    <select name="factoryId" lay-verify="" lay-filter="factoryId"
+                            th:with="factory=${@factory.findToDictUse()}">
+                        <option th:each="factory:${factory}" th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"
                                 th:selected="${factory.getId()}==${factorySterilize.getFactoryId()}"/>
                     </select>
                 </div>
@@ -24,8 +25,8 @@
                 <label class="layui-form-label" for="productType">厂商产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType">
-                        <option th:each="productType:${productTypeList}" th:value="${productType.getValue()}" th:text="${productType.getName()}"
+                            th:id="productType" th:with="productType=${@dictData.findByType('data_factory_sterilize_product_type')}">>
+                        <option th:each="productType:${productType}" th:value="${productType.getValue()}" th:text="${productType.getName()}"
                                 th:selected="${productType.getValue()}==${factorySterilize.getProductType()}"/>
                     </select>
                 </div>
