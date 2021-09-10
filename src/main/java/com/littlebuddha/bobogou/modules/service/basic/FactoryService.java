@@ -20,28 +20,29 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
-@Service
+@Service("factory")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class FactoryService extends CrudService<Factory, FactoryMapper> {
 
     @Autowired
     private GlobalSetting globalSetting;
 
-    @Autowired
+    @Resource
     private FactoryMapper factoryMapper;
 
-    @Autowired
+    @Resource
     private ProvinceMapper provinceMapper;
 
-    @Autowired
+    @Resource
     private CityMapper cityMapper;
 
-    @Autowired
+    @Resource
     private AreaMapper areaMapper;
 
-    @Autowired
+    @Resource
     private StreetMapper streetMapper;
 
     @Override
@@ -516,6 +517,16 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
             }
         }
         return page1;
+    }
+
+    /**
+     * 用于词典选择用---查询所有
+     * @return
+     */
+    public List<Factory> findToDictUse(){
+        Factory entity = new Factory();
+        List<Factory> list = super.findList(entity);
+        return list;
     }
 
     @Override

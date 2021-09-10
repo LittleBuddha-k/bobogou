@@ -45,43 +45,20 @@
                            readonly>
                 </div>
             </div>
-            <div class="layui-inline" th:if="${mode == 'detail'}">
+            <div class="layui-inline">
                 <label class="layui-form-label" for="factoryId">厂商</label>
-                <div class="layui-input-inline">
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() == null}"
-                            lay-filter="factoryId" disabled="true">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="factory:${factoryList}" th:value="${factory.getId()}"
-                                th:text="${factory.getFactoryName()}"/>
-                    </select>
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() != null}" disabled="true">
-                        <option th:each="factory:${factoryList}"
-                                th:if="${goods.getFactoryId().toString() == factory.getId()}"
-                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="factory:${factoryList}"
-                                th:if="${goods.getFactoryId().toString() != factory.getId()}"
-                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
+                <div class="layui-input-inline" th:if="${mode == 'detail'}">
+                    <select name="factoryId" lay-verify="" lay-filter="factoryId" disabled="true"
+                            th:with="factory=${@factory.findToDictUse()}">
+                        <option th:each="dict:${factory}" th:value="${dict.getId()}" th:text="${dict.getFactoryName()}"
+                                th:selected="${dict.getId()}==${goods.getFactoryId()}"/>
                     </select>
                 </div>
-            </div>
-            <div class="layui-inline" th:if="${mode != 'detail'}">
-                <label class="layui-form-label" for="factoryId">厂商</label>
-                <div class="layui-input-inline">
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() == null}"
-                            lay-filter="factoryId">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="factory:${factoryList}" th:value="${factory.getId()}"
-                                th:text="${factory.getFactoryName()}"/>
-                    </select>
-                    <select name="factoryId" lay-verify="" th:if="${goods.getFactoryId() != null}">
-                        <option th:each="factory:${factoryList}"
-                                th:if="${goods.getFactoryId().toString() == factory.getId()}"
-                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="factory:${factoryList}"
-                                th:if="${goods.getFactoryId().toString() != factory.getId()}"
-                                th:value="${factory.getId()}" th:text="${factory.getFactoryName()}"/>
+                <div class="layui-input-inline" th:if="${mode != 'detail'}"
+                     th:with="factory=${@factory.findToDictUse()}">
+                    <select name="factoryId" lay-verify="" lay-filter="factoryId">
+                        <option th:each="dict:${factory}" th:value="${dict.getId()}" th:text="${dict.getFactoryName()}"
+                                th:selected="${dict.getId()}==${goods.getFactoryId()}"/>
                     </select>
                 </div>
             </div>
