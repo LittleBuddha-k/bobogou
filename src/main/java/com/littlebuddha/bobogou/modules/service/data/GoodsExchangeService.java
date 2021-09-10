@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
+import com.littlebuddha.bobogou.common.utils.MarkdownUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.GoodsExchange;
 import com.littlebuddha.bobogou.modules.mapper.data.GoodsExchangeMapper;
@@ -91,6 +92,8 @@ public class GoodsExchangeService extends CrudService<GoodsExchange, GoodsExchan
         if(entity != null && entity.getPrice() != null){
             entity.setPrice(entity.getPrice() * 100);
         }
+        String contentHtml = MarkdownUtils.markdownToHtmlExtensions(entity.getContentOriginal());
+        entity.setContent(contentHtml);
         return super.save(entity);
     }
 

@@ -22,6 +22,8 @@ public class GoodsExchange extends DataEntity<GoodsExchange> {
     private String content;//详情
     private Integer status;//状态，0=可兑换，1=不可兑换
 
+    private String contentOriginal;//原数据
+
     private String accountId;//最好操作人ID
     private String updateByName;//更新人名字
 
@@ -118,6 +120,14 @@ public class GoodsExchange extends DataEntity<GoodsExchange> {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getContentOriginal() {
+        return contentOriginal;
+    }
+
+    public void setContentOriginal(String contentOriginal) {
+        this.contentOriginal = contentOriginal;
     }
 
     public String getAccountId() {

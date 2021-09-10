@@ -118,13 +118,11 @@ layui.use(['form', 'table'], function () {
                     sortName: 'status',
                     templet: function (data) {
                         var status = data.status;
-                        if(0 == status){
-                            return "可兑换";
-                        }else if (1 == status){
-                            return "不可兑换";
-                        }else {
+                        let dictName = rc.getDictName("data_goods_exchange_status",status);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },/*
                 {
@@ -166,7 +164,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(goodsExchangeTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/add", "新建兑付信息", '1000px', '540px')
+            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/add", "新建兑付信息", '1000px', '85%')
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -176,7 +174,7 @@ layui.use(['form', 'table'], function () {
     table.on('tool(goodsExchangeTableFilter)', function (obj) {
         var id = obj.data.id;
         if (obj.event === 'edit') {  // 监听添加操作
-            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/edit?id="+id, "编辑兑付信息", '1000px', '540px')
+            var index = rc.openSaveDialog("/bobogou/data/goodsExchange/form/edit?id="+id, "编辑兑付信息", '1000px', '85%')
             $(window).on("resize", function () {
                 layer.full(index);
             });

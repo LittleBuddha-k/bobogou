@@ -6,6 +6,9 @@
     <title>兑付商品管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <!--markdown富文本编辑-->
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.css"/>
+    <link rel="stylesheet" href="/bobogou/plugins/markdown/css/editormd.preview.css"/>
 </head>
 <body>
 <div>
@@ -101,31 +104,24 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="status">状态</label>
                 <div class="layui-input-inline">
-                    <select name="status" lay-verify="" th:if="${mode == 'add'}" lay-filter="status"
-                            th:id="status">
-                        <option th:value="0" th:text="可兑换"/>
-                        <option th:value="1" th:text="不可兑换"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 0}"
-                            lay-filter="status"
-                            th:id="status">
-                        <option th:value="0" th:text="可兑换"/>
-                        <option th:value="1" th:text="不可兑换"/>
-                    </select>
-                    <select name="status" lay-verify="" th:if="${mode != 'add' && goodsExchange.status == 1}"
-                            lay-filter="status"
-                            th:id="status">
-                        <option th:value="0" th:text="可兑换"/>
-                        <option th:value="1" th:text="不可兑换"/>
+                    <select name="status" lay-verify="" lay-filter="status" th:id="status"
+                            th:with="status=${@dictData.findByType('data_goods_exchange_status')}">
+                        <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goodsExchange.getStatus()}"/>
                     </select>
                 </div>
             </div>
         </div>
-        <div class="layui-form-item layui-form-text">
-            <label class="layui-form-label">详情</label>
-            <div class="layui-input-block">
-                    <textarea placeholder="详情" id="content" th:name="content" th:text="${goodsExchange.getContent()}"
-                              class="layui-textarea"></textarea>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="name">详 情 :</label>
+            <div class="layui-input-block" th:id="contentOriginal"
+                 th:if="${goodsExchange.getContentOriginal() == null || goodsExchange.getContentOriginal() == ''}">
+                <textarea name="contentOriginal"></textarea>
+            </div>
+            <div class="layui-input-block" th:id="contentOriginal"
+                 th:if="${goodsExchange.getContentOriginal() != null && goodsExchange.getContentOriginal() != ''}">
+                <textarea style="display:none;" name="contentOriginal" th:text="${goodsExchange.getContentOriginal()}"></textarea>
             </div>
         </div>
     </form>
@@ -137,6 +133,10 @@
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 <!--引入本html的js文件-->
 <script type="text/javascript" src="/bobogou/modules/data/goodsExchangeForm.js"></script>
+<!--markdown富文本编辑js-->
+<script src="/bobogou/plugins/markdown/js/editormd.js"></script>
+<script src="/bobogou/plugins/markdown/lib/marked.min.js"></script>
+<script src="/bobogou/plugins/markdown/lib/prettify.min.js"></script>
 <!--引入本表单验证的js文件-->
 <script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
 <!--引入表单验证-->

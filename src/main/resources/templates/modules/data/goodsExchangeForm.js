@@ -42,6 +42,24 @@ $(document).ready(function () {
             let openSelector = rc.openSelector("/bobogou/data/medicine/select","选择商品",'95%','95%');
         })
     })
+
+    let markdownWidth = 120, markdownHeight = 120;
+    //编辑时
+    $(function () {
+        var editor = editormd("contentOriginal", {
+            width: "100%",
+            height: "400px",
+            path: "/bobogou/plugins/markdown/lib/",
+            watch: false,
+            delay: 0,
+            placeholder: "请确认商品详情图片插入之前应满足要求(长:宽):375:375",
+            imageUpload: true,          // Enable/disable upload
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL: "/bobogou/file/goodsInfoMarkdownUpload",             // Upload url
+            crossDomainUpload: false,          // Enable/disable Cross-domain upload
+            uploadCallbackURL: "",             // Cross-domain upload callback url
+        });
+    });
 })
 
 //保存方法
