@@ -399,44 +399,20 @@
                            th:id="productTime" class="layui-input" readonly th:if="${mode != 'detail'}">
                 </div>
             </div>
-            <div class="layui-inline" th:if="${mode == 'detail'}">
+            <div class="layui-inline">
                 <label class="layui-form-label" for="expirationDate">有效期(月)</label>
-                <div class="layui-input-inline">
-                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
-                            lay-filter="factoryId" disabled="true">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="shelfLife:${shelfLifeList}" th:value="${shelfLife.getValue()}"
-                                th:text="${shelfLife.getName()}"/>
-                    </select>
-                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() != null}"
-                            disabled="true">
-                        <option th:each="shelfLife:${shelfLifeList}"
-                                th:if="${goods.getExpirationDate() == shelfLife.getValue()}"
-                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="shelfLife:${shelfLifeList}"
-                                th:if="${goods.getExpirationDate() != shelfLife.getValue()}"
-                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                <div class="layui-input-inline" th:if="${mode == 'detail'}">
+                    <select name="expirationDate" lay-verify="" lay-filter="factoryId" disabled="true"
+                            th:with="expirationDate=${@dictData.findByType('data_goods_shelf_life')}">
+                        <option th:each="dict:${expirationDate}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
                     </select>
                 </div>
-            </div>
-            <div class="layui-inline" th:if="${mode != 'detail'}">
-                <label class="layui-form-label" for="expirationDate">有效期(月)</label>
-                <div class="layui-input-inline">
-                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() == null}"
-                            lay-filter="factoryId">
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="shelfLife:${shelfLifeList}" th:value="${shelfLife.getValue()}"
-                                th:text="${shelfLife.getName()}"/>
-                    </select>
-                    <select name="expirationDate" lay-verify="" th:if="${goods.getExpirationDate() != null}">
-                        <option th:each="shelfLife:${shelfLifeList}"
-                                th:if="${goods.getExpirationDate() == shelfLife.getValue()}"
-                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="shelfLife:${shelfLifeList}"
-                                th:if="${goods.getExpirationDate() != shelfLife.getValue()}"
-                                th:value="${shelfLife.getValue()}" th:text="${shelfLife.getName()}"/>
+                <div class="layui-input-inline" th:if="${mode != 'detail'}">
+                    <select name="expirationDate" lay-verify="" lay-filter="factoryId"
+                            th:with="expirationDate=${@dictData.findByType('data_goods_shelf_life')}">
+                        <option th:each="dict:${expirationDate}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
                     </select>
                 </div>
             </div>
@@ -758,32 +734,18 @@
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="dosageForm">剂型</label>
-                <div class="layui-input-inline">
-                    <select name="goodsSpecification.dosageForm" lay-verify=""
-                            th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                            lay-filter="factoryId" disabled="true">
+                <div class="layui-input-inline" th:if="${mode == 'detail'}">
+                    <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId" disabled="true"
+                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}">
+                        <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
                     </select>
-                    <select name="goodsSpecification.dosageForm" lay-verify=""
-                            th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                            lay-filter="factoryId" disabled="true">
-                        <option th:value="${goods.getGoodsSpecification().getDosageForm()}"
-                                th:text="${goods.getGoodsSpecification().getDosageForm()}"/>
-                    </select>
-                    <select name="goodsSpecification.dosageForm" lay-verify=""
-                            th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                            lay-filter="factoryId">
-                        <option th:each="dosageForm:${dosageFormList}" th:value="${dosageForm.getName()}"
-                                th:text="${dosageForm.getName()}"/>
-                    </select>
-                    <select name="goodsSpecification.dosageForm" lay-verify=""
-                            th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                            lay-filter="factoryId">
-                        <option th:each="dosageForm:${dosageFormList}"
-                                th:if="${goods.getGoodsSpecification().getDosageForm() == dosageForm.getName()}"
-                                th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
-                        <option th:each="dosageForm:${dosageFormList}"
-                                th:if="${goods.getGoodsSpecification().getDosageForm() != dosageForm.getName()}"
-                                th:value="${dosageForm.getName()}" th:text="${dosageForm.getName()}"/>
+                </div>
+                <div class="layui-input-inline" th:if="${mode != 'detail'}">
+                    <select name="goodsSpecification.dosageForm" lay-verify="" lay-filter="factoryId"
+                            th:with="dosageForm=${@dictData.findByType('data_goods_dosage_form')}">
+                        <option th:each="dict:${dosageForm}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getExpirationDate()}"/>
                     </select>
                 </div>
             </div>

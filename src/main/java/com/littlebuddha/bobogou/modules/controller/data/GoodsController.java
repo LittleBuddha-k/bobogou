@@ -238,12 +238,6 @@ public class GoodsController extends BaseController {
         //查询所有其他分类---GoodsType数据
         List<GoodsType> goodsTypeList = goodsTypeService.findList(new GoodsType());
         model.addAttribute("goodsTypeList", goodsTypeList);
-        //查询商品剂型数据
-        List<DosageForm> dosageFormList = dosageFormService.findList(new DosageForm());
-        model.addAttribute("dosageFormList", dosageFormList);
-        //查询保质期下拉选项数据
-        List<ShelfLife> shelfLifeList = dosageFormService.findShelfLifeList();
-        model.addAttribute("shelfLifeList", shelfLifeList);
         //查询商品详情
         if (goods != null && StringUtils.isNotBlank(goods.getId())) {
             GoodsInfo select = new GoodsInfo();
