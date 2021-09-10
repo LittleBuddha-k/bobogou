@@ -98,10 +98,6 @@ public class PromptMessageController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, PromptMessage promptMessage, Model model) {
-        DictData entity = new DictData();
-        entity.setType("other_prompt_message_type");
-        List<DictData> promptMessageTypeList = dictDataService.findList(entity);
-        model.addAttribute("promptMessageTypeList", promptMessageTypeList);
         model.addAttribute("promptMessage", promptMessage);
         return "modules/other/promptMessageForm";
     }
