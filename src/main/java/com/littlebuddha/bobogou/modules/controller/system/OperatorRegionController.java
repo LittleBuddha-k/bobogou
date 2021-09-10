@@ -93,10 +93,6 @@ public class OperatorRegionController extends BaseController {
         //查询省级数据
         List<Province> provinceList = provinceService.findList(new Province());
         model.addAttribute("provinceList", provinceList);
-        DictData entity = new DictData();
-        entity.setType("system_region_operator_type");
-        List<DictData> typeList = dictDataService.findList(entity);
-        model.addAttribute("typeList", typeList);
         model.addAttribute("operatorRegion", operatorRegion);
         return "modules/system/operatorRegionForm";
     }

@@ -24,9 +24,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="type">类型</label>
                 <div class="layui-input-inline">
-                    <select name="type" th:id="type" lay-verify="" lay-filter="type">
-                        <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()} == ${operatorRegion.getType()}"/>
+                    <select name="type" th:id="type" lay-verify="" lay-filter="type"
+                            th:with="type=${@dictData.findByType('system_region_operator_type')}">
+                        <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()} == ${operatorRegion.getType()}"/>
                     </select>
                 </div>
             </div>
