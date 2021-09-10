@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 商品品牌规格service层
  */
-@Service
+@Service("brand")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class GoodsBrandService extends CrudService<GoodsBrand, GoodsBrandMapper> {
 
@@ -27,6 +27,16 @@ public class GoodsBrandService extends CrudService<GoodsBrand, GoodsBrandMapper>
 
     @Override
     public List<GoodsBrand> findList(GoodsBrand entity) {
+        return super.findList(entity);
+    }
+
+    /**
+     * 查询数据为词典数据使用
+     * @param
+     * @return
+     */
+    public List<GoodsBrand> findToDictUse() {
+        GoodsBrand entity = new GoodsBrand();
         return super.findList(entity);
     }
 

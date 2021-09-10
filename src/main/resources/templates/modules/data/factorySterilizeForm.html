@@ -25,7 +25,7 @@
                 <label class="layui-form-label" for="productType">厂商产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:with="productType=${@dictData.findByType('data_factory_sterilize_product_type')}">>
+                            th:id="productType" th:with="productType=${@dictData.findByType('data_factory_sterilize_product_type')}">
                         <option th:each="productType:${productType}" th:value="${productType.getValue()}" th:text="${productType.getName()}"
                                 th:selected="${productType.getValue()}==${factorySterilize.getProductType()}"/>
                     </select>

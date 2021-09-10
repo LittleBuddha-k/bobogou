@@ -28,16 +28,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="parentId">品牌父级</label>
                 <div class="layui-input-inline">
-                    <select name="parentId" lay-verify=""
-                            th:if="${goodsBrand.getParentId() == null}">
+                    <select name="parentId" lay-verify="" th:with="parent=${@brand.findToDictUse()}">
                         <option th:value="0" th:text="请选择"/>
-                        <option th:each="list:${goodsBrandList}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
-                    </select>
-                    <select name="parentId" lay-verify=""
-                            th:if="${goodsBrand.getParentId() != null}">
-                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() == list.getId()}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="list:${goodsBrandList}" th:if="${goodsBrand.getParentId() != list.getId()}" th:value="${list.getId()}" th:text="${list.getBrandName()}"/>
+                        <option th:each="dict:${parent}" th:value="${dict.getId()}" th:text="${dict.getBrandName()}"
+                                th:selected="${dict.getId()}==${goodsBrand.getParentId()}"/>
                     </select>
                 </div>
             </div>
