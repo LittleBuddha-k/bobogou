@@ -16,8 +16,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">类型</label>
             <div class="layui-input-block">
-                <select name="type" lay-verify="">
-                    <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}" th:selected="${type.getValue()}==${agreement.getType()}"/>
+                <select name="type" lay-verify="" th:with="type=${@dictData.findByType('protocol')}">
+                    <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${agreement.getType()}"/>
                 </select>
             </div>
         </div>

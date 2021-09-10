@@ -98,10 +98,6 @@ public class AgreementController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Agreement agreement, Model model) {
-        DictData select = new DictData();
-        select.setType("protocol");
-        List<DictData> typeList = dictDataService.findList(select);
-        model.addAttribute("typeList", typeList);
         model.addAttribute("agreement", agreement);
         return "modules/other/agreementForm";
     }
