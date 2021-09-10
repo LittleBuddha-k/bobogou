@@ -104,16 +104,6 @@ public class RegionGoodsController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, RegionGoods regionGoods, Model model) {
-        //查询省级数据---前端做地域级联动
-        List<Province> provinceList = provinceService.findList(new Province());
-        model.addAttribute("provinceList", provinceList);
-        if (regionGoods != null && StringUtils.isNotBlank(regionGoods.getGoodsId())) {
-            regionGoods.setMedicine(medicineService.get(new Goods(regionGoods.getGoodsId())));
-        }
-        DictData select = new DictData();
-        select.setType("data_region_goods_type");
-        List<DictData> typeList = dictDataService.findList(select);
-        model.addAttribute("typeList", typeList);
         model.addAttribute("regionGoods", regionGoods);
         return "modules/data/regionGoodsForm";
     }

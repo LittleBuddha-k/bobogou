@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+@Service("province")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ProvinceService extends CrudService<Province, ProvinceMapper> {
 
@@ -22,6 +22,16 @@ public class ProvinceService extends CrudService<Province, ProvinceMapper> {
 
     @Override
     public List<Province> findList(Province entity) {
+        return super.findList(entity);
+    }
+
+    /**
+     * 查询选择下拉框省级数据--查询全部为词典数据使用
+     * @param
+     * @return
+     */
+    public List<Province> findToDictUse() {
+        Province entity = new Province();
         return super.findList(entity);
     }
 
