@@ -57,9 +57,9 @@
                 <label class="layui-form-label" for="type">机构类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" disabled="true">
-                        <option th:each="type:${typeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${userMember.getType()}"/>
+                            th:id="type" disabled="true" th:with="type=${@dictData.findByType('user_member_type')}">
+                        <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${userMember.getType()}"/>
                     </select>
                 </div>
             </div>
@@ -124,9 +124,9 @@
                 <label class="layui-form-label" for="isEntrust">是否委托</label>
                 <div class="layui-input-inline">
                     <select name="isEntrust" lay-verify="" lay-filter="type"
-                            th:id="isEntrust" disabled="true">
-                        <option th:each="isEntrust:${isEntrustList}" th:value="${isEntrust.getValue()}" th:text="${isEntrust.getName()}"
-                                th:selected="${isEntrust.getValue()}==${userMember.getIsEntrust()}"/>
+                            th:id="isEntrust" disabled="true" th:with="isEntrust=${@dictData.findByType('user_member_is_entrust')}">
+                        <option th:each="dict:${isEntrust}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${userMember.getIsEntrust()}"/>
                     </select>
                 </div>
             </div>
@@ -246,9 +246,9 @@
                 <label class="layui-form-label" for="status">审核状态</label>
                 <div class="layui-input-inline">
                     <select name="status" lay-verify="" lay-filter="type"
-                            th:id="status" disabled="true">
-                        <option th:each="status:${userMemberStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
-                                th:selected="${status.getValue()}==${userMember.getStatus()}"/>
+                            th:id="status" disabled="true" th:with="status=${@dictData.findByType('user_member_status')}">
+                        <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${userMember.getStatus()}"/>
                     </select>
                 </div>
             </div>
@@ -298,19 +298,9 @@
                 <label class="layui-form-label" for="vipStatus">vip状态</label>
                 <div class="layui-input-inline">
                     <select name="vipStatus" lay-verify="" lay-filter="type"
-                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == null}">
-                        <option th:value="0" th:text="正常"/>
-                        <option th:value="1" th:text="过期"/>
-                    </select>
-                    <select name="vipStatus" lay-verify="" lay-filter="type"
-                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == 0}">
-                        <option th:value="0" th:text="正常"/>
-                        <option th:value="1" th:text="过期"/>
-                    </select>
-                    <select name="vipStatus" lay-verify="" lay-filter="type"
-                            th:id="vipStatus" disabled="true" th:if="${userMember.getVipStatus() == 1}">
-                        <option th:value="1" th:text="过期"/>
-                        <option th:value="0" th:text="正常"/>
+                            th:id="vipStatus" disabled="true" th:with="vipStatus=${@dictData.findByType('user_member_vip_status')}">
+                        <option th:each="dict:${vipStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${userMember.getVipStatus()}"/>
                     </select>
                 </div>
             </div>

@@ -182,18 +182,6 @@ public class CustomerUserController extends BaseController {
         }
         Operator currentUser = UserUtils.getCurrentUser();
         model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
-        DictData type = new DictData();
-        type.setType("user_member_type");
-        List<DictData> typeList = dictDataService.findList(type);
-        model.addAttribute("typeList", typeList);
-        DictData isEntrust = new DictData();
-        isEntrust.setType("user_member_is_entrust");
-        List<DictData> isEntrustList = dictDataService.findList(isEntrust);
-        model.addAttribute("isEntrustList", isEntrustList);
-        DictData userMemberStatus = new DictData();
-        userMemberStatus.setType("user_member_status");
-        List<DictData> userMemberStatusList = dictDataService.findList(userMemberStatus);
-        model.addAttribute("userMemberStatusList", userMemberStatusList);
         return "modules/other/userMemberForm";
     }
 
