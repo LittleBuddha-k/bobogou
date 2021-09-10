@@ -98,8 +98,6 @@ public class GoodsNormController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, GoodsNorm goodsNorm, Model model) {
-        List<Factory> factoryList = factoryService.findList(new Factory());
-        model.addAttribute("factoryList", factoryList);
         model.addAttribute("goodsNorm", goodsNorm);
         return "modules/data/goodsNormForm";
     }
