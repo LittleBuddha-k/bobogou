@@ -31,7 +31,7 @@
         <include refid="factorySterilizeColumns"/>
         FROM md_factory_sterilize a
         <include refid="factorySterilizeJoins"/>
-        WHERE id=#{id}
+        WHERE a.id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.FactorySterilize">
