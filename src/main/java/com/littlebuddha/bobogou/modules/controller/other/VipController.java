@@ -98,10 +98,6 @@ public class VipController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Vip vip, Model model) {
-        DictData entity = new DictData();
-        entity.setType("other_vip_rule");
-        List<DictData> typeList = dictDataService.findList(entity);
-        model.addAttribute("typeList", typeList);
         model.addAttribute("vip", vip);
         return "modules/other/vipForm";
     }
