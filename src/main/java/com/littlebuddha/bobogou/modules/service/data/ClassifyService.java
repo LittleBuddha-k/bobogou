@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * 商品分类service层
  */
-@Service
+@Service("goodsClassify")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ClassifyService extends CrudService<Classify, ClassifyMapper> {
 
@@ -41,6 +41,17 @@ public class ClassifyService extends CrudService<Classify, ClassifyMapper> {
                 classify.setIcon(globalSetting.getRootPath() + classify.getIcon());
             }
         }
+        return list;
+    }
+
+    /**
+     * 查询所有数据为词典数据使用
+     * @param
+     * @return
+     */
+    public List<Classify> findToDictUse() {
+        Classify entity = new Classify();
+        List<Classify> list = super.findList(entity);
         return list;
     }
 

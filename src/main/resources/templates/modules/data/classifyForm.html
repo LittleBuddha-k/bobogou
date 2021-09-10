@@ -38,19 +38,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="name">父级分类</label>
                 <div class="layui-input-inline">
-                    <select name="parentId" lay-verify="" th:if="${mode == 'add'}">
+                    <select name="parentId" lay-verify="" th:with="parent=${@goodsClassify.findToDictUse()}">
                         <option th:value="0" th:text="请选择"/>
-                        <option th:each="classify:${classifyList}" th:value="${classify.getId()}"
-                                th:text="${classify.getName()}"/>
-                    </select>
-                    <select name="parentId" lay-verify="" th:if="${mode != 'add'}">
-                        <option th:each="type:${classifyList}"
-                                th:if="${type.getId() == classify.getParentId()}"
-                                th:value="${type.getId()}" th:text="${type.getName()}"/>
-                        <option th:value="0" th:text="请选择"/>
-                        <option th:each="type:${classifyList}"
-                                th:if="${type.getId() != classify.getParentId()}"
-                                th:value="${type.getId()}" th:text="${type.getName()}"/>
+                        <option th:each="dict:${parent}" th:value="${dict.getId()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getId()}==${classify.getParentId()}"/>
                     </select>
                 </div>
             </div>
@@ -59,25 +50,10 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="name">级别分类选择</label>
                 <div class="layui-input-inline">
-                    <select name="level" lay-verify="" th:if="${mode == 'add'}" th:id="level" lay-filter="level">
-                        <option th:value="1" th:text="一级分类"/>
-                        <option th:value="2" th:text="二级分类"/>
-                        <option th:value="3" th:text="三级分类"/>
-                    </select>
-                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 1}" th:id="level" lay-filter="level">
-                        <option th:value="1" th:text="一级分类"/>
-                        <option th:value="2" th:text="二级分类"/>
-                        <option th:value="3" th:text="三级分类"/>
-                    </select>
-                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 2}" th:id="level" lay-filter="level">
-                        <option th:value="2" th:text="二级分类"/>
-                        <option th:value="1" th:text="一级分类"/>
-                        <option th:value="3" th:text="三级分类"/>
-                    </select>
-                    <select name="level" lay-verify="" th:if="${mode != 'add' && classify.getLevel() == 3}" th:id="level" lay-filter="level">
-                        <option th:value="3" th:text="三级分类"/>
-                        <option th:value="1" th:text="一级分类"/>
-                        <option th:value="2" th:text="二级分类"/>
+                    <select name="level" lay-verify="" th:id="level" lay-filter="level"
+                            th:with="level=${@dictData.findByType('data_classify_level')}">
+                        <option th:each="dict:${level}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${classify.getLevel()}"/>
                     </select>
                 </div>
             </div>

@@ -117,9 +117,6 @@ public class ClassifyController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Classify classify, Model model) {
-        //查询所有分类项
-        List<Classify> classifyList = classifyService.findList(new Classify());
-        model.addAttribute("classifyList", classifyList);
         model.addAttribute("classify", classify);
         return "modules/data/classifyForm";
     }
