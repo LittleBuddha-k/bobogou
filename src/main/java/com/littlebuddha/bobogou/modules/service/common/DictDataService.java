@@ -11,15 +11,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+@Service("dictData")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class DictDataService extends CrudService<DictData, DictDataMapper> {
 
-    @Autowired
+    @Resource
     private DictDataMapper dictDataMapper;
 
     @Autowired
@@ -59,6 +60,18 @@ public class DictDataService extends CrudService<DictData, DictDataMapper> {
 
     @Override
     public List<DictData> findList(DictData entity) {
+        List<DictData> list = super.findList(entity);
+        return list;
+    }
+
+    /**
+     * 根据type查询列表---thymeleaf访问使用
+     * @param
+     * @return
+     */
+    public List<DictData> findByType(String type) {
+        DictData entity = new DictData();
+        entity.setType(type);
         List<DictData> list = super.findList(entity);
         return list;
     }

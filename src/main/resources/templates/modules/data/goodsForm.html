@@ -493,37 +493,17 @@
             <div class="layui-inline">
                 <label class="layui-form-label">是否需要运费</label>
                 <div class="layui-input-inline" th:if="${mode != 'detail'}">
-                    <select name="isFreight" lay-verify="" th:if="${mode == 'add'}" lay-filter="isFreight"
-                            th:id="isFreight">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
-                    </select>
-                    <select name="isFreight" lay-verify=""
-                            th:if="${mode != 'add' && 0 == goods.getIsFreight()}">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
-                    </select>
-                    <select name="isFreight" lay-verify=""
-                            th:if="${mode != 'add' && 2 == goods.getIsFreight()}">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
+                    <select name="isFreight" lay-verify="" lay-filter="isFreight"
+                            th:id="isFreight" th:with="isFreight=${@dictData.findByType('data_goods_is_freight')}">
+                        <option th:each="dict:${isFreight}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getIsFreight()}"/>
                     </select>
                 </div>
                 <div class="layui-input-inline" th:if="${mode == 'detail'}">
-                    <select name="isFreight" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
-                            th:id="isFreight" disabled="true">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
-                    </select>
-                    <select name="isFreight" lay-verify=""
-                            th:if="${mode != 'add' && 0 == goods.getIsFreight()}" disabled="true">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
-                    </select>
-                    <select name="isFreight" lay-verify=""
-                            th:if="${mode != 'add' && 2 == goods.getIsFreight()}" disabled="true">
-                        <option th:value="0" th:text="不需要"/>
-                        <option th:value="1" th:text="需要"/>
+                    <select name="isFreight" lay-verify="" lay-filter="isMarket"
+                            th:id="isFreight" disabled="true" th:with="isFreight=${@dictData.findByType('data_goods_is_freight')}">
+                        <option th:each="dict:${isFreight}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getIsFreight()}"/>
                     </select>
                 </div>
             </div>
@@ -586,37 +566,17 @@
             <div class="layui-inline">
                 <label class="layui-form-label">是否在售</label>
                 <div class="layui-input-inline" th:if="${mode != 'detail'}">
-                    <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
-                            th:id="isMarket">
-                        <option th:value="0" th:text="在售"/>
-                        <option th:value="2" th:text="停售"/>
-                    </select>
-                    <select name="isMarket" lay-verify=""
-                            th:if="${mode != 'add' && 0 == goods.getIsMarket()}">
-                        <option th:value="0" th:text="在售"/>
-                        <option th:value="2" th:text="停售"/>
-                    </select>
-                    <select name="isMarket" lay-verify=""
-                            th:if="${mode != 'add' && 2 == goods.getIsMarket()}">
-                        <option th:value="2" th:text="停售"/>
-                        <option th:value="0" th:text="在售"/>
+                    <select name="isMarket" lay-verify="" lay-filter="isMarket"
+                            th:id="isMarket" th:with="isMarket=${@dictData.findByType('data_goods_is_market')}">
+                        <option th:each="dict:${isMarket}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getIsMarket()}"/>
                     </select>
                 </div>
                 <div class="layui-input-inline" th:if="${mode == 'detail'}">
-                    <select name="isMarket" lay-verify="" th:if="${mode == 'add'}" lay-filter="isMarket"
-                            th:id="isMarket" disabled="true">
-                        <option th:value="0" th:text="在售"/>
-                        <option th:value="2" th:text="停售"/>
-                    </select>
-                    <select name="isMarket" lay-verify=""
-                            th:if="${mode != 'add' && 0 == goods.getIsMarket()}" disabled="true">
-                        <option th:value="0" th:text="在售"/>
-                        <option th:value="2" th:text="停售"/>
-                    </select>
-                    <select name="isMarket" lay-verify=""
-                            th:if="${mode != 'add' && 2 == goods.getIsMarket()}" disabled="true">
-                        <option th:value="2" th:text="停售"/>
-                        <option th:value="0" th:text="在售"/>
+                    <select name="isMarket" lay-verify="" lay-filter="isMarket"
+                            th:id="isMarket" disabled="true" th:with="isMarket=${@dictData.findByType('data_goods_is_market')}">
+                        <option th:each="dict:${isMarket}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${goods.getIsMarket()}"/>
                     </select>
                 </div>
             </div>
