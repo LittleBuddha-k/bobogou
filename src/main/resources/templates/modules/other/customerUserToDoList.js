@@ -37,7 +37,7 @@ layui.use(['form', 'table'], function () {
                     field: 'phone',
                     sort: true,
                     sortName: 'phone',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         var valueArray = data.phone;
                         return valueArray;
@@ -48,25 +48,21 @@ layui.use(['form', 'table'], function () {
                     field: 'nickname',
                     sort: true,
                     sortName: 'nickname',
-                    width: '150'
+                    width: '180'
                 },
                 {
                     title: '性别',
                     field: 'sex',
                     sort: true,
                     sortName: 'sex',
-                    width: '80',
+                    width: '150',
                     templet:function(data){
-                        let sex = data.sex;
-                        if(0 == sex){
-                            return "未知"
-                        }else if(1 == sex){
-                            return "男"
-                        }else if(2 == sex){
-                            return "女"
-                        }else {
-                            return "未知"
+                        var sex = data.sex;
+                        let dictName = rc.getDictName("user_member_sex",sex);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -74,16 +70,14 @@ layui.use(['form', 'table'], function () {
                     field: 'member',
                     sort: true,
                     sortName: 'member',
-                    width: '120',
+                    width: '150',
                     templet:function(data){
-                        let member = data.member;
-                        if(0 == member){
-                            return "普通会员"
-                        }else if(1 == member){
-                            return "VIP"
-                        }else {
-                            return "未知"
+                        var member = data.member;
+                        let dictName = rc.getDictName("user_member_level",member);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -114,14 +108,12 @@ layui.use(['form', 'table'], function () {
                     sortName: 'messageStatus',
                     width: '180',
                     templet:function(data){
-                        let messageStatus = data.messageStatus;
-                        if(0 == messageStatus){
-                            return "关闭"
-                        }else if(1 == messageStatus){
-                            return "打开"
-                        }else {
-                            return "未知"
+                        var messageStatus = data.messageStatus;
+                        let dictName = rc.getDictName("user_member_message_status",messageStatus);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -129,16 +121,14 @@ layui.use(['form', 'table'], function () {
                     field: 'userAgreement',
                     sort: true,
                     sortName: 'userAgreement',
-                    width: '180',
+                    width: '200',
                     templet:function(data){
-                        let userAgreement = data.userAgreement;
-                        if(0 == userAgreement){
-                            return "未同意"
-                        }else if(1 == userAgreement){
-                            return "已同意"
-                        }else {
-                            return "未知"
+                        var userAgreement = data.userAgreement;
+                        let dictName = rc.getDictName("user_member_user_agreement",userAgreement);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -148,18 +138,12 @@ layui.use(['form', 'table'], function () {
                     sortName: 'applyStatus',
                     width: '150',
                     templet:function(data){
-                        let applyStatus = data.applyStatus;
-                        if(0 == applyStatus){
-                            return '未申请'
-                        }else if(1 == applyStatus){
-                            return "已申请"
-                        }else if(2 == applyStatus){
-                            return "已同意"
-                        }else if(3 == applyStatus){
-                            return "已拒绝"
-                        }else {
-                            return "未知"
+                        var applyStatus = data.applyStatus;
+                        let dictName = rc.getDictName("user_member_apply_status",applyStatus);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
