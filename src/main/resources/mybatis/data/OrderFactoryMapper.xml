@@ -61,6 +61,9 @@
             <if test="orderNumber != null and orderNumber != ''">
                 AND b.number LIKE concat('%',#{orderNumber},'%')
             </if>
+            <if test="outStatus != null and outStatus != ''">
+                AND a.out_status = #{outStatus}
+            </if>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

@@ -147,7 +147,8 @@ layui.use(['form', 'table'], function () {
         skin: 'line',
         where: {
             trackingNo: $("#trackingNo").val(),
-            orderNumber: $("#orderNumber").val()
+            orderNumber: $("#orderNumber").val(),
+            outStatus: $("#outStatus").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -158,7 +159,8 @@ layui.use(['form', 'table'], function () {
         table.reload('orderFactoryTable', {
             where: {
                 trackingNo: $("#trackingNo").val(),
-                orderNumber: $("#orderNumber").val()
+                orderNumber: $("#orderNumber").val(),
+                outStatus: $("#outStatus").val()
             }
         });
         return false;
@@ -168,6 +170,7 @@ layui.use(['form', 'table'], function () {
     $("#resetBtn").click(function () {
         $("#trackingNo").val("");
         $("#orderNumber").val("");
+        $("#outStatus").val("");
         init();
     })
     

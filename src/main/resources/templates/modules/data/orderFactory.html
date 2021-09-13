@@ -34,6 +34,17 @@
                             </div>
                         </div>
                         <div class="layui-inline">
+                            <label class="layui-form-label" for="outStatus">出库状态</label>
+                            <div class="layui-input-inline">
+                                <select name="outStatus" lay-verify="" lay-filter="outStatus"
+                                        th:id="outStatus" th:with="outStatus=${@dictData.findByType('data_order_factory_out_status')}">
+                                    <option value="">请选择</option>
+                                    <option th:each="dict:${outStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                            th:selected="${dict.getValue()}==${orderFactory.getOutStatus()}"/>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="layui-inline">
                             <button type="submit" class="layui-btn" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
                             </button>
