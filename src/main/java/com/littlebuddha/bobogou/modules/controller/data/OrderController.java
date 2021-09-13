@@ -104,30 +104,6 @@ public class OrderController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Order order, Model model) {
-        DictData distributionMode = new DictData();
-        distributionMode.setType("order_distribution_mode");
-        List<DictData> distributionModeList = dictDataService.findList(distributionMode);
-        model.addAttribute("distributionModeList", distributionModeList);
-        DictData payModeMode = new DictData();
-        payModeMode.setType("order_pay_mode");
-        List<DictData> payModeModeList = dictDataService.findList(payModeMode);
-        model.addAttribute("payModeModeList", payModeModeList);
-        DictData type = new DictData();
-        type.setType("oder_type");
-        List<DictData> typeList = dictDataService.findList(type);
-        model.addAttribute("typeList", typeList);
-        DictData orderStatus = new DictData();
-        orderStatus.setType("order_status");
-        List<DictData> orderStatusList = dictDataService.findList(orderStatus);
-        model.addAttribute("orderStatusList", orderStatusList);
-        DictData orderOutStatus = new DictData();
-        orderOutStatus.setType("order_out_status");
-        List<DictData> orderOutStatusList = dictDataService.findList(orderOutStatus);
-        model.addAttribute("orderOutStatusList", orderOutStatusList);
-        DictData isInvoiceSelect = new DictData();
-        isInvoiceSelect.setType("data_order_is_invoice");
-        List<DictData> isInvoiceList = dictDataService.findList(isInvoiceSelect);
-        model.addAttribute("isInvoiceList", isInvoiceList);
         model.addAttribute("order", order);
         return "modules/data/orderForm";
     }

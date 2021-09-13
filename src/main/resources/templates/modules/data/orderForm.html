@@ -51,9 +51,9 @@
             <div class="layui-inline">
                 <label class="layui-form-label" for="distributionMode">配送方式</label>
                 <div class="layui-input-inline">
-                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:id="distributionMode" disabled="true">
-                        <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
-                                th:selected="${distributionMode.getValue()}==${order.getDistributionMode()}"/>
+                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:id="distributionMode" disabled="true" th:with="distributionMode=${@dictData.findByType('order_distribution_mode')}">
+                        <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getDistributionMode()}"/>
                     </select>
                 </div>
             </div>
@@ -61,9 +61,9 @@
                 <label class="layui-form-label" for="status">状态</label>
                 <div class="layui-input-inline">
                     <select name="status" lay-verify="" lay-filter="status"
-                            th:id="status" disabled="true">
-                        <option th:each="status:${orderStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
-                                th:selected="${status.getValue()}==${order.getStatus()}"/>
+                            th:id="status" disabled="true" th:with="status=${@dictData.findByType('order_status')}">
+                        <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getStatus()}"/>
                     </select>
                 </div>
             </div>
@@ -71,9 +71,9 @@
                 <label class="layui-form-label" for="isInvoice">是否开票</label>
                 <div class="layui-input-inline">
                     <select name="isInvoice" lay-verify="" lay-filter="isInvoice"
-                            th:id="isInvoice" disabled="true">
-                        <option th:each="isInvoice:${isInvoiceList}" th:value="${isInvoice.getValue()}" th:text="${isInvoice.getName()}"
-                                th:selected="${isInvoice.getValue()}==${order.getIsInvoice()}"/>
+                            th:id="isInvoice" disabled="true" th:with="isInvoice=${@dictData.findByType('data_order_is_invoice')}">
+                        <option th:each="dict:${isInvoice}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getIsInvoice()}"/>
                     </select>
                 </div>
             </div>
