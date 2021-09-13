@@ -94,13 +94,13 @@
                 <label class="layui-form-label" for="distributionMode">配送方式</label>
                 <div class="layui-input-inline">
                     <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
-                            th:id="distributionMode" th:if="${mode != 'detail'}">
-                        <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
-                                th:selected="${distributionMode.getValue()}==${orderFactory.getDistributionMode()}"/>
+                            th:id="distributionMode" th:if="${mode != 'detail'}" th:with="distributionMode=${@dictData.findByType('data_order_factory_distribution_mode')}">
+                        <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${orderFactory.getDistributionMode()}"/>
                     </select>
-                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:if="${mode == 'detail'}" disabled>
-                        <option th:each="distributionMode:${distributionModeList}" th:value="${distributionMode.getValue()}" th:text="${distributionMode.getName()}"
-                                th:selected="${distributionMode.getValue()}==${orderFactory.getDistributionMode()}"/>
+                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:if="${mode == 'detail'}" disabled th:with="distributionMode=${@dictData.findByType('data_order_factory_distribution_mode')}">
+                        <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${orderFactory.getDistributionMode()}"/>
                     </select>
                 </div>
             </div>
@@ -117,13 +117,13 @@
                 <label class="layui-form-label" for="outStatus">出库状态</label>
                 <div class="layui-input-inline">
                     <select name="outStatus" lay-verify="" lay-filter="outStatus"
-                            th:id="outStatus" disabled th:if="${mode != 'detail'}">
-                        <option th:each="outStatus:${outStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
-                                th:selected="${outStatus.getValue()}==${orderFactory.getOutStatus()}"/>
+                            th:id="outStatus" disabled th:if="${mode != 'detail'}" th:with="outStatus=${@dictData.findByType('data_order_factory_out_status')}">
+                        <option th:each="dict:${outStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${orderFactory.getOutStatus()}"/>
                     </select>
-                    <select name="outStatus" lay-verify="" lay-filter="outStatus" disabled th:if="${mode == 'detail'}">
-                        <option th:each="outStatus:${outStatusList}" th:value="${outStatus.getValue()}" th:text="${outStatus.getName()}"
-                                th:selected="${outStatus.getValue()}==${orderFactory.getOutStatus()}"/>
+                    <select name="outStatus" lay-verify="" lay-filter="outStatus" disabled th:if="${mode == 'detail'}" th:with="outStatus=${@dictData.findByType('data_order_factory_out_status')}">
+                        <option th:each="dict:${outStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${orderFactory.getOutStatus()}"/>
                     </select>
                 </div>
             </div>
