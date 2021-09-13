@@ -126,10 +126,6 @@ public class ContractController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Contract contract, Model model) {
-        DictData select = new DictData();
-        select.setType("basic_contract_type");
-        List<DictData> contractType = dictDataService.findList(select);
-        model.addAttribute("contractType", contractType);
         model.addAttribute("contract", contract);
         return "modules/basic/contractForm";
     }

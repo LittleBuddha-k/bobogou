@@ -25,9 +25,9 @@
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type">
-                        <option th:each="type:${contractType}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${contract.getType()}"/>
+                            th:id="type" th:with="type=${@dictData.findByType('basic_contract_type')}">
+                        <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${contract.getType()}"/>
                     </select>
                 </div>
             </div>
