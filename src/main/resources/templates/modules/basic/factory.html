@@ -30,6 +30,7 @@
                             <div class="layui-input-inline">
                                 <select name="factoryType" lay-verify="" lay-filter="factoryType"
                                         th:id="factoryType">
+                                    <option value="0">请选择</option>
                                     <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
                                             th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
                                 </select>
