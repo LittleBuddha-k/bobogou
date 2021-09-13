@@ -68,7 +68,7 @@ public class MenuController extends BaseController {
     @GetMapping("/data")
     public TreeResult data(Menu menu) {
         TreeResult result = null;
-        List<Menu> allList = menuService.findAllList(new Menu());
+        List<Menu> allList = menuService.findListByCurrentUser(menu);
         if (allList != null && allList.size() > 0) {
             result = new TreeResult(0, "数据成功", allList, allList.size());
         } else {

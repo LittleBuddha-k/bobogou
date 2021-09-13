@@ -3,10 +3,13 @@ package com.littlebuddha.bobogou.modules.service.system;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.MenuUtils;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.entity.system.RoleMenu;
 import com.littlebuddha.bobogou.modules.mapper.system.MenuMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.RoleMenuMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +19,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,16 +30,16 @@ import java.util.List;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class MenuService extends CrudService<Menu, MenuMapper> {
 
-    @Autowired
+    @Resource
     private MenuMapper menuMapper;
 
     @Autowired
     private OperatorService operatorService;
 
-    @Autowired
+    @Resource
     private RoleMapper roleMapper;
 
-    @Autowired
+    @Resource
     private RoleMenuMapper roleMenuMapper;
 
     @Override
@@ -242,5 +246,25 @@ public class MenuService extends CrudService<Menu, MenuMapper> {
             }
         }
         return result;
+    }
+
+    /**
+     * 查询当前用户的菜单
+     * @param menu
+     * @return
+     */
+    public List<Menu> findListByCurrentUser(Menu menu) {
+        //1.查询当前用户的菜单数据list
+        List<Menu> menuData = operatorService.getMenusByOperator();
+        //2.去除类型为按钮的数据
+        List noBtn = new ArrayList();
+        for (Menu menuDatum : menuData) {
+            if (0 == menuDatum.getType()) {
+                noBtn.add(menuDatum);
+            }
+        }
+        //3.因为多个角色可能有多个重复的菜单信息，所以对菜单去重
+        List list = MenuUtils.removeDuplicate(noBtn);
+        return list;
     }
 }
