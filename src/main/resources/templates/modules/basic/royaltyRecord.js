@@ -70,15 +70,13 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'type',
                     width: '12.5%',
-                    templet:function(data){
-                        let type = data.type;
-                        if (1 == type){
-                            return "收入";
-                        }else if (2 == type){
-                            return "支出";
-                        }else {
+                    templet: function (data) {
+                        var type = data.type;
+                        let dictName = rc.getDictName("basic_royalty_record_type",type);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -94,15 +92,28 @@ layui.use(['form', 'table'], function () {
                     sort: true,
                     sortName: 'status',
                     width: '12.5%',
-                    templet:function(data){
-                        let status = data.status;
-                        if (1 == status){
-                            return "提现中";
-                        }else if (2 == status){
-                            return "提现成功（已到账）";
-                        }else {
-
-                        }return "未知";
+                    templet: function (data) {
+                        var status = data.status;
+                        let dictName = rc.getDictName("basic_royalty_record_status",status);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
+                        }
+                        return dictName;
+                    }
+                },
+                {
+                    title: '资金状态',
+                    field: 'state',
+                    sort: true,
+                    sortName: 'state',
+                    width: '12.5%',
+                    templet: function (data) {
+                        var state = data.state;
+                        let dictName = rc.getDictName("basic_royalty_record_state",state);
+                        if (dictName == '' || dictName == undefined){
+                            return "未知";
+                        }
+                        return dictName;
                     }
                 },
                 {

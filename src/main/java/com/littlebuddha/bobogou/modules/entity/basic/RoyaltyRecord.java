@@ -23,6 +23,7 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
     private Integer type;//类型，1=收入，2=支出
     private String orderNumber;//微信提现单号
     private Integer status;//提现是否成功，1=提现中，2=提现成功（已到账）
+    private Integer state;//资金状态，0=其它（支出）， 1=冻结中（不可提现），2=正常（可提现）
     private Date successfulTime;//提现成功时间
 
     public RoyaltyRecord() {
@@ -121,6 +122,14 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Date getSuccessfulTime() {
