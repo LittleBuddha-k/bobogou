@@ -30,6 +30,7 @@
                             <div class="layui-input-inline">
                                 <select name="status" lay-verify="" lay-filter="status"
                                         th:id="status" th:with="status=${@dictData.findByType('order_status')}">
+                                    <option value="">请选择</option>
                                     <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
                                             th:selected="${dict.getValue()}==${order.getStatus()}"/>
                                 </select>
@@ -40,6 +41,7 @@
                             <div class="layui-input-inline">
                                 <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
                                         th:id="distributionMode" th:with="distributionMode=${@dictData.findByType('order_distribution_mode')}">
+                                    <option value="">请选择</option>
                                     <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
                                             th:selected="${dict.getValue()}==${order.getDistributionMode()}"/>
                                 </select>
@@ -48,6 +50,9 @@
                         <div class="layui-inline">
                             <button type="submit" class="layui-btn layui-btn-primary" lay-submit
                                     lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索
+                            </button>
+                            <button type="submit" class="layui-btn layui-btn-primary" lay-submit
+                                    lay-filter="data-reset-btn" th:id="resetBtn"><i class="layui-icon layui-icon-refresh"></i> 重 置
                             </button>
                         </div>
                     </div>

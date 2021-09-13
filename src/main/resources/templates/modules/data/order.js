@@ -149,13 +149,20 @@ layui.use(['form', 'table'], function () {
         table.reload('orderTable', {
             where: {
                 number: $("#number").val(),
-                addressId: $("#addressId").val(),
                 status: $("#status").val(),
                 distributionMode: $("#distributionMode").val()
             }
         });
         return false;
     });
+
+    // 监听重置操作
+    $("#resetBtn").click(function () {
+        $("#number").val("");
+        $("#status").val("");
+        $("#distributionMode").val("");
+        init();
+    })
 
     /**
      * toolbar监听事件
