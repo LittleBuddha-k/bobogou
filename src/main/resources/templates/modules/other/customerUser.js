@@ -37,7 +37,7 @@ layui.use(['form', 'table'], function () {
                     field: 'phone',
                     sort: true,
                     sortName: 'phone',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         var valueArray = data.phone;
                         return valueArray;
@@ -48,14 +48,14 @@ layui.use(['form', 'table'], function () {
                     field: 'nickname',
                     sort: true,
                     sortName: 'nickname',
-                    width: '150'
+                    width: '180'
                 },
                 {
                     title: '性别',
                     field: 'sex',
                     sort: true,
                     sortName: 'sex',
-                    width: '80',
+                    width: '120',
                     templet:function(data){
                         var sex = data.sex;
                         let dictName = rc.getDictName("user_member_sex",sex);
@@ -70,7 +70,7 @@ layui.use(['form', 'table'], function () {
                     field: 'member',
                     sort: true,
                     sortName: 'member',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         var member = data.member;
                         let dictName = rc.getDictName("user_member_level",member);
@@ -84,14 +84,14 @@ layui.use(['form', 'table'], function () {
                     title: '积分',
                     field: 'integral',
                     sort: true,
-                    width: '80',
+                    width: '120',
                     sortName: 'integral'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
                     sort: true,
-                    width: '120',
+                    width: '150',
                     sortName: 'healthBeans'
                 },
                 {
@@ -106,7 +106,7 @@ layui.use(['form', 'table'], function () {
                     field: 'messageStatus',
                     sort: true,
                     sortName: 'messageStatus',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         var messageStatus = data.messageStatus;
                         let dictName = rc.getDictName("user_member_message_status",messageStatus);
@@ -121,7 +121,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userAgreement',
                     sort: true,
                     sortName: 'userAgreement',
-                    width: '180',
+                    width: '200',
                     templet:function(data){
                         var userAgreement = data.userAgreement;
                         let dictName = rc.getDictName("user_member_user_agreement",userAgreement);
@@ -136,7 +136,7 @@ layui.use(['form', 'table'], function () {
                     field: 'applyStatus',
                     sort: true,
                     sortName: 'applyStatus',
-                    width: '150',
+                    width: '180',
                     templet:function(data){
                         var applyStatus = data.applyStatus;
                         let dictName = rc.getDictName("user_member_apply_status",applyStatus);
@@ -145,7 +145,7 @@ layui.use(['form', 'table'], function () {
                         }
                         return dictName;
                     }
-                },
+                }/*,
                 {
                     title: '操作',
                     align: "center",
@@ -153,19 +153,20 @@ layui.use(['form', 'table'], function () {
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已申请</a>\n' +
-                                '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">跟踪</a>';
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">跟踪</a>';
                         }else if(0 == applyStatus) {
                             return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">未申请</a>';
                         }else if(2 == applyStatus) {
                             return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已同意</a>';
                         }else if(3 == applyStatus) {
                             return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已拒绝</a>';
-                        }else {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">请完善信息</a>';
+                        }else if(4 == applyStatus) {
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已过期</a>';
+                        }else  {
+                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已过期</a>';
                         }
                     }
-                }
+                }*/
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
