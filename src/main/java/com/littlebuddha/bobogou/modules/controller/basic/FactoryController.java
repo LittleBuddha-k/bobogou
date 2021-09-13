@@ -90,18 +90,6 @@ public class FactoryController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Factory factory, Model model) {
-        //查询省级数据
-        List<Province> provinceList = provinceService.findList(new Province());
-        model.addAttribute("provinceList", provinceList);
-        //词典数据
-        DictData factoryType = new DictData();
-        factoryType.setType("basic_factory_type");
-        List<DictData> factoryTypeList = dictDataService.findList(factoryType);
-        model.addAttribute("factoryTypeList", factoryTypeList);
-        DictData factoryProductType = new DictData();
-        factoryProductType.setType("basic_factory_product_type");
-        List<DictData> factoryProductTypeList = dictDataService.findList(factoryProductType);
-        model.addAttribute("factoryProductTypeList", factoryProductTypeList);
         model.addAttribute("factory", factory);
         return "modules/basic/factoryForm";
     }

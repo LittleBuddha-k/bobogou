@@ -15,14 +15,14 @@
                 <label class="layui-form-label" for="factoryType">厂商类型</label>
                 <div class="layui-input-inline">
                     <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode == 'view'}" disabled="true">
-                        <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
+                            th:id="factoryType" th:if="${mode == 'view'}" disabled="true" th:with="factoryType=${@dictData.findByType('basic_factory_type')}">
+                        <option th:each="dict:${factoryType}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getFactoryType()}"/>
                     </select>
                     <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                            th:id="factoryType" th:if="${mode != 'view'}">
-                        <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
+                            th:id="factoryType" th:if="${mode != 'view'}" th:with="factoryType=${@dictData.findByType('basic_factory_type')}">
+                        <option th:each="dict:${factoryType}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getFactoryType()}"/>
                     </select>
                 </div>
             </div>
@@ -30,14 +30,14 @@
                 <label class="layui-form-label" for="productType">厂商产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode == 'view'}" disabled="true">
-                        <option th:each="type:${factoryProductTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${factory.getProductType()}"/>
+                            th:id="productType" th:if="${mode == 'view'}" disabled="true" th:with="productType=${@dictData.findByType('basic_factory_product_type')}">
+                        <option th:each="dict:${productType}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getProductType()}"/>
                     </select>
                     <select name="productType" lay-verify="" lay-filter="productType"
-                            th:id="productType" th:if="${mode != 'view'}">
-                        <option th:each="type:${factoryProductTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                th:selected="${type.getValue()}==${factory.getProductType()}"/>
+                            th:id="productType" th:if="${mode != 'view'}" th:with="productType=${@dictData.findByType('basic_factory_product_type')}">
+                        <option th:each="dict:${productType}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getProductType()}"/>
                     </select>
                 </div>
             </div>
@@ -81,12 +81,12 @@
                 <label class="layui-form-label" for="provinceId">省</label>
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="" th:if="${mode == 'view'}" lay-filter="province" disabled="true"
-                            th:id="province">
-                        <option th:each="province:${provinceList}" th:value="${province.getId()}" th:text="${province.getName()}" th:selected="${province.getId()}==${factory.getProvinceId()}"/>
+                            th:id="province" th:with="province=${@province.findToDictUse()}">
+                        <option th:each="province:${province}" th:value="${province.getId()}" th:text="${province.getName()}" th:selected="${province.getId()}==${factory.getProvinceId()}"/>
                     </select>
                     <select name="provinceId" lay-verify="" th:if="${mode != 'view'}" lay-filter="province"
-                            th:id="province">
-                        <option th:each="province:${provinceList}" th:value="${province.getId()}" th:text="${province.getName()}" th:selected="${province.getId()}==${factory.getProvinceId()}"/>
+                            th:id="province" th:with="province=${@province.findToDictUse()}">
+                        <option th:each="province:${province}" th:value="${province.getId()}" th:text="${province.getName()}" th:selected="${province.getId()}==${factory.getProvinceId()}"/>
                     </select>
                 </div>
             </div>
@@ -151,34 +151,14 @@
                 <label class="layui-form-label" for="isBailor">是否委托人采购或则销售</label>
                 <div class="layui-input-inline">
                     <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode == 'view' && factory.getIsBailor() == null}" disabled="true">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
+                            th:id="isBailor" th:if="${mode == 'view'}" disabled="true" th:with="isBailor=${@dictData.findByType('basic_factory_is_bailor')}">
+                        <option th:each="dict:${isBailor}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getIsBailor()}"/>
                     </select>
                     <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode == 'view' && factory.getIsBailor() == 0}" disabled="true">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
-                    </select>
-                    <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode == 'view' && factory.getIsBailor() == 1}" disabled="true">
-                        <option th:value="1" th:text="是"/>
-                        <option th:value="0" th:text="否"/>
-                    </select>
-                    <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode != 'view' && factory.getProductType() == null}">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
-                    </select>
-                    <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode != 'view' && factory.getProductType() == 0}">
-                        <option th:value="0" th:text="否"/>
-                        <option th:value="1" th:text="是"/>
-                    </select>
-                    <select name="isBailor" lay-verify="" lay-filter="isBailor"
-                            th:id="isBailor" th:if="${mode != 'view' && factory.getProductType() == 1}">
-                        <option th:value="1" th:text="是"/>
-                        <option th:value="0" th:text="否"/>
+                            th:id="isBailor" th:if="${mode != 'view'}" th:with="isBailor=${@dictData.findByType('basic_factory_is_bailor')}">
+                        <option th:each="dict:${isBailor}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${factory.getIsBailor()}"/>
                     </select>
                 </div>
             </div>

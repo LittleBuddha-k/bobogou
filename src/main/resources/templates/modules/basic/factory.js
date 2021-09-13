@@ -98,13 +98,11 @@ layui.use(['form', 'table'], function () {
                     width: '12.5%',
                     templet: function (data) {
                         var isBailor = data.isBailor;
-                        if (0 == isBailor){
-                            return "否";
-                        }else if (1 == isBailor){
-                            return "是";
-                        }else {
+                        let dictName = rc.getDictName("basic_factory_is_bailor",isBailor);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
