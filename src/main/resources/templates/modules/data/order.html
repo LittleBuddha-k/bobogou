@@ -29,9 +29,9 @@
                             <label class="layui-form-label" for="status">状态</label>
                             <div class="layui-input-inline">
                                 <select name="status" lay-verify="" lay-filter="status"
-                                        th:id="status">
-                                    <option th:each="status:${orderStatusList}" th:value="${status.getValue()}" th:text="${status.getName()}"
-                                            th:selected="${status.getValue()}==${order.getStatus()}"/>
+                                        th:id="status" th:with="status=${@dictData.findByType('order_status')}">
+                                    <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                            th:selected="${dict.getValue()}==${order.getStatus()}"/>
                                 </select>
                             </div>
                         </div>
@@ -39,10 +39,9 @@
                             <label class="layui-form-label">配送方式</label>
                             <div class="layui-input-inline">
                                 <select name="distributionMode" lay-verify="" lay-filter="distributionMode"
-                                        th:id="distributionMode">
-                                    <option th:value="''" th:text="请选择"/>
-                                    <option th:value="1" th:text="顺丰"/>
-                                    <option th:value="2" th:text="京东"/>
+                                        th:id="distributionMode" th:with="distributionMode=${@dictData.findByType('order_distribution_mode')}">
+                                    <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                            th:selected="${dict.getValue()}==${order.getDistributionMode()}"/>
                                 </select>
                             </div>
                         </div>
