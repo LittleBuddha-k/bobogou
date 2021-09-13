@@ -33,16 +33,6 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '省份代码',
-                    field: 'code',
-                    sort: true,
-                    sortName: 'code',
-                    templet:function(data){
-                        var valueArray = data.code;
-                        return valueArray;
-                    }
-                },
-                {
                     title: '省份名称',
                     field: 'name',
                     sort: true,
@@ -53,41 +43,6 @@ layui.use(['form', 'table'], function () {
                     field: 'shortName',
                     sort: true,
                     sortName: 'shortName'
-                },
-                {
-                    title: '经度',
-                    field: 'lng',
-                    sort: true,
-                    sortName: 'lng'
-                },
-                {
-                    title: '纬度',
-                    field: 'lat',
-                    sort: true,
-                    sortName: 'lat'
-                },
-                {
-                    title: '排序',
-                    field: 'sort',
-                    sort: true,
-                    sortName: 'sort'
-                },
-                {
-                    title: '状态',
-                    field: 'status',
-                    sort: true,
-                    sortName: 'status'
-                },
-                {
-                    title: '租户ID',
-                    field: 'tenantCode',
-                    sort: true,
-                    sortName: 'tenantCode'
-                },
-                {
-                    title: '操作',
-                    toolbar: '#operation',
-                    align: "center"
                 }
             ]
         ],
@@ -221,6 +176,35 @@ function getIdSelections(table) {
     }
     ;
     return ids;
+}
+
+function getSelector() {
+    let ids = "";
+    let name = "";
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        var checkStatus = table.checkStatus('provinceTable'),
+            data = checkStatus.data;
+
+        if (data.length > 0){
+            for (let i = 0;i < data.length ; i++){
+                if (ids == ""){
+                    ids = data[i].id;
+                }else {
+                    ids = ids + "," + data[i].id;
+                }
+                if (name == ""){
+                    name = data[i].name;
+                }else {
+                    name = name + "," + data[i].name;
+                }
+            }
+        }
+    })
+    return ids + "w" + name;
 }
 
 function refresh() {

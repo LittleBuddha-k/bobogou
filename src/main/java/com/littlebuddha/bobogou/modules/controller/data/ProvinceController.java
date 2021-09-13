@@ -60,6 +60,21 @@ public class ProvinceController extends BaseController {
     }
 
     /**
+     * 返回省选择列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/area/list")
+    @GetMapping(value = {"/select"})
+    public String select(Province province, Model model, HttpSession session) {
+        model.addAttribute("province", province);
+        return "modules/common/select/province";
+    }
+
+    /**
      * 返回数据
      *
      * @return

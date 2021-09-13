@@ -193,6 +193,10 @@ function selectOperator(id) {
     let openSelector = rc.openUserSelect("/bobogou/system/operator/select/", "选择用户", '90%', '90%',id);
 }
 
+function selectProvince(id) {
+    let openSelector = rc.openAreaSelect("/bobogou/data/province/select", "选择省", '90%', '90%',id);
+}
+
 function selectStreet(id) {
     let area = $("#area").val();
     if (area != null && area != '' && area != undefined && area != 0){

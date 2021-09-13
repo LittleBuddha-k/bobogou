@@ -65,6 +65,21 @@ public class CityController extends BaseController {
     }
 
     /**
+     * 返回市选择列表
+     *
+     * @param
+     * @param model
+     * @param session
+     * @return
+     */
+    //@RequiresPermissions("system/area/list")
+    @GetMapping(value = {"/select"})
+    public String select(City city, Model model, HttpSession session) {
+        model.addAttribute("city", city);
+        return "modules/common/select/city";
+    }
+
+    /**
      * 返回数据
      *
      * @return
