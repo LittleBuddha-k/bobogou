@@ -51,15 +51,8 @@ layui.use(['form', 'table'], function () {
         page: true,
         skin: 'line',
         where: {
-            code: $("#code").val(),
             name: $("#name").val(),
-            shortName: $("#shortName").val(),
-            lng: $("#lng").val(),
-            lat: $("#lat").val(),
-            sort: $("#sort").val(),
-            remarks: $("#remarks").val(),
-            status: $("#status").val(),
-            tenantCode: $("#tenantCode").val()
+            shortName: $("#shortName").val()
         }, //如果无需传递额外参数，可不加该参数
         sort: true
     });
@@ -69,15 +62,8 @@ layui.use(['form', 'table'], function () {
         //执行搜索重载
         table.reload('provinceTable', {
             where: {
-                code: $("#code").val(),
                 name: $("#name").val(),
-                shortName: $("#shortName").val(),
-                lng: $("#lng").val(),
-                lat: $("#lat").val(),
-                sort: $("#sort").val(),
-                remarks: $("#remarks").val(),
-                status: $("#status").val(),
-                tenantCode: $("#tenantCode").val()
+                shortName: $("#shortName").val()
             }
         });
         return false;

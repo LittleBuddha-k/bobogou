@@ -33,15 +33,15 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <div class="layui-inline" th:if="${mode == 'add'}">
+            <!--<div class="layui-inline" th:if="${mode == 'add'}">
                 <label class="layui-form-label" for="province">省</label>
                 <div class="layui-input-inline">
                     <textarea th:id="provinceId" th:text="${operatorRegion.getProvinceName()}"
                               placeholder="省" class="layui-textarea" onclick="selectProvince('provinceId')" readonly></textarea>
                     <input type="hidden" th:id="province" th:name="provinceId" th:value="${operatorRegion.getProvinceId()}" autocomplete="off" class="layui-input" readonly>
                 </div>
-            </div>
-            <div class="layui-inline" th:if="${mode == 'edit'}">
+            </div>-->
+            <div class="layui-inline">
                 <label class="layui-form-label" for="province">省</label>
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="required" lay-filter="province"

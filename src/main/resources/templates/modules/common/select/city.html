@@ -19,60 +19,10 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">省级代码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="code" th:value="${city.getCode()}"
-                                       th:id="code" autocomplete="off" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
                             <label class="layui-form-label">省名</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="name" th:value="${city.getName()}" autocomplete="off"
                                        th:id="name" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">简称</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="shortName" th:value="${city.getShortName()}" autocomplete="off"
-                                       th:id="shortName" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">省级代码</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="provinceCode" th:value="${city.getProvinceCode()}" autocomplete="off"
-                                       th:id="provinceCode" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">经度</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="lng" th:value="${city.getLng()}" autocomplete="off"
-                                       th:id="lng" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">纬度</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="lat" th:value="${city.getLat()}" autocomplete="off"
-                                       th:id="lat" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">排序</label>
-                            <div class="layui-input-inline">
-                                <input type="text" name="sort" th:value="${city.getSort()}" autocomplete="off"
-                                       th:id="sort" class="layui-input">
-                            </div>
-                        </div>
-                        <div class="layui-inline">
-                            <label class="layui-form-label">状态</label>
-                            <div class="layui-input-inline">
-                                <input type="radio" name="status" value="1" title="正常" lay-filter="status">
-                                <input type="radio" name="status" value="0" title="停用" lay-filter="status">
-                                <input type="hidden" name="status" th:id="status">
                             </div>
                         </div>
                         <div class="layui-inline">
@@ -85,37 +35,7 @@
             </div>
         </fieldset>
 
-        <script type="text/html" id="toolBar">
-            <div class="layui-btn-container">
-                <shiro:hasPermission name="data:city:add">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新建</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:city:edit">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="edit"> 编辑</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:city:view">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="view"> 查看</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:city:delete">
-                    <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除
-                    </button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:city:import">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="import"> 导入</button>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="data:city:export">
-                    <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="export"> 导出</button>
-                </shiro:hasPermission>
-            </div>
-        </script>
-
         <table class="layui-hide" id="cityTable" lay-filter="cityTableFilter"></table>
-
-        <script type="text/html" id="operation">
-            <shiro:hasPermission name="data:city:export">
-                <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">设置</a>
-            </shiro:hasPermission>
-        </script>
 
     </div>
 </div>
@@ -123,7 +43,7 @@
 <!--引入jquery-->
 <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
 <!--引入本html的js文件-->
-<script type="text/javascript" src="/bobogou/modules/data/city.js"></script>
+<script type="text/javascript" src="/bobogou/modules/common/select/city.js"></script>
 <!--引入工具js-->
 <script type="text/javascript" src="/bobogou/utils/util.js"></script>
 </body>
