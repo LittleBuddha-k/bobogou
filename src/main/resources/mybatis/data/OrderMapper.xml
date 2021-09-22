@@ -96,7 +96,7 @@
                         AND #{areaIds} LIKE concat('%',c.district_id,'%')
                     </if>
                     <if test="streetIds != null and streetIds != ''">
-                        AND #{streetIds} LIKE concat('%',street_id,'%')
+                        AND #{streetIds} LIKE concat('%',c.street_id,'%')
                     </if>
                 </when>
                 <otherwise>
@@ -166,7 +166,7 @@
                         AND #{areaIds} LIKE concat('%',c.district_id,'%')
                     </if>
                     <if test="streetIds != null and streetIds != ''">
-                        AND #{streetIds} LIKE concat('%',street_id,'%')
+                        AND #{streetIds} LIKE concat('%',c.street_id,'%')
                     </if>
                 </when>
                 <otherwise>
