@@ -184,36 +184,39 @@ public class GoodsService extends CrudService<Goods, GoodsMapper> {
             String goodsClassifyLevelTwoIds = entity.getGoodsClassifyLevelTwoIds();
             String goodsClassifyLevelThreeIds = entity.getGoodsClassifyLevelThreeIds();
             GoodsClassify goodsClassify = new GoodsClassify();
-            if (goodsClassifyLevelOneIds != null){
+            if (goodsClassifyLevelOneIds != null && StringUtils.isNotBlank(goodsClassifyLevelOneIds)){
                 String[] split = goodsClassifyLevelOneIds.split(",");
                 for (String levelOne : split) {
                     if (levelOne != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelOne);
+                        goodsClassify.setLevel(1);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
                     }
                 }
             }
-            if (goodsClassifyLevelTwoIds != null){
+            if (goodsClassifyLevelTwoIds != null && StringUtils.isNotBlank(goodsClassifyLevelTwoIds)){
                 String[] split = goodsClassifyLevelTwoIds.split(",");
                 for (String leveTwo : split) {
                     if (leveTwo != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(leveTwo);
+                        goodsClassify.setLevel(2);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);
                     }
                 }
             }
-            if (goodsClassifyLevelThreeIds != null){
+            if (goodsClassifyLevelThreeIds != null && StringUtils.isNotBlank(goodsClassifyLevelThreeIds)){
                 String[] split = goodsClassifyLevelThreeIds.split(",");
                 for (String levelThree : split) {
                     if (levelThree != null){
                         goodsClassify.setIdType("AUTO");
                         goodsClassify.setClassifyId(levelThree);
+                        goodsClassify.setLevel(3);
                         goodsClassify.preInsert();
                         goodsClassify.setGoodsId(entity.getId());
                         goodsClassifyMapper.insert(goodsClassify);

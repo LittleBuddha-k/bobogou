@@ -159,7 +159,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     }
                 }
                 $("#goodsTypeLevelTwo").empty();
+                $("#goodsClassifyLevelTwoIds").val("");
                 $("#goodsTypeLevelThree").empty();
+                $("#goodsClassifyLevelThreeIds").val("");
             } else {
 
             }
@@ -204,6 +206,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                     }
                 }
                 $("#goodsTypeLevelThree").empty();
+                $("#goodsClassifyLevelThreeIds").val("");
             } else {
 
             }

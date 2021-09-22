@@ -5,6 +5,7 @@
         a.id AS "id",
         a.classify_id AS "classifyId",
         a.goods_id AS "goodsId",
+        a.level AS "level",
         a.is_deleted AS "isDeleted",
         a.create_time AS "createTime",
         a.update_time AS "updateTime",
@@ -100,6 +101,7 @@
             id,
             classify_id,
             goods_id,
+            level,
             is_deleted,
             create_time,
             update_time
@@ -107,6 +109,7 @@
             #{id},
             #{classifyId},
             #{goodsId},
+            #{level},
             #{isDeleted},
             #{createTime},
             #{updateTime}
@@ -117,6 +120,7 @@
         UPDATE md_goods_classify SET
             classify_id = #{classifyId},
             goods_id = #{goodsId},
+            level = #{level},
             is_deleted = #{isDeleted},
             create_time = #{createTime},
             update_time = #{updateTime}
