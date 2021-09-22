@@ -77,6 +77,98 @@
         </choose>
     </select>
 
+    <select id="findByCurrentUserProvinceDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+        SELECT
+        DISTINCT(province_id)
+        FROM system_operator_region a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="operatorId != null and operatorId != ''">
+                a.operator_id = #{operatorId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByCurrentUserCityDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+        SELECT
+        DISTINCT(city_id)
+        FROM system_operator_region a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="operatorId != null and operatorId != ''">
+                a.operator_id = #{operatorId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByCurrentUserAreaDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+        SELECT
+        DISTINCT(area_id)
+        FROM system_operator_region a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="operatorId != null and operatorId != ''">
+                a.operator_id = #{operatorId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <select id="findByCurrentUserStreetDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+        SELECT
+        DISTINCT(street_id)
+        FROM system_operator_region a
+        <where>
+            <!-- 判断条件参数是否为空 -->
+            <if test="operatorId != null and operatorId != ''">
+                a.operator_id = #{operatorId}
+            </if>
+            <if test="type != null and type != ''">
+                and a.type = #{type}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
         SELECT
         <include refid="operatorRegionColumns"/>

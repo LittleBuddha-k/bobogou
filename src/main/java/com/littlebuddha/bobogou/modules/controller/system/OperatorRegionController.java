@@ -7,7 +7,10 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
+import com.littlebuddha.bobogou.modules.entity.data.Area;
+import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.data.Street;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
@@ -64,6 +67,34 @@ public class OperatorRegionController extends BaseController {
         model.addAttribute("typeList", typeList);
         model.addAttribute("operatorRegion", operatorRegion);
         return "modules/system/operatorRegion";
+    }
+
+    @ResponseBody
+    @GetMapping("/findCurrentUserProvince")
+    public List<Province> findCurrentUserProvince(){
+        List<Province> provinces = operatorRegionService.currentUserProvince();
+        return provinces;
+    }
+
+    @ResponseBody
+    @GetMapping("/findCurrentUserCity")
+    public List<City> findCurrentUserCity(){
+        List<City> cities = operatorRegionService.currentUserCity();
+        return cities;
+    }
+
+    @ResponseBody
+    @GetMapping("/findCurrentUserArea")
+    public List<Area> findCurrentUserArea(){
+        List<Area> areas = operatorRegionService.currentUserArea();
+        return areas;
+    }
+
+    @ResponseBody
+    @GetMapping("/findCurrentUserStreet")
+    public List<Street> findCurrentUserStreet(){
+        List<Street> streets = operatorRegionService.currentUserStreet();
+        return streets;
     }
 
     /**
