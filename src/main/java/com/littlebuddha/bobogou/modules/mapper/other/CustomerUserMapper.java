@@ -31,11 +31,11 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
 
     /**
      * 当前用户为区级管理时，根据VIP提交的审核数据查询当前用户区域所在的VIP审核提交
-     * @param provinceIds
-     * @param cityIds
-     * @param areaIds
-     * @param streetIds
+     * @param
+     * @param
+     * @param
+     * @param
      * @return
      */
-    List<CustomerUser> getVipApplyForAreaManager(@Param("provinceIds")String provinceIds, @Param("cityIds")String cityIds, @Param("areaIds")String areaIds, @Param("streetIds")String streetIds);
+    List<CustomerUser> getVipApplyForAreaManager(CustomerUser entity);
 }
