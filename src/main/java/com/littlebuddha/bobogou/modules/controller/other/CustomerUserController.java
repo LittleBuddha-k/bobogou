@@ -73,7 +73,7 @@ public class CustomerUserController extends BaseController {
     public CustomerUser get(@RequestParam(required = false) String id) {
         CustomerUser customerUser = null;
         if (StringUtils.isNotBlank(id)) {
-            customerUser = customerUserService.get(id);
+            customerUser = customerUserService.get(new CustomerUser(id));
             if (customerUser.getUserMember() != null){
                 UserMember byUser = userMemberService.getByUser(customerUser.getUserMember());
                 customerUser.setUserMember(byUser);

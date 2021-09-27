@@ -15,9 +15,13 @@
             <div class="layui-upload-drag" name="file">
                 <!--<i class="layui-icon"></i>
                 <p>点击上传，或将文件拖拽到此处</p>-->
-                <div class="">
+                <div class="" th:if="${customerUser.getHeader() != null && customerUser.getHeader() != ''}">
                     <hr>
                     <img th:src="${customerUser.getHeader()}" alt="未设置头像" style="max-width: 196px">
+                </div>
+                <div class="" th:if="${customerUser.getHeader() == null || customerUser.getHeader() == ''}">
+                    <hr>
+                    <img alt="未设置头像" style="max-width: 196px">
                 </div>
             </div>
         </div>
@@ -42,42 +46,16 @@
             <div class="layui-inline">
                 <label class="layui-form-label">性别</label>
                 <div class="layui-input-inline">
-                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == null}" disabled="true">
-                        <option th:value="0" th:text="未知"/>
-                        <option th:value="1" th:text="男"/>
-                        <option th:value="2" th:text="女"/>
-                    </select>
-                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 0}" disabled="true">
-                        <option th:value="0" th:text="未知"/>
-                        <option th:value="1" th:text="男"/>
-                        <option th:value="2" th:text="女"/>
-                    </select>
-                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 1}" disabled="true">
-                        <option th:value="1" th:text="男"/>
-                        <option th:value="0" th:text="未知"/>
-                        <option th:value="2" th:text="女"/>
-                    </select>
-                    <select name="sex" lay-verify="" th:if="${customerUser.getSex() == 2}" disabled="true">
-                        <option th:value="2" th:text="女"/>
-                        <option th:value="0" th:text="未知"/>
-                        <option th:value="1" th:text="男"/>
+                    <select name="sex" lay-verify="" disabled="true" th:with="sex=${@dictData.findByType('user_member_sex')}">
+                        <option th:each="dict:${sex}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${customerUser.getSex()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">会员等级</label>
                 <div class="layui-input-inline">
-                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == null}" disabled="true">
-                        <option th:value="0" th:text="普通会员"/>
-                        <option th:value="1" th:text="VIP"/>
-                    </select>
-                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == 0}" disabled="true">
-                        <option th:value="0" th:text="普通会员"/>
-                        <option th:value="1" th:text="VIP"/>
-                    </select>
-                    <select name="member" lay-verify="" th:if="${customerUser.getMember() == 1}" disabled="true">
-                        <option th:value="1" th:text="VIP"/>
-                        <option th:value="0" th:text="普通会员"/>
+                    <select name="member" lay-verify="" disabled="true" th:with="member=${@dictData.findByType('user_member_level')}">
+                        <option th:each="dict:${member}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${customerUser.getMember()}"/>
                     </select>
                 </div>
             </div>
@@ -109,17 +87,8 @@
             <div class="layui-inline">
                 <label class="layui-form-label">消息接收状态</label>
                 <div class="layui-input-inline">
-                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == null}" disabled="true">
-                        <option th:value="0" th:text="关闭"/>
-                        <option th:value="1" th:text="打开"/>
-                    </select>
-                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 0}" disabled="true">
-                        <option th:value="0" th:text="关闭"/>
-                        <option th:value="1" th:text="打开"/>
-                    </select>
-                    <select name="messageStatus" lay-verify="" th:if="${customerUser.getMessageStatus() == 1}" disabled="true">
-                        <option th:value="1" th:text="打开"/>
-                        <option th:value="0" th:text="关闭"/>
+                    <select name="messageStatus" lay-verify="" disabled="true" th:with="messageStatus=${@dictData.findByType('user_member_message_status')}">
+                        <option th:each="dict:${messageStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${customerUser.getMessageStatus()}"/>
                     </select>
                 </div>
             </div>
@@ -128,65 +97,18 @@
             <div class="layui-inline">
                 <label class="layui-form-label">是否同意用户协议</label>
                 <div class="layui-input-inline">
-                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == null}" disabled="true">
-                        <option th:value="0" th:text="未同意"/>
-                        <option th:value="1" th:text="已同意"/>
-                    </select>
-                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 0}" disabled="true">
-                        <option th:value="0" th:text="未同意"/>
-                        <option th:value="1" th:text="已同意"/>
-                    </select>
-                    <select name="userAgreement" lay-verify="" th:if="${customerUser.getUserAgreement() == 1}" disabled="true">
-                        <option th:value="1" th:text="已同意"/>
-                        <option th:value="0" th:text="未同意"/>
+                    <select name="userAgreement" lay-verify="" disabled="true" th:with="userAgreement=${@dictData.findByType('user_member_user_agreement')}">
+                        <option th:each="dict:${userAgreement}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${customerUser.getUserAgreement()}"/>
                     </select>
                 </div>
             </div>
             <div class="layui-inline">
                 <label class="layui-form-label">会员申请状态</label>
                 <div class="layui-input-inline">
-                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == null}" disabled="true">
-                        <option th:value="0" th:text="未申请"/>
-                        <option th:value="1" th:text="已申请"/>
-                        <option th:value="2" th:text="已同意"/>
-                        <option th:value="3" th:text="已拒绝"/>
-                    </select>
-                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 0}" disabled="true">
-                        <option th:value="0" th:text="未申请"/>
-                        <option th:value="1" th:text="已申请"/>
-                        <option th:value="0" th:text="已同意"/>
-                        <option th:value="1" th:text="已拒绝"/>
-                    </select>
-                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 1}" disabled="true">
-                        <option th:value="1" th:text="已申请"/>
-                        <option th:value="0" th:text="未申请"/>
-                        <option th:value="2" th:text="已同意"/>
-                        <option th:value="3" th:text="已拒绝"/>
-                    </select>
-                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 2}" disabled="true">
-                        <option th:value="2" th:text="已同意"/>
-                        <option th:value="0" th:text="未申请"/>
-                        <option th:value="1" th:text="已申请"/>
-                        <option th:value="3" th:text="已拒绝"/>
-                    </select>
-                    <select name="applyStatus" lay-verify="" th:if="${customerUser.getApplyStatus() == 3}" disabled="true">
-                        <option th:value="3" th:text="已拒绝"/>
-                        <option th:value="0" th:text="未申请"/>
-                        <option th:value="1" th:text="已申请"/>
-                        <option th:value="2" th:text="已同意"/>
+                    <select name="applyStatus" lay-verify="" disabled="true" th:with="applyStatus=${@dictData.findByType('user_member_apply_status')}">
+                        <option th:each="dict:${applyStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}" th:selected="${dict.getValue()}==${customerUser.getApplyStatus()}"/>
                     </select>
                 </div>
-            </div>
-        </div>
-
-        <div class="layui-form-item" th:if="${mode == 'vip'}">
-            <div class="layui-input-block">
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
-                        th:if="${customerUser.getApplyStatus() == 1}" style="margin-left: 140px"> 通 过
-                </button>
-                <button type="submit" class="layui-btn" lay-submit="" lay-filter="refuse"
-                        th:if="${customerUser.getApplyStatus() == 1}"> 拒 绝
-                </button>
             </div>
         </div>
     </form>

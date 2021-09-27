@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.service.other;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -23,6 +24,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.StringJoiner;
@@ -31,21 +33,28 @@ import java.util.StringJoiner;
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class CustomerUserService extends CrudService<CustomerUser, CustomerUserMapper> {
 
-    @Autowired
+    @Resource
     private CustomerUserMapper customerUserMapper;
 
-    @Autowired
+    @Resource
     private VipMapper vipMapper;
 
-    @Autowired
+    @Resource
     private UserMemberMapper userMemberMapper;
 
-    @Autowired
+    @Resource
     private OperatorRegionMapper operatorRegionMapper;
+
+    @Autowired
+    private GlobalSetting globalSetting;
 
     @Override
     public CustomerUser get(CustomerUser entity) {
-        return super.get(entity);
+        CustomerUser customerUser = super.get(entity);
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getHeader())){
+            customerUser.setHeader(globalSetting.getRootPath() + customerUser.getHeader());
+        }
+        return customerUser;
     }
 
     public CustomerUser getByPhone(CustomerUser entity){

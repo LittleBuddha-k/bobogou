@@ -145,28 +145,13 @@ layui.use(['form', 'table'], function () {
                         }
                         return dictName;
                     }
-                }/*,
+                },
                 {
                     title: '操作',
+                    toolbar: '#operation',
                     align: "center",
-                    width: '200',
-                    templet:function(data){
-                        let applyStatus = data.applyStatus;
-                        if(1 == applyStatus){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">跟踪</a>';
-                        }else if(0 == applyStatus) {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">未申请</a>';
-                        }else if(2 == applyStatus) {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已同意</a>';
-                        }else if(3 == applyStatus) {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="flow">已拒绝</a>';
-                        }else if(4 == applyStatus) {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已过期</a>';
-                        }else  {
-                            return  '<a class="layui-btn layui-btn-normal layui-btn-xs other-count-edit" lay-event="">已过期</a>';
-                        }
-                    }
-                }*/
+                    width: '200'
+                }
             ]
         ],
         limits: [10, 15, 20, 25, 50, 100],
