@@ -93,23 +93,39 @@
         AND a.operator = #{operatorId}
     </select>
 
-    <!--根据当前人角色返回自己和其下级角色的数据列表-->
+    <!--根据当前人返回其地区下的所有用户-->
     <select id="findListData" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="currentUserJoins"/>
+        <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
-            <if test='currentUser.id != "1" and currentUserRole != null'><!--如果不是管理员则查询自己的数据及其下级角色数据-->
-                AND (a.operator = #{currentUser.id} OR c.parent_id = #{currentUserRole.id})
-            </if>
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
             <if test="nickname != null and nickname != ''">
                 AND a.nickname LIKE concat('%',#{nickname},'%')
             </if>
+            <choose>
+                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
+                    <if test="provinceIds != null and provinceIds != ''">
+                        AND #{provinceIds} LIKE concat('%',b.province_id,'%')
+                    </if>
+                    <if test="cityIds != null and cityIds != ''">
+                        AND #{cityIds} LIKE concat('%',b.city_id,'%')
+                    </if>
+                    <if test="areaIds != null and areaIds != ''">
+                        AND #{areaIds} LIKE concat('%',b.district_id,'%')
+                    </if>
+                    <if test="streetIds != null and streetIds != ''">
+                        AND #{streetIds} LIKE concat('%',b.street_id,'%')
+                    </if>
+                </when>
+                <otherwise>
+
+                </otherwise>
+            </choose>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

@@ -116,7 +116,7 @@ public class CustomerUserController extends BaseController {
     }
 
     /**
-     * 返回数据
+     * 返回数据----------根据系统当前登陆用户的区域查询
      *
      * @return
      */
@@ -125,6 +125,8 @@ public class CustomerUserController extends BaseController {
     public TreeResult data(CustomerUser customerUser) {
         Role currentUserRole = UserUtils.getCurrentUserRole();
         customerUser.setCurrentUserRole(currentUserRole);
+        Operator currentUser = UserUtils.getCurrentUser();
+        currentUser.setCurrentUser(currentUser);
         PageInfo<CustomerUser> page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
         return getLayUiData(page);
     }

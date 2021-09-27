@@ -49,6 +49,12 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     //会员表 外键
     private UserMember userMember;//
 
+    //区域查询条件
+    String provinceIds = "";
+    String cityIds = "";
+    String areaIds = "";
+    String streetIds = "";
+
     public CustomerUser() {
     }
 
@@ -273,5 +279,37 @@ public class CustomerUser extends DataEntity<CustomerUser> {
 
     public void setCurrentUserRole(Role currentUserRole) {
         this.currentUserRole = currentUserRole;
+    }
+
+    public String getProvinceIds() {
+        return provinceIds;
+    }
+
+    public void setProvinceIds(String provinceIds) {
+        this.provinceIds = provinceIds;
+    }
+
+    public String getCityIds() {
+        return cityIds;
+    }
+
+    public void setCityIds(String cityIds) {
+        this.cityIds = cityIds;
+    }
+
+    public String getAreaIds() {
+        return areaIds;
+    }
+
+    public void setAreaIds(String areaIds) {
+        this.areaIds = areaIds;
+    }
+
+    public String getStreetIds() {
+        return streetIds;
+    }
+
+    public void setStreetIds(String streetIds) {
+        this.streetIds = streetIds;
     }
 }

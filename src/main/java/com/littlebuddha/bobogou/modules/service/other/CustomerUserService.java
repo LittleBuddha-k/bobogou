@@ -79,12 +79,41 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Override
     public PageInfo<CustomerUser> findPage(Page<CustomerUser> page, CustomerUser entity) {
+        //列表查询条件
         if(entity != null){
             String phone = StringUtils.deleteWhitespace(entity.getPhone());
             entity.setPhone(phone);
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
             entity.setNickname(nickname);
         }
+        //当前用户区域
+        Operator currentUser = UserUtils.getCurrentUser();
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        StringJoiner provinceIds = new StringJoiner(",");
+        StringJoiner cityIds = new StringJoiner(",");
+        StringJoiner areaIds = new StringJoiner(",");
+        StringJoiner streetIds = new StringJoiner(",");
+        if (operatorRegions != null && !operatorRegions.isEmpty()){
+            for (OperatorRegion region : operatorRegions) {
+                provinceIds.add(region.getProvinceId());
+                cityIds.add(region.getCityId());
+                areaIds.add(region.getAreaId());
+                streetIds.add(region.getStreetId());
+            }
+        }else {
+            //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
+            entity.setProvinceIds("-1");
+            entity.setCityIds("-1");
+            entity.setAreaIds("-1");
+            entity.setStreetIds("-1");
+        }
+        entity.setProvinceIds(provinceIds.toString());
+        entity.setCityIds(cityIds.toString());
+        entity.setAreaIds(areaIds.toString());
+        entity.setStreetIds(streetIds.toString());
+        //根据查询条件、当前用户区域查询数据
         PageInfo<CustomerUser> pageInfo = null;
         if(entity.getPageNo() != null && entity.getPageSize() != null){
             entity.setPage(page);
@@ -218,6 +247,12 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                 areaIds.add(region.getAreaId());
                 streetIds.add(region.getStreetId());
             }
+        }else {
+            //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
+            entity.setProvinceIds("-1");
+            entity.setCityIds("-1");
+            entity.setAreaIds("-1");
+            entity.setStreetIds("-1");
         }
         PageInfo<CustomerUser> pageInfo = null;
         if(entity.getPageNo() != null && entity.getPageSize() != null){
