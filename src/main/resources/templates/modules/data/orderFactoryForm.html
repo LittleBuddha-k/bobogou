@@ -108,9 +108,9 @@
                 <label class="layui-form-label" for="trackingNo">物流单号</label>
                 <div class="layui-input-inline">
                     <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
-                           th:id="trackingNo" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}">
+                           th:id="trackingNo" autocomplete="off" class="layui-input" readonly th:if="${mode != 'detail'}">
                     <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
-                           autocomplete="off" class="layui-input required" readonly th:if="${mode == 'detail'}">
+                           autocomplete="off" class="layui-input" readonly th:if="${mode == 'detail'}">
                 </div>
             </div>
             <div class="layui-inline">
