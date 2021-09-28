@@ -4,7 +4,6 @@
     <sql id="customerUserColumns">
         a.id AS "id",
         a.phone AS "phone",
-        a.pssword AS "password",
         a.header AS "header",
         a.nickname AS "nickname",
         a.sex AS "sex",
@@ -33,7 +32,6 @@
     <sql id="customerUserNoColumns">
         a.id AS "id",
         a.phone AS "phone",
-        a.pssword AS "password",
         a.header AS "header",
         a.nickname AS "nickname",
         a.sex AS "sex",
@@ -98,7 +96,6 @@
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test="phone != null and phone != ''">
@@ -107,25 +104,6 @@
             <if test="nickname != null and nickname != ''">
                 AND a.nickname LIKE concat('%',#{nickname},'%')
             </if>
-            <choose>
-                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
-                    <if test="provinceIds != null and provinceIds != ''">
-                        AND #{provinceIds} LIKE concat('%',b.province_id,'%')
-                    </if>
-                    <if test="cityIds != null and cityIds != ''">
-                        AND #{cityIds} LIKE concat('%',b.city_id,'%')
-                    </if>
-                    <if test="areaIds != null and areaIds != ''">
-                        AND #{areaIds} LIKE concat('%',b.district_id,'%')
-                    </if>
-                    <if test="streetIds != null and streetIds != ''">
-                        AND #{streetIds} LIKE concat('%',b.street_id,'%')
-                    </if>
-                </when>
-                <otherwise>
-
-                </otherwise>
-            </choose>
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">
@@ -262,7 +240,6 @@
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO ud_user(
             phone,
-            pssword,
             header,
             nickname,
             sex,
@@ -288,7 +265,6 @@
             update_time
         )VALUES (
             #{phone},
-            #{password},
             #{header},
             #{nickname},
             #{sex},
@@ -318,7 +294,6 @@
     <update id="update">
         UPDATE ud_user SET
             phone = #{phone},
-            pssword = #{password},
             header = #{header},
             nickname = #{nickname},
             sex = #{sex},

@@ -78,7 +78,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     }
 
     /**
-     * 查询app用户列表数据---根据当前的登录用户的区域查询
+     * 返回数据----------只有质管员、超级管理员助理可以查看数据----超级管理员除外
      * @param page
      * @param entity
      * @return
@@ -92,57 +92,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
             entity.setNickname(nickname);
         }
-        //当前用户区域
-        Operator currentUser = UserUtils.getCurrentUser();
-        OperatorRegion operatorRegion = new OperatorRegion();
-        operatorRegion.setOperatorId(currentUser.getId());
-        List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-        StringJoiner provinceIds = new StringJoiner(",");
-        StringJoiner cityIds = new StringJoiner(",");
-        StringJoiner areaIds = new StringJoiner(",");
-        StringJoiner streetIds = new StringJoiner(",");
-        if (operatorRegions != null && !operatorRegions.isEmpty()){
-            //1.如果当前用户是省管理员
-            if (currentUser.getAreaManager() == 1) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-            }
-            //2.如果当前用户是市管理员
-            if (currentUser.getAreaManager() == 2) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                    areaIds.add(region.getAreaId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-                entity.setAreaIds(areaIds.toString());
-            }
-            //3.如果当前用户是区管理员
-            if (currentUser.getAreaManager() == 3) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                    areaIds.add(region.getAreaId());
-                    streetIds.add(region.getStreetId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-                entity.setAreaIds(areaIds.toString());
-                entity.setStreetIds(streetIds.toString());
-            }
-        }else {
-            //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
-            entity.setProvinceIds("-1");
-            entity.setCityIds("-1");
-            entity.setAreaIds("-1");
-            entity.setStreetIds("-1");
-        }
-        //根据查询条件、当前用户区域查询数据
+        //根据查询只有质管员、超级管理员助理可以查看数据----超级管理员除外
         PageInfo<CustomerUser> pageInfo = null;
         if(entity.getPageNo() != null && entity.getPageSize() != null){
             entity.setPage(page);

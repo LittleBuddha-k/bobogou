@@ -75,6 +75,7 @@ public class CustomerUserController extends BaseController {
         if (StringUtils.isNotBlank(id)) {
             customerUser = customerUserService.get(new CustomerUser(id));
             if (customerUser.getUserMember() != null){
+                //只获取userMember最新的一条
                 UserMember byUser = userMemberService.getByUser(customerUser.getUserMember());
                 customerUser.setUserMember(byUser);
             }
@@ -116,18 +117,20 @@ public class CustomerUserController extends BaseController {
     }
 
     /**
-     * 返回数据----------根据系统当前登陆用户的区域查询
+     * 返回数据----------只有质管员、超级管理员助理可以查看数据----超级管理员除外
      *
      * @return
      */
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(CustomerUser customerUser) {
-        Role currentUserRole = UserUtils.getCurrentUserRole();
-        customerUser.setCurrentUserRole(currentUserRole);
         Operator currentUser = UserUtils.getCurrentUser();
         currentUser.setCurrentUser(currentUser);
-        PageInfo<CustomerUser> page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
+        PageInfo<CustomerUser> page = new PageInfo<>();
+        //当管理员等级为质管员、超级管理员助理、超级管理员时才去查询数据
+        if (currentUser != null && (4 == currentUser.getAreaManager() || 5 == currentUser.getAreaManager() || 6 == currentUser.getAreaManager())) {
+            page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
+        }
         return getLayUiData(page);
     }
 
