@@ -147,8 +147,7 @@ public class CustomerUserController extends BaseController {
     }
 
     /**
-     * 返回表单
-     *
+     * 返回用户表单
      * @param mode
      * @param
      * @param model
@@ -161,7 +160,64 @@ public class CustomerUserController extends BaseController {
     }
 
     /**
-     * vip审核页面
+     * 返回用户申请vip的表单
+     * @param mode
+     * @param
+     * @param model
+     * @return
+     */
+    @GetMapping("/userMemberForm/{mode}")
+    public String userMemberForm(@PathVariable(name = "mode") String mode, CustomerUser customerUser, Model model) {
+        //审核时需要的数据
+        if ("vipAct".equals(mode)){
+            if (customerUser != null) {
+                model.addAttribute("customerUser", customerUser);
+                String customerUserId = customerUser.getId();
+                if (StringUtils.isNotBlank(customerUserId)) {
+                    UserMember userMember1 = new UserMember();
+                    userMember1.setUserId(Integer.valueOf(customerUserId));
+                    UserMember userMember = userMemberService.getByUser(userMember1);
+                    if (userMember == null) {
+                        userMember = new UserMember();
+                    }
+                    model.addAttribute("userMember", userMember);
+                }else {
+                    UserMember userMember = new UserMember();
+                    model.addAttribute("userMember", userMember);
+                }
+            }else {
+                customerUser = new CustomerUser();
+                model.addAttribute("customerUser", customerUser);
+                UserMember userMember = new UserMember();
+                model.addAttribute("userMember", userMember);
+            }
+            Operator currentUser = UserUtils.getCurrentUser();
+            model.addAttribute("currentUserAreaManager", currentUser.getAreaManager());
+        }else {
+            if (customerUser != null) {
+                String customerUserId = customerUser.getId();
+                if (StringUtils.isNotBlank(customerUserId)) {
+                    UserMember userMember1 = new UserMember();
+                    userMember1.setUserId(Integer.valueOf(customerUserId));
+                    UserMember userMember = userMemberService.getByUser(userMember1);
+                    if (userMember == null) {
+                        userMember = new UserMember();
+                    }
+                    model.addAttribute("userMember", userMember);
+                }else {
+                    UserMember userMember = new UserMember();
+                    model.addAttribute("userMember", userMember);
+                }
+            }else {
+                UserMember userMember = new UserMember();
+                model.addAttribute("userMember", userMember);
+            }
+        }
+        return "modules/other/userMemberForm";
+    }
+
+    /**
+     * vip审核页面----已弃用
      *
      * @param
      * @return

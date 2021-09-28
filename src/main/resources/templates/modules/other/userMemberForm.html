@@ -306,7 +306,7 @@
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" th:if="${mode == 'vipAct'}">
             <div class="layui-input-block">
                 <button type="submit" class="layui-btn" lay-submit="" lay-filter="pass"
                         th:if="${customerUser.getApplyStatus() == 1}" style="margin-left: 140px"> 通 过
