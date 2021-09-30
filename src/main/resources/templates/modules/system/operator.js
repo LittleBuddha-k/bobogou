@@ -57,13 +57,11 @@ layui.use(['form', 'table'], function () {
                     width: '80',
                     templet: function (data) {
                         var sex = data.sex;
-                        if (0 == sex) {
+                        let dictName = rc.getDictName("system_operator_sex",sex);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
-                        } else if (1 == sex) {
-                            return "男";
-                        } else if (2 == sex) {
-                            return "女";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -73,13 +71,11 @@ layui.use(['form', 'table'], function () {
                     width: '200',
                     templet: function (data) {
                         var messageStatus = data.messageStatus;
-                        if (0 == messageStatus) {
-                            return "关闭";
-                        } else if (1 == messageStatus) {
-                            return "打开";
-                        } else {
+                        let dictName = rc.getDictName("system_operator_message_status",messageStatus);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
@@ -95,13 +91,11 @@ layui.use(['form', 'table'], function () {
                     width: '150',
                     templet: function (data) {
                         var loginFlag = data.loginFlag;
-                        if (0 == loginFlag) {
-                            return "不允许登录";
-                        } else if (1 == loginFlag) {
-                            return "允许登录";
-                        } else {
+                        let dictName = rc.getDictName("system_operator_login_flag",loginFlag);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {

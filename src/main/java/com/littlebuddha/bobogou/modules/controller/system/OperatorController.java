@@ -165,9 +165,6 @@ public class OperatorController extends BaseController {
      */
     @GetMapping("/basicInfo")
     public String basicInfo(Operator operator, Model model) {
-        //查询省级数据
-        List<Province> provinceList = provinceService.findList(new Province());
-        model.addAttribute("provinceList", provinceList);
         model.addAttribute("operator", operator);
         return "modules/system/basicInfoForm";
     }
