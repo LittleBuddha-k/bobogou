@@ -224,4 +224,9 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
             return null;
         }
     }
+
+    public int updateVipStatus(UserMember userMember) {
+        int row = userMemberMapper.updateVipStatus(userMember);
+        return  row;
+    }
 }

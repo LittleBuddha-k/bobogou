@@ -197,6 +197,8 @@ public class CustomerUserController extends BaseController {
                 String fullDate = DateUtils.getFullDate(specifyDate);
                 customerUser.setVipExpire(fullDate);
             }
+            byUser.setVipStatus(0);
+            userMemberService.updateVipStatus(byUser);
         }
         int row = customerUserService.recoveryVip(customerUser);
         if (row > 0){

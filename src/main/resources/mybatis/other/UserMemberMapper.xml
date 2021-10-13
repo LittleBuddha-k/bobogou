@@ -239,6 +239,12 @@
         WHERE id=#{id}
     </update>
 
+    <update id="updateVipStatus">
+        UPDATE ud_user_member SET
+            vip_status = #{vipStatus}
+        WHERE id=#{id}
+    </update>
+
     <update id="deleteByLogic">
         UPDATE ud_user_member SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}

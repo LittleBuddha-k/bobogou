@@ -20,4 +20,11 @@ public interface UserMemberMapper extends BaseMapper<UserMember> {
      * @return
      */
     List<UserMember> getByUser(UserMember userMember);
+
+    /**
+     * 修改用户申请信息中的vipStatus
+     * @param userMember
+     * @return
+     */
+    int updateVipStatus(UserMember userMember);
 }
