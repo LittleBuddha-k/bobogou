@@ -103,6 +103,31 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         return pageInfo;
     }
 
+    /**
+     * 返回会员已过期的数据
+     * @param page
+     * @param entity
+     * @return
+     */
+    public PageInfo<CustomerUser> findVipOverStayedPage(Page<CustomerUser> page, CustomerUser entity) {
+        //列表查询条件
+        if(entity != null){
+            String phone = StringUtils.deleteWhitespace(entity.getPhone());
+            entity.setPhone(phone);
+            String nickname = StringUtils.deleteWhitespace(entity.getNickname());
+            entity.setNickname(nickname);
+        }
+        //查询会员已过期的数据
+        PageInfo<CustomerUser> pageInfo = null;
+        if(entity.getPageNo() != null && entity.getPageSize() != null){
+            entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            List<CustomerUser> list = customerUserMapper.findVipOverStayedData(entity);
+            pageInfo = new PageInfo<CustomerUser>(list);
+        }
+        return pageInfo;
+    }
+
     @Override
     public int save(CustomerUser entity) {
         entity.setIdType("AUTO");
@@ -268,5 +293,15 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             pageInfo = new PageInfo<CustomerUser>(list);
         }
         return pageInfo;
+    }
+
+    /**
+     * 恢复会员
+     * @param customerUser
+     * @return
+     */
+    public int recoveryVip(CustomerUser customerUser) {
+        int row = customerUserMapper.recoveryVip(customerUser);
+        return row;
     }
 }

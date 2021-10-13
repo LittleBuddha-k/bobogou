@@ -13,9 +13,11 @@ import com.littlebuddha.bobogou.modules.entity.common.ActHistory;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
+import com.littlebuddha.bobogou.modules.entity.other.Vip;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRole;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
+import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRoleMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.RoleMapper;
 import com.littlebuddha.bobogou.modules.service.common.ActHistoryService;
@@ -68,6 +70,9 @@ public class CustomerUserController extends BaseController {
 
     @Autowired
     private DictDataService dictDataService;
+
+    @Resource
+    private VipMapper vipMapper;
 
     @ModelAttribute
     public CustomerUser get(@RequestParam(required = false) String id) {
@@ -132,6 +137,76 @@ public class CustomerUserController extends BaseController {
             page = customerUserService.findPage(new Page<CustomerUser>(), customerUser);
         }
         return getLayUiData(page);
+    }
+
+    /**
+     * 返回申请过但已经过期了的会员列表页面
+     *
+     * @return
+     */
+    @GetMapping("/vipOverStayedList")
+    public String vipOverStayedList(CustomerUser customerUser,Model model) {
+        model.addAttribute("customerUser", customerUser);
+        return "modules/other/vipOverStayedList";
+    }
+
+    /**
+     * 返回申请过但已经过期了的会员数据
+     *
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/vipOverStayedData")
+    public TreeResult vipOverStayedData(CustomerUser customerUser) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        currentUser.setCurrentUser(currentUser);
+        PageInfo<CustomerUser> page = new PageInfo<>();
+        //查询已经过期了的会员数据
+        if (currentUser != null && (4 == currentUser.getAreaManager() || 5 == currentUser.getAreaManager() || 6 == currentUser.getAreaManager())) {
+            page = customerUserService.findVipOverStayedPage(new Page<CustomerUser>(), customerUser);
+        }
+        return getLayUiData(page);
+    }
+
+    @ResponseBody
+    @PostMapping("/recoveryVip")
+    public Result recoveryVip(CustomerUser customerUser){
+        Result result = new Result();
+        if (customerUser == null){
+            customerUser = new CustomerUser();
+        }
+        //1.VIP等级恢复为1
+        customerUser.setMember(1);
+        //2.VIP申请状态修改为2
+        customerUser.setApplyStatus(2);
+        //3.VIP到期时间设置-----先查询该用户填写的申请信息
+        UserMember userMember = new UserMember();
+        userMember.setUserId(Integer.valueOf(customerUser.getId()));
+        UserMember byUser = userMemberService.getByUser(userMember);
+        if (byUser == null){
+            result.setSuccess(false);
+            result.setMsg("此用户未填写申请信息");
+        }else {
+            //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
+            String type = byUser.getType();
+            Vip vip = new Vip();
+            vip.setType(Integer.valueOf(type));
+            Vip byType = vipMapper.getByType(vip);
+            if (byType != null && byType.getTime() != null){
+                Date specifyDate = DateUtils.getSpecifyDate(byType.getTime());
+                String fullDate = DateUtils.getFullDate(specifyDate);
+                customerUser.setVipExpire(fullDate);
+            }
+        }
+        int row = customerUserService.recoveryVip(customerUser);
+        if (row > 0){
+            result.setSuccess(true);
+            result.setMsg("会员恢复成功");
+        }else {
+            result.setSuccess(false);
+            result.setMsg("会员恢复失败");
+        }
+        return result;
     }
 
     /**

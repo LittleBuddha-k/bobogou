@@ -30,6 +30,13 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
     List<CustomerUser> findListData(CustomerUser entity);
 
     /**
+     * 查询已过期会员数据
+     * @param entity
+     * @return
+     */
+    List<CustomerUser> findVipOverStayedData(CustomerUser entity);
+
+    /**
      * 当前用户为区级管理时，根据VIP提交的审核数据查询当前用户区域所在的VIP审核提交
      * @param
      * @param
@@ -38,4 +45,11 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
      * @return
      */
     List<CustomerUser> getVipApplyForAreaManager(CustomerUser entity);
+
+    /**
+     * 恢复会员状态
+     * @param customerUser
+     * @return
+     */
+    int recoveryVip(CustomerUser customerUser);
 }
