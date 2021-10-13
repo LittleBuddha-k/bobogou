@@ -10,6 +10,7 @@ import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.system.Menu;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.service.system.MenuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,13 @@ public class MenuController extends BaseController {
     @GetMapping("/data")
     public TreeResult data(Menu menu) {
         TreeResult result = null;
-        List<Menu> allList = menuService.findListByCurrentUser(menu);
+        List<Menu> allList = new ArrayList<>();
+        Operator currentUser = UserUtils.getCurrentUser();
+        if (currentUser != null && "1".equals(currentUser.getId())) {
+            allList = menuService.findAllList(new Menu());
+        }else if (currentUser != null && !"1".equals(currentUser.getId())){
+            allList = menuService.findListByCurrentUser(menu);
+        }
         if (allList != null && allList.size() > 0) {
             result = new TreeResult(0, "数据成功", allList, allList.size());
         } else {
