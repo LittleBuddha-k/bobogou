@@ -3,7 +3,13 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         , layer = layui.layer
         , laydate = layui.laydate;
 
-    let distributionMode = $("#distributionMode").val();
+    //日期
+    laydate.render({
+        elem: '#deliveryTime'
+        , type: 'datetime'
+        ,trigger:'click'
+    });
+    /*let distributionMode = $("#distributionMode").val();
     if (distributionMode == 3){
         $("#trackingNo").removeAttr("readonly");
         $("#outStatus").removeAttr("disabled");
@@ -22,9 +28,9 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         $("#deliveryTime").hide();
         $("#deliveryTimeShow").show();
         form.render();
-    }
+    }*/
 
-    form.on('select(distributionMode)', function (data) {
+    /*form.on('select(distributionMode)', function (data) {
         let distributionMode = data.value;
         if(distributionMode == 3){
             $("#trackingNo").removeAttr("readonly");
@@ -45,7 +51,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
             $("#deliveryTimeShow").show();
             form.render();
         }
-    })
+    })*/
 });
 
 function selectGoods(id) {

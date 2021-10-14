@@ -108,7 +108,7 @@
                 <label class="layui-form-label" for="trackingNo">物流单号</label>
                 <div class="layui-input-inline">
                     <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
-                           th:id="trackingNo" autocomplete="off" class="layui-input" readonly th:if="${mode != 'detail'}">
+                           th:id="trackingNo" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
                     <input type="text" name="trackingNo" th:value="${orderFactory.getTrackingNo()}"
                            autocomplete="off" class="layui-input" readonly th:if="${mode == 'detail'}">
                 </div>
@@ -117,7 +117,7 @@
                 <label class="layui-form-label" for="outStatus">出库状态</label>
                 <div class="layui-input-inline">
                     <select name="outStatus" lay-verify="" lay-filter="outStatus"
-                            th:id="outStatus" disabled th:if="${mode != 'detail'}" th:with="outStatus=${@dictData.findByType('data_order_factory_out_status')}">
+                            th:id="outStatus" th:if="${mode != 'detail'}" th:with="outStatus=${@dictData.findByType('data_order_factory_out_status')}">
                         <option th:each="dict:${outStatus}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
                                 th:selected="${dict.getValue()}==${orderFactory.getOutStatus()}"/>
                     </select>
@@ -132,9 +132,9 @@
                 <label class="layui-form-label" for="deliveryTime">确认发货时间</label>
                 <div class="layui-input-inline">
                     <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
-                           th:id="deliveryTime" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}" style="display: none">
-                    <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
-                           th:id="deliveryTimeShow" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}" style="display: none">
+                           th:id="deliveryTime" autocomplete="off" class="layui-input" readonly th:if="${mode != 'detail'}">
+                    <!--<input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
+                           th:id="deliveryTimeShow" autocomplete="off" class="layui-input required" readonly th:if="${mode != 'detail'}">-->
                     <input type="text" name="deliveryTime" th:value="${#dates.format(orderFactory.getDeliveryTime,'yyyy-MM-dd HH:mm:ss')}"
                            autocomplete="off" class="layui-input required" readonly th:if="${mode == 'detail'}">
                 </div>

@@ -124,7 +124,11 @@ layui.use(['form', 'table'], function () {
                     width: '12.5%',
                     templet:function(data){
                         let successfulTime = data.successfulTime;
-                        return rc.dateFormat(successfulTime);
+                        if (successfulTime != null && successfulTime != ''){
+                            return rc.dateFormat(successfulTime);
+                        }else {
+                            return "";
+                        }
                     }
                 }/*,
                 {
