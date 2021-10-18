@@ -38,7 +38,7 @@ layui.use(['form', 'table'], function () {
                     width: '150',
                 },
                 {
-                    title: '厂商名字',
+                    title: '发货单位',
                     field: 'factoryName',
                     sort: true,
                     width: '150',

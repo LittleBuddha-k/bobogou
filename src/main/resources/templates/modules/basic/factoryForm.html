@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
     <meta charset="UTF-8">
-    <title>厂商管理</title>
+    <title>发货单位管理</title>
     <!--layui-->
     <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
 </head>
@@ -12,7 +12,7 @@
         <input type="hidden" name="id" th:value="${factory.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label" for="factoryType">厂商类型</label>
+                <label class="layui-form-label" for="factoryType">发货单位类型</label>
                 <div class="layui-input-inline">
                     <select name="factoryType" lay-verify="" lay-filter="factoryType"
                             th:id="factoryType" th:if="${mode == 'view'}" disabled="true" th:with="factoryType=${@dictData.findByType('basic_factory_type')}">
@@ -27,7 +27,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="productType">厂商产品类型</label>
+                <label class="layui-form-label" for="productType">发货单位产品类型</label>
                 <div class="layui-input-inline">
                     <select name="productType" lay-verify="" lay-filter="productType"
                             th:id="productType" th:if="${mode == 'view'}" disabled="true" th:with="productType=${@dictData.findByType('basic_factory_product_type')}">
@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="factoryName">厂商名称</label>
+                <label class="layui-form-label" for="factoryName">发货单位名称</label>
                 <div class="layui-input-inline">
                     <input type="text" name="factoryName" th:value="${factory.getFactoryName()}"
                            th:id="factoryName" autocomplete="off" class="layui-input required" th:if="${mode == 'view'}" readonly>

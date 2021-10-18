@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="layui-inline">
-                <label class="layui-form-label" for="factoryId">厂商</label>
+                <label class="layui-form-label" for="factoryId">发货单位</label>
                 <div class="layui-input-inline" th:if="${mode == 'detail'}">
                     <select name="factoryId" lay-verify="" lay-filter="factoryId" disabled="true"
                             th:with="factory=${@factory.findToDictUse()}">
