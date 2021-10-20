@@ -46,12 +46,11 @@
         a.amount AS "amount",
         b.stock_amount AS "stockAmount",
         c.authorization AS "authorization",
-        d.factory_name AS "factoryName",
+        c.manufacturing_enterprise AS "factoryName",
         b.expiration_date AS "expirationDate"
         FROM sd_order_info a
         LEFT JOIN mb_goods b ON a.goods_id = b.id
         LEFT JOIN md_goods_specification c ON b.id = c.id
-        LEFT JOIN md_factory d ON b.factory_id = d.id
         <where>
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
