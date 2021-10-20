@@ -33,7 +33,7 @@ layui.use(['form', 'table'], function () {
                     type: "checkbox"
                 },
                 {
-                    title: '发货单位类型',
+                    title: '厂家类型',
                     field: 'factoryType',
                     sort: true,
                     sortName: 'factoryType',
@@ -48,7 +48,7 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
-                    title: '发货单位产品类型',
+                    title: '厂家产品类型',
                     field: 'productType',
                     sort: true,
                     sortName: 'productType',
@@ -63,7 +63,7 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
-                    title: '发货单位名称',
+                    title: '厂家名称',
                     field: 'factoryName',
                     sort: true,
                     sortName: 'factoryName',
@@ -146,7 +146,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(factoryTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建发货单位信息",'720px','100%')
+            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建厂家信息",'720px','100%')
         }
     });
 
@@ -154,11 +154,11 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑发货单位信息", '720px', '100%');
+            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑厂家信息", '720px', '100%');
         }else if (event === 'view') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/view?id=' + id, "查看发货单位信息", '720px', '100%');
+            rc.openSaveDialog('/bobogou/basic/factory/form/view?id=' + id, "查看厂家信息", '720px', '100%');
         }else if (event === 'delete') {
-            rc.confirm('确认要删除该发货单位信息吗？', function () {
+            rc.confirm('确认要删除该厂家信息吗？', function () {
                 rc.post("/bobogou/basic/factory/delete?ids=" + id, '', function (data) {
                     if (data.code == 200) {
                         //执行搜索重载

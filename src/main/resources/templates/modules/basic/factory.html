@@ -19,14 +19,14 @@
                 <form class="layui-form layui-form-pane" id="searchForm">
                     <div class="layui-form-item">
                         <div class="layui-inline">
-                            <label class="layui-form-label">发货单位名称</label>
+                            <label class="layui-form-label">厂家名称</label>
                             <div class="layui-input-inline">
                                 <input type="text" name="factoryName" th:value="${factory.getFactoryName()}"
                                        th:id="factoryName" autocomplete="off" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-inline">
-                            <label class="layui-form-label">发货单位类型</label>
+                            <label class="layui-form-label">厂家类型</label>
                             <div class="layui-input-inline">
                                 <select name="factoryType" lay-verify="" lay-filter="factoryType"
                                         th:id="factoryType">
