@@ -85,7 +85,7 @@
                 AND a.distribution_mode = #{distributionMode}
             </if>
             <choose>
-                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
+                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5" and currentUser.areaManager != "7"'>
                     <if test="provinceIds != null and provinceIds != ''">
                         AND #{provinceIds} LIKE concat('%',c.province_id,'%')
                     </if>
