@@ -50,6 +50,9 @@ public class Order extends DataEntity<Order> {
 
     private List<OrderInfo> orderInfoList;//子表列表
 
+    //新增详情表显示机构名称
+    private String name;
+
     private String provinceIds;//仅供查询使用
     private String cityIds;//仅供查询使用
     private String areaIds;//仅供查询使用
@@ -353,6 +356,14 @@ public class Order extends DataEntity<Order> {
 
     public void setOrderInfoList(List<OrderInfo> orderInfoList) {
         this.orderInfoList = orderInfoList;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getProvinceIds() {

@@ -77,6 +77,13 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">机构名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${order.getName()}" autocomplete="off"
+                           th:id="name" class="layui-input" readonly>
+                </div>
+            </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>

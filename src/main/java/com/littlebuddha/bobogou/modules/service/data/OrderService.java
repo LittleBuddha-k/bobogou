@@ -8,6 +8,7 @@ import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
 import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
+import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.mapper.common.DictDataMapper;
@@ -15,6 +16,7 @@ import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderInfoMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
+import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import org.apache.commons.lang3.StringUtils;
@@ -55,12 +57,26 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     @Autowired
     private DictDataService dictDataService;
 
+    @Resource
+    private UserMemberMapper userMemberMapper;
+
     @Override
     public Order get(Order entity) {
         Order order = super.get(entity);
         if (order != null && StringUtils.isNotBlank(order.getId())) {
             List<OrderInfo> orderInfoList = orderInfoMapper.findList(new OrderInfo(order));
             order.setOrderInfoList(orderInfoList);
+        }
+        if (order != null && order.getUserId() != null) {
+            UserMember userMember = new UserMember();
+            userMember.setUserId(order.getUserId());
+            List<UserMember> userMemberList = userMemberMapper.getByUser(userMember);
+            if (userMemberList != null && !userMemberList.isEmpty()){
+                UserMember userMember1 = userMemberList.get(0);
+                if (userMember1 != null && StringUtils.isNotBlank(userMember1.getName())){
+                    order.setName(userMember1.getName());
+                }
+            }
         }
         if (order != null && order.getGrossAmount() != null) {
             order.setGrossAmount(order.getGrossAmount() / 100);
