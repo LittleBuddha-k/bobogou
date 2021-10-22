@@ -24,14 +24,20 @@ spring:
     cache: false
   #    配置数据库
   datasource:
-    username: root
-    password: bbg123456
-    url: jdbc:mysql://1.117.222.27:3306/bbg?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
-    #password: 212527
-    #url: jdbc:mysql://localhost:3306/bobogou?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
-    #password: bbg123456
-    #url: jdbc:mysql://1.117.222.27:3306/bbg_test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    one:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      #jdbc-url: jdbc:mysql://1.117.222.27:3306/bbg?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
+      #username: root
+      #password: bbg123456
+      jdbc-url: jdbc:mysql://localhost:3306/bobogou?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
+      username: root
+      password: 212527
+    two:
+      driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=merson-dairy-industry
+      username: sa
+      password: 212527
+
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
     minIndle: 5
@@ -68,7 +74,7 @@ mybatis:
     map-underscore-to-camel-case: true
     # spring boot集成mybatis的方式打印sql
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  mapper-locations: classpath:mybatis/*/*Mapper.xml
+  #mapper-locations: classpath:mybatis/*/*Mapper.xml
   type-aliases-package: com.littlebuddha.bobogou.modules.entity
 # pagehelper
 pagehelper:
@@ -85,8 +91,12 @@ swagger:
 #  loginUrl: /loginPage
 
 logging:
-  pattern:
-    console:"%d - %msg%n"
+  level:
+    com:
+      littlebuddha:
+        bobogou:
+          modules:
+            mapper: debug
 
 homeinfo:
   title: 首页

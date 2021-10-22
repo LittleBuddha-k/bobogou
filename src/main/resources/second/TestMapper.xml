@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.littlebuddha.bobogou.modules.second.TestMapper">
+
+	<sql id="terminalInfColumns">
+			a.id AS "id",
+			a.unit AS "unit",
+			a.artno AS "artno",
+			a.address AS "address",
+			a.fzr AS "fzr",
+			a.phone AS "phone",
+			a.type AS "type",
+			a.terminal_type AS "terminalType",
+			a.x AS "x",
+			a.y AS "y",
+			a.province AS "province",
+			a.city AS "city",
+			a.area AS "area"
+	</sql>
+
+	<select id="all" resultType="com.littlebuddha.bobogou.modules.second.TerminalInf" >
+		SELECT
+		<include refid="terminalInfColumns"/>
+		FROM merson_data_terminalinf a
+	</select>
+</mapper>
