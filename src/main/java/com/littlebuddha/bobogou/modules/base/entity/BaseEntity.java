@@ -36,7 +36,7 @@ public abstract class BaseEntity<E> implements Serializable {
 
     private Integer pageNo;
 
-    private Integer PageSize;
+    private Integer pageSize;
 
     private String orderBy;
 
@@ -118,11 +118,11 @@ public abstract class BaseEntity<E> implements Serializable {
     }
 
     public Integer getPageSize() {
-        return PageSize;
+        return pageSize;
     }
 
     public void setPageSize(Integer pageSize) {
-        PageSize = pageSize;
+        pageSize = pageSize;
     }
 
     public String getOrderBy() {
