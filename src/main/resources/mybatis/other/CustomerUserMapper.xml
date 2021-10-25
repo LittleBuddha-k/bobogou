@@ -221,16 +221,16 @@
         <where>
             a.is_deleted = 0
             AND b.status = '0'
-            <if test="provinceIds != null and provinceIds != ''">
+            <if test="provinceId != null and provinceId != ''">
                 AND b.province_id = #{provinceId}
             </if>
-            <if test="cityIds != null and cityIds != ''">
+            <if test="cityId != null and cityId != ''">
                 AND b.city_id = #{cityId}
             </if>
-            <if test="areaIds != null and areaIds != ''">
-                AND b.area_id = #{areaId}
+            <if test="areaId != null and areaId != ''">
+                AND b.district_id = #{areaId}
             </if>
-            <if test="streetIds != null and streetIds != ''">
+            <if test="streetId != null and streetId != ''">
                 AND b.street_id = #{streetId}
             </if>
         </where>
