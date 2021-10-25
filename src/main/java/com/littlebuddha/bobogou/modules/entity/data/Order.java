@@ -53,10 +53,10 @@ public class Order extends DataEntity<Order> {
     //新增详情表显示机构名称
     private String name;
 
-    private String provinceIds;//仅供查询使用
-    private String cityIds;//仅供查询使用
-    private String areaIds;//仅供查询使用
-    private String streetIds;//仅供查询使用
+    private String provinceId;//仅供查询使用
+    private String cityId;//仅供查询使用
+    private String areaId;//仅供查询使用
+    private String streetId;//仅供查询使用
 
     public Order() {
     }
@@ -366,35 +366,35 @@ public class Order extends DataEntity<Order> {
         this.name = name;
     }
 
-    public String getProvinceIds() {
-        return provinceIds;
+    public String getProvinceId() {
+        return provinceId;
     }
 
-    public void setProvinceIds(String provinceIds) {
-        this.provinceIds = provinceIds;
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public String getCityIds() {
-        return cityIds;
+    public String getCityId() {
+        return cityId;
     }
 
-    public void setCityIds(String cityIds) {
-        this.cityIds = cityIds;
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 
-    public String getAreaIds() {
-        return areaIds;
+    public String getAreaId() {
+        return areaId;
     }
 
-    public void setAreaIds(String areaIds) {
-        this.areaIds = areaIds;
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
-    public String getStreetIds() {
-        return streetIds;
+    public String getStreetId() {
+        return streetId;
     }
 
-    public void setStreetIds(String streetIds) {
-        this.streetIds = streetIds;
+    public void setStreetId(String streetId) {
+        this.streetId = streetId;
     }
 }

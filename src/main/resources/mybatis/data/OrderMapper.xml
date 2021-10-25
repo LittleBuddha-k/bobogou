@@ -86,17 +86,17 @@
             </if>
             <choose>
                 <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5" and currentUser.areaManager != "7"'>
-                    <if test="provinceIds != null and provinceIds != ''">
-                        AND #{provinceIds} LIKE concat('%',c.province_id,'%')
+                    <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                        AND c.province_id = #{provinceId}
                     </if>
-                    <if test="cityIds != null and cityIds != ''">
-                        AND #{cityIds} LIKE concat('%',c.city_id,'%')
+                    <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                        AND c.city_id = #{cityId}
                     </if>
-                    <if test="areaIds != null and areaIds != ''">
-                        AND #{areaIds} LIKE concat('%',c.district_id,'%')
+                    <if test="areaId != null and areaId != '' and areaId != 0">
+                        AND c.district_id = #{areaId}
                     </if>
-                    <if test="streetIds != null and streetIds != ''">
-                        AND #{streetIds} LIKE concat('%',c.street_id,'%')
+                    <if test="streetId != null and streetId != '' and streetId != 0">
+                        AND c.street_id = #{streetId}
                     </if>
                 </when>
                 <otherwise>
@@ -105,9 +105,6 @@
             </choose>
         </where>
         <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
             <otherwise>
                 ORDER BY a.create_time DESC
             </otherwise>
@@ -117,6 +114,7 @@
     <!--查询导出数据-->
     <select id="findOrderExportList" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO">
         SELECT
+        a.id AS "id",
         b.nickname AS "userName",
         b.phone AS "phone",
         a.number AS "number",
@@ -156,17 +154,17 @@
             </if>
             <choose>
                 <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
-                    <if test="provinceIds != null and provinceIds != ''">
-                        AND #{provinceIds} LIKE concat('%',c.province_id,'%')
+                    <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                        AND c.province_id = #{provinceId}
                     </if>
-                    <if test="cityIds != null and cityIds != ''">
-                        AND #{cityIds} LIKE concat('%',c.city_id,'%')
+                    <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                        AND c.city_id = #{cityId}
                     </if>
-                    <if test="areaIds != null and areaIds != ''">
-                        AND #{areaIds} LIKE concat('%',c.district_id,'%')
+                    <if test="areaId != null and areaId != '' and areaId != 0">
+                        AND c.district_id = #{areaId}
                     </if>
-                    <if test="streetIds != null and streetIds != ''">
-                        AND #{streetIds} LIKE concat('%',c.street_id,'%')
+                    <if test="streetId != null and streetId != '' and streetId != 0">
+                        AND c.street_id = #{streetId}
                     </if>
                 </when>
                 <otherwise>

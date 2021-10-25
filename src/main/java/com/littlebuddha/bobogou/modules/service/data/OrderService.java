@@ -1,6 +1,7 @@
 package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -71,9 +72,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             UserMember userMember = new UserMember();
             userMember.setUserId(order.getUserId());
             List<UserMember> userMemberList = userMemberMapper.getByUser(userMember);
-            if (userMemberList != null && !userMemberList.isEmpty()){
+            if (userMemberList != null && !userMemberList.isEmpty()) {
                 UserMember userMember1 = userMemberList.get(0);
-                if (userMember1 != null && StringUtils.isNotBlank(userMember1.getName())){
+                if (userMember1 != null && StringUtils.isNotBlank(userMember1.getName())) {
                     order.setName(userMember1.getName());
                 }
             }
@@ -158,93 +159,51 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             }
         }
         //查询结果
-        PageInfo<Order> page1 = new PageInfo<>();
+        PageInfo<Order> pageInfo = null;
         //根据当前用户等级查询对应订单数据
         Operator currentUser = UserUtils.getCurrentUser();
         entity.setCurrentUser(currentUser);
-        if (currentUser != null) {
-            StringJoiner provinceIds = new StringJoiner(",");//查询条件
-            StringJoiner cityIds = new StringJoiner(",");//查询条件
-            StringJoiner areaIds = new StringJoiner(",");//查询条件
-            StringJoiner streetIds = new StringJoiner(",");//查询条件
-            OperatorRegion operatorRegion = new OperatorRegion();
-            operatorRegion.setOperatorId(currentUser.getId());
-            //查询当前用户的所有区域list
-            List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-            if (operatorRegions != null && !operatorRegions.isEmpty()) {
-                //1.如果当前用户是省管理员
-                if (currentUser.getAreaManager() == 1) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        List<Order> result = new ArrayList<>();
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
+            entity.setPage(page);
+            if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
+                for (OperatorRegion region : operatorRegionList) {
+                    if (region != null) {
+                        entity.setProvinceId(region.getProvinceId());
+                        entity.setCityId(region.getCityId());
+                        entity.setAreaId(region.getAreaId());
+                        entity.setStreetId(region.getStreetId());
+                        List<Order> orderList = orderMapper.findList(entity);
+                        if (orderList != null) {
+                            result.addAll(orderList);
+                        }
                     }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
                 }
-                //2.如果当前用户是市管理员
-                if (currentUser.getAreaManager() == 2) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
-                        areaIds.add(region.getAreaId());
-                    }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
-                    entity.setAreaIds(areaIds.toString());
-                }
-                //3.如果当前用户是区管理员
-                if (currentUser.getAreaManager() == 3) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
-                        areaIds.add(region.getAreaId());
-                        streetIds.add(region.getStreetId());
-                    }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
-                    entity.setAreaIds(areaIds.toString());
-                    entity.setStreetIds(streetIds.toString());
-                }
-            } else {
-                //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
-                entity.setProvinceIds("-1");
-                entity.setCityIds("-1");
-                entity.setAreaIds("-1");
-                entity.setStreetIds("-1");
             }
-            page1 = super.findPage(page, entity);
-            List<Order> list = page1.getList();
-            for (Order order : list) {
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
+            pageInfo = new PageInfo<Order>(result);
+            //对result去重
+            /*if (!result.isEmpty()) {
+                //去重
+                for (int i = 0; i < result.size() - 1; i++) {
+                    for (int j = result.size() - 1; j > i; j--) {
+                        if (result.get(j).getId().equals(result.get(i).getId())) {
+                            result.remove(j);
+                        }
+                    }
+                }
+            }
+            for (Order order : result) {
                 if (order != null && order.getGrossAmount() != null) {
                     order.setGrossAmount(order.getGrossAmount() / 100);
                 }
-                if (order != null && order.getPaymentAmount() != null) {
-                    order.setPaymentAmount(order.getPaymentAmount() / 100);
-                }
-                if (order != null && order.getActualAmountPaid() != null) {
-                    order.setActualAmountPaid(order.getActualAmountPaid() / 100);
-                }
-                if (order != null && order.getDeduction() != null) {
-                    order.setDeduction(order.getDeduction() / 100);
-                }
-                if (order != null && order.getFreight() != null) {
-                    order.setFreight(order.getFreight() / 100);
-                }
-                if (order != null && order.getManagementCost() != null) {
-                    order.setManagementCost(order.getManagementCost() / 100);
-                }
-                if (order != null && order.getProvinceCost() != null) {
-                    order.setProvinceCost(order.getProvinceCost() / 100);
-                }
-                if (order != null && order.getCityCost() != null) {
-                    order.setCityCost(order.getCityCost() / 100);
-                }
-                if (order != null && order.getDistrictCost() != null) {
-                    order.setDistrictCost(order.getDistrictCost() / 100);
-                }
-            }
+            }*/
         }
-        return page1;
+        return pageInfo;
     }
 
     @Override
@@ -322,97 +281,72 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         //根据当前用户等级查询对应订单数据
         Operator currentUser = UserUtils.getCurrentUser();
         entity.setCurrentUser(currentUser);
-        if (currentUser != null) {
-            StringJoiner provinceIds = new StringJoiner(",");//查询条件
-            StringJoiner cityIds = new StringJoiner(",");//查询条件
-            StringJoiner areaIds = new StringJoiner(",");//查询条件
-            StringJoiner streetIds = new StringJoiner(",");//查询条件
-            OperatorRegion operatorRegion = new OperatorRegion();
-            operatorRegion.setOperatorId(currentUser.getId());
-            //查询当前用户的所有区域list
-            List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-            if (operatorRegions != null && !operatorRegions.isEmpty()) {
-                //1.如果当前用户是省管理员
-                if (currentUser.getAreaManager() == 1) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
+            for (OperatorRegion region : operatorRegionList) {
+                if (region != null) {
+                    entity.setProvinceId(region.getProvinceId());
+                    entity.setCityId(region.getCityId());
+                    entity.setAreaId(region.getAreaId());
+                    entity.setStreetId(region.getStreetId());
+                    List<OrderExportDTO> orderList = orderMapper.findOrderExportList(entity);
+                    if (orderList != null) {
+                        result.addAll(orderList);
                     }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
                 }
-                //2.如果当前用户是市管理员
-                if (currentUser.getAreaManager() == 2) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
-                        areaIds.add(region.getAreaId());
-                    }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
-                    entity.setAreaIds(areaIds.toString());
-                }
-                //3.如果当前用户是区管理员
-                if (currentUser.getAreaManager() == 3) {
-                    for (OperatorRegion region : operatorRegions) {
-                        provinceIds.add(region.getProvinceId());
-                        cityIds.add(region.getCityId());
-                        areaIds.add(region.getAreaId());
-                        streetIds.add(region.getStreetId());
-                    }
-                    entity.setProvinceIds(provinceIds.toString());
-                    entity.setCityIds(cityIds.toString());
-                    entity.setAreaIds(areaIds.toString());
-                    entity.setStreetIds(streetIds.toString());
-                }
-                //来处理结果集合
-                result = orderMapper.findOrderExportList(entity);
-            } else {
-                //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
-                entity.setProvinceIds("-1");
-                entity.setCityIds("-1");
-                entity.setAreaIds("-1");
-                entity.setStreetIds("-1");
             }
-            result = orderMapper.findOrderExportList(entity);
-            Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
-            Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
-            Map<String, String> typeMap = dictDataService.getMap("oder_type");
-            Map<String, String> orderStatusMap = dictDataService.getMap("order_status");
-            Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
-            for (OrderExportDTO orderExportDTO : result) {
-                if (orderExportDTO != null) {
-                    if (orderExportDTO.getGrossAmount() != null) {
-                        orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
+            //对result去重
+            /*if (!result.isEmpty()) {
+                //去重
+                for (int i = 0; i < result.size() - 1; i++) {
+                    for (int j = result.size() - 1; j > i; j--) {
+                        if (result.get(j).getId().equals(result.get(i).getId())) {
+                            result.remove(j);
+                        }
                     }
-                    if (orderExportDTO.getPrice() != null) {
-                        orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
-                    }
-                    if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())) {
-                        String distribution = distributionModeMap.get(orderExportDTO.getDistributionMode());
-                        String distributionMode = distribution == null ? "" : distribution;
-                        orderExportDTO.setDistributionMode(distributionMode);
-                    }
-                    if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())) {
-                        String payMode = payModeMap.get(orderExportDTO.getPayMode());
-                        String pay = payMode == null ? "" : payMode;
-                        orderExportDTO.setPayMode(pay);
-                    }
-                    if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())) {
-                        String type = typeMap.get(orderExportDTO.getType());
-                        String orderType = type == null ? "" : type;
-                        orderExportDTO.setType(orderType);
-                    }
-                    if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())) {
-                        String orderStatus = orderStatusMap.get(orderExportDTO.getStatus());
-                        String status = orderStatus == null ? "" : orderStatus;
-                        orderExportDTO.setStatus(status);
-                    }
-                    if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())) {
-                        String isInvoice = orderIsInvoiceMap.get(orderExportDTO.getIsInvoice());
-                        String invoice = isInvoice == null ? "" : isInvoice;
-                        orderExportDTO.setIsInvoice(invoice);
-                    }
+                }
+            }*/
+        }
+        Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
+        Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
+        Map<String, String> typeMap = dictDataService.getMap("oder_type");
+        Map<String, String> orderStatusMap = dictDataService.getMap("order_status");
+        Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
+        for (OrderExportDTO orderExportDTO : result) {
+            if (orderExportDTO != null) {
+                if (orderExportDTO.getGrossAmount() != null) {
+                    orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
+                }
+                if (orderExportDTO.getPrice() != null) {
+                    orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
+                }
+                if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())) {
+                    String distribution = distributionModeMap.get(orderExportDTO.getDistributionMode());
+                    String distributionMode = distribution == null ? "" : distribution;
+                    orderExportDTO.setDistributionMode(distributionMode);
+                }
+                if (orderExportDTO.getPayMode() != null && StringUtils.isNotBlank(orderExportDTO.getPayMode())) {
+                    String payMode = payModeMap.get(orderExportDTO.getPayMode());
+                    String pay = payMode == null ? "" : payMode;
+                    orderExportDTO.setPayMode(pay);
+                }
+                if (orderExportDTO.getType() != null && StringUtils.isNotBlank(orderExportDTO.getType())) {
+                    String type = typeMap.get(orderExportDTO.getType());
+                    String orderType = type == null ? "" : type;
+                    orderExportDTO.setType(orderType);
+                }
+                if (orderExportDTO.getStatus() != null && StringUtils.isNotBlank(orderExportDTO.getStatus())) {
+                    String orderStatus = orderStatusMap.get(orderExportDTO.getStatus());
+                    String status = orderStatus == null ? "" : orderStatus;
+                    orderExportDTO.setStatus(status);
+                }
+                if (orderExportDTO.getIsInvoice() != null && StringUtils.isNotBlank(orderExportDTO.getIsInvoice())) {
+                    String isInvoice = orderIsInvoiceMap.get(orderExportDTO.getIsInvoice());
+                    String invoice = isInvoice == null ? "" : isInvoice;
+                    orderExportDTO.setIsInvoice(invoice);
                 }
             }
         }
