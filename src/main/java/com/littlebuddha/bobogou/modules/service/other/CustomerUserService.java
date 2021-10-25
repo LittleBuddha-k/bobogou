@@ -248,6 +248,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         PageInfo<CustomerUser> pageInfo = null;
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             //当当前用户设置了区域，根据其的区域数据来获取其下的待审核数据
             if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
                 for (OperatorRegion region : operatorRegionList) {
@@ -262,7 +263,6 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                         }
                     }
                 }
-                PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
                 //对result去重
                 if (!result.isEmpty()) {
                     //去重

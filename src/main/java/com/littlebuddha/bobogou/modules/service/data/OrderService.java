@@ -170,6 +170,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         List<Order> result = new ArrayList<>();
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
                 for (OperatorRegion region : operatorRegionList) {
                     if (region != null) {
@@ -184,7 +185,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     }
                 }
             }
-            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             pageInfo = new PageInfo<Order>(result);
             //对result去重
             /*if (!result.isEmpty()) {
