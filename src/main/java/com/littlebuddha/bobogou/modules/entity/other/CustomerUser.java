@@ -50,10 +50,10 @@ public class CustomerUser extends DataEntity<CustomerUser> {
     private UserMember userMember;//
 
     //区域查询条件
-    String provinceIds = "";
-    String cityIds = "";
-    String areaIds = "";
-    String streetIds = "";
+    String provinceId = "";
+    String cityId = "";
+    String areaId = "";
+    String streetId = "";
 
     public CustomerUser() {
     }
@@ -281,35 +281,35 @@ public class CustomerUser extends DataEntity<CustomerUser> {
         this.currentUserRole = currentUserRole;
     }
 
-    public String getProvinceIds() {
-        return provinceIds;
+    public String getProvinceId() {
+        return provinceId;
     }
 
-    public void setProvinceIds(String provinceIds) {
-        this.provinceIds = provinceIds;
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
     }
 
-    public String getCityIds() {
-        return cityIds;
+    public String getCityId() {
+        return cityId;
     }
 
-    public void setCityIds(String cityIds) {
-        this.cityIds = cityIds;
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 
-    public String getAreaIds() {
-        return areaIds;
+    public String getAreaId() {
+        return areaId;
     }
 
-    public void setAreaIds(String areaIds) {
-        this.areaIds = areaIds;
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
-    public String getStreetIds() {
-        return streetIds;
+    public String getStreetId() {
+        return streetId;
     }
 
-    public void setStreetIds(String streetIds) {
-        this.streetIds = streetIds;
+    public void setStreetId(String streetId) {
+        this.streetId = streetId;
     }
 }

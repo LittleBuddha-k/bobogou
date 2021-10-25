@@ -12,7 +12,6 @@ import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.other.Vip;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
-import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.VipMapper;
@@ -25,9 +24,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.StringJoiner;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -51,19 +50,20 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     @Override
     public CustomerUser get(CustomerUser entity) {
         CustomerUser customerUser = super.get(entity);
-        if (customerUser != null && StringUtils.isNotBlank(customerUser.getHeader())){
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getHeader())) {
             customerUser.setHeader(globalSetting.getRootPath() + customerUser.getHeader());
         }
         return customerUser;
     }
 
-    public CustomerUser getByPhone(CustomerUser entity){
+    public CustomerUser getByPhone(CustomerUser entity) {
         CustomerUser byPhone = customerUserMapper.getByPhone(entity);
         return byPhone;
     }
 
     /**
      * 通过operator查找
+     *
      * @param selectOption
      * @return
      */
@@ -79,6 +79,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     /**
      * 返回数据----------只有质管员、超级管理员助理可以查看数据----超级管理员除外
+     *
      * @param page
      * @param entity
      * @return
@@ -86,7 +87,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     @Override
     public PageInfo<CustomerUser> findPage(Page<CustomerUser> page, CustomerUser entity) {
         //列表查询条件
-        if(entity != null){
+        if (entity != null) {
             String phone = StringUtils.deleteWhitespace(entity.getPhone());
             entity.setPhone(phone);
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
@@ -94,9 +95,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         }
         //根据查询只有质管员、超级管理员助理可以查看数据----超级管理员除外
         PageInfo<CustomerUser> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<CustomerUser> list = customerUserMapper.findListData(entity);
             pageInfo = new PageInfo<CustomerUser>(list);
         }
@@ -105,13 +106,14 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     /**
      * 返回会员已过期的数据
+     *
      * @param page
      * @param entity
      * @return
      */
     public PageInfo<CustomerUser> findVipOverStayedPage(Page<CustomerUser> page, CustomerUser entity) {
         //列表查询条件
-        if(entity != null){
+        if (entity != null) {
             String phone = StringUtils.deleteWhitespace(entity.getPhone());
             entity.setPhone(phone);
             String nickname = StringUtils.deleteWhitespace(entity.getNickname());
@@ -119,9 +121,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         }
         //查询会员已过期的数据
         PageInfo<CustomerUser> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<CustomerUser> list = customerUserMapper.findVipOverStayedData(entity);
             pageInfo = new PageInfo<CustomerUser>(list);
         }
@@ -156,16 +158,16 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     @Transactional
     public int beVip(CustomerUser customerUser) {
-        if (customerUser.getUserMember() != null && customerUser.getUserMember() != null){
+        if (customerUser.getUserMember() != null && customerUser.getUserMember() != null) {
             //当超级管理员或者超级管理员助理通过之后才表示vip生效，再去设置VIP时效
             Operator currentUser = UserUtils.getCurrentUser();
-            if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 && customerUser.getApplyStatus() == 2){
+            if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 && customerUser.getApplyStatus() == 2) {
                 //根据用户申请资料中的类型字段，查询vip规则表，设定vip时效
                 String type = customerUser.getUserMember().getType();
                 Vip vip = new Vip();
                 vip.setType(Integer.valueOf(type));
                 Vip byType = vipMapper.getByType(vip);
-                if (byType != null && byType.getTime() != null){
+                if (byType != null && byType.getTime() != null) {
                     Date specifyDate = DateUtils.getSpecifyDate(byType.getTime());
                     String fullDate = DateUtils.getFullDate(specifyDate);
                     customerUser.setVipExpire(fullDate);
@@ -181,12 +183,12 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
             CustomerUser selectOption = new CustomerUser();
             selectOption.setOperatorId(currentUser.getId());
             CustomerUser byOperator = customerUserMapper.getByOperator(selectOption);
-            if (byOperator != null){
-                if (byOperator.getAreaManager() == 1){
+            if (byOperator != null) {
+                if (byOperator.getAreaManager() == 1) {
                     userMember.setProvinceUserId(currentUser.getId());
-                }else if (byOperator.getAreaManager() == 2){
+                } else if (byOperator.getAreaManager() == 2) {
                     userMember.setCityUserId(currentUser.getId());
-                }else if (byOperator.getAreaManager() == 3){
+                } else if (byOperator.getAreaManager() == 3) {
                     userMember.setDistrictUserId(currentUser.getId());
                 }
             }
@@ -208,6 +210,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     /**
      * 查询待办数据(区级管理以外的数据)
+     *
      * @param
      * @param
      * @return
@@ -220,9 +223,9 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         //    entity.setNickname(nickname);
         //}
         PageInfo<CustomerUser> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             List<CustomerUser> list = customerUserMapper.getToDoList(entity);
             pageInfo = new PageInfo<CustomerUser>(list);
         }
@@ -231,6 +234,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
 
     /**
      * 查询待办数据(区级管理数据)
+     *
      * @param
      * @param
      * @return
@@ -239,64 +243,46 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         Operator currentUser = UserUtils.getCurrentUser();
         OperatorRegion operatorRegion = new OperatorRegion();
         operatorRegion.setOperatorId(currentUser.getId());
-        List<OperatorRegion> operatorRegions = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-        StringJoiner provinceIds = new StringJoiner(",");
-        StringJoiner cityIds = new StringJoiner(",");
-        StringJoiner areaIds = new StringJoiner(",");
-        StringJoiner streetIds = new StringJoiner(",");
-        if (operatorRegions != null && !operatorRegions.isEmpty()){
-            //1.如果当前用户是省管理员
-            if (currentUser.getAreaManager() == 1) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-            }
-            //2.如果当前用户是市管理员
-            if (currentUser.getAreaManager() == 2) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                    areaIds.add(region.getAreaId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-                entity.setAreaIds(areaIds.toString());
-            }
-            //3.如果当前用户是区管理员
-            if (currentUser.getAreaManager() == 3) {
-                for (OperatorRegion region : operatorRegions) {
-                    provinceIds.add(region.getProvinceId());
-                    cityIds.add(region.getCityId());
-                    areaIds.add(region.getAreaId());
-                    streetIds.add(region.getStreetId());
-                }
-                entity.setProvinceIds(provinceIds.toString());
-                entity.setCityIds(cityIds.toString());
-                entity.setAreaIds(areaIds.toString());
-                entity.setStreetIds(streetIds.toString());
-            }
-        }else {
-            //如果当前用户没有设置区域则直接设定一个-1值，只是为了让查询没有数据随意设置的值
-            entity.setProvinceIds("-1");
-            entity.setCityIds("-1");
-            entity.setAreaIds("-1");
-            entity.setStreetIds("-1");
-        }
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        List<CustomerUser> result = new ArrayList<>();
         PageInfo<CustomerUser> pageInfo = null;
-        if(entity.getPageNo() != null && entity.getPageSize() != null){
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
-            List<CustomerUser> list = customerUserMapper.getVipApplyForAreaManager(entity);
-            pageInfo = new PageInfo<CustomerUser>(list);
+            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
+            //当当前用户设置了区域，根据其的区域数据来获取其下的待审核数据
+            if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
+                for (OperatorRegion region : operatorRegionList) {
+                    if (region != null) {
+                        entity.setProvinceId(region.getProvinceId());
+                        entity.setCityId(region.getCityId());
+                        entity.setAreaId(region.getAreaId());
+                        entity.setStreetId(region.getStreetId());
+                        List<CustomerUser> vipApplyForAreaManager = customerUserMapper.getVipApplyForAreaManager(entity);
+                        if (vipApplyForAreaManager != null) {
+                            result.addAll(vipApplyForAreaManager);
+                        }
+                    }
+                }
+                //对result去重
+                if (!result.isEmpty()) {
+                    //去重
+                    for (int i = 0; i < result.size() - 1; i++) {
+                        for (int j = result.size() - 1; j > i; j--) {
+                            if (result.get(j).getId().equals(result.get(i).getId())) {
+                                result.remove(j);
+                            }
+                        }
+                    }
+                }
+            }
+            pageInfo = new PageInfo<CustomerUser>(result);
         }
         return pageInfo;
     }
 
     /**
      * 恢复会员
+     *
      * @param customerUser
      * @return
      */

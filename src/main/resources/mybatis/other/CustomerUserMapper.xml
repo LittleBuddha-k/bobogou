@@ -198,7 +198,7 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             AND a.apply_status = '1'
-            <if test='currentUser.id != "1" and currentUser.areaManager != null'><!--如果不是管理员则查询自己及下级角色数据-->
+            <if test='currentUser.id != "1" and currentUser.areaManager != null'><!--如果不是管理员则查询自己该审核的数据-->
                 AND a.next_role = #{currentUserRole.id}
             </if>
         </where>
@@ -222,16 +222,16 @@
             a.is_deleted = 0
             AND b.status = '0'
             <if test="provinceIds != null and provinceIds != ''">
-                AND #{provinceIds} LIKE concat('%',b.province_id,'%')
+                AND b.province_id = #{provinceId}
             </if>
             <if test="cityIds != null and cityIds != ''">
-                AND #{cityIds} LIKE concat('%',b.city_id,'%')
+                AND b.city_id = #{cityId}
             </if>
             <if test="areaIds != null and areaIds != ''">
-                AND #{areaIds} LIKE concat('%',b.district_id,'%')
+                AND b.area_id = #{areaId}
             </if>
             <if test="streetIds != null and streetIds != ''">
-                AND #{streetIds} LIKE concat('%',b.street_id,'%')
+                AND b.street_id = #{streetId}
             </if>
         </where>
         <choose>
