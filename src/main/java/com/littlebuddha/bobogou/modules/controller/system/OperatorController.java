@@ -137,14 +137,6 @@ public class OperatorController extends BaseController {
      */
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Operator operator, Model model) {
-        //查询省级数据
-        List<Province> provinceList = provinceService.findList(new Province());
-        model.addAttribute("provinceList", provinceList);
-        //查询词典数据
-        DictData select = new DictData();
-        select.setType("system_operator_area_manager");
-        List<DictData> areaManagerList = dictDataService.findList(select);
-        model.addAttribute("areaManagerList", areaManagerList);
         model.addAttribute("operator", operator);
         return "modules/system/operatorForm";
     }

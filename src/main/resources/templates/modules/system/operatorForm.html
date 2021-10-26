@@ -218,10 +218,9 @@
                 <label class="layui-form-label" for="areaManager">管理员等级</label>
                 <div class="layui-input-inline">
                     <select name="areaManager" lay-verify="" lay-filter=""
-                            th:id="areaManager">
-                        <option th:each="areaManager:${areaManagerList}" th:value="${areaManager.getValue()}"
-                                th:text="${areaManager.getName()}"
-                                th:selected="${areaManager.getValue()} == ${operator.getAreaManager()}"/>
+                            th:id="areaManager" th:with="areaManager=${@dictData.findByType('system_operator_area_manager')}">
+                        <option th:each="dict:${areaManager}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${operator.getAreaManager()}"/>
                     </select>
                 </div>
             </div>
