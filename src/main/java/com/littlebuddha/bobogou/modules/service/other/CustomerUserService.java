@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
+import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
@@ -248,7 +249,6 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
         PageInfo<CustomerUser> pageInfo = null;
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
             //当当前用户设置了区域，根据其的区域数据来获取其下的待审核数据
             if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
                 for (OperatorRegion region : operatorRegionList) {
@@ -275,7 +275,12 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                     }
                 }
             }
-            pageInfo = new PageInfo<CustomerUser>(result);
+            List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
+            if (list != null && !list.isEmpty()) {
+                pageInfo = new PageInfo<CustomerUser>(list);
+            }else {
+                pageInfo = new PageInfo<>();
+            }
         }
         return pageInfo;
     }

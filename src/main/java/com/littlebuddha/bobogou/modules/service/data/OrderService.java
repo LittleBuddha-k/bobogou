@@ -3,12 +3,14 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
 import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
+import com.littlebuddha.bobogou.modules.entity.other.CustomerUser;
 import com.littlebuddha.bobogou.modules.entity.other.UserMember;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
@@ -170,8 +172,13 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         List<Order> result = new ArrayList<>();
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
             entity.setPage(page);
-            PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
-            if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
+            //如果是管理员等级是超级管理员助理、超级管理员、开票员查询全部数据
+            if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 || currentUser.getAreaManager() == 7){
+                PageHelper.startPage(entity.getPageNo(),entity.getPageSize());
+                result = orderMapper.findList(entity);
+                pageInfo = new PageInfo<Order>(result);
+                return pageInfo;
+            }else if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//其他管理员等级需要按照区域来进行查询
                 for (OperatorRegion region : operatorRegionList) {
                     if (region != null) {
                         entity.setProvinceId(region.getProvinceId());
@@ -185,7 +192,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     }
                 }
             }
-            pageInfo = new PageInfo<Order>(result);
             //对result去重
             /*if (!result.isEmpty()) {
                 //去重
@@ -196,12 +202,18 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                         }
                     }
                 }
-            }
+            }*/
             for (Order order : result) {
                 if (order != null && order.getGrossAmount() != null) {
                     order.setGrossAmount(order.getGrossAmount() / 100);
                 }
-            }*/
+            }
+            List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
+            if (list != null && !list.isEmpty()) {
+                pageInfo = new PageInfo<Order>(list);
+            }else {
+                pageInfo = new PageInfo<>();
+            }
         }
         return pageInfo;
     }
