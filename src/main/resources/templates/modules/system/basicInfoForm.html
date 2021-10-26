@@ -141,7 +141,7 @@
                 <label class="layui-form-label" for="status">状态</label>
                 <div class="layui-input-inline">
                     <select name="status" lay-verify="" lay-filter=""
-                            th:id="status" th:with="status=${@dictData.findByType('system_operator_login_flag')}">
+                            th:id="status" th:with="status=${@dictData.findByType('system_operator_status')}">
                         <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
                                 th:selected="${dict.getValue()}==${operator.getStatus()}"/>
                     </select>
