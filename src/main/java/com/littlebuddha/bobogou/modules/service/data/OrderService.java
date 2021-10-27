@@ -364,4 +364,14 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         }
         return result;
     }
+
+    /**
+     * 确认发货---根据id修改发货标识字段
+     * @param id
+     * @return
+     */
+    public int confirmDeliver(String id) {
+        int row = orderMapper.confirmDeliver(id);
+        return row;
+    }
 }

@@ -109,6 +109,19 @@ public class OrderController extends BaseController {
     }
 
     /**
+     * 确认发货---根据id修改发货标识字段
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/confirmDeliver")
+    public Result confirmDeliver(String id){
+        Result result = new Result();
+        int row = orderService.confirmDeliver(id);
+        return getCommonResult(row);
+    }
+
+    /**
      * 返回订单信息列表json字符串
      * @param
      * @return

@@ -21,4 +21,11 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @return
      */
     List<OrderExportDTO> findOrderExportList(Order order);
+
+    /**
+     * 确认发货---根据id修改发货标识字段
+     * @param id
+     * @return
+     */
+    int confirmDeliver(String id);
 }
