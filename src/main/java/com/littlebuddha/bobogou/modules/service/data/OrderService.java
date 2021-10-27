@@ -192,17 +192,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     }
                 }
             }
-            //对result去重
-            /*if (!result.isEmpty()) {
-                //去重
-                for (int i = 0; i < result.size() - 1; i++) {
-                    for (int j = result.size() - 1; j > i; j--) {
-                        if (result.get(j).getId().equals(result.get(i).getId())) {
-                            result.remove(j);
-                        }
-                    }
-                }
-            }*/
             for (Order order : result) {
                 if (order != null && order.getGrossAmount() != null) {
                     order.setGrossAmount(order.getGrossAmount() / 100);
@@ -292,7 +281,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         operatorRegion.setOperatorId(currentUser.getId());
         //查询当前用户的所有区域list
         List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-        if (operatorRegionList != null && !operatorRegionList.isEmpty()) {
+        if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 || currentUser.getAreaManager() == 7){
+            result = orderMapper.findOrderExportList(entity);
+        }else if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//其他管理员等级需要按照区域来进行查询
             for (OperatorRegion region : operatorRegionList) {
                 if (region != null) {
                     entity.setProvinceId(region.getProvinceId());
@@ -305,17 +296,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     }
                 }
             }
-            //对result去重
-            /*if (!result.isEmpty()) {
-                //去重
-                for (int i = 0; i < result.size() - 1; i++) {
-                    for (int j = result.size() - 1; j > i; j--) {
-                        if (result.get(j).getId().equals(result.get(i).getId())) {
-                            result.remove(j);
-                        }
-                    }
-                }
-            }*/
         }
         Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
         Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");

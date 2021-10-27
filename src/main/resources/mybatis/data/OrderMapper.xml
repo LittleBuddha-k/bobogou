@@ -143,17 +143,18 @@
         <include refid="orderExportJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
+            AND d.is_deleted = 0
             <if test="number != null and number != ''">
                 AND a.number LIKE concat('%',#{number},'%')
             </if>
-            <if test="status != null">
+            <if test="status != null and status != ''">
                 AND a.status = #{status}
             </if>
             <if test="distributionMode != null and distributionMode != ''">
                 AND a.distribution_mode = #{distributionMode}
             </if>
             <choose>
-                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5"'>
+                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5" and currentUser.areaManager != "7"'>
                     <if test="provinceId != null and provinceId != '' and provinceId != 0">
                         AND c.province_id = #{provinceId}
                     </if>
