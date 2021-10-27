@@ -122,11 +122,8 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "left",
-                    width: '180',
-                    templet: function (data) {
-                        var status = data.status;
-                        return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="detail">详情</a>';
-                    }
+                    width: '200',
+                    toolbar: '#operation'
                 }
             ]
         ],
@@ -237,8 +234,9 @@ layui.use(['form', 'table'], function () {
             rc.openViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
         } else if (obj.event === 'edit') {
             rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '85%', '70%');
-        } else if (obj.event === 'chargeback') {
-            rc.openViewDialogNoClose('/bobogou/data/order/form/detail?id=' + id, "退单处理","700px","580px")
+        } else if (obj.event === 'chargeBack') {
+            //rc.openViewDialogNoClose('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
+            rc.openSaveDialog('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
         }
     });
     $("#pass").click(function(data) {

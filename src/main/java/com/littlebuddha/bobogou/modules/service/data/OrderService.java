@@ -222,31 +222,26 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     @Transactional
     public int save(Order entity) {
         entity.setIdType("AUTO");
+        if (entity != null && entity.getGrossAmount() != null){
+            entity.setGrossAmount(entity.getGrossAmount() * 100);
+        }
         int save = super.save(entity);
         if (entity != null && entity.getOrderInfoList() != null && entity.getOrderInfoList().size() > 0) {
             for (OrderInfo orderInfo : entity.getOrderInfoList()) {
-                orderInfo.setIdType("AUTO");
-                Goods medicine = null;
-                if (orderInfo.getGoodsId() != null && StringUtils.isNotBlank(orderInfo.getGoodsId())) {
-                    medicine = goodsMapper.get(orderInfo.getGoodsId());
-                }
                 if (orderInfo.getId() == null) {
                     continue;
                 }
-                if (OrderInfo.DEL_FLAG_NORMAL.equals(orderInfo.getIsDeleted())) {
+                if (OrderInfo.DEL_FLAG_NORMAL.equals(orderInfo.getDelFlag())) {
                     if (StringUtils.isBlank(orderInfo.getId())) {
-                        orderInfo.setOrder(entity);
-                        orderInfo.setGoods(medicine);
+                        orderInfo.setGoodsId(entity.getId());
                         orderInfo.preInsert();
                         orderInfoMapper.insert(orderInfo);
                     } else {
-                        orderInfo.setOrder(entity);
-                        orderInfo.setGoods(medicine);
                         orderInfo.preUpdate();
                         orderInfoMapper.update(orderInfo);
                     }
                 } else {
-                    orderInfoMapper.deleteByPhysics(orderInfo);
+                    orderInfoMapper.deleteByLogic(orderInfo);
                 }
             }
         }

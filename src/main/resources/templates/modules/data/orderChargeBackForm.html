@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>订单管理</title>
+    <!--layui-->
+    <link rel="stylesheet" href="/bobogou/plugins/layui/lib/layui-v2.5.5/css/layui.css" media="all">
+    <script src="/bobogou/plugins/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/bobogou/utils/vendor.js"></script>
+</head>
+<body>
+<div>
+    <form class="layui-form" id="orderForm">
+        <input type="hidden" name="id" id="id" th:value="${order.getId()}">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label" for="userName">用户</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="userName" th:value="${order.getUserName()}"
+                           th:id="userName" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="phone">用户电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="phone" th:value="${order.getPhone()}"
+                           th:id="phone" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="number">订单编号</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="number" th:value="${order.getNumber()}"
+                           th:id="number" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="grossAmount">总金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="grossAmount" th:value="${order.getGrossAmount()}" autocomplete="off"
+                           th:id="grossAmount" class="layui-input required">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="address">配送地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="address" th:value="${order.getAddress()}" autocomplete="off"
+                           th:id="address" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="distributionMode">配送方式</label>
+                <div class="layui-input-inline">
+                    <select name="distributionMode" lay-verify="" lay-filter="distributionMode" th:id="distributionMode" disabled="true" th:with="distributionMode=${@dictData.findByType('order_distribution_mode')}">
+                        <option th:each="dict:${distributionMode}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getDistributionMode()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="status">状态</label>
+                <div class="layui-input-inline">
+                    <select name="status" lay-verify="" lay-filter="status"
+                            th:id="status" disabled="true" th:with="status=${@dictData.findByType('order_status')}">
+                        <option th:each="dict:${status}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getStatus()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="isInvoice">是否开票</label>
+                <div class="layui-input-inline">
+                    <select name="isInvoice" lay-verify="" lay-filter="isInvoice"
+                            th:id="isInvoice" disabled="true" th:with="isInvoice=${@dictData.findByType('data_order_is_invoice')}">
+                        <option th:each="dict:${isInvoice}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${order.getIsInvoice()}"/>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="name">机构名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="name" th:value="${order.getName()}" autocomplete="off"
+                           th:id="name" class="layui-input" readonly>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">订单商品：</label>
+        </div>
+        <table class="layui-table">
+            <colgroup>
+                <col width="150">
+                <col width="200">
+                <col>
+            </colgroup>
+            <thead>
+            <tr>
+                <th>商品名称</th>
+                <th>商品规格</th>
+                <th>集采价</th>
+                <th>购买数量</th>
+                <th>商品库存</th>
+                <th>商品批号</th>
+                <th>生产厂家</th>
+                <th>有效期(月)</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody id="orderInfoList">
+            </tbody>
+            <script type="text/template" id="orderInfoTpl">//<!--
+				<tr id="orderInfoList{{idx}}">
+					<td class="layui-hide">
+						<input id="orderInfoList{{idx}}_id" name="orderInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+					</td>
+
+                    <td>
+						<input id="orderInfoList[{{idx}}].goodsId" type="text" value="{{row.goodsName}}"    class="layui-input" readonly/>
+						<input name="orderInfoList[{{idx}}].goodsId" type="hidden" value="{{row.goodsId}}"/>
+					</td>
+
+                    <td>
+						<input id="orderInfoList{{idx}}_specification" name="orderInfoList[{{idx}}].specification" type="text" value="{{row.specification}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderInfoList{{idx}}_price" name="orderInfoList[{{idx}}].price" type="text" value="{{row.price}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+					</td>
+
+					<td>
+						<input id="orderInfoList{{idx}}_stockAmount" name="orderInfoList[{{idx}}].stockAmount" type="text" value="{{row.stockAmount}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<input id="orderInfoList{{idx}}_authorization" name="orderInfoList[{{idx}}].authorization" type="text" value="{{row.authorization}}"    class="layui-input" readonly/>
+					</td>
+
+                    <td>
+						<input id="orderInfoList{{idx}}_factoryName" name="orderInfoList[{{idx}}].factoryName" type="text" value="{{row.factoryName}}"    class="layui-input" readonly/>
+					</td>
+
+                    <td>
+						<input id="orderInfoList{{idx}}_expirationDate" name="orderInfoList[{{idx}}].expirationDate" type="text" value="{{row.expirationDate}}"    class="layui-input" readonly/>
+					</td>
+
+					<td>
+						<a onclick="refund({{idx}}, '#orderInfoList{{idx}}',{{row.id}})"><i class="layui-icon layui-icon-close"></i></a>
+					</td>
+				</tr>//-->
+            </script>
+            <script type="text/javascript">
+                var orderInfoRowIdx = 0,
+                    orderInfoTpl = $("#orderInfoTpl").html().replace(/(\/\/\<!\-\-)|(\/\/\-\->)/g, "");
+                $(document).ready(function () {
+                    let orderId = $("#id").val();
+                    $.ajax({
+                        type: "get",
+                        enctype: 'multipart/form-data',
+                        url: '/bobogou/data/order/orderInfoList?orderId=' + orderId,
+                        processData: false, //prevent jQuery from automatically transforming the data into a query string
+                        contentType: false,
+                        success: function (result) {
+                            let value = result;
+                            if (value != null && value != '') {
+                                for (var i = 0; i < value.length; i++) {
+                                    addRow('#orderInfoList', orderInfoRowIdx, orderInfoTpl, value[i]);
+                                    orderInfoRowIdx = orderInfoRowIdx + 1;
+                                }
+                            }
+                        },
+                    });
+                });
+            </script>
+        </table>
+    </form>
+</div>
+<script src="/bobogou/plugins/layui/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="/bobogou/plugins/layui/js/lay-config.js?v=2.0.0" charset="utf-8"></script>
+<!--引入工具js-->
+<script type="text/javascript" src="/bobogou/utils/util.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/modules/data/orderChargeBackForm.js"></script>
+<!--引入表单验证-->
+<script src="/bobogou/plugins/jqueryvalidate/dist/jquery.validate.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/additional-methods.min.js"></script>
+<script src="/bobogou/plugins/jqueryvalidate/dist/localization/messages_zh.min.js"></script>
+<!--引入本html的js文件-->
+<script type="text/javascript" src="/bobogou/utils/formVerification.js"></script>
+</body>
+</html>

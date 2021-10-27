@@ -52,6 +52,7 @@
         LEFT JOIN mb_goods b ON a.goods_id = b.id
         LEFT JOIN md_goods_specification c ON b.id = c.id
         <where>
+            a.is_deleted = 0
             <!-- 判断条件参数是否为空 -->
             <if test="orderId != null and orderId != ''">
                 and a.order_id = #{orderId}
@@ -132,30 +133,10 @@
         )
     </insert>
 
+    <!--只能修改其数量-->
     <update id="update">
         UPDATE sd_order_info SET
-            user_id = #{userId},
-            order_id = #{orderId},
-            order_factory_id = #{orderFactoryId},
-            goods_id = #{goodsId},
-            goods_image = #{goodsImage},
-            goods_name = #{goodsName},
-            specification = #{specification},
             amount = #{amount},
-            price = #{price},
-            total_price = #{totalPrice},
-            integral = #{integral},
-            total_integral = #{totalIntegral},
-            weight = #{weight},
-            total_weight = #{totalWeight},
-            is_freight = #{isFreight},
-            management_cost = #{managementCost},
-            harvest_integral = #{harvestIntegral},
-            harvest_health_beans = #{harvestHealthBeans},
-            type = #{type},
-            status = #{status},
-            is_deleted = #{isDeleted},
-            create_time = #{createTime},
             update_time = #{updateTime}
         WHERE id=#{id}
     </update>

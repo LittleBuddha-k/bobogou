@@ -105,6 +105,9 @@ public class OrderController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Order order, Model model) {
         model.addAttribute("order", order);
+        if ("chargeBack".equals(mode)){
+            return "modules/data/orderChargeBackForm";
+        }
         return "modules/data/orderForm";
     }
 
@@ -118,6 +121,17 @@ public class OrderController extends BaseController {
     public Result confirmDeliver(String id){
         Result result = new Result();
         int row = orderService.confirmDeliver(id);
+        return getCommonResult(row);
+    }
+
+    /**
+     * 订单详情中删除订单商品列表中的商品
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/deleteOrderInfo")
+    public Result deleteOrderInfo(String id){
+        int row = orderInfoService.deleteByLogic(new OrderInfo(id));
         return getCommonResult(row);
     }
 
