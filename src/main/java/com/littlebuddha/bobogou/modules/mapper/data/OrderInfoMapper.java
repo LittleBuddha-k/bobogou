@@ -10,4 +10,10 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface OrderInfoMapper extends BaseMapper<OrderInfo> {
+
+    /**
+     * 通过orderId删除orderInfo数据
+     * @param id
+     */
+    void deleteByOrderLogic(String orderId);
 }

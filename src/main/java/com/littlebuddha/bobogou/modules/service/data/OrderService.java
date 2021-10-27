@@ -238,8 +238,12 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     }
 
     @Override
+    @Transactional
     public int deleteByLogic(Order entity) {
-        return super.deleteByLogic(entity);
+        int orderRow = super.deleteByLogic(entity);
+        //关联删除orderInfo表
+        orderInfoMapper.deleteByOrderLogic(entity.getId());
+        return orderRow;
     }
 
     @Override

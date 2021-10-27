@@ -3,6 +3,27 @@ layui.use(['form', 'layedit', 'laydate'], function () {
         , layer = layui.layer
         , laydate = layui.laydate;
 
+    form.on('submit(deleteOrder)', function(data){
+        let ids = $("#id").val();
+        rc.confirm('是否确认删除整个订单？', function() {
+            rc.post("/bobogou/data/order/delete",{"ids":ids} , function (data) {
+                if (data.code == 200) {
+                    // 刷新整个父窗口
+                    parent.refresh();
+                    //假设这是iframe页
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    rc.msg(data.msg)
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                    }, 1000);
+                } else {
+                    rc.alert(data.msg);
+                }
+            });
+        })
+        return false;
+    });
+
     //日期
     laydate.render({
         elem: '#outTime'

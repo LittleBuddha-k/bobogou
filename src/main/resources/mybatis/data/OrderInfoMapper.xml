@@ -146,6 +146,11 @@
         WHERE id=#{id}
     </update>
 
+    <update id="deleteByOrderLogic">
+        UPDATE sd_order_info SET is_deleted = 1
+        WHERE order_id=#{orderId}
+    </update>
+
     <update id="recovery">
         UPDATE sd_order_info SET is_deleted = #{DEL_FLAG_NORMAL}
         WHERE id=#{id}
