@@ -64,8 +64,8 @@ public class OrderInfoService extends CrudService<OrderInfo, OrderInfoMapper> {
         int count = 0;
         OrderInfo orderInfo = get(entity);
         String userId = orderInfo.getUserId();
-        if (orderInfo != null && StringUtils.isNotBlank(orderInfo.getAmount())){
-            count = Integer.valueOf(orderInfo.getAmount());
+        if (orderInfo != null && orderInfo.getAmount() != null){
+            count = orderInfo.getAmount();
         }
         if (orderInfo != null){
             String goodsId = orderInfo.getGoodsId();

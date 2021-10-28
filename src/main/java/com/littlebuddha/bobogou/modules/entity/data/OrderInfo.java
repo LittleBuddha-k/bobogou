@@ -27,7 +27,7 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     private GoodsSpecification goodsSpecification;//商品规格外键
     private String specification;//商品规格
 
-    private String amount;//购买数量
+    private Integer amount;//购买数量
     private String stockAmount;//库存
     private String authorization;//
     private String factoryName;//
@@ -155,11 +155,11 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.specification = specification;
     }
 
-    public String getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 

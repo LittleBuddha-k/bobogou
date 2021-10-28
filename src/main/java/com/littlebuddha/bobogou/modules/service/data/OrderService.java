@@ -192,17 +192,22 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 if (orderInfo.getId() == null) {
                     continue;
                 }
-                if (OrderInfo.DEL_FLAG_NORMAL.equals(orderInfo.getDelFlag())) {
-                    if (StringUtils.isBlank(orderInfo.getId())) {
-                        orderInfo.setGoodsId(entity.getId());
-                        orderInfo.preInsert();
-                        orderInfoMapper.insert(orderInfo);
-                    } else {
-                        orderInfo.preUpdate();
-                        orderInfoMapper.update(orderInfo);
-                    }
+                if (StringUtils.isBlank(orderInfo.getId())) {
+                    orderInfo.setGoodsId(entity.getId());
+                    orderInfo.preInsert();
+                    orderInfoMapper.insert(orderInfo);
                 } else {
-                    orderInfoMapper.deleteByLogic(orderInfo);
+                    //执行更新前查看是否有数量变化，有变化则关联修改用户积分及播播豆
+                    OrderInfo initOrderInfo = orderInfoMapper.get(orderInfo.getId());
+                    if(orderInfo.getAmount() != initOrderInfo.getAmount()){
+                        //页面上默认修改的数量必须小于等于初始数量
+                        int change = initOrderInfo.getAmount() - orderInfo.getAmount();
+                        //表示确实数量有变，将会新增到退单表
+                        System.out.println(orderInfo);
+                    }
+                    //执行更新数据
+                    orderInfo.preUpdate();
+                    orderInfoMapper.update(orderInfo);
                 }
             }
         }

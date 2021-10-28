@@ -127,6 +127,7 @@ function refund(index,doc,id){
  * @param index
  */
 function belowInitAmount(index) {
+    let idDoc = "#orderInfoList" + index + "_id";//id
     let initAmountDoc = "#orderInfoList" + index + "_init_amount";//初始数量
     let amountDoc = "#orderInfoList" + index + "_amount";//修改数量
     let initAmount = $(initAmountDoc).val();
@@ -137,7 +138,7 @@ function belowInitAmount(index) {
             rc.error("请输入整数");
             $(amountDoc).val(initAmount);
         }
-        if (amount > initAmount){
+        if (parseInt(initAmount) < parseInt(amount)){
             rc.error("退单处理默认操作修改的数量应小于等于初始数量");
             $(amountDoc).val(initAmount);
         }
