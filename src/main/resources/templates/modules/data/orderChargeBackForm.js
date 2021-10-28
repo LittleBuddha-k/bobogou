@@ -127,7 +127,19 @@ function refund(index,doc,id){
  * @param index
  */
 function belowInitAmount(index) {
-    let doc = "#orderInfoList" + index + "_init_amount";
-    let initAmount = $(doc).val();
-    alert("初始值"+ initAmount)
+    let initAmountDoc = "#orderInfoList" + index + "_init_amount";//初始数量
+    let amountDoc = "#orderInfoList" + index + "_amount";//修改数量
+    let initAmount = $(initAmountDoc).val();
+    let amount = $(amountDoc).val();
+    var re = new RegExp("^[0-9]*[1-9][0-9]*$");//判断修改的数量只能是正整数
+    if (amount != "") {
+        if (!re.test(amount)) {
+            rc.error("请输入整数");
+            $(amountDoc).val(initAmount);
+        }
+        if (amount > initAmount){
+            rc.error("退单处理默认操作修改的数量应小于等于初始数量");
+            $(amountDoc).val(initAmount);
+        }
+    }
 }
