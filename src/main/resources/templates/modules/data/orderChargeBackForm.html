@@ -119,6 +119,7 @@
 				<tr id="orderInfoList{{idx}}">
 					<td class="layui-hide">
 						<input id="orderInfoList{{idx}}_id" name="orderInfoList[{{idx}}].id" type="hidden" value="{{row.id}}"/>
+						<input id="orderInfoList{{idx}}_init_amount" type="hidden" value="{{row.amount}}"/>
 					</td>
 
                     <td>
@@ -135,7 +136,7 @@
 					</td>
 
 					<td>
-						<input id="orderInfoList{{idx}}_amount" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}"    class="layui-input"/>
+						<input id="orderInfoList{{idx}}_amount"  onchange="belowInitAmount({{idx}})" name="orderInfoList[{{idx}}].amount" type="text" value="{{row.amount}}" class="layui-input digits"/>
 					</td>
 
 					<td>

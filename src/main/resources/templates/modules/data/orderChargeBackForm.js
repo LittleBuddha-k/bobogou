@@ -121,3 +121,13 @@ function refund(index,doc,id){
         });
     })
 }
+
+/**
+ * 获取数量的初始值，退单操作默认数量只能小于初始值
+ * @param index
+ */
+function belowInitAmount(index) {
+    let doc = "#orderInfoList" + index + "_init_amount";
+    let initAmount = $(doc).val();
+    alert("初始值"+ initAmount)
+}
