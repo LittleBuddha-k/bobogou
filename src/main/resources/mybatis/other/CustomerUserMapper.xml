@@ -353,6 +353,13 @@
         WHERE id=#{id}
     </update>
 
+    <update id="updateIntegralAndHealthBeans">
+        UPDATE ud_user SET
+            integral = integral - #{integral},
+            health_beans = health_beans - #{healthBeans}
+        WHERE id=#{userId}
+    </update>
+
     <update id="deleteByLogic">
         UPDATE ud_user SET is_deleted = #{DEL_FLAG_DELETE}
         WHERE id=#{id}

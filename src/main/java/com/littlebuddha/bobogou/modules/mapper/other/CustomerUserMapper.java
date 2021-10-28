@@ -52,4 +52,11 @@ public interface CustomerUserMapper extends BaseMapper<CustomerUser> {
      * @return
      */
     int recoveryVip(CustomerUser customerUser);
+
+    /**
+     * 删除订单商品信息时的更新方法
+     * @param integral
+     * @param healthBeans
+     */
+    void updateIntegralAndHealthBeans(@Param("integral") int integral,@Param("healthBeans") int healthBeans,@Param("userId") String userId);
 }
