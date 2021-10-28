@@ -32,7 +32,7 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     private String authorization;//
     private String factoryName;//
     private String expirationDate;//
-    private String price;//商品单价
+    private Integer price;//商品单价
     private String totalPrice;//总价
     private Double integral;//单个商品的支付积分
     private Double totalIntegral;//支付总积分
@@ -73,7 +73,7 @@ public class OrderInfo extends DataEntity<OrderInfo> {
     }
 
     public String getUserName() {
-        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())){
+        if (customerUser != null && StringUtils.isNotBlank(customerUser.getNickname())) {
             this.userName = customerUser.getNickname();
         }
         return userName;
@@ -195,11 +195,11 @@ public class OrderInfo extends DataEntity<OrderInfo> {
         this.expirationDate = expirationDate;
     }
 
-    public String getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 

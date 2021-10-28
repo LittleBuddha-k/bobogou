@@ -35,10 +35,10 @@ public class OrderInfoService extends CrudService<OrderInfo, OrderInfoMapper> {
     @Override
     public List<OrderInfo> findList(OrderInfo entity) {
         List<OrderInfo> list = super.findList(entity);
-        if (list != null && !list.isEmpty()){
+        if (list != null && !list.isEmpty()) {
             for (OrderInfo orderInfo : list) {
-                if (orderInfo != null && orderInfo.getPrice() != null){
-                    orderInfo.setPrice(Double.toString(Double.valueOf(orderInfo.getPrice()) / 100));
+                if (orderInfo != null && orderInfo.getPrice() != null) {
+                    orderInfo.setPrice(orderInfo.getPrice() / 100);
                 }
             }
         }
@@ -64,17 +64,17 @@ public class OrderInfoService extends CrudService<OrderInfo, OrderInfoMapper> {
         int count = 0;
         OrderInfo orderInfo = get(entity);
         String userId = orderInfo.getUserId();
-        if (orderInfo != null && orderInfo.getAmount() != null){
+        if (orderInfo != null && orderInfo.getAmount() != null) {
             count = orderInfo.getAmount();
         }
-        if (orderInfo != null){
+        if (orderInfo != null) {
             String goodsId = orderInfo.getGoodsId();
-            if (StringUtils.isNotBlank(goodsId)){
+            if (StringUtils.isNotBlank(goodsId)) {
                 Goods goods = goodsMapper.get(goodsId);
-                if (goods != null && goods.getIntegral() != null){
+                if (goods != null && goods.getIntegral() != null) {
                     integral = goods.getIntegral().intValue() * count;
                 }
-                if (goods != null && goods.getHealthBeans() != null){
+                if (goods != null && goods.getHealthBeans() != null) {
                     healthBeans = goods.getHealthBeans().intValue() * count;
                 }
             }
@@ -82,7 +82,7 @@ public class OrderInfoService extends CrudService<OrderInfo, OrderInfoMapper> {
         //删除订单商品信息
         int row = super.deleteByLogic(entity);
         //更新用户的积分和播播豆
-        customerUserMapper.updateIntegralAndHealthBeans(integral,healthBeans,userId);
+        customerUserMapper.updateIntegralAndHealthBeans(integral, healthBeans, userId);
         return row;
     }
 

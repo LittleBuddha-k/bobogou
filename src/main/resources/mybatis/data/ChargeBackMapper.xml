@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.ChargeBackMapper">
+    <sql id="chargeBackColumns">
+        id AS "id",
+        order_id AS "orderId",
+        order_info_id AS "orderInfoId",
+        goods_id AS "goodsId",
+        count AS "count",
+        user_id AS "userId",
+        price AS "price",
+        management_expense AS "managementExpense",
+        transportation_cost AS "transportationCost",
+        create_by AS "createBy.id",
+        create_date AS "createDate",
+        del_flag AS "delFlag"
+    </sql>
+
+    <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.ChargeBack">
+        SELECT
+        <include refid="chargeBackColumns"/>
+        FROM bobogou_data_charge_back a
+        WHERE a.id=#{id}
+    </select>
+
+    <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.ChargeBack">
+        SELECT
+        <include refid="chargeBackColumns"/>
+        FROM bobogou_data_charge_back a
+        <where>
+            a.del_flag = #{DEL_FLAG_NORMAL}
+            <!-- 判断条件参数是否为空 -->
+            <if test="userName != null and userName != ''">
+                and a.user_id = #{userName}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
+    <insert id="insert">
+        INSERT INTO bobogou_data_charge_back(
+            id,
+            order_id,
+            order_info_id,
+            goods_id,
+            count,
+            user_id,
+            price,
+            management_expense,
+            transportation_cost,
+            create_by,
+            create_date,
+            del_flag
+        )VALUES (
+            #{id},
+            #{orderId},
+            #{orderInfoId},
+            #{goodsId},
+            #{count},
+            #{userId},
+            #{price},
+            #{managementExpense},
+            #{transportationCost},
+            #{createBy.id},
+            #{createDate},
+            #{delFlag}
+        )
+    </insert>
+
+    <update id="update">
+        UPDATE bobogou_data_charge_back SET
+            order_id = #{orderId},
+            order_info_id = #{orderInfoId},
+            goods_id = #{goodsId},
+            count = #{count},
+            user_id = #{userId},
+            price = #{price},
+            management_expense = #{managementExpense},
+            transportation_cost = #{transportationCost},
+            create_by = #{createBy.id},
+            create_date = #{createDate},
+            del_flag = #{delFlag}
+        WHERE id=#{id}
+    </update>
+
+    <update id="deleteByLogic">
+        UPDATE bobogou_data_charge_back SET del_flag = #{DEL_FLAG_DELETE}
+        WHERE id=#{id}
+    </update>
+
+    <delete id="deleteByPhysics">
+        DELETE FROM bobogou_data_charge_back
+        WHERE id=#{id}
+    </delete>
+</mapper>
