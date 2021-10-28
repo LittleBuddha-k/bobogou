@@ -36,7 +36,7 @@ spring:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
       jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=merson-dairy-industry
       username: sa
-      password: 212527
+      password:
 
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
