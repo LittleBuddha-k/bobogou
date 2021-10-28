@@ -5,7 +5,7 @@ layui.use(['form', 'layedit', 'laydate'], function () {
 
     form.on('submit(deleteOrder)', function(data){
         let ids = $("#id").val();
-        rc.confirm('是否确认删除整个订单？', function() {
+        rc.confirm('将会删除整个订单？', function() {
             rc.post("/bobogou/data/order/delete",{"ids":ids} , function (data) {
                 if (data.code == 200) {
                     // 刷新整个父窗口
@@ -111,7 +111,7 @@ function delRow(obj, prefix) {
 
 //退单
 function refund(index,doc,id){
-    rc.confirm('是否确认删除此项订单商品？', function() {
+    rc.confirm('是否确认删除此项订单商品？如果确认删除请记得修改总金额', function() {
         rc.post("/bobogou/data/order/deleteOrderInfo",{"id":id} , function (data) {
             if (data.code == 200) {
                 $(doc).hide();

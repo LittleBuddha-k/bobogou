@@ -66,10 +66,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
     @Override
     public Order get(Order entity) {
         Order order = super.get(entity);
-        if (order != null && StringUtils.isNotBlank(order.getId())) {
-            List<OrderInfo> orderInfoList = orderInfoMapper.findList(new OrderInfo(order));
-            order.setOrderInfoList(orderInfoList);
-        }
         if (order != null && order.getUserId() != null) {
             UserMember userMember = new UserMember();
             userMember.setUserId(order.getUserId());
@@ -83,30 +79,6 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         }
         if (order != null && order.getGrossAmount() != null) {
             order.setGrossAmount(order.getGrossAmount() / 100);
-        }
-        if (order != null && order.getPaymentAmount() != null) {
-            order.setPaymentAmount(order.getPaymentAmount() / 100);
-        }
-        if (order != null && order.getActualAmountPaid() != null) {
-            order.setActualAmountPaid(order.getActualAmountPaid() / 100);
-        }
-        if (order != null && order.getDeduction() != null) {
-            order.setDeduction(order.getDeduction() / 100);
-        }
-        if (order != null && order.getFreight() != null) {
-            order.setFreight(order.getFreight() / 100);
-        }
-        if (order != null && order.getManagementCost() != null) {
-            order.setManagementCost(order.getManagementCost() / 100);
-        }
-        if (order != null && order.getProvinceCost() != null) {
-            order.setProvinceCost(order.getProvinceCost() / 100);
-        }
-        if (order != null && order.getCityCost() != null) {
-            order.setCityCost(order.getCityCost() / 100);
-        }
-        if (order != null && order.getDistrictCost() != null) {
-            order.setDistrictCost(order.getDistrictCost() / 100);
         }
         return order;
     }
