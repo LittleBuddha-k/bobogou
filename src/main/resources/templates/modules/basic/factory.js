@@ -146,7 +146,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(factoryTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建厂家信息",'720px','100%')
+            let index = rc.openSaveDialog("/bobogou/basic/factory/form/add", "新建厂家信息",'720px','80%')
         }
     });
 
@@ -154,9 +154,9 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
         if (event === 'edit') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑厂家信息", '720px', '100%');
+            rc.openSaveDialog('/bobogou/basic/factory/form/edit?id=' + id, "编辑厂家信息", '720px', '80%');
         }else if (event === 'view') {
-            rc.openSaveDialog('/bobogou/basic/factory/form/view?id=' + id, "查看厂家信息", '720px', '100%');
+            rc.openViewDialog('/bobogou/basic/factory/form/view?id=' + id, "查看厂家信息", '720px', '80%');
         }else if (event === 'delete') {
             rc.confirm('确认要删除该厂家信息吗？', function () {
                 rc.post("/bobogou/basic/factory/delete?ids=" + id, '', function (data) {

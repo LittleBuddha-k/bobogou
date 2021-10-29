@@ -15,9 +15,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         //console.log(data.othis); //得到美化后的DOM对象
         let factoryType = data.value;
         if (1 == factoryType){
-            $("#sampleInvoiceTicketShow").show();
-            $("#qualityGuaranteeShow").show();
-            $("#invoiceCounterpartsShow").show();
+            $("#sampleInvoiceTicketShow").show();//增值税发票票样
+            $("#qualityGuaranteeShow").show();//质保协议
+            $("#invoiceCounterpartsShow").show();//出货同行单样票
         }else if (2 == factoryType){
             $("#sampleInvoiceTicketShow").hide();
             $("#qualityGuaranteeShow").hide();
@@ -31,9 +31,9 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     form.on('select(isBailor)', function(data){
         let isBailor = data.value;
         if (1 == isBailor){
-            $("#bailorCardShow").show();
-            $("#mandataryCardShow").show();
-            $("#takeDeliveryBailmentShow").show();
+            $("#bailorCardShow").show();//委托人身份证复印件
+            $("#mandataryCardShow").show();//被委托人身份证复印件
+            $("#takeDeliveryBailmentShow").show();//收货委托书
         }else if (0 == isBailor){
             $("#bailorCardShow").hide();
             $("#mandataryCardShow").hide();
