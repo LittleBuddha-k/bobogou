@@ -8,6 +8,29 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
+    //打开form表单的初始判断
+    let factoryType = $("#factoryType").val();
+    if (1 == eval(factoryType)){
+        $("#sampleInvoiceTicketShow").show();//增值税发票票样
+        $("#qualityGuaranteeShow").show();//质保协议
+        $("#invoiceCounterpartsShow").show();//出货同行单样票
+    }else if (2 == eval(factoryType)){
+        $("#sampleInvoiceTicketShow").hide();
+        $("#qualityGuaranteeShow").hide();
+        $("#invoiceCounterpartsShow").hide();
+    }
+
+    let isBailor = $("#isBailor").val();
+    if (1 == eval(isBailor)){
+        $("#bailorCardShow").show();//委托人身份证复印件
+        $("#mandataryCardShow").show();//被委托人身份证复印件
+        $("#takeDeliveryBailmentShow").show();//收货委托书
+    }else if (0 == eval(isBailor)){
+        $("#bailorCardShow").hide();
+        $("#mandataryCardShow").hide();
+        $("#takeDeliveryBailmentShow").hide();
+    }
+
     //处理厂商类型不同时显示不同上传资料
     form.on('select(factoryType)', function(data){
         //console.log(data.elem); //得到select原始DOM对象
@@ -550,7 +573,7 @@ $("#btn_image_clear_test8").click(function () {
  */
 $("#btn_image_clear_test9").click(function () {
     $('#demo9').html("");
-    $("#sampleInvoiceTicket").val('');
+    $("#qualityGuarantee").val('');
 });/**
  * 多图清除按钮点击事件
  */
