@@ -151,6 +151,11 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
                 result = orderMapper.findList(entity);
                 pageInfo = new PageInfo<Order>(result);
+                for (Order order : result) {
+                    if (order != null && order.getGrossAmount() != null) {
+                        order.setGrossAmount(order.getGrossAmount() / 100);
+                    }
+                }
                 return pageInfo;
             } else if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//其他管理员等级需要按照区域来进行查询
                 for (OperatorRegion region : operatorRegionList) {
