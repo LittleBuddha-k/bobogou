@@ -658,7 +658,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     });
 
     //商品名改变时做查询，如果是新增的商品需要填写商品规范信息
-    $("#name").change(function () {
+    /*$("#name").change(function () {
         let name = $("#name").val();
         $.ajax({
             url: "/bobogou/data/goods/findByFactoryAndName",    //请求的url地址
@@ -700,7 +700,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
                 rc.alert("根据商品名查询时请求出错")
             }
         });
-    })
+    })*/
 });
 
 /**
