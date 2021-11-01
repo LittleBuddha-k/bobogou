@@ -3,9 +3,11 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
+    let provinceIds = $("#provinceIds").val();
+
     table.render({
         elem: '#cityTable',
-        url: '/bobogou/data/city/noPageByProvince',
+        url: '/bobogou/data/city/noPageByProvince?provinceIds=' + provinceIds,
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
