@@ -91,6 +91,23 @@ public class ProvinceController extends BaseController {
      * @return
      */
     @ResponseBody
+    @GetMapping("/noPage")
+    public TreeResult noPage(Province province) {
+        List<Province> list = provinceService.findList(province);
+        if (list != null && !list.isEmpty()) {
+            TreeResult treeResult = new TreeResult(0,"",list,list.size());
+            return treeResult;
+        }else {
+            TreeResult treeResult = new TreeResult(0,"无数据");
+            return treeResult;
+        }
+    }
+
+    /**
+     * 返回所有数据
+     * @return
+     */
+    @ResponseBody
     @GetMapping("/all")
     public List<Province> all(Province province) {
         List<Province> list = provinceService.findList(province);

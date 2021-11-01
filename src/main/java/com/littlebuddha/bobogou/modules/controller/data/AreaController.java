@@ -92,6 +92,23 @@ public class AreaController extends BaseController {
     }
 
     /**
+     * 根据市查询不分页的区数据
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/noPageByCity")
+    public TreeResult noPageByProvince(Area area) {
+        List<Area> list = areaService.findList(area);
+        if (list != null && !list.isEmpty()) {
+            TreeResult treeResult = new TreeResult(0,"",list,list.size());
+            return treeResult;
+        }else {
+            TreeResult treeResult = new TreeResult(0,"无数据");
+            return treeResult;
+        }
+    }
+
+    /**
      * 返回所有数据
      * @return
      */

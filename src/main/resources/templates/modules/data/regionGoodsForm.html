@@ -23,46 +23,70 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-inline" th:if="${mode == 'add'}">
+                <label class="layui-form-label" for="provinceId">省</label>
+                <div class="layui-input-inline">
+                    <textarea th:id="provinceId" th:text="${regionGoods.getProvinceName()}"
+                              placeholder="省" class="layui-textarea" onclick="selectProvince('provinceId')" readonly></textarea>
+                    <input type="hidden" th:id="province" th:name="provinceId" th:value="${regionGoods.getProvinceId()}" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline" th:if="${mode != 'add'}">
                 <label class="layui-form-label" for="province">省</label>
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="" lay-filter="province"
-                            th:id="province" th:with="province=${@province.findToDictUse()}">
+                            th:id="provinceId" th:with="province=${@province.findToDictUse()}">
                         <option th:each="dict:${province}" th:value="${dict.getId()}" th:text="${dict.getName()}"
                                 th:selected="${dict.getId()}==${regionGoods.getProvinceId()}"/>
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-inline" th:if="${mode == 'add'}">
+                <label class="layui-form-label" for="cityId">市</label>
+                <div class="layui-input-inline">
+                    <textarea th:id="cityId" th:text="${regionGoods.getProvinceName()}"
+                              placeholder="市" class="layui-textarea" onclick="selectCity('cityId')" readonly></textarea>
+                    <input type="hidden" th:id="city" th:name="cityId" th:value="${regionGoods.getCityId()}" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline" th:if="${mode != 'add'}">
                 <label class="layui-form-label">市</label>
                 <div class="layui-input-inline">
-                    <select name="cityId" lay-verify="" lay-filter="city" th:id="city" disabled>
+                    <select name="cityId" lay-verify="" lay-filter="city" th:id="cityId" disabled>
                         <option th:if="${regionGoods.getCity() != null}" th:value="${regionGoods.getCityId()}"
                                 th:text="${regionGoods.getCity().getName()}"/>
                     </select>
                 </div>
             </div>
-            <div class="layui-inline">
+            <div class="layui-inline" th:if="${mode == 'add'}">
+                <label class="layui-form-label" for="districtId">区</label>
+                <div class="layui-input-inline">
+                    <textarea th:id="districtId" th:text="${regionGoods.getAreaName()}"
+                              placeholder="区" class="layui-textarea" onclick="selectArea('districtId')" readonly></textarea>
+                    <input type="hidden" th:id="district" th:name="districtId" th:value="${regionGoods.getDistrictId()}" autocomplete="off" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline" th:if="${mode != 'add'}">
                 <label class="layui-form-label">区</label>
                 <div class="layui-input-inline">
-                    <select name="districtId" lay-verify="" lay-filter="area" th:id="area" disabled>
+                    <select name="districtId" lay-verify="" lay-filter="districtId" th:id="districtId" disabled>
                         <option th:if="${regionGoods.getArea() != null}" th:value="${regionGoods.districtId}"
                                 th:text="${regionGoods.getArea().getName()}"/>
                     </select>
                 </div>
-            </div><!--
-            <div class="layui-inline">
-                <label class="layui-form-label">街道</label>
+            </div>
+            <div class="layui-inline" th:if="${mode == 'add'}">
+                <label class="layui-form-label" for="streetId">街道</label>
                 <div class="layui-input-inline">
                     <textarea th:id="streetId" th:text="${regionGoods.getStreetName()}"
-                              placeholder="街道" class="layui-textarea required" onclick="selectStreet('streetId')" readonly></textarea>
-                    <input type="hidden" th:name="streetId" th:value="${regionGoods.getStreetId()}" autocomplete="off" class="layui-input required" readonly>
+                              placeholder="街道" class="layui-textarea" onclick="selectStreet('streetId')" readonly></textarea>
+                    <input type="hidden" th:id="street" th:name="streetId" th:value="${regionGoods.getStreetId()}" autocomplete="off" class="layui-input" readonly>
                 </div>
-            </div>-->
-            <div class="layui-inline">
+            </div>
+            <div class="layui-inline" th:if="${mode != 'add'}">
                 <label class="layui-form-label">街道</label>
                 <div class="layui-input-inline">
-                    <select name="streetId" lay-verify="" lay-filter="street" th:id="street" disabled>
+                    <select name="streetId" lay-verify="" lay-filter="street" th:id="streetId" disabled>
                         <option th:if="${regionGoods.getStreet() != null}" th:value="${regionGoods.getStreetId()}"
                                 th:text="${regionGoods.getStreet().getName()}"/>
                     </select>

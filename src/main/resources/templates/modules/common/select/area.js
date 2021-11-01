@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     table.render({
         elem: '#areaTable',
-        url: '/bobogou/data/area/data',
+        url: '/bobogou/data/area/noPageByCity',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page

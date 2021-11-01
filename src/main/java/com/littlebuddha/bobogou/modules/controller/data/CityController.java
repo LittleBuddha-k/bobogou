@@ -92,6 +92,23 @@ public class CityController extends BaseController {
     }
 
     /**
+     * 根据省查询不分页的市数据
+     * @return
+     */
+    @ResponseBody
+    @GetMapping("/noPageByProvince")
+    public TreeResult noPageByProvince(City city) {
+        List<City> list = cityService.findList(city);
+        if (list != null && !list.isEmpty()) {
+            TreeResult treeResult = new TreeResult(0,"",list,list.size());
+            return treeResult;
+        }else {
+            TreeResult treeResult = new TreeResult(0,"无数据");
+            return treeResult;
+        }
+    }
+
+    /**
      * 返回所有数据
      * @return
      */

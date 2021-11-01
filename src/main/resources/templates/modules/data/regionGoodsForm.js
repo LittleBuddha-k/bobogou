@@ -149,11 +149,21 @@ function selectGoods(id) {
     let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '95%', '88%',id);
 }
 
+function selectProvince(id) {
+    let openSelector = rc.openAreaSelect("/bobogou/data/province/select", "选择省", '90%', '90%',id);
+}
+
+function selectCity(id) {
+    let provinceIds = $("#province").val();
+    let openSelector = rc.openAreaSelect("/bobogou/data/city/select?provinceIds=" + provinceIds, "选择市", '90%', '90%',id);
+}
+
+function selectArea(id) {
+    let cityIds = $("#city").val();
+    let openSelector = rc.openAreaSelect("/bobogou/data/area/select?cityIds=" + cityIds, "选择区", '90%', '90%',id);
+}
+
 function selectStreet(id) {
-    let area = $("#area").val();
-    if (area != null && area != '' && area != undefined){
-        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择商品", '90%', '90%',id);
-    }else {
-        rc.error("请先选择区")
-    }
+    let districtIds = $("#district").val();
+    let openSelector = rc.openAreaSelect("/bobogou/data/street/select?districtIds=" + districtIds, "选择街道", '90%', '90%',id);
 }

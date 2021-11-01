@@ -5,7 +5,7 @@ layui.use(['form', 'table'], function () {
 
     table.render({
         elem: '#provinceTable',
-        url: '/bobogou/data/province/data',
+        url: '/bobogou/data/province/noPage',
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -48,7 +48,7 @@ layui.use(['form', 'table'], function () {
         ],
         limits: [10, 15, 20, 25, 50, 100],
         limit: 10,
-        page: true,
+        page: false,
         skin: 'line',
         where: {
             name: $("#name").val(),
