@@ -35,6 +35,10 @@
             </div>
         </fieldset>
 
+        <form>
+            <input type="hidden" name="provinceIds" th:value="${provinceIds}">
+        </form>
+
         <table class="layui-hide" id="cityTable" lay-filter="cityTableFilter"></table>
 
     </div>

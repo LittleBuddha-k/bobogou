@@ -74,7 +74,8 @@ public class AreaController extends BaseController {
      */
     //@RequiresPermissions("system/area/list")
     @GetMapping(value = {"/select"})
-    public String select(Area area, Model model, HttpSession session) {
+    public String select(Area area, Model model, HttpSession session,String cityIds) {
+        model.addAttribute("cityIds", cityIds);
         model.addAttribute("area", area);
         return "modules/common/select/area";
     }

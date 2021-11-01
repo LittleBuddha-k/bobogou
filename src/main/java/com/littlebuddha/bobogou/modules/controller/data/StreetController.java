@@ -75,11 +75,12 @@ public class StreetController extends BaseController {
      */
     //@RequiresPermissions("system/area/list")
     @GetMapping(value = {"/select"})
-    public String select(Street street, Model model, HttpSession session) {
+    public String select(Street street, Model model, HttpSession session,String areaIds) {
         if (street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
             Area area = areaService.get(new Area(street.getArea().getId()));
             street.setArea(area);
         }
+        model.addAttribute("areaIds", areaIds);
         model.addAttribute("street", street);
         return "modules/common/select/street";
     }
