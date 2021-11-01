@@ -7,6 +7,7 @@ import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.ChargeBack;
+import com.littlebuddha.bobogou.modules.entity.data.Goods;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
 import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
@@ -206,40 +207,30 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 } else {
                     //执行更新前查看是否有数量变化，有变化则关联修改用户积分及播播豆
                     OrderInfo initOrderInfo = orderInfoMapper.get(orderInfo.getId());
+                    //商品信息
+                    Goods goods = goodsMapper.get(orderInfo.getGoodsId());
                     if (orderInfo.getAmount() != initOrderInfo.getAmount()) {
                         //页面上默认修改的数量必须小于等于初始数量
                         int change = initOrderInfo.getAmount() - orderInfo.getAmount();
                         //表示确实数量有变，将会新增到退单表
                         ChargeBack chargeBack = new ChargeBack();
-                        //根据orderinfo的id去查询退单中是否存在
-                        ChargeBack selectIsTrue = chargeBackMapper.get(orderInfo.getId());
-                        if (selectIsTrue == null) {
-                            chargeBack.setIdType("AUTO");
-                            chargeBack.setId(orderInfo.getId());
-                            chargeBack.setOrderId(orderInfo.getOrderId());
-                            chargeBack.setOrderInfoId(orderInfo.getId());
-                            chargeBack.setUserId(orderInfo.getUserId());
-                            chargeBack.setGoodsId(orderInfo.getGoodsId());
-                            chargeBack.setCount(initOrderInfo.getAmount() - orderInfo.getAmount());
-                            chargeBack.setPrice(orderInfo.getPrice());
-                            chargeBack.setManagementExpense(0.0);
-                            chargeBack.setTransportationCost(0.0);
-                            chargeBack.preInsert();
-                            chargeBackMapper.insert(chargeBack);
-                        } else {
-                            chargeBack = chargeBackMapper.get(orderInfo.getId());
-                            chargeBack.setId(orderInfo.getId());//将orderInfo的id作为其主键
-                            chargeBack.setOrderId(orderInfo.getOrderId());
-                            chargeBack.setOrderInfoId(orderInfo.getId());
-                            chargeBack.setUserId(orderInfo.getUserId());
-                            chargeBack.setGoodsId(orderInfo.getGoodsId());
-                            chargeBack.setCount(chargeBack.getCount() + initOrderInfo.getAmount() - orderInfo.getAmount());
-                            chargeBack.setPrice(orderInfo.getPrice());
-                            chargeBack.setManagementExpense(0.0);
-                            chargeBack.setTransportationCost(0.0);
-                            chargeBack.preUpdate();
-                            chargeBackMapper.update(chargeBack);
+                        chargeBack.setOrderId(orderInfo.getOrderId());
+                        chargeBack.setNumber(entity.getNumber());
+                        chargeBack.setOrderInfoId(orderInfo.getId());
+                        chargeBack.setUserId(orderInfo.getUserId());
+                        chargeBack.setGoodsId(orderInfo.getGoodsId());
+                        chargeBack.setCount(initOrderInfo.getAmount() - orderInfo.getAmount());
+                        chargeBack.setPrice(orderInfo.getPrice());//售卖时的价格
+                        if (goods != null) {
+                            double managementExpense = chargeBack.getCount() * orderInfo.getPrice() * (goods.getAdministrativeFee());
+                            if (managementExpense != 0.0){
+                                chargeBack.setManagementExpense(managementExpense / 100);
+                            }
                         }
+                        //todo调用运费计算接口
+                        chargeBack.preInsert();
+                        chargeBackMapper.insert(chargeBack);
+                        //修改用户积分和播播豆
 
                     }
                     //执行更新数据
