@@ -1,44 +1,63 @@
 layui.use('form', function(){
     var form = layui.form;
     //各种基于事件的操作，下面会有进一步介绍
+    //初始化情况下只有省能选择
+    $("#cityId").attr("onclick", "");
+    $("#districtId").attr("onclick", "");
+    $("#streetId").attr("onclick", "");
 
     //根据类型不同禁用对应选项
     form.on('select(type)', function (data) {
         let type = data.value;
-        if (type == 0){
-            $("#province").attr("disabled","disabled");
-            $("#city").attr("disabled","disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
-            form.render();
-        }else if (type == 1){
-            $("#province").removeAttr("disabled");
-            $("#city").attr("disabled","disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
+        if (type == 1){
+            //$("#provinceId").attr("onclick", "");
+            $("#province").bind("click", function() {
+                selectProvince('streetId');
+            });
+            $("#cityId").attr("onclick", "");
+            $("#districtId").attr("onclick", "");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 2){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
+            $("#province").bind("click", function() {
+                selectProvince('streetId');
+            });
+            $("#cityId").bind("click", function() {
+                selectCity('cityId');
+            });
+            $("#districtId").attr("onclick", "");
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 3){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").removeAttr("disabled");
-            $("#street").attr("disabled","disabled");
+            $("#province").bind("click", function() {
+                selectProvince('streetId');
+            });
+            $("#cityId").bind("click", function() {
+                selectCity('cityId');
+            });
+            $("#districtId").bind("click", function() {
+                selectArea('districtId');
+            });
+            $("#streetId").attr("onclick", "");
             form.render();
         }else if (type == 4){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").removeAttr("disabled");
-            $("#street").removeAttr("disabled");
+            $("#province").bind("click", function() {
+                selectProvince('streetId');
+            });
+            $("#cityId").bind("click", function() {
+                selectCity('cityId');
+            });
+            $("#districtId").bind("click", function() {
+                selectArea('districtId');
+            });
+            $("#streetId").bind("click", function() {
+                selectStreet('streetId');
+            });
             form.render();
         }
     });
 
-    //下拉框选中后的时间
+/*    //下拉框选中后的时间
     form.on('select(province)', function(data){
         let provinceId = data.value;
         $("#city").empty();//清空城市选项
@@ -91,7 +110,7 @@ layui.use('form', function(){
                 form.render();
             }
         })
-    });
+    });*/
 });
 
 $(document).ready(function () {
