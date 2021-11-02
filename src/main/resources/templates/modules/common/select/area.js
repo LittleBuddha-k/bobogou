@@ -3,9 +3,11 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
+    let cityIds = $("#cityIds").val();
+
     table.render({
         elem: '#areaTable',
-        url: '/bobogou/data/area/noPageByCity',
+        url: '/bobogou/data/area/noPageByCity?cityIds=' + cityIds,
         method: 'GET',
         request: {
             pageName: 'pageNo', // page
@@ -48,7 +50,7 @@ layui.use(['form', 'table'], function () {
         ],
         limits: [10, 15, 20, 25, 50, 100],
         limit: 10,
-        page: true,
+        page: false,
         skin: 'line',
         where: {
             name: $("#name").val(),

@@ -70,6 +70,27 @@
         </choose>
     </select>
 
+    <select id="findNoPageByCityCode" resultType="com.littlebuddha.bobogou.modules.entity.data.Area">
+        SELECT
+        <include refid="areaColumns"/>
+        FROM system_area a
+        <where>
+            a.del_flag = 0
+            <!-- 判断条件参数是否为空 -->
+            <if test="cityCode != null and cityCode != ''">
+                and a.city_code = #{cityCode}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Area">
         SELECT
         <include refid="areaColumns"/>
