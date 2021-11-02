@@ -458,7 +458,7 @@
                         //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
                         let ids = iframeWin.getSelector();
-                        let split = ids.split("w");
+                        let split = ids.split(".");
                         //放显示名称
                         let elementById = document.getElementById(id);
                         elementById.value = split[1];

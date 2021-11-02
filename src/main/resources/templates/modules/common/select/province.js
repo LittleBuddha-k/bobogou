@@ -190,7 +190,7 @@ function getSelector() {
             }
         }
     })
-    return ids + "w" + name;
+    return ids + "." + name;
 }
 
 function refresh() {
