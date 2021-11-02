@@ -98,8 +98,8 @@ public class CityController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/noPageByProvince")
-    public TreeResult noPageByProvince(City city) {
-        List<City> list = cityService.findList(city);
+    public TreeResult noPageByProvince(City city,String provinceIds) {
+        List<City> list = cityService.findNoPageByProvinceCode(provinceIds);
         if (list != null && !list.isEmpty()) {
             TreeResult treeResult = new TreeResult(0,"",list,list.size());
             return treeResult;
