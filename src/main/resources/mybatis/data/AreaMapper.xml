@@ -25,6 +25,13 @@
         WHERE a.id=#{id}
     </select>
 
+    <select id="getAreaByCode" resultType="com.littlebuddha.bobogou.modules.entity.data.Area">
+        SELECT
+        <include refid="areaColumns"/>
+        FROM system_area a
+        WHERE a.code=#{code}
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Area">
         SELECT
         <include refid="areaColumns"/>

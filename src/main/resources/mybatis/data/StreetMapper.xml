@@ -26,6 +26,13 @@
         WHERE a.id=#{id}
     </select>
 
+    <select id="getStreetByCode" resultType="com.littlebuddha.bobogou.modules.entity.data.Street">
+        SELECT
+        <include refid="streetColumns"/>
+        FROM system_street a
+        WHERE a.code=#{code}
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Street">
         SELECT
         <include refid="streetColumns"/>

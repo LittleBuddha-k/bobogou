@@ -4,12 +4,10 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
-import com.littlebuddha.bobogou.modules.entity.data.Goods;
-import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
+import com.littlebuddha.bobogou.modules.entity.data.*;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
-import com.littlebuddha.bobogou.modules.mapper.data.GoodsMapper;
-import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.*;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -35,6 +35,18 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
 
     @Resource
     private GoodsMapper goodsMapper;
+
+    @Resource
+    private ProvinceMapper provinceMapper;
+
+    @Resource
+    private CityMapper cityMapper;
+
+    @Resource
+    private AreaMapper areaMapper;
+
+    @Resource
+    private StreetMapper streetMapper;
 
     @Override
     public RegionGoods get(RegionGoods entity) {
@@ -68,7 +80,155 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Transactional
     public int save(RegionGoods entity) {
         entity.setIdType("AUTO");
-        int save = super.save(entity);
+        int save = 0;
+        Map<String,String> provinceMapIC = new HashMap<>();//
+        Map<String,String> cityMapCP = new HashMap<>();//cityID--provinceId
+        Map<String,String> areaMapAC = new HashMap<>();//areaId--cityID
+        Map<String,String> streetMapSA = new HashMap<>();//streetId--areaId
+        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId())){
+            String[] provinceIdArr = entity.getProvinceId().split(",");
+            for (String provinceId : provinceIdArr) {
+                Province province = provinceMapper.get(provinceId);
+                if (province != null) {
+                    provinceMapIC.put(provinceId, province.getCode());
+                }
+            }
+        }
+        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId())){
+            String[] cityIdArr = entity.getCityId().split(",");
+            for (String cityId : cityIdArr) {
+                City city = cityMapper.get(cityId);
+                if (city != null) {
+                    Province province = provinceMapper.getProvinceByCode(city.getProvinceCode());
+                    if (province != null) {
+                        cityMapCP.put(cityId, province.getId());
+                    }
+                }
+            }
+        }
+        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId())){
+            String[] areaIdArr = entity.getDistrictId().split(",");
+            for (String areaId : areaIdArr) {
+                Area area = areaMapper.get(areaId);
+                if (area != null) {
+                    City city = cityMapper.getCityByCode(area.getCityCode());
+                    if (city != null) {
+                        areaMapAC.put(areaId, city.getId());
+                    }
+                }
+            }
+        }
+        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId())){
+            String[] streetIdArr = entity.getStreetId().split(",");
+            for (String streetId : streetIdArr) {
+                Street street = streetMapper.get(streetId);
+                if (street != null) {
+                    Area area = areaMapper.getAreaByCode(street.getAreaCode());
+                    if (area != null) {
+                        streetMapSA.put(streetId, area.getId());
+                    }
+                }
+            }
+        }
+        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId())){
+            String[] streetIdArr = entity.getStreetId().split(",");
+            for (String streetId : streetIdArr) {
+                String area = streetMapSA.get(streetId);//获取区id
+                String city = areaMapAC.get(area);//获取市id
+                String province = cityMapCP.get(city);//获取省id
+                RegionGoods insert = new RegionGoods();
+                BeanUtils.copyProperties(entity,insert);
+                insert.setStreetId(streetId);
+                insert.setDistrictId(area);
+                insert.setCityId(city);
+                insert.setProvinceId(province);
+                if (StringUtils.isBlank(insert.getId())) {
+                    insert.preInsert();
+                    save = regionGoodsMapper.insert(insert);
+                }else {
+                    insert.preUpdate();
+                    save = regionGoodsMapper.update(insert);
+                }
+            }
+            //街道数据完成过后，就删除掉其上级的区数据
+            for (String streetId : streetIdArr) {
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(streetMapSA.get(streetId))));
+                cityMapCP.remove(areaMapAC.get(streetMapSA.get(streetId)));
+                areaMapAC.remove(streetMapSA.get(streetId));
+            }
+        }
+        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId())){
+            String[] areaIdArr = entity.getDistrictId().split(",");
+            for (String areaId : areaIdArr) {
+                RegionGoods insert = new RegionGoods();
+                BeanUtils.copyProperties(entity,insert);
+                if (areaMapAC.get(areaId) != null) {
+                    String city = areaMapAC.get(areaId);//获取市id
+                    String province = cityMapCP.get(city);//获取省id
+                    insert.setDistrictId(areaId);
+                    insert.setCityId(city);
+                    insert.setProvinceId(province);
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = regionGoodsMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = regionGoodsMapper.insert(insert);
+                    }
+                }
+            }
+            //街道数据完成过后，就删除掉其上级的市数据
+            for (String areaId : areaIdArr) {
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(areaId)));
+                cityMapCP.remove(areaMapAC.get(areaId));
+            }
+        }
+        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId())){
+            String[] cityIdArr = entity.getCityId().split(",");
+            for (String cityId : cityIdArr) {
+                RegionGoods insert = new RegionGoods();
+                BeanUtils.copyProperties(entity,insert);
+                if (cityMapCP.get(cityId) != null) {
+                    String province = cityMapCP.get(cityId);//获取省id
+                    insert.setProvinceId(province);
+                    insert.setCityId(cityId);
+                    insert.setDistrictId("0");
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = regionGoodsMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = regionGoodsMapper.insert(insert);
+                    }
+                }
+            }
+            //市数据完成过后，就删除掉其上级的省数据
+            for (String cityId : cityIdArr) {
+                provinceMapIC.remove(cityMapCP.get(cityId));
+            }
+        }
+        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId())){
+            String[] provinceIdArr = entity.getProvinceId().split(",");
+            for (String provinceId : provinceIdArr) {
+                RegionGoods insert = new RegionGoods();
+                BeanUtils.copyProperties(entity,insert);
+                if (provinceMapIC.get(provinceId) != null) {
+                    insert.setProvinceId(provinceId);
+                    insert.setCityId("0");
+                    insert.setDistrictId("0");
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = regionGoodsMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = regionGoodsMapper.insert(insert);
+                    }
+                }
+            }
+        }
         return save;
     }
 

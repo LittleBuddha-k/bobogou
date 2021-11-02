@@ -20,4 +20,11 @@ public interface AreaMapper extends BaseMapper<Area> {
      * @return
      */
     List<Area> findNoPageByCityCode(String cityCode);
+
+    /**
+     * 根据区code获取区数据
+     * @param areaCode
+     * @return
+     */
+    Area getAreaByCode(String areaCode);
 }

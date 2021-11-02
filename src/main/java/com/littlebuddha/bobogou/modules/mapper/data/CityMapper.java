@@ -20,4 +20,11 @@ public interface CityMapper extends BaseMapper<City> {
      * @return
      */
     List<City> findNoPageByProvinceCode(String provinceCode);
+
+    /**
+     * 根据市code查询市数据
+     * @param code
+     * @return
+     */
+    City getCityByCode(String code);
 }

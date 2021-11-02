@@ -10,4 +10,11 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface ProvinceMapper extends BaseMapper<Province> {
+
+    /**
+     * 根据code查询
+     * @param
+     * @return
+     */
+    Province getProvinceByCode(String code);
 }

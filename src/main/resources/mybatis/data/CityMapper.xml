@@ -25,6 +25,13 @@
         WHERE a.id=#{id}
     </select>
 
+    <select id="getCityByCode" resultType="com.littlebuddha.bobogou.modules.entity.data.City">
+        SELECT
+        <include refid="cityColumns"/>
+        FROM system_city a
+        WHERE a.code=#{code}
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.City">
         SELECT
         <include refid="cityColumns"/>

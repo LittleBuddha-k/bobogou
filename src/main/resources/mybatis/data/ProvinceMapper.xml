@@ -24,6 +24,13 @@
         WHERE a.id=#{id}
     </select>
 
+    <select id="getProvinceByCode" resultType="com.littlebuddha.bobogou.modules.entity.data.Province">
+        SELECT
+        <include refid="provinceColumns"/>
+        FROM system_province a
+        WHERE a.code=#{code}
+    </select>
+
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.data.Province">
         SELECT
         <include refid="provinceColumns"/>
