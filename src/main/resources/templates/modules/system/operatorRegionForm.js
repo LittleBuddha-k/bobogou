@@ -200,7 +200,7 @@ function selectProvince(id) {
 function selectStreet(id) {
     let area = $("#area").val();
     if (area != null && area != '' && area != undefined && area != 0){
-        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?area=" + area, "选择街道", '90%', '90%',id);
+        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?areaIds=" + area, "选择街道", '90%', '90%',id);
     }else {
         rc.error("请先选择区")
     }
