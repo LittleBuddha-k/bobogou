@@ -3,11 +3,11 @@ layui.use(['form', 'table'], function () {
         form = layui.form,
         table = layui.table;
 
-    let areaId = $("#areaId").val();
+    let areaIds = $("#areaIds").val();
 
     table.render({
         elem: '#streetTable',
-        url: '/bobogou/data/street/noPage?area.id=' + areaId,
+        url: '/bobogou/data/street/noPageByArea?areaIds=' + areaIds,
         method: 'GET',
         request: {
             pageName: 'pageNo', // page

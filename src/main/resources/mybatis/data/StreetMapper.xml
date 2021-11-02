@@ -71,6 +71,27 @@
         </choose>
     </select>
 
+    <select id="findNoPageByAreaCode" resultType="com.littlebuddha.bobogou.modules.entity.data.Street">
+        SELECT
+        <include refid="streetColumns"/>
+        FROM system_street a
+        <where>
+            a.del_flag = 0
+            <!-- 判断条件参数是否为空 -->
+            <if test="areaCode != null and areaCode != '' and areaCode != 0">
+                and a.area_code = #{areaCode}
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+
+            </when>
+            <otherwise>
+                ORDER BY a.create_date DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.Street">
         SELECT
         <include refid="streetColumns"/>

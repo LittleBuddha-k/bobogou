@@ -103,22 +103,16 @@ public class StreetController extends BaseController {
      * @return
      */
     @ResponseBody
-    @GetMapping("/noPage")
-    public TreeResult noPage(Street street) {
-        if(street != null && street.getArea() != null && StringUtils.isNotBlank(street.getArea().getId())){
-            Area area = areaService.get(street.getArea().getId());
-            if(area != null) {
-                street.setAreaCode(area.getCode());
-            }
+    @GetMapping("/noPageByArea")
+    public TreeResult noPageByArea(Street street,String areaIds) {
+        List<Street> list = streetService.noPageByArea(areaIds);
+        if (list != null && !list.isEmpty()) {
+            TreeResult treeResult = new TreeResult(0,"",list,list.size());
+            return treeResult;
+        }else {
+            TreeResult treeResult = new TreeResult(0,"无数据");
+            return treeResult;
         }
-        List<Street> list = streetService.findList(street);
-        TreeResult result = null;
-        if (list == null || list.size() <= 0){
-            result = new TreeResult(0,"无数据");
-        }else if(list != null || list.size() > 0){
-            result = new TreeResult(0,"查询成功",list, list.size());
-        }
-        return result;
     }
 
     /**
