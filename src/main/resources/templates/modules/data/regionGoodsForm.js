@@ -2,57 +2,71 @@ layui.use('form', function(){
     var form = layui.form;
     //各种基于事件的操作，下面会有进一步介绍
     //初始化情况下只有省能选择
-    $("#cityId").attr("onclick", "");
-    $("#districtId").attr("onclick", "");
-    $("#streetId").attr("onclick", "");
+    let type = $("#type").val();
+    if (1 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#districtId").removeAttr("onclick");
+        $("#streetId").removeAttr("onclick");
+    }else if (2 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#streetId").removeAttr("onclick");
+    }else if (3 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#districtId").attr("onclick","selectArea('districtId');");
+        $("#streetId").removeAttr("onclick");
+    }else if (4 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#districtId").attr("onclick","selectArea('districtId');");
+        $("#streetId").removeAttr("onclick");
+        $("#streetId").attr("onclick","selectStreet('streetId');");
+    }
 
     //根据类型不同禁用对应选项
     form.on('select(type)', function (data) {
         let type = data.value;
         if (type == 1){
-            //$("#provinceId").attr("onclick", "");
-            $("#province").bind("click", function() {
-                selectProvince('streetId');
-            });
-            $("#cityId").attr("onclick", "");
-            $("#districtId").attr("onclick", "");
-            $("#streetId").attr("onclick", "");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").val("");
+            $("#city").val("0");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").val("");
+            $("#district").val("0");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 2){
-            $("#province").bind("click", function() {
-                selectProvince('streetId');
-            });
-            $("#cityId").bind("click", function() {
-                selectCity('cityId');
-            });
-            $("#districtId").attr("onclick", "");
-            $("#streetId").attr("onclick", "");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").val("");
+            $("#district").val("0");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 3){
-            $("#province").bind("click", function() {
-                selectProvince('streetId');
-            });
-            $("#cityId").bind("click", function() {
-                selectCity('cityId');
-            });
-            $("#districtId").bind("click", function() {
-                selectArea('districtId');
-            });
-            $("#streetId").attr("onclick", "");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").attr("onclick","selectArea('districtId');");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 4){
-            $("#province").bind("click", function() {
-                selectProvince('streetId');
-            });
-            $("#cityId").bind("click", function() {
-                selectCity('cityId');
-            });
-            $("#districtId").bind("click", function() {
-                selectArea('districtId');
-            });
-            $("#streetId").bind("click", function() {
-                selectStreet('streetId');
-            });
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").attr("onclick","selectArea('districtId');");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").attr("onclick","selectStreet('streetId');");
             form.render();
         }
     });
