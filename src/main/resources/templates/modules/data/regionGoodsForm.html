@@ -17,7 +17,12 @@
                 <label class="layui-form-label">类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
-                            th:id="type" th:with="type=${@dictData.findByType('data_region_goods_type')}">
+                            th:id="type" th:with="type=${@dictData.findByType('data_region_goods_type')}" th:if="${mode == 'add'}">
+                        <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                th:selected="${dict.getValue()}==${regionGoods.getType()}"/>
+                    </select>
+                    <select name="type" lay-verify="" lay-filter="type"
+                            th:id="type" th:with="type=${@dictData.findByType('data_region_goods_type')}" th:if="${mode != 'add'}" disabled>
                         <option th:each="dict:${type}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
                                 th:selected="${dict.getValue()}==${regionGoods.getType()}"/>
                     </select>
@@ -35,7 +40,7 @@
                 <label class="layui-form-label" for="province">省</label>
                 <div class="layui-input-inline">
                     <select name="provinceId" lay-verify="" lay-filter="province"
-                            th:id="provinceId" th:with="province=${@province.findToDictUse()}">
+                            th:id="provinceId" th:with="province=${@province.findToDictUse()}" disabled>
                         <option th:each="dict:${province}" th:value="${dict.getId()}" th:text="${dict.getName()}"
                                 th:selected="${dict.getId()}==${regionGoods.getProvinceId()}"/>
                     </select>

@@ -130,7 +130,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 }
             }
         }
-        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId())){
+        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId()) && !"0".equals(entity.getStreetId())){
             String[] streetIdArr = entity.getStreetId().split(",");
             for (String streetId : streetIdArr) {
                 String area = streetMapSA.get(streetId);//获取区id
@@ -157,7 +157,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 areaMapAC.remove(streetMapSA.get(streetId));
             }
         }
-        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId())){
+        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId()) && !"0".equals(entity.getDistrictId())){
             String[] areaIdArr = entity.getDistrictId().split(",");
             for (String areaId : areaIdArr) {
                 RegionGoods insert = new RegionGoods();
@@ -174,7 +174,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         save = regionGoodsMapper.insert(insert);
                     }else {
                         insert.preUpdate();
-                        save = regionGoodsMapper.insert(insert);
+                        save = regionGoodsMapper.update(insert);
                     }
                 }
             }
@@ -184,7 +184,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 cityMapCP.remove(areaMapAC.get(areaId));
             }
         }
-        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId())){
+        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId()) && !"0".equals(entity.getCityId())){
             String[] cityIdArr = entity.getCityId().split(",");
             for (String cityId : cityIdArr) {
                 RegionGoods insert = new RegionGoods();
@@ -200,7 +200,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         save = regionGoodsMapper.insert(insert);
                     }else {
                         insert.preUpdate();
-                        save = regionGoodsMapper.insert(insert);
+                        save = regionGoodsMapper.update(insert);
                     }
                 }
             }
@@ -209,7 +209,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 provinceMapIC.remove(cityMapCP.get(cityId));
             }
         }
-        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId())){
+        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId()) && !"0".equals(entity.getProvinceId())){
             String[] provinceIdArr = entity.getProvinceId().split(",");
             for (String provinceId : provinceIdArr) {
                 RegionGoods insert = new RegionGoods();
@@ -224,7 +224,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                         save = regionGoodsMapper.insert(insert);
                     }else {
                         insert.preUpdate();
-                        save = regionGoodsMapper.insert(insert);
+                        save = regionGoodsMapper.update(insert);
                     }
                 }
             }
