@@ -72,18 +72,6 @@ layui.use('form', function(){
     });
 });
 
-$(document).ready(function () {
-    layui.use(['form', 'table'], function () {
-        var $ = layui.jquery,
-            form = layui.form,
-            table = layui.table;
-        let idsSelections;
-        $("#goods").click(function () {
-            let openSelector = rc.openSelector("/bobogou/data/medicine/select","选择商品",'85%','80%');
-        })
-    })
-})
-
 //保存方法
 function save(parentIndex) {
     var isValidate = rc.validateForm('#regionGoodsForm');//校验表单
