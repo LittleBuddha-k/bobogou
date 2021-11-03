@@ -116,14 +116,18 @@ function selectGoods(id) {
 }
 
 function selectProvince(id) {
-    //打开前  判断市区街道的值
+    //打开前  判断市区街道的值 todo
+    $("#province").trigger("input");
     let openSelector = rc.openAreaSelect("/bobogou/data/province/select", "选择省", '90%', '90%',id);
-    $("#cityId").val("");
-    $("#city").val("0");
-    $("#districtId").val("");
-    $("#district").val("0");
-    $("#streetId").val("");
-    $("#street").val("0");
+    $("#province").bind("input propertychange",function () {
+        console.log("已经输入了"+$("#province").val().length+"个字。。。");
+    });
+    //$("#cityId").val("");
+    //$("#city").val("0");
+    //$("#districtId").val("");
+    //$("#district").val("0");
+    //$("#streetId").val("");
+    //$("#street").val("0");
 }
 
 function selectCity(id) {
