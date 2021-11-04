@@ -32,7 +32,7 @@ function init() {
                 cols: [
                     [
                         {
-                            type: 'checkbox'
+                            type: 'radio'
                         },
                         {
                             field: 'title',
