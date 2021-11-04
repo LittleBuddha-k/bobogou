@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.RoyaltyRecordMapper">
-    <sql id="goodsNormColumns">
+    <sql id="royaltyRecordColumns">
         id AS "id",
         user_id AS "userId",
         order_id AS "orderId",
@@ -18,16 +18,20 @@
         update_time AS "updateTime"
     </sql>
 
+    <sql id="royaltyRecordJoins">
+        
+    </sql>
+    
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
         WHERE id=#{id}
     </select>
 
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
@@ -48,7 +52,7 @@
 
     <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
         SELECT
-        <include refid="goodsNormColumns"/>
+        <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}

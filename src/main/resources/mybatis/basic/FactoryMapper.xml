@@ -38,6 +38,12 @@
         operator_id AS "operatorId"
     </sql>
 
+    <sql id="factoryJoins">
+        LEFT JOIN system_operator b ON a.operator_id = b.id
+        LEFT JOIN system_operator_role c ON b.id = c.operator_id
+        LEFT JOIN system_role d ON c.role_id = d.id
+    </sql>
+
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
         SELECT
         <include refid="factoryColumns"/>
