@@ -30,7 +30,7 @@ layui.use(['form', 'table'], function () {
         cols: [
             [
                 {
-                    type: "checkbox"
+                    type: "radio"
                 },
                 {
                     title: '登录名',
