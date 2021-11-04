@@ -35,13 +35,13 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '订单编号',
                     field: 'orderNumber',
-                    width: '150',
+                    width: '200',
                 },
                 {
                     title: '厂商名字',
                     field: 'factoryName',
                     sort: true,
-                    width: '150',
+                    width: '200',
                 },
                 {
                     title: '省',
@@ -71,7 +71,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '收货地址',
                     field: 'receivingAddress',
-                    width: '300',
+                    width: '500',
                 },
                 {
                     title: '总重量(g)',
