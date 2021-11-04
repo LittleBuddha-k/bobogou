@@ -242,6 +242,24 @@
             <input type="hidden" th:id="groupPhoto" th:name="groupPhoto" th:value="${userMember.getGroupPhoto()}">
         </div>
         <div class="layui-form-item">
+            <label class="layui-form-label" for="contractUrl">合同图片</label>
+            <div class="layui-upload">
+                <button type="button" class="layui-btn">合同图片</button>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getContractUrl() != null && userMember.getContractUrl() != ''}">
+                    预览图：
+                    <div class="layui-upload-list">
+                        <img  th:each="image:${userMember.getContractUrl().split(',')}" th:src="${image}" alt="" style="width: 92px;height: 92px;" class="layui-upload-img">
+                    </div>
+                </blockquote>
+                <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;"  th:if="${userMember.getContractUrl() == null || userMember.getContractUrl() == ''}">
+                    预览图：
+                    <div class="layui-upload-list">
+                    </div>
+                </blockquote>
+            </div>
+            <input type="hidden" th:id="contractUrl" th:name="contractUrl" th:value="${userMember.getContractUrl()}">
+        </div>
+        <div class="layui-form-item">
             <div class="layui-inline">
                 <label class="layui-form-label" for="status">审核状态</label>
                 <div class="layui-input-inline">
