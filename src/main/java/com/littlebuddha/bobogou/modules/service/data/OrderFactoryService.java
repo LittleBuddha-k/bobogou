@@ -6,16 +6,21 @@ import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderFactory;
 import com.littlebuddha.bobogou.modules.mapper.data.OrderFactoryMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.OrderMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class OrderFactoryService extends CrudService<OrderFactory, OrderFactoryMapper> {
+
+    @Resource
+    private OrderMapper orderMapper;
 
     @Override
     public OrderFactory get(OrderFactory entity) {
@@ -59,7 +64,13 @@ public class OrderFactoryService extends CrudService<OrderFactory, OrderFactoryM
 
     @Override
     public int save(OrderFactory entity) {
-        return super.save(entity);
+        //如果修改出库状态为已发货，关联修改订单为已发货
+        if (entity != null && "2".equals(entity.getOutStatus()));
+        int save = super.save(entity);
+        if (entity.getOrderId() != null) {
+            orderMapper.confirmDeliver(entity.getOrderId());
+        }
+        return save;
     }
 
     @Override
