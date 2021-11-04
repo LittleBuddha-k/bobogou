@@ -29,7 +29,7 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
     private String cityId = "0";//市ID，关联system_city表，超级管理员助力不填，分配给省级经济人管理的市
     private String cityName;
     private Area area;
-    private String areaId = "0";//区县ID，关联system_area表，超级管理员助力和省级经济人不填，分配给市级经纪人管理的区县
+    private String districtId = "0";//区县ID，关联system_area表，超级管理员助力和省级经济人不填，分配给市级经纪人管理的区县
     private String areaName;
     private Street street;
     private String streetId = "0";//乡镇街道ID，关联system_street，超级管理员助力和省级经纪人以及市级经济人不填，分配给区级经济人管理的乡镇街道
@@ -166,12 +166,12 @@ public class OperatorRegion extends DataEntity<OperatorRegion> {
         this.area = area;
     }
 
-    public String getAreaId() {
-        return areaId;
+    public String getDistrictId() {
+        return districtId;
     }
 
-    public void setAreaId(String areaId) {
-        this.areaId = areaId;
+    public void setDistrictId(String districtId) {
+        this.districtId = districtId;
     }
 
     public String getAreaName() {

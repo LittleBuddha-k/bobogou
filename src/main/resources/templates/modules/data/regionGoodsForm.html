@@ -49,7 +49,7 @@
             <div class="layui-inline" th:if="${mode == 'add'}">
                 <label class="layui-form-label" for="cityId">市</label>
                 <div class="layui-input-inline">
-                    <textarea th:id="cityId" th:text="${regionGoods.getProvinceName()}"
+                    <textarea th:id="cityId" th:text="${regionGoods.getCityName()}"
                               placeholder="市" class="layui-textarea" onclick="selectCity('cityId')" readonly></textarea>
                     <input type="hidden" th:id="city" th:name="cityId" th:value="${regionGoods.getCityId()}" autocomplete="off" class="layui-input" readonly>
                 </div>

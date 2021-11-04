@@ -255,7 +255,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                     if (region != null) {
                         entity.setProvinceId(region.getProvinceId());
                         entity.setCityId(region.getCityId());
-                        entity.setAreaId(region.getAreaId());
+                        entity.setAreaId(region.getDistrictId());
                         entity.setStreetId(region.getStreetId());
                         List<CustomerUser> vipApplyForAreaManager = customerUserMapper.getVipApplyForAreaManager(entity);
                         if (vipApplyForAreaManager != null) {

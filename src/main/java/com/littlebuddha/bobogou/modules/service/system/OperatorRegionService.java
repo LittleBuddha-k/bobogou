@@ -26,7 +26,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("oRegion")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -71,8 +73,8 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
             if (StringUtils.isNotBlank(operatorRegion.getCityId())) {
                 operatorRegion.setCity(cityMapper.get(new City(operatorRegion.getCityId())));
             }
-            if (StringUtils.isNotBlank(operatorRegion.getAreaId())) {
-                operatorRegion.setArea(areaMapper.get(new Area(operatorRegion.getAreaId())));
+            if (StringUtils.isNotBlank(operatorRegion.getDistrictId())) {
+                operatorRegion.setArea(areaMapper.get(new Area(operatorRegion.getDistrictId())));
             }
             if (StringUtils.isNotBlank(operatorRegion.getStreetId())) {
                 operatorRegion.setStreet(streetMapper.get(new Street(operatorRegion.getStreetId())));
@@ -153,8 +155,8 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
         List<Area> result = new ArrayList<>();
         if (currentUserAreaDistinct != null && !currentUserAreaDistinct.isEmpty()) {
             for (OperatorRegion region : currentUserAreaDistinct) {
-                if (region != null && StringUtils.isNotBlank(region.getAreaId())) {
-                    String areaId = region.getAreaId();
+                if (region != null && StringUtils.isNotBlank(region.getDistrictId())) {
+                    String areaId = region.getDistrictId();
                     Area area = areaMapper.get(areaId);
                     result.add(area);
                 }
@@ -210,8 +212,8 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
                 if (StringUtils.isNotBlank(operatorRegion.getCityId())) {
                     operatorRegion.setCity(cityMapper.get(new City(operatorRegion.getCityId())));
                 }
-                if (StringUtils.isNotBlank(operatorRegion.getAreaId())) {
-                    operatorRegion.setArea(areaMapper.get(new Area(operatorRegion.getAreaId())));
+                if (StringUtils.isNotBlank(operatorRegion.getDistrictId())) {
+                    operatorRegion.setArea(areaMapper.get(new Area(operatorRegion.getDistrictId())));
                 }
                 if (StringUtils.isNotBlank(operatorRegion.getStreetId())) {
                     operatorRegion.setStreet(streetMapper.get(new Street(operatorRegion.getStreetId())));
@@ -223,6 +225,7 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
 
     @Override
     public int save(OperatorRegion entity) {
+        //设置设置前端用户id
         if (entity != null && StringUtils.isNotBlank(entity.getOperatorId())) {
             Operator operator = operatorMapper.get(entity.getOperatorId());
             String userId = operator.getUserId();
@@ -234,39 +237,152 @@ public class OperatorRegionService extends CrudService<OperatorRegion, OperatorR
         }
         //int save = super.save(entity);
         int save = 0;
-        if (entity != null && StringUtils.isBlank(entity.getId())) {
-            //新增
-            if (StringUtils.isNotBlank(entity.getStreetId())) {
-                String streetId = entity.getStreetId();
-                String[] street = streetId.split(",");
-                for (String streetsId : street) {
-                    OperatorRegion operatorRegion = new OperatorRegion();
-                    BeanUtils.copyProperties(entity, operatorRegion);
-                    operatorRegion.setIdType("AUTO");
-                    operatorRegion.setStreetId(streetsId);
-                    operatorRegion.preInsert();
-                    save = operatorRegionMapper.insert(operatorRegion);
+        Map<String,String> provinceMapIC = new HashMap<>();//
+        Map<String,String> cityMapCP = new HashMap<>();//cityID--provinceId
+        Map<String,String> areaMapAC = new HashMap<>();//areaId--cityID
+        Map<String,String> streetMapSA = new HashMap<>();//streetId--areaId
+        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId())){
+            String[] provinceIdArr = entity.getProvinceId().split(",");
+            for (String provinceId : provinceIdArr) {
+                Province province = provinceMapper.get(provinceId);
+                if (province != null) {
+                    provinceMapIC.put(provinceId, province.getCode());
                 }
-            } else {
-                entity.preInsert();
-                save = operatorRegionMapper.insert(entity);
             }
-        } else {
-            //修改
-            if (StringUtils.isNotBlank(entity.getStreetId())) {
-                String streetId = entity.getStreetId();
-                String[] street = streetId.split(",");
-                for (String streetsId : street) {
-                    OperatorRegion operatorRegion = new OperatorRegion();
-                    BeanUtils.copyProperties(entity, operatorRegion);
-                    operatorRegion.setIdType("AUTO");
-                    operatorRegion.setStreetId(streetsId);
-                    operatorRegion.preUpdate();
-                    save = operatorRegionMapper.update(operatorRegion);
+        }
+        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId())){
+            String[] cityIdArr = entity.getCityId().split(",");
+            for (String cityId : cityIdArr) {
+                City city = cityMapper.get(cityId);
+                if (city != null) {
+                    Province province = provinceMapper.getProvinceByCode(city.getProvinceCode());
+                    if (province != null) {
+                        cityMapCP.put(cityId, province.getId());
+                    }
                 }
-            } else {
-                entity.preUpdate();
-                save = operatorRegionMapper.update(entity);
+            }
+        }
+        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId())){
+            String[] areaIdArr = entity.getDistrictId().split(",");
+            for (String areaId : areaIdArr) {
+                Area area = areaMapper.get(areaId);
+                if (area != null) {
+                    City city = cityMapper.getCityByCode(area.getCityCode());
+                    if (city != null) {
+                        areaMapAC.put(areaId, city.getId());
+                    }
+                }
+            }
+        }
+        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId())){
+            String[] streetIdArr = entity.getStreetId().split(",");
+            for (String streetId : streetIdArr) {
+                Street street = streetMapper.get(streetId);
+                if (street != null) {
+                    Area area = areaMapper.getAreaByCode(street.getAreaCode());
+                    if (area != null) {
+                        streetMapSA.put(streetId, area.getId());
+                    }
+                }
+            }
+        }
+        if (entity.getStreetId() != null && StringUtils.isNotBlank(entity.getStreetId()) && !"0".equals(entity.getStreetId())){
+            String[] streetIdArr = entity.getStreetId().split(",");
+            for (String streetId : streetIdArr) {
+                String area = streetMapSA.get(streetId);//获取区id
+                String city = areaMapAC.get(area);//获取市id
+                String province = cityMapCP.get(city);//获取省id
+                OperatorRegion insert = new OperatorRegion();
+                BeanUtils.copyProperties(entity,insert);
+                insert.setStreetId(streetId);
+                insert.setDistrictId(area);
+                insert.setCityId(city);
+                insert.setProvinceId(province);
+                if (StringUtils.isBlank(insert.getId())) {
+                    insert.preInsert();
+                    save = operatorRegionMapper.insert(insert);
+                }else {
+                    insert.preUpdate();
+                    save = operatorRegionMapper.update(insert);
+                }
+            }
+            //街道数据完成过后，就删除掉其上级的区数据
+            for (String streetId : streetIdArr) {
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(streetMapSA.get(streetId))));
+                cityMapCP.remove(areaMapAC.get(streetMapSA.get(streetId)));
+                areaMapAC.remove(streetMapSA.get(streetId));
+            }
+        }
+        if (entity.getDistrictId() != null && StringUtils.isNotBlank(entity.getDistrictId()) && !"0".equals(entity.getDistrictId())){
+            String[] areaIdArr = entity.getDistrictId().split(",");
+            for (String areaId : areaIdArr) {
+                OperatorRegion insert = new OperatorRegion();
+                BeanUtils.copyProperties(entity,insert);
+                if (areaMapAC.get(areaId) != null) {
+                    String city = areaMapAC.get(areaId);//获取市id
+                    String province = cityMapCP.get(city);//获取省id
+                    insert.setDistrictId(areaId);
+                    insert.setCityId(city);
+                    insert.setProvinceId(province);
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = operatorRegionMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = operatorRegionMapper.update(insert);
+                    }
+                }
+            }
+            //街道数据完成过后，就删除掉其上级的市数据
+            for (String areaId : areaIdArr) {
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(areaId)));
+                cityMapCP.remove(areaMapAC.get(areaId));
+            }
+        }
+        if (entity.getCityId() != null && StringUtils.isNotBlank(entity.getCityId()) && !"0".equals(entity.getCityId())){
+            String[] cityIdArr = entity.getCityId().split(",");
+            for (String cityId : cityIdArr) {
+                OperatorRegion insert = new OperatorRegion();
+                BeanUtils.copyProperties(entity,insert);
+                if (cityMapCP.get(cityId) != null) {
+                    String province = cityMapCP.get(cityId);//获取省id
+                    insert.setProvinceId(province);
+                    insert.setCityId(cityId);
+                    insert.setDistrictId("0");
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = operatorRegionMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = operatorRegionMapper.update(insert);
+                    }
+                }
+            }
+            //市数据完成过后，就删除掉其上级的省数据
+            for (String cityId : cityIdArr) {
+                provinceMapIC.remove(cityMapCP.get(cityId));
+            }
+        }
+        if (entity.getProvinceId() != null && StringUtils.isNotBlank(entity.getProvinceId()) && !"0".equals(entity.getProvinceId())){
+            String[] provinceIdArr = entity.getProvinceId().split(",");
+            for (String provinceId : provinceIdArr) {
+                OperatorRegion insert = new OperatorRegion();
+                BeanUtils.copyProperties(entity,insert);
+                if (provinceMapIC.get(provinceId) != null) {
+                    insert.setProvinceId(provinceId);
+                    insert.setCityId("0");
+                    insert.setDistrictId("0");
+                    insert.setStreetId("0");
+                    if (StringUtils.isBlank(insert.getId())) {
+                        insert.preInsert();
+                        save = operatorRegionMapper.insert(insert);
+                    }else {
+                        insert.preUpdate();
+                        save = operatorRegionMapper.update(insert);
+                    }
+                }
             }
         }
         return save;

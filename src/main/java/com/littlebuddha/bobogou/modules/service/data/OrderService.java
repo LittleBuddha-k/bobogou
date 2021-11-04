@@ -163,7 +163,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     if (region != null) {
                         entity.setProvinceId(region.getProvinceId());
                         entity.setCityId(region.getCityId());
-                        entity.setAreaId(region.getAreaId());
+                        entity.setAreaId(region.getDistrictId());
                         entity.setStreetId(region.getStreetId());
                         List<Order> orderList = orderMapper.findList(entity);
                         if (orderList != null) {
@@ -297,7 +297,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 if (region != null) {
                     entity.setProvinceId(region.getProvinceId());
                     entity.setCityId(region.getCityId());
-                    entity.setAreaId(region.getAreaId());
+                    entity.setAreaId(region.getDistrictId());
                     entity.setStreetId(region.getStreetId());
                     List<OrderExportDTO> orderList = orderMapper.findOrderExportList(entity);
                     if (orderList != null) {

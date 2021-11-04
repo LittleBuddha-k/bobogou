@@ -7,108 +7,101 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , upload = layui.upload
         , element = layui.element;
 
+    //初始化情况下只有省能选择
+    let type = $("#type").val();
+    if (0 == type) {
+        $("#provinceId").removeAttr("onclick");
+        $("#cityId").removeAttr("onclick");
+        $("#districtId").removeAttr("onclick");
+        $("#streetId").removeAttr("onclick");
+    }else if (1 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#districtId").removeAttr("onclick");
+        $("#streetId").removeAttr("onclick");
+    }else if (2 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#streetId").removeAttr("onclick");
+    }else if (3 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#districtId").attr("onclick","selectArea('districtId');");
+        $("#streetId").removeAttr("onclick");
+    }else if (4 == type){
+        $("#cityId").removeAttr("onclick");
+        $("#cityId").attr("onclick","selectCity('cityId');");
+        $("#districtId").removeAttr("onclick");
+        $("#districtId").attr("onclick","selectArea('districtId');");
+        $("#streetId").removeAttr("onclick");
+        $("#streetId").attr("onclick","selectStreet('streetId');");
+    }
+
     //根据类型不同禁用对应选项
     form.on('select(type)', function (data) {
         let type = data.value;
         if (type == 0){
-            $("#province").attr("disabled","disabled");
-            $("#city").attr("disabled","disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
-            $("#streetId").attr("onclick", "");
+            $("#provinceId").removeAttr("onclick");
+            $("#provinceId").val("");
+            $("#province").val("0");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").val("");
+            $("#city").val("0");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").val("");
+            $("#district").val("0");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 1){
-            $("#province").removeAttr("disabled");
-            $("#city").attr("disabled","disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
-            $("#streetId").attr("onclick", "");
+            $("#provinceId").removeAttr("onclick");
+            $("#provinceId").attr("onclick","selectProvince('provinceId');");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").val("");
+            $("#city").val("0");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").val("");
+            $("#district").val("0");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 2){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").attr("disabled","disabled");
-            $("#street").attr("disabled","disabled");
-            $("#streetId").attr("onclick", "");
+            $("#provinceId").removeAttr("onclick");
+            $("#provinceId").attr("onclick","selectProvince('provinceId');");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").val("");
+            $("#district").val("0");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 3){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").removeAttr("disabled");
-            $("#street").attr("disabled","disabled");
-            $("#streetId").attr("onclick", "");
+            $("#provinceId").removeAttr("onclick");
+            $("#provinceId").attr("onclick","selectProvince('provinceId');");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").attr("onclick","selectArea('districtId');");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").val("");
+            $("#street").val("0");
             form.render();
         }else if (type == 4){
-            $("#province").removeAttr("disabled");
-            $("#city").removeAttr("disabled");
-            $("#area").removeAttr("disabled");
-            $("#street").removeAttr("disabled");
-            $("#streetId").attr("onclick", "");
-            $("#streetId").bind("click", function() {
-                selectStreet('streetId');
-            });
+            $("#provinceId").removeAttr("onclick");
+            $("#provinceId").attr("onclick","selectProvince('provinceId');");
+            $("#cityId").removeAttr("onclick");
+            $("#cityId").attr("onclick","selectCity('cityId');");
+            $("#districtId").removeAttr("onclick");
+            $("#districtId").attr("onclick","selectArea('districtId');");
+            $("#streetId").removeAttr("onclick");
+            $("#streetId").attr("onclick","selectStreet('streetId');");
             form.render();
         }
-    });
-
-    form.on('select(province)', function (data) {
-        let provinceId = data.value;
-        $("#city").empty();//清空城市选项
-        $("#area").empty();//清空城市选项
-        $("#street").val("0");//清空城市选项
-        $("#street").empty();//清空城市选项
-        $("#streetId").val("0");//清空城市选项
-        rc.post("/bobogou/data/city/all", {"province.id": provinceId}, function (data) {
-            if (data.length > 0) {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                $("#area").html(tmp);
-                $("#street").html(tmp);
-                for (let i = 0; i < data.length; i++) {
-                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
-                }
-                $("#city").html(tmp);
-                form.render();
-            }
-        })
-    });
-    //下拉框选中后的时间
-    form.on('select(city)', function (data) {
-        let cityId = data.value;
-        $("#area").empty();//清空城市选项
-        $("#street").val("0");//清空城市选项
-        $("#street").empty();//清空城市选项
-        $("#streetId").val("0");//清空城市选项
-        rc.post("/bobogou/data/area/all", {"city.id": cityId}, function (data) {
-            if (data.length > 0) {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                $("#street").html(tmp);
-                for (let i = 0; i < data.length; i++) {
-                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
-                }
-                $("#area").html(tmp);
-                form.render();
-            }
-        })
-    });
-    //下拉框选中后的时间
-    form.on('select(area)', function (data) {
-        let areaId = data.value;
-        $("#street").val("0");//清空城市选项
-        $("#street").empty();//清空城市选项
-        $("#streetId").val("0");//清空城市选项
-        rc.post("/bobogou/data/street/all", {"area.id": areaId}, function (data) {
-            if (data.length > 0) {
-                //对应的值传回，拼出html下拉框语句
-                var tmp = '<option value="0">请选择</option>';
-                for (let i = 0; i < data.length; i++) {
-                    tmp += "<option value='" + data[i].id + "'>" + data[i].name + "</option>";
-                }
-                $("#street").html(tmp);
-                form.render();
-            }
-        })
     });
 })
 
@@ -123,69 +116,29 @@ function save(parentIndex) {
         $("#city").removeAttr("disabled");
         $("#area").removeAttr("disabled");
         $("#street").removeAttr("disabled");
-        let flag = false;
-        let type = $("#type").val();
-        let province = $("#province").val();
-        let city = $("#city").val();
-        let area = $("#area").val();
-        let street = $("#street").val();
-        if (type == 0){
-            //超级管理员助理
-            rc.error("请选择类型")
-        }else if (type == 1){
-            //超级管理员助理
-            if (province != null && province != '' && province != undefined && province != 0){
-                flag = true;
-            }else if (province == null || province == '' || province == undefined || province == 0){
-                rc.error("请选择省级")
-            }
-        }else if (type == 2){
-            //省级
-            if (city != null && city != '' && city != undefined && city != 0){
-                flag = true;
-            }else if (city == null || city == '' || city == undefined || city == 0) {
-                rc.error("请选择市级")
-            }
-        }else if (type == 3){
-            //市级
-            if (area != null && area != '' && area != undefined && area != 0){
-                flag = true;
-            }else if (area == null || area == '' || area == undefined || area == 0) {
-                rc.error("请选择区级")
-            }
-        }else if (type == 4){
-            //区级
-            if (street != null && street != '' && street != undefined && street != 0){
-                flag = true;
-            }else if (street == null || street == '' || street == undefined || street == 0) {
-                rc.error("请选择街道级")
-            }
-        }
-        if (flag){
-            $.ajax({
-                url: "/bobogou/system/operatorRegion/save",    //请求的url地址
-                dataType: "json",   //返回格式为json
-                async: true,//请求是否异步，默认为异步，这也是ajax重要特性
-                data: $("#operatorRegionForm").serialize(),    //参数值
-                type: "POST",   //请求方式
-                success: function (result) {
-                    if(200 == result.code){
-                        parent.refresh();
-                        //当你在iframe页面关闭自身时
-                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                        rc.msg(result.msg)
-                        setTimeout(function(){
-                            parent.layer.close(index); //再执行关闭
-                        }, 500);
-                    }else {
-                        rc.msg(result.msg)
-                    }
-                },
-                error: function (result) {
-                    rc.alert(result.msg)
+        $.ajax({
+            url: "/bobogou/system/operatorRegion/save",    //请求的url地址
+            dataType: "json",   //返回格式为json
+            async: true,//请求是否异步，默认为异步，这也是ajax重要特性
+            data: $("#operatorRegionForm").serialize(),    //参数值
+            type: "POST",   //请求方式
+            success: function (result) {
+                if(200 == result.code){
+                    parent.refresh();
+                    //当你在iframe页面关闭自身时
+                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                    rc.msg(result.msg)
+                    setTimeout(function(){
+                        parent.layer.close(index); //再执行关闭
+                    }, 500);
+                }else {
+                    rc.msg(result.msg)
                 }
-            });
-        }
+            },
+            error: function (result) {
+                rc.alert(result.msg)
+            }
+        });
     }
 }
 
@@ -194,14 +147,33 @@ function selectOperator(id) {
 }
 
 function selectProvince(id) {
+    //打开前  判断市区街道的值 todo
     let openSelector = rc.openAreaSelect("/bobogou/data/province/select", "选择省", '90%', '90%',id);
 }
 
-function selectStreet(id) {
-    let area = $("#area").val();
-    if (area != null && area != '' && area != undefined && area != 0){
-        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?areaIds=" + area, "选择街道", '90%', '90%',id);
+function selectCity(id) {
+    let provinceIds = $("#province").val();
+    if (provinceIds != null && provinceIds != '' && provinceIds != 0 && provinceIds != undefined){
+        let openSelector = rc.openAreaSelect("/bobogou/data/city/select?provinceIds=" + provinceIds, "选择市", '90%', '90%',id);
     }else {
-        rc.error("请先选择区")
+        rc.warning("请先选择省级数据");
+    }
+}
+
+function selectArea(id) {
+    let cityIds = $("#city").val();
+    if (cityIds != null && cityIds != '' && cityIds != 0 && cityIds != undefined){
+        let openSelector = rc.openAreaSelect("/bobogou/data/area/select?cityIds=" + cityIds, "选择区", '90%', '90%',id);
+    }else {
+        rc.warning("请先选择市级数据");
+    }
+}
+
+function selectStreet(id) {
+    let districtIds = $("#district").val();
+    if (districtIds != null && districtIds != '' && districtIds != 0 && districtIds != undefined) {
+        let openSelector = rc.openAreaSelect("/bobogou/data/street/select?areaIds=" + districtIds, "选择街道", '90%', '90%', id);
+    }else {
+        rc.warning("请先选择区级数据");
     }
 }

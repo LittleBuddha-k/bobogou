@@ -8,7 +8,7 @@
         a.type AS "type",
         a.province_id AS "provinceId",
         a.city_id AS "cityId",
-        a.area_id AS "areaId",
+        a.area_id AS "districtId",
         a.street_id AS "streetId",
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
@@ -200,7 +200,7 @@
             #{type},
             #{provinceId},
             #{cityId},
-            #{areaId},
+            #{districtId},
             #{streetId},
             #{createTime},
             #{updateTime}
@@ -214,7 +214,7 @@
             type = #{type},
             province_id = #{provinceId},
             city_id = #{cityId},
-            area_id = #{areaId},
+            area_id = #{districtId},
             street_id = #{streetId},
             create_time = #{createTime},
             update_time = #{updateTime}
