@@ -117,27 +117,13 @@ function selectGoods(id) {
 
 function selectProvince(id) {
     //打开前  判断市区街道的值 todo
-    $("#province").trigger("input");
     let openSelector = rc.openAreaSelect("/bobogou/data/province/select", "选择省", '90%', '90%',id);
-    $("#province").bind("input propertychange",function () {
-        console.log("已经输入了"+$("#province").val().length+"个字。。。");
-    });
-    //$("#cityId").val("");
-    //$("#city").val("0");
-    //$("#districtId").val("");
-    //$("#district").val("0");
-    //$("#streetId").val("");
-    //$("#street").val("0");
 }
 
 function selectCity(id) {
     let provinceIds = $("#province").val();
     if (provinceIds != null && provinceIds != '' && provinceIds != 0 && provinceIds != undefined){
         let openSelector = rc.openAreaSelect("/bobogou/data/city/select?provinceIds=" + provinceIds, "选择市", '90%', '90%',id);
-        $("#districtId").val("");
-        $("#district").val("0");
-        $("#streetId").val("");
-        $("#street").val("0");
     }else {
         rc.warning("请先选择省级数据");
     }
@@ -147,8 +133,6 @@ function selectArea(id) {
     let cityIds = $("#city").val();
     if (cityIds != null && cityIds != '' && cityIds != 0 && cityIds != undefined){
         let openSelector = rc.openAreaSelect("/bobogou/data/area/select?cityIds=" + cityIds, "选择区", '90%', '90%',id);
-        $("#streetId").val("");
-        $("#street").val("0");
     }else {
         rc.warning("请先选择市级数据");
     }

@@ -446,6 +446,7 @@
             layui.use(['layer', 'form'], function () {
                 var layer = layui.layer;
                 var form = layui.form;
+                let valueBefore = document.getElementById(id).value;//点击确定前的值
                 layer.open({
                     type: 2,
                     title: title,
@@ -465,6 +466,28 @@
                         //放隐藏id
                         let elementsByName = document.getElementsByName(id);
                         elementsByName[0].value = split[0];
+                        let valueAfter = elementById.value;//点击确定后的值
+                        if (valueAfter != valueBefore){
+                            if ("provinceId" == id){
+                                //清除市区街道的值
+                                $("#cityId").val("");
+                                $("#city").val("0");
+                                $("#districtId").val("");
+                                $("#district").val("0");
+                                $("#streetId").val("");
+                                $("#street").val("0");
+                            }else if ("cityId" == id){
+                                //清除区街道
+                                $("#districtId").val("");
+                                $("#district").val("0");
+                                $("#streetId").val("");
+                                $("#street").val("0");
+                            }else if ("districtId" == id){
+                                //清除街道
+                                $("#streetId").val("");
+                                $("#street").val("0");
+                            }
+                        }
                         form.render();
                         layer.close(index);
                     }
