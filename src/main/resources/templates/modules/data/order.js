@@ -42,6 +42,16 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
+                    title: '用户',
+                    field: 'userName',
+                    width: '250'
+                },
+                {
+                    title: '用户电话',
+                    field: 'phone',
+                    width: '250'
+                },
+                {
                     title: '总金额',
                     field: 'grossAmount',
                     sort: true,
