@@ -22,9 +22,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "checkbox"
-                },
+                },*/
                 {
                     title: '名称',
                     field: 'name',

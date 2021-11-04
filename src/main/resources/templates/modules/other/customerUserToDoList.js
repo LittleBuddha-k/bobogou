@@ -29,9 +29,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "checkbox"
-                },
+                },*/
                 {
                     title: '手机号',
                     field: 'phone',
