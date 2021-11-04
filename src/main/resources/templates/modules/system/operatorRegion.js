@@ -78,19 +78,14 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "checkbox"
-                },
+                },*/
                 {
                     title: '后台用户名',
                     field: 'operatorName',
                     sort: true
-                },/*
-                {
-                    title: '前端用户名',
-                    field: 'userName',
-                    sort: true
-                },*/
+                },
                 {
                     title: '类型',
                     field: 'type',

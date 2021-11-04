@@ -31,17 +31,12 @@ function init() {
                 page: false,
                 cols: [
                     [
-                        {type: 'checkbox'},
+                        /*{type: 'checkbox'},*/
                         {
                             field: 'title',
                             align: 'left',
                             title: '菜单名称'
-                        },/*
-                        {
-                            field: 'href',
-                            align: 'left',
-                            title: '菜单url'
-                        },*/
+                        },
                         {
                             field: 'icon',
                             align: 'left',
@@ -67,24 +62,7 @@ function init() {
                                     return '否';
                                 }
                             }
-                        },/*
-                        {
-                            field: 'type',
-                            align: 'left',
-                            title: '类型',
-                            templet: function (d) {
-                                if (0 == d.type) {
-                                    return '菜单';
-                                } else if (1 == d.type) {
-                                    return '按钮';
-                                }
-                            }
                         },
-                        {
-                            field: 'permission',
-                            align: 'left',
-                            title: '权限标识'
-                        },*/
                         {
                             field: 'hasChildren',
                             align: 'left',

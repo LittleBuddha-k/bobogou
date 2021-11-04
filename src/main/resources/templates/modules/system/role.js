@@ -29,9 +29,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "checkbox"
-                },
+                },*/
                 {
                     title: '角色名称',
                     field: 'name',
