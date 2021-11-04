@@ -28,9 +28,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "radio"
-                },
+                },*/
                 {
                     title: '执行环节',
                     field: 'executionLink',

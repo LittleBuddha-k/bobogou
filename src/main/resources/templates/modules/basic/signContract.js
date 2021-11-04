@@ -29,9 +29,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "radio"
-                },
+                },*/
                 {
                     title: '甲方',
                     field: 'partAName',

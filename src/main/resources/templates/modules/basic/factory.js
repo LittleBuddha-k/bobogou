@@ -29,15 +29,15 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "checkbox"
-                },
+                },*/
                 {
                     title: '厂家类型',
                     field: 'factoryType',
                     sort: true,
                     sortName: 'factoryType',
-                    width: '12.5%',
+                    width: '10%',
                     templet: function (data) {
                         var factoryType = data.factoryType;
                         let dictName = rc.getDictName("basic_factory_type",factoryType);
@@ -52,7 +52,7 @@ layui.use(['form', 'table'], function () {
                     field: 'productType',
                     sort: true,
                     sortName: 'productType',
-                    width: '12.5%',
+                    width: '10%',
                     templet: function (data) {
                         var productType = data.productType;
                         let dictName = rc.getDictName("basic_factory_product_type",productType);
@@ -67,7 +67,7 @@ layui.use(['form', 'table'], function () {
                     field: 'factoryName',
                     sort: true,
                     sortName: 'factoryName',
-                    width: '12.5%'
+                    width: '17.5%'
                 },
                 {
                     title: '联系人',
@@ -95,7 +95,7 @@ layui.use(['form', 'table'], function () {
                     field: 'isBailor',
                     sort: true,
                     sortName: 'isBailor',
-                    width: '12.5%',
+                    width: '10%',
                     templet: function (data) {
                         var isBailor = data.isBailor;
                         let dictName = rc.getDictName("basic_factory_is_bailor",isBailor);
@@ -109,7 +109,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '12.5%'
+                    width: '15%'
                 }
             ]
         ],
