@@ -299,7 +299,9 @@
     </update>
 
     <update id="confirmDeliver">
-        UPDATE sd_order SET confirm_deliver = 1
+        UPDATE sd_order SET
+            confirm_deliver = 1,
+            status = 8
         WHERE id=#{id}
     </update>
 
