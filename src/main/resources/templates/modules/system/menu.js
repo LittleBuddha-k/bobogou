@@ -31,7 +31,9 @@ function init() {
                 page: false,
                 cols: [
                     [
-                        /*{type: 'checkbox'},*/
+                        {
+                            type: 'checkbox'
+                        },
                         {
                             field: 'title',
                             align: 'left',
