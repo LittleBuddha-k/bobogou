@@ -84,6 +84,13 @@
                            th:id="name" class="layui-input" readonly>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="paymentAmount">商品总价</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="paymentAmount" th:value="${order.getPaymentAmount()}" autocomplete="off"
+                           th:id="getPaymentAmount" class="layui-input" readonly>
+                </div>
+            </div>
         </div><!--
         <div class="layui-form-item">
             <div class="layui-input-block" style="">
