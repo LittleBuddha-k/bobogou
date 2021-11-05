@@ -88,7 +88,28 @@
                 <label class="layui-form-label" for="paymentAmount">商品总价</label>
                 <div class="layui-input-inline">
                     <input type="text" name="paymentAmount" th:value="${order.getPaymentAmount()}" autocomplete="off"
-                           th:id="getPaymentAmount" class="layui-input" readonly>
+                           th:id="paymentAmount" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="actualAmountPaid">实际支付金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="actualAmountPaid" th:value="${order.getActualAmountPaid()}" autocomplete="off"
+                           th:id="actualAmountPaid" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="deduction">抵扣金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deduction" th:value="${order.getDeduction()}" autocomplete="off"
+                           th:id="deduction" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="healthBeans">抵扣播播豆</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="healthBeans" th:value="${order.getHealthBeans()}" autocomplete="off"
+                           th:id="healthBeans" class="layui-input" readonly>
                 </div>
             </div>
         </div><!--
@@ -100,6 +121,7 @@
         </div>-->
         <div class="layui-form-item">
             <label class="layui-form-label">订单商品：</label>
+            <button class="layui-btn layui-btn-warm layui-btn-sm data-add-btn" lay-event="export"> 导 出 </button>
         </div>
         <table class="layui-table">
             <colgroup>

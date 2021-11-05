@@ -87,6 +87,12 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         if (order != null && order.getPaymentAmount() != null) {
             order.setPaymentAmount(order.getPaymentAmount() / 100);
         }
+        if (order != null && order.getActualAmountPaid() != null) {
+            order.setActualAmountPaid(order.getActualAmountPaid() / 100);
+        }
+        if (order != null && order.getDeduction() != null) {
+            order.setDeduction(order.getDeduction() / 100);
+        }
         return order;
     }
 
