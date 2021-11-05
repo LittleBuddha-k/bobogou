@@ -26,6 +26,9 @@
         LEFT JOIN system_area d ON a.district_id = d.id
         LEFT JOIN system_street e ON a.street_id = e.id
         LEFT JOIN mb_goods f ON a.goods_id = f.id
+        LEFT JOIN system_operator g ON a.account_id = g.id
+        LEFT JOIN system_operator_role h ON g.id = h.operator_id
+        LEFT JOIN system_role i ON h.role_id = i.id
     </sql>
     
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
@@ -44,6 +47,10 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则显示自己、下级角色当前创建创建的用户-->
+                AND (a.account_id = #{currentUser.id}
+                OR i.parent_ids LIKE concat('%',#{currentUserRole.id},'%'))
+            </if>
             <if test="provinceId != null and provinceId != '' and provinceId != 0">
                 AND a.province_id = #{provinceId}
             </if>

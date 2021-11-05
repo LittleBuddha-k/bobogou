@@ -5,11 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.*;
 import org.apache.commons.compress.utils.Lists;
@@ -90,6 +93,10 @@ public class RegionGoodsController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(RegionGoods regionGoods) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        regionGoods.setCurrentUser(currentUser);
+        regionGoods.setCurrentUserRole(currentUserRole);
         PageInfo<RegionGoods> page = regionGoodsService.findPage(new Page<RegionGoods>(), regionGoods);
         return getLayUiData(page);
     }
