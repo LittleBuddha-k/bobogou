@@ -115,6 +115,8 @@
     <select id="findOrderExportList" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO">
         SELECT
         a.id AS "id",
+        a.user_id AS "userId",
+        d.id AS "orderInfoId",
         b.nickname AS "userName",
         b.phone AS "phone",
         a.number AS "number",
@@ -125,19 +127,23 @@
         c.street AS "street",
         c.detailed AS "detailed",
         a.distribution_mode AS "distributionMode",
+        a.status AS "status",
+        a.is_invoice AS "isInvoice",
+        a.payment_amount AS "paymentAmount",
+        a.actual_amount_paid AS "actualAmountPaid",
+        a.deduction AS "deduction",
+        a.health_beans AS "healthBeans",
         a.pay_mode AS "payMode",
         a.type AS "type",
-        a.status AS "status",
         a.pay_time AS "payTime",
-        a.is_invoice AS "isInvoice",
         g.tracking_no AS "trackingNo",
         d.goods_name AS "goodsName",
         d.specification AS "specification",
-        d.price AS "price",
+        e.purchasing_price AS "price",
         d.amount AS "amount",
         e.stock_amount AS "stockAmount",
         h.authorization AS "authorization",
-        g.factory_name AS "factoryName",
+        h.manufacturing_enterprise AS "factoryName",
         e.expiration_date AS "expirationDate"
         FROM sd_order a
         <include refid="orderExportJoins"/>

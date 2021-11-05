@@ -229,4 +229,14 @@ public class UserMemberService extends CrudService<UserMember, UserMemberMapper>
         int row = userMemberMapper.updateVipStatus(userMember);
         return  row;
     }
+
+    public UserMember getUserMemberOnlyOne(Integer userId) {
+        UserMember userMember = new UserMember();
+        userMember.setUserId(userId);
+        List<UserMember> memberList = userMemberMapper.getByUser(userMember);
+        if (memberList != null && !memberList.isEmpty() ){
+            return memberList.get(0);
+        }
+        return new UserMember();
+    }
 }

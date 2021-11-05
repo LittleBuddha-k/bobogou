@@ -24,6 +24,7 @@ import com.littlebuddha.bobogou.modules.mapper.other.CustomerUserMapper;
 import com.littlebuddha.bobogou.modules.mapper.other.UserMemberMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
+import com.littlebuddha.bobogou.modules.service.other.UserMemberService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -66,6 +67,9 @@ public class OrderService extends CrudService<Order, OrderMapper> {
 
     @Resource
     private ChargeBackMapper chargeBackMapper;
+
+    @Autowired
+    private UserMemberService userMemberService;
 
     @Override
     public Order get(Order entity) {
@@ -287,6 +291,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
      */
     public List<OrderExportDTO> findOrderExportList(String id) {
         List<OrderExportDTO> orderList = orderMapper.findOrderExportList(id);
+        orderList = ListUtils.removeDuplicateOrderExportDTO(orderList);
         Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
         Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
         Map<String, String> typeMap = dictDataService.getMap("oder_type");
@@ -294,8 +299,19 @@ public class OrderService extends CrudService<Order, OrderMapper> {
         Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
         for (OrderExportDTO orderExportDTO : orderList) {
             if (orderExportDTO != null) {
+                UserMember userMember = userMemberService.getUserMemberOnlyOne(orderExportDTO.getUserId());//只查询最新的一条vip申请
+                orderExportDTO.setName(userMember.getName());
                 if (orderExportDTO.getGrossAmount() != null) {
                     orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
+                }
+                if (orderExportDTO.getPaymentAmount() != null) {
+                    orderExportDTO.setPaymentAmount(orderExportDTO.getPaymentAmount() / 100);
+                }
+                if (orderExportDTO.getActualAmountPaid() != null) {
+                    orderExportDTO.setActualAmountPaid(orderExportDTO.getActualAmountPaid() / 100);
+                }
+                if (orderExportDTO.getDeduction() != null) {
+                    orderExportDTO.setDeduction(orderExportDTO.getDeduction() / 100);
                 }
                 if (orderExportDTO.getPrice() != null) {
                     orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);

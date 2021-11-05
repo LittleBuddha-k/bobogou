@@ -10,6 +10,8 @@ import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
  */
 public class OrderExportDTO extends DataEntity<OrderExportDTO> {
 
+    private String orderInfoId;//订单商品id-----用于去重
+    private Integer userId;//用户id
     private String userName;//用户名称
     private String phone;//用户电话
     private String number;//订单编号
@@ -42,6 +44,22 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
     private String authorization;//
     private String factoryName;//
     private String expirationDate;//
+
+    public String getOrderInfoId() {
+        return orderInfoId;
+    }
+
+    public void setOrderInfoId(String orderInfoId) {
+        this.orderInfoId = orderInfoId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
 
     @ExcelField(title = "用户", type = 1, sort = 1)
     public String getUserName() {
@@ -187,6 +205,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.isInvoice = isInvoice;
     }
 
+    @ExcelField(title = "机构名称", type = 1, sort = 12)
     public String getName() {
         return name;
     }
@@ -195,6 +214,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.name = name;
     }
 
+    @ExcelField(title = "商品支付金额", type = 1, sort = 13)
     public Double getPaymentAmount() {
         return paymentAmount;
     }
@@ -203,6 +223,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.paymentAmount = paymentAmount;
     }
 
+    @ExcelField(title = "实际支付金额", type = 1, sort = 14)
     public Double getActualAmountPaid() {
         return actualAmountPaid;
     }
@@ -211,6 +232,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.actualAmountPaid = actualAmountPaid;
     }
 
+    @ExcelField(title = "抵扣金额", type = 1, sort = 15)
     public Double getDeduction() {
         return deduction;
     }
@@ -219,6 +241,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.deduction = deduction;
     }
 
+    @ExcelField(title = "健康豆", type = 1, sort = 16)
     public Integer getHealthBeans() {
         return healthBeans;
     }
@@ -227,7 +250,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.healthBeans = healthBeans;
     }
 
-    @ExcelField(title = "物流单号", type = 1, sort = 12)
+    @ExcelField(title = "物流单号", type = 1, sort = 17)
     public String getTrackingNo() {
         return trackingNo;
     }
@@ -236,7 +259,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.trackingNo = trackingNo;
     }
 
-    @ExcelField(title = "商品名称", type = 1, sort = 13)
+    @ExcelField(title = "商品名称", type = 1, sort = 18)
     public String getGoodsName() {
         return goodsName;
     }
@@ -245,7 +268,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.goodsName = goodsName;
     }
 
-    @ExcelField(title = "商品规格", type = 1, sort = 14)
+    @ExcelField(title = "商品规格", type = 1, sort = 19)
     public String getSpecification() {
         return specification;
     }
@@ -254,7 +277,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.specification = specification;
     }
 
-    @ExcelField(title = "集采价", type = 1, sort = 15)
+    @ExcelField(title = "集采价", type = 1, sort = 20)
     public Double getPrice() {
         return price;
     }
@@ -263,7 +286,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.price = price;
     }
 
-    @ExcelField(title = "购买数量", type = 1, sort = 16)
+    @ExcelField(title = "购买数量", type = 1, sort = 21)
     public String getAmount() {
         return amount;
     }
@@ -272,7 +295,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.amount = amount;
     }
 
-    @ExcelField(title = "商品库存", type = 1, sort = 17)
+    @ExcelField(title = "商品库存", type = 1, sort = 22)
     public String getStockAmount() {
         return stockAmount;
     }
@@ -281,7 +304,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.stockAmount = stockAmount;
     }
 
-    @ExcelField(title = "商品批号", type = 1, sort = 18)
+    @ExcelField(title = "商品批号", type = 1, sort = 23)
     public String getAuthorization() {
         return authorization;
     }
@@ -290,7 +313,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.authorization = authorization;
     }
 
-    @ExcelField(title = "供货商", type = 1, sort = 19)
+    @ExcelField(title = "供货商", type = 1, sort = 24)
     public String getFactoryName() {
         return factoryName;
     }
@@ -299,7 +322,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.factoryName = factoryName;
     }
 
-    @ExcelField(title = "有效期(月)", type = 1, sort = 20)
+    @ExcelField(title = "有效期(月)", type = 1, sort = 25)
     public String getExpirationDate() {
         return expirationDate;
     }
