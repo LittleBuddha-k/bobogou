@@ -2,40 +2,40 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.FactoryMapper">
     <sql id="factoryColumns">
-        id AS "id",
-        factory_type AS "factoryType",
-        product_type AS "productType",
-        factory_name AS "factoryName",
-        linkman AS "linkman",
-        phone AS "phone",
-        id_number AS "idNumber",
-        province_id AS "provinceId",
-        city_id AS "cityId",
-        area_id AS "areaId",
-        street_id AS "streetId",
-        detail_address AS "detailAddress",
-        card_front AS "cardFront",
-        card_back AS "cardBack",
-        address AS "address",
-        business_license AS "businessLicense",
-        annual_report AS "annualReport",
-        business_permit AS "businessPermit",
-        basic_account AS "basicAccount",
-        billing_information AS "billingInformation",
-        sample_invoice_ticket AS "sampleInvoiceTicket",
-        quality_guarantee AS "qualityGuarantee",
-        seal_impression AS "sealImpression",
-        power_attorney AS "powerAttorney",
-        Invoice_counterparts AS "invoiceCounterparts",
-        bailor_card AS "bailorCard",
-        mandatary_card AS "mandataryCard",
-        take_delivery_bailment AS "takeDeliveryBailment",
-        food_business_license AS "foodBusinessLicense",
-        is_bailor AS "isBailor",
-        is_deleted AS "isDeleted",
-        create_time AS "createTime",
-        update_time AS "updateTime",
-        operator_id AS "operatorId"
+        a.id AS "id",
+        a.factory_type AS "factoryType",
+        a.product_type AS "productType",
+        a.factory_name AS "factoryName",
+        a.linkman AS "linkman",
+        a.phone AS "phone",
+        a.id_number AS "idNumber",
+        a.province_id AS "provinceId",
+        a.city_id AS "cityId",
+        a.area_id AS "areaId",
+        a.street_id AS "streetId",
+        a.detail_address AS "detailAddress",
+        a.card_front AS "cardFront",
+        a.card_back AS "cardBack",
+        a.address AS "address",
+        a.business_license AS "businessLicense",
+        a.annual_report AS "annualReport",
+        a.business_permit AS "businessPermit",
+        a.basic_account AS "basicAccount",
+        a.billing_information AS "billingInformation",
+        a.sample_invoice_ticket AS "sampleInvoiceTicket",
+        a.quality_guarantee AS "qualityGuarantee",
+        a.seal_impression AS "sealImpression",
+        a.power_attorney AS "powerAttorney",
+        a.Invoice_counterparts AS "invoiceCounterparts",
+        a.bailor_card AS "bailorCard",
+        a.mandatary_card AS "mandataryCard",
+        a.take_delivery_bailment AS "takeDeliveryBailment",
+        a.food_business_license AS "foodBusinessLicense",
+        a.is_bailor AS "isBailor",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime",
+        a.operator_id AS "operatorId"
     </sql>
 
     <sql id="factoryJoins">
@@ -55,39 +55,20 @@
         SELECT
         <include refid="factoryColumns"/>
         FROM md_factory a
+        <include refid="factoryJoins" />
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则显示自己、下级角色当前创建创建的用户-->
+                AND (a.operator_id = #{currentUser.id}
+                OR d.parent_ids LIKE concat('%',#{currentUserRole.id},'%'))
+            </if>
             <if test="factoryName != null and factoryName != ''">
                 AND a.factory_name LIKE concat('%',#{factoryName},'%')
             </if>
             <if test="factoryType != null and factoryType != ''">
                 AND a.factory_type = #{factoryType}
             </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
-        SELECT
-        <include refid="factoryColumns"/>
-        FROM md_factory a
-        <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
-            <!-- 判断条件参数是否为空 -->
-            <!--<if test="brandName != null and brandName != ''">
-                AND a.brand_name LIKE concat('%',#{brandName},'%')
-            </if>
-            <if test="classifyName != null and classifyName != ''">
-                AND a.classify_name LIKE concat('%',#{classifyName},'%')
-            </if>-->
         </where>
         <choose>
             <when test="orderBy !=null and orderBy != ''">

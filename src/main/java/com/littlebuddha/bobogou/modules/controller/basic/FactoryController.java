@@ -4,10 +4,13 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.basic.FactoryService;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
 import com.littlebuddha.bobogou.modules.service.data.ProvinceService;
@@ -69,13 +72,17 @@ public class FactoryController extends BaseController {
     }
 
     /**
-     * 返回数据
+     * 返回数据-----返回当前用户及其所有下级角色的数据
      *
      * @return
      */
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(Factory factory) {
+        Operator currentUser = UserUtils.getCurrentUser();
+        Role currentUserRole = UserUtils.getCurrentUserRole();
+        factory.setCurrentUser(currentUser);
+        factory.setCurrentUserRole(currentUserRole);
         PageInfo<Factory> page = factoryService.findPage(new Page<Factory>(), factory);
         return getLayUiData(page);
     }
