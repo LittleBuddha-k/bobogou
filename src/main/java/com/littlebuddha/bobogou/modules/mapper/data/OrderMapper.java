@@ -16,11 +16,11 @@ import java.util.List;
 public interface OrderMapper extends BaseMapper<Order> {
 
     /**
-     * 查询导出数据
+     * 根据order的id查询本订单下的信息导出数据
      * @param
      * @return
      */
-    List<OrderExportDTO> findOrderExportList(Order order);
+    List<OrderExportDTO> findOrderExportList(String id);
 
     /**
      * 确认发货---根据id修改发货标识字段

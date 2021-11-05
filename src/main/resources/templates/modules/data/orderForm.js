@@ -40,6 +40,17 @@ function selectGoods(id) {
     let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '75%', '85%',id);
 }
 
+function exportFile() {
+    let id = $("#id").val();
+    rc.confirm('即将导出数据，确认要导出订单信息吗？', function(){
+        var index = rc.loading("正在下载，请稍后");
+        rc.downloadFile("/bobogou/data/order/exportFile?id=" + id);
+        setTimeout(function(){
+            layer.close(index);
+        }, 1000);
+    });
+}
+
 //保存方法
 function save(parentIndex) {
     var isValidate = rc.validateForm('#orderForm');//校验表单

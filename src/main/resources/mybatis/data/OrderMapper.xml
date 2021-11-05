@@ -141,46 +141,7 @@
         e.expiration_date AS "expirationDate"
         FROM sd_order a
         <include refid="orderExportJoins"/>
-        <where>
-            a.is_deleted = #{DEL_FLAG_NORMAL}
-            AND d.is_deleted = 0
-            <if test="number != null and number != ''">
-                AND a.number LIKE concat('%',#{number},'%')
-            </if>
-            <if test="status != null and status != ''">
-                AND a.status = #{status}
-            </if>
-            <if test="distributionMode != null and distributionMode != ''">
-                AND a.distribution_mode = #{distributionMode}
-            </if>
-            <choose>
-                <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5" and currentUser.areaManager != "7"'>
-                    <if test="provinceId != null and provinceId != '' and provinceId != 0">
-                        AND c.province_id = #{provinceId}
-                    </if>
-                    <if test="cityId != null and cityId != ''  and cityId != 0 ">
-                        AND c.city_id = #{cityId}
-                    </if>
-                    <if test="areaId != null and areaId != '' and areaId != 0">
-                        AND c.district_id = #{areaId}
-                    </if>
-                    <if test="streetId != null and streetId != '' and streetId != 0">
-                        AND c.street_id = #{streetId}
-                    </if>
-                </when>
-                <otherwise>
-
-                </otherwise>
-            </choose>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
+        WHERE a.id = #{id}
     </select>
 
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.data.Order">

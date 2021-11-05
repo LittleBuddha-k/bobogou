@@ -285,46 +285,14 @@ public class OrderService extends CrudService<Order, OrderMapper> {
      * @param
      * @return
      */
-    public List<OrderExportDTO> findOrderExportList(Order entity) {
-        if (entity != null) {
-            String number = StringUtils.deleteWhitespace(entity.getNumber());
-            entity.setNumber(number);
-            if (entity.getAddressId() != null) {
-                String addressId = StringUtils.deleteWhitespace(entity.getAddressId().toString());
-                entity.setAddressId(Integer.valueOf(addressId));
-            }
-        }
-        //查询结果
-        List<OrderExportDTO> result = new ArrayList<>();
-        //根据当前用户等级查询对应订单数据
-        Operator currentUser = UserUtils.getCurrentUser();
-        entity.setCurrentUser(currentUser);
-        OperatorRegion operatorRegion = new OperatorRegion();
-        operatorRegion.setOperatorId(currentUser.getId());
-        //查询当前用户的所有区域list
-        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
-        if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 || currentUser.getAreaManager() == 7) {
-            result = orderMapper.findOrderExportList(entity);
-        } else if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//其他管理员等级需要按照区域来进行查询
-            for (OperatorRegion region : operatorRegionList) {
-                if (region != null) {
-                    entity.setProvinceId(region.getProvinceId());
-                    entity.setCityId(region.getCityId());
-                    entity.setAreaId(region.getDistrictId());
-                    entity.setStreetId(region.getStreetId());
-                    List<OrderExportDTO> orderList = orderMapper.findOrderExportList(entity);
-                    if (orderList != null) {
-                        result.addAll(orderList);
-                    }
-                }
-            }
-        }
+    public List<OrderExportDTO> findOrderExportList(String id) {
+        List<OrderExportDTO> orderList = orderMapper.findOrderExportList(id);
         Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
         Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
         Map<String, String> typeMap = dictDataService.getMap("oder_type");
         Map<String, String> orderStatusMap = dictDataService.getMap("order_status");
         Map<String, String> orderIsInvoiceMap = dictDataService.getMap("data_order_is_invoice");
-        for (OrderExportDTO orderExportDTO : result) {
+        for (OrderExportDTO orderExportDTO : orderList) {
             if (orderExportDTO != null) {
                 if (orderExportDTO.getGrossAmount() != null) {
                     orderExportDTO.setGrossAmount(orderExportDTO.getGrossAmount() / 100);
@@ -359,7 +327,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 }
             }
         }
-        return result;
+        return orderList;
     }
 
     /**

@@ -217,11 +217,11 @@ public class OrderController extends BaseController {
 
     @ResponseBody
     @GetMapping("/exportFile")
-    public Result exportFile(Order order, HttpServletRequest request, HttpServletResponse response) {
+    public Result exportFile(String id, HttpServletRequest request, HttpServletResponse response) {
         Result result = new Result();
         try {
             String fileName = "订单信息" + DateUtils.getDate("yyyyMMddHHmmss") + ".xlsx";
-            List<OrderExportDTO> list = orderService.findOrderExportList(order);
+            List<OrderExportDTO> list = orderService.findOrderExportList(id);
             if (list != null & list.size() > 0) {
                 new ExportExcel("订单管理", OrderExportDTO.class).setDataList(list).write(response, fileName).dispose();
             } else {
