@@ -227,14 +227,15 @@ layui.use(['form', 'table'], function () {
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/order/importTemplate", "/bobogou/data/order/importFile")
-        } else if (obj.event === 'export') {  // 监听删除操作
-            rc.confirm('导出时间可能较长，确认要导出订单信息吗？', function(){
-                var index = rc.loading("正在下载，请稍后");
-                rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
-                setTimeout(function(){
-                    layer.close(index);
-                }, 10000);
-            });
+        } else if (obj.event === 'refund') {  // 监听删除操作
+            rc.msg("待完成")
+            //rc.confirm('导出时间可能较长，确认要导出订单信息吗？', function(){
+            //    var index = rc.loading("正在下载，请稍后");
+            //    rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
+            //    setTimeout(function(){
+            //        layer.close(index);
+            //    }, 10000);
+            //});
         }
     });
 
@@ -277,6 +278,11 @@ function getIdSelections(table) {
     let ids = "";
     for (let i = 0; i < data.length; i++) {
         ids = ids + data[i].id + ",";
+        if (ids){
+            ids = ids + "," + data[i].id;
+        }else {
+            ids = data[i].id;
+        }
     }
     ;
     return ids;
