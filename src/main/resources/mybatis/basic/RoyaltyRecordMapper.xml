@@ -2,30 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.littlebuddha.bobogou.modules.mapper.basic.RoyaltyRecordMapper">
     <sql id="royaltyRecordColumns">
-        id AS "id",
-        user_id AS "userId",
-        order_id AS "orderId",
-        title AS "title",
-        money AS "money",
-        atio AS "atio",
-        type AS "type",
-        order_number AS "orderNumber",
-        status AS "status",
-        state AS "state",
-        successful_time AS "successfulTime",
-        is_deleted AS "isDeleted",
-        create_time AS "createTime",
-        update_time AS "updateTime"
+        a.id AS "id",
+        a.user_id AS "userId",
+        b.nickname AS "userName",
+        a.order_id AS "orderId",
+        a.title AS "title",
+        a.money AS "money",
+        a.atio AS "atio",
+        a.type AS "type",
+        a.order_number AS "orderNumber",
+        a.status AS "status",
+        a.state AS "state",
+        a.successful_time AS "successfulTime",
+        a.is_deleted AS "isDeleted",
+        a.create_time AS "createTime",
+        a.update_time AS "updateTime"
     </sql>
 
     <sql id="royaltyRecordJoins">
-        
+        LEFT JOIN ud_user b ON a.user_id = b.id
+        LEFT JOIN system_operator_region c ON b.id = c.user_id
     </sql>
     
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">
         SELECT
         <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
+        <include refid="royaltyRecordJoins"/>
         WHERE id=#{id}
     </select>
 
@@ -33,11 +36,26 @@
         SELECT
         <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
+        <include refid="royaltyRecordJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
             <if test="userId != null and userId != ''">
                 AND a.user_id = #{userId}
+            </if>
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则按照后台系统对登陆用户设置的区域来进行查询-->
+                <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                    AND c.province_id = #{provinceId}
+                </if>
+                <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                    AND c.city_id = #{cityId}
+                </if>
+                <if test="areaId != null and areaId != '' and areaId != 0">
+                    AND c.district_id = #{areaId}
+                </if>
+                <if test="streetId != null and streetId != '' and streetId != 0">
+                    AND c.street_id = #{streetId}
+                </if>
             </if>
         </where>
         <choose>
@@ -54,6 +72,7 @@
         SELECT
         <include refid="royaltyRecordColumns"/>
         FROM ud_royalty_record a
+        <include refid="royaltyRecordJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_DELETE}
             <!-- 判断条件参数是否为空 -->

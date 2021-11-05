@@ -18,13 +18,19 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
     private Order order;
     private Integer orderId;//订单ID，关联sd_order表
     private String title;//类目
-    private Integer money;//提成金额，单位：分
-    private Integer atio;//提成比例
+    private String money;//提成金额，单位：分
+    private String atio;//提成比例
     private Integer type;//类型，1=收入，2=支出
     private String orderNumber;//微信提现单号
     private Integer status;//提现是否成功，1=提现中，2=提现成功（已到账）
     private Integer state;//资金状态，0=其它（支出）， 1=冻结中（不可提现），2=正常（可提现）
     private Date successfulTime;//提现成功时间
+
+    //查询时使用
+    private String provinceId = "0";//省id
+    private String cityId = "0";//市id
+    private String areaId = "0";//区id
+    private String streetId = "0";//街道id
 
     public RoyaltyRecord() {
     }
@@ -84,19 +90,19 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
         this.title = title;
     }
 
-    public Integer getMoney() {
+    public String getMoney() {
         return money;
     }
 
-    public void setMoney(Integer money) {
+    public void setMoney(String money) {
         this.money = money;
     }
 
-    public Integer getAtio() {
+    public String getAtio() {
         return atio;
     }
 
-    public void setAtio(Integer atio) {
+    public void setAtio(String atio) {
         this.atio = atio;
     }
 
@@ -138,5 +144,37 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
 
     public void setSuccessfulTime(Date successfulTime) {
         this.successfulTime = successfulTime;
+    }
+
+    public String getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(String provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
+    }
+
+    public String getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(String streetId) {
+        this.streetId = streetId;
     }
 }

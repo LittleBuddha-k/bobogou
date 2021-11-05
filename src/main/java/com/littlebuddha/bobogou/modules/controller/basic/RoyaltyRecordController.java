@@ -75,13 +75,6 @@ public class RoyaltyRecordController extends BaseController {
     @GetMapping("/data")
     public TreeResult data(RoyaltyRecord royaltyRecord) {
         PageInfo<RoyaltyRecord> page1 = royaltyRecordService.findPage(new Page<RoyaltyRecord>(), royaltyRecord);
-        List<RoyaltyRecord> royaltyRecordList = page1.getList();
-        for (RoyaltyRecord record : royaltyRecordList) {
-            if (record != null){
-                CustomerUser customerUser = customerUserService.get(new CustomerUser(record.getUserId().toString()));
-                record.setCustomerUser(customerUser);
-            }
-        }
         return getLayUiData(page1);
     }
 

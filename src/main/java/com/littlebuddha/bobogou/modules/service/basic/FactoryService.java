@@ -392,8 +392,10 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
         PageInfo<Factory> pageInfo = null;
         //根据当前用户区域查询对应发货单位数据
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
-            if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//按照区域来进行查询
-                for (OperatorRegion region : operatorRegionList) {
+            if (currentUser != null && "1".equals(currentUser.getId())){//如果是超级管理员查询全部数据
+                result = factoryMapper.findList(entity);
+            }else {
+                for (OperatorRegion region : operatorRegionList) {//按照区域来进行查询
                     if (region != null) {
                         entity.setProvinceId(region.getProvinceId());
                         entity.setCityId(region.getCityId());
