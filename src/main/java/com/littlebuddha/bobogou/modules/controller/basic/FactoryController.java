@@ -62,11 +62,6 @@ public class FactoryController extends BaseController {
      */
     @GetMapping(value = {"/", "/list"})
     public String list(Factory factory, Model model, HttpSession session) {
-        //词典数据
-        DictData factoryType = new DictData();
-        factoryType.setType("basic_factory_type");
-        List<DictData> factoryTypeList = dictDataService.findList(factoryType);
-        model.addAttribute("factoryTypeList", factoryTypeList);
         model.addAttribute("factory", factory);
         return "modules/basic/factory";
     }
@@ -79,10 +74,6 @@ public class FactoryController extends BaseController {
     @ResponseBody
     @GetMapping("/data")
     public TreeResult data(Factory factory) {
-        Operator currentUser = UserUtils.getCurrentUser();
-        Role currentUserRole = UserUtils.getCurrentUserRole();
-        factory.setCurrentUser(currentUser);
-        factory.setCurrentUserRole(currentUserRole);
         PageInfo<Factory> page = factoryService.findPage(new Page<Factory>(), factory);
         return getLayUiData(page);
     }

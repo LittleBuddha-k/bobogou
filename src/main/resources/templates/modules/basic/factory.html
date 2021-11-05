@@ -29,10 +29,10 @@
                             <label class="layui-form-label">厂家类型</label>
                             <div class="layui-input-inline">
                                 <select name="factoryType" lay-verify="" lay-filter="factoryType"
-                                        th:id="factoryType">
+                                        th:id="factoryType" th:with="factoryType=${@dictData.findByType('basic_factory_type')}">
                                     <option value="0">请选择</option>
-                                    <option th:each="type:${factoryTypeList}" th:value="${type.getValue()}" th:text="${type.getName()}"
-                                            th:selected="${type.getValue()}==${factory.getFactoryType()}"/>
+                                    <option th:each="dict:${factoryType}" th:value="${dict.getValue()}" th:text="${dict.getName()}"
+                                            th:selected="${dict.getValue()}==${factory.getFactoryType()}"/>
                                 </select>
                             </div>
                         </div>
