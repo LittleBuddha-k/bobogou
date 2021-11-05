@@ -18,7 +18,7 @@ public class ChargeBack extends DataEntity<ChargeBack> {
     private String goodsId;            //商品id
     private String goodsName;           //商品名字
     private Integer count;              //退单数量
-    private Integer price;              //购买的商品单价
+    private Double price;              //购买的商品单价
     private Double managementExpense;   //商品管理费
     private Double transportationCost;  //运费
 
@@ -93,11 +93,11 @@ public class ChargeBack extends DataEntity<ChargeBack> {
         this.count = count;
     }
 
-    public Integer getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
