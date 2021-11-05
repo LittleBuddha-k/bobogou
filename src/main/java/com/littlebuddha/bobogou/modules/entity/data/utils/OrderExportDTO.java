@@ -21,11 +21,16 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
     private String street;//
     private String detailed;//
     private String distributionMode;//配送方式，1=顺丰，2=京东，3=麦康医药
+    private String status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
+    private String isInvoice;//是否开票
+    private String name;//新增详情表显示机构名称
+    private Double paymentAmount;//商品支付金额=商品总价，单位：分
+    private Double actualAmountPaid;//实际支付金额（商品实际支付金额 + 邮费)，单位：分
+    private Double deduction;//抵扣金额，单位：分
+    private Integer healthBeans;//健康豆
     private String payMode;//支付方式，0=兑换，1=微信，2=支付宝，3=银行卡
     private String type;//类型，0=购买，1=健康豆兑换，2=积分兑换
-    private String status;//状态，0=已取消，1=待付款，2=待发货，3=待收货， 4=已完成，5=申请退款，6=已同意退款，7=退款完成
     private String payTime;//支付时间
-    private String isInvoice;//是否开票
 
     private String trackingNo;//物流单号
 
@@ -180,6 +185,46 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
 
     public void setIsInvoice(String isInvoice) {
         this.isInvoice = isInvoice;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getPaymentAmount() {
+        return paymentAmount;
+    }
+
+    public void setPaymentAmount(Double paymentAmount) {
+        this.paymentAmount = paymentAmount;
+    }
+
+    public Double getActualAmountPaid() {
+        return actualAmountPaid;
+    }
+
+    public void setActualAmountPaid(Double actualAmountPaid) {
+        this.actualAmountPaid = actualAmountPaid;
+    }
+
+    public Double getDeduction() {
+        return deduction;
+    }
+
+    public void setDeduction(Double deduction) {
+        this.deduction = deduction;
+    }
+
+    public Integer getHealthBeans() {
+        return healthBeans;
+    }
+
+    public void setHealthBeans(Integer healthBeans) {
+        this.healthBeans = healthBeans;
     }
 
     @ExcelField(title = "物流单号", type = 1, sort = 12)
