@@ -34,9 +34,6 @@ public class RoyaltyRecordController extends BaseController {
     @Autowired
     private CustomerUserService customerUserService;
 
-    @Resource
-    private CustomerUserMapper customerUserMapper;
-
     @ModelAttribute
     public RoyaltyRecord get(@RequestParam(required = false) String id) {
         RoyaltyRecord royaltyRecord = null;
@@ -60,7 +57,7 @@ public class RoyaltyRecordController extends BaseController {
     @GetMapping(value = {"/", "/list"})
     public String list(RoyaltyRecord royaltyRecord, Model model, HttpSession session) {
         //查询所有用户列表，前端作下拉显示
-        List<CustomerUser> customerUserList = customerUserMapper.findAllList(new CustomerUser());
+        List<CustomerUser> customerUserList = customerUserService.findCurrentUserSubordinateArea(new CustomerUser());
         model.addAttribute("customerUserList", customerUserList);
         model.addAttribute("royaltyRecord", royaltyRecord);
         return "modules/basic/royaltyRecord";

@@ -5,6 +5,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
+import com.littlebuddha.bobogou.common.utils.ListUtils;
 import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -79,7 +80,7 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     }
 
     /**
-     * 返回数据----------只有质管员、超级管理员助理可以查看数据----超级管理员除外
+     * 返回列表数据----------只有质管员、超级管理员助理可以查看数据----超级管理员除外
      *
      * @param page
      * @param entity
@@ -296,5 +297,43 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
     public int recoveryVip(CustomerUser customerUser) {
         int row = customerUserMapper.recoveryVip(customerUser);
         return row;
+    }
+
+    /**
+     * 查询当前登录用户区域的下级app用户----用于做选择下拉框
+     * @return
+     */
+    public List<CustomerUser> findCurrentUserSubordinateArea(CustomerUser entity){
+        //封装的结果集
+        List<CustomerUser> result = new ArrayList<>();
+        //获取当前用户区域
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        //查询封装结果
+        PageInfo<CustomerUser> pageInfo = null;
+        //根据当前用户区域查询对应发货单位数据
+        if (currentUser != null && "1".equals(currentUser.getId())){//超级管理员查询所有数据
+            result = customerUserMapper.findList(entity);
+        }else {
+            for (OperatorRegion region : operatorRegionList) {//按照区域来进行查询
+                if (region != null) {
+                    entity.setProvinceId(region.getProvinceId());
+                    entity.setCityId(region.getCityId());
+                    entity.setAreaId(region.getDistrictId());
+                    entity.setStreetId(region.getStreetId());
+                    List<CustomerUser> royaltyRecordList = customerUserMapper.findList(entity);
+                    if (royaltyRecordList != null) {
+                        result.addAll(royaltyRecordList);
+                    }
+                }
+            }
+        }
+        //去重
+        result = ListUtils.removeDuplicateCustomerUser(result);
+        return result;
     }
 }

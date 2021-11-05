@@ -28,42 +28,13 @@
         a.create_time AS "createTime",
         a.update_time AS "updateTime"
     </sql>
-
-    <sql id="customerUserNoColumns">
-        a.id AS "id",
-        a.phone AS "phone",
-        a.header AS "header",
-        a.nickname AS "nickname",
-        a.sex AS "sex",
-        a.member AS "member",
-        a.integral AS "integral",
-        a.health_beans AS "healthBeans",
-        a.collect_number AS "collectNumber",
-        a.sigin_in_time AS "signInTime",
-        a.purchase_amount AS "purchaseAmount",
-        a.message_status AS "messageStatus",
-        a.user_agreement AS "userAgreement",
-        a.apply_status AS "applyStatus",
-        a.vip_expire AS "vipExpire",
-        a.area_manager AS "areaManager",
-        a.profit_amount AS "profitAmount",
-        a.amount_withdrawn AS "amountWithdrawn",
-        a.withdrawal_amount AS "withdrawalAmount",
-        a.operator AS "operatorId",
-        a.next_role AS "nextRole",
-        a.status AS "status",
-        a.is_deleted AS "isDeleted",
-        a.create_time AS "createTime",
-        a.update_time AS "updateTime"
-    </sql>
-
+    
     <sql id="customerUserJoins">
         LEFT JOIN ud_user_member b ON a.id = b.user_id
     </sql>
 
-    <sql id="currentUserJoins">
-        LEFT JOIN system_operator_role b ON a.operator = b.operator_id
-        LEFT JOIN system_role c ON b.role_id = c.id
+    <sql id="customerUserFindListJoins">
+        LEFT JOIN system_operator_region b ON a.id = b.user_id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
@@ -75,7 +46,7 @@
 
     <select id="getByPhone" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserNoColumns"/>
+        <include refid="customerUserColumns"/>
         FROM ud_user a
         WHERE
         a.is_deleted = #{DEL_FLAG_NORMAL}
@@ -84,14 +55,14 @@
 
     <select id="getByOperator" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
-        <include refid="customerUserNoColumns"/>
+        <include refid="customerUserColumns"/>
         FROM ud_user a
         WHERE
         a.is_deleted = #{DEL_FLAG_NORMAL}
         AND a.operator = #{operatorId}
     </select>
 
-    <!--根据当前人返回其地区下的所有用户-->
+    <!--列表数据-->
     <select id="findListData" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
@@ -139,45 +110,33 @@
         </choose>
     </select>
 
+    <!--用于选择下拉框查询自己区域已在后台注册并设置了区域的app用户-->
     <select id="findList" resultType="com.littlebuddha.bobogou.modules.entity.other.CustomerUser">
         SELECT
         <include refid="customerUserColumns"/>
         FROM ud_user a
-        <include refid="customerUserJoins"/>
+        <include refid="customerUserFindListJoins"/>
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <if test="phone != null and phone != ''">
                 AND a.phone LIKE concat('%',#{phone},'%')
             </if>
-            <if test="password != null and password != ''">
-                AND a.pssword LIKE concat('%',#{password},'%')
-            </if>
             <if test="nickname != null and nickname != ''">
                 AND a.nickname LIKE concat('%',#{nickname},'%')
             </if>
-            <if test="sex != null">
-                AND a.sex = #{sex}
-            </if>
-            <if test="member != null">
-                AND a.member = #{member}
-            </if>
-            <if test="integral != null">
-                AND a.integral = #{integral}
-            </if>
-            <if test="healthBeans != null">
-                AND a.health_beans = #{healthBeans}
-            </if>
-            <if test="signInTime != null">
-                AND a.signInTime = #{signInTime}
-            </if>
-            <if test="messageStatus != null">
-                AND a.message_status = #{messageStatus}
-            </if>
-            <if test="userAgreement != null">
-                and a.user_agreement = #{userAgreement}
-            </if>
-            <if test="applyStatus != null">
-                and a.apply_status = #{applyStatus}
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则按照后台系统对登陆用户设置的区域来进行查询-->
+                <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                    AND b.province_id = #{provinceId}
+                </if>
+                <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                    AND b.city_id = #{cityId}
+                </if>
+                <if test="areaId != null and areaId != '' and areaId != 0">
+                    AND b.district_id = #{areaId}
+                </if>
+                <if test="streetId != null and streetId != '' and streetId != 0">
+                    AND b.street_id = #{streetId}
+                </if>
             </if>
         </where>
         <choose>

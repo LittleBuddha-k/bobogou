@@ -30,7 +30,7 @@ public class ListUtils<E> {
     }
 
     /**
-     * 对订单列表去重
+     * 对CustomerUser列表去重
      * @param list
      * @return
      */
