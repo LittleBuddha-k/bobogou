@@ -3,6 +3,7 @@ package com.littlebuddha.bobogou.modules.service.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.ListUtils;
 import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
@@ -177,9 +178,12 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                     order.setGrossAmount(order.getGrossAmount() / 100);
                 }
             }
+            result = ListUtils.removeDuplicateOrder(result);
             List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
-            if (list != null && !list.isEmpty()) {
-                pageInfo = new PageInfo<Order>(list);
+            if (result != null && !result.isEmpty()) {
+                pageInfo = new PageInfo<Order>();
+                pageInfo.setList(list);
+                pageInfo.setTotal(result.size());
             } else {
                 pageInfo = new PageInfo<>();
             }

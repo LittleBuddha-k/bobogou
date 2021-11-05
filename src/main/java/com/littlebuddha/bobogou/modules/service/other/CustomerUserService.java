@@ -276,8 +276,10 @@ public class CustomerUserService extends CrudService<CustomerUser, CustomerUserM
                 }
             }
             List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
-            if (list != null && !list.isEmpty()) {
-                pageInfo = new PageInfo<CustomerUser>(list);
+            if (result != null && !result.isEmpty()) {
+                pageInfo = new PageInfo<CustomerUser>();
+                pageInfo.setList(list);
+                pageInfo.setTotal(result.size());
             }else {
                 pageInfo = new PageInfo<>();
             }
