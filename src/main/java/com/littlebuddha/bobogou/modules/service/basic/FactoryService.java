@@ -1,19 +1,26 @@
 package com.littlebuddha.bobogou.modules.service.basic;
 
 import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.config.yml.GlobalSetting;
+import com.littlebuddha.bobogou.common.utils.ListUtils;
+import com.littlebuddha.bobogou.common.utils.PageUtil;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.basic.Factory;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.data.Street;
+import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.mapper.basic.FactoryMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.AreaMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.CityMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.ProvinceMapper;
 import com.littlebuddha.bobogou.modules.mapper.data.StreetMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +28,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("factory")
@@ -44,6 +52,9 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
 
     @Resource
     private StreetMapper streetMapper;
+
+    @Resource
+    private OperatorRegionMapper operatorRegionMapper;
 
     @Override
     public Factory get(Factory entity) {
@@ -368,155 +379,194 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
         if(entity != null){
             entity.setFactoryName(StringUtils.deleteWhitespace(entity.getFactoryName()));
         }
-        PageInfo<Factory> page1 = super.findPage(page, entity);
-        List<Factory> list = page1.getList();
-        for (Factory factory : list) {
-            if (factory != null && StringUtils.isNotBlank(factory.getCardFront())){
-                String cardFront = factory.getCardFront();
-                String aa = "";
-                String[] split = cardFront.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
+        //封装的结果集
+        List<Factory> result = new ArrayList<>();
+        //获取当前用户区域
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        //查询封装结果
+        PageInfo<Factory> pageInfo = null;
+        //根据当前用户区域查询对应发货单位数据
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
+            if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//按照区域来进行查询
+                for (OperatorRegion region : operatorRegionList) {
+                    if (region != null) {
+                        entity.setProvinceId(region.getProvinceId());
+                        entity.setCityId(region.getCityId());
+                        entity.setAreaId(region.getDistrictId());
+                        entity.setStreetId(region.getStreetId());
+                        List<Factory> factoryList = factoryMapper.findList(entity);
+                        if (factoryList != null) {
+                            result.addAll(factoryList);
+                        }
+                    }
                 }
-                factory.setCardFront(aa);
             }
-            if (factory != null && StringUtils.isNotBlank(factory.getCardBack())){
-                String cardBack = factory.getCardBack();
-                String aa = "";
-                String[] split = cardBack.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
+            //去重
+            result = ListUtils.removeDuplicateFactory(result);
+            //格式化图片路径
+            for (Factory factory : result) {
+                if (factory != null && StringUtils.isNotBlank(factory.getCardFront())){
+                    String cardFront = factory.getCardFront();
+                    String aa = "";
+                    String[] split = cardFront.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setCardFront(aa);
                 }
-                factory.setCardBack(aa);
+                if (factory != null && StringUtils.isNotBlank(factory.getCardBack())){
+                    String cardBack = factory.getCardBack();
+                    String aa = "";
+                    String[] split = cardBack.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setCardBack(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getBusinessLicense())){
+                    String businessLicense = factory.getBusinessLicense();
+                    String aa = "";
+                    String[] split = businessLicense.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setBusinessLicense(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getAnnualReport())){
+                    String annualReport = factory.getAnnualReport();
+                    String aa = "";
+                    String[] split = annualReport.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setAnnualReport(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getBusinessPermit())){
+                    String businessPermit = factory.getBusinessPermit();
+                    String aa = "";
+                    String[] split = businessPermit.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setBusinessPermit(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getBasicAccount())){
+                    String basicAccount = factory.getBasicAccount();
+                    String aa = "";
+                    String[] split = basicAccount.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setBasicAccount(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getBillingInformation())){
+                    String billingInformation = factory.getBillingInformation();
+                    String aa = "";
+                    String[] split = billingInformation.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setBillingInformation(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getSampleInvoiceTicket())){
+                    String sampleInvoiceTicket = factory.getSampleInvoiceTicket();
+                    String aa = "";
+                    String[] split = sampleInvoiceTicket.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setSampleInvoiceTicket(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getQualityGuarantee())){
+                    String qualityGuarantee = factory.getQualityGuarantee();
+                    String aa = "";
+                    String[] split = qualityGuarantee.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setQualityGuarantee(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getSealImpression())){
+                    String sealImpression = factory.getSealImpression();
+                    String aa = "";
+                    String[] split = sealImpression.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setSealImpression(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getPowerAttorney())){
+                    String powerAttorney = factory.getPowerAttorney();
+                    String aa = "";
+                    String[] split = powerAttorney.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setPowerAttorney(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getInvoiceCounterparts())){
+                    String invoiceCounterparts = factory.getInvoiceCounterparts();
+                    String aa = "";
+                    String[] split = invoiceCounterparts.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setInvoiceCounterparts(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getBailorCard())){
+                    String bailorCard = factory.getBailorCard();
+                    String aa = "";
+                    String[] split = bailorCard.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setBailorCard(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getMandataryCard())){
+                    String mandataryCard = factory.getMandataryCard();
+                    String aa = "";
+                    String[] split = mandataryCard.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setMandataryCard(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getTakeDeliveryBailment())){
+                    String takeDeliveryBailment = factory.getTakeDeliveryBailment();
+                    String aa = "";
+                    String[] split = takeDeliveryBailment.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setTakeDeliveryBailment(aa);
+                }
+                if (factory != null && StringUtils.isNotBlank(factory.getFoodBusinessLicense())){
+                    String foodBusinessLicense = factory.getFoodBusinessLicense();
+                    String aa = "";
+                    String[] split = foodBusinessLicense.split(",");
+                    for (String image : split) {
+                        aa = aa + globalSetting.getRootPath() + image + ",";
+                    }
+                    factory.setFoodBusinessLicense(aa);
+                }
             }
-            if (factory != null && StringUtils.isNotBlank(factory.getBusinessLicense())){
-                String businessLicense = factory.getBusinessLicense();
-                String aa = "";
-                String[] split = businessLicense.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setBusinessLicense(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getAnnualReport())){
-                String annualReport = factory.getAnnualReport();
-                String aa = "";
-                String[] split = annualReport.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setAnnualReport(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getBusinessPermit())){
-                String businessPermit = factory.getBusinessPermit();
-                String aa = "";
-                String[] split = businessPermit.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setBusinessPermit(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getBasicAccount())){
-                String basicAccount = factory.getBasicAccount();
-                String aa = "";
-                String[] split = basicAccount.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setBasicAccount(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getBillingInformation())){
-                String billingInformation = factory.getBillingInformation();
-                String aa = "";
-                String[] split = billingInformation.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setBillingInformation(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getSampleInvoiceTicket())){
-                String sampleInvoiceTicket = factory.getSampleInvoiceTicket();
-                String aa = "";
-                String[] split = sampleInvoiceTicket.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setSampleInvoiceTicket(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getQualityGuarantee())){
-                String qualityGuarantee = factory.getQualityGuarantee();
-                String aa = "";
-                String[] split = qualityGuarantee.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setQualityGuarantee(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getSealImpression())){
-                String sealImpression = factory.getSealImpression();
-                String aa = "";
-                String[] split = sealImpression.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setSealImpression(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getPowerAttorney())){
-                String powerAttorney = factory.getPowerAttorney();
-                String aa = "";
-                String[] split = powerAttorney.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setPowerAttorney(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getInvoiceCounterparts())){
-                String invoiceCounterparts = factory.getInvoiceCounterparts();
-                String aa = "";
-                String[] split = invoiceCounterparts.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setInvoiceCounterparts(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getBailorCard())){
-                String bailorCard = factory.getBailorCard();
-                String aa = "";
-                String[] split = bailorCard.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setBailorCard(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getMandataryCard())){
-                String mandataryCard = factory.getMandataryCard();
-                String aa = "";
-                String[] split = mandataryCard.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setMandataryCard(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getTakeDeliveryBailment())){
-                String takeDeliveryBailment = factory.getTakeDeliveryBailment();
-                String aa = "";
-                String[] split = takeDeliveryBailment.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setTakeDeliveryBailment(aa);
-            }
-            if (factory != null && StringUtils.isNotBlank(factory.getFoodBusinessLicense())){
-                String foodBusinessLicense = factory.getFoodBusinessLicense();
-                String aa = "";
-                String[] split = foodBusinessLicense.split(",");
-                for (String image : split) {
-                    aa = aa + globalSetting.getRootPath() + image + ",";
-                }
-                factory.setFoodBusinessLicense(aa);
+            //分页数据
+            List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
+            //组装结果
+            if (result != null && !result.isEmpty()) {
+                pageInfo = new PageInfo<>();
+                pageInfo.setList(list);
+                pageInfo.setTotal(result.size());
+            } else {
+                pageInfo = new PageInfo<>();
             }
         }
-        return page1;
+        return pageInfo;
     }
 
     /**
