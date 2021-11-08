@@ -68,6 +68,7 @@
         <include refid="orderColumns"/>
         FROM sd_order a
         <include refid="orderJoins"/>
+        LEFT JOIN sd_order_factory d ON a.id = d.order_id
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -86,16 +87,16 @@
             <choose>
                 <when test='currentUser.areaManager != null and currentUser.areaManager != "4" and currentUser.areaManager != "5" and currentUser.areaManager != "7"'>
                     <if test="provinceId != null and provinceId != '' and provinceId != 0">
-                        AND c.province_id = #{provinceId}
+                        AND d.province_id = #{provinceId}
                     </if>
                     <if test="cityId != null and cityId != ''  and cityId != 0 ">
-                        AND c.city_id = #{cityId}
+                        AND d.city_id = #{cityId}
                     </if>
                     <if test="areaId != null and areaId != '' and areaId != 0">
-                        AND c.district_id = #{areaId}
+                        AND d.area_id = #{areaId}
                     </if>
                     <if test="streetId != null and streetId != '' and streetId != 0">
-                        AND c.street_id = #{streetId}
+                        AND d.street_id = #{streetId}
                     </if>
                 </when>
                 <otherwise>
