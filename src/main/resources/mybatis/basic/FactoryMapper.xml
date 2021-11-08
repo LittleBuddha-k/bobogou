@@ -73,7 +73,7 @@
                     AND a.city_id = #{cityId}
                 </if>
                 <if test="areaId != null and areaId != '' and areaId != 0">
-                    AND a.district_id = #{areaId}
+                    AND a.area_id = #{areaId}
                 </if>
                 <if test="streetId != null and streetId != '' and streetId != 0">
                     AND a.street_id = #{streetId}

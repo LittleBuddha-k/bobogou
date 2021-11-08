@@ -37,6 +37,7 @@
     <sql id="orderFactoryJoins">
         LEFT JOIN  sd_order b ON a.order_id = b.id
         LEFT JOIN  ud_address c ON a.address_id = c.id
+        LEFT JOIN md_factory d ON a.factory_id = d.id
     </sql>
 
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.OrderFactory">
@@ -63,6 +64,20 @@
             </if>
             <if test="outStatus != null and outStatus != ''">
                 AND a.out_status = #{outStatus}
+            </if>
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则按照后台系统对登陆用户设置的区域来进行查询-->
+                <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                    AND d.province_id = #{provinceId}
+                </if>
+                <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                    AND d.city_id = #{cityId}
+                </if>
+                <if test="areaId != null and areaId != '' and areaId != 0">
+                    AND d.area_id = #{areaId}
+                </if>
+                <if test="streetId != null and streetId != '' and streetId != 0">
+                    AND d.street_id = #{streetId}
+                </if>
             </if>
         </where>
         <choose>

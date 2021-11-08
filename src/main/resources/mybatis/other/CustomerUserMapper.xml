@@ -132,7 +132,7 @@
                     AND b.city_id = #{cityId}
                 </if>
                 <if test="areaId != null and areaId != '' and areaId != 0">
-                    AND b.district_id = #{areaId}
+                    AND b.area_id = #{areaId}
                 </if>
                 <if test="streetId != null and streetId != '' and streetId != 0">
                     AND b.street_id = #{streetId}
@@ -187,7 +187,7 @@
                 AND b.city_id = #{cityId}
             </if>
             <if test="areaId != null and areaId != '' and areaId != 0">
-                AND b.district_id = #{areaId}
+                AND b.area_id = #{areaId}
             </if>
             <if test="streetId != null and streetId != '' and streetId != 0">
                 AND b.street_id = #{streetId}
