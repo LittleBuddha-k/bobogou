@@ -29,9 +29,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                /*{
-                    type: "checkbox"
-                },*/
+                {
+                    type: "radio"
+                },
                 {
                     title: '订单编号',
                     field: 'number',
@@ -175,36 +175,8 @@ layui.use(['form', 'table'], function () {
      * toolbar监听事件
      */
     table.on('toolbar(orderTableFilter)', function (obj) {
-        if (obj.event === 'add') {  // 监听添加操作
+        /*if (obj.event === 'add') {  // 监听添加操作
             var index = rc.openSaveDialog("/bobogou/data/order/form/add", "新建订单信息", '1320px', '650px')
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'edit') {  // 监听修改操作
-            let ids = getIdSelections(table) + "";
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + ids, "编辑订单信息", '1320px', '650px');
-            }
-            $(window).on("resize", function () {
-                layer.full(index);
-            });
-        } else if (obj.event === 'view') {  // 监听查看操作
-            let ids = getIdSelections(table);
-            let idArr = ids.toString().split(",");
-            if (idArr[1]) {
-                rc.alert("只能选择一条数据")
-            } else if (ids.length <= 0) {
-                rc.alert("请至少选择一条数据")
-            } else if (idArr[0]) {
-                ids = idArr[0];
-                rc.openViewDialog('/bobogou/data/order/form/view?id=' + ids, "查看订单信息", '85%', '70%');
-            }
             $(window).on("resize", function () {
                 layer.full(index);
             });
@@ -227,15 +199,24 @@ layui.use(['form', 'table'], function () {
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/order/importTemplate", "/bobogou/data/order/importFile")
-        } else if (obj.event === 'refund') {  // 监听删除操作
-            rc.msg("待完成")
-            //rc.confirm('导出时间可能较长，确认要导出订单信息吗？', function(){
-            //    var index = rc.loading("正在下载，请稍后");
-            //    rc.downloadFile("/bobogou/data/order/exportFile?" + $("#searchForm").serialize());
-            //    setTimeout(function(){
-            //        layer.close(index);
-            //    }, 10000);
-            //});
+        } else */
+        if (obj.event === 'refund') {  // 监听删除操作
+            let ids = getIdSelections(table);
+            if (ids != null && ids != undefined && ids != ''){
+                rc.confirm('确认对该订单执行退款操作吗', function(){
+                    rc.post("/bobogou/data/order/refund", {"id":ids}, function (data) {
+                        if (data.success) {
+                            //执行搜索重载
+                            refresh();
+                            rc.success(data.msg);
+                        } else {
+                            rc.error(data.msg);
+                        }
+                    });
+                });
+            }else {
+                rc.error("请选择一条数据");
+            }
         }
     });
 
@@ -250,14 +231,6 @@ layui.use(['form', 'table'], function () {
             rc.openSaveDialog('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
         }
     });
-    $("#pass").click(function(data) {
-        rc.success("待支付完善做处理")
-        //return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-    })
-    $("#refuse").click(function(data) {
-        rc.success("待支付完善做处理")
-        //return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-    })
     //监视列表查找单选框
     form.on('radio(status)', function (data) {
         //console.log(data.value); //被点击的radio的value值
@@ -277,14 +250,8 @@ function getIdSelections(table) {
         data = checkStatus.data;
     let ids = "";
     for (let i = 0; i < data.length; i++) {
-        ids = ids + data[i].id + ",";
-        if (ids){
-            ids = ids + "," + data[i].id;
-        }else {
-            ids = data[i].id;
-        }
-    }
-    ;
+        ids = data[i].id;
+    };
     return ids;
 }
 

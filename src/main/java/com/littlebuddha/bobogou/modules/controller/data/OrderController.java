@@ -3,12 +3,12 @@ package com.littlebuddha.bobogou.modules.controller.data;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
+import com.littlebuddha.bobogou.common.utils.HttpClient;
 import com.littlebuddha.bobogou.common.utils.Result;
 import com.littlebuddha.bobogou.common.utils.TreeResult;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
-import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.Order;
 import com.littlebuddha.bobogou.modules.entity.data.OrderInfo;
 import com.littlebuddha.bobogou.modules.entity.data.utils.OrderExportDTO;
@@ -17,6 +17,8 @@ import com.littlebuddha.bobogou.modules.service.data.OrderInfoService;
 import com.littlebuddha.bobogou.modules.service.data.OrderService;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +108,7 @@ public class OrderController extends BaseController {
     @GetMapping("/form/{mode}")
     public String form(@PathVariable(name = "mode") String mode, Order order, Model model) {
         model.addAttribute("order", order);
-        if ("chargeBack".equals(mode)){
+        if ("chargeBack".equals(mode)) {
             return "modules/data/orderChargeBackForm";
         }
         return "modules/data/orderForm";
@@ -113,12 +116,13 @@ public class OrderController extends BaseController {
 
     /**
      * 确认发货---根据id修改发货标识字段
+     *
      * @param id
      * @return
      */
     @ResponseBody
     @PostMapping("/confirmDeliver")
-    public Result confirmDeliver(String id){
+    public Result confirmDeliver(String id) {
         Result result = new Result();
         int row = orderService.confirmDeliver(id);
         return getCommonResult(row);
@@ -126,17 +130,19 @@ public class OrderController extends BaseController {
 
     /**
      * 订单详情中删除订单商品列表中的商品
+     *
      * @return
      */
     @ResponseBody
     @PostMapping("/deleteOrderInfo")
-    public Result deleteOrderInfo(String id){
+    public Result deleteOrderInfo(String id) {
         int row = orderInfoService.deleteByLogic(new OrderInfo(id));
         return getCommonResult(row);
     }
 
     /**
      * 返回订单信息列表json字符串
+     *
      * @param
      * @return
      */
@@ -144,7 +150,7 @@ public class OrderController extends BaseController {
     @GetMapping("/orderInfoList")
     public List<OrderInfo> orderInfoList(String orderId) {
         List<OrderInfo> orderInfoList = null;
-        if (StringUtils.isNotBlank(orderId)){
+        if (StringUtils.isNotBlank(orderId)) {
             OrderInfo entity = new OrderInfo();
             entity.setOrderId(orderId);
             orderInfoList = orderInfoService.findList(entity);
@@ -167,6 +173,32 @@ public class OrderController extends BaseController {
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }
+
+    @ResponseBody
+    @PostMapping("/refund")
+    public Result refund(String id) throws IOException {
+        Result result = new Result();
+        String url = "http://1.117.222.27:8000/order/refundBackGround";
+        List<NameValuePair> list = new ArrayList<>();
+        list.add(new BasicNameValuePair("cause", "测试数据"));
+        list.add(new BasicNameValuePair("explain", "测试数据"));
+        list.add(new BasicNameValuePair("orderId", "0"));
+        String resultGet = HttpClient.doHttpGet(url, list);
+        System.out.println("get请求" + resultGet);
+        String resultPost = HttpClient.doPost(url, list);
+        System.out.println("post请求" + resultPost);
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping("/testOkHttp")
+    public Result testOkHttp(String id) throws IOException {
+        Result result = new Result();
+        result.setMsg("退款成功");
+        result.setSuccess(true);
+        result.setCode("200");
+        return result;
     }
 
     @ResponseBody
