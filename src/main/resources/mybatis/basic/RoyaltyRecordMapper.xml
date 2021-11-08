@@ -7,6 +7,7 @@
         b.nickname AS "userName",
         a.order_id AS "orderId",
         a.title AS "title",
+        e.nickname AS "purchaser",
         a.money AS "money",
         a.atio AS "atio",
         a.type AS "type",
@@ -22,6 +23,8 @@
     <sql id="royaltyRecordJoins">
         LEFT JOIN ud_user b ON a.user_id = b.id
         LEFT JOIN system_operator_region c ON b.id = c.user_id
+        LEFT JOIN sd_order d ON a.order_id = d.id
+        LEFT JOIN ud_user e ON d.user_id = e.id
     </sql>
     
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.basic.RoyaltyRecord">

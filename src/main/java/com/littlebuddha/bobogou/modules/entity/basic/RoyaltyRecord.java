@@ -18,6 +18,7 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
     private Order order;
     private Integer orderId;//订单ID，关联sd_order表
     private String title;//类目
+    private String purchaser;//购买人
     private String money;//提成金额，单位：分
     private String atio;//提成比例
     private Integer type;//类型，1=收入，2=支出
@@ -88,6 +89,14 @@ public class RoyaltyRecord extends DataEntity<RoyaltyRecord> {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getPurchaser() {
+        return purchaser;
+    }
+
+    public void setPurchaser(String purchaser) {
+        this.purchaser = purchaser;
     }
 
     public String getMoney() {

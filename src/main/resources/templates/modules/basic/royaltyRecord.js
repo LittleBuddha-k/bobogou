@@ -37,7 +37,7 @@ layui.use(['form', 'table'], function () {
                     field: 'userName',
                     sort: true,
                     sortName: 'userName',
-                    width: '12.5%',
+                    width: '200',
                     templet:function(data){
                         let userName = data.userName;
                         return userName;
@@ -48,28 +48,35 @@ layui.use(['form', 'table'], function () {
                     field: 'title',
                     sort: true,
                     sortName: 'title',
-                    width: '12.5%'
+                    width: '250'
+                },
+                {
+                    title: '购买人名字',
+                    field: 'purchaser',
+                    sort: true,
+                    sortName: 'purchaser',
+                    width: '300'
                 },
                 {
                     title: '提成金额',
                     field: 'money',
                     sort: true,
                     sortName: 'money',
-                    width: '12.5%'
+                    width: '100'
                 },
                 {
                     title: '提成比例',
                     field: 'atio',
                     sort: true,
                     sortName: 'atio',
-                    width: '12.5%'
+                    width: '100'
                 },
                 {
                     title: '类型',
                     field: 'type',
                     sort: true,
                     sortName: 'type',
-                    width: '12.5%',
+                    width: '100',
                     templet: function (data) {
                         var type = data.type;
                         let dictName = rc.getDictName("basic_royalty_record_type",type);
@@ -84,14 +91,14 @@ layui.use(['form', 'table'], function () {
                     field: 'orderNumber',
                     sort: true,
                     sortName: 'orderNumber',
-                    width: '10%'
+                    width: '200'
                 },
                 {
                     title: '提现是否成功',
                     field: 'status',
                     sort: true,
                     sortName: 'status',
-                    width: '12.5%',
+                    width: '120',
                     templet: function (data) {
                         var status = data.status;
                         let dictName = rc.getDictName("basic_royalty_record_status",status);
@@ -106,7 +113,7 @@ layui.use(['form', 'table'], function () {
                     field: 'state',
                     sort: true,
                     sortName: 'state',
-                    width: '12.5%',
+                    width: '180',
                     templet: function (data) {
                         var state = data.state;
                         let dictName = rc.getDictName("basic_royalty_record_state",state);
@@ -121,7 +128,7 @@ layui.use(['form', 'table'], function () {
                     field: 'successfulTime',
                     sort: true,
                     sortName: 'successfulTime',
-                    width: '12.5%',
+                    width: '200',
                     templet:function(data){
                         let successfulTime = data.successfulTime;
                         if (successfulTime != null && successfulTime != ''){
