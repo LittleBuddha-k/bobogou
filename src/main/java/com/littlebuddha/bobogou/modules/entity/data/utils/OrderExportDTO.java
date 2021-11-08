@@ -250,7 +250,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.healthBeans = healthBeans;
     }
 
-    @ExcelField(title = "物流单号", type = 1, sort = 17)
+    //@ExcelField(title = "物流单号", type = 1, sort = 17)
     public String getTrackingNo() {
         return trackingNo;
     }

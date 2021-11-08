@@ -52,7 +52,6 @@
         LEFT JOIN ud_address c ON a.address_id = c.id
         LEFT JOIN sd_order_info d ON d.order_id = a.id
         LEFT JOIN mb_goods e ON d.goods_id = e.id
-        LEFT JOIN sd_order_factory g ON g.order_id = a.id
         LEFT JOIN md_goods_specification h ON e.id = h.id
     </sql>
 
@@ -136,7 +135,6 @@
         a.pay_mode AS "payMode",
         a.type AS "type",
         a.pay_time AS "payTime",
-        g.tracking_no AS "trackingNo",
         d.goods_name AS "goodsName",
         d.specification AS "specification",
         e.purchasing_price AS "price",

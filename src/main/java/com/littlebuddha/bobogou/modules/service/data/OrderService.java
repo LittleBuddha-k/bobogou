@@ -291,7 +291,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
      */
     public List<OrderExportDTO> findOrderExportList(String id) {
         List<OrderExportDTO> orderList = orderMapper.findOrderExportList(id);
-        orderList = ListUtils.removeDuplicateOrderExportDTO(orderList);
+        //orderList = ListUtils.removeDuplicateOrderExportDTO(orderList);
         Map<String, String> distributionModeMap = dictDataService.getMap("order_distribution_mode");
         Map<String, String> payModeMap = dictDataService.getMap("order_pay_mode");
         Map<String, String> typeMap = dictDataService.getMap("oder_type");
