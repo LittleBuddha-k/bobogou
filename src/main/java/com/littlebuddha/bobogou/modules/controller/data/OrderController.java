@@ -176,15 +176,22 @@ public class OrderController extends BaseController {
 
     @ResponseBody
     @PostMapping("/refund")
-    public RefundCalBackResult refund(String id) throws IOException {
+    public RefundCalBackResult refund(Order order) throws IOException {
         Result result = new Result();
-        String url = "http://1.117.222.27:8000/order/refundBackGround";
-        List<NameValuePair> list = new ArrayList<>();
-        list.add(new BasicNameValuePair("cause", "测试数据"));
-        list.add(new BasicNameValuePair("explain", "测试数据"));
-        list.add(new BasicNameValuePair("orderId", "549"));
-        String resultPost = HttpClient.doPost(url, list);
-        RefundCalBackResult jsonObject = JSON.parseObject(resultPost, RefundCalBackResult.class);
+        RefundCalBackResult jsonObject = null;
+        if (StringUtils.isNotBlank(order.getId())){
+            String url = "http://1.117.222.27:8000/order/refundBackGround";
+            List<NameValuePair> list = new ArrayList<>();
+            list.add(new BasicNameValuePair("cause", order.getRefundReason()));
+            list.add(new BasicNameValuePair("explain", order.getRefundExplain()));
+            list.add(new BasicNameValuePair("orderId", order.getId()));
+            String resultPost = HttpClient.doPost(url, list);
+            jsonObject = JSON.parseObject(resultPost, RefundCalBackResult.class);
+        }else {
+            jsonObject = new RefundCalBackResult();
+            jsonObject.setSuccess(false);
+            jsonObject.setMsg("当前订单不存在,请刷新后重试");
+        }
         return jsonObject;
     }
 
