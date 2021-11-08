@@ -122,11 +122,11 @@ public class OrderFactoryService extends CrudService<OrderFactory, OrderFactoryM
     @Override
     public int save(OrderFactory entity) {
         //如果修改出库状态为已发货，关联修改订单为已发货
-        if (entity != null && "2".equals(entity.getOutStatus()));
+        //if (entity != null && "2".equals(entity.getOutStatus()));
         int save = super.save(entity);
-        if (entity.getOrderId() != null) {
+        /*if (entity.getOrderId() != null) {
             orderMapper.confirmDeliver(entity.getOrderId());
-        }
+        }*/
         return save;
     }
 
