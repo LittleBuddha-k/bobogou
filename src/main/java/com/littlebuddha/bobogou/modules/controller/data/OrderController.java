@@ -1,11 +1,10 @@
 package com.littlebuddha.bobogou.modules.controller.data;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
-import com.littlebuddha.bobogou.common.utils.DateUtils;
-import com.littlebuddha.bobogou.common.utils.HttpClient;
-import com.littlebuddha.bobogou.common.utils.Result;
-import com.littlebuddha.bobogou.common.utils.TreeResult;
+import com.littlebuddha.bobogou.common.utils.*;
 import com.littlebuddha.bobogou.common.utils.excel.ExportExcel;
 import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
@@ -177,18 +176,16 @@ public class OrderController extends BaseController {
 
     @ResponseBody
     @PostMapping("/refund")
-    public Result refund(String id) throws IOException {
+    public RefundCalBackResult refund(String id) throws IOException {
         Result result = new Result();
         String url = "http://1.117.222.27:8000/order/refundBackGround";
         List<NameValuePair> list = new ArrayList<>();
         list.add(new BasicNameValuePair("cause", "测试数据"));
         list.add(new BasicNameValuePair("explain", "测试数据"));
-        list.add(new BasicNameValuePair("orderId", "0"));
-        String resultGet = HttpClient.doHttpGet(url, list);
-        System.out.println("get请求" + resultGet);
+        list.add(new BasicNameValuePair("orderId", "549"));
         String resultPost = HttpClient.doPost(url, list);
-        System.out.println("post请求" + resultPost);
-        return result;
+        RefundCalBackResult jsonObject = JSON.parseObject(resultPost, RefundCalBackResult.class);
+        return jsonObject;
     }
 
     @ResponseBody
