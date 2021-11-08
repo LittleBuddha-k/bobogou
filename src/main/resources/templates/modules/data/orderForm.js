@@ -47,7 +47,7 @@ function exportFile() {
         rc.downloadFile("/bobogou/data/order/exportFile?id=" + id);
         setTimeout(function(){
             layer.close(index);
-        }, 1000);
+        }, 3000);
     });
 }
 
