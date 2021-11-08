@@ -2,14 +2,19 @@ package com.littlebuddha.bobogou.modules.service.data;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
+import com.littlebuddha.bobogou.common.utils.ListUtils;
+import com.littlebuddha.bobogou.common.utils.PageUtil;
 import com.littlebuddha.bobogou.common.utils.Result;
+import com.littlebuddha.bobogou.common.utils.UserUtils;
 import com.littlebuddha.bobogou.modules.base.service.CrudService;
 import com.littlebuddha.bobogou.modules.entity.data.*;
 import com.littlebuddha.bobogou.modules.entity.data.RegionGoods;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
+import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import com.littlebuddha.bobogou.modules.mapper.data.*;
 import com.littlebuddha.bobogou.modules.mapper.data.RegionGoodsMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorMapper;
+import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +54,9 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Resource
     private StreetMapper streetMapper;
 
+    @Resource
+    private OperatorRegionMapper operatorRegionMapper;
+
     @Override
     public RegionGoods get(RegionGoods entity) {
         RegionGoods regionGoods = super.get(entity);
@@ -65,15 +74,49 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
 
     @Override
     public PageInfo<RegionGoods> findPage(Page<RegionGoods> page, RegionGoods entity) {
-        PageInfo<RegionGoods> pageRegionGoods = super.findPage(page, entity);
-        List<RegionGoods> list = pageRegionGoods.getList();
-        for (RegionGoods regionGoods : list) {
-            Operator operator = new Operator();
-            operator.setId(regionGoods.getAccountId());
-            Operator updateBy = operatorMapper.get(operator);
-            regionGoods.setUpdateBy(updateBy);
+        //封装的结果集
+        List<RegionGoods> result = new ArrayList<>();
+        //获取当前用户区域
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        //查询封装结果
+        PageInfo<RegionGoods> pageInfo = null;
+        //根据当前用户区域查询对应分配区域内的商品数据
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
+            if (currentUser != null && "1".equals(currentUser.getId())){//超级管理员查询所有数据
+                result = regionGoodsMapper.findList(entity);
+            }else {
+                for (OperatorRegion region : operatorRegionList) {//按照区域来进行查询
+                    if (region != null) {
+                        entity.setProvinceId(region.getProvinceId());
+                        entity.setCityId(region.getCityId());
+                        entity.setDistrictId(region.getDistrictId());
+                        entity.setStreetId(region.getStreetId());
+                        List<RegionGoods> royaltyRecordList = regionGoodsMapper.findList(entity);
+                        if (royaltyRecordList != null) {
+                            result.addAll(royaltyRecordList);
+                        }
+                    }
+                }
+            }
+            //去重
+            //result = ListUtils.removeDuplicateRoyaltyRecord(result);
+            //分页数据
+            List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
+            //组装结果
+            if (result != null && !result.isEmpty()) {
+                pageInfo = new PageInfo<>();
+                pageInfo.setList(list);
+                pageInfo.setTotal(result.size());
+            } else {
+                pageInfo = new PageInfo<>();
+            }
         }
-        return pageRegionGoods;
+        return pageInfo;
     }
 
     @Override

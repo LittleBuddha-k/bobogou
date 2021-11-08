@@ -26,9 +26,6 @@
         LEFT JOIN system_area d ON a.district_id = d.id
         LEFT JOIN system_street e ON a.street_id = e.id
         LEFT JOIN mb_goods f ON a.goods_id = f.id
-        LEFT JOIN system_operator g ON a.account_id = g.id
-        LEFT JOIN system_operator_role h ON g.id = h.operator_id
-        LEFT JOIN system_role i ON h.role_id = i.id
     </sql>
     
     <select id="get" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
@@ -47,64 +44,22 @@
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
-            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则显示自己、下级角色当前创建创建的用户-->
-                AND (a.account_id = #{currentUser.id}
-                OR i.parent_ids LIKE concat('%',#{currentUserRole.id},'%'))
-            </if>
-            <if test="provinceId != null and provinceId != '' and provinceId != 0">
-                AND a.province_id = #{provinceId}
-            </if>
-            <if test="cityId != null and cityId != '' and cityId != 0">
-                AND a.city_id = #{cityId}
-            </if>
-            <if test="districtId != null and districtId != '' and districtId != 0">
-                AND a.district_id = #{districtId}
-            </if>
-            <if test="streetId != null and streetId != '' and streetId != 0">
-                AND a.street_id = #{streetId}
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则查询自己所管辖区域的数据-->
+                <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                    AND a.province_id = #{provinceId}
+                </if>
+                <if test="cityId != null and cityId != '' and cityId != 0">
+                    AND a.city_id = #{cityId}
+                </if>
+                <if test="districtId != null and districtId != '' and districtId != 0">
+                    AND a.district_id = #{districtId}
+                </if>
+                <if test="streetId != null and streetId != '' and streetId != 0">
+                    AND a.street_id = #{streetId}
+                </if>
             </if>
             <if test="goodsId != null and goodsId != '' and  goodsId != 0">
                 AND a.goods_id = #{goodsId}
-            </if>
-            <if test="accountId != null and accountId != ''">
-                AND a.account_id = #{accountId}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
-    </select>
-
-    <select id="findRecoveryList" resultType="com.littlebuddha.bobogou.modules.entity.data.RegionGoods">
-        SELECT
-        <include refid="regionGoodsColumns"/>
-        FROM md_region_goods a
-        <include refid="regionGoodsJoins"/>
-        <where>
-            a.is_deleted = #{DEL_FLAG_DELETE}
-            <!-- 判断条件参数是否为空 -->
-            <if test="provinceId != null and provinceId != ''">
-                AND a.province_id = #{provinceId}
-            </if>
-            <if test="cityId != null and cityId != ''">
-                AND a.city_id = #{cityId}
-            </if>
-            <if test="districtId != null and districtId != ''">
-                AND a.district_id = #{districtId}
-            </if>
-            <if test="streetId != null and streetId != ''">
-                AND a.street_id = #{streetId}
-            </if>
-            <if test="goodsId != null and goodsId != ''">
-                AND a.goods_id = #{goodsId}
-            </if>
-            <if test="accountId != null and accountId != ''">
-                AND a.account_id = #{accountId}
             </if>
         </where>
         <choose>
