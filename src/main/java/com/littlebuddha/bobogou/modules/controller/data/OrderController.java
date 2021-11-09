@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -174,19 +175,25 @@ public class OrderController extends BaseController {
         }
     }
 
+    /**
+     * 退款
+     * @param order
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @PostMapping("/refund")
     public RefundCalBackResult refund(Order order) throws IOException {
         Result result = new Result();
         RefundCalBackResult jsonObject = null;
         if (StringUtils.isNotBlank(order.getId())){
-            String url = "http://1.117.222.27:8000/order/refundBackGround";
-            List<NameValuePair> list = new ArrayList<>();
-            list.add(new BasicNameValuePair("cause", order.getRefundReason()));
-            list.add(new BasicNameValuePair("explain", order.getRefundExplain()));
-            list.add(new BasicNameValuePair("orderId", order.getId()));
-            String resultPost = HttpClient.doPost(url, list);
-            jsonObject = JSON.parseObject(resultPost, RefundCalBackResult.class);
+            String url = "http://1.117.222.27:8000/order/refund";
+            Map<String,String> paramMap = new HashMap<>();
+            paramMap.put("cause", order.getRefundReason());
+            paramMap.put("explain", order.getRefundExplain());
+            paramMap.put("orderId", order.getId());
+            String json = HttpsUtil.httpPostWithJSON(url, paramMap);
+            jsonObject = JSON.parseObject(json, RefundCalBackResult.class);
         }else {
             jsonObject = new RefundCalBackResult();
             jsonObject.setSuccess(false);
@@ -195,6 +202,12 @@ public class OrderController extends BaseController {
         return jsonObject;
     }
 
+    /**
+     * 测试用
+     * @param id
+     * @return
+     * @throws IOException
+     */
     @ResponseBody
     @RequestMapping("/testOkHttp")
     public Result testOkHttp(String id) throws IOException {
