@@ -35,6 +35,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '订单编号',
                     field: 'number',
+                    width: 180,
                     templet: function (data) {
                         var valueArray = data.number;
                         return valueArray;
@@ -46,7 +47,8 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '用户电话',
-                    field: 'phone'
+                    field: 'phone',
+                    width: 120
                 },
                 {
                     title: '总金额',
@@ -55,7 +57,8 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '配送地址',
-                    field: 'address'
+                    field: 'address',
+                    width: 430
                 },
                 {
                     title: '配送方式',
@@ -109,7 +112,7 @@ layui.use(['form', 'table'], function () {
                     title: '支付时间',
                     field: 'payTime',
                     sort: true,
-                    sortName: 'payTime',
+                    width: 170,
                     templet: function (data) {
                         var payTime = data.payTime;
                         if(payTime != null && payTime != ''){
