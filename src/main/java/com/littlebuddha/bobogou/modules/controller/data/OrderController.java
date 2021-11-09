@@ -184,7 +184,6 @@ public class OrderController extends BaseController {
     @ResponseBody
     @PostMapping("/refund")
     public RefundCalBackResult refund(Order order) throws IOException {
-        Result result = new Result();
         RefundCalBackResult jsonObject = null;
         if (StringUtils.isNotBlank(order.getId())){
             String url = "http://1.117.222.27:8000/order/refund";
@@ -200,22 +199,6 @@ public class OrderController extends BaseController {
             jsonObject.setMsg("当前订单不存在,请刷新后重试");
         }
         return jsonObject;
-    }
-
-    /**
-     * 测试用
-     * @param id
-     * @return
-     * @throws IOException
-     */
-    @ResponseBody
-    @RequestMapping("/testOkHttp")
-    public Result testOkHttp(String id) throws IOException {
-        Result result = new Result();
-        result.setMsg("退款成功");
-        result.setSuccess(true);
-        result.setCode("200");
-        return result;
     }
 
     @ResponseBody
