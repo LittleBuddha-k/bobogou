@@ -187,10 +187,13 @@ public class OrderController extends BaseController {
         RefundCalBackResult jsonObject = null;
         if (StringUtils.isNotBlank(order.getId())){
             String url = "http://1.117.222.27:8000/order/refund";
-            Map<String,String> paramMap = new HashMap<>();
+            Map<String,Object> paramMap = new HashMap<>();
             paramMap.put("cause", order.getRefundReason());
             paramMap.put("explain", order.getRefundExplain());
-            paramMap.put("orderId", order.getId());
+            paramMap.put("orderId", Integer.valueOf(order.getId()));
+            //paramMap.put("cause", "测试");
+            //paramMap.put("explain", "测试");
+            //paramMap.put("orderId", 549);
             String json = HttpsUtil.httpPostWithJSON(url, paramMap);
             jsonObject = JSON.parseObject(json, RefundCalBackResult.class);
         }else {
