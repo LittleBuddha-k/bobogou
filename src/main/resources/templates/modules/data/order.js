@@ -35,7 +35,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '订单编号',
                     field: 'number',
-                    width: '250',
                     templet: function (data) {
                         var valueArray = data.number;
                         return valueArray;
@@ -43,29 +42,24 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '用户',
-                    field: 'userName',
-                    width: '250'
+                    field: 'userName'
                 },
                 {
                     title: '用户电话',
-                    field: 'phone',
-                    width: '250'
+                    field: 'phone'
                 },
                 {
                     title: '总金额',
                     field: 'grossAmount',
-                    sort: true,
-                    width: '150',
+                    sort: true
                 },
                 {
                     title: '配送地址',
-                    field: 'address',
-                    width: '350',
+                    field: 'address'
                 },
                 {
                     title: '配送方式',
                     field: 'distributionMode',
-                    width: '150',
                     templet: function (data) {
                         var type = data.distributionMode;
                         let dictName = rc.getDictName("order_distribution_mode",type);
@@ -78,7 +72,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '支付方式',
                     field: 'payMode',
-                    width: '180',
                     templet: function (data) {
                         var type = data.payMode;
                         let dictName = rc.getDictName("order_pay_mode",type);
@@ -91,7 +84,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '类型',
                     field: 'type',
-                    width: '120',
                     templet: function (data) {
                         var type = data.type;
                         let dictName = rc.getDictName("oder_type",type);
@@ -104,7 +96,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '状态',
                     field: 'status',
-                    width: '200',
                     templet: function (data) {
                         var type = data.status;
                         let dictName = rc.getDictName("order_status",type);
@@ -118,7 +109,6 @@ layui.use(['form', 'table'], function () {
                     title: '支付时间',
                     field: 'payTime',
                     sort: true,
-                    width: '250',
                     sortName: 'payTime',
                     templet: function (data) {
                         var payTime = data.payTime;
@@ -132,7 +122,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "left",
-                    width: '200',
                     toolbar: '#operation'
                 }
             ]
