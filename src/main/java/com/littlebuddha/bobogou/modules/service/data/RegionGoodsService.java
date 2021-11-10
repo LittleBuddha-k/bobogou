@@ -104,7 +104,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                 }
             }
             //去重
-            //result = ListUtils.removeDuplicateRoyaltyRecord(result);
+            result = ListUtils.removeDuplicateRegionGoods(result);
             //分页数据
             List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
             //组装结果

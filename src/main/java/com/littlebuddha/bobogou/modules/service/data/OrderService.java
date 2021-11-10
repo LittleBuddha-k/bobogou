@@ -165,6 +165,7 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 || currentUser.getAreaManager() == 7) {
                 PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
                 result = orderMapper.findList(entity);
+                result = ListUtils.removeDuplicateOrder(result);
                 pageInfo = new PageInfo<Order>(result);
                 for (Order order : result) {
                     if (order != null && order.getGrossAmount() != null) {
