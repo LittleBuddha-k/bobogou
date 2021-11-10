@@ -97,7 +97,7 @@ public class OrderFactoryService extends CrudService<OrderFactory, OrderFactoryM
                 }
             }
             //去重
-            //result = ListUtils.removeDuplicateFactory(result);
+            result = ListUtils.removeDuplicateOrderFactory(result);
             //分页数据
             List<OrderFactory> list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
             if (list != null && !list.isEmpty()) {
