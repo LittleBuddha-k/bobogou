@@ -163,16 +163,16 @@ public class OrderService extends CrudService<Order, OrderMapper> {
             entity.setPage(page);
             //如果是管理员等级是超级管理员助理、超级管理员、开票员查询全部数据
             if (currentUser.getAreaManager() == 4 || currentUser.getAreaManager() == 5 || currentUser.getAreaManager() == 7) {
-                PageHelper.startPage(entity.getPageNo(), entity.getPageSize());
+                /*PageHelper.startPage(entity.getPageNo(), entity.getPageSize());*/
                 result = orderMapper.findList(entity);
-                result = ListUtils.removeDuplicateOrder(result);
+                /*result = ListUtils.removeDuplicateOrder(result);
                 pageInfo = new PageInfo<Order>(result);
                 for (Order order : result) {
                     if (order != null && order.getGrossAmount() != null) {
                         order.setGrossAmount(order.getGrossAmount() / 100);
                     }
                 }
-                return pageInfo;
+                return pageInfo;*/
             } else if (operatorRegionList != null && !operatorRegionList.isEmpty()) {//其他管理员等级需要按照区域来进行查询
                 for (OperatorRegion region : operatorRegionList) {
                     if (region != null) {
