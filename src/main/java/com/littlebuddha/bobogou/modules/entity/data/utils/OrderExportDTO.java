@@ -241,7 +241,7 @@ public class OrderExportDTO extends DataEntity<OrderExportDTO> {
         this.deduction = deduction;
     }
 
-    @ExcelField(title = "健康豆", type = 1, sort = 16)
+    @ExcelField(title = "抵扣播播豆", type = 1, sort = 16)
     public Integer getHealthBeans() {
         return healthBeans;
     }
