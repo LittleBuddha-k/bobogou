@@ -52,6 +52,8 @@
         <include refid="orderFactoryColumns"/>
         FROM sd_order_factory a
         <include refid="orderFactoryJoins"/>
+        LEFT JOIN ud_user d ON b.user_id = d.id
+        LEFT JOIN ud_user_member e ON d.id = e.user_id
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -66,16 +68,16 @@
             </if>
             <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则按照后台系统对登陆用户设置的区域来进行查询-->
                 <if test="provinceId != null and provinceId != '' and provinceId != 0">
-                    AND a.province_id = #{provinceId}
+                    AND e.province_id = #{provinceId}
                 </if>
                 <if test="cityId != null and cityId != ''  and cityId != 0 ">
-                    AND a.city_id = #{cityId}
+                    AND e.city_id = #{cityId}
                 </if>
                 <if test="areaId != null and areaId != '' and areaId != 0">
-                    AND a.area_id = #{areaId}
+                    AND e.district_id = #{areaId}
                 </if>
                 <if test="streetId != null and streetId != '' and streetId != 0">
-                    AND a.street_id = #{streetId}
+                    AND e.street_id = #{streetId}
                 </if>
             </if>
         </where>
