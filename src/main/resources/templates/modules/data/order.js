@@ -216,7 +216,7 @@ layui.use(['form', 'table'], function () {
     table.on('tool(orderTableFilter)', function (obj) {
         let id = obj.data.id;
         if (obj.event === 'detail') {
-            rc.openViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
+            rc.openOrderViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
         } else if (obj.event === 'edit') {
             rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '85%', '70%');
         } else if (obj.event === 'chargeBack') {
