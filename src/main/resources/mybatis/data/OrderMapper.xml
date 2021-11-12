@@ -68,7 +68,7 @@
         <include refid="orderColumns"/>
         FROM sd_order a
         <include refid="orderJoins"/>
-        LEFT JOIN sd_order_factory d ON a.id = d.order_id
+        LEFT JOIN ud_user_member d ON b.id = d.user_id
         <where>
             a.is_deleted = #{DEL_FLAG_NORMAL}
             <!-- 判断条件参数是否为空 -->
@@ -93,7 +93,7 @@
                         AND d.city_id = #{cityId}
                     </if>
                     <if test="areaId != null and areaId != '' and areaId != 0">
-                        AND d.area_id = #{areaId}
+                        AND d.district_id = #{areaId}
                     </if>
                     <if test="streetId != null and streetId != '' and streetId != 0">
                         AND d.street_id = #{streetId}
