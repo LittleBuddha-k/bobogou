@@ -323,6 +323,12 @@ public class OrderService extends CrudService<Order, OrderMapper> {
                 if (orderExportDTO.getPrice() != null) {
                     orderExportDTO.setPrice(orderExportDTO.getPrice() / 100);
                 }
+                if (orderExportDTO.getFreight() != null) {
+                    orderExportDTO.setFreight(orderExportDTO.getFreight() / 100);
+                }
+                if (orderExportDTO.getManagementCost() != null) {
+                    orderExportDTO.setManagementCost(orderExportDTO.getManagementCost() / 100);
+                }
                 if (orderExportDTO.getDistributionMode() != null && StringUtils.isNotBlank(orderExportDTO.getDistributionMode())) {
                     String distribution = distributionModeMap.get(orderExportDTO.getDistributionMode());
                     String distributionMode = distribution == null ? "" : distribution;

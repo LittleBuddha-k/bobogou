@@ -136,6 +136,8 @@
         a.pay_mode AS "payMode",
         a.type AS "type",
         a.pay_time AS "payTime",
+        a.freight AS "freight",
+        a.management_cost AS "managementCost",
         d.goods_name AS "goodsName",
         d.specification AS "specification",
         e.purchasing_price AS "price",
