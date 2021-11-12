@@ -113,6 +113,20 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label" for="freight">总运费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="freight" th:value="${order.getFreight()}" autocomplete="off"
+                           th:id="freight" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="managementCost">总管理费</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="managementCost" th:value="${order.getManagementCost()}" autocomplete="off"
+                           th:id="managementCost" class="layui-input" readonly>
+                </div>
+            </div>
+            <div class="layui-inline">
                 <div class="layui-input-block" style="">
                     <button type="submit" class="layui-btn" lay-submit="" lay-filter="confirmDeliver"> 确认发货
                     </button>

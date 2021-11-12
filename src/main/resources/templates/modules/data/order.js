@@ -125,7 +125,8 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "left",
-                    toolbar: '#operation'
+                    toolbar: '#operation',
+                    width: 200
                 }
             ]
         ],
@@ -191,7 +192,7 @@ layui.use(['form', 'table'], function () {
             }
         } else if (obj.event === 'import') {  // 监听删除操作
             rc.openImportDialog("/bobogou/data/order/importTemplate", "/bobogou/data/order/importFile")
-        } else */
+        } else
         if (obj.event === 'refund') {  // 监听删除操作
             let ids = getIdSelections(table);
             if (ids != null && ids != undefined && ids != ''){
@@ -209,7 +210,7 @@ layui.use(['form', 'table'], function () {
             }else {
                 rc.error("请选择一条数据");
             }
-        }
+        }*/
     });
 
     table.on('tool(orderTableFilter)', function (obj) {
@@ -221,6 +222,18 @@ layui.use(['form', 'table'], function () {
         } else if (obj.event === 'chargeBack') {
             //rc.openViewDialogNoClose('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
             rc.openSaveDialog('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
+        }else if (obj.event === 'refund') {  // 监听删除操作
+            rc.confirm('确认对该订单执行退款操作吗', function(){
+                rc.post("/bobogou/data/order/refund", {"id":id}, function (data) {
+                    if (data.success) {
+                        //执行搜索重载
+                        refresh();
+                        rc.success(data.msg);
+                    } else {
+                        rc.error(data.msg);
+                    }
+                });
+            });
         }
     });
     //监视列表查找单选框
