@@ -225,12 +225,12 @@ layui.use(['form', 'table'], function () {
         }else if (obj.event === 'refund') {  // 监听删除操作
             rc.confirm('确认对该订单执行退款操作吗', function(){
                 rc.post("/bobogou/data/order/refund", {"id":id}, function (data) {
-                    if (data.success) {
+                    if (data.data) {
                         //执行搜索重载
                         refresh();
-                        rc.success(data.msg);
+                        rc.success("退款成功");
                     } else {
-                        rc.error(data.msg);
+                        rc.success("退款失败");
                     }
                 });
             });
