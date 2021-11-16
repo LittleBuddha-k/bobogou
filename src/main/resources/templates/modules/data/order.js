@@ -125,8 +125,16 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "left",
-                    toolbar: '#operation',
-                    width: 200
+                    width: 240,
+                    templet:function(data){
+                        let status = data.status;
+                        if (5 == status){
+                            return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="detail"> 【详 情】 </a>\n' +
+                                '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="refund"> 【确认退款】 </a>\n';
+                        }else {
+                            return '<a class="layui-btn layui-btn-xs data-count-edit" lay-event="detail"> 【详 情】 </a>\n';
+                        }
+                    }
                 }
             ]
         ],
@@ -225,7 +233,7 @@ layui.use(['form', 'table'], function () {
         }else if (obj.event === 'refund') {  // 监听删除操作
             rc.confirm('确认对该订单执行退款操作吗', function(){
                 rc.post("/bobogou/data/order/refund", {"id":id}, function (data) {
-                    if (data.data) {
+                    if (data.code == 200) {
                         //执行搜索重载
                         refresh();
                         rc.success("退款成功");
