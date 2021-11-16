@@ -43,7 +43,8 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '用户',
-                    field: 'userName'
+                    field: 'userName',
+                    width: 120
                 },
                 {
                     title: '用户电话',
@@ -52,6 +53,7 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '总金额',
+                    width: 100,
                     field: 'grossAmount',
                     sort: true
                 },
@@ -62,6 +64,7 @@ layui.use(['form', 'table'], function () {
                 },
                 {
                     title: '配送方式',
+                    width: 100,
                     field: 'distributionMode',
                     templet: function (data) {
                         var type = data.distributionMode;
@@ -75,6 +78,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '支付方式',
                     field: 'payMode',
+                    width: 100,
                     templet: function (data) {
                         var type = data.payMode;
                         let dictName = rc.getDictName("order_pay_mode",type);
@@ -99,6 +103,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '状态',
                     field: 'status',
+                    width: 100,
                     templet: function (data) {
                         var type = data.status;
                         let dictName = rc.getDictName("order_status",type);
