@@ -29,9 +29,9 @@ layui.use(['form', 'table'], function () {
         ],
         cols: [
             [
-                {
+                /*{
                     type: "radio"
-                },
+                },*/
                 {
                     title: '订单编号',
                     field: 'number',
