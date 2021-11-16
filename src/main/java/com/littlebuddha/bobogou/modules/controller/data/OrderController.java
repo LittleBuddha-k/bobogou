@@ -129,7 +129,7 @@ public class OrderController extends BaseController {
                 String url = "http://1.117.222.27:8000/jd/placeOrder";
                 Map<String, Object> paramMap = new HashMap<>();
                 paramMap.put("orderId", id);
-                String json = HttpsUtil.httpPostWithJSON(url, paramMap);
+                String json = HttpsUtil.httpGetWithJSON(url, paramMap);
                 refundCalBackResult = JSON.parseObject(json, RefundCalBackResult.class);
             } else {
                 refundCalBackResult = new RefundCalBackResult();
