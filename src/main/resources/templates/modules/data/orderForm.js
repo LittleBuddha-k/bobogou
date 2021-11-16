@@ -54,19 +54,20 @@ function exportFile() {
 //确认发货方法
 function confirmDeliver() {
     let id = $("#id").val();
+    let distributionMode = $("#distributionMode").val();
     rc.confirm('是否确认发货？', function() {
-        rc.post("/bobogou/data/order/confirmDeliver",{"id":id} , function (data) {
+        rc.post("/bobogou/data/order/confirmDeliver",{"id":id,"distributionMode":distributionMode} , function (data) {
             if (data.code == 200) {
                 // 刷新整个父窗口
                 parent.refresh();
                 //假设这是iframe页
                 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                rc.msg(data.msg)
+                rc.msg("确认发货成功")
                 setTimeout(function(){
                     parent.layer.close(index); //再执行关闭
                 }, 1000);
             } else {
-                rc.alert(data.msg);
+                rc.alert("确认发货失败");
             }
         });
     })

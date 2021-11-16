@@ -122,10 +122,29 @@ public class OrderController extends BaseController {
      */
     @ResponseBody
     @PostMapping("/confirmDeliver")
-    public Result confirmDeliver(String id) {
-        Result result = new Result();
-        int row = orderService.confirmDeliver(id);
-        return getCommonResult(row);
+    public RefundCalBackResult confirmDeliver(String id,Integer distributionMode) {
+        RefundCalBackResult refundCalBackResult = new RefundCalBackResult();
+        if (2 == distributionMode) {//走京东物流时调用三方下单接口
+            if (StringUtils.isNotBlank(id)) {
+                String url = "http://1.117.222.27:8000/jd/placeOrder";
+                Map<String, Object> paramMap = new HashMap<>();
+                paramMap.put("orderId", id);
+                String json = HttpsUtil.httpPostWithJSON(url, paramMap);
+                refundCalBackResult = JSON.parseObject(json, RefundCalBackResult.class);
+            } else {
+                refundCalBackResult = new RefundCalBackResult();
+                refundCalBackResult.setSuccess(false);
+                refundCalBackResult.setMsg("当前订单不存在,请刷新后重试");
+            }
+        }else {
+            int row = orderService.confirmDeliver(id);
+            if (row > 0){
+                refundCalBackResult.setCode(200);
+            }else {
+                refundCalBackResult.setCode(500);
+            }
+        }
+        return refundCalBackResult;
     }
 
     /**
