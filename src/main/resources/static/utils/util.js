@@ -100,7 +100,7 @@
         getDictName: function (type,value) {
             let name = "";
             $.ajax({
-                url: "/bobogou/basic/dictData/getByValue?type="+type + "&value=" +value,
+                url: "/bobogou/redisCache/get?type="+type + "&value=" +value,
                 method: "get",
                 async: false,
                 success: function (data) {
