@@ -73,7 +73,7 @@ public class CityService extends CrudService<City, CityMapper> {
      * @param provinceIds
      * @return
      */
-    public List<City> findNoPageByProvinceCode(String provinceIds) {
+    public List<City> findNoPageByProvinceCode(String name,String provinceIds) {
         List<City> result = new ArrayList<>();
         //传递的是省ids，以“，”隔开
         if (StringUtils.isNotBlank(provinceIds)){
@@ -84,7 +84,7 @@ public class CityService extends CrudService<City, CityMapper> {
                 Province province = provinceMapper.get(provinceId);
                 //省信息不为null，就通过省code查询city数据
                 if (province != null) {
-                    List<City> findNoPageByProvince = cityMapper.findNoPageByProvinceCode(province.getCode());
+                    List<City> findNoPageByProvince = cityMapper.findNoPageByProvinceCode(name,province.getCode());
                     if (findNoPageByProvince != null && !findNoPageByProvince.isEmpty()){
                         //将结果装入result
                         result.addAll(findNoPageByProvince);
