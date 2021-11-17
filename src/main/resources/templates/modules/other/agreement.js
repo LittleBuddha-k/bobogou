@@ -53,12 +53,6 @@ layui.use(['form', 'table'], function () {
                     sortName: 'title'
                 },
                 {
-                    title: '内容',
-                    field: 'content',
-                    sort: true,
-                    sortName: 'content'
-                },
-                {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center"
