@@ -84,14 +84,14 @@
         <where>
             a.del_flag = 0
             <!-- 判断条件参数是否为空 -->
+            <if test="name != null and name != ''">
+                AND a.name LIKE concat('%',#{name},'%')
+            </if>
             <if test="cityCode != null and cityCode != ''">
                 and a.city_code = #{cityCode}
             </if>
         </where>
         <choose>
-            <when test="orderBy !=null and orderBy != ''">
-
-            </when>
             <otherwise>
                 ORDER BY a.create_date DESC
             </otherwise>

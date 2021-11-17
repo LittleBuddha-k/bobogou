@@ -5,6 +5,7 @@ import com.littlebuddha.bobogou.modules.base.mapper.BaseMapper;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.system.utils.Icon;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public interface AreaMapper extends BaseMapper<Area> {
      * @param
      * @return
      */
-    List<Area> findNoPageByCityCode(String cityCode);
+    List<Area> findNoPageByCityCode(@Param("name") String name,@Param("cityCode") String cityCode);
 
     /**
      * 根据区code获取区数据

@@ -73,7 +73,7 @@ public class AreaService extends CrudService<Area, AreaMapper> {
      * @param
      * @return
      */
-    public List<Area> noPageByCity(String cityIds) {
+    public List<Area> noPageByCity(String name,String cityIds) {
         List<Area> result = new ArrayList<>();
         //传递的是省ids，以“，”隔开
         if (StringUtils.isNotBlank(cityIds)){
@@ -84,7 +84,7 @@ public class AreaService extends CrudService<Area, AreaMapper> {
                 City city = cityMapper.get(cityId);
                 //省信息不为null，就通过省code查询city数据
                 if (city != null) {
-                    List<Area> findNoPageByCity = areaMapper.findNoPageByCityCode(city.getCode());
+                    List<Area> findNoPageByCity = areaMapper.findNoPageByCityCode(name,city.getCode());
                     if (findNoPageByCity != null && !findNoPageByCity.isEmpty()){
                         //将结果装入result
                         result.addAll(findNoPageByCity);

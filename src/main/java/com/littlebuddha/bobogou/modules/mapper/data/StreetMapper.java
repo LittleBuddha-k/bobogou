@@ -4,6 +4,7 @@ package com.littlebuddha.bobogou.modules.mapper.data;
 import com.littlebuddha.bobogou.modules.base.mapper.BaseMapper;
 import com.littlebuddha.bobogou.modules.entity.data.Street;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -18,5 +19,5 @@ public interface StreetMapper extends BaseMapper<Street> {
      * @param
      * @return
      */
-    List<Street> findNoPageByAreaCode(String areaCode);
+    List<Street> findNoPageByAreaCode(@Param("name")String name,@Param("areaCode") String areaCode);
 }

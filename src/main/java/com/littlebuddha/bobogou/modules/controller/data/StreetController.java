@@ -104,8 +104,8 @@ public class StreetController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/noPageByArea")
-    public TreeResult noPageByArea(Street street,String areaIds) {
-        List<Street> list = streetService.noPageByArea(areaIds);
+    public TreeResult noPageByArea(String name,String areaIds) {
+        List<Street> list = streetService.noPageByArea(name,areaIds);
         if (list != null && !list.isEmpty()) {
             TreeResult treeResult = new TreeResult(0,"",list,list.size());
             return treeResult;

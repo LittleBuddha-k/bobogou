@@ -98,8 +98,8 @@ public class AreaController extends BaseController {
      */
     @ResponseBody
     @GetMapping("/noPageByCity")
-    public TreeResult noPageByCity(Area area,String cityIds) {
-        List<Area> list = areaService.noPageByCity(cityIds);
+    public TreeResult noPageByCity(String name,String cityIds) {
+        List<Area> list = areaService.noPageByCity(name,cityIds);
         if (list != null && !list.isEmpty()) {
             TreeResult treeResult = new TreeResult(0,"",list,list.size());
             return treeResult;
