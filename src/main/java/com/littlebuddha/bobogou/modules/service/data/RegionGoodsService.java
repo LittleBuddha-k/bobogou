@@ -195,8 +195,8 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             }
             //街道数据完成过后，就删除掉其上级的区数据
             for (String streetId : streetIdArr) {
-                //provinceMapIC.remove(cityMapCP.get(areaMapAC.get(streetMapSA.get(streetId))));
-                //cityMapCP.remove(areaMapAC.get(streetMapSA.get(streetId)));
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(streetMapSA.get(streetId))));
+                cityMapCP.remove(areaMapAC.get(streetMapSA.get(streetId)));
                 areaMapAC.remove(streetMapSA.get(streetId));
             }
         }
@@ -223,7 +223,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             }
             //街道数据完成过后，就删除掉其上级的市数据
             for (String areaId : areaIdArr) {
-                //provinceMapIC.remove(cityMapCP.get(areaMapAC.get(areaId)));
+                provinceMapIC.remove(cityMapCP.get(areaMapAC.get(areaId)));
                 cityMapCP.remove(areaMapAC.get(areaId));
             }
         }
