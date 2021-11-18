@@ -17,14 +17,14 @@ layui.use(['form', 'table'], function () {
             //如果是直接赋值的方式，res即为：{other: [], count: 99} other为当前页数据、count为数据总长度
         },
         defaultToolbar: [
-            'filter',
+            /*'filter',
             'exports',
             'print',
             {
                 title: '提示',
                 layEvent: 'test',
                 icon: 'layui-icon-tips'
-            }
+            }*/
         ],
         cols: [
             [
