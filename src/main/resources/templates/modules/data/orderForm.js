@@ -62,12 +62,12 @@ function confirmDeliver() {
                 parent.refresh();
                 //假设这是iframe页
                 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-                rc.msg("确认发货成功")
+                rc.success("确认发货成功")
                 setTimeout(function(){
                     parent.layer.close(index); //再执行关闭
                 }, 1000);
             } else {
-                rc.alert("确认发货失败");
+                rc.error("确认发货失败");
             }
         });
     })

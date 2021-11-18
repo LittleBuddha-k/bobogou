@@ -243,7 +243,7 @@ layui.use(['form', 'table'], function () {
                         refresh();
                         rc.success("退款成功");
                     } else {
-                        rc.success("退款失败");
+                        rc.error("退款失败");
                     }
                 });
             });
