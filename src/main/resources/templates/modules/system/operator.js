@@ -18,14 +18,14 @@ layui.use(['form', 'table'], function () {
         },
         toolbar: '#toolBar',
         defaultToolbar: [
-            'filter',
+            /*'filter',
             'exports',
             'print',
             {
                 title: '提示',
                 layEvent: 'test',
                 icon: 'layui-icon-tips'
-            }
+            }*/
         ],
         cols: [
             [
@@ -35,26 +35,22 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '登录名',
                     field: 'loginName',
-                    sort: true,
-                    width: '200'
+                    sort: true
                 },
                 {
                     title: '昵称',
                     field: 'nickname',
-                    sort: true,
-                    width: '200'
+                    sort: true
                 },
                 {
                     title: '电话',
                     field: 'phone',
-                    sort: true,
-                    width: '200'
+                    sort: true
                 },
                 {
                     title: '性别',
                     field: 'sex',
                     sort: true,
-                    width: '80',
                     templet: function (data) {
                         var sex = data.sex;
                         let dictName = rc.getDictName("system_operator_sex",sex);
@@ -68,7 +64,6 @@ layui.use(['form', 'table'], function () {
                     title: '消息状态',
                     field: 'messageStatus',
                     sort: true,
-                    width: '200',
                     templet: function (data) {
                         var messageStatus = data.messageStatus;
                         let dictName = rc.getDictName("system_operator_message_status",messageStatus);
@@ -81,14 +76,12 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '工号',
                     field: 'workNumber',
-                    sort: true,
-                    width: '120'
+                    sort: true
                 },
                 {
                     title: '登录标识',
                     field: 'loginFlag',
                     sort: true,
-                    width: '150',
                     templet: function (data) {
                         var loginFlag = data.loginFlag;
                         let dictName = rc.getDictName("system_operator_login_flag",loginFlag);

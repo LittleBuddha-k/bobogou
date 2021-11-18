@@ -30,7 +30,8 @@ layui.use(['form', 'table'], function () {
         cols: [
             [
                 {
-                    type: "radio"
+                    type: "radio",
+                    width: 150
                 },
                 {
                     title: '登录名',

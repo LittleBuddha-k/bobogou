@@ -18,19 +18,20 @@ layui.use(['form', 'table'], function () {
         },
         //toolbar: '#toolBar',
         defaultToolbar: [
-            'filter',
+            /*'filter',
             'exports',
             'print',
             {
                 title: '提示',
                 layEvent: 'test',
                 icon: 'layui-icon-tips'
-            }
+            }*/
         ],
         cols: [
             [
                 {
-                    type: "radio"
+                    type: "radio",
+                    width: 150
                 },
                 {
                     title: '商品名',

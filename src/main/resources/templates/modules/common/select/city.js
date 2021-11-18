@@ -20,19 +20,20 @@ layui.use(['form', 'table'], function () {
         },
         toolbar: '#toolBar',
         defaultToolbar: [
-            'filter',
+            /*'filter',
             'exports',
             'print',
             {
                 title: '提示',
                 layEvent: 'test',
                 icon: 'layui-icon-tips'
-            }
+            }*/
         ],
         cols: [
             [
                 {
-                    type: "checkbox"
+                    type: "checkbox",
+                    width: 150
                 },
                 {
                     title: '市份名称',
