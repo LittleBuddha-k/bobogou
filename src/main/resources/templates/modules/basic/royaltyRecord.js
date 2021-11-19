@@ -35,9 +35,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '用户',
                     field: 'userName',
-                    sort: true,
-                    sortName: 'userName',
-                    width: '200',
+                    minWidth: '120',
                     templet:function(data){
                         let userName = data.userName;
                         return userName;
@@ -46,37 +44,27 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '类目',
                     field: 'title',
-                    sort: true,
-                    sortName: 'title',
-                    width: '250'
+                    minWidth: '250',
                 },
                 {
                     title: '购买人名字',
                     field: 'purchaser',
-                    sort: true,
-                    sortName: 'purchaser',
-                    width: '300'
+                    minWidth: '120',
                 },
                 {
                     title: '提成金额',
                     field: 'money',
-                    sort: true,
-                    sortName: 'money',
-                    width: '100'
+                    minWidth: '80',
                 },
                 {
                     title: '提成比例',
                     field: 'atio',
-                    sort: true,
-                    sortName: 'atio',
-                    width: '100'
+                    minWidth: '80',
                 },
                 {
                     title: '类型',
                     field: 'type',
-                    sort: true,
-                    sortName: 'type',
-                    width: '100',
+                    minWidth: '80',
                     templet: function (data) {
                         var type = data.type;
                         let dictName = rc.getDictName("basic_royalty_record_type",type);
@@ -89,16 +77,12 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '微信提现单号',
                     field: 'orderNumber',
-                    sort: true,
-                    sortName: 'orderNumber',
-                    width: '200'
+                    minWidth: '180',
                 },
                 {
                     title: '提现是否成功',
                     field: 'status',
-                    sort: true,
-                    sortName: 'status',
-                    width: '120',
+                    minWidth: '180',
                     templet: function (data) {
                         var status = data.status;
                         let dictName = rc.getDictName("basic_royalty_record_status",status);
@@ -111,9 +95,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '资金状态',
                     field: 'state',
-                    sort: true,
-                    sortName: 'state',
-                    width: '180',
+                    minWidth: '180',
                     templet: function (data) {
                         var state = data.state;
                         let dictName = rc.getDictName("basic_royalty_record_state",state);
@@ -126,9 +108,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '提现成功时间',
                     field: 'successfulTime',
-                    sort: true,
-                    sortName: 'successfulTime',
-                    width: '200',
+                    minWidth: '170',
                     templet:function(data){
                         let successfulTime = data.successfulTime;
                         if (successfulTime != null && successfulTime != ''){
