@@ -119,6 +119,12 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
         , type: 'datetime'
     });
 
+    //资质截止日期
+    laydate.render({
+        elem: '#effectiveDate'
+        , type: 'datetime'
+    });
+
     //商品分类级联下拉框
     //下拉框选中后的事件
     form.on('checkbox(goodsTypeLevelOneId)', function (data) {

@@ -734,6 +734,15 @@
                     </select>
                 </div>
             </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" for="effectiveDate">资质截止日期</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="effectiveDate" th:value="${#dates.format(goods.getEffectiveDate(),'yyyy-MM-dd HH:mm:ss')}"
+                           autocomplete="off" class="layui-input" th:if="${mode == 'detail'}" readonly>
+                    <input type="text" name="effectiveDate" th:value="${#dates.format(goods.getEffectiveDate(),'yyyy-MM-dd HH:mm:ss')}"
+                           th:id="effectiveDate" autocomplete="off" class="layui-input" th:if="${mode != 'detail'}">
+                </div>
+            </div>
         </div>
 
         <div class="layui-form-item" th:if="${mode == 'detail' && goods.getCertificateImageWatermark() == '' || goods.getCertificateImageWatermark() == null}">

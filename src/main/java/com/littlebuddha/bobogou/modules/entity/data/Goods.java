@@ -80,6 +80,8 @@ public class Goods extends DataEntity<Goods> {
     private String nextRole = "";//下一审核角色
     private String actType = "data_goods_act";//流程类型，用于记录审核历史记录
 
+    private Date effectiveDate;//资质截止日期
+
     public Goods() {
     }
 
@@ -519,5 +521,15 @@ public class Goods extends DataEntity<Goods> {
 
     public void setActType(String actType) {
         this.actType = actType;
+    }
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
     }
 }

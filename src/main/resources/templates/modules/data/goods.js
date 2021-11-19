@@ -123,6 +123,20 @@ layui.use(['form', 'table'], function () {
                     }
                 },
                 {
+                    title: '资质截止日期',
+                    field: 'effectiveDate',
+                    minWidth: '180',
+                    templet: function (data) {
+                        var effectiveDate = data.effectiveDate;
+                        if (effectiveDate != null){
+                            let dateFormat = rc.dateFormat(effectiveDate);
+                            return dateFormat;
+                        }else {
+                            return "";
+                        }
+                    }
+                },
+                {
                     title: '操作',
                     align: 'left',
                     minWidth: '300',

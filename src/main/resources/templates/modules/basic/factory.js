@@ -76,7 +76,7 @@ layui.use(['form', 'table'], function () {
                     minWidth: '180',
                 },
                 {
-                    title: '资质过期日期',
+                    title: '资质截止日期',
                     field: 'effectiveDate',
                     minWidth: '180',
                     templet: function (data) {
