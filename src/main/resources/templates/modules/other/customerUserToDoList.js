@@ -35,9 +35,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '手机号',
                     field: 'phone',
-                    sort: true,
-                    sortName: 'phone',
-                    width: '180',
+                    minWidth: 120,
                     templet:function(data){
                         var valueArray = data.phone;
                         return valueArray;
@@ -46,16 +44,11 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '昵称',
                     field: 'nickname',
-                    sort: true,
-                    sortName: 'nickname',
-                    width: '180'
+                    minWidth: 120,
                 },
                 {
                     title: '性别',
                     field: 'sex',
-                    sort: true,
-                    sortName: 'sex',
-                    width: '150',
                     templet:function(data){
                         var sex = data.sex;
                         let dictName = rc.getDictName("user_member_sex",sex);
@@ -68,9 +61,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '会员等级',
                     field: 'member',
-                    sort: true,
-                    sortName: 'member',
-                    width: '150',
+                    minWidth: 100,
                     templet:function(data){
                         var member = data.member;
                         let dictName = rc.getDictName("user_member_level",member);
@@ -83,30 +74,20 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '积分',
                     field: 'integral',
-                    sort: true,
-                    width: '80',
-                    sortName: 'integral'
                 },
                 {
                     title: '健康豆',
                     field: 'healthBeans',
-                    sort: true,
-                    width: '120',
-                    sortName: 'healthBeans'
                 },
                 {
                     title: '签到时间',
                     field: 'signInTime',
-                    sort: true,
-                    sortName: 'signInTime',
-                    width: '150',
+                    minWidth: 170,
                 },
                 {
                     title: '消息接收状态',
                     field: 'messageStatus',
-                    sort: true,
-                    sortName: 'messageStatus',
-                    width: '180',
+                    minWidth: 100,
                     templet:function(data){
                         var messageStatus = data.messageStatus;
                         let dictName = rc.getDictName("user_member_message_status",messageStatus);
@@ -119,9 +100,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '是否同意用户协议',
                     field: 'userAgreement',
-                    sort: true,
-                    sortName: 'userAgreement',
-                    width: '200',
+                    minWidth: 150,
                     templet:function(data){
                         var userAgreement = data.userAgreement;
                         let dictName = rc.getDictName("user_member_user_agreement",userAgreement);
@@ -134,9 +113,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '会员申请状态',
                     field: 'applyStatus',
-                    sort: true,
-                    sortName: 'applyStatus',
-                    width: '150',
+                    minWidth: 150,
                     templet:function(data){
                         var applyStatus = data.applyStatus;
                         let dictName = rc.getDictName("user_member_apply_status",applyStatus);
@@ -149,7 +126,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "center",
-                    width: '220',
+                    minWidth: '220',
                     templet:function(data){
                         let applyStatus = data.applyStatus;
                         if(1 == applyStatus){
