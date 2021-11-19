@@ -35,9 +35,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '厂家类型',
                     field: 'factoryType',
-                    sort: true,
-                    sortName: 'factoryType',
-                    width: '10%',
                     templet: function (data) {
                         var factoryType = data.factoryType;
                         let dictName = rc.getDictName("basic_factory_type",factoryType);
@@ -50,9 +47,6 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '厂家产品类型',
                     field: 'productType',
-                    sort: true,
-                    sortName: 'productType',
-                    width: '10%',
                     templet: function (data) {
                         var productType = data.productType;
                         let dictName = rc.getDictName("basic_factory_product_type",productType);
@@ -65,37 +59,40 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '厂家名称',
                     field: 'factoryName',
-                    sort: true,
-                    sortName: 'factoryName',
-                    width: '17.5%'
                 },
                 {
                     title: '联系人',
                     field: 'linkman',
-                    sort: true,
-                    sortName: 'linkman',
-                    width: '12.5%'
+                    minWidth: '100',
                 },
                 {
                     title: '联系人手机号',
                     field: 'phone',
-                    sort: true,
-                    sortName: 'phone',
-                    width: '12.5%'
+                    minWidth: '120',
                 },
                 {
                     title: '身份证号',
                     field: 'idNumber',
-                    sort: true,
-                    sortName: 'idNumber',
-                    width: '12.5%'
+                    minWidth: '180',
+                },
+                {
+                    title: '资质过期日期',
+                    field: 'effectiveDate',
+                    minWidth: '180',
+                    templet: function (data) {
+                        var effectiveDate = data.effectiveDate;
+                        if (effectiveDate != null){
+                            let dateFormat = rc.dateFormat(effectiveDate);
+                            return dateFormat;
+                        }else {
+                            return "";
+                        }
+                    }
                 },
                 {
                     title: '是否委托人采购或者销售',
                     field: 'isBailor',
-                    sort: true,
-                    sortName: 'isBailor',
-                    width: '10%',
+                    minWidth: '220',
                     templet: function (data) {
                         var isBailor = data.isBailor;
                         let dictName = rc.getDictName("basic_factory_is_bailor",isBailor);
@@ -109,7 +106,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '15%'
+                    minWidth: '200'
                 }
             ]
         ],

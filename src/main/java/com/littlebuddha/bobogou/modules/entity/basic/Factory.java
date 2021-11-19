@@ -1,11 +1,15 @@
 package com.littlebuddha.bobogou.modules.entity.basic;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.littlebuddha.bobogou.modules.base.entity.DataEntity;
 import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.City;
 import com.littlebuddha.bobogou.modules.entity.data.Province;
 import com.littlebuddha.bobogou.modules.entity.data.Street;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.util.Date;
 
 /**
  * 厂商实体类
@@ -45,6 +49,7 @@ public class Factory extends DataEntity<Factory> {
     private String takeDeliveryBailment = "";//收货委托书（批发企业填），图片地址，委托人采购或则销售必填
     private String foodBusinessLicense = "";//食品经营许可证图片地址，保健食品传，
     private Integer isBailor = 0;//是否委托人采购或则销售，0=否，1=是
+    private Date effectiveDate;//有效期
     private String operatorId;//操作人ID
 
     public Factory() {
@@ -318,6 +323,16 @@ public class Factory extends DataEntity<Factory> {
 
     public void setIsBailor(Integer isBailor) {
         this.isBailor = isBailor;
+    }
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    public Date getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(Date effectiveDate) {
+        this.effectiveDate = effectiveDate;
     }
 
     public String getOperatorId() {

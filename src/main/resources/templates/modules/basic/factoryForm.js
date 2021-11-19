@@ -8,6 +8,13 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
         ,element = layui.element;
     //各种基于事件的操作，下面会有进一步介绍
 
+
+    //资质有效期
+    laydate.render({
+        elem: '#effectiveDate'
+        , type: 'datetime'
+    });
+
     //打开form表单的初始判断
     let factoryType = $("#factoryType").val();
     if (1 == eval(factoryType)){
