@@ -91,7 +91,7 @@ layui.use(['form', 'table'], function () {
                     title: '健康豆',
                     field: 'healthBeans',
                     sort: true,
-                    width: '150',
+                    width: '100',
                     sortName: 'healthBeans'
                 },
                 {
@@ -99,7 +99,20 @@ layui.use(['form', 'table'], function () {
                     field: 'signInTime',
                     sort: true,
                     sortName: 'signInTime',
-                    width: '150',
+                    width: '170',
+                },
+                {
+                    title: 'VIP过期日期',
+                    field: 'vipExpire',
+                    width: '170',
+                    templet:function(data){
+                        var vipExpire = data.vipExpire;
+                        if (vipExpire != null){
+                            return rc.dateFormat(vipExpire);
+                        }else {
+                            return "";
+                        }
+                    }
                 },
                 {
                     title: '消息接收状态',
