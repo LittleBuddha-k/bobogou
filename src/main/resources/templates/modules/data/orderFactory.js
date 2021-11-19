@@ -35,63 +35,62 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '订单编号',
                     field: 'orderNumber',
-                    width: '200',
+                    minWidth: '180',
                 },
                 {
                     title: '厂商名字',
                     field: 'factoryName',
-                    sort: true,
-                    width: '200',
+                    minWidth: '200',
                 },
                 {
                     title: '省',
                     field: 'province',
-                    width: '120',
+                    minWidth: '100',
                 },
                 {
                     title: '市',
                     field: 'city',
-                    width: '120',
+                    minWidth: '100',
                 },
                 {
                     title: '区',
                     field: 'area',
-                    width: '120',
+                    minWidth: '100',
                 },
                 {
                     title: '街道',
                     field: 'street',
-                    width: '180',
+                    minWidth: '150',
                 },
                 {
                     title: '详细地址',
                     field: 'detailAddress',
-                    width: '180',
+                    minWidth: '180',
                 },
                 {
                     title: '收货地址',
                     field: 'receivingAddress',
-                    width: '500',
+                    minWidth: '350',
                 },
                 {
                     title: '总重量(g)',
                     field: 'totalWeight',
-                    width: '120',
+                    minWidth: '150',
                 },
                 {
                     title: '付费重量(g)',
                     field: 'freightWeight',
-                    width: '150',
+                    minWidth: '150',
                 },
                 {
                     title: '运费',
                     field: 'freight',
-                    width: '120',
+                    minWidth: '80',
                 },
                 {
                     title: '配送方式',
                     field: 'distributionMode',
-                    width: '150',
+                    minWidth: '120',
                     templet: function (data) {
                         var type = data.distributionMode;
                         let dictName = rc.getDictName("data_order_factory_distribution_mode",type);
@@ -104,12 +103,12 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '物流单号',
                     field: 'trackingNo',
-                    width: '180',
+                    minWidth: '120',
                 },
                 {
                     title: '出库状态',
                     field: 'outStatus',
-                    width: '120',
+                    minWidth: '120',
                     templet: function (data) {
                         var outStatus = data.outStatus;
                         let dictName = rc.getDictName("data_order_factory_out_status",outStatus);
@@ -122,7 +121,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '确认发货时间',
                     field: 'deliveryTime',
-                    width: '180',
+                    minWidth: '170',
                     templet: function (data) {
                         var deliveryTime = data.deliveryTime;
                         if (deliveryTime != null && deliveryTime != '' && deliveryTime != undefined){
@@ -137,7 +136,7 @@ layui.use(['form', 'table'], function () {
                     title: '操作',
                     toolbar: '#operation',
                     align: "left",
-                    width: '180',
+                    minWidth: '200',
                 }
             ]
         ],

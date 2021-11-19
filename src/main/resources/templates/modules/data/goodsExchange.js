@@ -35,8 +35,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '商品名称',
                     field: 'name',
-                    sort: true,
-                    sortName: 'name',
+                    minWidth: 200,
                     templet: function (data) {
                         var valueArray = data.name;
                         return valueArray;
@@ -45,8 +44,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '图片展示',
                     field: 'imageUrl',
-                    sort: true,
-                    sortName: 'imageUrl',
+                    minWidth: 150,
                     templet: function (data) {
                         var imageUrl = data.imageUrl;
                         let split = imageUrl.split(",");
@@ -66,56 +64,42 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '价格(元)',
                     field: 'price',
-                    sort: true,
-                    sortName: 'price'
+                    minWidth: 90,
                 },
                 {
                     title: '播播豆',
                     field: 'healthBeans',
-                    sort: true,
-                    sortName: 'healthBeans'
+                    minWidth: 80,
                 },
                 {
                     title: '积分',
                     field: 'integral',
-                    sort: true,
-                    sortName: 'integral'
+                    minWidth: 80,
                 },
                 {
                     title: '规格',
                     field: 'specification',
-                    sort: true,
-                    sortName: 'specification'
+                    minWidth: 120,
                 },
                 {
                     title: '重量（g）',
                     field: 'weight',
-                    sort: true,
-                    sortName: 'weight'
+                    minWidth: 100,
                 },
                 {
                     title: '数量',
                     field: 'amount',
-                    sort: true,
-                    sortName: 'amount'
+                    minWidth: 80,
                 },
                 {
                     title: '兑换量',
                     field: 'changeAmount',
-                    sort: true,
-                    sortName: 'changeAmount'
-                },
-                {
-                    title: '详情',
-                    field: 'content',
-                    sort: true,
-                    sortName: 'content'
+                    minWidth: 80,
                 },
                 {
                     title: '状态',
                     field: 'status',
-                    sort: true,
-                    sortName: 'status',
+                    minWidth: 120,
                     templet: function (data) {
                         var status = data.status;
                         let dictName = rc.getDictName("data_goods_exchange_status",status);
@@ -124,17 +108,12 @@ layui.use(['form', 'table'], function () {
                         }
                         return dictName;
                     }
-                },/*
-                {
-                    title: '更新人',
-                    field: 'updateByName',
-                    sort: true,
-                    sortName: 'updateByName'
-                },*/
+                },
                 {
                     title: '操作',
                     toolbar: '#operation',
-                    align: "center"
+                    align: "center",
+                    minWidth: 180,
                 }
             ]
         ],

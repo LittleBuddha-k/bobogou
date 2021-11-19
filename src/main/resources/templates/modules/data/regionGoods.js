@@ -93,43 +93,33 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '省',
                     field: 'provinceName',
-                    sort: true,
-                    width: '16%',
-                    sortName: 'provinceName'
+                    minWidth: '100',
                 },
                 {
                     title: '市',
                     field: 'cityName',
-                    sort: true,
-                    width: '16%',
-                    sortName: 'cityName'
+                    minWidth: '100',
                 },
                 {
                     title: '区',
                     field: 'areaName',
-                    sort: true,
-                    width: '16%',
-                    sortName: 'areaName'
+                    minWidth: '100',
                 },
                 {
                     title: '街道',
                     field: 'streetName',
-                    sort: true,
-                    width: '16%',
-                    sortName: 'streetName'
+                    minWidth: '100',
                 },
                 {
                     title: '商品',
                     field: 'goodsName',
-                    sort: true,
-                    width: '16%',
-                    sortName: 'goodsName'
+                    minWidth: '100',
                 },
                 {
                     title: '操作',
                     toolbar: '#operation',
                     align: "center",
-                    width: '20%'
+                    minWidth: '100',
                 }
             ]
         ],

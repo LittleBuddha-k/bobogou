@@ -35,8 +35,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '商品名称',
                     field: 'goodsName',
-                    sort: true,
-                    sortName: 'goodsName',
+                    minWidth: 120,
                     templet:function(data){
                         let goodsName = data.goodsName;
                         return goodsName;
@@ -45,172 +44,17 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '厂商名称',
                     field: 'factoryName',
-                    sort: true,
-                    sortName: 'factoryName'
-                },/*
-                {
-                    title: '样盒图片地址',
-                    field: 'sampleBox',
-                    sort: true,
-                    sortName: 'sampleBox',
-                    templet: function (data) {
-                        var sampleBox = data.sampleBox;
-                        let split = sampleBox.split(",");
-                        let html = "";
-                        if (sampleBox != null || sampleBox != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
+                    minWidth: 120,
                 },
-                {
-                    title: '产品外包装盒',
-                    field: 'outerPackingBox',
-                    sort: true,
-                    sortName: 'outerPackingBox',
-                    templet: function (data) {
-                        var outerPackingBox = data.outerPackingBox;
-                        let split = outerPackingBox.split(",");
-                        let html = "";
-                        if (outerPackingBox != null || outerPackingBox != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
-                },
-                {
-                    title: '说明书图片',
-                    field: 'instructionBook',
-                    sort: true,
-                    sortName: 'instructionBook',
-                    templet: function (data) {
-                        var instructionBook = data.instructionBook;
-                        let split = instructionBook.split(",");
-                        let html = "";
-                        if (instructionBook != null || instructionBook != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
-                },
-                {
-                    title: '其他',
-                    field: 'otherData',
-                    sort: true,
-                    sortName: 'otherData',
-                    templet: function (data) {
-                        var otherData = data.otherData;
-                        let split = otherData.split(",");
-                        let html = "";
-                        if (otherData != null || otherData != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
-                },
-                {
-                    title: '相关图片',
-                    field: 'relatedPictures',
-                    sort: true,
-                    sortName: 'relatedPictures',
-                    templet: function (data) {
-                        var relatedPictures = data.relatedPictures;
-                        let split = relatedPictures.split(",");
-                        let html = "";
-                        if (relatedPictures != null || relatedPictures != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
-                },
-                {
-                    title: '批件',
-                    field: 'instructions',
-                    sort: true,
-                    sortName: 'instructions',
-                    templet: function (data) {
-                        var instructions = data.instructions;
-                        let split = instructions.split(",");
-                        let html = "";
-                        if (instructions != null || instructions != ''){
-                            for (let i = 0;i<split.length;i++){
-                                if (split[i] != '') {
-                                    html += '<img src="' + split[i] + '" alt="" style="width: 47px;height: 33px;" class="layui-upload-img">'
-                                }
-                            }
-                            return html;
-                        }else {
-                            return "无图片";
-                        }
-                    }
-                },
-                {
-                    title: '质量标准',
-                    field: 'qualityStandard',
-                    sort: true,
-                    sortName: 'qualityStandard',
-                    width: '10%'
-                },
-                {
-                    title: '省检验报告',
-                    field: 'surveyReport',
-                    sort: true,
-                    sortName: 'surveyReport',
-                    width: '10%'
-                },*/
                 {
                     title: '物价',
                     field: 'prices',
-                    sort: true,
-                    sortName: 'prices'
-                },/*
-                {
-                    title: '生产企业营业执照地址',
-                    field: 'productionBusinessLicense',
-                    sort: true,
-                    sortName: 'productionBusinessLicense',
-                    width: '20%'
+                    minWidth: 80,
                 },
-                {
-                    title: '生产企业生产许可证地址',
-                    field: 'productionCertificate',
-                    sort: true,
-                    sortName: 'productionCertificate',
-                    width: '20%'
-                },*/
                 {
                     title: '操作',
                     toolbar: '#operation',
+                    minWidth: 120,
                     align: "center"
                 }
             ]

@@ -35,94 +35,85 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '商品名',
                     field: 'name',
-                    sort: true,
-                    sortName: 'name',
                     align: 'center',
-                    width: '200'
+                    minWidth: '200'
                 },
                 {
                     title: '商品通用名称',
                     field: 'commonName',
-                    sort: true,
-                    sortName: 'commonName',
+                    minWidth: '200',
                     align: 'center',
-                    width: '200'
                 },
                 {
                     title: '集采价',
                     field: 'purchasingPrice',
                     sort: true,
-                    width: '80'
+                    minWidth: '100'
                 },
                 {
                     title: '进价',
                     field: 'originalCost',
                     align: 'center',
-                    width: '100'
+                    minWidth: '100'
                 },
                 {
                     title: '零售价',
                     field: 'sellingPrice',
                     align: 'center',
-                    width: '100'
+                    minWidth: '100'
                 },
                 {
                     title: '会员价',
                     field: 'vipPrice',
                     sort: true,
                     align: 'center',
-                    width: '100'
+                    minWidth: '100'
                 },
                 {
                     title: '规格',
                     field: 'specification',
-                    sort: true,
-                    width: '200'
+                    minWidth: '100'
                 },
                 {
                     title: '数量',
                     field: 'amount',
                     sort: true,
                     align: 'center',
-                    width: '80'
+                    minWidth: '80'
                 },
                 {
                     title: '已分配',
                     field: 'usedAmount',
                     sort: true,
                     align: 'center',
-                    width: '100'
+                    minWidth: '100'
                 },
                 {
                     title: '库存数',
                     field: 'stockAmount',
                     sort: true,
                     align: 'center',
-                    width: '100'
+                    minWidth: '100'
                 },
                 {
                     title: '是否销售',
                     field: 'isMarket',
-                    sort: true,
                     align: 'center',
-                    width: '120',
-                    templet:function(data){
-                        let isMarket = data.isMarket;
-                        if(0 == isMarket){
-                            return "在售";
-                        }else if (2 == isMarket){
-                            return "停售";
-                        }else {
+                    minWidth: '120',
+                    templet: function (data) {
+                        var isMarket = data.isMarket;
+                        let dictName = rc.getDictName("data_goods_is_market",isMarket);
+                        if (dictName == '' || dictName == undefined){
                             return "未知";
                         }
+                        return dictName;
                     }
                 },
                 {
                     title: '审核状态',
                     field: 'actStatus',
-                    sortName: 'actStatus',
                     align: "left",
-                    width: '120',
+                    minWidth: '180',
                     templet: function (data) {
                         var actStatus = data.actStatus;
                         let dictName = rc.getDictName("act_status",actStatus);
@@ -135,7 +126,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: 'left',
-                    width: '200',
+                    minWidth: '200',
                     align: 'center',
                     templet:function(data){
                         let isMarket = data.isMarket;
