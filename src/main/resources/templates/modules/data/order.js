@@ -229,12 +229,14 @@ layui.use(['form', 'table'], function () {
 
     table.on('tool(orderTableFilter)', function (obj) {
         let id = obj.data.id;
+        let status = obj.data.status;
         if (obj.event === 'detail') {
-            rc.openOrderViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
-        } else if (obj.event === 'edit') {
-            rc.openSaveDialog('/bobogou/data/order/form/edit?id=' + id, "编辑订单信息", '85%', '70%');
+            if (status != null && status != '' && status == 2){//状态为代发货时显示确认发货按钮
+                rc.openOrderViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
+            }else {
+                rc.openViewDialog("/bobogou/data/order/form/detail?id=" + id, "订单详情",'85%','70%')
+            }
         } else if (obj.event === 'chargeBack') {
-            //rc.openViewDialogNoClose('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
             rc.openSaveDialog('/bobogou/data/order/form/chargeBack?id=' + id, "退单处理","85%","70%")
         }else if (obj.event === 'refund') {  // 监听删除操作
             rc.confirm('确认对该订单执行退款操作吗', function(){
