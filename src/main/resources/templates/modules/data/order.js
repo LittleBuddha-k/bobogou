@@ -131,7 +131,7 @@ layui.use(['form', 'table'], function () {
                 {
                     title: '操作',
                     align: "left",
-                    minWidth: 120,
+                    minWidth: 200,
                     templet:function(data){
                         let status = data.status;
                         if (5 == status){
