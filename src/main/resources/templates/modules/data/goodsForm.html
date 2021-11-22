@@ -241,6 +241,25 @@
                 </div>
             </div>
             <div class="layui-inline">
+                <label class="layui-form-label" for="authorization">批准号</label>
+                <div class="layui-input-inline">
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getAuthorization()}"
+                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
+                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
+                           th:value="${goods.getGoodsSpecification().getAuthorization()}"
+                           placeholder="批准号" autocomplete="off" class="layui-input">
+                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
+                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
+                           placeholder="批准号" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
                 <label class="layui-form-label" for="purchasingPrice">集采价(元)</label>
                 <div class="layui-input-inline">
                     <input type="purchasingPrice" th:id="purchasingPrice" th:name="purchasingPrice"
@@ -534,25 +553,6 @@
                 </div>
             </div>
             <!--商品规格部份-->
-            <div class="layui-inline">
-                <label class="layui-form-label" for="authorization">批准号</label>
-                <div class="layui-input-inline">
-                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getAuthorization()}"
-                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
-                           th:if="${mode == 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="批准号" autocomplete="off" class="layui-input" readonly>
-                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() != null}"
-                           th:value="${goods.getGoodsSpecification().getAuthorization()}"
-                           placeholder="批准号" autocomplete="off" class="layui-input">
-                    <input type="text" th:id="authorization" th:name="goodsSpecification.authorization"
-                           th:if="${mode != 'detail' && goods.getGoodsSpecification() == null}"
-                           placeholder="批准号" autocomplete="off" class="layui-input">
-                </div>
-            </div>
             <div class="layui-inline">
                 <label class="layui-form-label" for="manufacturingEnterprise">生产企业</label>
                 <div class="layui-input-inline">
