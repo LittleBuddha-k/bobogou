@@ -116,12 +116,14 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function () {
     //生产日期
     laydate.render({
         elem: '#productTime'
+        ,trigger: 'click'//呼出事件改成click
         , type: 'datetime'
     });
 
     //资质截止日期
     laydate.render({
         elem: '#effectiveDate'
+        ,trigger: 'click'//呼出事件改成click
         , type: 'datetime'
     });
 

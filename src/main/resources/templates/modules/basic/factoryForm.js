@@ -12,6 +12,7 @@ layui.use(['upload', 'element', 'form', 'layedit', 'laydate'], function() {
     //资质有效期
     laydate.render({
         elem: '#effectiveDate'
+        ,trigger: 'click'//呼出事件改成click
         , type: 'datetime'
     });
 
