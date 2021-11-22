@@ -35,7 +35,7 @@ public class PageUtil {
         int fromIndex = 0; // 开始索引
         int toIndex = 0; // 结束索引
 
-        if (pageNum != pageCount) {
+        if (!pageNum.equals(pageCount)) {
             fromIndex = (pageNum - 1) * pageSize;
             toIndex = fromIndex + pageSize;
         } else {

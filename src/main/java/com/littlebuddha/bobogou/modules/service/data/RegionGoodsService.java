@@ -87,6 +87,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
         PageInfo<RegionGoods> pageInfo = null;
         //根据当前用户区域查询对应分配区域内的商品数据
         if (entity.getPageNo() != null && entity.getPageSize() != null) {
+            entity.setPage(page);
             if (currentUser != null && "1".equals(currentUser.getId())){//超级管理员查询所有数据
                 result = regionGoodsMapper.findList(entity);
             }else {
@@ -109,7 +110,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
             List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
             //组装结果
             if (result != null && !result.isEmpty()) {
-                pageInfo = new PageInfo<>();
+                pageInfo = new PageInfo<RegionGoods>();
                 pageInfo.setList(list);
                 pageInfo.setTotal(result.size());
             } else {
