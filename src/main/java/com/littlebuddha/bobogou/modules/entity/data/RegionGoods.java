@@ -38,6 +38,12 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     private List<RegionGoods> regionGoodsList;//商品区域下的商品列表
 
+    //仅供查询
+    private Integer provinceSelect;
+    private Integer citySelect;
+    private Integer areaSelect;
+    private Integer streetSelect;
+
     public RegionGoods() {
     }
 
@@ -222,5 +228,37 @@ public class RegionGoods extends DataEntity<RegionGoods> {
 
     public void setRegionGoodsList(List<RegionGoods> regionGoodsList) {
         this.regionGoodsList = regionGoodsList;
+    }
+
+    public Integer getProvinceSelect() {
+        return provinceSelect;
+    }
+
+    public void setProvinceSelect(Integer provinceSelect) {
+        this.provinceSelect = provinceSelect;
+    }
+
+    public Integer getCitySelect() {
+        return citySelect;
+    }
+
+    public void setCitySelect(Integer citySelect) {
+        this.citySelect = citySelect;
+    }
+
+    public Integer getAreaSelect() {
+        return areaSelect;
+    }
+
+    public void setAreaSelect(Integer areaSelect) {
+        this.areaSelect = areaSelect;
+    }
+
+    public Integer getStreetSelect() {
+        return streetSelect;
+    }
+
+    public void setStreetSelect(Integer streetSelect) {
+        this.streetSelect = streetSelect;
     }
 }

@@ -58,6 +58,18 @@
                     AND a.street_id = #{streetId}
                 </if>
             </if>
+            <if test="provinceSelect != null and provinceSelect != '' and provinceSelect != 0">
+                AND a.province_id = #{provinceSelect}
+            </if>
+            <if test="citySelect != null and citySelect != '' and citySelect != 0">
+                AND a.city_id = #{citySelect}
+            </if>
+            <if test="areaSelect != null and areaSelect != '' and areaSelect != 0">
+                AND a.district_id = #{areaSelect}
+            </if>
+            <if test="streetSelect != null and streetSelect != '' and streetSelect != 0">
+                AND a.street_id = #{streetSelect}
+            </if>
             <if test="goodsId != null and goodsId != '' and  goodsId != 0">
                 AND a.goods_id = #{goodsId}
             </if>
