@@ -653,4 +653,53 @@ public class FactoryService extends CrudService<Factory, FactoryMapper> {
     public int recovery(Factory entity) {
         return super.recovery(entity);
     }
+
+    public PageInfo<Factory> findExpirePage(Page<Factory> factories, Factory entity) {
+        if(entity != null){
+            entity.setFactoryName(StringUtils.deleteWhitespace(entity.getFactoryName()));
+        }
+        //封装的结果集
+        List<Factory> result = new ArrayList<>();
+        //获取当前用户区域
+        Operator currentUser = UserUtils.getCurrentUser();
+        entity.setCurrentUser(currentUser);
+        OperatorRegion operatorRegion = new OperatorRegion();
+        operatorRegion.setOperatorId(currentUser.getId());
+        //查询当前用户的所有区域list
+        List<OperatorRegion> operatorRegionList = operatorRegionMapper.getOperatorRegionByCurrentUser(operatorRegion);
+        //查询封装结果
+        PageInfo<Factory> pageInfo = null;
+        //根据当前用户区域查询对应发货单位数据
+        if (entity.getPageNo() != null && entity.getPageSize() != null) {
+            if (currentUser != null && "1".equals(currentUser.getId())){//如果是超级管理员查询全部数据
+                result = factoryMapper.findListExpire(entity);
+            }else {
+                for (OperatorRegion region : operatorRegionList) {//按照区域来进行查询
+                    if (region != null) {
+                        entity.setProvinceId(region.getProvinceId());
+                        entity.setCityId(region.getCityId());
+                        entity.setAreaId(region.getDistrictId());
+                        entity.setStreetId(region.getStreetId());
+                        List<Factory> factoryList = factoryMapper.findListExpire(entity);
+                        if (factoryList != null) {
+                            result.addAll(factoryList);
+                        }
+                    }
+                }
+            }
+            //去重
+            result = ListUtils.removeDuplicateFactory(result);
+            //分页数据
+            List list = PageUtil.startPage(result, entity.getPageNo(), entity.getPageSize());
+            //组装结果
+            if (result != null && !result.isEmpty()) {
+                pageInfo = new PageInfo<>();
+                pageInfo.setList(list);
+                pageInfo.setTotal(result.size());
+            } else {
+                pageInfo = new PageInfo<>();
+            }
+        }
+        return pageInfo;
+    }
 }

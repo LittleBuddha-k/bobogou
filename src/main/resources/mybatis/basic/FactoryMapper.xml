@@ -91,6 +91,47 @@
         </choose>
     </select>
 
+    <!--查询资质过期列表-->
+    <select id="findListExpire" resultType="com.littlebuddha.bobogou.modules.entity.basic.Factory">
+        SELECT
+        <include refid="factoryColumns"/>
+        FROM md_factory a
+        <include refid="factoryJoins" />
+        <where>
+            a.is_deleted = #{DEL_FLAG_NORMAL}
+            AND a.effective_date BETWEEN a.create_time AND now()
+            <!-- 判断条件参数是否为空 -->
+            <if test="factoryName != null and factoryName != ''">
+                AND a.factory_name LIKE concat('%',#{factoryName},'%')
+            </if>
+            <if test="factoryType != null and factoryType != ''">
+                AND a.factory_type = #{factoryType}
+            </if>
+            <if test='currentUser.id != "1"'><!--如果当前登录用户不是超级管理员，则按照后台系统对登陆用户设置的区域来进行查询-->
+                <if test="provinceId != null and provinceId != '' and provinceId != 0">
+                    AND a .province_id = #{provinceId}
+                </if>
+                <if test="cityId != null and cityId != ''  and cityId != 0 ">
+                    AND a.city_id = #{cityId}
+                </if>
+                <if test="areaId != null and areaId != '' and areaId != 0">
+                    AND a.area_id = #{areaId}
+                </if>
+                <if test="streetId != null and streetId != '' and streetId != 0">
+                    AND a.street_id = #{streetId}
+                </if>
+            </if>
+        </where>
+        <choose>
+            <when test="orderBy !=null and orderBy != ''">
+                ORDER BY ${orderBy}
+            </when>
+            <otherwise>
+                ORDER BY a.create_time DESC
+            </otherwise>
+        </choose>
+    </select>
+
     <!--正常新增没有关联，首次创建-->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO md_factory(

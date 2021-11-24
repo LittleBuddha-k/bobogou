@@ -85,7 +85,7 @@ public class FileUtils {
      */
     public static void imgDownload(HttpServletResponse response, String [] names, String [] paths) {
         //存放--服务器上zip文件的目录
-        String directory = "E:/usr/image/";
+        String directory = "/usr/zip/";
         File directoryFile = new File(directory);
         if (!directoryFile.isDirectory() && !directoryFile.exists()) {
             directoryFile.mkdirs();
