@@ -199,8 +199,10 @@ public class FactoryController extends BaseController {
             if (split != null && split.length > 0) {
                 String[] realPath = new String[split.length];
                 for (int i = 0; i < split.length; i++) {
-                    realPath[i] = (globalSetting.getUploadImage() + split[i]).replaceAll(globalSetting.getRootPath(), "");
-                    filename[i] = (split[i]).replaceAll(globalSetting.getRootPath(), "");
+                    if (StringUtils.isNotBlank(split[i])) {
+                        realPath[i] = (globalSetting.getUploadImage() + split[i]).replaceAll(globalSetting.getRootPath(), "");
+                        filename[i] = (split[i]).replaceAll(globalSetting.getRootPath(), "");
+                    }
                 }
                 FileUtils.imgDownload(response, filename, realPath);
             }
