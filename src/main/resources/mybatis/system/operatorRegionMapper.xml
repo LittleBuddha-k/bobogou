@@ -77,96 +77,46 @@
         </choose>
     </select>
 
-    <select id="findByCurrentUserProvinceDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+    <select id="findProvinceSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
         SELECT
-        DISTINCT(province_id)
-        FROM system_operator_region a
-        <where>
-            <!-- 判断条件参数是否为空 -->
-            <if test="operatorId != null and operatorId != ''">
-                a.operator_id = #{operatorId}
-            </if>
-            <if test="type != null and type != ''">
-                and a.type = #{type}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
+            DISTINCT(b.code) AS "code",
+            b.id AS "id",
+            b.name AS "title",
+            "code" AS field
+        FROM system_operator_region a LEFT JOIN system_province b ON a.province_id = b.id
     </select>
 
-    <select id="findByCurrentUserCityDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+    <select id="findCitySelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
         SELECT
-        DISTINCT(city_id)
-        FROM system_operator_region a
-        <where>
-            <!-- 判断条件参数是否为空 -->
-            <if test="operatorId != null and operatorId != ''">
-                a.operator_id = #{operatorId}
-            </if>
-            <if test="type != null and type != ''">
-                and a.type = #{type}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
+            DISTINCT(b.code) AS "code",
+            b.id AS "id",
+            b.name AS "title",
+            b.province_code AS "parentCode",
+            "code" AS field
+        FROM system_operator_region a LEFT JOIN system_city b ON a.city_id = b.id
+        WHERE b.id is not null
     </select>
 
-    <select id="findByCurrentUserAreaDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+    <select id="findAreaSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
         SELECT
-        DISTINCT(area_id)
-        FROM system_operator_region a
-        <where>
-            <!-- 判断条件参数是否为空 -->
-            <if test="operatorId != null and operatorId != ''">
-                a.operator_id = #{operatorId}
-            </if>
-            <if test="type != null and type != ''">
-                and a.type = #{type}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
+            DISTINCT(b.code) AS "code",
+            b.id AS "id",
+            b.name AS "title",
+            b.city_code AS "parentCode",
+            "code" AS field
+        FROM system_operator_region a LEFT JOIN system_area b ON a.area_id = b.id
+        WHERE b.id is not null
     </select>
 
-    <select id="findByCurrentUserStreetDistinct" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">
+    <select id="findStreetSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
         SELECT
-        DISTINCT(street_id)
-        FROM system_operator_region a
-        <where>
-            <!-- 判断条件参数是否为空 -->
-            <if test="operatorId != null and operatorId != ''">
-                a.operator_id = #{operatorId}
-            </if>
-            <if test="type != null and type != ''">
-                and a.type = #{type}
-            </if>
-        </where>
-        <choose>
-            <when test="orderBy !=null and orderBy != ''">
-                ORDER BY ${orderBy}
-            </when>
-            <otherwise>
-                ORDER BY a.create_time DESC
-            </otherwise>
-        </choose>
+            DISTINCT(b.code) AS "code",
+            b.id AS "id",
+            b.name AS "title",
+            b.area_code AS "parentCode",
+            "code" AS field
+        FROM system_operator_region a LEFT JOIN system_street b ON a.street_id = b.id
+        WHERE b.id is not null
     </select>
 
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">

@@ -2,8 +2,10 @@ package com.littlebuddha.bobogou.modules.mapper.system;
 
 
 import com.littlebuddha.bobogou.modules.base.mapper.BaseMapper;
+import com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect;
 import com.littlebuddha.bobogou.modules.entity.system.OperatorRegion;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,35 +17,40 @@ public interface OperatorRegionMapper extends BaseMapper<OperatorRegion> {
 
     /**
      * 根据用户id查询
+     *
      * @param operatorRegion
      */
     List<OperatorRegion> getOperatorRegionByCurrentUser(OperatorRegion operatorRegion);
 
     /**
-     * 根据当前用户查询去重省级id的数据集合
-     * @param operatorRegion
+     * 根据当前用户查询区域选项数据
+     *
+     * @param currentUserId
      * @return
      */
-    List<OperatorRegion> findByCurrentUserProvinceDistinct(OperatorRegion operatorRegion);
+    List<AreaSelect> findProvinceSelectByCurrentUser(@Param("currentUserId") String currentUserId);
 
     /**
-     * 根据当前用户查询去重街道级id的数据集合
-     * @param operatorRegion
+     * 根据当前用户查询区域选项数据
+     *
+     * @param currentUserId
      * @return
      */
-    List<OperatorRegion> findByCurrentUserCityDistinct(OperatorRegion operatorRegion);
+    List<AreaSelect> findCitySelectByCurrentUser(@Param("currentUserId") String currentUserId);
 
     /**
-     * 根据当前用户查询去重街道级id的数据集合
-     * @param operatorRegion
+     * 根据当前用户查询区域选项数据
+     *
+     * @param currentUserId
      * @return
      */
-    List<OperatorRegion> findByCurrentUserAreaDistinct(OperatorRegion operatorRegion);
+    List<AreaSelect> findAreaSelectByCurrentUser(@Param("currentUserId") String currentUserId);
 
     /**
-     * 根据当前用户查询去重街道级id的数据集合
-     * @param operatorRegion
+     * 根据当前用户查询区域选项数据
+     *
+     * @param currentUserId
      * @return
      */
-    List<OperatorRegion> findByCurrentUserStreetDistinct(OperatorRegion operatorRegion);
+    List<AreaSelect> findStreetSelectByCurrentUser(@Param("currentUserId") String currentUserId);
 }

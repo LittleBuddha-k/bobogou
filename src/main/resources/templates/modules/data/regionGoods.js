@@ -178,7 +178,9 @@ layui.use(['form', 'table'], function () {
         let id = obj.data.id;
         let event = obj.event;
 
-        if ('edit' == event) {
+        if ('setArea' == event) {
+            rc.openSetAreaSelect('/bobogou/data/areaSelect/list', "选择区域", '300px', '75%');
+        }else if ('edit' == event) {
             rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息", '795px', '75%');
         } else if ('delete' == event) {
             rc.confirm('确认要删除该信息吗？', function () {

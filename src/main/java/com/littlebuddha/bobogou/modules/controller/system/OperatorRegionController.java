@@ -69,34 +69,6 @@ public class OperatorRegionController extends BaseController {
         return "modules/system/operatorRegion";
     }
 
-    @ResponseBody
-    @GetMapping("/findCurrentUserProvince")
-    public List<Province> findCurrentUserProvince(){
-        List<Province> provinces = operatorRegionService.currentUserProvince();
-        return provinces;
-    }
-
-    @ResponseBody
-    @GetMapping("/findCurrentUserCity")
-    public List<City> findCurrentUserCity(){
-        List<City> cities = operatorRegionService.currentUserCity();
-        return cities;
-    }
-
-    @ResponseBody
-    @GetMapping("/findCurrentUserArea")
-    public List<Area> findCurrentUserArea(){
-        List<Area> areas = operatorRegionService.currentUserArea();
-        return areas;
-    }
-
-    @ResponseBody
-    @GetMapping("/findCurrentUserStreet")
-    public List<Street> findCurrentUserStreet(){
-        List<Street> streets = operatorRegionService.currentUserStreet();
-        return streets;
-    }
-
     /**
      * 返回数据
      *
