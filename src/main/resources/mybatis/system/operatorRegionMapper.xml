@@ -84,6 +84,7 @@
             b.name AS "title",
             "code" AS field
         FROM system_operator_region a LEFT JOIN system_province b ON a.province_id = b.id
+        WHERE b.id is not null
     </select>
 
     <select id="findCitySelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
