@@ -41,26 +41,34 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
         //查询一级
         List<AreaSelect> provinceList = operatorRegionMapper.findProvinceSelectByCurrentUser(currentUserId);
         HashMap<String, AreaSelect> provinceMap = new HashMap<>();
-        for (AreaSelect areaSelect : provinceList) {
-            provinceMap.put(areaSelect.getCode(), areaSelect);
+        if (provinceList != null && !provinceList.isEmpty()) {
+            for (AreaSelect areaSelect : provinceList) {
+                provinceMap.put(areaSelect.getCode(), areaSelect);
+            }
         }
         //查询二级
         List<AreaSelect> cityList = operatorRegionMapper.findCitySelectByCurrentUser(currentUserId);
         HashMap<String, String> cityMap = new HashMap<>();
-        for (AreaSelect areaSelect : cityList) {
-            cityMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+        if (cityList != null && !cityList.isEmpty()) {
+            for (AreaSelect areaSelect : cityList) {
+                cityMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+            }
         }
         //查询三级
         List<AreaSelect> areaList = operatorRegionMapper.findAreaSelectByCurrentUser(currentUserId);
         HashMap<String, String> areaMap = new HashMap<>();
-        for (AreaSelect areaSelect : areaList) {
-            areaMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+        if (areaList != null && !areaList.isEmpty()) {
+            for (AreaSelect areaSelect : areaList) {
+                areaMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+            }
         }
         //查询四级
         List<AreaSelect> streetList = operatorRegionMapper.findStreetSelectByCurrentUser(currentUserId);
         HashMap<String, String> streetMap = new HashMap<>();
-        for (AreaSelect areaSelect : streetList) {
-            streetMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+        if (streetList != null && !streetList.isEmpty()) {
+            for (AreaSelect areaSelect : streetList) {
+                streetMap.put(areaSelect.getParentCode(), areaSelect.getCode());
+            }
         }
         //給一级数据设置子数据list
         if (provinceList != null && !provinceList.isEmpty()) {
