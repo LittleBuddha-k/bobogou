@@ -1,5 +1,6 @@
 package com.littlebuddha.bobogou.modules.controller.data;
 
+import com.alibaba.fastjson.JSONArray;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageInfo;
 import com.littlebuddha.bobogou.common.utils.DateUtils;
@@ -11,6 +12,7 @@ import com.littlebuddha.bobogou.common.utils.excel.ImportExcel;
 import com.littlebuddha.bobogou.modules.base.controller.BaseController;
 import com.littlebuddha.bobogou.modules.entity.common.DictData;
 import com.littlebuddha.bobogou.modules.entity.data.*;
+import com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.entity.system.Role;
 import com.littlebuddha.bobogou.modules.service.common.DictDataService;
@@ -161,6 +163,19 @@ public class RegionGoodsController extends BaseController {
         } else {
             return new Result("310", "未知错误！保存失败");
         }
+    }
+
+    /**
+     * 设置区域
+     * @param id 商品区域数据id
+     * @param data  List<AreaSelect>类型区域数据
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/setArea/{id}")
+    public Result setArea(@PathVariable("id")String id, @RequestParam(value = "data",required = false) String data) {
+        List<AreaSelect> areaSelects = JSONArray.parseArray(data, AreaSelect.class);
+        return null;
     }
 
     @ResponseBody

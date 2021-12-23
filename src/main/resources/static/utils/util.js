@@ -475,7 +475,7 @@
                 });
             });
         },
-        openSetAreaSelect: function open(url, title, width, height, id) {
+        openSetAreaSelect: function open(id,url,saveUrl, title, width, height) {
             layui.use(['layer', 'form'], function () {
                 var layer = layui.layer;
                 var form = layui.form;
@@ -486,12 +486,15 @@
                     skin: 'demo-class',
                     area: [width, height],
                     offset: 'auto',
+                    anim: 2,
                     btn: ['确定', '关闭'],
                     yes: function (index, layero) {
                         //点击确定后，将执行子页面的save（）方法，需要在子页面定义save（）
                         var iframeWin = window[layero.find('iframe')[0]['name']]; //得到iframe页的窗口对象，执行iframe页的方法：
+                        let data = iframeWin.getChecked();
+                        iframeWin.save(id,saveUrl,data);
                         form.render();
-                        layer.close(index);
+                        //layer.close(index);
                     }
                     , btn2: function (index, layero) {
                         //按钮【按钮二】的回调

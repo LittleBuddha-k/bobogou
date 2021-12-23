@@ -179,7 +179,7 @@ layui.use(['form', 'table'], function () {
         let event = obj.event;
 
         if ('setArea' == event) {
-            rc.openSetAreaSelect('/bobogou/data/areaSelect/list', "选择区域", '300px', '75%');
+            rc.openSetAreaSelect(id,'/bobogou/data/areaSelect/list', "/bobogou/data/regionGoods/setArea/","选择区域", '300px', '75%');
         }else if ('edit' == event) {
             rc.openSaveDialog('/bobogou/data/regionGoods/form/edit?id=' + id, "编辑商品区域信息", '795px', '75%');
         } else if ('delete' == event) {
@@ -233,4 +233,8 @@ function refresh() {
 
 function selectGoods(id) {
     let openSelector = rc.openGoodsSelect("/bobogou/data/goods/select/", "选择商品", '50%', '50%', id);
+}
+
+function treeSave() {
+    alert("列表页面执行成功")
 }
