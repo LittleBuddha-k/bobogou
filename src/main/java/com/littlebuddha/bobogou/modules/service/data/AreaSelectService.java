@@ -90,7 +90,7 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
-                }else {//其下没有设置市级相关的数据
+                }else {//其下没有设置市级相关的数据则查询其所有市
                     List<AreaSelect> citySelectByProvinceCode = areaSelectMapper.findCitySelectByProvinceCode(provinceList.get(i).getCode());
                     AreaSelect areaSelect = provinceList.get(i);
                     List<AreaSelect> children = areaSelect.getChildren();
@@ -110,7 +110,7 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
-                }else {//其下没有设置区级相关的数据
+                }else {//其下没有设置区级相关的数据则查询其所有区
                     List<AreaSelect> selectByProvinceCode = areaSelectMapper.findAreaSelectByProvinceCode(cityList.get(i).getCode());
                     AreaSelect areaSelect = cityList.get(i);
                     List<AreaSelect> children = areaSelect.getChildren();
@@ -130,7 +130,7 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
-                }else {//其下没有设置街道级相关的数据
+                }else {//其下没有设置街道级相关的数据则查询其所有街道
                     List<AreaSelect> streetSelectByProvinceCode = areaSelectMapper.findStreetSelectByProvinceCode(areaList.get(i).getCode());
                     AreaSelect areaSelect = areaList.get(i);
                     List<AreaSelect> children = areaSelect.getChildren();
