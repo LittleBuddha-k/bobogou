@@ -61,15 +61,18 @@ function getChecked() {
 }
 
 function save(id,saveUrl,data) {
-    alert(data)
     $.ajax({
         url: saveUrl + id,    //请求的url地址
         dataType: "json",   //返回格式为json
         async: true,//请求是否异步，默认为异步，这也是ajax重要特性
         data: {"data":JSON.stringify(data)},    //参数值
         type: "POST",   //请求方式
-        success:function () {
-            alert("请求成功")
+        success:function (result) {
+            if (result.code == 200){
+                rc.success("设置成功")
+            }else {
+                rc.error("设置失败")
+            }
         }
     });
 }
