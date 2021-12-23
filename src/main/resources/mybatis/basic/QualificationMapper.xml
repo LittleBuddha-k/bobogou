@@ -160,6 +160,14 @@
         WHERE id=#{id}
     </update>
 
+    <!--更新资质流程状态-->
+    <update id="updateQualificationAct">
+        UPDATE bobogou_basic_qualification SET
+            status = #{status},
+            next_role_id = #{nextRoleId}
+        WHERE id=#{id}
+    </update>
+
     <update id="deleteByLogic">
         UPDATE bobogou_basic_qualification SET del_flag = #{DEL_FLAG_DELETE}
         WHERE id=#{id}

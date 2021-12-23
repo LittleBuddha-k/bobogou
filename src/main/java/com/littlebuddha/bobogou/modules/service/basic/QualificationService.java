@@ -108,4 +108,8 @@ public class QualificationService extends CrudService<Qualification, Qualificati
     public int recovery(Qualification entity) {
         return super.recovery(entity);
     }
+
+    public int updateQualificationAct(Qualification qualification) {
+        return qualificationMapper.updateQualificationAct(qualification);
+    }
 }

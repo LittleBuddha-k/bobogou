@@ -26,4 +26,11 @@ public interface QualificationMapper extends BaseMapper<Qualification> {
      * @return
      */
     List<Qualification> findDownloadDataPage(Qualification entity);
+
+    /**
+     * 更改审核状态
+     * @param qualification
+     * @return
+     */
+    int updateQualificationAct(Qualification qualification);
 }

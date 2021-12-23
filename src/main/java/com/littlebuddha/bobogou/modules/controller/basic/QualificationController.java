@@ -215,6 +215,58 @@ public class QualificationController extends BaseController {
     }
 
     /**
+     * 重新审核
+     * 只要走到这里来，就将状态改为未提交
+     *
+     * @param
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/reSubTask")
+    public Result reSubTask(Qualification qualification) {
+        Result result = new Result();
+        //点击提交时，新建审核历史记录
+        ActHistory actHistory = new ActHistory();
+        actHistory.setDataId(qualification.getId());
+        actHistory.setActType(qualification.getActType());
+        //获取当前用户角色
+        Operator currentUser = UserUtils.getCurrentUser();
+        List<OperatorRole> byOperatorAndRole = operatorRoleMapper.getByOperatorAndRole(new OperatorRole(currentUser));
+        if (byOperatorAndRole != null) {
+            if (byOperatorAndRole.get(0) != null && byOperatorAndRole.get(0).getRole() != null && StringUtils.isNotBlank(byOperatorAndRole.get(0).getRole().getId())) {
+                Role currentRole = roleMapper.get(new Role(byOperatorAndRole.get(0).getRole().getId()));
+                //设置下一个审核角色
+                qualification.setNextRoleId(currentRole.getParentId());
+                if (StringUtils.isNotBlank(currentRole.getName())) {
+                    actHistory.setExecutionLink(currentRole.getName() + "将会驳回资质数据审核");
+                }
+                actHistory.setRoleId(currentRole.getId());
+                actHistory.setRoleName(currentRole.getName());
+            }
+        }
+        actHistory.setExecutionId(currentUser.getId());
+        actHistory.setExecutionName(currentUser.getNickname());
+        actHistory.setBeginDate(new Date());
+        actHistory.setEndDate(new Date());
+        //保存提交审核的历史记录
+        actHistoryService.save(actHistory);
+        //走到这里来 设置初始审核状态、设置下一个审核角色id
+        //初始保存的时候设置初始状态----进入审核---状态改为已提交
+        //如果超级管理员直接提交，则直接通过
+        qualification.setStatus("0");
+        qualification.setNextRoleId("");
+        int save = qualificationService.updateQualificationAct(qualification);
+        if (save > 0) {
+            result.setCode("200");
+            result.setMsg("驳回资质数据审核成功");
+        } else {
+            result.setCode("500");
+            result.setMsg("系统保存时出错，驳回资质数据审核失败");
+        }
+        return result;
+    }
+
+    /**
      * @return
      */
     @GetMapping("/flow")

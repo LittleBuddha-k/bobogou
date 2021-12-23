@@ -67,7 +67,8 @@ layui.use(['form', 'table'], function () {
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n'+
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="delete">删除</a>\n';
                         }else if (8 == status || 10 == status){
-                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">审核通过</a>\n';
+                            return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">审核通过</a>\n' +
+                                '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="reSubTask">重新审核</a>\n';
                         }else{
                             return '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="">已提交</a>\n' +
                                 '<a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="flow">跟踪</a>\n';
@@ -115,6 +116,18 @@ layui.use(['form', 'table'], function () {
         }else if (obj.event === 'subTask') {
             rc.confirm('是否提交处理？', function () {
                 rc.post("/bobogou/basic/qualification/subTask?id=" + ids, '', function (data) {
+                    if (data.code == 200) {
+                        //执行搜索重载
+                        refresh();
+                        rc.success(data.msg);
+                    } else {
+                        rc.error(data.msg);
+                    }
+                });
+            })
+        } else if (obj.event === 'reSubTask') {
+            rc.confirm('是否重审资质数据？', function() {
+                rc.post("/bobogou/basic/qualification/reSubTask",{"id":ids} , function (data) {
                     if (data.code == 200) {
                         //执行搜索重载
                         refresh();
