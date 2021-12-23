@@ -170,7 +170,7 @@ layui.use(['form', 'table'], function () {
      */
     table.on('toolbar(regionGoodsTableFilter)', function (obj) {
         if (obj.event === 'add') {  // 监听添加操作
-            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建地域商品信息", '795px', '75%')
+            let index = rc.openSaveDialog("/bobogou/data/regionGoods/form/add", "新建区域商品信息", '795px', '50%')
         }
     });
 
