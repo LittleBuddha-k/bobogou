@@ -23,6 +23,14 @@ public interface OperatorRegionMapper extends BaseMapper<OperatorRegion> {
     List<OperatorRegion> getOperatorRegionByCurrentUser(OperatorRegion operatorRegion);
 
     /**
+     * 当当前用户为admin时查询所有省
+     *
+     * @param
+     * @return
+     */
+    List<AreaSelect> findProvinceSelectIfAdmin();
+
+    /**
      * 根据当前用户查询区域选项数据
      *
      * @param currentUserId

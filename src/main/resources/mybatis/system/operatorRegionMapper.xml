@@ -77,6 +77,16 @@
         </choose>
     </select>
 
+    <!--当当前用户为admin时查询所有省-->
+    <select id="findProvinceSelectIfAdmin" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
+        SELECT
+        b.code AS "code",
+        b.id AS "id",
+        b.name AS "title",
+        "code" AS field
+        FROM system_province b
+    </select>
+
     <select id="findProvinceSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
         SELECT
             DISTINCT(b.code) AS "code",

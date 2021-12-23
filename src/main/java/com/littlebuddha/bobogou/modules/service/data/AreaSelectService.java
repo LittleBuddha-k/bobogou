@@ -45,7 +45,12 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
         //定义一个结果集
         List<AreaSelect> result = new ArrayList<>();
         //查询一级
-        List<AreaSelect> provinceList = operatorRegionMapper.findProvinceSelectByCurrentUser(currentUserId);
+        List<AreaSelect> provinceList = new ArrayList<>();
+        if(currentUser != null && "1".equals(currentUserId)) {//如果是admin查询所有省份
+            provinceList = operatorRegionMapper.findProvinceSelectIfAdmin();
+        }else {//如果不是则按照所设置的区域查找
+            provinceList = operatorRegionMapper.findProvinceSelectByCurrentUser(currentUserId);
+        }
         HashMap<String, AreaSelect> provinceMap = new HashMap<>();
         if (provinceList != null && !provinceList.isEmpty()) {
             for (AreaSelect areaSelect : provinceList) {
