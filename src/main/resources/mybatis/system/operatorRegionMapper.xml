@@ -84,7 +84,13 @@
             b.name AS "title",
             "code" AS field
         FROM system_operator_region a LEFT JOIN system_province b ON a.province_id = b.id
-        WHERE b.id is not null
+        <where>
+            b.id is not null
+            <!-- 判断条件参数是否为空 -->
+            <if test='currentUserId != "1" and currentUserId != null'><!--如果当前登录用户不是超级管理员-->
+                AND (a.operator_id = #{currentUserId})
+            </if>
+        </where>
     </select>
 
     <select id="findCitySelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
@@ -95,7 +101,13 @@
             b.province_code AS "parentCode",
             "code" AS field
         FROM system_operator_region a LEFT JOIN system_city b ON a.city_id = b.id
-        WHERE b.id is not null
+        <where>
+            b.id is not null
+            <!-- 判断条件参数是否为空 -->
+            <if test='currentUserId != "1" and currentUserId != null'><!--如果当前登录用户不是超级管理员-->
+                AND (a.operator_id = #{currentUserId})
+            </if>
+        </where>
     </select>
 
     <select id="findAreaSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
@@ -106,7 +118,13 @@
             b.city_code AS "parentCode",
             "code" AS field
         FROM system_operator_region a LEFT JOIN system_area b ON a.area_id = b.id
-        WHERE b.id is not null
+        <where>
+            b.id is not null
+            <!-- 判断条件参数是否为空 -->
+            <if test='currentUserId != "1" and currentUserId != null'><!--如果当前登录用户不是超级管理员-->
+                AND (a.operator_id = #{currentUserId})
+            </if>
+        </where>
     </select>
 
     <select id="findStreetSelectByCurrentUser" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
@@ -117,7 +135,13 @@
             b.area_code AS "parentCode",
             "code" AS field
         FROM system_operator_region a LEFT JOIN system_street b ON a.street_id = b.id
-        WHERE b.id is not null
+        <where>
+            b.id is not null
+            <!-- 判断条件参数是否为空 -->
+            <if test='currentUserId != "1" and currentUserId != null'><!--如果当前登录用户不是超级管理员-->
+                AND (a.operator_id = #{currentUserId})
+            </if>
+        </where>
     </select>
 
     <select id="findAllList" resultType="com.littlebuddha.bobogou.modules.entity.system.OperatorRegion">

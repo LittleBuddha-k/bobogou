@@ -123,7 +123,7 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
     @Override
     @Transactional
     public int save(RegionGoods entity) {
-        entity.setIdType("AUTO");
+        /*entity.setIdType("AUTO");
         int save = 0;
         Map<String,String> provinceMapIC = new HashMap<>();//
         Map<String,String> cityMapCP = new HashMap<>();//cityID--provinceId
@@ -272,7 +272,8 @@ public class RegionGoodsService extends CrudService<RegionGoods, RegionGoodsMapp
                     }
                 }
             }
-        }
+        }*/
+        int save = super.save(entity);
         return save;
     }
 

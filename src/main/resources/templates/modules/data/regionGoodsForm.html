@@ -14,7 +14,7 @@
         <input type="hidden" name="id" id="id" th:value="${regionGoods.getId()}">
         <div class="layui-form-item">
             <div class="layui-inline">
-                <label class="layui-form-label">类型</label>
+                <label class="layui-form-label">分配区域类型</label>
                 <div class="layui-input-inline">
                     <select name="type" lay-verify="" lay-filter="type"
                             th:id="type" th:with="type=${@dictData.findByType('data_region_goods_type')}" th:if="${mode == 'add'}">
@@ -28,7 +28,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-inline" th:if="${mode == 'add'}">
+            <!--<div class="layui-inline" th:if="${mode == 'add'}">
                 <label class="layui-form-label" for="provinceId">省</label>
                 <div class="layui-input-inline">
                     <textarea th:id="provinceId" th:text="${regionGoods.getProvinceName()}"
@@ -96,7 +96,7 @@
                                 th:text="${regionGoods.getStreet().getName()}"/>
                     </select>
                 </div>
-            </div>
+            </div>-->
             <div class="layui-inline">
                 <label class="layui-form-label">商品</label>
                 <div class="layui-input-inline">
