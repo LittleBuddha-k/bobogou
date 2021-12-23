@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.littlebuddha.bobogou.modules.mapper.data.AreaSelectMapper">
+
+    <select id="findCitySelectByProvinceCode" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
+        SELECT
+            a.code AS "code",
+            a.id AS "id",
+            a.name AS "title",
+            a.province_code AS "parentCode",
+            "code" AS field
+        FROM system_city a
+        WHERE a.province_code = #{provinceCode}
+    </select>
+
+    <select id="findAreaSelectByProvinceCode" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
+        SELECT
+            a.code AS "code",
+            a.id AS "id",
+            a.name AS "title",
+            a.city_code AS "parentCode",
+            "code" AS field
+        FROM system_area a
+        WHERE a.city_code = #{cityCode}
+    </select>
+
+    <select id="findStreetSelectByProvinceCode" resultType="com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect">
+        SELECT
+            a.code AS "code",
+            a.id AS "id",
+            a.name AS "title",
+            a.area_code AS "parentCode",
+            "code" AS field
+        FROM system_street a
+        WHERE a.area_code = #{areaCode}
+    </select>
+</mapper>

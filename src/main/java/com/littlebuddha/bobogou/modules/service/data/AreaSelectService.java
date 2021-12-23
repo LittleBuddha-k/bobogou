@@ -7,6 +7,9 @@ import com.littlebuddha.bobogou.modules.entity.data.Area;
 import com.littlebuddha.bobogou.modules.entity.data.utils.AreaSelect;
 import com.littlebuddha.bobogou.modules.entity.system.Operator;
 import com.littlebuddha.bobogou.modules.mapper.data.AreaMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.AreaSelectMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.CityMapper;
+import com.littlebuddha.bobogou.modules.mapper.data.StreetMapper;
 import com.littlebuddha.bobogou.modules.mapper.system.OperatorRegionMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -27,6 +30,9 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
 
     @Resource
     private OperatorRegionMapper operatorRegionMapper;
+
+    @Resource
+    private AreaSelectMapper areaSelectMapper;
 
     /**
      * 查询当前用户的所有区域
@@ -73,7 +79,7 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
         //給一级数据设置子数据list
         if (provinceList != null && !provinceList.isEmpty()) {
             for (int i = 0; i < provinceList.size(); i++) {
-                if (cityMap.get(provinceList.get(i).getCode()) != null) {
+                if (cityMap.get(provinceList.get(i).getCode()) != null) {//其下设置了市级相关的选项
                     for (int j = 0; j < cityList.size(); j++) {
                         String parentCode = cityList.get(j).getParentCode();
                         String code = provinceList.get(i).getCode();
@@ -84,6 +90,11 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
+                }else {//其下没有设置市级相关的数据
+                    List<AreaSelect> citySelectByProvinceCode = areaSelectMapper.findCitySelectByProvinceCode(provinceList.get(i).getCode());
+                    AreaSelect areaSelect = provinceList.get(i);
+                    List<AreaSelect> children = areaSelect.getChildren();
+                    children.addAll(citySelectByProvinceCode);
                 }
             }
         }
@@ -99,13 +110,18 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
+                }else {//其下没有设置区级相关的数据
+                    List<AreaSelect> selectByProvinceCode = areaSelectMapper.findAreaSelectByProvinceCode(cityList.get(i).getCode());
+                    AreaSelect areaSelect = cityList.get(i);
+                    List<AreaSelect> children = areaSelect.getChildren();
+                    children.addAll(selectByProvinceCode);
                 }
             }
         }
         //給三级数据设置子数据list
         if (areaList != null && !areaList.isEmpty()) {
             for (int i = 0; i < areaList.size(); i++) {
-                if (areaList.get(i).getCode() != null) {
+                if (streetMap.get(areaList.get(i).getCode()) != null) {
                     for (int j = 0; j < streetList.size(); j++) {
                         if (areaList.get(i).getCode().equals(streetList.get(j).getParentCode())) {
                             AreaSelect areaSelect = areaList.get(i);
@@ -114,6 +130,11 @@ public class AreaSelectService extends CrudService<Area, AreaMapper> {
                             children.add(e);
                         }
                     }
+                }else {//其下没有设置街道级相关的数据
+                    List<AreaSelect> streetSelectByProvinceCode = areaSelectMapper.findStreetSelectByProvinceCode(areaList.get(i).getCode());
+                    AreaSelect areaSelect = areaList.get(i);
+                    List<AreaSelect> children = areaSelect.getChildren();
+                    children.addAll(streetSelectByProvinceCode);
                 }
             }
         }
