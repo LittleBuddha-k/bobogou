@@ -32,9 +32,6 @@ spring:
       #jdbc-url: jdbc:mysql://1.117.222.27:3306/bbg_test?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
       #username: root
       #password: bbg123456
-      jdbc-url: jdbc:mysql://localhost:3306/bobogou?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8
-      username: root
-      password: 212527
     two:
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
       jdbc-url: jdbc:sqlserver://localhost:1433;DatabaseName=merson-dairy-industry
